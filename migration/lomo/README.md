@@ -24,8 +24,16 @@ LOMO description. The plan it follows is the company's research note
 | `corpus/spec-examples/` | the 65 Turtle examples of the specification page, with the prefixes they use |
 | `corpus/broken/` | three descriptions broken on purpose, for the test of the validity check |
 | `oracle/` | the judges: `sparql_judge.py` (rdflib), `shacl_judge.py` (pySHACL); `setup.sh` installs them in `oracle/.venv` |
-| `build.pl` | the registers into `examples/migration/lomo/{examples,other,lfds}/` |
-| `test_lomo.pl` | plunit: the words, the names, every register's scenario, the two gates |
+| `spec_cases.pl` | the scenarios written by hand for the specification's examples and the door's own cases, the answers worked out before the run |
+| `corpus/cases/` | descriptions of our own: the probe of the plan (GDPR Article 33, Directive 2013/34/EU Articles 30 and 36), GDPR Article 6, time links that their dates contradict |
+| `hand/<set>/` | programs written by hand beside the registers of `<set>`: the conditions of GDPR Articles 6(1) and 33(1) and of Directive 2013/34/EU Articles 3, 30, 36(1)(d), 36(7) and 40 |
+| `lomo_eli.pl` | the text of a provision from its ELI: the act from the Publications Office's repository (Cellar, by CELEX number), the article, paragraph or point cut out by the ids of its XHTML |
+| `lomo_lps.pl` | step 5: a case of a register through time, written as LE for LPS over LPS2's `examples/migration/lomo/lomo_calendar.le`, run by LPS2, compared with the timeless reading |
+| `lomo_export.pl` | step 7: Logical English → LOMO (a register written back; other programs' cited rules described), checked by `lomo_shacl.pl` before it is given |
+| `lomo_roundtrip.pl` | step 7's gates: every register back to Turtle, compared by rdflib's isomorphism; LE2's examples that cite provisions exported or refused with reasons |
+| `lomo_import.pl` | File ▸ Open of a `.ttl` (registered in `../le_importers.pl`, with the exporter) |
+| `build.pl` | the registers into `examples/migration/lomo/{examples,other,lfds,spec,cases}/` |
+| `test_lomo.pl` | plunit: the words, the names, every register's scenario, the gates of steps 1, 2, 5 and 7 |
 
 ## How to run
 
@@ -86,6 +94,67 @@ three broken ones. The specification's example of `lomo:TemporalSpecification`
 writes 24 hours as `P24H`, which is not an ISO 8601 length of time
 (`PT24H`).
 
+**Step 3 (time)** — `lib/temporal.le` reads ISO 8601 lengths of time
+(`P12M`, `P4Y1D`, `PT72H`: hours count as whole days, rounded up, and
+`*a duration* counts hours as whole days` says so), rhythms, and dates
+without a year; `lib/lomo.le` gives the first and last date of a time
+specification, the twelve relations between them, the links that their
+dates contradict (`broken_links`), and the timeless calendar. The
+specification's time examples run as scenarios with dates worked out by
+hand (all pass). On the 11 data files whose deadlines have a value, the
+calendar of 2027 agrees with a calendar written in Python with no Logical
+English (`oracle/sparql_judge.py`, `calendar`), and each such register
+carries it as its scenario `calendar`.
+
+**Step 4 (who is bound)** — parties and their types, definitions that give
+the meaning of an agent type, the condition slot of every rule (`the
+conditions of R hold for P` holds until a program writes it, and the
+explanation says `it is not the case that R has written conditions`),
+derogation (a derogating rule sets a rule aside for the parties it
+*reaches*: stratified, so no warning, and no chain of derogations), the
+deontic sentences of `lib/deontic.le` (with a right and its correlative
+duty, added there), and a party's calendar (`must perform … by`, `met`,
+`is late with`). The specification's three derogation examples (10 of 10),
+GDPR Article 6(1) with its six points and `only if` (6 of 6), and the probe
+of the plan from a register the reader wrote (12 of 12) pass.
+
+**Step 5 (LPS)** — `lomo_calendar.le` in LPS2; three cases (the probe to two
+last days, and Directive 2013/34/EU) end in LPS2 with exactly the open, met
+and breached duties that the timeless reading gives for the last day. A
+date of the case is a day number (the simple way of the plan). Rhythms are
+not in the LPS library yet.
+
+**Step 6 (provisions)** — by hand, as asked (no Contract Assistant, no
+profile of it): `lomo_eli.pl` gets the text of a provision from its ELI;
+the registers of `examples/`, `other/` and `cases/` carry the texts of the
+provisions they cite (`sources/eli/`) as documents, so quotations are checked
+and File ▸ Show the Original shows them. The conditions programs of `hand/`
+cite and quote each provision; their cases, with answers worked out from
+the text first, pass (GDPR Article 33: 3 of 3; Directive 2013/34/EU: 5 of 5).
+Reading the text found that the directive has **no Article 1a**: the
+specification's example of `derogatesFrom` and the plan's probe cite one;
+the exemption of micro-undertakings is Article 36(1)(d). The description of
+the directive in the LOMO repository has the limits of 2013, which
+Delegated Directive (EU) 2023/2775 changed.
+
+**Step 7 (the way back)** — every register goes back to Turtle, and rdflib
+finds the same graph, blank nodes included (`lomo_roundtrip:main`; the first
+run found 28 registers whose values did not fit their property's kind, or
+kept a datatype of their own: fixed in the reader and the writer). LE2's
+examples that cite provisions, and the LegalRuleML twins, are exported or
+refused with their reasons (`lomo_roundtrip:examples`; RESULT_EXAMPLES).
+
+**Step 8** — the guide (`docs/user/integrations/lomo.md`, in `nav.json`),
+the row of the Migration Gallery, File ▸ Open of a `.ttl` and File ▸
+Export ▸ LOMO (`editor/tests/lomo.spec.ts`), the review in the role of a
+LOMO annotator (lpsPlus `docs/reviews/LOMO_annotatorReport.md`, with a
+message to the LOMO project prepared and not sent), the video script
+(lpsPlus `docs/sales/videos/lomo_in_le.cjs`). The browser build packs the
+door (`wasm/pack.pl`): the reader, the register, the validity check and the
+export use only the Turtle reader of SWI-Prolog, which the WebAssembly image
+has; the judges and the download of provisions need Python and curl and are
+loaded only when called.
+
 ## Traps
 
 - pySHACL 0.40 never finished when given the ontology as `ont_graph`; the
@@ -96,3 +165,19 @@ writes 24 hours as `P24H`, which is not an ISO 8601 length of time
   clauses itself.
 - A query of an included library is not a query of the program: the
   questions are written into each register.
+- LE's reasoner runs the clauses of a library's `.pl` itself: no cut, no
+  lambda (`yall`) and no other meta-call inside them.
+- A template declared in a second `the templates are:` placed among the
+  rules is not read, and a negation of its sentence is then always true.
+- EUR-Lex answers automated clients with a challenge page; the Publications
+  Office's Cellar serves the same act by CELEX number.
+- The WebAssembly image of SWI-Prolog has `semweb/turtle` but neither
+  `semweb/rdf_db` nor `library(process)`: the door does not load them at
+  load time.
+- A full build beside another large job was stopped by the memory limit
+  (oom_kill); run the build alone.
+- A name made of a long label (a sentence) is full of the templates' own
+  small words (*of*, *for*, *to*, *the*), and LE's reading of each fact about
+  it then explodes: one register needed more than 6 GB to load. Names come
+  from addresses, and from a blank node's temporal label only when it has at
+  most five words without those words.

@@ -50,3 +50,38 @@ query vote is:
 
 query claims is:
     the recent claims of which person on 2026-09-13 total which amount.
+
+% Lengths of time written the ISO 8601 way, rhythms, a date without its year.
+scenario iso_lengths is:
+    periods expects answers ["2026-03-04 is the period PT72H after 2026-03-01"].
+    months expects answers ["2027-02-28 is the period P1M after 2027-01-31"].
+    earlier expects answers ["2025-12-31 is the period P12M before 2026-12-31"].
+    third expects answers ["the occurrence 3 of every P1M after 2026-01-31 is 2026-04-30"].
+    rhythm expects answers ["2027-03-01 is a date of every P1W from 2027-02-01 in the period from 2027-02-20 to 2027-03-05", "2027-02-22 is a date of every P1W from 2027-02-01 in the period from 2027-02-20 to 2027-03-05"].
+    hours expects answers ["PT72H counts hours as whole days"].
+    noyear expects answers ["the day 30 September in the year 2027 is 2027-09-30"].
+    notiso expects answers [].
+
+query periods is:
+    which later date is the period "PT72H" after 2026-03-01.
+
+query months is:
+    which later date is the period "P1M" after 2027-01-31.
+
+query earlier is:
+    which earlier date is the period "P12M" before 2026-12-31.
+
+query third is:
+    the occurrence 3 of every "P1M" after 2026-01-31 is which date.
+
+query rhythm is:
+    which date is a date of every "P1W" from 2027-02-01 in the period from 2027-02-20 to 2027-03-05.
+
+query hours is:
+    "PT72H" counts hours as whole days.
+
+query noyear is:
+    the day "30 September" in the year 2027 is which date.
+
+query notiso is:
+    "P24H" is a length of time in the standard form.

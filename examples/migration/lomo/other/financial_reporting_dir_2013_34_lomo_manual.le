@@ -236,18 +236,18 @@ step publish full report time has the function deadline.
 
 step publish full report time has the duration "P12M".
 
-step publish full report time is timed after step publish full report time earlier time.
+step publish full report time is timed after balance sheet date.
 
 step publish full report time is established in "http://data.europa.eu/eli/dir/2013/34/art_30/par_1/oj/art_30/par_1".
 
 step publish full report time has the legal text "not exceed 12 months after the balance sheet date".
 
 
-step publish full report time earlier time is a temporal specification.
+balance sheet date is a temporal specification.
 
-step publish full report time earlier time has the temporal label "balance sheet date".
+balance sheet date has the temporal label "balance sheet date".
 
-step publish full report time earlier time is established in "http://data.europa.eu/eli/dir/2013/34/art_30/par_1/oj".
+balance sheet date is established in "http://data.europa.eu/eli/dir/2013/34/art_30/par_1/oj".
 
 
 agent role micro undertaking publisher is identified by "http://example.org/accounting-graph#AgentRole_MicroUndertaking_Publisher".
@@ -340,7 +340,7 @@ step bring in force has the label "bring into force laws, regulations and admini
 
 step bring in force has the agent role agent role member state transposer.
 
-step bring in force has the time specification step bring in force time.
+step bring in force has the time specification item 20 july 2015.
 
 step bring in force is established in "http://data.europa.eu/eli/dir/2013/34/art_53/par_1/oj".
 
@@ -349,15 +349,15 @@ step bring in force is followed by step communicate text.
 step bring in force has the legal text "Member States shall bring into force the laws, regulations and administrative provisions necessary to comply with this Directive by 20 July 2015. They shall immediately inform the Commission thereof.".
 
 
-step bring in force time is a temporal specification.
+item 20 july 2015 is a temporal specification.
 
-step bring in force time has the function deadline.
+item 20 july 2015 has the function deadline.
 
-step bring in force time has the instant 2015-07-20.
+item 20 july 2015 has the instant 2015-07-20.
 
-step bring in force time has the temporal label "by 20 July 2015".
+item 20 july 2015 has the temporal label "by 20 July 2015".
 
-step bring in force time is established in "http://data.europa.eu/eli/dir/2013/34/art_53/par_1/oj".
+item 20 july 2015 is established in "http://data.europa.eu/eli/dir/2013/34/art_53/par_1/oj".
 
 
 agent role member state transposer is identified by "http://example.org/accounting-graph#AgentRole_MemberState_Transposer".
@@ -435,23 +435,59 @@ scenario reporting_2027 is, as stated in the source description:
     must_perform expects answers ["bigco must perform step publish full report by 2026-12-31 under norm publication obligation", "smallco must perform step publish full report by 2026-12-31 under norm publication obligation"].
     late_on_1_february_2027 expects answers ["smallco is late with step publish full report under norm publication obligation on 2027-02-01"].
 
-query parts is:
-    which thing is part of the description.
+query obligations is:
+    which rule has the modality obligation for which agent as which role.
+
+query permissions is:
+    which rule has the modality permission for which agent as which role.
+
+query prohibitions is:
+    which rule has the modality prohibition for which agent as which role.
+
+query rights is:
+    which rule has the modality right for which agent as which role.
+
+query deadlines is:
+    which thing has which temporal specification as deadline.
+
+query due_dates is:
+    which agent has which action due on which date.
+
+query due_in_2027 is:
+    which agent has which action due on which date in the period from 2027-01-01 to 2027-12-31.
+
+query must_perform is:
+    which party must perform which action by which date under which rule.
+
+query applies is:
+    which rule applies to which party.
+
+query rules_without_conditions is:
+    which rule has no written conditions.
+
+query places is:
+    which rule is laid down in which place.
+
+query addressers is:
+    which agent acts as addresser in which action.
+
+query addressees is:
+    which agent acts as addressee in which action.
+
+query beneficiaries is:
+    which agent acts as beneficiary in which action.
+
+query triggers is:
+    which thing is triggered by which event.
 
 query kinds is:
     which thing is of the kind which kind.
-
-query bearer is:
-    the bearer role is which role.
 
 query rules_of_act is:
     which rule is established by the act which act.
 
 query provisions is:
     which thing is established in which provision.
-
-query places is:
-    which rule is laid down in which place.
 
 query legal_texts is:
     which thing has the legal text which text.
@@ -468,23 +504,8 @@ query constitutive is:
 query modalities is:
     which rule has the modality which modality.
 
-query obligations is:
-    which rule has the modality obligation for which agent as which role.
-
-query prohibitions is:
-    which rule has the modality prohibition for which agent as which role.
-
-query permissions is:
-    which rule has the modality permission for which agent as which role.
-
-query rights is:
-    which rule has the modality right for which agent as which role.
-
 query oversight_rules is:
     which thing is an implementation and oversight rule.
-
-query triggers is:
-    which thing is triggered by which event.
 
 query definitions is:
     which thing is a definition.
@@ -501,15 +522,6 @@ query defined_things is:
 query actions_of_rules is:
     which rule produces which action.
 
-query addressers is:
-    which agent acts as addresser in which action.
-
-query addressees is:
-    which agent acts as addressee in which action.
-
-query beneficiaries is:
-    which agent acts as beneficiary in which action.
-
 query identified_agents is:
     which thing is an agent.
 
@@ -524,9 +536,6 @@ query concerned_agents is:
 
 query sequence is:
     which action comes before which second action.
-
-query deadlines is:
-    which thing has which temporal specification as deadline.
 
 query starting_points is:
     which thing has which temporal specification as starting point.
@@ -558,23 +567,8 @@ query times_within is:
 query broken_links is:
     which temporal specification breaks its link with which second temporal specification.
 
-query due_dates is:
-    which agent has which action due on which date.
-
-query due_in_2027 is:
-    which agent has which action due on which date in the period from 2027-01-01 to 2027-12-31.
-
 query hours_as_days is:
     which temporal specification has a length of time that counts hours as whole days.
-
-query rules_without_conditions is:
-    which rule has no written conditions.
-
-query applies is:
-    which rule applies to which party.
-
-query must_perform is:
-    which party must perform which action by which date under which rule.
 
 query obliged is:
     which party is obliged that which sentence.
@@ -597,6 +591,9 @@ query results is:
 query result_categories is:
     which result has the result category which category.
 
+query parts is:
+    which thing is part of the description.
+
 query texts is:
     which thing is described by the text which text.
 
@@ -614,6 +611,9 @@ query addresses is:
 
 query literal_forms is:
     the values of which property have the datatype which datatype.
+
+query bearer is:
+    the bearer role is which role.
 
 query late_on_1_february_2027 is:
     which party is late with which action under which rule on 2027-02-01.

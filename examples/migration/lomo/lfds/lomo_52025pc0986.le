@@ -170,9 +170,9 @@ action 1 is an action.
 
 action 1 has the label "EMS data".
 
-action 1 has the time specification action 1 time 1.
+action 1 has the time specification publication obligation.
 
-action 1 has the time specification action 1 time 2.
+action 1 has the time specification continuous.
 
 action 1 is established in "https://data.europa.eu/eli/dl/proc/2025/986/cod/doc/com/COM_2025_986/FINAL/eng/art_2/par_1".
 
@@ -183,18 +183,18 @@ action 1 has the agent role addresser operators.
 action 1 has the result action 1 result.
 
 
-action 1 time 1 is a temporal specification.
+publication obligation is a temporal specification.
 
-action 1 time 1 has the function trigger.
+publication obligation has the function trigger.
 
-action 1 time 1 has the temporal label "Publication obligation".
+publication obligation has the temporal label "Publication obligation".
 
 
-action 1 time 2 is a temporal specification.
+continuous is a temporal specification.
 
-action 1 time 2 has the function deadline.
+continuous has the function deadline.
 
-action 1 time 2 has the temporal label "Continuous".
+continuous has the temporal label "Continuous".
 
 
 action 1 result is an action result.
@@ -226,7 +226,7 @@ item 1 measure is identified by "http://example.org/analysis/assessment/1/1/meas
 
 item 1 measure is an assessment statement.
 
-item 1 measure has the interpretation "http://data.europa.eu/leg/interop-assessment#InterpretationPositive".
+item 1 measure has for "cav:interpretation" the resource "http://data.europa.eu/leg/interop-assessment#InterpretationPositive".
 
 item 1 measure has the judgement "Online public availability of specified EMS information is mandated (Art. 2(1) [Art. 14a Dir. 2010/75/EU]). Rules under the Open Data Directive apply.".
 
@@ -241,7 +241,7 @@ item 2 barrier is identified by "http://example.org/analysis/assessment/1/2/barr
 
 item 2 barrier is an assessment statement.
 
-item 2 barrier has the interpretation "http://data.europa.eu/leg/interop-assessment#InterpretationNegative".
+item 2 barrier has for "cav:interpretation" the resource "http://data.europa.eu/leg/interop-assessment#InterpretationNegative".
 
 item 2 barrier has the judgement "Differences may arise from nat Resource constraints; uneven monitoring of publication obligations.".
 
@@ -256,7 +256,7 @@ item 2 measure is identified by "http://example.org/analysis/assessment/1/2/meas
 
 item 2 measure is an assessment statement.
 
-item 2 measure has the interpretation "http://data.europa.eu/leg/interop-assessment#InterpretationPositive".
+item 2 measure has for "cav:interpretation" the resource "http://data.europa.eu/leg/interop-assessment#InterpretationPositive".
 
 item 2 measure has the judgement "Operators prepare and implement an EMS (Art. 2(1) [Art. 14a of Dir. 2010/75/EU]; Member States ensure that the relevant EMS information listed in Art. 2(1) [Art. 14a(2) Dir. 2010/75/EU] is made available on the internet free of charge and without restricting access to registered users (Art. 2(1) [Art. 14a of Dir. 2010/75/EU]).".
 
@@ -271,7 +271,7 @@ item 3 measure is identified by "http://example.org/analysis/assessment/1/3/meas
 
 item 3 measure is an assessment statement.
 
-item 3 measure has the interpretation "http://data.europa.eu/leg/interop-assessment#InterpretationPositive".
+item 3 measure has for "cav:interpretation" the resource "http://data.europa.eu/leg/interop-assessment#InterpretationPositive".
 
 item 3 measure has the judgement "Publish the EMS information items as listed in Art. 2(1) [Art. 14a(2 of Dir. 2010/75/EU]).".
 
@@ -286,7 +286,7 @@ item 4 barrier is identified by "http://example.org/analysis/assessment/1/4/barr
 
 item 4 barrier is an assessment statement.
 
-item 4 barrier has the interpretation "http://data.europa.eu/leg/interop-assessment#InterpretationNegative".
+item 4 barrier has for "cav:interpretation" the resource "http://data.europa.eu/leg/interop-assessment#InterpretationNegative".
 
 item 4 barrier has the judgement "Potential heterogeneity of publication formats due to absence of mandated standards.".
 
@@ -301,7 +301,7 @@ item 4 measure is identified by "http://example.org/analysis/assessment/1/4/meas
 
 item 4 measure is an assessment statement.
 
-item 4 measure has the interpretation "http://data.europa.eu/leg/interop-assessment#InterpretationPositive".
+item 4 measure has for "cav:interpretation" the resource "http://data.europa.eu/leg/interop-assessment#InterpretationPositive".
 
 item 4 measure has the judgement "Online dissemination of EMS data harmonised with EMAS and ISO formats.".
 
@@ -372,7 +372,7 @@ description 4 has for "iopa:affects" the resource interop 1.
 
 description 4 has for "cav:valueDescription" the value "Harmonisation of EMS at installation, facility, or company level, ensuring digital accessibility and alignment with frameworks such as EMAS/ISO 14001.".
 
-description 4 has the time specification description 4 time.
+description 4 has the time specification continuous 2.
 
 description 4 is established in "https://data.europa.eu/eli/dl/proc/2025/986/cod/doc/com/COM_2025_986/FINAL/eng/art_2/par_1".
 
@@ -393,11 +393,11 @@ description 4 has the description "Harmonisation of EMS at installation, facilit
 description 4 has for "dcterms:relation" the resource emas regulation interoperability framework.
 
 
-description 4 time is a temporal specification.
+continuous 2 is a temporal specification.
 
-description 4 time has the function validity.
+continuous 2 has the function validity.
 
-description 4 time has the temporal label "Continuous".
+continuous 2 has the temporal label "Continuous".
 
 
 item 4 action is identified by "http://example.org/analysis/description/4/action".
@@ -518,38 +518,26 @@ scenario description is, as stated in the source description:
     actions_of_rules expects answers ["description 1 produces item 1 action", "description 2 produces item 2 action", "description 3 produces item 3 action", "description 4 produces action 1", "description 4 produces item 4 action"].
     actions_of_agents expects answers ["echa economic operators commission acts as addressee in item 2 action", "member states european commission acts as addressee in item 1 action", "operators acts as addresser in action 1", "operators competent authorities acts as addressee in item 4 action", "operators member states public acts as addressee in item 3 action", "public competent authorities acts as addressee in action 1"].
 
-query parts is:
-    which thing is part of the description.
+query deadlines is:
+    which thing has which temporal specification as deadline.
 
-query kinds is:
-    which thing is of the kind which kind.
+query due_dates is:
+    which agent has which action due on which date.
 
-query bearer is:
-    the bearer role is which role.
+query due_in_2027 is:
+    which agent has which action due on which date in the period from 2027-01-01 to 2027-12-31.
 
-query rules_of_act is:
-    which rule is established by the act which act.
+query must_perform is:
+    which party must perform which action by which date under which rule.
 
-query provisions is:
-    which thing is established in which provision.
+query applies is:
+    which rule applies to which party.
+
+query rules_without_conditions is:
+    which rule has no written conditions.
 
 query places is:
     which rule is laid down in which place.
-
-query joint_rules is:
-    which rule is established in more than one provision.
-
-query prescriptive is:
-    which thing is a prescriptive rule.
-
-query constitutive is:
-    which thing is a constitutive rule.
-
-query triggers is:
-    which thing is triggered by which event.
-
-query actions_of_rules is:
-    which rule produces which action.
 
 query addressers is:
     which agent acts as addresser in which action.
@@ -560,14 +548,35 @@ query addressees is:
 query beneficiaries is:
     which agent acts as beneficiary in which action.
 
+query triggers is:
+    which thing is triggered by which event.
+
+query kinds is:
+    which thing is of the kind which kind.
+
+query rules_of_act is:
+    which rule is established by the act which act.
+
+query provisions is:
+    which thing is established in which provision.
+
+query joint_rules is:
+    which rule is established in more than one provision.
+
+query prescriptive is:
+    which thing is a prescriptive rule.
+
+query constitutive is:
+    which thing is a constitutive rule.
+
+query actions_of_rules is:
+    which rule produces which action.
+
 query actions_of_agents is:
     which agent acts as which role in which action.
 
 query concerned_agents is:
     which rule concerns which agent.
-
-query deadlines is:
-    which thing has which temporal specification as deadline.
 
 query starting_points is:
     which thing has which temporal specification as starting point.
@@ -589,21 +598,6 @@ query times_within is:
 
 query broken_links is:
     which temporal specification breaks its link with which second temporal specification.
-
-query due_dates is:
-    which agent has which action due on which date.
-
-query due_in_2027 is:
-    which agent has which action due on which date in the period from 2027-01-01 to 2027-12-31.
-
-query rules_without_conditions is:
-    which rule has no written conditions.
-
-query applies is:
-    which rule applies to which party.
-
-query must_perform is:
-    which party must perform which action by which date under which rule.
 
 query results is:
     which action has the result which result.
@@ -647,11 +641,11 @@ query cited_resources is:
 query statement_types is:
     which assessment statement has the statement type which type.
 
-query interpretations is:
-    which assessment statement has the interpretation which text.
-
 query services_of_statements is:
     which thing concerns the service which service.
+
+query parts is:
+    which thing is part of the description.
 
 query texts is:
     which thing is described by the text which text.
@@ -670,4 +664,7 @@ query addresses is:
 
 query plain_texts is:
     the texts of which property have no language.
+
+query bearer is:
+    the bearer role is which role.
 

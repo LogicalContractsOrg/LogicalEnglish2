@@ -43,7 +43,7 @@ action 2 has the label "Statistical data on seized firearms".
 
 action 2 has the time specification action 2 time 1.
 
-action 2 has the time specification action 2 time 2.
+action 2 has the time specification least monthly.
 
 action 2 is established in "https://data.europa.eu/eli/dl/proc/2026/102/cod/doc/com/COM_2026_102/FINAL/eng/art_17".
 
@@ -61,11 +61,11 @@ action 2 time 1 has the frequency "P1M".
 action 2 time 1 has the function deadline.
 
 
-action 2 time 2 is a temporal specification.
+least monthly is a temporal specification.
 
-action 2 time 2 has the function trigger.
+least monthly has the function trigger.
 
-action 2 time 2 has the temporal label "at least monthly".
+least monthly has the temporal label "at least monthly".
 
 
 action 2 result is an action result.
@@ -102,7 +102,7 @@ description 1 is a legal rule.
 
 description 1 has the label "Article 15(1)".
 
-description 1 has the time specification description 1 time.
+description 1 has the time specification constant.
 
 description 1 is established in "https://data.europa.eu/eli/dl/proc/2026/102/cod/doc/com/COM_2026_102/FINAL/eng/art_15/par_1".
 
@@ -119,11 +119,11 @@ description 1 references dataset information on firearms gathered by the nationa
 description 1 has the description "The National Firearms Focal Point shall gather, analyse, and exchange relevant information and ensure the collection and recording of all information regarding seizures of firearms linked to criminal offences.".
 
 
-description 1 time is a temporal specification.
+constant is a temporal specification.
 
-description 1 time has the function validity.
+constant has the function validity.
 
-description 1 time has the temporal label "constant".
+constant has the temporal label "constant".
 
 
 description 4 is identified by "http://example.org/analysis/description/4".
@@ -217,7 +217,7 @@ action 1 has the label "Information on firearms gathered by the National Firearm
 
 action 1 has the time specification action 1 time 1.
 
-action 1 has the time specification action 1 time 2.
+action 1 has the time specification constant 2.
 
 action 1 is established in "https://data.europa.eu/eli/dl/proc/2026/102/cod/doc/com/COM_2026_102/FINAL/eng/art_15/par_1".
 
@@ -235,11 +235,11 @@ action 1 time 1 has the function trigger.
 action 1 time 1 has the temporal label "National Firearms Focal Points need to ensure that they have the complete picture of the firearms threat it the Member States".
 
 
-action 1 time 2 is a temporal specification.
+constant 2 is a temporal specification.
 
-action 1 time 2 has the function deadline.
+constant 2 has the function deadline.
 
-action 1 time 2 has the temporal label "constant".
+constant 2 has the temporal label "constant".
 
 
 action 1 result is an action result.
@@ -387,7 +387,7 @@ item 1 measure is identified by "http://example.org/analysis/assessment/1/1/meas
 
 item 1 measure is an assessment statement.
 
-item 1 measure has the interpretation "http://data.europa.eu/leg/interop-assessment#InterpretationPositive".
+item 1 measure has for "cav:interpretation" the resource "http://data.europa.eu/leg/interop-assessment#InterpretationPositive".
 
 item 1 measure has the judgement "-GDPR
 -Europol Regulation
@@ -404,7 +404,7 @@ barrier is identified by "http://example.org/analysis/assessment/1/2/barrier".
 
 barrier is an assessment statement.
 
-barrier has the interpretation "http://data.europa.eu/leg/interop-assessment#InterpretationNegative".
+barrier has for "cav:interpretation" the resource "http://data.europa.eu/leg/interop-assessment#InterpretationNegative".
 
 barrier has the judgement "However, some Member States already have their own national seizure databases. Europol will have to facilitate some kind of interconnection or bulk uploading of data coming from the national databases towards TRAFIC".
 
@@ -419,7 +419,7 @@ item 2 measure is identified by "http://example.org/analysis/assessment/1/2/meas
 
 item 2 measure is an assessment statement.
 
-item 2 measure has the interpretation "http://data.europa.eu/leg/interop-assessment#InterpretationPositive".
+item 2 measure has for "cav:interpretation" the resource "http://data.europa.eu/leg/interop-assessment#InterpretationPositive".
 
 item 2 measure has the judgement "Europol has already acquired a database called TRAFIC and has offered the direct use of this database to all Member States.".
 
@@ -434,7 +434,7 @@ item 3 measure is identified by "http://example.org/analysis/assessment/1/3/meas
 
 item 3 measure is an assessment statement.
 
-item 3 measure has the interpretation "http://data.europa.eu/leg/interop-assessment#InterpretationPositive".
+item 3 measure has for "cav:interpretation" the resource "http://data.europa.eu/leg/interop-assessment#InterpretationPositive".
 
 item 3 measure has the judgement "Annex I establishes a detailed minimum dataset which includes definitions of the terms.".
 
@@ -449,7 +449,7 @@ item 4 measure is identified by "http://example.org/analysis/assessment/1/4/meas
 
 item 4 measure is an assessment statement.
 
-item 4 measure has the interpretation "http://data.europa.eu/leg/interop-assessment#InterpretationPositive".
+item 4 measure has for "cav:interpretation" the resource "http://data.europa.eu/leg/interop-assessment#InterpretationPositive".
 
 item 4 measure has the judgement "Annex I establishes a detailed minimum dataset which includes definitions of the terms.
 The Digital Justice 2030 initiative announced the creation of a toolbox of IT tools for use in justice systems.".
@@ -823,38 +823,26 @@ scenario description is, as stated in the source description:
     actions_of_rules expects answers ["description 1 produces action 1", "description 1 produces item 1 action", "description 2 produces item 2 action", "description 3 produces action 3", "description 3 produces item 3 action", "description 4 produces action 4", "description 4 produces item 4 action"].
     actions_of_agents expects answers ["different national stakeholders such as justice police customs etc acts as addresser in action 1", "european commission acts as addressee in action 3", "european commission acts as addresser in action 4", "european parliament council acts as addressee in action 4", "europol acts as addressee in action 2", "member states acts as addressee in item 1 action", "member states acts as addressee in item 2 action", "member states acts as addressee in item 3 action", "member states acts as addresser in action 2", "member states acts as addresser in action 3", "member states european commission acts as addressee in item 4 action", "national firearms focal point acts as addressee in action 1"].
 
-query parts is:
-    which thing is part of the description.
+query deadlines is:
+    which thing has which temporal specification as deadline.
 
-query kinds is:
-    which thing is of the kind which kind.
+query due_dates is:
+    which agent has which action due on which date.
 
-query bearer is:
-    the bearer role is which role.
+query due_in_2027 is:
+    which agent has which action due on which date in the period from 2027-01-01 to 2027-12-31.
 
-query rules_of_act is:
-    which rule is established by the act which act.
+query must_perform is:
+    which party must perform which action by which date under which rule.
 
-query provisions is:
-    which thing is established in which provision.
+query applies is:
+    which rule applies to which party.
+
+query rules_without_conditions is:
+    which rule has no written conditions.
 
 query places is:
     which rule is laid down in which place.
-
-query joint_rules is:
-    which rule is established in more than one provision.
-
-query prescriptive is:
-    which thing is a prescriptive rule.
-
-query constitutive is:
-    which thing is a constitutive rule.
-
-query triggers is:
-    which thing is triggered by which event.
-
-query actions_of_rules is:
-    which rule produces which action.
 
 query addressers is:
     which agent acts as addresser in which action.
@@ -865,14 +853,35 @@ query addressees is:
 query beneficiaries is:
     which agent acts as beneficiary in which action.
 
+query triggers is:
+    which thing is triggered by which event.
+
+query kinds is:
+    which thing is of the kind which kind.
+
+query rules_of_act is:
+    which rule is established by the act which act.
+
+query provisions is:
+    which thing is established in which provision.
+
+query joint_rules is:
+    which rule is established in more than one provision.
+
+query prescriptive is:
+    which thing is a prescriptive rule.
+
+query constitutive is:
+    which thing is a constitutive rule.
+
+query actions_of_rules is:
+    which rule produces which action.
+
 query actions_of_agents is:
     which agent acts as which role in which action.
 
 query concerned_agents is:
     which rule concerns which agent.
-
-query deadlines is:
-    which thing has which temporal specification as deadline.
 
 query starting_points is:
     which thing has which temporal specification as starting point.
@@ -897,21 +906,6 @@ query times_within is:
 
 query broken_links is:
     which temporal specification breaks its link with which second temporal specification.
-
-query due_dates is:
-    which agent has which action due on which date.
-
-query due_in_2027 is:
-    which agent has which action due on which date in the period from 2027-01-01 to 2027-12-31.
-
-query rules_without_conditions is:
-    which rule has no written conditions.
-
-query applies is:
-    which rule applies to which party.
-
-query must_perform is:
-    which party must perform which action by which date under which rule.
 
 query results is:
     which action has the result which result.
@@ -955,8 +949,8 @@ query cited_resources is:
 query statement_types is:
     which assessment statement has the statement type which type.
 
-query interpretations is:
-    which assessment statement has the interpretation which text.
+query parts is:
+    which thing is part of the description.
 
 query texts is:
     which thing is described by the text which text.
@@ -975,4 +969,7 @@ query addresses is:
 
 query plain_texts is:
     the texts of which property have no language.
+
+query bearer is:
+    the bearer role is which role.
 

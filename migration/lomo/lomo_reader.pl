@@ -27,16 +27,20 @@
     repository (../../NOTICE). Published "as is".
 */
 
-:- module(lomo_reader, [read_lomo/2, read_lomo/3, words_of/2, compact_iri/3, iri_kind/3]).
+:- module(lomo_reader, [read_lomo/2, read_lomo/3, words_of/2, compact_iri/3, iri_kind/3, rdf_is_bnode/1]).
 
 :- use_module(library(semweb/turtle)).
-:- use_module(library(semweb/rdf_db), [rdf_is_bnode/1]).
 :- use_module(library(lists)).
 :- use_module(library(apply)).
 :- use_module(library(pairs)).
 :- use_module(lomo_words).
 
 read_lomo(File, Model) :- read_lomo(File, Model, []).
+
+%   A blank node, as the Turtle reader names it here (anon_prefix '_:b'):
+%   no RDF database is needed, so the door also runs where SWI-Prolog has
+%   the Turtle reader but not library(semweb/rdf_db) (WebAssembly).
+rdf_is_bnode(X) :- atom(X), sub_atom(X, 0, 2, _, '_:').
 
 read_lomo(File, lomo(Statements, Nodes, Prefixes), _Options) :-
     rdf_read_turtle(File, Triples, [prefixes(FilePrefixes), anon_prefix('_:b')]),
@@ -260,6 +264,7 @@ boundary(P, C, [N|_]) :- code_type(P, upper), code_type(C, upper), code_type(N, 
 %   A blank node: the name of the thing it belongs to, the word of the
 %   property, and a number when the thing has several of them.
 bnode_names(BNodes, Triples, IRINames, Names) :-
+    nb_setval(lomo_reader_triples, Triples),
     bnode_parents(BNodes, Triples, Parents),
     foldl(name_bnode(Parents, BNodes), BNodes, IRINames, All),
     findall(B-N, ( member(B, BNodes), memberchk(B-N, All) ), Names).
@@ -272,6 +277,13 @@ name_bnode(Parents, BNodes, B, Known0, Known) :-
     (   memberchk(B-_, Known1) -> Known = Known1 ; Known = [B-Name|Known1] ).
 
 bnode_name(B, _, _, Known, Known, N) :- memberchk(B-N, Known), !.
+bnode_name(B, _, _, Known, Known, Name) :-              % its own label, when it has one
+    nb_current(lomo_reader_triples, Ts),
+    own_label(Ts, B, L),
+    words_of(L, Ws0), exclude([W]>>label_stop_word(W), Ws0, Ws2),
+    Ws2 \== [], length(Ws2, NW), NW =< 5,
+    safe_start(Ws2, Ws),
+    atomic_list_concat(Ws, ' ', Name), !.
 bnode_name(B, Parents, BNodes, Known0, Known, Name) :-
     (   memberchk(B-(S-P), Parents)
     ->  (   memberchk(S-SN, Known0) -> Known1 = Known0
@@ -290,6 +302,22 @@ bnode_name(B, Parents, BNodes, Known0, Known, Name) :-
     ;   nth1(Ix, BNodes, B), !,
         atomic_list_concat([anonymous, Ix], ' ', Name), Known = Known0
     ).
+
+%   The label a blank node has of its own: its temporal label (the name of
+%   an event: "balance sheet date"), when it is short. Not a long label: the
+%   small words of a sentence are the words of the templates, and a name
+%   made of them makes each fact about it slow to read (52025PC0837 took
+%   more than 6 GB to load with names made from its results' labels).
+own_label(Ts, B, L) :-
+    lomo_ns(N), atom_concat(N, temporalLabel, TL), label_of(Ts, B, TL, L).
+
+label_stop_word(W) :-
+    (   inner_stop_word(W) -> true
+    ;   memberchk(W, [a, an, the, of, for, in, to, by, at, with, from, on, as, after, before, within, into, under, per, its, their, any])
+    ).
+label_of(Ts, B, P, L) :-
+    member(rdf(B, P, O), Ts),
+    ( O = literal(lang(en, L)) -> true ; O = literal(L), atom(L) ), !.
 
 property_short(P, W) :- short(P, W), !.
 property_short(P, W) :-

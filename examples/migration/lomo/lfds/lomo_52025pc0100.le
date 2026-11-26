@@ -558,7 +558,7 @@ item 1 measure is identified by "http://example.org/analysis/assessment/1/1/meas
 
 item 1 measure is an assessment statement.
 
-item 1 measure has the interpretation "http://data.europa.eu/leg/interop-assessment#InterpretationPositive".
+item 1 measure has for "cav:interpretation" the resource "http://data.europa.eu/leg/interop-assessment#InterpretationPositive".
 
 item 1 measure has the judgement "This Regulation is in line with Regulation (EC) No 223/2009 of the European Parliament and of the Council on European statistics. It represents a sectoral legislation that applies to the domain of European non-financial commercial real estate statistics.
 This Regulation follows the recommendations of the Commission Recommendation (EU) 2023/397 of 17 February 2023 on reference metadata and quality reports for the European Statistical System.
@@ -576,7 +576,7 @@ item 2 measure is identified by "http://example.org/analysis/assessment/1/2/meas
 
 item 2 measure is an assessment statement.
 
-item 2 measure has the interpretation "http://data.europa.eu/leg/interop-assessment#InterpretationPositive".
+item 2 measure has for "cav:interpretation" the resource "http://data.europa.eu/leg/interop-assessment#InterpretationPositive".
 
 item 2 measure has the judgement "According to Art. 5(4), the Commission is empowered to adopt implementing acts to specify elements of the data to be transmitted, and their technical definitions and simplifications.
 According to Art. 6(4), The Commission is also empowered to adopt implementing acts to specify the details of the variables as well as the format, security and confidentiality measures and the procedure for the exchange of confidential data, the practical arrangements for the transmission, content of and deadlines for transmission of quality and metadata reports, the standards for data and metadata transmission, and relative derogations from the requirements of this Regulation.".
@@ -592,7 +592,7 @@ item 3 measure is identified by "http://example.org/analysis/assessment/1/3/meas
 
 item 3 measure is an assessment statement.
 
-item 3 measure has the interpretation "http://data.europa.eu/leg/interop-assessment#InterpretationPositive".
+item 3 measure has for "cav:interpretation" the resource "http://data.europa.eu/leg/interop-assessment#InterpretationPositive".
 
 item 3 measure has the judgement "In line with Art. 6 of the regulation, reference metadata and quality reports will be available to improve the understanding of the European non-financial commercial real estate statistics;
 Promotes the use of the Single Integrated Metadata Structure (SIMS and of international standards, such as the Statistical Data and Metadata Exchange (SDMX).".
@@ -608,7 +608,7 @@ item 4 measure is identified by "http://example.org/analysis/assessment/1/4/meas
 
 item 4 measure is an assessment statement.
 
-item 4 measure has the interpretation "http://data.europa.eu/leg/interop-assessment#InterpretationPositive".
+item 4 measure has for "cav:interpretation" the resource "http://data.europa.eu/leg/interop-assessment#InterpretationPositive".
 
 item 4 measure has the judgement "Promotes the use of established statistical or technical standards and infrastructure elaborated within the European Statistical System to the extent relevant for non-financial commercial real estate statistics.".
 
@@ -1102,38 +1102,26 @@ scenario description is, as stated in the source description:
     actions_of_rules expects answers ["description 1 produces item 1 action", "description 2 produces item 2 action", "description 3 produces action 1", "description 3 produces action 2", "description 3 produces item 3 action", "description 4 produces item 4 action", "description 5 produces item 5 action", "description 6 produces item 6 action", "description 7 produces item 7 action"].
     actions_of_agents expects answers ["commission eurostat acts as addressee in item 5 action", "european commission acts as addressee in item 6 action", "european commission acts as addressee in item 7 action", "european commission eurostat acts as addressee in action 3", "european commission eurostat acts as addressee in action 4", "european commission eurostat acts as addressee in action 5", "european commission eurostat acts as addressee in action 6", "holders of administrative records acts as addressee in item 2 action", "holders of administrative records acts as addresser in action 1", "item the nsis other national authoritiesprivate data holders acts as addressee in item 4 action", "member states acts as addressee in item 6 action", "member states acts as addressee in item 7 action", "member states acts as addresser in action 3", "member states acts as addresser in action 4", "member states acts as addresser in action 5", "member states acts as addresser in action 6", "member states national statistical authorities responsible for compiling non acts as addressee in item 1 action", "national statistical authorities responsible for compiling non financial commercial acts as addressee in action 1", "national statistical authorities responsible for compiling non financial commercial acts as addressee in action 2", "national statistical authorities responsible for compiling non financial commercial acts as addressee in item 3 action", "national statistical institute acts as addressee in item 5 action", "private data holder acts as addressee in item 5 action", "private data holders acts as addressee in item 2 action", "private data holders acts as addresser in action 1", "statistical units acts as addresser in action 2", "statistical units as set out in council regulation eec acts as addressee in item 2 action", "statistical units as set out in council regulation eec acts as addressee in item 3 action", "statistical units as set out in council regulation eec acts as addresser in action 1"].
 
-query parts is:
-    which thing is part of the description.
+query deadlines is:
+    which thing has which temporal specification as deadline.
 
-query kinds is:
-    which thing is of the kind which kind.
+query due_dates is:
+    which agent has which action due on which date.
 
-query bearer is:
-    the bearer role is which role.
+query due_in_2027 is:
+    which agent has which action due on which date in the period from 2027-01-01 to 2027-12-31.
 
-query rules_of_act is:
-    which rule is established by the act which act.
+query must_perform is:
+    which party must perform which action by which date under which rule.
 
-query provisions is:
-    which thing is established in which provision.
+query applies is:
+    which rule applies to which party.
+
+query rules_without_conditions is:
+    which rule has no written conditions.
 
 query places is:
     which rule is laid down in which place.
-
-query joint_rules is:
-    which rule is established in more than one provision.
-
-query prescriptive is:
-    which thing is a prescriptive rule.
-
-query constitutive is:
-    which thing is a constitutive rule.
-
-query triggers is:
-    which thing is triggered by which event.
-
-query actions_of_rules is:
-    which rule produces which action.
 
 query addressers is:
     which agent acts as addresser in which action.
@@ -1144,14 +1132,35 @@ query addressees is:
 query beneficiaries is:
     which agent acts as beneficiary in which action.
 
+query triggers is:
+    which thing is triggered by which event.
+
+query kinds is:
+    which thing is of the kind which kind.
+
+query rules_of_act is:
+    which rule is established by the act which act.
+
+query provisions is:
+    which thing is established in which provision.
+
+query joint_rules is:
+    which rule is established in more than one provision.
+
+query prescriptive is:
+    which thing is a prescriptive rule.
+
+query constitutive is:
+    which thing is a constitutive rule.
+
+query actions_of_rules is:
+    which rule produces which action.
+
 query actions_of_agents is:
     which agent acts as which role in which action.
 
 query concerned_agents is:
     which rule concerns which agent.
-
-query deadlines is:
-    which thing has which temporal specification as deadline.
 
 query starting_points is:
     which thing has which temporal specification as starting point.
@@ -1173,21 +1182,6 @@ query times_within is:
 
 query broken_links is:
     which temporal specification breaks its link with which second temporal specification.
-
-query due_dates is:
-    which agent has which action due on which date.
-
-query due_in_2027 is:
-    which agent has which action due on which date in the period from 2027-01-01 to 2027-12-31.
-
-query rules_without_conditions is:
-    which rule has no written conditions.
-
-query applies is:
-    which rule applies to which party.
-
-query must_perform is:
-    which party must perform which action by which date under which rule.
 
 query results is:
     which action has the result which result.
@@ -1231,11 +1225,11 @@ query cited_resources is:
 query statement_types is:
     which assessment statement has the statement type which type.
 
-query interpretations is:
-    which assessment statement has the interpretation which text.
-
 query services_of_statements is:
     which thing concerns the service which service.
+
+query parts is:
+    which thing is part of the description.
 
 query texts is:
     which thing is described by the text which text.
@@ -1254,4 +1248,7 @@ query addresses is:
 
 query plain_texts is:
     the texts of which property have no language.
+
+query bearer is:
+    the bearer role is which role.
 

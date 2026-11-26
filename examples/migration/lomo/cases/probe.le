@@ -246,23 +246,62 @@ scenario case_one is, as stated in the source description:
     violations expects answers ["the obligation of acme that acme performs publish the statements is violated"].
     rules_without_conditions expects answers ["norm gdpr 33 has no written conditions", "norm accounts 30 has no written conditions", "norm micro 36 has no written conditions"].
 
-query parts is:
-    which thing is part of the description.
+query obligations is:
+    which rule has the modality obligation for which agent as which role.
+
+query permissions is:
+    which rule has the modality permission for which agent as which role.
+
+query prohibitions is:
+    which rule has the modality prohibition for which agent as which role.
+
+query rights is:
+    which rule has the modality right for which agent as which role.
+
+query deadlines is:
+    which thing has which temporal specification as deadline.
+
+query due_dates is:
+    which agent has which action due on which date.
+
+query due_in_2027 is:
+    which agent has which action due on which date in the period from 2027-01-01 to 2027-12-31.
+
+query must_perform is:
+    which party must perform which action by which date under which rule.
+
+query applies is:
+    which rule applies to which party.
+
+query rules_without_conditions is:
+    which rule has no written conditions.
+
+query places is:
+    which rule is laid down in which place.
+
+query addressers is:
+    which agent acts as addresser in which action.
+
+query addressees is:
+    which agent acts as addressee in which action.
+
+query beneficiaries is:
+    which agent acts as beneficiary in which action.
+
+query triggers is:
+    which thing is triggered by which event.
+
+query derogations is:
+    which rule is a derogation from which second rule.
 
 query kinds is:
     which thing is of the kind which kind.
-
-query bearer is:
-    the bearer role is which role.
 
 query rules_of_act is:
     which rule is established by the act which act.
 
 query provisions is:
     which thing is established in which provision.
-
-query places is:
-    which rule is laid down in which place.
 
 query legal_texts is:
     which thing has the legal text which text.
@@ -279,32 +318,8 @@ query constitutive is:
 query modalities is:
     which rule has the modality which modality.
 
-query obligations is:
-    which rule has the modality obligation for which agent as which role.
-
-query prohibitions is:
-    which rule has the modality prohibition for which agent as which role.
-
-query permissions is:
-    which rule has the modality permission for which agent as which role.
-
-query rights is:
-    which rule has the modality right for which agent as which role.
-
-query triggers is:
-    which thing is triggered by which event.
-
 query actions_of_rules is:
     which rule produces which action.
-
-query addressers is:
-    which agent acts as addresser in which action.
-
-query addressees is:
-    which agent acts as addressee in which action.
-
-query beneficiaries is:
-    which agent acts as beneficiary in which action.
 
 query agent_types is:
     which thing is an agent type.
@@ -314,9 +329,6 @@ query actions_of_agents is:
 
 query concerned_agents is:
     which rule concerns which agent.
-
-query deadlines is:
-    which thing has which temporal specification as deadline.
 
 query starting_points is:
     which thing has which temporal specification as starting point.
@@ -348,26 +360,11 @@ query times_within is:
 query broken_links is:
     which temporal specification breaks its link with which second temporal specification.
 
-query due_dates is:
-    which agent has which action due on which date.
-
-query due_in_2027 is:
-    which agent has which action due on which date in the period from 2027-01-01 to 2027-12-31.
-
 query hours_as_days is:
     which temporal specification has a length of time that counts hours as whole days.
 
-query rules_without_conditions is:
-    which rule has no written conditions.
-
-query applies is:
-    which rule applies to which party.
-
 query set_aside is:
     which rule is set aside for which party by which second rule.
-
-query must_perform is:
-    which party must perform which action by which date under which rule.
 
 query obliged is:
     which party is obliged that which sentence.
@@ -384,14 +381,17 @@ query holders_of_rights is:
 query violations is:
     the obligation of which party that which sentence is violated.
 
-query derogations is:
-    which rule is a derogation from which second rule.
+query parts is:
+    which thing is part of the description.
 
 query texts is:
     which thing is described by the text which text.
 
 query addresses is:
     which thing is identified by which address.
+
+query bearer is:
+    the bearer role is which role.
 
 query late_on_1_april_2026 is:
     which party is late with which action under which rule on 2026-04-01.

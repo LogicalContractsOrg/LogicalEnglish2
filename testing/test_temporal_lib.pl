@@ -54,8 +54,9 @@ test(included_library_answers, [setup(tmp_dir(Dir)), cleanup(delete_directory_an
     copy_file('testing/fixtures/temporal/uses_temporal.le', File),
     le_kbs:runTestsFor(File, test_file(_, Results)),
     %  four queries, one of them (`vote`) written with the compact form of a
-    %  function the library declares (§2.4)
-    assertion(Results = [_, _, _, _]),
+    %  function the library declares (§2.4); eight more on lengths of time
+    %  written the ISO way, rhythms and a date without its year
+    assertion(length(Results, 12)),
     assertion(forall(member(R, Results), R = pass(_, _))).
 
 tmp_dir(Dir) :- tmp_file(temporal, Dir), make_directory(Dir).

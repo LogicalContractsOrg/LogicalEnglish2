@@ -159,6 +159,11 @@ licence.
 - `legalruleml/corpus/oasis/`: the examples of the LegalRuleML Core
   Specification Version 1.0, copyright OASIS Open 2021, unchanged, under the
   notice of the specification (in full in `NOTICE.txt` in that folder).
+- `lomo/corpus/lomo-1.1.0/`: the data, the ontology, its word lists, its
+  shapes and its search queries of LOMO 1.1.0 (`code.europa.eu/drpm/lomo`),
+  (c) European Union, Creative Commons Attribution 4.0, unchanged
+  (`lomo/corpus/NOTICE.txt`); `lomo/corpus/spec-examples/`: the Turtle
+  examples of the LOMO specification page, with the prefixes they use added.
 - `miniscript/sources/`: texts from Bitcoin Core (MIT licence, `COPYING`)
   and from Liana (copyright the Liana developers, 3-clause BSD licence,
   `LICENCE`), and short quotations from Pieter Wuille's Miniscript page. The

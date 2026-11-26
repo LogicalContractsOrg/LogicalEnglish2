@@ -41,8 +41,6 @@
 :- use_module(library(apply)).
 :- use_module(library(option)).
 :- use_module(library(readutil)).
-:- use_module(library(semweb/rdf_db)).
-:- use_module(library(semweb/turtle)).
 :- use_module('../le2_paths', []).
 :- use_module(lomo_words).
 :- use_module(lomo_shacl, [check_triples/2]).
@@ -121,7 +119,7 @@ node_iri(NIs, Name0, IRI) :-
 
 :- dynamic bnode_/2.
 bnode_for(Name, B) :- bnode_(Name, B), !.
-bnode_for(Name, B) :- rdf_bnode(B), assertz(bnode_(Name, B)).
+bnode_for(Name, B) :- flag(lomo_export_bnode, N, N + 1), format(atom(B), '_:n~w', [N]), assertz(bnode_(Name, B)).
 
 fact_triple(KB, NIs, _, rdf(S, P, C), class) :-
     rdf_type(P),
@@ -170,14 +168,14 @@ literal_of(number, V, literal(type(T, A))) :- number(V), !,
     ( integer(V) -> xsd(integer, T) ; xsd(decimal, T) ), format(atom(A), "~w", [V]).
 literal_of(_, date(Y, M, D), O) :- !, literal_of(date, date(Y, M, D), O).
 literal_of(_, V, literal(type(T, A))) :- number(V), !, literal_of(number, V, literal(type(T, A))).
-literal_of(_, V, literal(A)) :- text_atom(V, A).
+literal_of(_, V, literal(lang(en, A))) :- text_atom(V, A).      % a text: English, unless the register says otherwise
 
 text_atom(V, A) :- ( string(V) -> atom_string(A, V) ; atom(V) -> A = V ; format(atom(A), "~w", [V]) ).
 
 forms(KB, Prefixes, forms(PropForms, ValueForms)) :-
     findall(P-plain, ( stated(KB, "the texts of *a property* have no language", [PT]), expand(PT, Prefixes, P) ), F1),
-    findall(P-type(T), ( stated(KB, "the values of *a property* have the datatype *a datatype*", [PT, TT]),
-                         expand(PT, Prefixes, P), datatype_of(TT, Prefixes, T) ), F2),
+    findall(P-F, ( stated(KB, "the values of *a property* have the datatype *a datatype*", [PT, TT]),
+                   expand(PT, Prefixes, P), datatype_of(TT, Prefixes, F) ), F2),
     append(F1, F2, PropForms),
     findall(A-plain, ( stated(KB, "the text *a text* has no language", [V]), text_atom(V, A) ), V1),
     findall(A-F, ( stated(KB, "the value *a value* has the datatype *a datatype*", [V, TT]),
@@ -190,7 +188,7 @@ datatype_of(TT, Prefixes, F) :-
     ;   expand(A, Prefixes, T), F = type(T)
     ).
 
-value_lexical(V, A) :- literal_of(value, V, L), ( L = literal(type(_, A)) -> true ; L = literal(A) ).
+value_lexical(V, A) :- literal_of(value, V, L), lexical(L, A).
 
 apply_form(forms(PFs, VFs), rdf(S, P, O0), rdf(S, P, O)) :-
     (   O0 = literal(_), lexical(O0, A)
@@ -215,15 +213,20 @@ form_literal(lang(L), A, literal(lang(L, A))).
 rule_triples(KB, Program, Triples, Problems) :-
     kb_to_ir(KB, program(_, Items)),
     findall(T, member(template(_, T, _), Items), _),
-    documents(Items, Docs),
+    documents(KB, Items, Docs),
+    %  a rule that cites nothing is not one of the description's: left out
     findall(r(Label, Head, Body, Prov), ( member(rule(Head, Body, Opts), Items), option(label(Label), Opts),
-                                          ( option(provenance(Prov), Opts) -> true ; Prov = [] ) ), Rules),
+                                          option(provenance(Prov), Opts), Prov \== [] ), Rules),
     findall(Ts-Ps, ( member(R, Rules), describe_rule(R, Rules, Docs, Program, Ts, Ps) ), TPs),
     findall(T, ( member(Ts-_, TPs), member(T, Ts) ), Triples),
     findall(P, ( member(_-Ps, TPs), member(P, Ps) ), Problems).
 
-documents(Items, Docs) :-
-    findall(Name-URL, ( member(document(Name, Opts), Items), option(url(URL), Opts) ), Docs).
+%   Where each document of the program is published: its `is published at`
+%   facts (le_published_at/2), and any document item of the IR with a url.
+documents(KB, Items, Docs) :-
+    findall(Name-URL, ( member(document(Name, Opts), Items), option(url(URL), Opts) ), D1),
+    findall(N-U, ( catch(KB:le_published_at(N0, U), _, fail), name_key(N0, N) ), D2),
+    append(D1, D2, Docs).
 
 describe_rule(r(Label, Head, Body, Prov), Rules, Docs, Program, Triples, Problems) :-
     rule_iri(Program, Label, R),
@@ -235,7 +238,7 @@ describe_rule(r(Label, Head, Body, Prov), Rules, Docs, Program, Triples, Problem
         Base = [rdf(R, 'http://www.w3.org/2000/01/rdf-schema#label', literal(lang(en, LabelT))),
                 rdf(R, EI, Address),
                 rdf(R, 'http://www.w3.org/2000/01/rdf-schema#seeAlso', ProgramIRI)],
-        lomo(establishedIn, EI), atom_concat('file://', Program, ProgramIRI),
+        lomo(establishedIn, EI), absolute_file_name(Program, AbsP), atom_concat('file://', AbsP, ProgramIRI),
         ( Quote == none -> QT = [] ; lomo(legalText, LT), QT = [rdf(R, LT, literal(lang(en, Quote)))] ),
         (   Modality == none
         ->  lomo('ConstitutiveRule', C), Kind = [rdf(R, Type, C)], Act = []
@@ -262,8 +265,10 @@ provision_address(Prov, Docs, Address) :-
 address_of(D, Docs, A) :-
     ( string(D) -> atom_string(DA, D) ; DA = D ),
     (   sub_atom(DA, 0, _, _, 'http') -> A = DA
-    ;   memberchk(DA-U, Docs) -> ( string(U) -> atom_string(A, U) ; A = U )
+    ;   member(N-U, Docs), same_doc(N, DA) -> ( string(U) -> atom_string(A, U) ; A = U )
     ).
+
+same_doc(N, D) :- ( N == D -> true ; catch(le_provenance:same_document(N, D), _, fail) ).
 
 quote(Prov, Q) :- ( memberchk(confer(Q0), Prov) -> text_atom(Q0, Q) ; Q = none ).
 
@@ -355,13 +360,61 @@ export_lomo(KB, Options, Result) :-
     ).
 
 %!  write_turtle(+Triples, +Options, -Text)
+%   A Turtle text of the statements, with the prefixes of lomo_words.pl
+%   that it uses: one block per subject, in the order of the statements.
+%   Written here, not by library(semweb/rdf_db), so that the way back also
+%   runs where SWI-Prolog has no RDF database (WebAssembly).
 write_turtle(Ts, _Options, Text) :-
-    G = lomo_export_graph,
-    rdf_retractall(_, _, _, G),
-    forall(member(rdf(S, P, O), Ts), rdf_assert(S, P, O, G)),
-    findall(P-I, ns(P, I), Ps),
-    tmp_file_stream(text, F, St), close(St),
-    rdf_save_turtle(F, [graph(G), prefixes(Ps), silent(true), encoding(utf8)]),
-    read_file_to_string(F, Text, []),
-    delete_file(F),
-    rdf_retractall(_, _, _, G).
+    findall(P-I, ns(P, I), Ps0),
+    findall(S, member(rdf(S, _, _), Ts), Ss0), list_to_set(Ss0, Ss),
+    bnode_labels(Ts, Labels),
+    with_output_to(string(Body),
+        forall(member(S, Ss),
+               ( findall(P-O, member(rdf(S, P, O), Ts), POs),
+                 term_text(S, Ps0, Labels, ST),
+                 format("~w", [ST]),
+                 write_pos(POs, Ps0, Labels, first),
+                 format(" .~n~n") ))),
+    findall(P-I, ( member(P-I, Ps0), format(atom(Pre), "~w:", [P]), once(sub_string(Body, _, _, _, Pre)) ), Used),
+    with_output_to(string(Head), forall(member(P-I, Used), format("@prefix ~w: <~w> .~n", [P, I]))),
+    format(string(Text), "~w~n~w", [Head, Body]).
+
+write_pos([], _, _, _).
+write_pos([P-O|POs], Ps, Ls, Pos) :-
+    term_text(P, Ps, Ls, PT0), ( rdf_type(P) -> PT = a ; PT = PT0 ),
+    term_text(O, Ps, Ls, OT),
+    ( Pos == first -> format("~n    ~w ~w", [PT, OT]) ; format(" ;~n    ~w ~w", [PT, OT]) ),
+    write_pos(POs, Ps, Ls, next).
+
+bnode_labels(Ts, Ls) :-
+    findall(B, ( member(rdf(S, _, O), Ts), member(B, [S, O]), blank(B) ), Bs0), list_to_set(Bs0, Bs),
+    findall(B-L, ( nth1(I, Bs, B), format(atom(L), "_:b~w", [I]) ), Ls).
+
+blank(B) :- atom(B), ( sub_atom(B, 0, 2, _, '_:') ; sub_atom(B, 0, 4, _, 'bn__') ), !.
+blank(B) :- compound(B), B = bnode(_).
+
+term_text(literal(L), _, _, T) :- !, literal_text(L, T).
+term_text(B, _, Ls, T) :- memberchk(B-T, Ls), !.
+term_text(I, Ps, _, T) :-
+    (   member(P-NS, Ps), atom_concat(NS, L, I), L \== '', local_ok(L)
+    ->  format(atom(T), "~w:~w", [P, L])
+    ;   format(atom(T), "<~w>", [I])
+    ).
+
+local_ok(L) :- atom_codes(L, Cs), Cs = [C0|_], code_type(C0, alpha),
+    forall(member(C, Cs), ( code_type(C, alnum) ; C == 0'_ ; C == 0'- )).
+
+literal_text(lang(L, A), T) :- !, quoted(A, Q), format(atom(T), "~w@~w", [Q, L]).
+literal_text(type(D, A), T) :- !, quoted(A, Q), format(atom(T), "~w^^<~w>", [Q, D]).
+literal_text(A, T) :- quoted(A, T).
+
+quoted(A, T) :-
+    atom_codes(A, Cs), phrase(escaped(Cs), Es), atom_codes(E, Es),
+    format(atom(T), "\"~w\"", [E]).
+escaped([]) --> [].
+escaped([0'"|Cs]) --> !, "\\\"", escaped(Cs).
+escaped([0'\\|Cs]) --> !, "\\\\", escaped(Cs).
+escaped([10|Cs]) --> !, "\\n", escaped(Cs).
+escaped([13|Cs]) --> !, "\\r", escaped(Cs).
+escaped([9|Cs]) --> !, "\\t", escaped(Cs).
+escaped([C|Cs]) --> [C], escaped(Cs).

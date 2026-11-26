@@ -44,12 +44,12 @@ item a 1 time has the duration "P3Y".
 
 item a 1 time has the function deadline.
 
-item a 1 time is timed immediately after item a 1 time earlier time.
+item a 1 time is timed immediately after approval date.
 
 
-item a 1 time earlier time is a temporal specification.
+approval date is a temporal specification.
 
-item a 1 time earlier time has the temporal label "the approval date".
+approval date has the temporal label "the approval date".
 
 
 % The questions of LOMO's requirements document (its competency questions),
@@ -64,28 +64,37 @@ scenario calendar is, as stated in the source description:
 
 scenario approved_on_15_may_2026 is, as stated in the source description:
     "the approval date" happens on 2026-05-15.
-    first_dates expects answers ["the first date of item a 1 time earlier time is 2026-05-15", "the first date of item a 1 time is 2029-05-15"].
+    first_dates expects answers ["the first date of approval date is 2026-05-15", "the first date of item a 1 time is 2029-05-15"].
 
-query parts is:
-    which thing is part of the description.
+query deadlines is:
+    which thing has which temporal specification as deadline.
+
+query due_dates is:
+    which agent has which action due on which date.
+
+query due_in_2027 is:
+    which agent has which action due on which date in the period from 2027-01-01 to 2027-12-31.
+
+query must_perform is:
+    which party must perform which action by which date under which rule.
+
+query applies is:
+    which rule applies to which party.
+
+query rules_without_conditions is:
+    which rule has no written conditions.
+
+query triggers is:
+    which thing is triggered by which event.
 
 query kinds is:
     which thing is of the kind which kind.
-
-query bearer is:
-    the bearer role is which role.
 
 query prescriptive is:
     which thing is a prescriptive rule.
 
 query constitutive is:
     which thing is a constitutive rule.
-
-query triggers is:
-    which thing is triggered by which event.
-
-query deadlines is:
-    which thing has which temporal specification as deadline.
 
 query starting_points is:
     which thing has which temporal specification as starting point.
@@ -114,27 +123,18 @@ query times_within is:
 query broken_links is:
     which temporal specification breaks its link with which second temporal specification.
 
-query due_dates is:
-    which agent has which action due on which date.
-
-query due_in_2027 is:
-    which agent has which action due on which date in the period from 2027-01-01 to 2027-12-31.
-
 query hours_as_days is:
     which temporal specification has a length of time that counts hours as whole days.
 
-query rules_without_conditions is:
-    which rule has no written conditions.
-
-query applies is:
-    which rule applies to which party.
-
-query must_perform is:
-    which party must perform which action by which date under which rule.
+query parts is:
+    which thing is part of the description.
 
 query texts is:
     which thing is described by the text which text.
 
 query addresses is:
     which thing is identified by which address.
+
+query bearer is:
+    the bearer role is which role.
 

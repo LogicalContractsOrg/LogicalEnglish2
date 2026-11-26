@@ -484,7 +484,7 @@ action 6 is an action.
 
 action 6 has the label "Preventive information gathering".
 
-action 6 has the time specification action 6 time.
+action 6 has the time specification pre crisis stage.
 
 action 6 is established in "https://data.europa.eu/eli/dl/proc/2026/504/cod/doc/com/COM_2026_504/FINAL/eng/art_38".
 
@@ -495,11 +495,11 @@ action 6 has the agent role item 6 role addresser industry.
 action 6 has the result action 6 result.
 
 
-action 6 time is a temporal specification.
+pre crisis stage is a temporal specification.
 
-action 6 time has the function trigger.
+pre crisis stage has the function trigger.
 
-action 6 time has the temporal label "Pre-Crisis stage".
+pre crisis stage has the temporal label "Pre-Crisis stage".
 
 
 action 6 result is an action result.
@@ -533,7 +533,7 @@ action 7 is an action.
 
 action 7 has the label "Information gathering in the crisis stage".
 
-action 7 has the time specification action 7 time.
+action 7 has the time specification crisis stage.
 
 action 7 is established in "https://data.europa.eu/eli/dl/proc/2026/504/cod/doc/com/COM_2026_504/FINAL/eng/art_41".
 
@@ -544,11 +544,11 @@ action 7 has the agent role item 7 role addresser industry.
 action 7 has the result action 7 result.
 
 
-action 7 time is a temporal specification.
+crisis stage is a temporal specification.
 
-action 7 time has the function trigger.
+crisis stage has the function trigger.
 
-action 7 time has the temporal label "Crisis stage".
+crisis stage has the temporal label "Crisis stage".
 
 
 action 7 result is an action result.
@@ -898,38 +898,26 @@ scenario description is, as stated in the source description:
     actions_of_rules expects answers ["description 1 produces action 1", "description 1 produces item 1 action", "description 2 produces action 2", "description 2 produces item 2 action", "description 3 produces item 3 action", "description 4 produces action 3", "description 4 produces item 4 action", "description 5 produces action 4", "description 5 produces item 5 action", "description 6 produces action 5", "description 6 produces item 6 action", "description 7 produces action 6", "description 7 produces item 7 action", "description 8 produces action 7", "description 8 produces item 8 action"].
     actions_of_agents expects answers ["european commission acts as addressee in action 1", "european commission acts as addressee in action 3", "european commission acts as addressee in action 4", "european commission acts as addressee in action 5", "european commission acts as addressee in action 6", "european commission acts as addressee in action 7", "european commission acts as addressee in item 1 action", "european commission acts as addressee in item 4 action", "european commission acts as addressee in item 6 action", "european commission acts as addressee in item 7 action", "european commission acts as addressee in item 8 action", "industry acts as addresser in action 1", "industry acts as addresser in action 2", "industry acts as addresser in action 3", "industry acts as addresser in action 4", "industry acts as addresser in action 5", "industry acts as addresser in action 6", "industry acts as addresser in action 7", "member states acts as addressee in action 2", "member states acts as addressee in item 2 action", "member states acts as addressee in item 3 action", "national competent authorities acts as addressee in item 2 action", "national competent authorities acts as addressee in item 3 action", "private operators acts as addressee in item 5 action"].
 
-query parts is:
-    which thing is part of the description.
+query deadlines is:
+    which thing has which temporal specification as deadline.
 
-query kinds is:
-    which thing is of the kind which kind.
+query due_dates is:
+    which agent has which action due on which date.
 
-query bearer is:
-    the bearer role is which role.
+query due_in_2027 is:
+    which agent has which action due on which date in the period from 2027-01-01 to 2027-12-31.
 
-query rules_of_act is:
-    which rule is established by the act which act.
+query must_perform is:
+    which party must perform which action by which date under which rule.
 
-query provisions is:
-    which thing is established in which provision.
+query applies is:
+    which rule applies to which party.
+
+query rules_without_conditions is:
+    which rule has no written conditions.
 
 query places is:
     which rule is laid down in which place.
-
-query joint_rules is:
-    which rule is established in more than one provision.
-
-query prescriptive is:
-    which thing is a prescriptive rule.
-
-query constitutive is:
-    which thing is a constitutive rule.
-
-query triggers is:
-    which thing is triggered by which event.
-
-query actions_of_rules is:
-    which rule produces which action.
 
 query addressers is:
     which agent acts as addresser in which action.
@@ -940,14 +928,35 @@ query addressees is:
 query beneficiaries is:
     which agent acts as beneficiary in which action.
 
+query triggers is:
+    which thing is triggered by which event.
+
+query kinds is:
+    which thing is of the kind which kind.
+
+query rules_of_act is:
+    which rule is established by the act which act.
+
+query provisions is:
+    which thing is established in which provision.
+
+query joint_rules is:
+    which rule is established in more than one provision.
+
+query prescriptive is:
+    which thing is a prescriptive rule.
+
+query constitutive is:
+    which thing is a constitutive rule.
+
+query actions_of_rules is:
+    which rule produces which action.
+
 query actions_of_agents is:
     which agent acts as which role in which action.
 
 query concerned_agents is:
     which rule concerns which agent.
-
-query deadlines is:
-    which thing has which temporal specification as deadline.
 
 query starting_points is:
     which thing has which temporal specification as starting point.
@@ -969,21 +978,6 @@ query times_within is:
 
 query broken_links is:
     which temporal specification breaks its link with which second temporal specification.
-
-query due_dates is:
-    which agent has which action due on which date.
-
-query due_in_2027 is:
-    which agent has which action due on which date in the period from 2027-01-01 to 2027-12-31.
-
-query rules_without_conditions is:
-    which rule has no written conditions.
-
-query applies is:
-    which rule applies to which party.
-
-query must_perform is:
-    which party must perform which action by which date under which rule.
 
 query results is:
     which action has the result which result.
@@ -1009,6 +1003,9 @@ query references is:
 query publishers is:
     which thing is published by which agent.
 
+query parts is:
+    which thing is part of the description.
+
 query texts is:
     which thing is described by the text which text.
 
@@ -1017,4 +1014,7 @@ query addresses is:
 
 query plain_texts is:
     the texts of which property have no language.
+
+query bearer is:
+    the bearer role is which role.
 

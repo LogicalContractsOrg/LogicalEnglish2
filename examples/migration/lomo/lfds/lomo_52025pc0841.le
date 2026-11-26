@@ -352,7 +352,7 @@ action 2 is an action.
 
 action 2 has the label "Data on sustainability factors for non-categorised products".
 
-action 2 has the time specification action 2 time.
+action 2 has the time specification item when making available financial products.
 
 action 2 is established in "https://data.europa.eu/eli/dl/proc/2025/841/cod/doc/com/COM_2025_841/FINAL/eng/art_6".
 
@@ -363,11 +363,11 @@ action 2 has the agent role item 2 role addresser financial market participants.
 action 2 has the result action 2 result.
 
 
-action 2 time is a temporal specification.
+item when making available financial products is a temporal specification.
 
-action 2 time has the function trigger.
+item when making available financial products has the function trigger.
 
-action 2 time has the temporal label "When making available financial products".
+item when making available financial products has the temporal label "When making available financial products".
 
 
 action 2 result is an action result.
@@ -419,7 +419,7 @@ action 4 is an action.
 
 action 4 has the label "Data on products combining categorised financial products".
 
-action 4 has the time specification action 4 time.
+action 4 has the time specification item when making available financial products 2.
 
 action 4 is established in "https://data.europa.eu/eli/dl/proc/2025/841/cod/doc/com/COM_2025_841/FINAL/eng/art_9".
 
@@ -430,11 +430,11 @@ action 4 has the agent role item 4 role addresser financial market participants.
 action 4 has the result action 4 result.
 
 
-action 4 time is a temporal specification.
+item when making available financial products 2 is a temporal specification.
 
-action 4 time has the function trigger.
+item when making available financial products 2 has the function trigger.
 
-action 4 time has the temporal label "When making available financial products".
+item when making available financial products 2 has the temporal label "When making available financial products".
 
 
 action 4 result is an action result.
@@ -468,7 +468,7 @@ action 5 is an action.
 
 action 5 has the label "Data on sources and estimates used for ascertaining compliance with the criteria for categorised products".
 
-action 5 has the time specification action 5 time.
+action 5 has the time specification request investor.
 
 action 5 is established in "https://data.europa.eu/eli/dl/proc/2025/841/cod/doc/com/COM_2025_841/FINAL/eng/art_12".
 
@@ -479,11 +479,11 @@ action 5 has the agent role item 5 role addresser financial market participants.
 action 5 has the result action 5 result.
 
 
-action 5 time is a temporal specification.
+request investor is a temporal specification.
 
-action 5 time has the function trigger.
+request investor has the function trigger.
 
-action 5 time has the temporal label "Request from investor".
+request investor has the temporal label "Request from investor".
 
 
 action 5 result is an action result.
@@ -517,7 +517,7 @@ action 6 is an action.
 
 action 6 has the label "Data submitted to European single access point".
 
-action 6 has the time specification action 6 time.
+action 6 has the time specification publication fmp.
 
 action 6 is established in "https://data.europa.eu/eli/dl/proc/2025/841/cod/doc/com/COM_2025_841/FINAL/eng/art_18".
 
@@ -528,11 +528,11 @@ action 6 has the agent role item 6 role addresser financial market participants.
 action 6 has the result action 6 result.
 
 
-action 6 time is a temporal specification.
+publication fmp is a temporal specification.
 
-action 6 time has the function trigger.
+publication fmp has the function trigger.
 
-action 6 time has the temporal label "Publication by FMP".
+publication fmp has the temporal label "Publication by FMP".
 
 
 action 6 result is an action result.
@@ -747,7 +747,7 @@ action 3 is an action.
 
 action 3 has the label "Data on compliance with the criteria for categorised sustainability-related financial products".
 
-action 3 has the time specification action 3 time.
+action 3 has the time specification item when making available financial products 3.
 
 action 3 is established in "https://data.europa.eu/eli/dl/proc/2025/841/cod/doc/com/COM_2025_841/FINAL/eng/art_10".
 
@@ -764,11 +764,11 @@ action 3 has the agent role item 3 role addresser financial market participants.
 action 3 has the result action 3 result.
 
 
-action 3 time is a temporal specification.
+item when making available financial products 3 is a temporal specification.
 
-action 3 time has the function trigger.
+item when making available financial products 3 has the function trigger.
 
-action 3 time has the temporal label "When making available financial products".
+item when making available financial products 3 has the temporal label "When making available financial products".
 
 
 action 3 result is an action result.
@@ -912,38 +912,26 @@ scenario description is, as stated in the source description:
     actions_of_rules expects answers ["description 1 produces action 1", "description 1 produces item 1 action", "description 10 produces action 6", "description 10 produces item 10 action", "description 2 produces item 2 action", "description 3 produces action 2", "description 3 produces item 3 action", "description 4 produces action 3", "description 4 produces item 4 action", "description 5 produces action 4", "description 5 produces item 5 action", "description 6 produces action 3", "description 6 produces item 6 action", "description 7 produces item 7 action", "description 8 produces action 5", "description 8 produces item 8 action", "description 9 produces item 9 action"].
     actions_of_agents expects answers ["financial market participants acts as addressee in item 1 action", "financial market participants acts as addressee in item 10 action", "financial market participants acts as addressee in item 2 action", "financial market participants acts as addressee in item 3 action", "financial market participants acts as addressee in item 4 action", "financial market participants acts as addressee in item 5 action", "financial market participants acts as addressee in item 6 action", "financial market participants acts as addressee in item 7 action", "financial market participants acts as addressee in item 8 action", "financial market participants acts as addressee in item 9 action", "financial market participants acts as addresser in action 1", "financial market participants acts as addresser in action 2", "financial market participants acts as addresser in action 3", "financial market participants acts as addresser in action 4", "financial market participants acts as addresser in action 5", "financial market participants acts as addresser in action 6", "investors acts as addressee in action 5", "investors general public acts as addressee in action 1", "investors general public acts as addressee in action 2", "investors general public acts as addressee in action 3", "investors general public acts as addressee in action 4", "investors general public acts as addressee in action 6"].
 
-query parts is:
-    which thing is part of the description.
+query deadlines is:
+    which thing has which temporal specification as deadline.
 
-query kinds is:
-    which thing is of the kind which kind.
+query due_dates is:
+    which agent has which action due on which date.
 
-query bearer is:
-    the bearer role is which role.
+query due_in_2027 is:
+    which agent has which action due on which date in the period from 2027-01-01 to 2027-12-31.
 
-query rules_of_act is:
-    which rule is established by the act which act.
+query must_perform is:
+    which party must perform which action by which date under which rule.
 
-query provisions is:
-    which thing is established in which provision.
+query applies is:
+    which rule applies to which party.
+
+query rules_without_conditions is:
+    which rule has no written conditions.
 
 query places is:
     which rule is laid down in which place.
-
-query joint_rules is:
-    which rule is established in more than one provision.
-
-query prescriptive is:
-    which thing is a prescriptive rule.
-
-query constitutive is:
-    which thing is a constitutive rule.
-
-query triggers is:
-    which thing is triggered by which event.
-
-query actions_of_rules is:
-    which rule produces which action.
 
 query addressers is:
     which agent acts as addresser in which action.
@@ -954,14 +942,35 @@ query addressees is:
 query beneficiaries is:
     which agent acts as beneficiary in which action.
 
+query triggers is:
+    which thing is triggered by which event.
+
+query kinds is:
+    which thing is of the kind which kind.
+
+query rules_of_act is:
+    which rule is established by the act which act.
+
+query provisions is:
+    which thing is established in which provision.
+
+query joint_rules is:
+    which rule is established in more than one provision.
+
+query prescriptive is:
+    which thing is a prescriptive rule.
+
+query constitutive is:
+    which thing is a constitutive rule.
+
+query actions_of_rules is:
+    which rule produces which action.
+
 query actions_of_agents is:
     which agent acts as which role in which action.
 
 query concerned_agents is:
     which rule concerns which agent.
-
-query deadlines is:
-    which thing has which temporal specification as deadline.
 
 query starting_points is:
     which thing has which temporal specification as starting point.
@@ -984,21 +993,6 @@ query times_within is:
 query broken_links is:
     which temporal specification breaks its link with which second temporal specification.
 
-query due_dates is:
-    which agent has which action due on which date.
-
-query due_in_2027 is:
-    which agent has which action due on which date in the period from 2027-01-01 to 2027-12-31.
-
-query rules_without_conditions is:
-    which rule has no written conditions.
-
-query applies is:
-    which rule applies to which party.
-
-query must_perform is:
-    which party must perform which action by which date under which rule.
-
 query results is:
     which action has the result which result.
 
@@ -1020,9 +1014,15 @@ query standards is:
 query references is:
     which rule references which resource.
 
+query parts is:
+    which thing is part of the description.
+
 query texts is:
     which thing is described by the text which text.
 
 query addresses is:
     which thing is identified by which address.
+
+query bearer is:
+    the bearer role is which role.
 

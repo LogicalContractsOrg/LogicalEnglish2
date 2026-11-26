@@ -180,7 +180,7 @@ barrier is identified by "http://example.org/analysis/assessment/1/1/barrier".
 
 barrier is an assessment statement.
 
-barrier has the interpretation "http://data.europa.eu/leg/interop-assessment#InterpretationPositive".
+barrier has for "cav:interpretation" the resource "http://data.europa.eu/leg/interop-assessment#InterpretationPositive".
 
 barrier has the judgement "No remaining barriers.".
 
@@ -193,7 +193,7 @@ item 2 measure is identified by "http://example.org/analysis/assessment/1/2/meas
 
 item 2 measure is an assessment statement.
 
-item 2 measure has the interpretation "http://data.europa.eu/leg/interop-assessment#InterpretationPositive".
+item 2 measure has for "cav:interpretation" the resource "http://data.europa.eu/leg/interop-assessment#InterpretationPositive".
 
 item 2 measure has the judgement "Shall be established in the measures.".
 
@@ -206,7 +206,7 @@ item 3 measure is identified by "http://example.org/analysis/assessment/1/3/meas
 
 item 3 measure is an assessment statement.
 
-item 3 measure has the interpretation "http://data.europa.eu/leg/interop-assessment#InterpretationPositive".
+item 3 measure has for "cav:interpretation" the resource "http://data.europa.eu/leg/interop-assessment#InterpretationPositive".
 
 item 3 measure has the judgement "Shall be established in the measures.".
 
@@ -219,7 +219,7 @@ item 4 measure is identified by "http://example.org/analysis/assessment/1/4/meas
 
 item 4 measure is an assessment statement.
 
-item 4 measure has the interpretation "http://data.europa.eu/leg/interop-assessment#InterpretationPositive".
+item 4 measure has for "cav:interpretation" the resource "http://data.europa.eu/leg/interop-assessment#InterpretationPositive".
 
 item 4 measure has the judgement "Shall be established in the measures.".
 
@@ -484,23 +484,32 @@ scenario description is, as stated in the source description:
     actions_of_rules expects answers ["description 1 produces item 1 action", "description 2 produces item 2 action", "description 3 produces item 3 action"].
     actions_of_agents expects answers ["economic operators acts as addressee in item 1 action", "economic operators acts as addressee in item 2 action", "economic operators acts as addressee in item 3 action", "european commission acts as addressee in item 1 action", "european commission acts as addressee in item 2 action", "european commission acts as addressee in item 3 action", "european commissionmember states acts as addressee in action 2", "national authorities acts as addressee in item 1 action", "national authorities acts as addressee in item 2 action", "national authorities acts as addressee in item 3 action", "vehicle manufacturers acts as addresser in action 2", "vehicle manufacturersgrid operatorsother economic operators acts as addressee in action 1", "vehicle manufacturersgrid operatorsother economic operators acts as addresser in action 1"].
 
-query parts is:
-    which thing is part of the description.
+query applies is:
+    which rule applies to which party.
+
+query rules_without_conditions is:
+    which rule has no written conditions.
+
+query places is:
+    which rule is laid down in which place.
+
+query addressers is:
+    which agent acts as addresser in which action.
+
+query addressees is:
+    which agent acts as addressee in which action.
+
+query beneficiaries is:
+    which agent acts as beneficiary in which action.
 
 query kinds is:
     which thing is of the kind which kind.
-
-query bearer is:
-    the bearer role is which role.
 
 query rules_of_act is:
     which rule is established by the act which act.
 
 query provisions is:
     which thing is established in which provision.
-
-query places is:
-    which rule is laid down in which place.
 
 query joint_rules is:
     which rule is established in more than one provision.
@@ -514,26 +523,11 @@ query constitutive is:
 query actions_of_rules is:
     which rule produces which action.
 
-query addressers is:
-    which agent acts as addresser in which action.
-
-query addressees is:
-    which agent acts as addressee in which action.
-
-query beneficiaries is:
-    which agent acts as beneficiary in which action.
-
 query actions_of_agents is:
     which agent acts as which role in which action.
 
 query concerned_agents is:
     which rule concerns which agent.
-
-query rules_without_conditions is:
-    which rule has no written conditions.
-
-query applies is:
-    which rule applies to which party.
 
 query results is:
     which action has the result which result.
@@ -571,8 +565,8 @@ query publishers is:
 query statement_types is:
     which assessment statement has the statement type which type.
 
-query interpretations is:
-    which assessment statement has the interpretation which text.
+query parts is:
+    which thing is part of the description.
 
 query texts is:
     which thing is described by the text which text.
@@ -591,4 +585,7 @@ query addresses is:
 
 query plain_texts is:
     the texts of which property have no language.
+
+query bearer is:
+    the bearer role is which role.
 

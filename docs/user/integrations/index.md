@@ -170,6 +170,7 @@ The LPS2 editor has its own map. That map shows the systems that only LPS2 reads
 | Rune file: the Digital Regulatory Reporting of ISDA, the Common Domain Model, or a model of your own | import, export (run on the engine of DRR) | [Rune](rune.md) |
 | Bitcoin Miniscript policy or descriptor | import, export | [Bitcoin Miniscript](miniscript.md) |
 | LegalRuleML (OASIS) | import, export | [LegalRuleML](legalruleml.md) |
+| LOMO description (Turtle: the Legal Obligation Metadata Ontology of the European institutions) | import, export | [LOMO](lomo.md) |
 | s(CASP), Prolog, the s(CASP) translations of LE1 | import; See s(CASP), the s(CASP) engine, the Prolog equivalent | [s(CASP), Prolog and LE1](scasp.md) |
 | Blawx project (version 1) | import | [Blawx](blawx.md) |
 | Oracle Intelligent Advisor project or rulebase | import; an adapter answers the callers of OIA | [Oracle Intelligent Advisor](oia.md) |

@@ -139,3 +139,28 @@ test(lps_runs_end_as_the_timeless_reading_says, [timeout(900)]) :-
            )).
 
 :- end_tests(lomo_lps).
+
+:- use_module(lomo_roundtrip, [roundtrip/1]).
+
+:- begin_tests(lomo_way_back, [condition(judge_available)]).
+
+%  Step 7: every register goes back to Turtle as the same graph (rdflib's
+%  isomorphism, blank nodes included).
+test(every_register_gives_its_description_again, [timeout(3000)]) :-
+    roundtrip(Rs),
+    length(Rs, N), N >= 128,
+    forall(member(rt(F, V), Rs),
+           (   V = same(_) -> true
+           ;   format(user_error, "~w: ~q~n", [F, V]), fail
+           )).
+
+%  A program with no LOMO facts and no rule that cites a provision is
+%  refused, with the reason.
+test(refused_with_its_reason) :-
+    le2_paths:le2_dir(D), atomic_list_concat([D, '/examples/moreExamples/citizenship.le'], F),
+    load(F, KB),
+    lomo_export:export_lomo(KB, [file(F)], R),
+    R = refused([problem(_, M)|_]),
+    sub_string(M, _, _, _, "nothing to describe").
+
+:- end_tests(lomo_way_back).

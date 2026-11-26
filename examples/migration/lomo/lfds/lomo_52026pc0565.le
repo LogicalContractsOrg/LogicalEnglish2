@@ -41,7 +41,7 @@ action 1 has the label "Testing reports for all suppliers and copy of the mandat
 
 action 1 has the time specification action 1 time 1.
 
-action 1 has the time specification action 1 time 2.
+action 1 has the time specification once.
 
 action 1 is established in "https://data.europa.eu/eli/dl/proc/2026/565/cod/doc/com/COM_2026_565/FINAL/eng/anx_1/art_2/par_8".
 
@@ -59,11 +59,11 @@ action 1 time 1 has the function trigger.
 action 1 time 1 has the temporal label "upon entry into force of revised rules for existing entries and when putting a product model on the EU market".
 
 
-action 1 time 2 is a temporal specification.
+once is a temporal specification.
 
-action 1 time 2 has the function deadline.
+once has the function deadline.
 
-action 1 time 2 has the temporal label "once".
+once has the temporal label "once".
 
 
 action 1 result is an action result.
@@ -79,7 +79,7 @@ action 2 is an action.
 
 action 2 has the label "Testing reports for tyre suppliers".
 
-action 2 has the time specification action 2 time 1.
+action 2 has the time specification once 2.
 
 action 2 has the time specification action 2 time 2.
 
@@ -92,11 +92,11 @@ action 2 has the agent role addresser tyre suppliers.
 action 2 has the result action 2 result.
 
 
-action 2 time 1 is a temporal specification.
+once 2 is a temporal specification.
 
-action 2 time 1 has the function deadline.
+once 2 has the function deadline.
 
-action 2 time 1 has the temporal label "once".
+once 2 has the temporal label "once".
 
 
 action 2 time 2 is a temporal specification.
@@ -119,7 +119,7 @@ action 3 is an action.
 
 action 3 has the label "Additional product specifications for tyres".
 
-action 3 has the time specification action 3 time 1.
+action 3 has the time specification once 3.
 
 action 3 has the time specification action 3 time 2.
 
@@ -134,11 +134,11 @@ action 3 has the agent role addresser tyre supplier.
 action 3 has the result action 3 result.
 
 
-action 3 time 1 is a temporal specification.
+once 3 is a temporal specification.
 
-action 3 time 1 has the function deadline.
+once 3 has the function deadline.
 
-action 3 time 1 has the temporal label "once".
+once 3 has the temporal label "once".
 
 
 action 3 time 2 is a temporal specification.
@@ -721,38 +721,26 @@ scenario description is, as stated in the source description:
     actions_of_rules expects answers ["description 1 produces item 1 action", "description 10 produces item 10 action", "description 2 produces item 2 action", "description 3 produces item 3 action", "description 4 produces item 4 action", "description 5 produces item 5 action", "description 6 produces item 6 action", "description 7 produces item 7 action", "description 8 produces item 8 action", "description 9 produces item 9 action"].
     actions_of_agents expects answers ["authorised representatives of 3 rd country manufacturers acts as addressee in item 2 action", "european commission acts as addressee in action 3", "ms applicants for financial schemes acts as addressee in item 7 action", "national market surveillance authorities via ec run eprel database acts as addressee in action 1", "national market surveillance authorities via ec run eprel database acts as addressee in action 2", "providers of online marketplaces acts as addressee in item 6 action", "retailer acts as addressee in item 3 action", "retailers at point of sale acts as addressee in item 4 action", "supplier of energy related product with label authorised representatives acts as addresser in action 1", "suppliers acts as addressee in item 5 action", "suppliers manufacturers authorised representatives of manufacturers outside the eu acts as addressee in item 1 action", "tyre manufacturers acts as addressee in item 10 action", "tyre manufacturers acts as addressee in item 8 action", "tyre manufacturers acts as addressee in item 9 action", "tyre supplier acts as addresser in action 3", "tyre suppliers acts as addresser in action 2"].
 
-query parts is:
-    which thing is part of the description.
+query deadlines is:
+    which thing has which temporal specification as deadline.
 
-query kinds is:
-    which thing is of the kind which kind.
+query due_dates is:
+    which agent has which action due on which date.
 
-query bearer is:
-    the bearer role is which role.
+query due_in_2027 is:
+    which agent has which action due on which date in the period from 2027-01-01 to 2027-12-31.
 
-query rules_of_act is:
-    which rule is established by the act which act.
+query must_perform is:
+    which party must perform which action by which date under which rule.
 
-query provisions is:
-    which thing is established in which provision.
+query applies is:
+    which rule applies to which party.
+
+query rules_without_conditions is:
+    which rule has no written conditions.
 
 query places is:
     which rule is laid down in which place.
-
-query joint_rules is:
-    which rule is established in more than one provision.
-
-query prescriptive is:
-    which thing is a prescriptive rule.
-
-query constitutive is:
-    which thing is a constitutive rule.
-
-query triggers is:
-    which thing is triggered by which event.
-
-query actions_of_rules is:
-    which rule produces which action.
 
 query addressers is:
     which agent acts as addresser in which action.
@@ -763,14 +751,35 @@ query addressees is:
 query beneficiaries is:
     which agent acts as beneficiary in which action.
 
+query triggers is:
+    which thing is triggered by which event.
+
+query kinds is:
+    which thing is of the kind which kind.
+
+query rules_of_act is:
+    which rule is established by the act which act.
+
+query provisions is:
+    which thing is established in which provision.
+
+query joint_rules is:
+    which rule is established in more than one provision.
+
+query prescriptive is:
+    which thing is a prescriptive rule.
+
+query constitutive is:
+    which thing is a constitutive rule.
+
+query actions_of_rules is:
+    which rule produces which action.
+
 query actions_of_agents is:
     which agent acts as which role in which action.
 
 query concerned_agents is:
     which rule concerns which agent.
-
-query deadlines is:
-    which thing has which temporal specification as deadline.
 
 query starting_points is:
     which thing has which temporal specification as starting point.
@@ -792,21 +801,6 @@ query times_within is:
 
 query broken_links is:
     which temporal specification breaks its link with which second temporal specification.
-
-query due_dates is:
-    which agent has which action due on which date.
-
-query due_in_2027 is:
-    which agent has which action due on which date in the period from 2027-01-01 to 2027-12-31.
-
-query rules_without_conditions is:
-    which rule has no written conditions.
-
-query applies is:
-    which rule applies to which party.
-
-query must_perform is:
-    which party must perform which action by which date under which rule.
 
 query results is:
     which action has the result which result.
@@ -832,6 +826,9 @@ query capabilities is:
 query publishers is:
     which thing is published by which agent.
 
+query parts is:
+    which thing is part of the description.
+
 query texts is:
     which thing is described by the text which text.
 
@@ -840,4 +837,7 @@ query addresses is:
 
 query plain_texts is:
     the texts of which property have no language.
+
+query bearer is:
+    the bearer role is which role.
 

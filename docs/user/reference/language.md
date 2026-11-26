@@ -1112,6 +1112,14 @@ for the translators). Thus a program and its libraries are in one directory.
   The predicate of `temporal.pl` with the name of each template answers that
   template. Thus the library is part of core LE. In a program that includes the
   library, the verifier does not report the templates of the library as untested.
+  The library also calculates with lengths of time in the ISO 8601 form
+  (`"P12M"`, `"P20D"`, `"PT72H"`):
+  `*a later date* is the period *a duration* after *a date*` (and `before`),
+  `the occurrence *a number* of every *a duration* after *a date* is *a later date*`,
+  `*a date* is a date of every *a duration* from *a start date* in the period from *a first date* to *a last date*`
+  (the dates of a rhythm), and `the day *a text* in the year *a number* is *a date*`
+  (a date without its year: "30 September"). A date is a day: hours count as
+  whole days, rounded up, and `*a duration* counts hours as whole days` says when.
   Refer to `testing/fixtures/temporal/uses_temporal.le`.
 - **`lib/text.le`** (+ `text.pl`): pieces of text.
   `the joining of *a list* is *a text*` (the items of the list one after the other,
@@ -1156,9 +1164,22 @@ for the translators). Thus a program and its libraries are in one directory.
   or the sentence of a prohibition is the case. The reparation of a program is a rule
   that concludes a new obligation from a violation:
   `a person is obliged that the person pays 200 penalty units if the prohibition of the person that the person engages in a credit activity is violated`.
+  A right: `*a party* has the right that *a sentence*` is a permission of the
+  holder, and `the right of *a party* that *a sentence* binds *a second party*`
+  makes the obligation of the second party (the correlative duty).
   The library says nothing about time. It says who has an obligation, and what is
   violated, in one case. The translator for LegalRuleML (`migration/legalruleml/`) writes
   its programs with this library.
+- **`lib/lomo.le`** (+ `lomo.pl`): the words of LOMO, the Legal Obligation Metadata
+  Ontology of the European institutions, and what a LOMO description means: the
+  kinds of rule, the links in both directions, who acts in which role, the acts and
+  articles of an ELI, the dates of a time specification, rhythms and the calendar,
+  who is bound in a case, the conditions of a rule (`the conditions of *a rule* hold
+  for *a party*`: they hold until a program writes them, and each answer says so),
+  derogation, and the duties of a party (`must perform ... by ...`, `met`, `is late
+  with`). The library includes `temporal` and `deontic`. The LOMO translator
+  (`migration/lomo/`) writes its registers with this library. Refer to
+  [LOMO and Logical English](../integrations/lomo.md).
 
 ### 14.3 Scenarios from other files (`includes these scenarios:`)
 A program can get its scenarios and its queries from a different file. To do this, write an `includes these scenarios:` header.

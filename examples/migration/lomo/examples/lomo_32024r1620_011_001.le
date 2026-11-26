@@ -298,23 +298,44 @@ scenario description is, as stated in the source description:
     actions_of_rules expects answers ["reg 20241620 art 11 par 1 produces reg 20241620 art 11 par 1 action 1", "reg 20241620 art 11 par 1 produces reg 20241620 art 11 par 1 action 2", "reg 20241620 art 11 par 1 produces reg 20241620 art 11 par 1 action 3", "reg 20241620 art 11 par 1 produces reg 20241620 art 11 par 1 action 4", "reg 20241620 art 11 par 1 produces reg 20241620 art 11 par 1 action 5"].
     actions_of_agents expects answers ["european supervisory authorities acts as addressee in reg 20241620 art 11 par 1 action 3", "item the authority acts as addresser in reg 20241620 art 11 par 1 action 1", "item the authority acts as addresser in reg 20241620 art 11 par 1 action 2", "item the authority acts as addresser in reg 20241620 art 11 par 1 action 3", "item the authority acts as addresser in reg 20241620 art 11 par 1 action 4", "item the authority acts as addresser in reg 20241620 art 11 par 1 action 5", "non amlcft authorities acts as addressee in reg 20241620 art 11 par 1 action 3", "obliged entities acts as addressee in reg 20241620 art 11 par 1 action 5", "other national authorities acts as addressee in reg 20241620 art 11 par 1 action 3", "supervisory authorities acts as addressee in reg 20241620 art 11 par 1 action 3", "supervisory authorities acts as addressee in reg 20241620 art 11 par 1 action 5"].
 
-query parts is:
-    which thing is part of the description.
+query obligations is:
+    which rule has the modality obligation for which agent as which role.
+
+query permissions is:
+    which rule has the modality permission for which agent as which role.
+
+query prohibitions is:
+    which rule has the modality prohibition for which agent as which role.
+
+query rights is:
+    which rule has the modality right for which agent as which role.
+
+query applies is:
+    which rule applies to which party.
+
+query rules_without_conditions is:
+    which rule has no written conditions.
+
+query places is:
+    which rule is laid down in which place.
+
+query addressers is:
+    which agent acts as addresser in which action.
+
+query addressees is:
+    which agent acts as addressee in which action.
+
+query beneficiaries is:
+    which agent acts as beneficiary in which action.
 
 query kinds is:
     which thing is of the kind which kind.
-
-query bearer is:
-    the bearer role is which role.
 
 query rules_of_act is:
     which rule is established by the act which act.
 
 query provisions is:
     which thing is established in which provision.
-
-query places is:
-    which rule is laid down in which place.
 
 query legal_texts is:
     which thing has the legal text which text.
@@ -331,32 +352,11 @@ query constitutive is:
 query modalities is:
     which rule has the modality which modality.
 
-query obligations is:
-    which rule has the modality obligation for which agent as which role.
-
-query prohibitions is:
-    which rule has the modality prohibition for which agent as which role.
-
-query permissions is:
-    which rule has the modality permission for which agent as which role.
-
-query rights is:
-    which rule has the modality right for which agent as which role.
-
 query requirement_types is:
     which rule has the requirement type which requirement type.
 
 query actions_of_rules is:
     which rule produces which action.
-
-query addressers is:
-    which agent acts as addresser in which action.
-
-query addressees is:
-    which agent acts as addressee in which action.
-
-query beneficiaries is:
-    which agent acts as beneficiary in which action.
 
 query actions_of_agents is:
     which agent acts as which role in which action.
@@ -366,12 +366,6 @@ query concerned_agents is:
 
 query sequence is:
     which action comes before which second action.
-
-query rules_without_conditions is:
-    which rule has no written conditions.
-
-query applies is:
-    which rule applies to which party.
 
 query obliged is:
     which party is obliged that which sentence.
@@ -391,9 +385,15 @@ query violations is:
 query results is:
     which action has the result which result.
 
+query parts is:
+    which thing is part of the description.
+
 query texts is:
     which thing is described by the text which text.
 
 query addresses is:
     which thing is identified by which address.
+
+query bearer is:
+    the bearer role is which role.
 

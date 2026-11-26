@@ -28,11 +28,13 @@
 :- use_module(library(apply)).
 :- use_module(library(option)).
 :- use_module(library(pairs)).
-:- use_module(library(semweb/rdf_db), [rdf_is_bnode/1]).
+:- use_module(lomo_reader, [rdf_is_bnode/1]).
 :- use_module(lomo_reader).
 :- use_module(lomo_words).
 :- use_module(lomo_shacl, [check_file/2]).
-:- use_module(lomo_eli, []).
+
+:- dynamic lomo_twin_dir/1.
+:- prolog_load_context(directory, D), retractall(lomo_twin_dir(_)), assertz(lomo_twin_dir(D)).
 
 %!  twin_name(+File, -Name) is det.
 twin_name(File, Name) :-
@@ -69,6 +71,8 @@ twin_migration(File, Options, migration(Meta, program(Header, Items), Ledger, Te
     append(Queries0, Extra, Queries),
     (   option(eli_texts(Dir), Options)
     ->  findall(E, member(fact(lomo_established_in(_, E), _), Items0), Es0), sort(Es0, Es),
+        lomo_twin_dir(TD), atomic_list_concat([TD, '/lomo_eli'], EM),
+        use_module(EM, []),                % here, not at load: it needs library(process)
         include([E]>>( sub_string(E, _, _, _, "/eli/"), lomo_eli:eli_celex(E, _) ), Es, EliEs),
         lomo_eli:write_provision_texts(EliEs, Dir, Docs)
     ;   Docs = []
@@ -142,7 +146,7 @@ statement_fact(Names, Prefixes, st(S, P, V), L-How) :-
     ->  L =.. [F, SN], ( older_class(C) -> How = older(C) ; How = class(C) )
     ;   rdf_type(P), V = address(C)
     ->  compact_iri(C, Prefixes, CT), L = lomo_has_type(SN, CT), How = type(C)
-    ;   property_word(P, F, _, _)
+    ;   property_word(P, F, _, Kind), fits(Kind, V)
     ->  value_term(Names, V, VT), L =.. [F, SN, VT],
         ( older(P) -> How = older(P) ; How = lomo(P) )
     ;   compact_iri(P, Prefixes, PT),
@@ -154,6 +158,18 @@ statement_fact(Names, Prefixes, st(S, P, V), L-How) :-
     ).
 
 rdf_type('http://www.w3.org/1999/02/22-rdf-syntax-ns#type').
+
+%   A value of the kind its property's sentence expects: a literal for a
+%   literal's sentence, a thing or an address for the others. A statement
+%   whose value does not fit (cav:interpretation, a text in the vocabulary,
+%   is an address in the digital statements' data) keeps the general form,
+%   so that the way back writes it as it was.
+fits(Kind, lit(K, _, _)) :- !,
+    (   Kind == text -> memberchk(K, [text, value])
+    ;   K == Kind -> true
+    ;   K == value                                  % another datatype ("2035"^^xsd:gYear): its own fact says which
+    ).                                              % but "Ad-hoc"@en is not a duration
+fits(Kind, _) :- memberchk(Kind, [thing, word, address]).
 
 value_term(Names, node(I), N) :- !, name_of(Names, I, N).
 value_term(_, word(W, _), W) :- !.
@@ -168,7 +184,7 @@ formats(Sts, Prefixes, Facts, Notes) :-
     findall(P, member(st(_, P, lit(_, _, _)), Sts), AllPs0), sort(AllPs0, AllPs),
     findall(PFacts-VFacts,
             ( member(P, AllPs),
-              findall(F-(V-Form), ( member(st(_, P, lit(K, V, Form)), Sts), form_of(K, V, Form, F) ), FVs),
+              findall(F-(V-Form), ( member(st(_, P, lit(K, V, Form)), Sts), form_of(P, K, V, Form, F) ), FVs),
               findall(F, member(F-_, FVs), Fs), msort(Fs, SFs), clumped(SFs, Cl),
               sort(2, @>=, Cl, [Major-_|_]),
               compact_iri(P, Prefixes, PT),
@@ -183,7 +199,14 @@ formats(Sts, Prefixes, Facts, Notes) :-
     maplist([F0, fact(F0, [])]>>true, Facts0, Facts),
     Notes = [].
 
-form_of(K, V, Form, F) :- ( usual_form(K, V, Form) -> F = usual ; F = Form ).
+%   The usual form of a value: its kind's, for a property of the table; a
+%   text in English, for a property kept in the general form (whose values
+%   the way back writes as texts unless the register says otherwise).
+form_of(P, K, V, Form, F) :-
+    (   property_word(P, _, _, PK), fits(PK, lit(K, V, Form))
+    ->  ( usual_form(K, V, Form) -> F = usual ; F = Form )
+    ;   ( Form == lang(en) -> F = usual ; F = Form )
+    ).
 
 %   A value whose form differs from its property's usual one.
 value_form_fact(plain, V, _, lomo_value_plain(V)) :- !.
@@ -283,12 +306,25 @@ derived(lomo_place_of,         "the place of *a provision* in its act is *a text
 %   written only when the register has at least one fact of each).
 
 questions(Used, Items) :-
-    findall(query(N, B), ( question(N, _, B, Needs), forall(member(F, Needs), used(F, Used)) ), Items0),
+    findall(N-query(N, B), ( question(N, _, B, Needs), forall(member(F, Needs), used(F, Used)) ), NQs),
+    first_questions(First), last_questions(Last),
+    findall(Q, ( member(N, First), memberchk(N-Q, NQs) ), Q1),
+    findall(Q, ( member(N-Q, NQs), \+ memberchk(N, First), \+ memberchk(N, Last) ), Q2),
+    findall(Q, ( member(N, Last), memberchk(N-Q, NQs) ), Q3),
+    append([Q1, Q2, Q3], Items0),
     (   Items0 == [] -> Items = []
     ;   Items = [blank, comment("The questions of LOMO's requirements document (its competency questions),\nas far as a description can answer them.")|Items0]
     ).
 
 used(F, Used) :- memberchk(F/_, Used).
+
+%   The questions an annotator asks first (the review of 26 November 2026),
+%   and the ones for the way back and the generic form, last.
+first_questions([obligations, permissions, prohibitions, rights, deadlines, due_dates, due_in_2027,
+                 must_perform, applies, rules_without_conditions, places, addressers, addressees,
+                 beneficiaries, triggers, derogations, kinds]).
+last_questions([parts, texts, other_values, other_resources, other_types, addresses, literal_forms,
+                plain_texts, older_conditions, definition_flags, bearer]).
 
 question(parts,             'search', lomo_part(_), []).
 question(kinds,             'actions, agents and roles 5', lomo_kind(_, _), []).
@@ -403,7 +439,7 @@ validity_entries(File, Es) :-
     ),
     read_lomo(File, lomo(Sts, Nodes, _)),
     findall(entry(V, 'a length of time', approximated, 'kept as text; no date is calculated from it', N, Msg),
-            ( member(st(S, _, lit(duration, V, _)), Sts),
+            ( member(st(S, P, lit(_, V, _)), Sts), property_word(P, _, _, duration),
               \+ lomo_temporal:le_temporal_iso(V, _),
               ( memberchk(node(S, N, _), Nodes) -> true ; N = '-' ),
               format(string(Msg), "~q is not a length of time in the standard form of ISO 8601 (P1Y, P12M, PT72H): a calendar cannot count with it", [V]) ),

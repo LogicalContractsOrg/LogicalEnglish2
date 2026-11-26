@@ -41,9 +41,9 @@ action 1 is an action.
 
 action 1 has the label "Industrial emissions & waste transfer data".
 
-action 1 has the time specification action 1 time 1.
+action 1 has the time specification environmental reporting cycle.
 
-action 1 has the time specification action 1 time 2.
+action 1 has the time specification annual collected.
 
 action 1 is established in "https://data.europa.eu/eli/dl/proc/2025/981/cod/doc/com/COM_2025_981/FINAL/eng/art_2/par_9".
 
@@ -54,18 +54,18 @@ action 1 has the agent role addresser operators member states.
 action 1 has the result action 1 result.
 
 
-action 1 time 1 is a temporal specification.
+environmental reporting cycle is a temporal specification.
 
-action 1 time 1 has the function trigger.
+environmental reporting cycle has the function trigger.
 
-action 1 time 1 has the temporal label "Environmental reporting cycle".
+environmental reporting cycle has the temporal label "Environmental reporting cycle".
 
 
-action 1 time 2 is a temporal specification.
+annual collected is a temporal specification.
 
-action 1 time 2 has the function deadline.
+annual collected has the function deadline.
 
-action 1 time 2 has the temporal label "Annual / as collected".
+annual collected has the temporal label "Annual / as collected".
 
 
 action 1 result is an action result.
@@ -81,9 +81,9 @@ action 2 is an action.
 
 action 2 has the label "Battery waste management data".
 
-action 2 has the time specification action 2 time 1.
+action 2 has the time specification reporting period.
 
-action 2 has the time specification action 2 time 2.
+action 2 has the time specification determined.
 
 action 2 is established in "https://data.europa.eu/eli/dl/proc/2025/981/cod/doc/com/COM_2025_981/FINAL/eng/art_1/par_3".
 
@@ -94,18 +94,18 @@ action 2 has the agent role addresser member states.
 action 2 has the result action 2 result.
 
 
-action 2 time 1 is a temporal specification.
+reporting period is a temporal specification.
 
-action 2 time 1 has the function trigger.
+reporting period has the function trigger.
 
-action 2 time 1 has the temporal label "Reporting period".
+reporting period has the temporal label "Reporting period".
 
 
-action 2 time 2 is a temporal specification.
+determined is a temporal specification.
 
-action 2 time 2 has the function deadline.
+determined has the function deadline.
 
-action 2 time 2 has the temporal label "As determined".
+determined has the temporal label "As determined".
 
 
 action 2 result is an action result.
@@ -323,35 +323,26 @@ eea european commission is identified by "http://example.org/agent/eea-european-
 scenario description is, as stated in the source description:
     actions_of_agents expects answers ["commission eea acts as addressee in action 1", "european commission acts as addressee in action 2", "member states acts as addresser in action 2", "operators member states acts as addresser in action 1"].
 
-query parts is:
-    which thing is part of the description.
+query deadlines is:
+    which thing has which temporal specification as deadline.
 
-query kinds is:
-    which thing is of the kind which kind.
+query due_dates is:
+    which agent has which action due on which date.
 
-query bearer is:
-    the bearer role is which role.
+query due_in_2027 is:
+    which agent has which action due on which date in the period from 2027-01-01 to 2027-12-31.
 
-query rules_of_act is:
-    which rule is established by the act which act.
+query must_perform is:
+    which party must perform which action by which date under which rule.
 
-query provisions is:
-    which thing is established in which provision.
+query applies is:
+    which rule applies to which party.
+
+query rules_without_conditions is:
+    which rule has no written conditions.
 
 query places is:
     which rule is laid down in which place.
-
-query joint_rules is:
-    which rule is established in more than one provision.
-
-query prescriptive is:
-    which thing is a prescriptive rule.
-
-query constitutive is:
-    which thing is a constitutive rule.
-
-query triggers is:
-    which thing is triggered by which event.
 
 query addressers is:
     which agent acts as addresser in which action.
@@ -362,11 +353,29 @@ query addressees is:
 query beneficiaries is:
     which agent acts as beneficiary in which action.
 
+query triggers is:
+    which thing is triggered by which event.
+
+query kinds is:
+    which thing is of the kind which kind.
+
+query rules_of_act is:
+    which rule is established by the act which act.
+
+query provisions is:
+    which thing is established in which provision.
+
+query joint_rules is:
+    which rule is established in more than one provision.
+
+query prescriptive is:
+    which thing is a prescriptive rule.
+
+query constitutive is:
+    which thing is a constitutive rule.
+
 query actions_of_agents is:
     which agent acts as which role in which action.
-
-query deadlines is:
-    which thing has which temporal specification as deadline.
 
 query starting_points is:
     which thing has which temporal specification as starting point.
@@ -389,21 +398,6 @@ query times_within is:
 query broken_links is:
     which temporal specification breaks its link with which second temporal specification.
 
-query due_dates is:
-    which agent has which action due on which date.
-
-query due_in_2027 is:
-    which agent has which action due on which date in the period from 2027-01-01 to 2027-12-31.
-
-query rules_without_conditions is:
-    which rule has no written conditions.
-
-query applies is:
-    which rule applies to which party.
-
-query must_perform is:
-    which party must perform which action by which date under which rule.
-
 query results is:
     which action has the result which result.
 
@@ -425,6 +419,9 @@ query publishers is:
 query cited_resources is:
     which thing cites which resource.
 
+query parts is:
+    which thing is part of the description.
+
 query texts is:
     which thing is described by the text which text.
 
@@ -439,4 +436,7 @@ query addresses is:
 
 query plain_texts is:
     the texts of which property have no language.
+
+query bearer is:
+    the bearer role is which role.
 

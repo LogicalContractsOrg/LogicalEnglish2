@@ -36,7 +36,8 @@
 adapter(Rel, File) :-
     allowed,
     importers_dir(D),
-    atomic_list_concat([D, '/', Rel], File).
+    atomic_list_concat([D, '/', Rel], File),
+    exists_file(File).          % a build that packs only some translators (WebAssembly) offers only those
 
 allowed :-
     catch(le_entitlements:entitled(converters),

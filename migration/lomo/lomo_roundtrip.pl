@@ -70,44 +70,53 @@ example_file(F) :-
     le2_paths:le2_dir(D),
     member(Sub, ['examples/moreExamples', 'examples/regulatory', 'examples/migration/legalruleml']),
     atomic_list_concat([D, '/', Sub], Dir),
-    directory_member(Dir, F, [extensions([le]), recursive(true)]),
+    directory_member(Dir, F, [extensions([le]), recursive(true), follow_links(false)]),
     \+ sub_atom(F, _, _, _, '/sources/'),
+    \+ ( member(X, ['/lpsPlus/', '/InsurLE2/', '/insureLE2/', '/private/']), sub_atom(F, _, _, _, X) ),
     file_base_name(F, B), \+ memberchk(B, ['deontic.le', 'temporal.le', 'lomo.le', 'rounding.le', 'text.le', 'maths.le', 'lists.le', 'feel.le']),
     read_file_to_string(F, T, []),
-    sub_string(T, _, _, _, "with provenance"),
+    once(sub_string(T, _, _, _, "with provenance")),
     \+ sub_string(T, _, _, _, "target language is: lps").
 
 %   examples_export(-Results): [ex(File, exported(N, Valid) | refused(Reasons) | error(E))]
+%   Each program is printed as it is done (a run over every example takes
+%   long), with 120 seconds for each.
 examples_export(Results) :-
     tmp_file_stream(text, Tmp0, S0), close(S0), atom_concat(Tmp0, '.ttl', Tmp),
     findall(ex(F, V),
             ( example_file(F),
-              catch(( load(F, KB),
-                      export_lomo(KB, [file(F)], R),
-                      (   R = exported(_, Text, _, _)
-                      ->  setup_call_cleanup(open(Tmp, write, S, [encoding(utf8)]), write(S, Text), close(S)),
-                          check_file(Tmp, VRs), length(VRs, NV),
-                          rdf_count(Tmp, NT),
-                          V = exported(NT, NV)
-                      ;   R = refused(Ps), findall(M, member(problem(_, M), Ps), Ms), V = refused(Ms)
-                      ) ), E, V = error(E)) ),
+              catch(call_with_time_limit(120, once(export_one(F, Tmp, V))), E, V = error(E)),
+              print_one(ex(F, V)) ),
             Results).
 
-rdf_count(F, N) :- semweb_turtle:rdf_read_turtle(F, Ts, []), length(Ts, N).
+export_one(F, Tmp, V) :-
+    load(F, KB),
+    export_lomo(KB, [file(F)], R),
+    (   R = exported(_, Text, _, _)
+    ->  setup_call_cleanup(open(Tmp, write, S, [encoding(utf8)]), write(S, Text), close(S)),
+        check_file(Tmp, VRs), length(VRs, NV),
+        rdf_count(Tmp, NT),
+        V = exported(NT, NV)
+    ;   R = refused(Ps), findall(M, member(problem(_, M), Ps), Ms), V = refused(Ms)
+    ).
+
+print_one(ex(F, V)) :-
+    le2_paths:le2_dir(D), ( atom_concat(D, Rel, F) -> true ; Rel = F ),
+    (   V = exported(N, 0) -> format("exported, valid: ~w (~w statements)~n", [Rel, N])
+    ;   V = exported(N, K) -> format("exported, ~w validity results: ~w (~w statements)~n", [K, Rel, N])
+    ;   V = refused(Ms) -> Ms = [M|_], length(Ms, NM), format("refused (~w reasons): ~w~n   e.g. ~w~n", [NM, Rel, M])
+    ;   format("ERROR ~w: ~q~n", [Rel, V])
+    ),
+    flush_output.
+
+rdf_count(F, N) :- rdf_read_turtle(F, Ts, []), length(Ts, N).
 
 examples :-
     examples_export(Rs),
-    forall(member(ex(F, V), Rs),
-           ( le2_paths:le2_dir(D), atom_concat(D, Rel, F),
-             (   V = exported(N, 0) -> format("exported, valid: ~w (~w statements)~n", [Rel, N])
-             ;   V = exported(N, K) -> format("exported, ~w validity results: ~w (~w statements)~n", [K, Rel, N])
-             ;   V = refused(Ms) -> Ms = [M|_], length(Ms, NM), format("refused (~w reasons): ~w~n   e.g. ~w~n", [NM, Rel, M])
-             ;   format("ERROR ~w: ~q~n", [Rel, V])
-             ) )),
     length(Rs, All),
     aggregate_all(count, member(ex(_, exported(_, 0)), Rs), Valid),
     aggregate_all(count, member(ex(_, exported(_, K)), Rs), Exported), K = K,
     aggregate_all(count, member(ex(_, refused(_)), Rs), Refused),
     format("~nexamples that cite provisions: ~w; exported ~w (valid ~w), refused with reasons ~w~n", [All, Exported, Valid, Refused]).
 
-:- use_module(library(semweb/turtle), []).
+:- use_module(library(semweb/turtle), [rdf_read_turtle/3]).

@@ -205,16 +205,26 @@ le_temporal_month_name(november, 11). le_temporal_month_name(december, 12).
 le_temporal_day_of_year(Text, Year, date(Year, M, D)) :-
     ( string(Text) -> string_lower(Text, L) ; atom(Text) -> atom_string(Text, S), string_lower(S, L) ),
     split_string(L, " ,", " ,", Ws0),
-    exclude(==(""), Ws0, Ws1),
-    exclude([W]>>memberchk(W, ["of", "the", "on"]), Ws1, Ws),
+    le_temporal_day_words(Ws0, Ws),
     ( Ws = [DS, MS] ; Ws = [MS, DS] ),
     atom_string(MA, MS), le_temporal_month_name(MA, M),
     le_temporal_day_text(DS, D),
     le_temporal_days_in_month(Year, M, Last), D >= 1, D =< Last.
 
+%   Without "", "of", "the", "on" (no lambda: LE's reasoner runs these clauses).
+le_temporal_day_words([], []).
+le_temporal_day_words([W|Ws], Out) :-
+    (   memberchk(W, ["", "of", "the", "on"]) -> Out = Out1 ; Out = [W|Out1] ),
+    le_temporal_day_words(Ws, Out1).
+
 le_temporal_day_text(S, D) :-
-    string_codes(S, Cs), include([C]>>code_type(C, digit), Cs, Ds), Ds \== [],
+    string_codes(S, Cs), le_temporal_digits(Cs, Ds), Ds \== [],
     number_codes(D, Ds).
+
+le_temporal_digits([], []).
+le_temporal_digits([C|Cs], Out) :-
+    (   code_type(C, digit) -> Out = [C|Out1] ; Out = Out1 ),
+    le_temporal_digits(Cs, Out1).
 
 %   The templates of temporal.le.
 the_age_on_of_someone_born_on_is(Date, Birth, N) :- le_temporal_years_between(Birth, Date, N).

@@ -111,7 +111,7 @@ action 1 is an action.
 
 action 1 has the label "Catches of certain fish stocks at a certain level".
 
-action 1 has the time specification action 1 time 1.
+action 1 has the time specification certain frequency overall catch level.
 
 action 1 has the time specification action 1 time 2.
 
@@ -126,11 +126,11 @@ action 1 has the agent role addresser flag member states.
 action 1 has the result action 1 result.
 
 
-action 1 time 1 is a temporal specification.
+certain frequency overall catch level is a temporal specification.
 
-action 1 time 1 has the function trigger.
+certain frequency overall catch level has the function trigger.
 
-action 1 time 1 has the temporal label "Certain frequency or overall catch level".
+certain frequency overall catch level has the temporal label "Certain frequency or overall catch level".
 
 
 action 1 time 2 is a temporal specification.
@@ -182,7 +182,7 @@ action 2 has the time specification action 2 time 1.
 
 action 2 has the time specification action 2 time 2.
 
-action 2 has the time specification action 2 time 3.
+action 2 has the time specification reception flag member state reporting.
 
 action 2 is established in "https://data.europa.eu/eli/dl/proc/2025/92/cod/doc/com/COM_2025_92/FINAL/eng/art_1/par_2".
 
@@ -207,11 +207,11 @@ action 2 time 2 has the frequency "P1W".
 action 2 time 2 has the function deadline.
 
 
-action 2 time 3 is a temporal specification.
+reception flag member state reporting is a temporal specification.
 
-action 2 time 3 has the function trigger.
+reception flag member state reporting has the function trigger.
 
-action 2 time 3 has the temporal label "Reception of flag Member State reporting".
+reception flag member state reporting has the temporal label "Reception of flag Member State reporting".
 
 
 action 2 result is an action result.
@@ -315,38 +315,26 @@ scenario description is, as stated in the source description:
     actions_of_rules expects answers ["description 1 produces action", "description 1 produces action 1", "description 1 produces action 2"].
     actions_of_agents expects answers ["european commission acts as addressee in action 1", "european commission acts as addresser in action 2", "european commission flag member statesrfmos secretariats in certain cases acts as addressee in action", "flag member states acts as addresser in action 1", "rfmo secretariat acts as addressee in action 2"].
 
-query parts is:
-    which thing is part of the description.
+query deadlines is:
+    which thing has which temporal specification as deadline.
 
-query kinds is:
-    which thing is of the kind which kind.
+query due_dates is:
+    which agent has which action due on which date.
 
-query bearer is:
-    the bearer role is which role.
+query due_in_2027 is:
+    which agent has which action due on which date in the period from 2027-01-01 to 2027-12-31.
 
-query rules_of_act is:
-    which rule is established by the act which act.
+query must_perform is:
+    which party must perform which action by which date under which rule.
 
-query provisions is:
-    which thing is established in which provision.
+query applies is:
+    which rule applies to which party.
+
+query rules_without_conditions is:
+    which rule has no written conditions.
 
 query places is:
     which rule is laid down in which place.
-
-query joint_rules is:
-    which rule is established in more than one provision.
-
-query prescriptive is:
-    which thing is a prescriptive rule.
-
-query constitutive is:
-    which thing is a constitutive rule.
-
-query triggers is:
-    which thing is triggered by which event.
-
-query actions_of_rules is:
-    which rule produces which action.
 
 query addressers is:
     which agent acts as addresser in which action.
@@ -357,14 +345,35 @@ query addressees is:
 query beneficiaries is:
     which agent acts as beneficiary in which action.
 
+query triggers is:
+    which thing is triggered by which event.
+
+query kinds is:
+    which thing is of the kind which kind.
+
+query rules_of_act is:
+    which rule is established by the act which act.
+
+query provisions is:
+    which thing is established in which provision.
+
+query joint_rules is:
+    which rule is established in more than one provision.
+
+query prescriptive is:
+    which thing is a prescriptive rule.
+
+query constitutive is:
+    which thing is a constitutive rule.
+
+query actions_of_rules is:
+    which rule produces which action.
+
 query actions_of_agents is:
     which agent acts as which role in which action.
 
 query concerned_agents is:
     which rule concerns which agent.
-
-query deadlines is:
-    which thing has which temporal specification as deadline.
 
 query starting_points is:
     which thing has which temporal specification as starting point.
@@ -390,21 +399,6 @@ query times_within is:
 query broken_links is:
     which temporal specification breaks its link with which second temporal specification.
 
-query due_dates is:
-    which agent has which action due on which date.
-
-query due_in_2027 is:
-    which agent has which action due on which date in the period from 2027-01-01 to 2027-12-31.
-
-query rules_without_conditions is:
-    which rule has no written conditions.
-
-query applies is:
-    which rule applies to which party.
-
-query must_perform is:
-    which party must perform which action by which date under which rule.
-
 query results is:
     which action has the result which result.
 
@@ -423,9 +417,15 @@ query datasets is:
 query references is:
     which rule references which resource.
 
+query parts is:
+    which thing is part of the description.
+
 query texts is:
     which thing is described by the text which text.
 
 query addresses is:
     which thing is identified by which address.
+
+query bearer is:
+    the bearer role is which role.
 

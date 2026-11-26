@@ -28,7 +28,7 @@
 :- use_module(library(lists)).
 :- use_module(library(apply)).
 :- use_module(library(semweb/turtle)).
-:- use_module(library(semweb/rdf_db), [rdf_is_bnode/1]).
+:- use_module(lomo_reader, [rdf_is_bnode/1]).
 :- use_module(corpus).
 
 sh(L, I) :- atom_concat('http://www.w3.org/ns/shacl#', L, I).

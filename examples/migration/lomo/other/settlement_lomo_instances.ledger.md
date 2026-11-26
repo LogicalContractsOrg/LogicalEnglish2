@@ -10,9 +10,9 @@ Source licence: Creative Commons Attribution 4.0 (the description); the register
 | Verdict | Source elements |
 |---|---|
 | encoded | 116 |
-| approximated | 0 |
+| approximated | 3 |
 | residue | 0 |
-| **total** | 116 |
+| **total** | 119 |
 
 Fidelity: **3 of 3** source test expectation(s) reproduced (100%).
 
@@ -79,9 +79,9 @@ A source element is **encoded** when a documented mapping rule translated it wit
 | http://data.europa.eu/leg/lomo/test#AgentRole_ESCB_Sharer | agent role | encoded | 4 statements(4), one fact each | agent role escb sharer |  |
 | http://data.europa.eu/leg/lomo/test#AgentRole_ThirdCountryOperator_Applicant | agent role | encoded | 4 statements(4), one fact each | agent role third country operator applicant |  |
 | http://data.europa.eu/leg/lomo/test#AgentRole_RegisteringAuthority_Notifier | agent role | encoded | 4 statements(4), one fact each | agent role registering authority notifier |  |
-| http://data.europa.eu/leg/lomo/test#TemporalSpec_Immediate | *a thing* is a temporal specification | encoded | 7 statements(7), one fact each | temporal spec immediate |  |
-| http://data.europa.eu/leg/lomo/test#TemporalSpec_ApplicationPeriod | *a thing* is a temporal specification | encoded | 7 statements(7), one fact each | temporal spec application period |  |
-| http://data.europa.eu/leg/lomo/test#TemporalSpec_Ongoing | *a thing* is a temporal specification | encoded | 6 statements(6), one fact each | temporal spec ongoing |  |
+| http://data.europa.eu/leg/lomo/test#TemporalSpec_Immediate | *a thing* is a temporal specification | encoded | 7 statements(7), one fact each | temporal spec immediate | words of LOMO before 1.1.0: lomo:frequency |
+| http://data.europa.eu/leg/lomo/test#TemporalSpec_ApplicationPeriod | *a thing* is a temporal specification | encoded | 7 statements(7), one fact each | temporal spec application period | words of LOMO before 1.1.0: lomo:frequency |
+| http://data.europa.eu/leg/lomo/test#TemporalSpec_Ongoing | *a thing* is a temporal specification | encoded | 6 statements(6), one fact each | temporal spec ongoing | words of LOMO before 1.1.0: lomo:frequency |
 | http://data.europa.eu/leg/lomo/test#Result_CentralDatabase | action result | encoded | 5 statements(5), one fact each | result central database |  |
 | http://data.europa.eu/leg/lomo/test#Result_ChangeNotification | action result | encoded | 6 statements(6), one fact each | result change notification |  |
 | http://data.europa.eu/leg/lomo/test#Result_WithdrawalNotification | action result | encoded | 6 statements(6), one fact each | result withdrawal notification |  |
@@ -130,14 +130,17 @@ A source element is **encoded** when a documented mapping rule translated it wit
 | http://data.europa.eu/leg/lomo/test#AssessmentTypeOrganisationalMeasures | owl:NamedIndividual | encoded | 3 statements(3), one fact each | assessment type organisational measures |  |
 | http://data.europa.eu/leg/lomo/test#AssessmentTypeSharedDataUnderstanding | owl:NamedIndividual | encoded | 3 statements(3), one fact each | assessment type shared data understanding |  |
 | http://data.europa.eu/leg/lomo/test#AssessmentTypeStandardsSpecifications | owl:NamedIndividual | encoded | 3 statements(3), one fact each | assessment type standards specifications |  |
-| http://data.europa.eu/leg/lomo/test#Statement_AlignmentPolicies | assessment statement | encoded | 6 statements(6), one fact each | statement alignment policies | kept in the generic form (no word in lomo.le): dcterms:type |
-| http://data.europa.eu/leg/lomo/test#Statement_OrganisationalMeasures | assessment statement | encoded | 6 statements(6), one fact each | statement organisational measures | kept in the generic form (no word in lomo.le): dcterms:type |
-| http://data.europa.eu/leg/lomo/test#Statement_DataUnderstanding | assessment statement | encoded | 6 statements(6), one fact each | statement data understanding | kept in the generic form (no word in lomo.le): dcterms:type |
-| http://data.europa.eu/leg/lomo/test#Statement_StandardsUsage | assessment statement | encoded | 6 statements(6), one fact each | statement standards usage | kept in the generic form (no word in lomo.le): dcterms:type |
+| http://data.europa.eu/leg/lomo/test#Statement_AlignmentPolicies | assessment statement | encoded | 6 statements(6), one fact each | statement alignment policies | kept in the generic form (no word in lomo.le): cav:type, dcterms:type |
+| http://data.europa.eu/leg/lomo/test#Statement_OrganisationalMeasures | assessment statement | encoded | 6 statements(6), one fact each | statement organisational measures | kept in the generic form (no word in lomo.le): cav:type, dcterms:type |
+| http://data.europa.eu/leg/lomo/test#Statement_DataUnderstanding | assessment statement | encoded | 6 statements(6), one fact each | statement data understanding | kept in the generic form (no word in lomo.le): cav:type, dcterms:type |
+| http://data.europa.eu/leg/lomo/test#Statement_StandardsUsage | assessment statement | encoded | 6 statements(6), one fact each | statement standards usage | kept in the generic form (no word in lomo.le): cav:type, dcterms:type |
 | http://data.europa.eu/leg/lomo/test#Assessment_AlignmentPolicies | assessment | encoded | 5 statements(5), one fact each | assessment alignment policies | kept in the generic form (no word in lomo.le): dcterms:type |
 | http://data.europa.eu/leg/lomo/test#Assessment_OrganisationalMeasures | assessment | encoded | 5 statements(5), one fact each | assessment organisational measures | kept in the generic form (no word in lomo.le): dcterms:type |
 | http://data.europa.eu/leg/lomo/test#Assessment_DataUnderstanding | assessment | encoded | 5 statements(5), one fact each | assessment data understanding | kept in the generic form (no word in lomo.le): dcterms:type |
 | http://data.europa.eu/leg/lomo/test#Assessment_StandardsUsage | assessment | encoded | 5 statements(5), one fact each | assessment standards usage | kept in the generic form (no word in lomo.le): dcterms:type |
+| Ad-hoc | a length of time | approximated | kept as text; no date is calculated from it | temporal spec immediate | "Ad-hoc" is not a length of time in the standard form of ISO 8601 (P1Y, P12M, PT72H): a calendar cannot count with it |
+| For designation and on an ad-hoc basis if changes to the designation data occur | a length of time | approximated | kept as text; no date is calculated from it | temporal spec application period | "For designation and on an ad-hoc basis if changes to the designation data occur" is not a length of time in the standard form of ISO 8601 (P1Y, P12M, PT72H): a calendar cannot count with it |
+| Ad-hoc | a length of time | approximated | kept as text; no date is calculated from it | temporal spec ongoing | "Ad-hoc" is not a length of time in the standard form of ISO 8601 (P1Y, P12M, PT72H): a calendar cannot count with it |
 
 ## Source tests
 

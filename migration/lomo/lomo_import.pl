@@ -19,7 +19,6 @@
 :- use_module('../le2_paths', []).
 :- use_module(le2(le_migration)).
 :- use_module(lomo_twin).
-:- use_module(lomo_gate, [gate_tests/2]).
 
 %!  detect_lomo(+Input) is semidet.
 detect_lomo(Input) :-
@@ -36,7 +35,10 @@ import_lomo(Input, OutDir0, imported(LEFile, Notes)) :-
     ( same_file(Input, Copy) -> true ; copy_file(Input, Copy) ),
     forall(member(L, [lomo, temporal, deontic]), copy_library(L, OutDir)),
     twin_name(Input, Name),
-    (   catch(gate_tests(Input, Tests), _, fail) -> true ; Tests = [] ),
+    %  the judges' scenario, where they are installed (lomo_gate needs
+    %  library(process), which the WebAssembly build has not)
+    (   catch(( lomo_twin:lomo_twin_dir(TD), atomic_list_concat([TD, '/lomo_gate'], GM),
+                use_module(GM, []), lomo_gate:gate_tests(Input, Tests) ), _, fail) -> true ; Tests = [] ),
     twin_migration(Input, [name(Name), source_copy(B), tests(Tests)], Migration),
     write_migration(Migration, OutDir, Name, report(LEFile, Issues, counts(E, A, R), _)),
     include([issue(S, _, _)]>>(S == error), Issues, Errs), length(Errs, NE),

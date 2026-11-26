@@ -32,8 +32,8 @@ LPS2 beside this checkout, and skip what they cannot check.
 
 The twins they write live with the language they are written in: timeless LE
 twins in this repository's `examples/migration/<source>/` (Blawx, Catala, DMN,
-the Epilog rulesets, the rules of L4, LegalRuleML, Miniscript, OIPA, RuleSpec,
-RUML, s(CASP), one spreadsheet), LE-for-LPS twins in
+the Epilog rulesets, the rules of L4, LegalRuleML, LOMO, Miniscript, OIPA,
+RuleSpec, RUML, s(CASP), one spreadsheet), LE-for-LPS twins in
 `lps2/examples/migration/<source>/` (Daml, Drools, Ponens, Solidity, the
 contracts of L4, the Epilog games). The twins of sources that may not be
 republished here (the Oracle Intelligent Advisor projects that state no

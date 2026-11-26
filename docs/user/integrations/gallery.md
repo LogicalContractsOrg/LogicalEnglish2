@@ -1,4 +1,4 @@
-# The Migration Gallery: twenty systems, and how each twin was checked
+# The Migration Gallery: twenty-one systems, and how each twin was checked
 
 *Kind: gallery · Audience: anyone deciding whether Logical English can read their rules · Status: current (2026-11-24)*
 
@@ -9,7 +9,7 @@ tests of the other system, written as *scenarios*. A scenario is a set of facts,
 together with the answers that the other system gives. When you run the scenarios,
 you check the twin against the other system.
 
-This page lists the twenty systems that the translators read. For each system, the
+This page lists the twenty-one systems that the translators read. For each system, the
 page tells what the twin was checked against, and the result. When we can run the
 engine of the other system, the twin is checked against that engine. For some
 systems, there is no engine that we can run. Then the page tells what the twin was
@@ -26,15 +26,15 @@ owners.
 
 ## Contents
 
-- [The Migration Gallery: twenty systems, and how each twin was checked](#the-migration-gallery-twenty-systems-and-how-each-twin-was-checked)
+- [The Migration Gallery: twenty-one systems, and how each twin was checked](#the-migration-gallery-twenty-one-systems-and-how-each-twin-was-checked)
   - [Contents](#contents)
-  - [The twenty systems](#the-twenty-systems)
+  - [The twenty-one systems](#the-twenty-one-systems)
   - [How to read the results](#how-to-read-the-results)
   - [Try one in two minutes](#try-one-in-two-minutes)
   - [A free twin of your own program](#a-free-twin-of-your-own-program)
   - [See also](#see-also)
 
-## The twenty systems
+## The twenty-one systems
 
 "Both ways" means that the editor can also write a Logical English program back in
 the format of the other system. *LE for LPS* is Logical English for programs that act
@@ -54,6 +54,7 @@ Production Systems 2).
 | **Excel workbooks** (calculators kept in spreadsheets) | into LE | the values that Excel saved in the workbook; and new cases that an open-source spreadsheet engine (Formualizer, not Excel) calculates from the workbook | each checked value agrees: 2,588 values in 7 workbooks, 484 more waiting. One of the 7 workbooks is published (854 of 854, 49 more waiting). The other 6 state no licence, so their twins are not published | [Open](/editor/index.html?example=migration/spreadsheet/cms_mlr/cms_mlr) (the 2025 Medical Loss Ratio calculator of the United States Centers for Medicare & Medicaid Services) | [watch](https://www.youtube.com/watch?v=cVKjigqVvlo) | [guide](/docs/user/integrations/spreadsheets) |
 | **L4** (legal rules and contracts; Legalese, from Singapore Management University) | into LE and LE for LPS | the evaluator of L4 (the release of April 2026) | 621 of 621 rule answers. 87 of 95 contract runs end at the same point as in L4. The translator did not translate the other 8 | [Open](/editor/index.html?example=migration/l4/british_citizen_act/british_citizen_act) | [watch](https://www.youtube.com/watch?v=Rb0rHYy1Ys8) | [guide](/docs/user/integrations/l4) |
 | **LegalRuleML** (an OASIS Standard for legal rules) | both ways | SPINdle, the defeasible logic reasoner that was used to test the standard, on a theory that the translator writes from each example | 68 of 68 answers, in the 7 examples of the standard that have scenarios. 5 more examples are translated with no scenarios. The scenarios were written for the twins; they are not part of the standard | [Open](/editor/index.html?example=migration/legalruleml/ex5_section29new/ex5_section29new) | [watch](https://www.youtube.com/watch?v=oPdimQmfE4M) | [guide](/docs/user/integrations/legalruleml) |
+| **LOMO** (descriptions of the rules of EU law: the Legal Obligation Metadata Ontology of the European institutions) | both ways | LOMO's seven search queries, run by rdflib on the RDF data; LOMO's validity rules, run by pySHACL. A description has no cases: the cases of the guide were written with answers worked out from the text | RESULT_GALLERY | [Open](/editor/index.html?example=migration/lomo/other/financial_reporting_dir_2013_34_lomo_manual&query=obligations) | (not yet on the channel) | [guide](/docs/user/integrations/lomo) |
 | **Oracle Insurance Policy Administration (OIPA)** (life and annuity transactions) | into LE | a calculator of the transaction formulas that we wrote from the public configuration guide of Oracle. It is not the engine of Oracle. The twins were not run on OIPA | 103 of 103 values, in 6 example transactions that we wrote. They are not configurations of Oracle | [Open](/editor/index.html?example=migration/oipa/termlife_grace_check/termlife_grace_check) | [watch](https://www.youtube.com/watch?v=IFxy2gi_BjU) | [guide](/docs/user/integrations/oipa) |
 | **Oracle Intelligent Advisor** (rules for public services and insurance) | into LE | the test results of the projects | 475 of 476 test results, in the 2 public projects that have test files (5 projects are translated). The one difference is the *unknown* value of Oracle Intelligent Advisor. When a test gives no answer to a question that a rule table needs, Oracle Intelligent Advisor gives no result. Logical English reads the missing answer as false | not published: the five projects state no licence. Instead, [Open](/editor/index.html?example=regulatory/dfe_funding/dfe_16_19_funding&scenario=full_time&query=OnProgPayment) the full 16 to 19 funding rulebase of England. The Department for Education publishes this rulebase as rule documents. A coding assistant (Claude Code, with the model Claude Opus 5.5) wrote it by hand from these documents. It is not a translation. It was checked against an independent second reading, not against the engine of Oracle | [watch](https://www.youtube.com/watch?v=i4qEYqAnvUs) | [guide](/docs/user/integrations/oia) |
 | **PolicyEngine and OpenFisca** (tax and benefit models) | both ways, *preliminary* | the engines of the models | 719 of the 774 test answers that the twins can check, in 6 programmes of 3 models (the country template of OpenFisca, PolicyEngine US, PolicyEngine UK). The ledger of each twin lists the 55 answers that are different. On the model of France: 2,286 of 2,302 income tax answers, in 432 test cases | not published: the licence of the models (AGPL-3.0) would apply to the twins | [watch](https://www.youtube.com/watch?v=WgYGTqR1GJE) | [guide](/docs/user/integrations/openfisca) |

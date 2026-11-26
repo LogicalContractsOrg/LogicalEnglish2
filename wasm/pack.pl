@@ -64,6 +64,15 @@ payload_tree(files('.',      [pl])).           % LE2 itself
 %   (Not migration/, the translators of other systems: several need Node,
 %   Python or Java, and none was tried in WebAssembly. le_kbs.pl offers
 %   Logical English's own formats when the folder is not there.)
+%   One exception: the LOMO door (migration/lomo/), pure Prolog on the Turtle
+%   reader that this image has, with the registry it is listed in
+%   (le_importers.pl offers a translator only when its adapter is there) and
+%   the shapes and the ontology its validity check reads. Its judges and its
+%   download of provisions need Python and curl: they are not called here.
+payload_tree(files('migration', [pl])).
+payload_tree(files('migration/lomo', [pl])).
+payload_tree(dir('migration/lomo/corpus/lomo-1.1.0/shapes', [ttl])).
+payload_tree(dir('migration/lomo/corpus/lomo-1.1.0/ontologies', [ttl])).
 %   The Light Assistant's system prompt, and its translations
 %   (le_i18n:localized_asset/3 finds AGENTS_LE_template.<lang>.md beside it).
 %   Without this file the assistant fails at its first step with an
@@ -81,7 +90,7 @@ payload_tree(dir('examples', [le, pl, md, csv, json, txt, png, jpg, svg])).
 %   (le_original_text.pl) reads them by name, so a build without them has a
 %   menu entry that finds nothing. Their own formats, which are nobody else's
 %   extensions — a LegalRuleML file, an OIA policy, a Daml or Solidity source.
-payload_tree(dir('examples', [lrml, policy, yaml, html, cpp, py, sol, daml, drl, epilog])).
+payload_tree(dir('examples', [lrml, policy, yaml, html, cpp, py, sol, daml, drl, epilog, ttl])).
 %   The user documentation, as text. Not for reading — the site serves the
 %   same files for that — but because the Light Assistant searches it for the
 %   request and cites what it finds (le_docs_search.pl, over docs/user and its
@@ -132,6 +141,7 @@ never(Rel) :- sub_atom(Rel, 0, _, _, 'examples/private/').
 light_excluded('examples/regulatory/customs/').      % 17 programs, 3 MB
 light_excluded('examples/regulatory/medicare/').     % 123 programs, 10 MB
 light_excluded('examples/migration/oipa/').          % 6 twins and their sources
+light_excluded('examples/migration/lomo/lfds/').     % 46 registers of the digital statements, 6 MB
 
 %!  light_excluded_path(+Path:atom) is semidet.
 %

@@ -282,7 +282,7 @@ action 1 is an action.
 
 action 1 has the label "Permit-granting applications".
 
-action 1 has the time specification action 1 time.
+action 1 has the time specification required permit granting applications.
 
 action 1 is established in "https://data.europa.eu/eli/dl/proc/2026/100/cod/doc/com/COM_2026_100/FINAL/eng/art_4".
 
@@ -293,11 +293,11 @@ action 1 has the agent role item 1 role addresser economic operator.
 action 1 has the result action 1 result.
 
 
-action 1 time is a temporal specification.
+required permit granting applications is a temporal specification.
 
-action 1 time has the function trigger.
+required permit granting applications has the function trigger.
 
-action 1 time has the temporal label "Required for permit-granting applications.".
+required permit granting applications has the temporal label "Required for permit-granting applications.".
 
 
 action 1 result is an action result.
@@ -331,7 +331,7 @@ action 2 is an action.
 
 action 2 has the label "Prior notification of planned investments by foreign investors".
 
-action 2 has the time specification action 2 time.
+action 2 has the time specification upon intention realise investment.
 
 action 2 is established in "https://data.europa.eu/eli/dl/proc/2026/100/cod/doc/com/COM_2026_100/FINAL/eng/art_16".
 
@@ -342,11 +342,11 @@ action 2 has the agent role item 2 role addresser economic operator.
 action 2 has the result action 2 result.
 
 
-action 2 time is a temporal specification.
+upon intention realise investment is a temporal specification.
 
-action 2 time has the function trigger.
+upon intention realise investment has the function trigger.
 
-action 2 time has the temporal label "Upon the intention to realise investment".
+upon intention realise investment has the temporal label "Upon the intention to realise investment".
 
 
 action 2 result is an action result.
@@ -380,7 +380,7 @@ action 3 is an action.
 
 action 3 has the label "Reports on foreign investment compliance".
 
-action 3 has the time specification action 3 time.
+action 3 has the time specification upon request.
 
 action 3 is established in "https://data.europa.eu/eli/dl/proc/2026/100/cod/doc/com/COM_2026_100/FINAL/eng/art_19".
 
@@ -391,11 +391,11 @@ action 3 has the agent role addresser national competent authority.
 action 3 has the result action 3 result.
 
 
-action 3 time is a temporal specification.
+upon request is a temporal specification.
 
-action 3 time has the function trigger.
+upon request has the function trigger.
 
-action 3 time has the temporal label "Upon request".
+upon request has the temporal label "Upon request".
 
 
 action 3 result is an action result.
@@ -429,7 +429,7 @@ action 4 is an action.
 
 action 4 has the label "Decision on designated industrial manufacturing acceleration areas".
 
-action 4 has the time specification action 4 time.
+action 4 has the time specification decision made.
 
 action 4 is established in "https://data.europa.eu/eli/dl/proc/2026/100/cod/doc/com/COM_2026_100/FINAL/eng/art_22".
 
@@ -440,11 +440,11 @@ action 4 has the agent role addresser member state.
 action 4 has the result action 4 result.
 
 
-action 4 time is a temporal specification.
+decision made is a temporal specification.
 
-action 4 time has the function trigger.
+decision made has the function trigger.
 
-action 4 time has the temporal label "Decision made".
+decision made has the temporal label "Decision made".
 
 
 action 4 result is an action result.
@@ -476,7 +476,7 @@ barrier is identified by "http://example.org/analysis/assessment/1/1/barrier".
 
 barrier is an assessment statement.
 
-barrier has the interpretation "http://data.europa.eu/leg/interop-assessment#InterpretationNegative".
+barrier has for "cav:interpretation" the resource "http://data.europa.eu/leg/interop-assessment#InterpretationNegative".
 
 barrier has the judgement "Additional organisational measures at national level may be needed to ensure appropriate involvement of competent authorities responsible for individual permits.".
 
@@ -491,7 +491,7 @@ item 1 measure is identified by "http://example.org/analysis/assessment/1/1/meas
 
 item 1 measure is an assessment statement.
 
-item 1 measure has the interpretation "http://data.europa.eu/leg/interop-assessment#InterpretationPositive".
+item 1 measure has for "cav:interpretation" the resource "http://data.europa.eu/leg/interop-assessment#InterpretationPositive".
 
 item 1 measure has the judgement "Member States shall be responsible for the development, operation, maintenance, security, and supervision of their digital permitting systems. To the extent possible, the implementation of the digital permitting systems should make use of existing Union digital infrastructures, catalogues and building blocks, including those developed under the Once-Only Technical System and its implementing acts. This would promote complementarity, interoperability and the efficient use of public resources, while avoiding duplication of existing digital solutions.".
 
@@ -506,7 +506,7 @@ item 2 measure is identified by "http://example.org/analysis/assessment/1/2/meas
 
 item 2 measure is an assessment statement.
 
-item 2 measure has the interpretation "http://data.europa.eu/leg/interop-assessment#InterpretationPositive".
+item 2 measure has for "cav:interpretation" the resource "http://data.europa.eu/leg/interop-assessment#InterpretationPositive".
 
 item 2 measure has the judgement "The Commission shall, by means of implementing acts, establish detailed rules, technical standards, and procedures necessary to ensure the interoperability, security, and effective functioning of the digital permitting systems. The permit-granting procedures are added in the scope of Single Digital Gateway and Once-Only Technical System.".
 
@@ -521,7 +521,7 @@ item 3 measure is identified by "http://example.org/analysis/assessment/1/3/meas
 
 item 3 measure is an assessment statement.
 
-item 3 measure has the interpretation "http://data.europa.eu/leg/interop-assessment#InterpretationPositive".
+item 3 measure has for "cav:interpretation" the resource "http://data.europa.eu/leg/interop-assessment#InterpretationPositive".
 
 item 3 measure has the judgement "The Commission shall, by means of implementing acts, establish detailed rules, technical standards, and procedures necessary to ensure the interoperability, security, and effective functioning of the digital permitting systems.".
 
@@ -1075,38 +1075,26 @@ scenario description is, as stated in the source description:
     actions_of_rules expects answers ["description 1 produces action 1", "description 1 produces item 1 action", "description 10 produces item 10 action", "description 2 produces item 2 action", "description 3 produces item 3 action", "description 4 produces item 4 action", "description 5 produces action 2", "description 5 produces item 5 action", "description 6 produces item 6 action", "description 7 produces action 3", "description 7 produces item 7 action", "description 8 produces action 4", "description 8 produces item 8 action", "description 9 produces item 9 action"].
     actions_of_agents expects answers ["citizens acts as addressee in item 10 action", "economic operator acts as addresser in action 1", "economic operator acts as addresser in action 2", "economic operators acts as addressee in item 1 action", "economic operators acts as addressee in item 10 action", "economic operators acts as addressee in item 5 action", "european commission acts as addressee in action 3", "european commission acts as addressee in action 4", "european commission acts as addressee in item 10 action", "european commission acts as addressee in item 4 action", "european commission acts as addressee in item 6 action", "european commission acts as addressee in item 7 action", "european commission acts as addressee in item 8 action", "member state acts as addresser in action 4", "member states acts as addressee in item 1 action", "member states acts as addressee in item 10 action", "member states acts as addressee in item 2 action", "member states acts as addressee in item 3 action", "member states acts as addressee in item 5 action", "member states acts as addressee in item 6 action", "member states acts as addressee in item 8 action", "member states acts as addressee in item 9 action", "national competent authorities acts as addressee in item 1 action", "national competent authorities acts as addressee in item 10 action", "national competent authorities acts as addressee in item 2 action", "national competent authorities acts as addressee in item 3 action", "national competent authorities acts as addressee in item 7 action", "national competent authorities acts as addressee in item 9 action", "national competent authority acts as addressee in action 1", "national competent authority acts as addressee in action 2", "national competent authority acts as addresser in action 3"].
 
-query parts is:
-    which thing is part of the description.
+query deadlines is:
+    which thing has which temporal specification as deadline.
 
-query kinds is:
-    which thing is of the kind which kind.
+query due_dates is:
+    which agent has which action due on which date.
 
-query bearer is:
-    the bearer role is which role.
+query due_in_2027 is:
+    which agent has which action due on which date in the period from 2027-01-01 to 2027-12-31.
 
-query rules_of_act is:
-    which rule is established by the act which act.
+query must_perform is:
+    which party must perform which action by which date under which rule.
 
-query provisions is:
-    which thing is established in which provision.
+query applies is:
+    which rule applies to which party.
+
+query rules_without_conditions is:
+    which rule has no written conditions.
 
 query places is:
     which rule is laid down in which place.
-
-query joint_rules is:
-    which rule is established in more than one provision.
-
-query prescriptive is:
-    which thing is a prescriptive rule.
-
-query constitutive is:
-    which thing is a constitutive rule.
-
-query triggers is:
-    which thing is triggered by which event.
-
-query actions_of_rules is:
-    which rule produces which action.
 
 query addressers is:
     which agent acts as addresser in which action.
@@ -1117,14 +1105,35 @@ query addressees is:
 query beneficiaries is:
     which agent acts as beneficiary in which action.
 
+query triggers is:
+    which thing is triggered by which event.
+
+query kinds is:
+    which thing is of the kind which kind.
+
+query rules_of_act is:
+    which rule is established by the act which act.
+
+query provisions is:
+    which thing is established in which provision.
+
+query joint_rules is:
+    which rule is established in more than one provision.
+
+query prescriptive is:
+    which thing is a prescriptive rule.
+
+query constitutive is:
+    which thing is a constitutive rule.
+
+query actions_of_rules is:
+    which rule produces which action.
+
 query actions_of_agents is:
     which agent acts as which role in which action.
 
 query concerned_agents is:
     which rule concerns which agent.
-
-query deadlines is:
-    which thing has which temporal specification as deadline.
 
 query starting_points is:
     which thing has which temporal specification as starting point.
@@ -1146,21 +1155,6 @@ query times_within is:
 
 query broken_links is:
     which temporal specification breaks its link with which second temporal specification.
-
-query due_dates is:
-    which agent has which action due on which date.
-
-query due_in_2027 is:
-    which agent has which action due on which date in the period from 2027-01-01 to 2027-12-31.
-
-query rules_without_conditions is:
-    which rule has no written conditions.
-
-query applies is:
-    which rule applies to which party.
-
-query must_perform is:
-    which party must perform which action by which date under which rule.
 
 query results is:
     which action has the result which result.
@@ -1204,8 +1198,8 @@ query cited_resources is:
 query statement_types is:
     which assessment statement has the statement type which type.
 
-query interpretations is:
-    which assessment statement has the interpretation which text.
+query parts is:
+    which thing is part of the description.
 
 query texts is:
     which thing is described by the text which text.
@@ -1224,4 +1218,7 @@ query addresses is:
 
 query plain_texts is:
     the texts of which property have no language.
+
+query bearer is:
+    the bearer role is which role.
 

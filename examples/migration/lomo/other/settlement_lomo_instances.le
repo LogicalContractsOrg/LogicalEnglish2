@@ -46,6 +46,10 @@ the texts of "lomo:hasReusabilityMeasure" have no language.
 
 the texts of "lomo:hasTimeline" have no language.
 
+the values of "dcterms:created" have the datatype "xsd:date".
+
+the values of "dcterms:modified" have the datatype "xsd:date".
+
 
 test is identified by "http://data.europa.eu/leg/lomo/test".
 
@@ -1190,7 +1194,7 @@ temporal spec immediate has the function starting point.
 
 temporal spec immediate has the temporal label "Immediate".
 
-temporal spec immediate has the frequency "Ad-hoc".
+temporal spec immediate has for "lomo:frequency" the value "Ad-hoc".
 
 
 temporal spec application period is identified by "http://data.europa.eu/leg/lomo/test#TemporalSpec_ApplicationPeriod".
@@ -1207,7 +1211,7 @@ temporal spec application period has the function validity.
 
 temporal spec application period has the temporal label "For designation and on an ad-hoc basis if changes to the designation data occur".
 
-temporal spec application period has the frequency "For designation and on an ad-hoc basis if changes to the designation data occur".
+temporal spec application period has for "lomo:frequency" the value "For designation and on an ad-hoc basis if changes to the designation data occur".
 
 
 temporal spec ongoing is identified by "http://data.europa.eu/leg/lomo/test#TemporalSpec_Ongoing".
@@ -1222,7 +1226,7 @@ temporal spec ongoing has the function validity.
 
 temporal spec ongoing has the temporal label "Ongoing".
 
-temporal spec ongoing has the frequency "Ad-hoc".
+temporal spec ongoing has for "lomo:frequency" the value "Ad-hoc".
 
 
 result central database is identified by "http://data.europa.eu/leg/lomo/test#Result_CentralDatabase".
@@ -1793,7 +1797,7 @@ statement alignment policies has for "dcterms:type" the resource assessment type
 
 statement alignment policies has the judgement "The regulation aligns with existing digital and sectorial policies through the central database approach.".
 
-statement alignment policies has the statement type "Alignment Assessment".
+statement alignment policies has for "cav:type" the value "Alignment Assessment".
 
 statement alignment policies has the interpretation "The central database ensures consistency with EU digital policies and sector-specific requirements.".
 
@@ -1808,7 +1812,7 @@ statement organisational measures has for "dcterms:type" the resource assessment
 
 statement organisational measures has the judgement "Organisational measures are in place through ESMA's central database and technical standards development.".
 
-statement organisational measures has the statement type "Organisational Assessment".
+statement organisational measures has for "cav:type" the value "Organisational Assessment".
 
 statement organisational measures has the interpretation "ESMA, EBA, and ESCB collaboration ensures smooth cross-border service delivery.".
 
@@ -1823,7 +1827,7 @@ statement data understanding has for "dcterms:type" the resource assessment type
 
 statement data understanding has the judgement "Measures ensure shared data understanding through uniform electronic formats and standards.".
 
-statement data understanding has the statement type "Data Understanding Assessment".
+statement data understanding has for "cav:type" the value "Data Understanding Assessment".
 
 statement data understanding has the interpretation "Technical standards development promotes consistent data interpretation across authorities.".
 
@@ -1838,7 +1842,7 @@ statement standards usage has for "dcterms:type" the resource assessment type st
 
 statement standards usage has the judgement "The regulation uses commonly agreed open technical specifications through implementing technical standards.".
 
-statement standards usage has the statement type "Standards Assessment".
+statement standards usage has for "cav:type" the value "Standards Assessment".
 
 statement standards usage has the interpretation "ESMA and EBA develop draft implementing technical standards for uniform electronic formats.".
 
@@ -1916,23 +1920,59 @@ scenario description is, as stated in the source description:
     actions_of_rules expects answers ["norm article 10 competent authority notification produces action member state notify authorities", "norm article 11 information exchange produces action authorities exchange information", "norm article 13 registration application produces action third country operator submit registration", "norm article 15 registration notification produces action registering authority notify registration", "norm article 16 registration withdrawal notification produces action registering authority notify withdrawal", "norm article 22 insolvency notification produces action competent authority notify insolvency", "norm article 26 central database produces action esma establish database", "norm article 4 electronic application produces action system operator submit application", "norm article 6 notification produces action competent authority notify designation", "norm article 8 changes notification produces action system operator notify changes", "norm article 9 withdrawal notification produces action competent authority notify withdrawal"].
     actions_of_agents expects answers ["agent competent authority acts as addressee in action authorities exchange information", "agent competent authority acts as addressee in action competent authority notify insolvency", "agent competent authority acts as addressee in action system operator notify changes", "agent competent authority acts as addressee in action system operator submit application", "agent competent authority acts as addressee in norm article 11 information exchange", "agent competent authority acts as addressee in norm article 22 insolvency notification", "agent competent authority acts as addressee in norm article 4 electronic application", "agent competent authority acts as addressee in norm article 8 changes notification", "agent competent authority acts as addresser in action authorities exchange information", "agent competent authority acts as addresser in action competent authority notify designation", "agent competent authority acts as addresser in action competent authority notify insolvency", "agent competent authority acts as addresser in action competent authority notify withdrawal", "agent competent authority acts as addresser in action member state notify authorities", "agent competent authority acts as addresser in norm article 10 competent authority notification", "agent competent authority acts as addresser in norm article 11 information exchange", "agent competent authority acts as addresser in norm article 22 insolvency notification", "agent competent authority acts as addresser in norm article 6 notification", "agent competent authority acts as addresser in norm article 9 withdrawal notification", "agent designating authority acts as addressee in action authorities exchange information", "agent designating authority acts as addressee in norm article 11 information exchange", "agent designating authority acts as addresser in action authorities exchange information", "agent designating authority acts as addresser in norm article 11 information exchange", "agent eba acts as addressee in action authorities exchange information", "agent eba acts as addressee in action competent authority notify insolvency", "agent eba acts as addressee in action competent authority notify withdrawal", "agent eba acts as addressee in action registering authority notify registration", "agent eba acts as addressee in action registering authority notify withdrawal", "agent eba acts as addressee in norm article 11 information exchange", "agent eba acts as addressee in norm article 15 registration notification", "agent eba acts as addressee in norm article 16 registration withdrawal notification", "agent eba acts as addressee in norm article 22 insolvency notification", "agent eba acts as addressee in norm article 9 withdrawal notification", "agent eba acts as addresser in action authorities exchange information", "agent eba acts as addresser in norm article 11 information exchange", "agent escb acts as addressee in action authorities exchange information", "agent escb acts as addressee in action competent authority notify insolvency", "agent escb acts as addressee in action competent authority notify withdrawal", "agent escb acts as addressee in action registering authority notify registration", "agent escb acts as addressee in action registering authority notify withdrawal", "agent escb acts as addressee in norm article 11 information exchange", "agent escb acts as addressee in norm article 15 registration notification", "agent escb acts as addressee in norm article 16 registration withdrawal notification", "agent escb acts as addressee in norm article 22 insolvency notification", "agent escb acts as addressee in norm article 9 withdrawal notification", "agent escb acts as addresser in action authorities exchange information", "agent escb acts as addresser in norm article 11 information exchange", "agent esma acts as addressee in action authorities exchange information", "agent esma acts as addressee in action competent authority notify designation", "agent esma acts as addressee in action competent authority notify insolvency", "agent esma acts as addressee in action competent authority notify withdrawal", "agent esma acts as addressee in action member state notify authorities", "agent esma acts as addressee in action registering authority notify registration", "agent esma acts as addressee in action registering authority notify withdrawal", "agent esma acts as addressee in action third country operator submit registration", "agent esma acts as addressee in norm article 10 competent authority notification", "agent esma acts as addressee in norm article 11 information exchange", "agent esma acts as addressee in norm article 13 registration application", "agent esma acts as addressee in norm article 15 registration notification", "agent esma acts as addressee in norm article 16 registration withdrawal notification", "agent esma acts as addressee in norm article 22 insolvency notification", "agent esma acts as addressee in norm article 6 notification", "agent esma acts as addressee in norm article 9 withdrawal notification", "agent esma acts as addresser in action authorities exchange information", "agent esma acts as addresser in action esma establish database", "agent esma acts as addresser in norm article 11 information exchange", "agent esma acts as addresser in norm article 26 central database", "agent national competent authority acts as addressee in action authorities exchange information", "agent national competent authority acts as addressee in action competent authority notify withdrawal", "agent national competent authority acts as addressee in norm article 11 information exchange", "agent national competent authority acts as addressee in norm article 9 withdrawal notification", "agent national competent authority acts as addresser in action authorities exchange information", "agent national competent authority acts as addresser in norm article 11 information exchange", "agent registering authority acts as addressee in action authorities exchange information", "agent registering authority acts as addressee in action registering authority notify registration", "agent registering authority acts as addressee in action registering authority notify withdrawal", "agent registering authority acts as addressee in norm article 11 information exchange", "agent registering authority acts as addressee in norm article 15 registration notification", "agent registering authority acts as addressee in norm article 16 registration withdrawal notification", "agent registering authority acts as addresser in action authorities exchange information", "agent registering authority acts as addresser in action registering authority notify registration", "agent registering authority acts as addresser in action registering authority notify withdrawal", "agent registering authority acts as addresser in norm article 11 information exchange", "agent registering authority acts as addresser in norm article 15 registration notification", "agent registering authority acts as addresser in norm article 16 registration withdrawal notification", "agent system operator acts as addressee in action competent authority notify withdrawal", "agent system operator acts as addressee in norm article 9 withdrawal notification", "agent system operator acts as addresser in action system operator notify changes", "agent system operator acts as addresser in action system operator submit application", "agent system operator acts as addresser in norm article 4 electronic application", "agent system operator acts as addresser in norm article 8 changes notification", "agent third country system operator acts as addressee in action registering authority notify registration", "agent third country system operator acts as addressee in action registering authority notify withdrawal", "agent third country system operator acts as addressee in norm article 15 registration notification", "agent third country system operator acts as addressee in norm article 16 registration withdrawal notification", "agent third country system operator acts as addresser in action third country operator submit registration", "agent third country system operator acts as addresser in norm article 13 registration application"].
 
-query parts is:
-    which thing is part of the description.
+query obligations is:
+    which rule has the modality obligation for which agent as which role.
+
+query permissions is:
+    which rule has the modality permission for which agent as which role.
+
+query prohibitions is:
+    which rule has the modality prohibition for which agent as which role.
+
+query rights is:
+    which rule has the modality right for which agent as which role.
+
+query deadlines is:
+    which thing has which temporal specification as deadline.
+
+query due_dates is:
+    which agent has which action due on which date.
+
+query due_in_2027 is:
+    which agent has which action due on which date in the period from 2027-01-01 to 2027-12-31.
+
+query must_perform is:
+    which party must perform which action by which date under which rule.
+
+query applies is:
+    which rule applies to which party.
+
+query rules_without_conditions is:
+    which rule has no written conditions.
+
+query places is:
+    which rule is laid down in which place.
+
+query addressers is:
+    which agent acts as addresser in which action.
+
+query addressees is:
+    which agent acts as addressee in which action.
+
+query beneficiaries is:
+    which agent acts as beneficiary in which action.
+
+query triggers is:
+    which thing is triggered by which event.
 
 query kinds is:
     which thing is of the kind which kind.
-
-query bearer is:
-    the bearer role is which role.
 
 query rules_of_act is:
     which rule is established by the act which act.
 
 query provisions is:
     which thing is established in which provision.
-
-query places is:
-    which rule is laid down in which place.
 
 query legal_texts is:
     which thing has the legal text which text.
@@ -1949,38 +1989,14 @@ query constitutive is:
 query modalities is:
     which rule has the modality which modality.
 
-query obligations is:
-    which rule has the modality obligation for which agent as which role.
-
-query prohibitions is:
-    which rule has the modality prohibition for which agent as which role.
-
-query permissions is:
-    which rule has the modality permission for which agent as which role.
-
-query rights is:
-    which rule has the modality right for which agent as which role.
-
 query requirement_types is:
     which rule has the requirement type which requirement type.
 
 query oversight_rules is:
     which thing is an implementation and oversight rule.
 
-query triggers is:
-    which thing is triggered by which event.
-
 query actions_of_rules is:
     which rule produces which action.
-
-query addressers is:
-    which agent acts as addresser in which action.
-
-query addressees is:
-    which agent acts as addressee in which action.
-
-query beneficiaries is:
-    which agent acts as beneficiary in which action.
 
 query identified_agents is:
     which thing is an agent.
@@ -1994,9 +2010,6 @@ query actions_of_agents is:
 query concerned_agents is:
     which rule concerns which agent.
 
-query deadlines is:
-    which thing has which temporal specification as deadline.
-
 query starting_points is:
     which thing has which temporal specification as starting point.
 
@@ -2008,9 +2021,6 @@ query durations is:
 
 query instants is:
     which temporal specification has the instant which date.
-
-query frequencies is:
-    which temporal specification has the frequency which duration.
 
 query first_dates is:
     the first date of which temporal specification is which date.
@@ -2027,23 +2037,8 @@ query times_within is:
 query broken_links is:
     which temporal specification breaks its link with which second temporal specification.
 
-query due_dates is:
-    which agent has which action due on which date.
-
-query due_in_2027 is:
-    which agent has which action due on which date in the period from 2027-01-01 to 2027-12-31.
-
 query hours_as_days is:
     which temporal specification has a length of time that counts hours as whole days.
-
-query rules_without_conditions is:
-    which rule has no written conditions.
-
-query applies is:
-    which rule applies to which party.
-
-query must_perform is:
-    which party must perform which action by which date under which rule.
 
 query obliged is:
     which party is obliged that which sentence.
@@ -2099,9 +2094,6 @@ query references is:
 query publishers is:
     which thing is published by which agent.
 
-query statement_types is:
-    which assessment statement has the statement type which type.
-
 query interpretations is:
     which assessment statement has the interpretation which text.
 
@@ -2110,6 +2102,9 @@ query schemes is:
 
 query broader_concepts is:
     which thing has the broader concept which concept.
+
+query parts is:
+    which thing is part of the description.
 
 query texts is:
     which thing is described by the text which text.
@@ -2126,6 +2121,12 @@ query other_types is:
 query addresses is:
     which thing is identified by which address.
 
+query literal_forms is:
+    the values of which property have the datatype which datatype.
+
 query plain_texts is:
     the texts of which property have no language.
+
+query bearer is:
+    the bearer role is which role.
 

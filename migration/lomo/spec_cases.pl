@@ -33,7 +33,7 @@ case(Stem, Ss, Qs, Ts) :- case_t(Stem, Ss, Qs, Ts).
 case(duration,
      [ scenario(approved_on_15_may_2026,
                 [lomo_happens_on("the approval date", date(2026, 5, 15))],
-                [ expects(first_dates, ["the first date of item a 1 time earlier time is 2026-05-15",
+                [ expects(first_dates, ["the first date of approval date is 2026-05-15",
                                         "the first date of item a 1 time is 2029-05-15"]) ]) ],
      []).
 

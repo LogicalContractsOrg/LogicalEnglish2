@@ -124,7 +124,7 @@ description 5 is a legal rule.
 
 description 5 has the label "Article 1(16)".
 
-description 5 has the time specification description 5 time.
+description 5 has the time specification regularly.
 
 description 5 is established in "https://data.europa.eu/eli/dl/proc/2025/836/cod/doc/com/COM_2025_836/FINAL/eng/art_1/par_16".
 
@@ -141,11 +141,11 @@ description 5 references commission assessment of the adequacy of the codes of.
 description 5 has the description "Amending Article 56(6): The Commission shall publish its assessments on the adequacy of the codes of practice.".
 
 
-description 5 time is a temporal specification.
+regularly is a temporal specification.
 
-description 5 time has the function validity.
+regularly has the function validity.
 
-description 5 time has the temporal label "Regularly".
+regularly has the temporal label "Regularly".
 
 
 description 6 is identified by "http://example.org/analysis/description/6".
@@ -298,7 +298,7 @@ action 1 is an action.
 
 action 1 has the label "Applications of a conformity assessment bodies for notification".
 
-action 1 has the time specification action 1 time.
+action 1 has the time specification application being made single assessment.
 
 action 1 is established in "https://data.europa.eu/eli/dl/proc/2025/836/cod/doc/com/COM_2025_836/FINAL/eng/art_1/par_11".
 
@@ -309,11 +309,11 @@ action 1 has the agent role addresser notified bodies designated under union har
 action 1 has the result action 1 result.
 
 
-action 1 time is a temporal specification.
+application being made single assessment is a temporal specification.
 
-action 1 time has the function trigger.
+application being made single assessment has the function trigger.
 
-action 1 time has the temporal label "Application being made for single assessment".
+application being made single assessment has the temporal label "Application being made for single assessment".
 
 
 action 1 result is an action result.
@@ -347,9 +347,9 @@ action 2 is an action.
 
 action 2 has the label "Commission assessment of the adequacy of the codes of practice".
 
-action 2 has the time specification action 2 time 1.
+action 2 has the time specification regularly 2.
 
-action 2 has the time specification action 2 time 2.
+action 2 has the time specification performance assessment regards codes practice.
 
 action 2 is established in "https://data.europa.eu/eli/dl/proc/2025/836/cod/doc/com/COM_2025_836/FINAL/eng/art_1/par_16".
 
@@ -360,18 +360,18 @@ action 2 has the agent role addresser european commission.
 action 2 has the result action 2 result.
 
 
-action 2 time 1 is a temporal specification.
+regularly 2 is a temporal specification.
 
-action 2 time 1 has the function deadline.
+regularly 2 has the function deadline.
 
-action 2 time 1 has the temporal label "Regularly".
+regularly 2 has the temporal label "Regularly".
 
 
-action 2 time 2 is a temporal specification.
+performance assessment regards codes practice is a temporal specification.
 
-action 2 time 2 has the function trigger.
+performance assessment regards codes practice has the function trigger.
 
-action 2 time 2 has the temporal label "Performance of an assessment as regards the codes of practice".
+performance assessment regards codes practice has the temporal label "Performance of an assessment as regards the codes of practice".
 
 
 action 2 result is an action result.
@@ -454,7 +454,7 @@ action 4 is an action.
 
 action 4 has the label "Information or documentation requested by national public authorities/bodies which supervise/enforce obligations relating to fundamental rights".
 
-action 4 has the time specification action 4 time.
+action 4 has the time specification submission reasoned request access information.
 
 action 4 is established in "https://data.europa.eu/eli/dl/proc/2025/836/cod/doc/com/COM_2025_836/FINAL/eng/art_1/par_26".
 
@@ -465,11 +465,11 @@ action 4 has the agent role addresser market surveillance authority.
 action 4 has the result action 4 result.
 
 
-action 4 time is a temporal specification.
+submission reasoned request access information is a temporal specification.
 
-action 4 time has the function trigger.
+submission reasoned request access information has the function trigger.
 
-action 4 time has the temporal label "Submission of a reasoned request to access information".
+submission reasoned request access information has the temporal label "Submission of a reasoned request to access information".
 
 
 action 4 result is an action result.
@@ -986,38 +986,26 @@ scenario description is, as stated in the source description:
     actions_of_rules expects answers ["description 1 produces item 1 action", "description 2 produces item 2 action", "description 3 produces item 3 action", "description 4 produces action 1", "description 4 produces item 4 action", "description 5 produces action 2", "description 5 produces item 5 action", "description 6 produces action 3", "description 6 produces action 4", "description 6 produces action 5", "description 6 produces action 6", "description 6 produces item 6 action"].
     actions_of_agents expects answers ["concerned data subjects acts as addressee in item 1 action", "conformity assessment bodies acts as addressee in item 3 action", "european commission acts as addressee in item 2 action", "european commission acts as addressee in item 5 action", "european commission acts as addresser in action 2", "general public acts as addressee in action 2", "market surveillance authorities acts as addressee in item 6 action", "market surveillance authorities acts as addresser in action 5", "market surveillance authorities public authoritiesbodies acts as addressee in action 6", "market surveillance authorities public authoritiesbodies acts as addresser in action 6", "market surveillance authority acts as addressee in action 3", "market surveillance authority acts as addresser in action 4", "national competent authorities acts as addressee in item 2 action", "national public authorities bodies supervise enforce the respect of acts as addressee in action 4", "national public authorities bodies supervise enforce the respect of acts as addresser in action 3", "national public authoritiesbodies superviseenforce eu law obligations protecting fundamental acts as addressee in item 6 action", "notified bodies acts as addressee in item 2 action", "notified bodies acts as addressee in item 4 action", "notified bodies designated under union harmonisation legislation listed in acts as addresser in action 1", "notifying authorities acts as addressee in item 3 action", "notifying authority acts as addressee in item 4 action", "notifying authority designated in accordance with union harmonisation legislation acts as addressee in action 1", "providers deployers of ai systems acts as addressee in action 5", "providers deployers of ai systems ai models acts as addressee in item 1 action", "providers of high risk ai systems including smcs smes acts as addressee in item 2 action", "providersdeployers of ai systems acts as addressee in item 6 action"].
 
-query parts is:
-    which thing is part of the description.
+query deadlines is:
+    which thing has which temporal specification as deadline.
 
-query kinds is:
-    which thing is of the kind which kind.
+query due_dates is:
+    which agent has which action due on which date.
 
-query bearer is:
-    the bearer role is which role.
+query due_in_2027 is:
+    which agent has which action due on which date in the period from 2027-01-01 to 2027-12-31.
 
-query rules_of_act is:
-    which rule is established by the act which act.
+query must_perform is:
+    which party must perform which action by which date under which rule.
 
-query provisions is:
-    which thing is established in which provision.
+query applies is:
+    which rule applies to which party.
+
+query rules_without_conditions is:
+    which rule has no written conditions.
 
 query places is:
     which rule is laid down in which place.
-
-query joint_rules is:
-    which rule is established in more than one provision.
-
-query prescriptive is:
-    which thing is a prescriptive rule.
-
-query constitutive is:
-    which thing is a constitutive rule.
-
-query triggers is:
-    which thing is triggered by which event.
-
-query actions_of_rules is:
-    which rule produces which action.
 
 query addressers is:
     which agent acts as addresser in which action.
@@ -1028,14 +1016,35 @@ query addressees is:
 query beneficiaries is:
     which agent acts as beneficiary in which action.
 
+query triggers is:
+    which thing is triggered by which event.
+
+query kinds is:
+    which thing is of the kind which kind.
+
+query rules_of_act is:
+    which rule is established by the act which act.
+
+query provisions is:
+    which thing is established in which provision.
+
+query joint_rules is:
+    which rule is established in more than one provision.
+
+query prescriptive is:
+    which thing is a prescriptive rule.
+
+query constitutive is:
+    which thing is a constitutive rule.
+
+query actions_of_rules is:
+    which rule produces which action.
+
 query actions_of_agents is:
     which agent acts as which role in which action.
 
 query concerned_agents is:
     which rule concerns which agent.
-
-query deadlines is:
-    which thing has which temporal specification as deadline.
 
 query starting_points is:
     which thing has which temporal specification as starting point.
@@ -1057,21 +1066,6 @@ query times_within is:
 
 query broken_links is:
     which temporal specification breaks its link with which second temporal specification.
-
-query due_dates is:
-    which agent has which action due on which date.
-
-query due_in_2027 is:
-    which agent has which action due on which date in the period from 2027-01-01 to 2027-12-31.
-
-query rules_without_conditions is:
-    which rule has no written conditions.
-
-query applies is:
-    which rule applies to which party.
-
-query must_perform is:
-    which party must perform which action by which date under which rule.
 
 query results is:
     which action has the result which result.
@@ -1097,6 +1091,9 @@ query public_services is:
 query references is:
     which rule references which resource.
 
+query parts is:
+    which thing is part of the description.
+
 query texts is:
     which thing is described by the text which text.
 
@@ -1108,4 +1105,7 @@ query addresses is:
 
 query plain_texts is:
     the texts of which property have no language.
+
+query bearer is:
+    the bearer role is which role.
 

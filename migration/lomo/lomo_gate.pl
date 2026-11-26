@@ -42,7 +42,7 @@
 :- else.
 :- use_module(library(http/json)).
 :- endif.
-:- use_module(library(semweb/rdf_db), [rdf_is_bnode/1]).
+:- use_module(lomo_reader, [rdf_is_bnode/1]).
 :- use_module('../le2_paths', [twins_dir/2]).
 :- use_module(le2(le_kbs)).
 :- use_module(corpus).
