@@ -78,6 +78,9 @@ The editor shows the **register** of the description (refer to the next
 section). The file is kept in the folder `sources/` beside the register. To
 see it, select **File ▸ Show the Original…**.
 
+The translator also works in the copy of LE2 that runs fully in your browser,
+without a server. In that copy, LOMO is the only translator.
+
 The editor also has the registers of the public data of LOMO:
 
 1. Select **File ▸ Open example from server…**.

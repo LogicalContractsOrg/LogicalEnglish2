@@ -154,7 +154,10 @@ message to the LOMO project prepared and not sent), the video script
 door (`wasm/pack.pl`): the reader, the register, the validity check and the
 export use only the Turtle reader of SWI-Prolog, which the WebAssembly image
 has; the judges and the download of provisions need Python and curl and are
-loaded only when called.
+loaded only when called. Checked on the WebAssembly build of 26 November
+2026 (`./wasm/build.sh --skip-editor`, served by `wasm/runtime/serve.mjs`):
+`importFormats` offers LOMO alone, File ▸ Open of `corpus/cases/probe.ttl`
+opens its register, and File ▸ Export ▸ LOMO writes its 61 statements back.
 
 ## Traps
 

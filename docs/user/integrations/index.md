@@ -33,13 +33,14 @@ did not sign in, the hosted service asks you to sign in
 sign-in, for example LE2 on your own computer, gives the translators to each
 visitor.
 
-One copy of LE2 does not have the translators: the copy that runs fully in the
-browser, without a server. In that copy:
+One copy of LE2 has only one translator: the copy that runs fully in the
+browser, without a server. That translator is LOMO
+([LOMO and Logical English](lomo.md)): it needs no other tool. In that copy:
 
-- **File ▸ Import from Another System…** is hidden.
-- **File ▸ Open…** shows only `.le` files.
-- **File ▸ Export to Another System…** tells you that no exporter can write the
-  program.
+- **File ▸ Import from Another System…** offers only LOMO.
+- **File ▸ Open…** shows `.le` files and LOMO descriptions (`.ttl`).
+- **File ▸ Export to Another System…** offers only LOMO. For a program that LOMO
+  cannot describe, it tells you that no exporter can write the program.
 
 ## Contents
 
