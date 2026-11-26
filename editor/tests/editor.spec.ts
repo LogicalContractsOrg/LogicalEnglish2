@@ -143,7 +143,9 @@ test.describe('Logical English Editor', () => {
     await page.click('#btn-trace');
     const frames = page.locator('#debug-stack .stack-frame');
     await expect.poll(() => frames.count(), { timeout: 30000 }).toBeGreaterThan(0);
-    await expect(page.locator('#debug-status')).toContainText('step');
+    // The first stop is the query's call: the status says so (the port tells
+    // a goal's call from its exit, which show the same stack).
+    await expect(page.locator('#debug-status')).toContainText('about to be proved');
     // Continue runs to the breakpoint: the executing goal is on line 7.
     await page.click('#debug-continue');
     await expect(page.locator('#debug-status')).toContainText('breakpoint', { timeout: 15000 });
