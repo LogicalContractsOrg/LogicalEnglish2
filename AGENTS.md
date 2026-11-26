@@ -5,7 +5,9 @@ Refer to `docs/user/reference/language.md` for language syntax and `examples/mor
 (`examples/README.md` says what each example tree holds; `language/` has one program per feature).
 Translators from other systems into LE (migrations) share `le_writer.pl` (Migration IR -> LE
 text), `le_migration.pl` (ledger, source tests as scenarios) and `lib/` (shared LE libraries);
-see `docs/dev/migration.md`. The translators themselves are in `migration/`, one folder per
+see `docs/dev/migration.md`. To write the conditions of a LOMO description
+(EU legislation) as a full LE program, follow `migration/lomo/CONDITIONS_GUIDE.md`.
+The translators themselves are in `migration/`, one folder per
 system, registered in `migration/le_importers.pl` (`migration/README.md`). They came from the
 private lpsPlus repository in November 2026: their copyright holder is Miguel Calejo (`NOTICE`),
 they are Apache-2.0 like the rest, and they are published "as is". A twin of a source whose

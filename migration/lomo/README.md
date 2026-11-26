@@ -24,15 +24,16 @@ LOMO description. The plan it follows is the company's research note
 | `corpus/spec-examples/` | the 65 Turtle examples of the specification page, with the prefixes they use |
 | `corpus/broken/` | three descriptions broken on purpose, for the test of the validity check |
 | `oracle/` | the judges: `sparql_judge.py` (rdflib), `shacl_judge.py` (pySHACL); `setup.sh` installs them in `oracle/.venv` |
-| `spec_cases.pl` | the scenarios written by hand for the specification's examples and the door's own cases, the answers worked out before the run |
+| `spec_cases.pl` | the agent-written scenarios for the specification's examples and the door's own cases, the answers worked out before the run |
 | `corpus/cases/` | descriptions of our own: the probe of the plan (GDPR Article 33, Directive 2013/34/EU Articles 30 and 36), GDPR Article 6, time links that their dates contradict |
-| `hand/<set>/` | programs written by hand beside the registers of `<set>`: the conditions of GDPR Articles 6(1) and 33(1) and of Directive 2013/34/EU Articles 3, 30, 36(1)(d), 36(7) and 40 |
+| `agent_written/<set>/` | agent-written programs beside the registers of `<set>`: the conditions of GDPR Articles 6(1) and 33(1) and of Directive 2013/34/EU Articles 3, 30, 36(1)(d), 36(7) and 40 |
 | `lomo_eli.pl` | the text of a provision from its ELI: the act from the Publications Office's repository (Cellar, by CELEX number), the article, paragraph or point cut out by the ids of its XHTML |
 | `lomo_lps.pl` | step 5: a case of a register through time, written as LE for LPS over LPS2's `examples/migration/lomo/lomo_calendar.le`, run by LPS2, compared with the timeless reading |
 | `lomo_export.pl` | step 7: Logical English → LOMO (a register written back; other programs' cited rules described), checked by `lomo_shacl.pl` before it is given |
 | `lomo_roundtrip.pl` | step 7's gates: every register back to Turtle, compared by rdflib's isomorphism; LE2's examples that cite provisions exported or refused with reasons |
 | `lomo_import.pl` | File ▸ Open of a `.ttl` (registered in `../le_importers.pl`, with the exporter) |
 | `build.pl` | the registers into `examples/migration/lomo/{examples,other,lfds,spec,cases}/` |
+| `CONDITIONS_GUIDE.md` | for agents: how to write the conditions of a description from the legislation it cites, as a full Logical English program |
 | `test_lomo.pl` | plunit: the words, the names, every register's scenario, the gates of steps 1, 2, 5 and 7 |
 
 ## How to run
@@ -119,17 +120,25 @@ duty, added there), and a party's calendar (`must perform … by`, `met`,
 GDPR Article 6(1) with its six points and `only if` (6 of 6), and the probe
 of the plan from a register the reader wrote (12 of 12) pass.
 
-**Step 5 (LPS)** — `lomo_calendar.le` in LPS2; three cases (the probe to two
-last days, and Directive 2013/34/EU) end in LPS2 with exactly the open, met
-and breached duties that the timeless reading gives for the last day. A
-date of the case is a day number (the simple way of the plan). Rhythms are
-not in the LPS library yet.
+**Step 5 (LPS)** — `lomo_calendar.le` in LPS2: one-off duties, and
+repeating duties (the next occurrence starts when the clock passes the due
+time of the current one). Five cases (the probe to two last days, the probe
+to the minute, Directive 2013/34/EU, an annual report three times) end in
+LPS2 with exactly the open, met and breached duties that the timeless
+reading gives for the last day. A date of the case is a number of days, a
+moment a number of minutes.
 
-**Step 6 (provisions)** — by hand, as asked (no Contract Assistant, no
+**Hours** — a case that gives the moment of an event (`"2026-03-01T14:30"`)
+gets deadlines exact to the minute (`lib/temporal.le`: `the period … after
+the moment …`; `lib/lomo.le`: `must perform … by the moment …`, `met … in
+time`, `is late with … at …`); with a date only, hours count in whole days,
+rounded up, and the answer says so.
+
+**Step 6 (provisions)** — agent-written (Opus 5.5), as asked (no Contract Assistant, no
 profile of it): `lomo_eli.pl` gets the text of a provision from its ELI;
 the registers of `examples/`, `other/` and `cases/` carry the texts of the
 provisions they cite (`sources/eli/`) as documents, so quotations are checked
-and File ▸ Show the Original shows them. The conditions programs of `hand/`
+and File ▸ Show the Original shows them. The conditions programs of `agent_written/`
 cite and quote each provision; their cases, with answers worked out from
 the text first, pass (GDPR Article 33: 3 of 3; Directive 2013/34/EU: 5 of 5).
 Reading the text found that the directive has **no Article 1a**: the

@@ -246,6 +246,17 @@ scenario case_one is, as stated in the source description:
     violations expects answers ["the obligation of acme that acme performs publish the statements is violated"].
     rules_without_conditions expects answers ["norm gdpr 33 has no written conditions", "norm accounts 30 has no written conditions", "norm micro 36 has no written conditions"].
 
+scenario to_the_minute is, as stated in the source description:
+    acme is of the type controllers.
+    beta is of the type controllers.
+    "awareness of a personal data breach" happens to acme at "2026-03-01T14:30".
+    acme performs notify the breach at "2026-03-04T10:00".
+    "awareness of a personal data breach" happens to beta at "2026-03-01T14:30".
+    beta performs notify the breach at "2026-03-04T16:00".
+    must_perform_by_the_moment expects answers ["acme must perform notify the breach by the moment 2026-03-04T14:30 under norm gdpr 33", "beta must perform notify the breach by the moment 2026-03-04T14:30 under norm gdpr 33"].
+    met_in_time expects answers ["acme met notify the breach in time under norm gdpr 33"].
+    late_at_midnight_4_march expects answers ["beta is late with notify the breach under norm gdpr 33 at 2026-03-05T00:00"].
+
 query obligations is:
     which rule has the modality obligation for which agent as which role.
 
@@ -269,6 +280,12 @@ query due_in_2027 is:
 
 query must_perform is:
     which party must perform which action by which date under which rule.
+
+query must_perform_by_the_moment is:
+    which party must perform which action by the moment which moment under which rule.
+
+query met_in_time is:
+    which party met which action in time under which rule.
 
 query applies is:
     which rule applies to which party.
@@ -395,4 +412,7 @@ query bearer is:
 
 query late_on_1_april_2026 is:
     which party is late with which action under which rule on 2026-04-01.
+
+query late_at_midnight_4_march is:
+    which party is late with which action under which rule at "2026-03-05T00:00".
 

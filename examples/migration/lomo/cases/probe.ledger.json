@@ -149,7 +149,7 @@
   "fidelity": {
     "errors":0,
     "failed":0,
-    "passed":12,
+    "passed":15,
     "tests": [
       {"detail":"","query":"due_dates","result":"pass","scenario":"calendar"},
       {"detail":"","query":"due_in_2027","result":"pass","scenario":"calendar"},
@@ -162,7 +162,20 @@
       {"detail":"","query":"late_on_1_april_2026","result":"pass","scenario":"case_one"},
       {"detail":"","query":"permitted","result":"pass","scenario":"case_one"},
       {"detail":"","query":"violations","result":"pass","scenario":"case_one"},
-      {"detail":"","query":"rules_without_conditions","result":"pass","scenario":"case_one"}
+      {"detail":"","query":"rules_without_conditions","result":"pass","scenario":"case_one"},
+      {
+	"detail":"",
+	"query":"must_perform_by_the_moment",
+	"result":"pass",
+	"scenario":"to_the_minute"
+      },
+      {"detail":"","query":"met_in_time","result":"pass","scenario":"to_the_minute"},
+      {
+	"detail":"",
+	"query":"late_at_midnight_4_march",
+	"result":"pass",
+	"scenario":"to_the_minute"
+      }
     ]
   },
   "meta": {
@@ -174,5 +187,5 @@
     "translator":"LE2 migration/lomo (lomo_twin.pl)"
   },
   "pending_expectations":0,
-  "source_tests":3
+  "source_tests":4
 }

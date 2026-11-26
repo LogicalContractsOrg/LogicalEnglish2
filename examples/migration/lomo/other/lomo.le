@@ -192,6 +192,18 @@ the templates are:
     *a party* must perform *an action* by *a date* under *a rule*.
     *a party* met *an action* under *a rule*.
     *a party* is late with *an action* under *a rule* on *a day*.
+    *an event* happens to *a party* at *a moment*.
+    *a party* performs *an action* at *a moment*.
+    the first moment of *a temporal specification* for *a party* is *a moment*.
+    *a party* must perform *an action* by the moment *a moment* under *a rule*.
+    *a party* met *an action* in time under *a rule*.
+    *a party* is late with *an action* under *a rule* at *a moment*.
+    the rhythm of *a temporal specification* for *a party* starts on *a date*.
+    the occurrence *a number* of *an action* under *a rule* for *a party* is due on *a date* as of *a day*.
+    the occurrence *a number* of *an action* under *a rule* for *a party* opens after *a date* as of *a day*.
+    *a party* met the occurrence *a number* of *an action* under *a rule* as of *a day*.
+    *a party* breached the occurrence *a number* of *an action* under *a rule* as of *a day*.
+    *a party* owes the occurrence *a number* of *an action* under *a rule* as of *a day*.
 
 the knowledge base lomo includes:
 
@@ -624,6 +636,114 @@ a party is late with an action under a rule on a day if
     and the day is after the due date
     and it is not the case that
         the party met the action under the rule.
+
+% ---- the calendar of a party, to the minute -------------------------------
+% When a case gives the time of an event (a moment: "2026-03-01T14:30"), a
+% deadline in hours is exact: 72 hours after 14:30 on 1 March is 14:30 on
+% 4 March. The sentences of days above stay for a case that gives dates.
+%
+%     "awareness of a personal data breach" happens to acme at "2026-03-01T14:30".
+%     acme performs notify the breach at "2026-03-04T10:00".
+
+a party performs an action if
+    the party performs the action at a moment.
+
+the first moment of a temporal specification for a party is a moment if
+    the temporal specification has the temporal label an event
+    and the event happens to the party at the moment.
+the first moment of a temporal specification for a party is a moment M if
+    the temporal specification is later than a second temporal specification
+    and the temporal specification has the duration a duration
+    and the first moment of the second temporal specification for the party is a moment M2
+    and M is the period the duration after the moment M2.
+
+a party must perform an action by the moment a moment under a rule if
+    the rule applies to the party
+    and the rule produces the action
+    and the rule has the modality obligation
+    and the action has a temporal specification as deadline
+    and the first moment of the temporal specification for the party is the moment.
+a party must perform an action by the moment a moment under a rule if
+    the rule applies to the party
+    and the rule produces the action
+    and the rule has the modality right
+    and the action has a temporal specification as deadline
+    and the first moment of the temporal specification for the party is the moment.
+
+a party met an action in time under a rule if
+    the party must perform the action by the moment a due moment under the rule
+    and the party performs the action at a moment
+    and the moment is not later than the moment the due moment.
+
+a party is late with an action under a rule at a moment if
+    the party must perform the action by the moment a due moment under the rule
+    and the due moment is before the moment the moment
+    and it is not the case that
+        the party met the action in time under the rule.
+
+% ---- the calendar of a party: repeating duties -----------------------------
+% A duty with a frequency ("P1Y") repeats: occurrence 1 is due one length of
+% time after the start of its rhythm, occurrence 2 one more, and so on, as
+% many times as its repetitions say. An occurrence is met when the party
+% does the action after the previous occurrence was due and not after this
+% one is; on a day after its due date it is breached if it was not met; the
+% occurrence due on or after the day is still owed. The rhythm of a party
+% starts when the event it counts from happens to the party, else when the
+% rhythm of the description starts (the calendar's start).
+
+the rhythm of a temporal specification for a party starts on a date if
+    the temporal specification has the frequency a duration
+    and the temporal specification is later than a second temporal specification
+    and the last date of the second temporal specification for the party is the date.
+the rhythm of a temporal specification for a party starts on a date if
+    the temporal specification has the frequency a duration
+    and the party counts as an agent
+    and it is not the case that
+        the temporal specification is later than a second temporal specification
+    and the rhythm of the temporal specification starts on the date.
+
+the occurrence a number K of an action under a rule for a party is due on a date as of a day if
+    the rule applies to the party
+    and the rule produces the action
+    and the rule has the modality obligation
+    and the action has a temporal specification as deadline
+    and the temporal specification has the frequency a duration
+    and the rhythm of the temporal specification for the party starts on a start date
+    and the occurrence K of every the duration from the start date up to the day is the date
+    and it is not the case that
+        the temporal specification has the number of repetitions a number N
+        and K > N.
+
+the occurrence a number K of an action under a rule for a party opens after a date as of a day if
+    the occurrence K of the action under the rule for the party is due on a due date as of the day
+    and K = 1
+    and the action has a temporal specification as deadline
+    and the rhythm of the temporal specification for the party starts on the date.
+the occurrence a number K of an action under a rule for a party opens after a date as of a day if
+    the occurrence K of the action under the rule for the party is due on a due date as of the day
+    and K > 1
+    and a number J = K - 1
+    and the occurrence J of the action under the rule for the party is due on the date as of the day.
+
+a party met the occurrence a number K of an action under a rule as of a day if
+    the occurrence K of the action under the rule for the party is due on a due date as of the day
+    and the occurrence K of the action under the rule for the party opens after an open date as of the day
+    and the party performs the action on a date
+    and the date is after the open date
+    and the date is before or equal to the due date
+    and the date is before or equal to the day.
+
+a party breached the occurrence a number K of an action under a rule as of a day if
+    the occurrence K of the action under the rule for the party is due on a due date as of the day
+    and the day is after the due date
+    and it is not the case that
+        the party met the occurrence K of the action under the rule as of the day.
+
+a party owes the occurrence a number K of an action under a rule as of a day if
+    the occurrence K of the action under the rule for the party is due on a due date as of the day
+    and the day is before or equal to the due date
+    and it is not the case that
+        the party met the occurrence K of the action under the rule as of the day.
 
 % ---- provisions and acts --------------------------------------------------
 % A provision is named by its ELI, the European Legislation Identifier: the

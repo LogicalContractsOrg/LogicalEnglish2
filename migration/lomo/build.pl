@@ -24,6 +24,12 @@
 :- use_module(library(readutil)).
 :- use_module(le2(le_migration)).
 
+%   The tests of a register run while it loads, within the budget the editor
+%   gives them (le_verify_tests_seconds, 5 s): a register with many
+%   scenarios would then report tests as timed out. The build gives them time.
+:- ( current_prolog_flag(le_verify_tests_seconds, _) -> set_prolog_flag(le_verify_tests_seconds, 120)
+   ; create_prolog_flag(le_verify_tests_seconds, 120, [type(integer)]) ).
+
 main(Argv) :-
     twins_dir(lomo, Root),
     (   Argv == []
@@ -62,13 +68,13 @@ build(File, Set, Root) :-
     ( Fid = fidelity(P, Fa, U, _) -> true ; P = '-', Fa = '-', U = '-' ),
     format("~w  ~w  pass ~w fail ~w error ~w  ~w writer error(s)~n", [LE, Counts, P, Fa, U, NE]).
 
-%   The programs written by hand beside the registers of the door's own
-%   cases (hand/): the conditions of a rule, in Logical English.
-%   hand/<set>/<name>.le goes beside the registers of <set>, with the text of
+%   The agent-written programs beside the registers (agent_written/): the
+%   conditions of rules, in Logical English.
+%   agent_written/<set>/<name>.le goes beside the registers of <set>, with the text of
 %   every provision it names (sources/eli/).
 copy_hand_programs(Root) :-
     module_property(lomo_twin, file(TF)), file_directory_name(TF, Here),
-    atomic_list_concat([Here, '/hand'], HD),
+    atomic_list_concat([Here, '/agent_written'], HD),
     forall(( directory_files(HD, Sets), member(Set, Sets), \+ sub_atom(Set, 0, _, _, '.'),
              atomic_list_concat([HD, '/', Set], SD), exists_directory(SD),
              directory_files(SD, Fs), member(F, Fs), file_name_extension(_, le, F) ),

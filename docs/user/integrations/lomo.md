@@ -26,6 +26,15 @@ A description is written in RDF, the data format of the web, usually as a
 Turtle file (`.ttl`). Version 1.1.0 of LOMO is of 21 October 2026. The
 licence of LOMO and of its data is Creative Commons Attribution 4.0.
 
+The official addresses of LOMO:
+
+- The dataset at the Publications Office of the European Union (EU
+  Vocabularies):
+  <https://op.europa.eu/en/web/eu-vocabularies/dataset/-/resource?uri=http://publications.europa.eu/resource/dataset/lomo>
+- The identifier of the ontology: <http://data.europa.eu/leg/lomo>
+- The specification: <https://drpm.pages.code.europa.eu/lomo/latest/>
+- The repository, with the data: <https://code.europa.eu/drpm/lomo>
+
 A LOMO description has no conditions, no values and no cases. It does not
 say *when* a rule applies. The makers of LOMO say so in their open requests
 166 and 173: conditions and the resolution of conflicts between rules belong
@@ -208,6 +217,10 @@ The folder `migration/lomo/cases/` has three such programs:
 | `gdpr_article_33_conditions` | Article 33(1): the exception "unless the personal data breach is unlikely to result in a risk", and the second duty, to give the reasons for a late notification |
 | `other/directive_2013_34_conditions` | Directive 2013/34/EU: the sizes of undertakings (Article 3), the publication (Article 30), the exemption of micro-undertakings (Article 36(1)(d)) and its limits (Articles 36(7) and 40) |
 
+An agent (a coding assistant) wrote these three programs from the text of
+the provisions. The guide `migration/lomo/CONDITIONS_GUIDE.md` tells an agent
+how to do this for another description.
+
 Each rule of these programs cites its provision: `rule art_3_1 with
 provenance "http://data.europa.eu/eli/dir/2013/34/art_3/par_1/oj", confer
 "..."`. The editor compares the quotation with the text of the provision
@@ -238,11 +251,33 @@ LOMO writes a length of time in the ISO 8601 form: `P12M` is 12 months,
 the due date is the period "P12M" after the balance sheet date
 ```
 
-- A date in Logical English is a day. Thus hours count as whole days, and the
-  system rounds up: `PT72H` is 3 days. The query `hours_as_days` shows each
-  length of time that was rounded.
+- A **moment** is a date with a time of day, written as a text the ISO way:
+  `"2026-03-01T14:30"`. When a case gives the moment of an event, a deadline
+  in hours is exact to the minute:
+
+  ```le
+  "awareness of a personal data breach" happens to acme at "2026-03-01T14:30".
+  acme performs notify the breach at "2026-03-04T10:00".
+  ```
+
+  Then acme must notify the breach by the moment `2026-03-04T14:30`, and the
+  query `met_in_time` says that acme met the duty. A party that notifies at
+  16:00 on 4 March is late.
+- When a case gives only the date of an event, the time of day is not known.
+  Then a length of time in hours counts in whole days, rounded up: `PT72H`
+  after a date is 3 days after it. The query `hours_as_days` shows each
+  length of time that was rounded. Give the moment of the event to get the
+  exact deadline.
 - A **rhythm** (a frequency, `P1Y`) gives a date for each period. The query
   `due_in_2027` shows the dates in 2027.
+- A **repeating duty** of a party has one occurrence for each period. The
+  sentences `the occurrence 2 of submit the report under norm annual report
+  for acme is due on 2027-01-15 as of 2027-06-30`, `acme met the occurrence 1
+  ... as of ...`, `acme breached the occurrence 2 ... as of ...` and `acme
+  owes the occurrence 3 ... as of ...` tell the state of each occurrence on a
+  given day. A party meets an occurrence when it does the action after the
+  previous occurrence was due, and not after this one is due. Refer to the
+  register `cases/annual_report`.
 - A date without a year ("30 September") has its own template:
   `the day "30 September" in the year 2027 is 2027-09-30`.
 
@@ -254,15 +289,57 @@ puts after a notification, but with a date before it.
 ## Duties through time, in LPS
 
 LPS2 (Logic Production Systems 2) runs programs that act over time. The
-library `lomo_calendar.le` of LPS2 runs the duties of a case day by day: a
+library `lomo_calendar.le` of LPS2 runs the duties of a case step by step: a
 duty starts when its trigger happens, ends when the party does the action in
-time, and is breached when the date passes.
+time, and is breached when its due time passes. A repeating duty starts its
+next occurrence when the due time of the current occurrence passes.
 
 The LOMO translator writes the program of a case from a register and its
-scenario. LE for LPS counts days, not dates. Thus each date of the case
-becomes a day number. The first lines of the program tell what the run must
-show at the end. Refer to the examples in the folder `migration/lomo/` of
-LPS2.
+scenario. LE for LPS counts. It does not calculate with dates. Thus each
+date of the case becomes a number of days, and each moment a number of
+minutes. The first lines of the program tell what the run must show at the
+end. Refer to the examples in the folder `examples/migration/lomo/` of LPS2.
+
+### When to use Logical English, and when to use LPS
+
+Most of the work with a LOMO description is in Logical English. Use Logical
+English to:
+
+- hold the description and ask its questions,
+- write the conditions of the rules,
+- decide a case on a given day: who must do what, by when, who is late, which
+  occurrence of a repeating duty is met, breached or owed.
+
+Logical English answers a question about one moment in time ("as of
+30 June 2027"). It has the full calendar: dates, moments, lengths of time
+and rhythms.
+
+Use LPS when the order of events in time is the subject:
+
+- **A process that runs.** The events of a case come one after the other, and
+  you want to see the state after each event: which duties are open, met or
+  breached. A run of LPS shows this step by step.
+- **Monitoring.** A system receives the events of a case as they occur, and
+  must say at each event which duties are open and which are breached.
+- **What follows a breach.** LOMO does not describe sanctions. In LPS, you
+  add a law: when a duty is breached, a new duty starts (a penalty, a
+  report).
+- **Duties that start other duties.** In LPS, the end of one duty can start
+  the next one (`hasNext` in LOMO), or the next occurrence of a repeating
+  duty.
+
+Do these steps to run a case in LPS:
+
+1. Write the case as a scenario of the register, in Logical English.
+2. Check the answers of the case in Logical English (for example
+   `must_perform` and `late_on_...`).
+3. Make the LPS program of the case with the translator
+   (`migration/lomo/lomo_lps.pl`, `lps_case/5`).
+4. Open the program in the LPS2 editor and click **Run**.
+
+The run must end with the duties that Logical English gives for the last
+day of the case. The translator checks this for each of its example cases
+(`lps_gate/1`).
 
 ## The text of a provision
 
@@ -320,9 +397,9 @@ change.
 | The validity rules of LOMO: our check and pySHACL (the reference engine for SHACL in Python) | the same results, file by file and result by result: 134 of 134 files (the same 131 and 3 files broken on purpose): the same 166 results |
 | Each register's own scenario: answers of rdflib for three questions | 131 of 131 registers pass their scenarios |
 | The calendar of the 11 data files with a deadline that has a value, against a calendar written in Python with no Logical English | the same due dates |
-| The time examples of the specification, with dates worked out by hand | all pass |
+| The time examples of the specification, with agent-written dates, worked out before the run | all pass |
 | The three derogation examples of the specification, GDPR Articles 6 and 33, Directive 2013/34/EU | all pass; each quotation agrees with the text of the provision |
-| The cases in LPS2, against the timeless reading for the last day | 3 of 3 |
+| The cases in LPS2 (dates, moments, a repeating duty), against the timeless reading for the last day | 5 of 5 |
 | The way back: each register to Turtle and again | 131 of 131 give the same graph again (30,105 statements; rdflib compares the graphs, blank nodes included) |
 | The way back: LE2's examples that cite provisions, and the LegalRuleML twins | 99 programs cite their provisions: 93 become valid descriptions (10,894 statements); the other 6 are refused, and the export tells why (a rule cites a document that has no web address) |
 
@@ -343,14 +420,16 @@ The checks found these points in the material of LOMO:
 
 ## What is not supported yet
 
-- **Hours.** A date is a day. A deadline in hours counts in whole days.
+- **Hours without a time of day.** When a case gives only the date of an
+  event, a deadline in hours counts in whole days, rounded up. Give the moment
+  of the event to get the exact deadline.
 - **The bearer of a duty.** The translator reads the addresser as the party
-  that bears a duty, as the ontology defines the roles. The data made from the
+  that bears a duty, as the ontology defines the roles. The data that the LOMO project generated from the
   digital statements often writes the bearer as the addressee. The option
   `bearer(addressee)` of the translator reads them so (it is not in the menu
   yet).
-- **Rhythms in LPS.** The LPS library does not repeat a duty yet. The timeless
-  calendar of LE has rhythms.
+- **The start of a repeating duty in LPS.** In LPS, the first occurrence is
+  open from the start of the run, not from the event that starts the rhythm.
 - **A chain of derogations.** It is not examined (refer to [Derogations](#derogations)).
 - **Definitions** are text in LOMO. A definition that gives the meaning of an
   agent type (`defines`) makes the sentence `a party meets the definition ...`.

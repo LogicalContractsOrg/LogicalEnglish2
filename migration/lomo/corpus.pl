@@ -1,9 +1,11 @@
 /** <module> The LOMO corpus: the data files of the LOMO repository
 
     lomo_file(Set, File): Set is the folder of examples/migration/lomo/ the
-    register goes to: `examples` (the hand-made examples of data/examples/),
-    `other` (the hand-made descriptions of data/other/), `lfds` (the files
-    made from the digital statements of Commission proposals, data/lfds/ttl/).
+    register goes to: `examples` (imported from data/examples/batch_1/),
+    `other` (imported from all of data/other/), `lfds` (imported from
+    data/lfds/ttl/, which a program of the LOMO project generated from the
+    digital statements of Commission proposals), `spec` (the Turtle examples
+    of the specification page), `cases` (agent-written descriptions).
 */
 
 :- module(lomo_corpus, [lomo_file/2, corpus_dir/1, ontology_file/1, shapes_file/1, query_file/2]).

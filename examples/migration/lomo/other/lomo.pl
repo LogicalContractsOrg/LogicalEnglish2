@@ -120,13 +120,15 @@ le_lomo_heading(enc, 'Enacting terms').
 
 le_lomo_instant_days(date(Y, M, D), date(Y, M, D), date(Y, M, D)).
 le_lomo_instant_days(T, First, Last) :-
-    ( string(T) -> string_codes(T, Cs) ; atom(T) -> atom_codes(T, Cs) ),
-    le_lomo_digits_dashes(Cs, Parts),
+    ( string(T) ; atom(T) ),
+    le_lomo_digits_dashes(T, Parts),
     le_lomo_instant_parts(Parts, First, Last).
 
-le_lomo_digits_dashes(Cs, Parts) :-
-    (   append(Before, [0'T|_], Cs) -> Day = Before ; Day = Cs ),
-    atom_codes(A, Day),
+%   Built-ins only (split_string/4, not append/3): the reasoner may interpret
+%   a library predicate clause by clause, which is slow on a long list.
+le_lomo_digits_dashes(T, Parts) :-
+    split_string(T, "T", "", [Day|_]),
+    atom_string(A, Day),
     atomic_list_concat(Ps, '-', A),
     le_lomo_numbers(Ps, Parts).
 

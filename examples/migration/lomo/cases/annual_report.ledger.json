@@ -1,0 +1,89 @@
+{
+  "counts": {"approximated":0,"encoded":6,"residue":0},
+  "entries": [
+    {
+      "element":"http://example.org/cases/annual#Norm_Annual_Report",
+      "in_program":"norm annual report",
+      "kind":"*a thing* is a substantive rule",
+      "mapping":"5 statements(5), one fact each",
+      "note":"",
+      "verdict":"encoded"
+    },
+    {
+      "element":"http://example.org/cases/annual#SubmitTheReport",
+      "in_program":"submit the report",
+      "kind":"action",
+      "mapping":"4 statements(4), one fact each",
+      "note":"",
+      "verdict":"encoded"
+    },
+    {
+      "element":"http://example.org/cases/annual#Role_Operator",
+      "in_program":"role operator",
+      "kind":"agent role",
+      "mapping":"3 statements(3), one fact each",
+      "note":"",
+      "verdict":"encoded"
+    },
+    {
+      "element":"http://example.org/cases/annual#Operators",
+      "in_program":"operators",
+      "kind":"agent type",
+      "mapping":"2 statements(2), one fact each",
+      "note":"",
+      "verdict":"encoded"
+    },
+    {
+      "element":"http://example.org/cases/annual#Every_Year",
+      "in_program":"year",
+      "kind":"*a thing* is a temporal specification",
+      "mapping":"5 statements(5), one fact each",
+      "note":"",
+      "verdict":"encoded"
+    },
+    {
+      "element":"http://example.org/cases/annual#StartOfOperation",
+      "in_program":"start of operation",
+      "kind":"*a thing* is a temporal specification",
+      "mapping":"2 statements(2), one fact each",
+      "note":"",
+      "verdict":"encoded"
+    }
+  ],
+  "fidelity": {
+    "errors":0,
+    "failed":0,
+    "passed":9,
+    "tests": [
+      {"detail":"","query":"due_dates","result":"pass","scenario":"calendar"},
+      {"detail":"","query":"due_in_2027","result":"pass","scenario":"calendar"},
+      {"detail":"","query":"modalities","result":"pass","scenario":"description"},
+      {"detail":"","query":"actions_of_rules","result":"pass","scenario":"description"},
+      {"detail":"","query":"actions_of_agents","result":"pass","scenario":"description"},
+      {
+	"detail":"",
+	"query":"occurrences_on_30_june_2027",
+	"result":"pass",
+	"scenario":"three_reports"
+      },
+      {"detail":"","query":"met_on_30_june_2027","result":"pass","scenario":"three_reports"},
+      {
+	"detail":"",
+	"query":"breached_on_30_june_2027",
+	"result":"pass",
+	"scenario":"three_reports"
+      },
+      {"detail":"","query":"owed_on_30_june_2027","result":"pass","scenario":"three_reports"}
+    ]
+  },
+  "meta": {
+    "artifacts": ["annual_report.ttl" ],
+    "date":"2026-11-26",
+    "licence":"Creative Commons Attribution 4.0 (the description); the register: the same, as a changed copy",
+    "program":"annual_report",
+    "source":"a LOMO description (Legal Obligation Metadata Ontology 1.1.0, Turtle)",
+    "translator":"LE2 migration/lomo (lomo_twin.pl)"
+  },
+  "pending_expectations":0,
+  "source_tests":3
+}

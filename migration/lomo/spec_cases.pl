@@ -1,4 +1,4 @@
-/** <module> Scenarios written by hand for the specification's examples and the door's own cases
+/** <module> Agent-written scenarios for the specification's examples and the door's own cases
 
     case(Stem, Scenarios, Queries)
         Stem       the file name of the description without `.ttl`
@@ -9,7 +9,7 @@
         Queries    [query(Name, Body)]: queries this register needs beside
                    the questions every register has.
 
-    The expected answers were worked out by hand from the specification's
+    The expected answers were worked out by the agent (Opus 5.5) from the specification's
     text and the dates of each case, before the registers were run: they are
     the test, not a record of what the library answers. The arithmetic is
     the calendar's: a month after 31 January is 28 or 29 February, hours are
@@ -152,8 +152,19 @@ case(probe,
                   expects(violations, ["the obligation of acme that acme performs publish the statements is violated"]),
                   expects(rules_without_conditions, ["norm gdpr 33 has no written conditions",
                                                      "norm accounts 30 has no written conditions",
-                                                     "norm micro 36 has no written conditions"]) ]) ],
-     [ query(late_on_1_april_2026, lomo_late(_, _, _, date(2026, 4, 1))) ]).
+                                                     "norm micro 36 has no written conditions"]) ]),
+       scenario(to_the_minute,
+                [lomo_of_type(acme, controllers), lomo_of_type(beta, controllers),
+                 lomo_happens_at("awareness of a personal data breach", acme, "2026-03-01T14:30"),
+                 lomo_performs_at(acme, 'notify the breach', "2026-03-04T10:00"),
+                 lomo_happens_at("awareness of a personal data breach", beta, "2026-03-01T14:30"),
+                 lomo_performs_at(beta, 'notify the breach', "2026-03-04T16:00")],
+                [ expects(must_perform_by_the_moment, ["acme must perform notify the breach by the moment 2026-03-04T14:30 under norm gdpr 33",
+                                                       "beta must perform notify the breach by the moment 2026-03-04T14:30 under norm gdpr 33"]),
+                  expects(met_in_time, ["acme met notify the breach in time under norm gdpr 33"]),
+                  expects(late_at_midnight_4_march, ["beta is late with notify the breach under norm gdpr 33 at 2026-03-05T00:00"]) ]) ],
+     [ query(late_on_1_april_2026, lomo_late(_, _, _, date(2026, 4, 1))),
+       query(late_at_midnight_4_march, lomo_late_at(_, _, _, "2026-03-05T00:00")) ]).
 
 %  The specification's three examples of derogatesFrom. The rules of the
 %  examples are abbreviated (the specification says so: no actions), so each
@@ -225,3 +236,30 @@ case('financial-reporting-dir_2013_34-lomo-manual',
                                          "smallco must perform step publish full report by 2026-12-31 under norm publication obligation"]),
                   expects(late_on_1_february_2027, ["smallco is late with step publish full report under norm publication obligation on 2027-02-01"]) ]) ],
      [ query(late_on_1_february_2027, lomo_late(_, _, _, date(2027, 2, 1))) ]).
+
+%  A repeating duty (agent-written description, corpus/cases/annual_report.ttl):
+%  three yearly reports after the start of operation, 15 January 2025. Due on
+%  15 January 2026, 2027 and 2028. The report of 10 January 2026 meets the
+%  first; none comes for the second; the report of 1 February 2027 is after
+%  the second was due, so it meets the third. On 30 June 2027: the first met,
+%  the second breached, the third met.
+case(annual_report,
+     [ scenario(three_reports,
+                [lomo_of_type(acme, operators),
+                 lomo_happens_to("start of operation", acme, date(2025, 1, 15)),
+                 lomo_performs_on(acme, 'submit the report', date(2026, 1, 10)),
+                 lomo_performs_on(acme, 'submit the report', date(2027, 2, 1))],
+                [ expects(occurrences_on_30_june_2027,
+                          ["the occurrence 1 of submit the report under norm annual report for acme is due on 2026-01-15 as of 2027-06-30",
+                           "the occurrence 2 of submit the report under norm annual report for acme is due on 2027-01-15 as of 2027-06-30",
+                           "the occurrence 3 of submit the report under norm annual report for acme is due on 2028-01-15 as of 2027-06-30"]),
+                  expects(met_on_30_june_2027,
+                          ["acme met the occurrence 1 of submit the report under norm annual report as of 2027-06-30",
+                           "acme met the occurrence 3 of submit the report under norm annual report as of 2027-06-30"]),
+                  expects(breached_on_30_june_2027,
+                          ["acme breached the occurrence 2 of submit the report under norm annual report as of 2027-06-30"]),
+                  expects(owed_on_30_june_2027, []) ]) ],
+     [ query(occurrences_on_30_june_2027, lomo_occurrence_due(_, _, _, _, _, date(2027, 6, 30))),
+       query(met_on_30_june_2027, lomo_occ_met(_, _, _, _, date(2027, 6, 30))),
+       query(breached_on_30_june_2027, lomo_occ_breached(_, _, _, _, date(2027, 6, 30))),
+       query(owed_on_30_june_2027, lomo_occ_owes(_, _, _, _, date(2027, 6, 30))) ]).

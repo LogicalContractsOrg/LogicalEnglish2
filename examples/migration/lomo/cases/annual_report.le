@@ -1,0 +1,271 @@
+% The register of a LOMO description: the Logical English twin of
+% annual_report.ttl (kept in sources/), written by the LOMO translator.
+% One fact for each statement of the description, in the words of lomo.le.
+% LOMO describes rules; it has no conditions and no cases. A question
+% about a case gets its answer only from the parts of the description that
+% have values (deadlines, agents, derogations).
+%
+% LOMO and its data: (c) European Union, Creative Commons Attribution 4.0
+% (https://creativecommons.org/licenses/by/4.0/); source: the LOMO
+% repository, https://code.europa.eu/drpm/lomo. The description was changed
+% into Logical English by the LOMO translator of Logical English.
+%
+% DISCLAIMER. This program was written by a translator from a program of another
+% system. It is provided "as is", without warranty of any kind, express or
+% implied, including any warranty that it is accurate, complete or fit for a
+% particular purpose. The translation may be wrong: check it against its source
+% before relying on it. It is not legal, tax, insurance, financial or other
+% professional advice. Its authors accept no liability for any loss or damage
+% arising from its use.
+
+the target language is: prolog.
+
+the knowledge base annual_report includes these resources:
+    lomo.
+
+the knowledge base annual_report includes:
+
+the text of the source description is at "sources/annual_report.ttl".
+
+% Who bears a duty: the agent of this role of the action (lomo.le).
+the bearer role is addresser.
+
+
+norm annual report is identified by "http://example.org/cases/annual#Norm_Annual_Report".
+
+norm annual report is a substantive rule.
+
+norm annual report has the label "Operators report every year, for three years".
+
+norm annual report has the modality obligation.
+
+norm annual report is established in "http://example.org/act/art_7/par_1".
+
+norm annual report produces submit the report.
+
+
+submit the report is identified by "http://example.org/cases/annual#SubmitTheReport".
+
+submit the report is an action.
+
+submit the report has the label "submit the annual report".
+
+submit the report has the agent role role operator.
+
+submit the report has the time specification year.
+
+
+role operator is identified by "http://example.org/cases/annual#Role_Operator".
+
+role operator is an agent role.
+
+role operator is for the agent operators.
+
+role operator has the role addresser.
+
+
+operators is identified by "http://example.org/cases/annual#Operators".
+
+operators is an agent type.
+
+operators has the label "Operators".
+
+
+year is identified by "http://example.org/cases/annual#Every_Year".
+
+year is a temporal specification.
+
+year has the function deadline.
+
+year has the frequency "P1Y".
+
+year has the number of repetitions 3.
+
+year is timed after start of operation.
+
+
+start of operation is identified by "http://example.org/cases/annual#StartOfOperation".
+
+start of operation is a temporal specification.
+
+start of operation has the temporal label "start of operation".
+
+
+% The questions of LOMO's requirements document (its competency questions),
+% as far as a description can answer them.
+scenario calendar is, as stated in the source description:
+    % A case for the calendar: the events that a deadline counts from, and the rhythms that
+    % count from nothing else, start on 2027-01-01.
+    the calendar starts on 2027-01-01.
+    "start of operation" happens on 2027-01-01.
+    due_dates expects answers [].
+    due_in_2027 expects answers [].
+
+scenario description is, as stated in the source description:
+    modalities expects answers ["norm annual report has the modality obligation"].
+    actions_of_rules expects answers ["norm annual report produces submit the report"].
+    actions_of_agents expects answers ["operators acts as addresser in submit the report"].
+
+scenario three_reports is, as stated in the source description:
+    acme is of the type operators.
+    "start of operation" happens to acme on 2025-01-15.
+    acme performs submit the report on 2026-01-10.
+    acme performs submit the report on 2027-02-01.
+    occurrences_on_30_june_2027 expects answers ["the occurrence 1 of submit the report under norm annual report for acme is due on 2026-01-15 as of 2027-06-30", "the occurrence 2 of submit the report under norm annual report for acme is due on 2027-01-15 as of 2027-06-30", "the occurrence 3 of submit the report under norm annual report for acme is due on 2028-01-15 as of 2027-06-30"].
+    met_on_30_june_2027 expects answers ["acme met the occurrence 1 of submit the report under norm annual report as of 2027-06-30", "acme met the occurrence 3 of submit the report under norm annual report as of 2027-06-30"].
+    breached_on_30_june_2027 expects answers ["acme breached the occurrence 2 of submit the report under norm annual report as of 2027-06-30"].
+    owed_on_30_june_2027 expects answers [].
+
+query obligations is:
+    which rule has the modality obligation for which agent as which role.
+
+query permissions is:
+    which rule has the modality permission for which agent as which role.
+
+query prohibitions is:
+    which rule has the modality prohibition for which agent as which role.
+
+query rights is:
+    which rule has the modality right for which agent as which role.
+
+query deadlines is:
+    which thing has which temporal specification as deadline.
+
+query due_dates is:
+    which agent has which action due on which date.
+
+query due_in_2027 is:
+    which agent has which action due on which date in the period from 2027-01-01 to 2027-12-31.
+
+query must_perform is:
+    which party must perform which action by which date under which rule.
+
+query must_perform_by_the_moment is:
+    which party must perform which action by the moment which moment under which rule.
+
+query met_in_time is:
+    which party met which action in time under which rule.
+
+query applies is:
+    which rule applies to which party.
+
+query rules_without_conditions is:
+    which rule has no written conditions.
+
+query places is:
+    which rule is laid down in which place.
+
+query addressers is:
+    which agent acts as addresser in which action.
+
+query addressees is:
+    which agent acts as addressee in which action.
+
+query beneficiaries is:
+    which agent acts as beneficiary in which action.
+
+query triggers is:
+    which thing is triggered by which event.
+
+query kinds is:
+    which thing is of the kind which kind.
+
+query rules_of_act is:
+    which rule is established by the act which act.
+
+query provisions is:
+    which thing is established in which provision.
+
+query joint_rules is:
+    which rule is established in more than one provision.
+
+query prescriptive is:
+    which thing is a prescriptive rule.
+
+query constitutive is:
+    which thing is a constitutive rule.
+
+query modalities is:
+    which rule has the modality which modality.
+
+query actions_of_rules is:
+    which rule produces which action.
+
+query agent_types is:
+    which thing is an agent type.
+
+query actions_of_agents is:
+    which agent acts as which role in which action.
+
+query concerned_agents is:
+    which rule concerns which agent.
+
+query starting_points is:
+    which thing has which temporal specification as starting point.
+
+query validity is:
+    which thing has which temporal specification as validity.
+
+query frequencies is:
+    which temporal specification has the frequency which duration.
+
+query repetitions is:
+    which temporal specification has the number of repetitions which number.
+
+query timed_after is:
+    which temporal specification is timed after which second temporal specification.
+
+query first_dates is:
+    the first date of which temporal specification is which date.
+
+query last_dates is:
+    the last date of which temporal specification is which date.
+
+query later_times is:
+    which temporal specification is later than which second temporal specification.
+
+query times_within is:
+    which temporal specification is during which second temporal specification.
+
+query broken_links is:
+    which temporal specification breaks its link with which second temporal specification.
+
+query obliged is:
+    which party is obliged that which sentence.
+
+query permitted is:
+    which party is permitted that which sentence.
+
+query forbidden is:
+    which party is forbidden that which sentence.
+
+query holders_of_rights is:
+    which party has the right that which sentence.
+
+query violations is:
+    the obligation of which party that which sentence is violated.
+
+query parts is:
+    which thing is part of the description.
+
+query texts is:
+    which thing is described by the text which text.
+
+query addresses is:
+    which thing is identified by which address.
+
+query bearer is:
+    the bearer role is which role.
+
+query occurrences_on_30_june_2027 is:
+    the occurrence which number of which action under which rule for which party is due on which date as of 2027-06-30.
+
+query met_on_30_june_2027 is:
+    which party met the occurrence which number of which action under which rule as of 2027-06-30.
+
+query breached_on_30_june_2027 is:
+    which party breached the occurrence which number of which action under which rule as of 2027-06-30.
+
+query owed_on_30_june_2027 is:
+    which party owes the occurrence which number of which action under which rule as of 2027-06-30.
+

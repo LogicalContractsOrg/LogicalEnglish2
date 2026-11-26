@@ -193,6 +193,62 @@ le_temporal_rhythm_k(Text, Start, Max, From, To, K, Date) :-
     ;   K1 is K + 1, le_temporal_rhythm_k(Text, Start, Max, From, To, K1, Date)
     ).
 
+
+%   ---- moments: a date with a time of day, "2026-03-01T14:30" ----------
+%
+%   A moment is written the ISO 8601 way, as a text: the date, T, the hours
+%   and minutes (and seconds, when there are any). A length of time in hours
+%   is added to a moment exactly: "PT72H" after "2026-03-01T14:30" is
+%   "2026-03-04T14:30". Years and months move the date, as for a date.
+
+le_temporal_moment(Text, date(Y, M, D), Secs) :-
+    %  built-ins only: the reasoner may interpret a library predicate such
+    %  as append/3 clause by clause, which is slow on a long list
+    ( string(Text) ; atom(Text) ),
+    split_string(Text, "T", "", [DS, TS]),
+    split_string(DS, "-", "", [YA, MA, DayA]),
+    number_string(Y, YA), number_string(M, MA), number_string(D, DayA),
+    integer(Y), integer(M), integer(D),
+    split_string(TS, ":", "", Ps),
+    le_temporal_hms(Ps, Secs).
+
+le_temporal_hms([H, Mi], S) :- number_string(HN, H), number_string(MN, Mi), S is HN * 3600 + MN * 60.
+le_temporal_hms([H, Mi, Se], S) :- number_string(HN, H), number_string(MN, Mi), number_string(SN0, Se), SN is truncate(SN0), S is HN * 3600 + MN * 60 + SN.
+
+le_temporal_moment_text(date(Y, M, D), Secs, Text) :-
+    H is Secs // 3600, Mi is (Secs mod 3600) // 60, Se is Secs mod 60,
+    (   Se =:= 0
+    ->  format(string(Text), "~|~`0t~d~4+-~|~`0t~d~2+-~|~`0t~d~2+T~|~`0t~d~2+:~|~`0t~d~2+", [Y, M, D, H, Mi])
+    ;   format(string(Text), "~|~`0t~d~4+-~|~`0t~d~2+-~|~`0t~d~2+T~|~`0t~d~2+:~|~`0t~d~2+:~|~`0t~d~2+", [Y, M, D, H, Mi, Se])
+    ).
+
+%   Seconds since 1970-01-01T00:00, to compare two moments.
+le_temporal_moment_seconds(Text, N) :-
+    le_temporal_moment(Text, Date, Secs),
+    le_temporal_day_number(Date, DN),
+    N is DN * 86400 + Secs.
+
+le_temporal_add_period_moment(Moment, Text, K, Later) :-
+    le_temporal_moment(Moment, Date, Secs),
+    le_temporal_iso(Text, period(Y, Mo, D, PS)),
+    Months is K * (Y * 12 + Mo),
+    le_temporal_add_months(Date, Months, D1),
+    Total is Secs + K * (D * 86400 + PS),
+    Days is Total // 86400, Rest is Total mod 86400,
+    le_temporal_add_days(D1, Days, D2),
+    le_temporal_moment_text(D2, Rest, Later).
+
+%   The occurrences of a rhythm up to a day: each date not after the day,
+%   and the first one after it (the one that is still open on that day).
+le_temporal_rhythm_upto(Text, Start, Day, K0, K, Date) :-
+    le_temporal_iso(Text, period(Y, Mo, D, Secs)),
+    Step is Y * 12 + Mo + D + Secs, Step > 0,
+    le_temporal_add_period(Start, Text, K0, D0),
+    le_temporal_day_number(D0, N0), le_temporal_day_number(Day, ND),
+    (   K = K0, Date = D0
+    ;   N0 =< ND, K1 is K0 + 1, le_temporal_rhythm_upto(Text, Start, Day, K1, K, Date)
+    ).
+
 %   ---- a date without its year: "30 September", "September 30" ----------
 
 le_temporal_month_name(january, 1).  le_temporal_month_name(february, 2).
@@ -252,3 +308,8 @@ counts_hours_as_whole_days(Text) :- le_temporal_has_time_of_day(Text).
 the_occurrence_of_every_after_is(K, Text, Date, Later) :- integer(K), K >= 1, le_temporal_add_period(Date, Text, K, Later).
 is_a_date_of_every_from_in_the_period_from_to(Date, Text, Start, From, To) :- le_temporal_rhythm_date(Text, Start, 0, From, To, Date).
 the_day_in_the_year_is(Text, Year, Date) :- le_temporal_day_of_year(Text, Year, Date).
+is_the_period_after_the_moment(Later, Text, Moment) :- le_temporal_add_period_moment(Moment, Text, 1, Later).
+is_before_the_moment(M1, M2) :- le_temporal_moment_seconds(M1, N1), le_temporal_moment_seconds(M2, N2), N1 < N2.
+is_not_later_than_the_moment(M1, M2) :- le_temporal_moment_seconds(M1, N1), le_temporal_moment_seconds(M2, N2), N1 =< N2.
+the_date_of_the_moment_is(Moment, Date) :- le_temporal_moment(Moment, Date, _).
+the_occurrence_of_every_from_up_to_is(K, Text, Start, Day, Date) :- le_temporal_rhythm_upto(Text, Start, Day, 1, K, Date).

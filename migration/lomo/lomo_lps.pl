@@ -1,25 +1,28 @@
 /** <module> Step 5: a case of a LOMO register, through time, in LPS
 
-    lps_case(+Register, +Scenario, +LastDate, +OutFile, -Expected)
+    lps_case(+Register, +Scenario, +Last, +OutFile, -Expected)
         Writes OutFile, a program of Logical English for LPS that extends
         lomo_calendar.le (LPS2 examples/migration/lomo/): the duties of the
         case start when their triggers happen, end when they are met, and
-        are breached when the clock passes their due days. Expected is what
-        the timeless reading of the register (lib/lomo.le, in LE2) says of
-        the last day: [open(P, A, R, Day), met(P, A, R), breached(P, A, R, Day)].
+        are breached when the clock passes their due times; a repeating duty
+        starts its next occurrence when the clock passes the due time of the
+        current one. Last is the last date (or moment) of the run. Expected
+        is what the timeless reading of the register (lib/lomo.le, in LE2)
+        says of Last, as the fluents the run must end with.
     lps_gate(-Results)
         Every case of lps_cases/4: the program written, run by LPS2
         (`lps state`), its final state against Expected.
 
-    Who is bound, by which rule, to which action, after which event and
-    within which length of time is the timeless reading's: the translator
-    asks it, with the case's facts, and writes the answers as facts of the
-    LPS program. LE for LPS counts days, not calendar dates (it refuses date
-    arithmetic, `not_lps`): each date of the case becomes a day number, day
-    1 being the day before the first date of the case, and each length of
-    time after an event a fact `the period "P12M" after day 1 is day 366`,
-    calculated by lib/temporal.pl. This is the simple way of the plan
-    (LOMO.md §4, item 8).
+    Who is bound, by which rule, to which action, after which event, within
+    which length of time, and the due dates of each occurrence of a
+    repeating duty: all of it is the timeless reading's. The translator asks
+    LE2 with the case's facts and writes the answers as facts of the LPS
+    program. LE for LPS counts, it does not do calendar arithmetic (date
+    arithmetic is `not_lps`): each date of the case becomes a time, a number
+    of days, or a number of minutes when the case gives moments
+    ("2026-03-01T14:30"); time 1 is the first day (or minute) of the case,
+    and each length of time after an event is a fact `the period "PT72H"
+    after time 1 is time 4321`, calculated by lib/temporal.pl.
 
     Copyright Miguel Calejo; Apache License 2.0.
 */
@@ -35,10 +38,12 @@
 
 :- dynamic rows_/2.
 
-%   lps_cases(Name, Register (under examples/migration/lomo), Scenario, LastDate)
+%   lps_cases(Name, Register (under examples/migration/lomo), Scenario, Last)
 lps_cases(probe_to_1_april_2026, 'cases/probe.le', case_one, date(2026, 4, 1)).
 lps_cases(probe_to_15_january_2027, 'cases/probe.le', case_one, date(2027, 1, 15)).
+lps_cases(probe_to_the_minute, 'cases/probe.le', to_the_minute, "2026-03-05T00:00").
 lps_cases(financial_reporting_2027, 'other/financial_reporting_dir_2013_34_lomo_manual.le', reporting_2027, date(2027, 2, 1)).
+lps_cases(annual_report_to_30_june_2027, 'cases/annual_report.le', three_reports, date(2027, 6, 30)).
 
 %   ---- the timeless reading ---------------------------------------------
 
@@ -53,6 +58,7 @@ rows(Text, Rows) :-
 r2(T, X, Y) :- rows(T, Rs), member([X, Y], Rs).
 r3(T, X, Y, Z) :- rows(T, Rs), member([X, Y, Z], Rs).
 r4(T, X, Y, Z, W) :- rows(T, Rs), member([X, Y, Z, W], Rs).
+r5(T, X, Y, Z, W, V) :- rows(T, Rs), member([X, Y, Z, W, V], Rs).
 
 with_case(Register, Scenario, Goal) :-
     load(Register, KB), createSession(KB, SM),
@@ -63,7 +69,7 @@ with_case(Register, Scenario, Goal) :-
     retractall(rows_(_, _)),
     destroySession(SM).
 
-%   A duty of the case: binds(Rule, Party, Action, Event, Duration).
+%   A one-off duty of the case: binds(Rule, Party, Action, Event, Duration).
 binding(binds(R, P, A, E, Du)) :-
     r2("which rule applies to which party", R, P),
     r2("which rule produces which action", R, A),
@@ -73,79 +79,136 @@ binding(binds(R, P, A, E, Du)) :-
     r2("which temporal specification has the duration which duration", S, Du),
     r2("which temporal specification has the temporal label which text", S2, E).
 
+%   A repeating duty: rhythm(Rule, Party, Action, Duration, [K-DueDate, ...]).
+rhythm(Last, rhythm(R, P, A, Du, Occs)) :-
+    last_day(Last, Day), date_text(Day, DT),
+    format(string(Q), "the occurrence which number of which action under which rule for which party is due on which date as of ~w", [DT]),
+    rows(Q, Rows),
+    setof(R-P-A, K^D^member([K, A, R, P, D], Rows), RPAs),
+    member(R-P-A, RPAs),
+    findall(K-D, member([K, A, R, P, D], Rows), Occs0), sort(Occs0, Occs),
+    once(( r3("which thing has which temporal specification as which function", A, S, deadline),
+           r2("which temporal specification has the frequency which duration", S, Du) )).
+
+%   The timeless reading of Last: open(P,A,R,Due), met(P,A,R,Due), breached(P,A,R,Due).
 timeless(Last, Expected) :-
-    findall(open(P, A, R, D), ( r4("which party must perform which action by which date under which rule", P, A, D, R),
-                                \+ r3("which party met which action under which rule", P, A, R),
-                                \+ date_after(Last, D) ), Open),
-    findall(met(P, A, R), r3("which party met which action under which rule", P, A, R), Met),
-    findall(breached(P, A, R, D), ( r4("which party must perform which action by which date under which rule", P, A, D, R),
-                                    \+ r3("which party met which action under which rule", P, A, R),
-                                    date_after(Last, D) ), Breached),
-    append([Open, Met, Breached], E0), sort(E0, Expected).
+    last_day(Last, Day), date_text(Day, DT),
+    findall(E, one_off_date(Last, E), E1),
+    findall(E, one_off_moment(Last, E), E2),
+    format(string(QM), "which party met the occurrence which number of which action under which rule as of ~w", [DT]),
+    format(string(QB), "which party breached the occurrence which number of which action under which rule as of ~w", [DT]),
+    format(string(QO), "which party owes the occurrence which number of which action under which rule as of ~w", [DT]),
+    format(string(QD), "the occurrence which number of which action under which rule for which party is due on which date as of ~w", [DT]),
+    findall(met(P, A, R, D), ( r4(QM, P, K, A, R), r5(QD, K, A, R, P, D) ), E3),
+    findall(breached(P, A, R, D), ( r4(QB, P, K, A, R), r5(QD, K, A, R, P, D) ), E4),
+    findall(open(P, A, R, D), ( r4(QO, P, K, A, R), r5(QD, K, A, R, P, D) ), E5),
+    append([E1, E2, E3, E4, E5], E0), sort(E0, Expected).
 
-date_after(D1, D2) :- day_number(D1, N1), day_number(D2, N2), N1 > N2.
+one_off_date(Last, E) :-
+    r4("which party must perform which action by which date under which rule", P, A, D, R),
+    (   r3("which party met which action under which rule", P, A, R) -> E = met(P, A, R, D)
+    ;   after(Last, D) -> E = breached(P, A, R, D)
+    ;   E = open(P, A, R, D)
+    ).
+one_off_moment(Last, E) :-
+    r4("which party must perform which action by the moment which moment under which rule", P, A, M, R),
+    (   r3("which party met which action in time under which rule", P, A, R) -> E = met(P, A, R, M)
+    ;   after(Last, M) -> E = breached(P, A, R, M)
+    ;   E = open(P, A, R, M)
+    ).
 
-day_number(D, N) :- lomo_temporal:le_temporal_day_number(D, N).
+last_day(date(Y, M, D), date(Y, M, D)) :- !.
+last_day(Moment, Date) :- lomo_temporal:le_temporal_moment(Moment, Date, _).
+
+date_text(date(Y, M, D), T) :- format(string(T), "~|~`0t~d~4+-~|~`0t~d~2+-~|~`0t~d~2+", [Y, M, D]).
 
 :- prolog_load_context(directory, D),
    atomic_list_concat([D, '/../../lib/temporal.pl'], T),
-   ( catch(lomo_temporal:le_temporal_day_number(date(2000,1,1), _), _, fail) -> true ; lomo_temporal:consult(T) ).
+   ( catch(lomo_temporal:le_temporal_day_number(date(2000,1,1), _), _, fail) -> true ; lomo_twin:load_clauses(T, lomo_temporal) ).
+
+%   ---- times: days, or minutes when the case gives moments -----------------
+
+%   absolute(+Unit, +DateOrMoment, -N): days since 1970, or minutes.
+absolute(days, date(Y, M, D), N) :- !, lomo_temporal:le_temporal_day_number(date(Y, M, D), N).
+absolute(days, Moment, N) :- lomo_temporal:le_temporal_moment(Moment, Date, _), lomo_temporal:le_temporal_day_number(Date, N).
+absolute(minutes, date(Y, M, D), N) :- !, lomo_temporal:le_temporal_day_number(date(Y, M, D), DN), N is DN * 1440.
+absolute(minutes, Moment, N) :- lomo_temporal:le_temporal_moment_seconds(Moment, S), N is S // 60.
+
+after(A, B) :- absolute(minutes, A, NA), absolute(minutes, B, NB), NA > NB.
+
+add_period(date(Y, M, D), Du, Later) :- !, lomo_temporal:le_temporal_add_period(date(Y, M, D), Du, 1, Later).
+add_period(Moment, Du, Later) :- lomo_temporal:le_temporal_add_period_moment(Moment, Du, 1, Later).
 
 %   ---- the program ------------------------------------------------------
 
 lps_case(Register, Scenario, Last, Out, Expected) :-
-    with_case(Register, Scenario, case_parts(Last, Bindings, Happens, Performs, Expected0)),
-    Expected0 = Expected,
-    findall(D, ( member(h(_, _, D), Happens) ; member(p(_, _, D), Performs) ), Ds0),
-    ( Ds0 == [] -> Ds = [Last] ; Ds = Ds0 ),
-    findall(N, ( member(D, Ds), day_number(D, N) ), Ns), min_list(Ns, Min),
-    Base is Min - 1,                                  % day 1 is the day before the first date
-    day_of(Base, Last, LastDay),
-    %  the periods after each triggering event of the case
-    findall(period(Du, Day, DueDay),
-            ( member(binds(_, P, _, E, Du), Bindings), member(h(E, P, D), Happens),
-              day_of(Base, D, Day),
-              lomo_temporal:le_temporal_add_period(D, Du, 1, DD), day_of(Base, DD, DueDay) ),
+    with_case(Register, Scenario, case_parts(Last, Bindings, Rhythms, Happens, Performs, Expected)),
+    unit(Happens, Performs, Last, Unit),
+    findall(X, ( member(h(_, _, X), Happens) ; member(p(_, _, X), Performs) ;
+                 member(rhythm(_, _, _, _, Os), Rhythms), member(_-X, Os) ), Xs0),
+    ( Xs0 == [] -> Xs = [Last] ; Xs = Xs0 ),
+    findall(N, ( member(X, Xs), absolute(Unit, X, N) ), Ns), min_list(Ns, Min),
+    Base is Min - 1,                                    % time 1: the first day (or minute) of the case
+    time_of(Unit, Base, Last, LastT),
+    %  one-off duties: the due time after each triggering event of the case
+    findall(period(Du, T, DT),
+            ( member(binds(_, P, _, E, Du), Bindings), member(h(E, P, X), Happens),
+              time_of(Unit, Base, X, T), add_period(X, Du, DX), time_of(Unit, Base, DX, DT) ),
             Periods0), sort(Periods0, Periods),
-    %  the timeline: the events of the case, and the clock on each day after a due day, and on the last day
-    findall(Day-happens(E, P), ( member(h(E, P, D), Happens), day_of(Base, D, Day), Day =< LastDay ), T1),
-    findall(Day-performs(P, A), ( member(p(P, A, D), Performs), day_of(Base, D, Day), Day =< LastDay ), T2),
-    findall(Day-clock, ( member(period(_, _, DueDay), Periods), Day is DueDay + 1, Day =< LastDay ), T3),
-    append([T1, T2, T3, [LastDay-clock]], T0), sort(T0, Timeline),
-    findall(Day, member(Day-_, Timeline), Days0), sort(Days0, Days),
-    length(Days, NC), MaxTime is NC + 2,
-    expected_days(Base, Expected, ExpectedDays),
-    write_program(Out, Register, Scenario, Last, Base, MaxTime, Bindings, Periods, Days, Timeline, ExpectedDays).
+    %  repeating duties: the due time of each occurrence
+    findall(occurrence(R, P, K, T),
+            ( member(rhythm(R, P, _, _, Os), Rhythms), member(K-D, Os), time_of(Unit, Base, D, T) ), Occs),
+    %  the timeline: the clock after each due time and at the end first, then
+    %  the triggers, then the actions, each kind of event at one time in a
+    %  cycle of its own
+    findall(T-0-clock, ( ( member(period(_, _, DT), Periods) ; member(occurrence(_, _, _, DT), Occs) ),
+                         T is DT + 1, T =< LastT ), C1),
+    findall(T-1-happens(E, P), ( member(h(E, P, X), Happens), time_of(Unit, Base, X, T), T =< LastT ), C2),
+    findall(T-2-performs(P, A), ( member(p(P, A, X), Performs), time_of(Unit, Base, X, T), T =< LastT ), C3),
+    append([C1, C2, C3, [LastT-0-clock]], C0), sort(C0, Timeline),
+    findall(T-O, member(T-O-_, Timeline), Slots0), sort(Slots0, Slots),
+    length(Slots, NC), MaxTime is NC + 2,
+    expected_times(Unit, Base, Expected, ExpectedFluents),
+    write_program(Out, Register, Scenario, Last, Unit, Base, MaxTime, Bindings, Periods, Rhythms, Occs, Slots, Timeline, ExpectedFluents).
 
-case_parts(Last, Bindings, Happens, Performs, Expected) :-
+%   Minutes when the case gives a moment anywhere, else days.
+unit(Happens, Performs, Last, Unit) :-
+    (   ( member(h(_, _, X), Happens) ; member(p(_, _, X), Performs) ; X = Last ), \+ X = date(_, _, _)
+    ->  Unit = minutes ; Unit = days
+    ).
+
+case_parts(Last, Bindings, Rhythms, Happens, Performs, Expected) :-
     findall(B, binding(B), Bs0), sort(Bs0, Bindings),
-    findall(h(E, P, D), r3("which event happens to which party on which date", E, P, D), Happens),
-    findall(p(P, A, D), r3("which party performs which action on which date", P, A, D), Performs),
+    findall(Rh, rhythm(Last, Rh), Rhythms),
+    findall(h(E, P, D), ( r3("which event happens to which party on which date", E, P, D)
+                        ; r3("which event happens to which party at which moment", E, P, D) ), Happens),
+    findall(p(P, A, D), ( r3("which party performs which action on which date", P, A, D)
+                        ; r3("which party performs which action at which moment", P, A, D) ), Performs),
     timeless(Last, Expected).
 
-day_of(Base, D, Day) :- day_number(D, N), Day is N - Base.
+time_of(Unit, Base, X, T) :- absolute(Unit, X, N), T is N - Base.
 
-expected_days(Base, Es, Ds) :-
-    findall(F, ( member(E, Es), expected_day(Base, E, F) ), Ds0),
-    sort(Ds0, Ds).
+expected_times(Unit, Base, Es, Fs) :-
+    findall(F, ( member(E, Es), expected_time(Unit, Base, E, F) ), Fs0),
+    sort(Fs0, Fs).
 
-expected_day(Base, open(P, A, R, D), lomo_owes(P, A, R, N)) :- day_of(Base, D, N).
-expected_day(_, met(P, A, R), lomo_met(P, A, R)).
-expected_day(Base, breached(P, A, R, D), lomo_breached(P, A, R, N)) :- day_of(Base, D, N).
+expected_time(U, B, open(P, A, R, D), lomo_owes(P, A, R, N)) :- time_of(U, B, D, N).
+expected_time(U, B, met(P, A, R, D), lomo_met(P, A, R, N)) :- time_of(U, B, D, N).
+expected_time(U, B, breached(P, A, R, D), lomo_breached(P, A, R, N)) :- time_of(U, B, D, N).
 
-write_program(Out, Register, Scenario, Last, Base, MaxTime, Bindings, Periods, Days, Timeline, Expected) :-
+write_program(Out, Register, Scenario, Last, Unit, Base, MaxTime, Bindings, Periods, Rhythms, Occs, Slots, Timeline, Expected) :-
     file_base_name(Register, RB), file_name_extension(RS, _, RB),
     file_base_name(Out, OB), file_name_extension(KB, _, OB),
-    lomo_temporal:le_temporal_date_of_day(Base, date(Y0, M0, Dd0)),
-    format(atom(D0), "~|~`0t~d~4+-~|~`0t~d~2+-~|~`0t~d~2+", [Y0, M0, Dd0]),
-    Last = date(YL, ML, DL), format(atom(LastT), "~|~`0t~d~4+-~|~`0t~d~2+-~|~`0t~d~2+", [YL, ML, DL]),
+    origin_text(Unit, Base, Origin),
+    last_text(Last, LastText),
     setup_call_cleanup(open(Out, write, S, [encoding(utf8)]),
         (   format(S, "% The case `~w` of the LOMO register ~w, through time.~n", [Scenario, RS]),
             format(S, "% Written by LE2's LOMO translator (migration/lomo/lomo_lps.pl) from the~n", []),
-            format(S, "% register and the case: who is bound, to what, after which event, is the~n", []),
-            format(S, "% timeless reading of LE2 (lib/lomo.le). Day 0 is ~w; each date of the~n", [D0]),
-            format(S, "% case is a day number. Do not edit: build it again.~n%~n", []),
-            format(S, "% What the timeless reading says of the last day, ~w, and what the run~n", [LastT]),
+            format(S, "% register and the case: who is bound, to what, after which event, and the~n", []),
+            format(S, "% due dates of each occurrence of a repeating duty, are the timeless reading~n", []),
+            format(S, "% of LE2 (lib/lomo.le). A time is a number of ~w; time 0 is ~w.~n", [Unit, Origin]),
+            format(S, "% Do not edit: build it again.~n%~n", []),
+            format(S, "% What the timeless reading says of the last ~w, ~w, and what the run~n", [Unit, LastText]),
             format(S, "% must end with:~n", []),
             forall(member(E, Expected), ( lps_sentence(E, Txt), format(S, "%     ~w~n", [Txt]) )),
             ( Expected == [] -> format(S, "%     (no duty)~n", []) ; true ),
@@ -154,23 +217,38 @@ write_program(Out, Register, Scenario, Last, Base, MaxTime, Bindings, Periods, D
             format(S, "the knowledge base ~w includes:~n~n", [KB]),
             forall(member(binds(R, P, A, E, Du), Bindings),
                    format(S, "~w binds ~w to ~w after ~q within ~q.~n", [R, P, A, E, Du])),
-            nl(S),
-            forall(member(period(Du, Day, DD), Periods),
-                   format(S, "the period ~q after day ~w is day ~w.~n", [Du, Day, DD])),
+            forall(member(period(Du, T, DT), Periods),
+                   format(S, "the period ~q after time ~w is time ~w.~n", [Du, T, DT])),
+            forall(member(rhythm(R, P, A, Du, _), Rhythms),
+                   format(S, "~w binds ~w to ~w every ~q.~n", [R, P, A, Du])),
+            forall(member(occurrence(R, P, K, T), Occs),
+                   format(S, "the occurrence ~w of ~w for ~w is due by time ~w.~n", [K, R, P, T])),
+            forall(( member(rhythm(R, P, A, _, _), Rhythms), member(occurrence(R, P, 1, T1), Occs) ),
+                   format(S, "initially the rhythm of ~w for ~w is at occurrence 1.~ninitially ~w owes ~w under ~w by time ~w.~n", [R, P, P, A, R, T1])),
             format(S, "~nscenario ~w is:~n", [Scenario]),
-            forall(nth1(I, Days, Day),
+            forall(nth1(I, Slots, Slot),
                    ( I1 is I + 1,
-                     forall(member(Day-Ev, Timeline), ( event_text(Ev, Day, Txt), format(S, "    ~w from ~w to ~w.~n", [Txt, I, I1]) )) ))
+                     Slot = T-O,
+                     forall(member(T-O-Ev, Timeline), ( event_text(Ev, T, Txt), format(S, "    ~w from ~w to ~w.~n", [Txt, I, I1]) )) ))
         ),
         close(S)).
 
-event_text(happens(E, P), Day, T) :- format(string(T), "~q happens to ~w on day ~w", [E, P, Day]).
-event_text(performs(P, A), Day, T) :- format(string(T), "~w performs ~w on day ~w", [P, A, Day]).
-event_text(clock, Day, T) :- format(string(T), "the clock reaches day ~w", [Day]).
+origin_text(days, Base, T) :- lomo_temporal:le_temporal_date_of_day(Base, D), date_text(D, T).
+origin_text(minutes, Base, T) :-
+    DN is Base // 1440, Min is Base mod 1440,
+    lomo_temporal:le_temporal_date_of_day(DN, D), Secs is Min * 60,
+    lomo_temporal:le_temporal_moment_text(D, Secs, T).
 
-lps_sentence(lomo_owes(P, A, R, N), T) :- format(string(T), "~w owes ~w under ~w by day ~w", [P, A, R, N]).
-lps_sentence(lomo_met(P, A, R), T) :- format(string(T), "~w met ~w under ~w", [P, A, R]).
-lps_sentence(lomo_breached(P, A, R, N), T) :- format(string(T), "~w breached ~w under ~w by day ~w", [P, A, R, N]).
+last_text(date(Y, M, D), T) :- !, date_text(date(Y, M, D), T).
+last_text(M, M).
+
+event_text(happens(E, P), T, Txt) :- format(string(Txt), "~q happens to ~w at time ~w", [E, P, T]).
+event_text(performs(P, A), T, Txt) :- format(string(Txt), "~w performs ~w at time ~w", [P, A, T]).
+event_text(clock, T, Txt) :- format(string(Txt), "the clock reaches time ~w", [T]).
+
+lps_sentence(lomo_owes(P, A, R, N), T) :- format(string(T), "~w owes ~w under ~w by time ~w", [P, A, R, N]).
+lps_sentence(lomo_met(P, A, R, N), T) :- format(string(T), "~w met ~w under ~w by time ~w", [P, A, R, N]).
+lps_sentence(lomo_breached(P, A, R, N), T) :- format(string(T), "~w breached ~w under ~w by time ~w", [P, A, R, N]).
 
 %   ---- the gate -----------------------------------------------------------
 

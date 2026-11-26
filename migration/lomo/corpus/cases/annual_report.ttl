@@ -1,0 +1,29 @@
+# A repeating duty, agent-written for the tests of the translator: an
+# operator reports every year, three times, after the start of its operation.
+# (Not a real provision: the address of the rule is made up.)
+@prefix ex: <http://example.org/cases/annual#> .
+@prefix lomo: <http://data.europa.eu/leg/lomo#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix dm: <http://data.europa.eu/leg/deontic-modality/> .
+@prefix tf: <http://data.europa.eu/leg/temporal-function/> .
+@prefix role: <http://publications.europa.eu/resource/authority/role/> .
+
+ex:Norm_Annual_Report a lomo:SubstantiveRule ;
+    rdfs:label "Operators report every year, for three years"@en ;
+    lomo:hasDeonticModality dm:Obligation ;
+    lomo:establishedIn <http://example.org/act/art_7/par_1> ;
+    lomo:produces ex:SubmitTheReport .
+ex:SubmitTheReport a lomo:Action ;
+    rdfs:label "submit the annual report"@en ;
+    lomo:hasAgentRole ex:Role_Operator ;
+    lomo:atTime ex:Every_Year .
+ex:Role_Operator a lomo:AgentRole ; lomo:forAgent ex:Operators ; lomo:withRole role:ADDRESSER .
+ex:Operators a lomo:AgentType ; rdfs:label "Operators"@en .
+ex:Every_Year a lomo:TemporalSpecification ;
+    lomo:hasFunction tf:deadline ;
+    lomo:frequency "P1Y"^^xsd:duration ;
+    lomo:repetitions "3"^^xsd:integer ;
+    lomo:after ex:StartOfOperation .
+ex:StartOfOperation a lomo:TemporalSpecification ;
+    lomo:temporalLabel "start of operation"@en .

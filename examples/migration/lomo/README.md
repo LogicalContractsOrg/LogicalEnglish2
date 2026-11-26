@@ -14,9 +14,11 @@ the queries of each register.
 
 | Folder | What it holds |
 |---|---|
-| `examples/` | The 10 hand-made examples of the LOMO repository (`data/examples/`) |
-| `other/` | 7 hand-made descriptions (`data/other/`): financial reporting, settlement, vehicle registration and others |
-| `lfds/` | 46 descriptions made from the digital statements of Commission proposals of 2025 and 2026 (`data/lfds/`) |
+| `examples/` | Imported from the 10 Turtle files of `data/examples/batch_1/` of the LOMO repository: https://code.europa.eu/drpm/lomo/-/tree/cfe522d164a6b6a345269bb1e25624f9ccbc6967/data/examples/batch_1. The LOMO project gives them as example descriptions, one provision each |
+| `other/` | Imported from all 7 Turtle files of `data/other/` of the LOMO repository: https://code.europa.eu/drpm/lomo/-/tree/cfe522d164a6b6a345269bb1e25624f9ccbc6967/data/other. The LOMO project calls them pilot descriptions of whole acts (financial reporting, settlement finality, vehicle registration, anti-dumping duties, the Cybersecurity Act 2 proposal, environmental assessments). The folder has these 7 files and no other; none was left out |
+| `lfds/` | Imported from all 46 Turtle files of `data/lfds/ttl/` of the LOMO repository: https://code.europa.eu/drpm/lomo/-/tree/cfe522d164a6b6a345269bb1e25624f9ccbc6967/data/lfds/ttl. A program of the LOMO project generated these files from the tables of the Legislative Financial and Digital Statements (LFDS) of Commission proposals of 2025 and 2026 |
+| `spec/` | Imported from the 65 Turtle examples of the LOMO specification page, https://drpm.pages.code.europa.eu/lomo/1.1.0/ (each example with the prefixes it uses added) |
+| `cases/` | Agent-written: descriptions written by the agent for the tests of the translator (the probe of the plan, GDPR Article 6, time links), and programs that write the conditions of GDPR Articles 6(1) and 33(1) |
 
 ## Start here
 - [Directive 2013/34/EU, financial reporting](other/financial_reporting_dir_2013_34_lomo_manual.le?query=obligations) — who must publish what.
@@ -30,7 +32,9 @@ the queries of each register.
 
 ## More
 - Written by `migration/lomo/build.pl` of this repository. Do not edit the registers by hand.
+- Each imported register (`examples/`, `other/`, `lfds/`) is a translation of its Turtle file, statement by statement, by the translator `migration/lomo/`. Nothing in it is invented; the original is in `sources/` beside it.
 - Each register has a scenario, `description`. Its expected answers come from a search over the RDF data with rdflib, not from Logical English.
+- `other/directive_2013_34_conditions.le` and the programs `cases/*_conditions.le` are agent-written: the conditions of the rules, from the text of the provisions.
 - The verifier says "too many facts" on the larger registers. A register is data: this is expected.
 - `NOTICE.txt` in this folder gives the source and the licence of the data.
 

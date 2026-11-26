@@ -22,7 +22,7 @@
     repository (../../NOTICE). Published "as is".
 */
 
-:- module(lomo_twin, [twin_migration/3, twin_name/2, register_ir/4, question/4, value_term/3]).
+:- module(lomo_twin, [load_clauses/2, twin_migration/3, twin_name/2, register_ir/4, question/4, value_term/3]).
 
 :- use_module(library(lists)).
 :- use_module(library(apply)).
@@ -296,6 +296,18 @@ derived(deontic_permitted,     "*a party* is permitted that *a sentence*").
 derived(deontic_forbidden,     "*a party* is forbidden that *a sentence*").
 derived(deontic_right,         "*a party* has the right that *a sentence*").
 derived(deontic_violated,      "the obligation of *a party* that *a sentence* is violated").
+derived(lomo_happens_at,       "*an event* happens to *a party* at *a moment*").
+derived(lomo_performs_at,      "*a party* performs *an action* at *a moment*").
+derived(lomo_first_moment_for, "the first moment of *a temporal specification* for *a party* is *a moment*").
+derived(lomo_must_by_moment,   "*a party* must perform *an action* by the moment *a moment* under *a rule*").
+derived(lomo_met_in_time,      "*a party* met *an action* in time under *a rule*").
+derived(lomo_late_at,          "*a party* is late with *an action* under *a rule* at *a moment*").
+derived(lomo_rhythm_for,       "the rhythm of *a temporal specification* for *a party* starts on *a date*").
+derived(lomo_occurrence_due,   "the occurrence *a number* of *an action* under *a rule* for *a party* is due on *a date* as of *a day*").
+derived(lomo_occurrence_opens, "the occurrence *a number* of *an action* under *a rule* for *a party* opens after *a date* as of *a day*").
+derived(lomo_occ_met,          "*a party* met the occurrence *a number* of *an action* under *a rule* as of *a day*").
+derived(lomo_occ_breached,     "*a party* breached the occurrence *a number* of *an action* under *a rule* as of *a day*").
+derived(lomo_occ_owes,         "*a party* owes the occurrence *a number* of *an action* under *a rule* as of *a day*").
 derived(lomo_text,             "*a thing* is described by the text *a text*").
 derived(lomo_act_of,           "the act of *a provision* is *an act*").
 derived(lomo_place_of,         "the place of *a provision* in its act is *a text*").
@@ -321,7 +333,7 @@ used(F, Used) :- memberchk(F/_, Used).
 %   The questions an annotator asks first (the review of 26 November 2026),
 %   and the ones for the way back and the generic form, last.
 first_questions([obligations, permissions, prohibitions, rights, deadlines, due_dates, due_in_2027,
-                 must_perform, applies, rules_without_conditions, places, addressers, addressees,
+                 must_perform, must_perform_by_the_moment, met_in_time, applies, rules_without_conditions, places, addressers, addressees,
                  beneficiaries, triggers, derogations, kinds]).
 last_questions([parts, texts, other_values, other_resources, other_types, addresses, literal_forms,
                 plain_texts, older_conditions, definition_flags, bearer]).
@@ -394,6 +406,8 @@ question(permitted,         'prescriptive rules 4', deontic_permitted(_, _), [lo
 question(forbidden,         'prescriptive rules 3', deontic_forbidden(_, _), [lomo_modality]).
 question(holders_of_rights, 'prescriptive rules 5', deontic_right(_, _), [lomo_modality]).
 question(violations,        'compliance support 1', deontic_violated(_, _), [lomo_modality]).
+question(must_perform_by_the_moment, 'compliance support 1', lomo_must_by_moment(_, _, _, _), [lomo_function]).
+question(met_in_time,       'compliance support 1', lomo_met_in_time(_, _, _), [lomo_function]).
 question(results,           'action results 1', lomo_has_result(_, _), [lomo_has_result]).
 question(result_categories, 'action results 3', lomo_result_category(_, _), [lomo_result_category]).
 question(datasets_of_results, 'action results 4', lomo_holds(_, _), [lomo_is_manifested_in]).
@@ -446,9 +460,22 @@ validity_entries(File, Es) :-
             Es2),
     append(Es1, Es2, Es).
 
+%   lib/temporal.pl, for the translator's own date arithmetic: its clauses
+%   read and asserted into a module of their own, not consulted. A register
+%   loads the same file as its resource, and SWI-Prolog would take a second
+%   consult of one file for a reload (the moments' tests then timed out in
+%   the build, 2026-11-26).
+load_clauses(File, M) :-
+    setup_call_cleanup(open(File, read, S),
+        ( repeat, read_term(S, T, []),
+          ( T == end_of_file -> !
+          ; T = (:- _) -> fail
+          ; assertz(M:T), fail ) ),
+        close(S)).
+
 :- prolog_load_context(directory, D),
    atomic_list_concat([D, '/../../lib/temporal.pl'], T),
-   lomo_temporal:consult(T).
+   load_clauses(T, lomo_temporal).
 
 ledger(lomo(Sts, Nodes, Prefixes), info(PerSubject, FormatNotes), Ledger) :-
     findall(E, ( member(S-Facts, PerSubject), \+ rdf_is_bnode(S),

@@ -23,9 +23,15 @@
 %     the occurrence 3 of every "P1M" after 2026-01-31 is 2026-04-30
 %     a date is a date of every "P1W" from 2027-01-01 in the period from 2027-03-01 to 2027-03-31
 %
-% A date in LE is a day: hours, minutes and seconds count as whole days,
-% rounded up ("PT72H" is 3 days). `*a duration* counts hours as whole days`
-% says when that happened, for an explanation to show it. A date without its
+% A date in LE is a day. A moment is a date with a time of day, written as
+% a text the ISO way ("2026-03-01T14:30"): hours are exact on moments,
+%
+%     "2026-03-04T14:30" is the period "PT72H" after the moment "2026-03-01T14:30"
+%
+% Added to a date without a time of day, hours count as whole days, rounded
+% up ("PT72H" is 3 days; "PT36H" after a date falls on the second day after
+% it at the latest), and `*a duration* counts hours as whole days` says when
+% that happened, for an explanation to show it. A date without its
 % year ("30 September", "September 30th"): `the day "30 September" in the
 % year 2027 is 2027-09-30`.
 %
@@ -58,6 +64,7 @@ the functions are:
     the weekday of *a date* is *a number*.
     the occurrence *a number* of every *a duration* after *a date* is *a later date*.
     the day *a text* in the year *a number* is *a date*.
+    the date of the moment *a moment* is *a date*.
 
 the templates are:
     *a later date* is *a number* years after *a date*.
@@ -74,6 +81,10 @@ the templates are:
     *an earlier date* is the period *a duration* before *a date*.
     *a duration* is a length of time in the standard form.
     *a duration* counts hours as whole days.
+    *a later moment* is the period *a duration* after the moment *a moment*.
+    the occurrence *a number* of every *a duration* from *a start date* up to *a day* is *a date*.
+    *a moment* is before the moment *a second moment*.
+    *a moment* is not later than the moment *a second moment*.
     *a date* is a date of every *a duration* from *a start date* in the period from *a first date* to *a last date*.
 
 the knowledge base temporal includes:

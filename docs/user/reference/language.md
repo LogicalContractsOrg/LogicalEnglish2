@@ -1118,8 +1118,16 @@ for the translators). Thus a program and its libraries are in one directory.
   `the occurrence *a number* of every *a duration* after *a date* is *a later date*`,
   `*a date* is a date of every *a duration* from *a start date* in the period from *a first date* to *a last date*`
   (the dates of a rhythm), and `the day *a text* in the year *a number* is *a date*`
-  (a date without its year: "30 September"). A date is a day: hours count as
-  whole days, rounded up, and `*a duration* counts hours as whole days` says when.
+  (a date without its year: "30 September"). A **moment** is a date with a time of
+  day, written as a text the ISO way (`"2026-03-01T14:30"`):
+  `*a later moment* is the period *a duration* after the moment *a moment*` is exact to
+  the minute, and `*a moment* is before the moment *a second moment*`,
+  `*a moment* is not later than the moment *a second moment*` and
+  `the date of the moment *a moment* is *a date*` compare and convert. Added to a date
+  without a time of day, hours count as whole days, rounded up, and
+  `*a duration* counts hours as whole days` says when.
+  `the occurrence *a number* of every *a duration* from *a start date* up to *a day* is *a date*`
+  gives the occurrences of a rhythm that are due by a day, and the next one.
   Refer to `testing/fixtures/temporal/uses_temporal.le`.
 - **`lib/text.le`** (+ `text.pl`): pieces of text.
   `the joining of *a list* is *a text*` (the items of the list one after the other,
