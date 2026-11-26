@@ -13,12 +13,29 @@
    asserta(corpus_dir_(C)).
 
 :- dynamic corpus_dir_/1.
+:- discontiguous lomo_file/2.
 corpus_dir(D) :- corpus_dir_(D).
 
 lomo_file(Set, File) :-
     corpus_dir(C),
     member(Set-Sub, [examples-'data/examples/batch_1', other-'data/other', lfds-'data/lfds/ttl']),
     atomic_list_concat([C, '/', Sub], Dir),
+    directory_files(Dir, Fs0), msort(Fs0, Fs),
+    member(F, Fs), file_name_extension(_, ttl, F),
+    atomic_list_concat([Dir, '/', F], File).
+
+%   The 65 Turtle examples of the specification page (corpus/spec-examples/).
+lomo_file(spec, File) :-
+    corpus_dir(C), file_directory_name(C, Corpus),
+    atomic_list_concat([Corpus, '/spec-examples'], Dir),
+    directory_files(Dir, Fs0), msort(Fs0, Fs),
+    member(F, Fs), file_name_extension(_, ttl, F),
+    atomic_list_concat([Dir, '/', F], File).
+
+%   The descriptions written for the door's own tests (corpus/cases/).
+lomo_file(cases, File) :-
+    corpus_dir(C), file_directory_name(C, Corpus),
+    atomic_list_concat([Corpus, '/cases'], Dir),
     directory_files(Dir, Fs0), msort(Fs0, Fs),
     member(F, Fs), file_name_extension(_, ttl, F),
     atomic_list_concat([Dir, '/', F], File).

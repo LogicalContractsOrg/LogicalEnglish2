@@ -1,0 +1,193 @@
+% The register of a LOMO description: the Logical English twin of
+% gdpr_article_6.ttl (kept in sources/), written by the LOMO translator.
+% One fact for each statement of the description, in the words of lomo.le.
+% LOMO describes rules; it has no conditions and no cases. A question
+% about a case gets its answer only from the parts of the description that
+% have values (deadlines, agents, derogations).
+%
+% LOMO and its data: (c) European Union, Creative Commons Attribution 4.0
+% (https://creativecommons.org/licenses/by/4.0/); source: the LOMO
+% repository, https://code.europa.eu/drpm/lomo. The description was changed
+% into Logical English by the LOMO translator of Logical English.
+%
+% DISCLAIMER. This program was written by a translator from a program of another
+% system. It is provided "as is", without warranty of any kind, express or
+% implied, including any warranty that it is accurate, complete or fit for a
+% particular purpose. The translation may be wrong: check it against its source
+% before relying on it. It is not legal, tax, insurance, financial or other
+% professional advice. Its authors accept no liability for any loss or damage
+% arising from its use.
+
+the target language is: prolog.
+
+the knowledge base gdpr_article_6 includes these resources:
+    lomo.
+
+the knowledge base gdpr_article_6 includes:
+
+the text of the source description is at "sources/gdpr_article_6.ttl".
+
+the text of "http://data.europa.eu/eli/reg/2016/679/art_6/par_1/oj" is at "sources/eli/reg_2016_679_art_6_par_1_oj.txt".
+
+% Who bears a duty: the agent of this role of the action (lomo.le).
+the bearer role is addresser.
+
+
+norm gdpr 6 1 is identified by "http://example.org/cases/gdpr6#Norm_GDPR_6_1".
+
+norm gdpr 6 1 is a substantive rule.
+
+norm gdpr 6 1 has the label "GDPR Article 6(1): lawfulness of processing".
+
+norm gdpr 6 1 has the modality permission.
+
+norm gdpr 6 1 is established in "http://data.europa.eu/eli/reg/2016/679/art_6/par_1/oj".
+
+norm gdpr 6 1 has the legal text "Processing shall be lawful only if and to the extent that at least one of the following applies: (a) the data subject has given consent to the processing of his or her personal data for one or more specific purposes; (b) processing is necessary for the performance of a contract to which the data subject is party or in order to take steps at the request of the data subject prior to entering into a contract; (c) processing is necessary for compliance with a legal obligation to which the controller is subject; (d) processing is necessary in order to protect the vital interests of the data subject or of another natural person; (e) processing is necessary for the performance of a task carried out in the public interest or in the exercise of official authority vested in the controller; (f) processing is necessary for the purposes of the legitimate interests pursued by the controller or by a third party, except where such interests are overridden by the interests or fundamental rights and freedoms of the data subject which require protection of personal data, in particular where the data subject is a child.".
+
+norm gdpr 6 1 produces process personal data.
+
+
+process personal data is identified by "http://example.org/cases/gdpr6#ProcessPersonalData".
+
+process personal data is an action.
+
+process personal data has the label "process personal data".
+
+process personal data has the agent role role controller.
+
+process personal data has the agent role role data subject.
+
+
+role controller is identified by "http://example.org/cases/gdpr6#Role_Controller".
+
+role controller is an agent role.
+
+role controller is for the agent controllers.
+
+role controller has the role addresser.
+
+
+role data subject is identified by "http://example.org/cases/gdpr6#Role_DataSubject".
+
+role data subject is an agent role.
+
+role data subject is for the agent data subjects.
+
+role data subject has the role beneficiary.
+
+
+controllers is identified by "http://example.org/cases/gdpr6#Controllers".
+
+controllers is an agent type.
+
+controllers has the label "Controllers".
+
+
+data subjects is identified by "http://example.org/cases/gdpr6#DataSubjects".
+
+data subjects is an agent type.
+
+data subjects has the label "Data subjects".
+
+
+% The questions of LOMO's requirements document (its competency questions),
+% as far as a description can answer them.
+scenario description is, as stated in the source description:
+    modalities expects answers ["norm gdpr 6 1 has the modality permission"].
+    actions_of_rules expects answers ["norm gdpr 6 1 produces process personal data"].
+    actions_of_agents expects answers ["controllers acts as addresser in process personal data", "data subjects acts as beneficiary in process personal data"].
+
+query parts is:
+    which thing is part of the description.
+
+query kinds is:
+    which thing is of the kind which kind.
+
+query bearer is:
+    the bearer role is which role.
+
+query rules_of_act is:
+    which rule is established by the act which act.
+
+query provisions is:
+    which thing is established in which provision.
+
+query places is:
+    which rule is laid down in which place.
+
+query legal_texts is:
+    which thing has the legal text which text.
+
+query joint_rules is:
+    which rule is established in more than one provision.
+
+query prescriptive is:
+    which thing is a prescriptive rule.
+
+query constitutive is:
+    which thing is a constitutive rule.
+
+query modalities is:
+    which rule has the modality which modality.
+
+query obligations is:
+    which rule has the modality obligation for which agent as which role.
+
+query prohibitions is:
+    which rule has the modality prohibition for which agent as which role.
+
+query permissions is:
+    which rule has the modality permission for which agent as which role.
+
+query rights is:
+    which rule has the modality right for which agent as which role.
+
+query actions_of_rules is:
+    which rule produces which action.
+
+query addressers is:
+    which agent acts as addresser in which action.
+
+query addressees is:
+    which agent acts as addressee in which action.
+
+query beneficiaries is:
+    which agent acts as beneficiary in which action.
+
+query agent_types is:
+    which thing is an agent type.
+
+query actions_of_agents is:
+    which agent acts as which role in which action.
+
+query concerned_agents is:
+    which rule concerns which agent.
+
+query rules_without_conditions is:
+    which rule has no written conditions.
+
+query applies is:
+    which rule applies to which party.
+
+query obliged is:
+    which party is obliged that which sentence.
+
+query permitted is:
+    which party is permitted that which sentence.
+
+query forbidden is:
+    which party is forbidden that which sentence.
+
+query holders_of_rights is:
+    which party has the right that which sentence.
+
+query violations is:
+    the obligation of which party that which sentence is violated.
+
+query texts is:
+    which thing is described by the text which text.
+
+query addresses is:
+    which thing is identified by which address.
+

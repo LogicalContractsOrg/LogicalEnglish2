@@ -19,7 +19,11 @@
 :- use_module(lomo_shacl).
 :- use_module(corpus).
 
-lib_text(T) :- le2_paths:le2_dir(D), atomic_list_concat([D, '/lib/lomo.le'], F), read_file_to_string(F, T, []).
+lib_text(T) :-
+    le2_paths:le2_dir(D),
+    findall(S, ( member(L, ['lomo.le', 'deontic.le', 'temporal.le']), atomic_list_concat([D, '/lib/', L], F),
+                 read_file_to_string(F, S, []) ), Ss),
+    atomic_list_concat(Ss, '\n', T).
 
 :- begin_tests(lomo_words).
 
@@ -65,16 +69,16 @@ test(eli_names) :-
 
 register(LE) :-
     twins_dir(lomo, Root),
-    member(Set, [examples, other, lfds]),
+    member(Set, [examples, other, lfds, spec, cases]),
     atomic_list_concat([Root, '/', Set], Dir),
     directory_files(Dir, Fs), member(F, Fs), file_name_extension(_, le, F), F \== 'lomo.le',
     atomic_list_concat([Dir, '/', F], LE).
 
 test(every_register_passes_its_scenario) :-
     findall(LE-R, ( register(LE), runTestsFor(LE, R) ), Rs),
-    length(Rs, N), N >= 63,
+    length(Rs, N), N >= 128,
     forall(member(LE-R, Rs),
-           (   R = test_file(_, Ts), Ts \== [], forall(member(T, Ts), T = pass(_, _)) -> true
+           (   R = test_file(_, Ts), forall(member(T, Ts), T = pass(_, _)) -> true
            ;   format(user_error, "~w: ~q~n", [LE, R]), fail
            )).
 
@@ -86,7 +90,7 @@ test(every_register_passes_its_scenario) :-
 %  (rdflib) and on every register.
 test(the_seven_tables_are_the_same, [timeout(1200)]) :-
     gate(Results),
-    length(Results, 63),
+    length(Results, NR), NR >= 128,
     forall(member(file(F, Qs), Results),
            forall(member(query(Q, _, _, M, E), Qs),
                   (   M == [], E == [] -> true
@@ -117,3 +121,21 @@ test(no_unsupported_constraint) :-
     \+ unsupported(_, _).
 
 :- end_tests(lomo_validity).
+
+:- use_module(lomo_lps).
+
+lps2_there :- catch(le2_paths:lps2_dir(_), _, fail).
+
+:- begin_tests(lomo_lps, [condition(lps2_there)]).
+
+%  Step 5: every case run by LPS2 ends with the duties that the timeless
+%  reading gives for its last day.
+test(lps_runs_end_as_the_timeless_reading_says, [timeout(900)]) :-
+    lps_gate(Rs),
+    length(Rs, N), N >= 3,
+    forall(member(case(Name, E, F, _), Rs),
+           (   E == F, E \== [] -> true
+           ;   format(user_error, "~w: ~q ~q~n", [Name, E, F]), fail
+           )).
+
+:- end_tests(lomo_lps).

@@ -1171,9 +1171,19 @@ b 2 c mdms providersb 2 b mdms providers is identified by "http://example.org/ag
 
 % The questions of LOMO's requirements document (its competency questions),
 % as far as a description can answer them.
+scenario calendar is, as stated in the source description:
+    % A case for the calendar: the events that a deadline counts from, and the rhythms that
+    % count from nothing else, start on 2027-01-01.
+    the calendar starts on 2027-01-01.
+    due_dates expects answers [].
+    due_in_2027 expects answers [].
+
 scenario description is, as stated in the source description:
     actions_of_rules expects answers ["description 1 produces action 1", "description 1 produces item 1 action", "description 2 produces item 2 action", "description 3 produces action 2", "description 3 produces item 3 action", "description 4 produces action 3", "description 4 produces item 4 action", "description 5 produces action 4", "description 5 produces item 5 action", "description 6 produces action 5", "description 6 produces item 6 action", "description 7 produces item 7 action", "description 8 produces item 8 action", "description 9 produces action 6", "description 9 produces item 9 action"].
     actions_of_agents expects answers ["b 2 b mdms acts as addressee in item 2 action", "b 2 b mdms acts as addresser in action 3", "b 2 c b 2 b mdms acts as addressee in action 2", "b 2 c b 2 b mdms acts as addressee in action 4", "b 2 c b 2 b mdms acts as addressee in item 3 action", "b 2 c b 2 b mdms acts as addressee in item 4 action", "b 2 c b 2 b mdms acts as addressee in item 5 action", "b 2 c mdms acts as addressee in item 1 action", "b 2 c mdms acts as addressee in item 6 action", "b 2 c mdms acts as addressee in item 7 action", "b 2 c mdms acts as addressee in item 9 action", "b 2 c mdms acts as addresser in action 1", "b 2 c mdms ad b 2 b mdms acts as addresser in action 5", "european commission acts as addressee in action 6", "european commission acts as addressee in item 1 action", "european commission national enforcement bodies acts as addressee in action 1", "national enforcement authorities acts as addressee in item 1 action", "national enforcement bodies acts as addressee in item 7 action", "national enforcement bodies acts as addressee in item 8 action", "national enforcement bodies acts as addressee in item 9 action", "national enforcement body acts as addressee in action 7", "national enforcement body acts as addresser in action 7", "national enforcement body member states acts as addresser in action 6", "public transport authorities acts as addressee in action 5", "transport operator acts as addresser in action 2", "transport operators acts as addressee in action 3", "transport operators acts as addresser in action 4"].
+
+query parts is:
+    which thing is part of the description.
 
 query kinds is:
     which thing is of the kind which kind.
@@ -1231,6 +1241,36 @@ query validity is:
 
 query frequencies is:
     which temporal specification has the frequency which duration.
+
+query first_dates is:
+    the first date of which temporal specification is which date.
+
+query last_dates is:
+    the last date of which temporal specification is which date.
+
+query later_times is:
+    which temporal specification is later than which second temporal specification.
+
+query times_within is:
+    which temporal specification is during which second temporal specification.
+
+query broken_links is:
+    which temporal specification breaks its link with which second temporal specification.
+
+query due_dates is:
+    which agent has which action due on which date.
+
+query due_in_2027 is:
+    which agent has which action due on which date in the period from 2027-01-01 to 2027-12-31.
+
+query rules_without_conditions is:
+    which rule has no written conditions.
+
+query applies is:
+    which rule applies to which party.
+
+query must_perform is:
+    which party must perform which action by which date under which rule.
 
 query results is:
     which action has the result which result.

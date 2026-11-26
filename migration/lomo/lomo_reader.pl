@@ -207,6 +207,7 @@ cap(Ws, Ws) :- length(Ws, L), L =< 9, !.
 cap(Ws, Cap) :- length(Cap, 9), append(Cap, _, Ws).
 
 safe_start([], [thing]) :- !.
+safe_start([rule|Ws], [norm|Ws]) :- Ws \== [], !.      % `Rule_GDPR_Art6` -> `norm gdpr art 6`
 safe_start([W|Ws], Out) :-
     (   ( reserved_start(W) ; atom_number(W, _) )
     ->  Out = [item, W|Ws]
@@ -301,7 +302,7 @@ short(P, W) :-
     member(L-W, [atTime-time, hasResult-result, hasAgentRole-role, hasCondition-condition,
                  manifests-result, isManifestedIn-dataset, produces-action, after-'earlier time',
                  before-'later time', immediatelyAfter-'earlier time', immediatelyBefore-'later time',
-                 starts-'later time', finishes-'later time', startedBy-'earlier time', finishedBy-'earlier time',
+                 starts-'whole time', finishes-'whole time', startedBy-'start time', finishedBy-'end time',
                  overlaps-'other time', in-'whole time', isComposedOf-part, defines-'defined thing',
                  references-resource, hasNext-'next action', hasPrevious-'previous action']), !.
 

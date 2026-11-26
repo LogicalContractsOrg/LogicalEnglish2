@@ -27,6 +27,8 @@ the knowledge base lomo_32025r0327_003_001 includes:
 
 the text of the source description is at "sources/32025R0327_003_001.ttl".
 
+the text of "http://data.europa.eu/eli/reg/2025/327/art_3/par_1/oj" is at "sources/eli/reg_2025_327_art_3_par_1_oj.txt".
+
 % Who bears a duty: the agent of this role of the action (lomo.le).
 the bearer role is addresser.
 
@@ -145,6 +147,9 @@ scenario description is, as stated in the source description:
     actions_of_rules expects answers ["reg 2025327 ojart 3 par 1 produces reg 2025327 ojart 3 par 1 action 1", "reg 2025327 ojart 3 par 1 produces reg 2025327 ojart 3 par 1 action 2"].
     actions_of_agents expects answers ["ehr system acts as addresser in reg 2025327 ojart 3 par 1 action 1", "ehr system acts as addresser in reg 2025327 ojart 3 par 1 action 2", "natural persons acts as addressee in reg 2025327 ojart 3 par 1 action 1", "natural persons acts as addressee in reg 2025327 ojart 3 par 1 action 2"].
 
+query parts is:
+    which thing is part of the description.
+
 query kinds is:
     which thing is of the kind which kind.
 
@@ -210,6 +215,27 @@ query concerned_agents is:
 
 query sequence is:
     which action comes before which second action.
+
+query rules_without_conditions is:
+    which rule has no written conditions.
+
+query applies is:
+    which rule applies to which party.
+
+query obliged is:
+    which party is obliged that which sentence.
+
+query permitted is:
+    which party is permitted that which sentence.
+
+query forbidden is:
+    which party is forbidden that which sentence.
+
+query holders_of_rights is:
+    which party has the right that which sentence.
+
+query violations is:
+    the obligation of which party that which sentence is violated.
 
 query results is:
     which action has the result which result.

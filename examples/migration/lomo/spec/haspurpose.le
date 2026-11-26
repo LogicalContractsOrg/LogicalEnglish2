@@ -1,0 +1,107 @@
+% The register of a LOMO description: the Logical English twin of
+% hasPurpose.ttl (kept in sources/), written by the LOMO translator.
+% One fact for each statement of the description, in the words of lomo.le.
+% LOMO describes rules; it has no conditions and no cases. A question
+% about a case gets its answer only from the parts of the description that
+% have values (deadlines, agents, derogations).
+%
+% LOMO and its data: (c) European Union, Creative Commons Attribution 4.0
+% (https://creativecommons.org/licenses/by/4.0/); source: the LOMO
+% repository, https://code.europa.eu/drpm/lomo. The description was changed
+% into Logical English by the LOMO translator of Logical English.
+%
+% DISCLAIMER. This program was written by a translator from a program of another
+% system. It is provided "as is", without warranty of any kind, express or
+% implied, including any warranty that it is accurate, complete or fit for a
+% particular purpose. The translation may be wrong: check it against its source
+% before relying on it. It is not legal, tax, insurance, financial or other
+% professional advice. Its authors accept no liability for any loss or damage
+% arising from its use.
+
+the target language is: prolog.
+
+the knowledge base haspurpose includes these resources:
+    lomo.
+
+the knowledge base haspurpose includes:
+
+the text of the source description is at "sources/hasPurpose.ttl".
+
+% Who bears a duty: the agent of this role of the action (lomo.le).
+the bearer role is addresser.
+
+
+service statistical dissemination is identified by "http://example.org/Service_StatisticalDissemination".
+
+service statistical dissemination is a public service.
+
+service statistical dissemination has the title "European Statistical Dissemination Service".
+
+service statistical dissemination has the purpose "Provide transparent access to European statistical data for citizens, researchers, and policy-makers".
+
+service statistical dissemination has the purpose "Support evidence-based policy-making at EU and national levels".
+
+service statistical dissemination has for "cpsv:hasCompetentAuthority" the resource "http://example.org/Agent_Eurostat".
+
+
+service data quality assurance is identified by "http://example.org/Service_DataQualityAssurance".
+
+service data quality assurance is a public service.
+
+service data quality assurance has the title "Statistical Data Quality Assurance Service".
+
+service data quality assurance has the purpose "Ensure reliability and comparability of European statistics".
+
+service data quality assurance has the purpose "Build public trust in official statistics through quality verification".
+
+service data quality assurance has for "cpsv:hasCompetentAuthority" the resource "http://example.org/Agent_Eurostat".
+
+
+service member state data collection is identified by "http://example.org/Service_MemberStateDataCollection".
+
+service member state data collection is a public service.
+
+service member state data collection has the title "Member State Data Collection Service".
+
+service member state data collection has the purpose "Gather harmonized fisheries data from all EU Member States".
+
+service member state data collection has the purpose "Enable production of comparable European statistics".
+
+service member state data collection has for "cpsv:hasCompetentAuthority" the resource "http://example.org/Agent_Eurostat".
+
+
+% The questions of LOMO's requirements document (its competency questions),
+% as far as a description can answer them.
+query parts is:
+    which thing is part of the description.
+
+query kinds is:
+    which thing is of the kind which kind.
+
+query bearer is:
+    the bearer role is which role.
+
+query prescriptive is:
+    which thing is a prescriptive rule.
+
+query constitutive is:
+    which thing is a constitutive rule.
+
+query rules_without_conditions is:
+    which rule has no written conditions.
+
+query applies is:
+    which rule applies to which party.
+
+query public_services is:
+    which thing is a public service.
+
+query texts is:
+    which thing is described by the text which text.
+
+query other_resources is:
+    which thing has for which property the resource which resource.
+
+query addresses is:
+    which thing is identified by which address.
+

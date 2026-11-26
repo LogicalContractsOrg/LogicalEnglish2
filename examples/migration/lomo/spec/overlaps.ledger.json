@@ -1,0 +1,81 @@
+{
+  "counts": {"approximated":0,"encoded":7,"residue":0},
+  "entries": [
+    {
+      "element":"http://example.org/Action_ProjectA",
+      "in_program":"action project a",
+      "kind":"action",
+      "mapping":"5 statements(5), one fact each",
+      "note":"",
+      "verdict":"encoded"
+    },
+    {
+      "element":"http://example.org/Action_ProjectB",
+      "in_program":"action project b",
+      "kind":"action",
+      "mapping":"5 statements(5), one fact each",
+      "note":"",
+      "verdict":"encoded"
+    },
+    {
+      "element":"http://example.org/TemporalSpec_ProjectA",
+      "in_program":"temporal spec project a",
+      "kind":"thing",
+      "mapping":"1 statements(1), one fact each",
+      "note":"",
+      "verdict":"encoded"
+    },
+    {
+      "element":"http://example.org/TemporalSpec_EventA",
+      "in_program":"temporal spec event a",
+      "kind":"*a thing* is a temporal specification",
+      "mapping":"4 statements(4), one fact each",
+      "note":"",
+      "verdict":"encoded"
+    },
+    {
+      "element":"http://example.org/TemporalSpec_EventB",
+      "in_program":"temporal spec event b",
+      "kind":"*a thing* is a temporal specification",
+      "mapping":"3 statements(3), one fact each",
+      "note":"",
+      "verdict":"encoded"
+    },
+    {
+      "element":"http://example.org/Action_ProjectA",
+      "in_program":"-",
+      "kind":"a validity rule of LOMO",
+      "mapping":"kept as the description has it",
+      "note":"http://example.org/Action_ProjectA has no hasAgentRole (LOMO asks for one)",
+      "verdict":"encoded"
+    },
+    {
+      "element":"http://example.org/Action_ProjectB",
+      "in_program":"-",
+      "kind":"a validity rule of LOMO",
+      "mapping":"kept as the description has it",
+      "note":"http://example.org/Action_ProjectB has no hasAgentRole (LOMO asks for one)",
+      "verdict":"encoded"
+    }
+  ],
+  "fidelity": {
+    "errors":0,
+    "failed":0,
+    "passed":3,
+    "tests": [
+      {"detail":"","query":"first_dates","result":"pass","scenario":"the_periods"},
+      {"detail":"","query":"last_dates","result":"pass","scenario":"the_periods"},
+      {"detail":"","query":"broken_links","result":"pass","scenario":"the_periods"}
+    ]
+  },
+  "meta": {
+    "artifacts": ["overlaps.ttl" ],
+    "date":"2026-11-26",
+    "licence":"Creative Commons Attribution 4.0 (the description); the register: the same, as a changed copy",
+    "program":"overlaps",
+    "source":"a LOMO description (Legal Obligation Metadata Ontology 1.1.0, Turtle)",
+    "translator":"LE2 migration/lomo (lomo_twin.pl)"
+  },
+  "pending_expectations":0,
+  "source_tests":1
+}

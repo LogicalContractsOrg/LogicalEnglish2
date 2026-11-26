@@ -1,0 +1,24 @@
+# GDPR Article 6(1), the example of LOMO's open request 166 ("conditions of
+# applicability"): "Processing shall be lawful only if and to the extent
+# that at least one of the following applies". The description says who
+# may process; its conditions are written in Logical English beside it, in
+# gdpr_article_6_conditions.le.
+@prefix ex: <http://example.org/cases/gdpr6#> .
+@prefix lomo: <http://data.europa.eu/leg/lomo#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix dm: <http://data.europa.eu/leg/deontic-modality/> .
+@prefix role: <http://publications.europa.eu/resource/authority/role/> .
+
+ex:Norm_GDPR_6_1 a lomo:SubstantiveRule ;
+    rdfs:label "GDPR Article 6(1): lawfulness of processing"@en ;
+    lomo:hasDeonticModality dm:Permission ;
+    lomo:establishedIn <http://data.europa.eu/eli/reg/2016/679/art_6/par_1/oj> ;
+    lomo:legalText "Processing shall be lawful only if and to the extent that at least one of the following applies: (a) the data subject has given consent to the processing of his or her personal data for one or more specific purposes; (b) processing is necessary for the performance of a contract to which the data subject is party or in order to take steps at the request of the data subject prior to entering into a contract; (c) processing is necessary for compliance with a legal obligation to which the controller is subject; (d) processing is necessary in order to protect the vital interests of the data subject or of another natural person; (e) processing is necessary for the performance of a task carried out in the public interest or in the exercise of official authority vested in the controller; (f) processing is necessary for the purposes of the legitimate interests pursued by the controller or by a third party, except where such interests are overridden by the interests or fundamental rights and freedoms of the data subject which require protection of personal data, in particular where the data subject is a child."@en ;
+    lomo:produces ex:ProcessPersonalData .
+ex:ProcessPersonalData a lomo:Action ;
+    rdfs:label "process personal data"@en ;
+    lomo:hasAgentRole ex:Role_Controller, ex:Role_DataSubject .
+ex:Role_Controller a lomo:AgentRole ; lomo:forAgent ex:Controllers ; lomo:withRole role:ADDRESSER .
+ex:Role_DataSubject a lomo:AgentRole ; lomo:forAgent ex:DataSubjects ; lomo:withRole role:BENEF .
+ex:Controllers a lomo:AgentType ; rdfs:label "Controllers"@en .
+ex:DataSubjects a lomo:AgentType ; rdfs:label "Data subjects"@en .

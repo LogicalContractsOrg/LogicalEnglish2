@@ -1,0 +1,123 @@
+% The register of a LOMO description: the Logical English twin of
+% LegalRule.ttl (kept in sources/), written by the LOMO translator.
+% One fact for each statement of the description, in the words of lomo.le.
+% LOMO describes rules; it has no conditions and no cases. A question
+% about a case gets its answer only from the parts of the description that
+% have values (deadlines, agents, derogations).
+%
+% LOMO and its data: (c) European Union, Creative Commons Attribution 4.0
+% (https://creativecommons.org/licenses/by/4.0/); source: the LOMO
+% repository, https://code.europa.eu/drpm/lomo. The description was changed
+% into Logical English by the LOMO translator of Logical English.
+%
+% DISCLAIMER. This program was written by a translator from a program of another
+% system. It is provided "as is", without warranty of any kind, express or
+% implied, including any warranty that it is accurate, complete or fit for a
+% particular purpose. The translation may be wrong: check it against its source
+% before relying on it. It is not legal, tax, insurance, financial or other
+% professional advice. Its authors accept no liability for any loss or damage
+% arising from its use.
+
+the target language is: prolog.
+
+the knowledge base legalrule includes these resources:
+    lomo.
+
+the knowledge base legalrule includes:
+
+the text of the source description is at "sources/LegalRule.ttl".
+
+% Who bears a duty: the agent of this role of the action (lomo.le).
+the bearer role is addresser.
+
+
+norm gdpr art 1 is identified by "http://example.org/Rule_GDPR_Art1".
+
+norm gdpr art 1 is a legal rule.
+
+norm gdpr art 1 has the label "GDPR Subject-matter and objectives".
+
+norm gdpr art 1 has the comment "Scope provision establishing the purpose and scope of the General Data Protection Regulation".
+
+norm gdpr art 1 is established in "http://data.europa.eu/eli/reg/2016/679/art_1".
+
+
+norm replicated is identified by "http://example.org/Rule_Replicated".
+
+norm replicated is a legal rule.
+
+norm replicated has the label "Replicated compliance rule".
+
+norm replicated has the legal text "The operator shall ensure compliance with the requirements...".
+
+norm replicated is established in "http://data.europa.eu/eli/reg/2018/1148/art_10".
+
+norm replicated is established in "http://data.europa.eu/eli/reg/2023/1234/art_8".
+
+
+norm open data art 5 is identified by "http://example.org/Rule_OpenData_Art5".
+
+norm open data art 5 is a legal rule.
+
+norm open data art 5 has the label "Open Data Directive Article 5".
+
+norm open data art 5 has the comment "Complex provision combining definitional and procedural elements".
+
+norm open data art 5 is established in "http://data.europa.eu/eli/dir/2019/1024/art_5".
+
+
+norm e idas art 3 is identified by "http://example.org/Rule_eIDAS_Art3".
+
+norm e idas art 3 is a legal rule.
+
+norm e idas art 3 has the label "eIDAS Definitions".
+
+norm e idas art 3 has the comment "Foundational definitions structuring the eIDAS legal framework".
+
+norm e idas art 3 is established in "http://data.europa.eu/eli/reg/2014/910/art_3".
+
+
+% The questions of LOMO's requirements document (its competency questions),
+% as far as a description can answer them.
+query parts is:
+    which thing is part of the description.
+
+query kinds is:
+    which thing is of the kind which kind.
+
+query bearer is:
+    the bearer role is which role.
+
+query rules_of_act is:
+    which rule is established by the act which act.
+
+query provisions is:
+    which thing is established in which provision.
+
+query places is:
+    which rule is laid down in which place.
+
+query legal_texts is:
+    which thing has the legal text which text.
+
+query joint_rules is:
+    which rule is established in more than one provision.
+
+query prescriptive is:
+    which thing is a prescriptive rule.
+
+query constitutive is:
+    which thing is a constitutive rule.
+
+query rules_without_conditions is:
+    which rule has no written conditions.
+
+query applies is:
+    which rule applies to which party.
+
+query texts is:
+    which thing is described by the text which text.
+
+query addresses is:
+    which thing is identified by which address.
+

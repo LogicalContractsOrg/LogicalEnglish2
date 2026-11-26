@@ -1,0 +1,29 @@
+# Two links between times that their own dates contradict: an appeal
+# period said to come after the notification, but dated before it; a
+# meeting said to be in a window, but dated after the window ends. One of
+# LOMO's intended uses is the detection of such temporal conflicts.
+@prefix ex: <http://example.org/cases/time#> .
+@prefix lomo: <http://data.europa.eu/leg/lomo#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+ex:Notification a lomo:TemporalSpecification ;
+    rdfs:label "Notification of the decision"@en ;
+    lomo:instant "2026-05-01"^^xsd:date .
+ex:Appeal a lomo:TemporalSpecification ;
+    rdfs:label "Appeal period"@en ;
+    lomo:instant "2026-04-01"^^xsd:date ;
+    lomo:duration "P1M"^^xsd:duration ;
+    lomo:after ex:Notification .
+ex:Window a lomo:TemporalSpecification ;
+    rdfs:label "Consultation window"@en ;
+    lomo:instant "2026-01-01"^^xsd:date ;
+    lomo:duration "P1M"^^xsd:duration .
+ex:Meeting a lomo:TemporalSpecification ;
+    rdfs:label "Consultation meeting"@en ;
+    lomo:instant "2026-03-01"^^xsd:date ;
+    lomo:in ex:Window .
+ex:Hearing a lomo:TemporalSpecification ;
+    rdfs:label "Hearing"@en ;
+    lomo:instant "2026-01-15"^^xsd:date ;
+    lomo:in ex:Window .

@@ -1065,10 +1065,21 @@ result certificate presentation has for "lomo:hasResultType" the resource result
 
 % The questions of LOMO's requirements document (its competency questions),
 % as far as a description can answer them.
+scenario calendar is, as stated in the source description:
+    % A case for the calendar: the events that a deadline counts from, and the rhythms that
+    % count from nothing else, start on 2027-01-01.
+    the calendar starts on 2027-01-01.
+    "date of entry into force" happens on 2027-01-01.
+    due_dates expects answers ["agent type member states has action communicate data to commission due on 2030-03-31", "agent type vehicle owner has action accept mobile cert due on 2031-01-01", "agent type vehicle owner has action require physical cert due on 2031-01-01"].
+    due_in_2027 expects answers [].
+
 scenario description is, as stated in the source description:
     modalities expects answers ["requirement art 10 par 1 obligation has the modality obligation", "requirement art 10 par 1 right has the modality right", "requirement art 10 par 2 has the modality obligation", "requirement art 10 par 3 has the modality obligation", "requirement art 16 par 1 has the modality obligation"].
     actions_of_rules expects answers ["requirement art 10 par 1 obligation produces action ms accept both forms for id", "requirement art 10 par 1 right produces action driver use format", "requirement art 10 par 2 produces action accept mobile cert", "requirement art 10 par 2 produces action require physical cert", "requirement art 10 par 3 produces action accept both certs", "requirement art 10 par 3 produces action verify formats", "requirement art 16 par 1 produces action communicate data to commission", "requirement art 16 par 1 produces action transmit data to parliament council"].
     actions_of_agents expects answers ["agent european commission acts as addressee in action communicate data to commission", "agent european commission acts as addresser in action transmit data to parliament council", "agent european council acts as addressee in action transmit data to parliament council", "agent european parliament acts as addressee in action transmit data to parliament council", "agent type competent authorities acts as addressee in action accept mobile cert", "agent type competent authorities acts as addressee in action require physical cert", "agent type member state of registration acts as addressee in action verify formats", "agent type member states acts as addressee in action driver use format", "agent type member states acts as addressee in action ms accept both forms for id", "agent type member states acts as addresser in action communicate data to commission", "agent type reregistering member state acts as addressee in action accept both certs", "agent type reregistering member state acts as addresser in action verify formats", "agent type vehicle owner acts as addresser in action accept mobile cert", "agent type vehicle owner acts as addresser in action require physical cert", "agent type vehicle owner acts as beneficiary in action driver use format", "agent type vehicle owner acts as beneficiary in action ms accept both forms for id"].
+
+query parts is:
+    which thing is part of the description.
 
 query kinds is:
     which thing is of the kind which kind.
@@ -1183,6 +1194,54 @@ query timed_after is:
 
 query timed_immediately_after is:
     which temporal specification is timed immediately after which second temporal specification.
+
+query first_dates is:
+    the first date of which temporal specification is which date.
+
+query last_dates is:
+    the last date of which temporal specification is which date.
+
+query later_times is:
+    which temporal specification is later than which second temporal specification.
+
+query times_within is:
+    which temporal specification is during which second temporal specification.
+
+query broken_links is:
+    which temporal specification breaks its link with which second temporal specification.
+
+query due_dates is:
+    which agent has which action due on which date.
+
+query due_in_2027 is:
+    which agent has which action due on which date in the period from 2027-01-01 to 2027-12-31.
+
+query hours_as_days is:
+    which temporal specification has a length of time that counts hours as whole days.
+
+query rules_without_conditions is:
+    which rule has no written conditions.
+
+query applies is:
+    which rule applies to which party.
+
+query must_perform is:
+    which party must perform which action by which date under which rule.
+
+query obliged is:
+    which party is obliged that which sentence.
+
+query permitted is:
+    which party is permitted that which sentence.
+
+query forbidden is:
+    which party is forbidden that which sentence.
+
+query holders_of_rights is:
+    which party has the right that which sentence.
+
+query violations is:
+    the obligation of which party that which sentence is violated.
 
 query results is:
     which action has the result which result.

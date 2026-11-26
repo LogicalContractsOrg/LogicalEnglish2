@@ -32,6 +32,7 @@
 :- use_module(lomo_reader).
 :- use_module(lomo_words).
 :- use_module(lomo_shacl, [check_file/2]).
+:- use_module(lomo_eli, []).
 
 %!  twin_name(+File, -Name) is det.
 twin_name(File, Name) :-
@@ -59,9 +60,20 @@ twin_migration(File, Options, migration(Meta, program(Header, Items), Ledger, Te
            [Copy]),
     Header = [kb(Name), target(prolog), includes([lomo]), comment(C0)],
     atomic_list_concat(['sources/', Copy], CopyRel),
-    templates(Used, Templates),
-    questions(Used, Queries),
-    append([Templates, [document('the source description', [text(CopyRel)])], Items0, Queries], Items),
+    templates(Used, Templates0),
+    option(templates(Own), Options, []),
+    findall(template(F, T, Adds), ( member(Tm, Own), ( Tm = template(F, T, Adds) -> true ; Tm = template(F, T), Adds = [] ) ), OwnItems),
+    append(Templates0, OwnItems, Templates),
+    questions(Used, Queries0),
+    option(queries(Extra), Options, []),
+    append(Queries0, Extra, Queries),
+    (   option(eli_texts(Dir), Options)
+    ->  findall(E, member(fact(lomo_established_in(_, E), _), Items0), Es0), sort(Es0, Es),
+        include([E]>>( sub_string(E, _, _, _, "/eli/"), lomo_eli:eli_celex(E, _) ), Es, EliEs),
+        lomo_eli:write_provision_texts(EliEs, Dir, Docs)
+    ;   Docs = []
+    ),
+    append([Templates, [document('the source description', [text(CopyRel)])|Docs], Items0, Queries], Items),
     ledger(Model, LedgerInfo, Ledger0),
     validity_entries(File, VEs),
     append(Ledger0, VEs, Ledger),
@@ -153,22 +165,30 @@ value_term(_, lit(_, V, _), V).
 %   datatype other than the usual one of their kind, says so once.
 
 formats(Sts, Prefixes, Facts, Notes) :-
-    findall(P-F, ( member(st(_, P, lit(K, V, Form)), Sts), form_is_unusual(K, V, Form, F) ), PFs0),
     findall(P, member(st(_, P, lit(_, _, _)), Sts), AllPs0), sort(AllPs0, AllPs),
-    findall(Fact-Note,
+    findall(PFacts-VFacts,
             ( member(P, AllPs),
-              findall(F, member(P-F, PFs0), Fs), Fs \== [],
-              findall(x, member(st(_, P, lit(_, _, _)), Sts), Xs), length(Xs, NAll),
-              msort(Fs, SFs), clumped(SFs, Cl), sort(2, @>=, Cl, [Major-NMajor|_]),
+              findall(F-(V-Form), ( member(st(_, P, lit(K, V, Form)), Sts), form_of(K, V, Form, F) ), FVs),
+              findall(F, member(F-_, FVs), Fs), msort(Fs, SFs), clumped(SFs, Cl),
+              sort(2, @>=, Cl, [Major-_|_]),
               compact_iri(P, Prefixes, PT),
-              format_fact(Major, PT, Prefixes, Fact),
-              (   NMajor =:= NAll -> Note = none
-              ;   format(string(Note), "~w: ~w of ~w values in this form; the others are written in it on the way back", [PT, NMajor, NAll])
-              )
-            ), FNs),
-    pairs_keys_values(FNs, Facts0, Notes0),
+              (   Major == usual -> PFacts = [] ; format_fact(Major, PT, Prefixes, PF), PFacts = [PF] ),
+              %  a value whose form is not its property's: said of the value
+              findall(VF, ( member(F-(V-Form), FVs), F \== Major, value_form_fact(Form, V, Prefixes, VF) ), VFacts0),
+              sort(VFacts0, VFacts)
+            ), PVs),
+    findall(F, ( member(Ps-_, PVs), member(F, Ps) ), Facts1),
+    findall(F, ( member(_-Vs, PVs), member(F, Vs) ), Facts2),
+    append(Facts1, Facts2, Facts0),
     maplist([F0, fact(F0, [])]>>true, Facts0, Facts),
-    exclude(==(none), Notes0, Notes).
+    Notes = [].
+
+form_of(K, V, Form, F) :- ( usual_form(K, V, Form) -> F = usual ; F = Form ).
+
+%   A value whose form differs from its property's usual one.
+value_form_fact(plain, V, _, lomo_value_plain(V)) :- !.
+value_form_fact(type(T), V, Prefixes, lomo_value_datatype(V, TT)) :- !, compact_iri(T, Prefixes, TT).
+value_form_fact(lang(L), V, _, lomo_value_datatype(V, LS)) :- format(string(LS), "@~w", [L]).
 
 form_is_unusual(K, V, Form, Form) :- \+ usual_form(K, V, Form).
 
@@ -197,6 +217,7 @@ template_text(F, T) :- generic_template(_, F, T).
 template_text(F, T) :- derived(F, T).
 
 derived(lomo_bearer,           "the bearer role is *a role*").
+derived(lomo_part,             "*a thing* is part of the description").
 derived(lomo_kind,             "*a thing* is of the kind *a kind*").
 derived(lomo_agent_or_type,    "*a thing* is an agent or agent type").
 derived(lomo_derogation,       "*a rule* is a derogation from *a second rule*").
@@ -216,6 +237,42 @@ derived(lomo_joint,            "*a rule* is established in more than one provisi
 derived(lomo_laid_down,        "*a rule* is laid down in *a place*").
 derived(lomo_modality_for,     "*a rule* has the modality *a modality* for *an agent* as *a role*").
 derived(lomo_triggered_by,     "*a thing* is triggered by *an event*").
+derived(lomo_later_than,       "*a temporal specification* is later than *a second temporal specification*").
+derived(lomo_earlier_than,     "*a temporal specification* is earlier than *a second temporal specification*").
+derived(lomo_during,           "*a temporal specification* is during *a second temporal specification*").
+derived(lomo_overlaps_with,    "*a temporal specification* overlaps with *a second temporal specification*").
+derived(lomo_happens_on,       "*an event* happens on *a date*").
+derived(lomo_calendar_starts,  "the calendar starts on *a date*").
+derived(lomo_first_date,       "the first date of *a temporal specification* is *a date*").
+derived(lomo_last_date,        "the last date of *a temporal specification* is *a date*").
+derived(lomo_breaks_link,      "*a temporal specification* breaks its link with *a second temporal specification*").
+derived(lomo_rhythm_starts,    "the rhythm of *a temporal specification* starts on *a date*").
+derived(lomo_falls_on,         "*a temporal specification* falls on *a date* in the period from *a first date* to *a last date*").
+derived(lomo_due,              "*an agent* has *an action* due on *a date*").
+derived(lomo_due_in,           "*an agent* has *an action* due on *a date* in the period from *a first date* to *a last date*").
+derived(lomo_hours_as_days,    "*a temporal specification* has a length of time that counts hours as whole days").
+derived(lomo_of_type,          "*a party* is of the type *an agent type*").
+derived(lomo_counts_as,        "*a party* counts as *an agent*").
+derived(lomo_meets_definition, "*a party* meets the definition *a definition*").
+derived(lomo_written_conditions, "*a rule* has written conditions").
+derived(lomo_no_conditions,    "*a rule* has no written conditions").
+derived(lomo_conditions_hold,  "the conditions of *a rule* hold for *a party*").
+derived(lomo_reaches,          "*a rule* reaches *a party*").
+derived(lomo_set_aside,        "*a rule* is set aside for *a party* by *a second rule*").
+derived(lomo_applies,          "*a rule* applies to *a party*").
+derived(lomo_performs,         "*a party* performs *an action*").
+derived(lomo_performs_on,      "*a party* performs *an action* on *a date*").
+derived(lomo_happens_to,       "*an event* happens to *a party* on *a date*").
+derived(lomo_first_date_for,   "the first date of *a temporal specification* for *a party* is *a date*").
+derived(lomo_last_date_for,    "the last date of *a temporal specification* for *a party* is *a date*").
+derived(lomo_must_perform,     "*a party* must perform *an action* by *a date* under *a rule*").
+derived(lomo_met,              "*a party* met *an action* under *a rule*").
+derived(lomo_late,             "*a party* is late with *an action* under *a rule* on *a day*").
+derived(deontic_obliged,       "*a party* is obliged that *a sentence*").
+derived(deontic_permitted,     "*a party* is permitted that *a sentence*").
+derived(deontic_forbidden,     "*a party* is forbidden that *a sentence*").
+derived(deontic_right,         "*a party* has the right that *a sentence*").
+derived(deontic_violated,      "the obligation of *a party* that *a sentence* is violated").
 derived(lomo_text,             "*a thing* is described by the text *a text*").
 derived(lomo_act_of,           "the act of *a provision* is *an act*").
 derived(lomo_place_of,         "the place of *a provision* in its act is *a text*").
@@ -233,6 +290,7 @@ questions(Used, Items) :-
 
 used(F, Used) :- memberchk(F/_, Used).
 
+question(parts,             'search', lomo_part(_), []).
 question(kinds,             'actions, agents and roles 5', lomo_kind(_, _), []).
 question(bearer,            'who is bound', lomo_bearer(_), [lomo_bearer]).
 question(rules_of_act,      'legal rules and legal sources 1', lomo_by_act(_, _), [lomo_established_in]).
@@ -283,6 +341,23 @@ question(starts,            'temporal specifications 6', lomo_start_of(_, _), [l
 question(ends,              'temporal specifications 6', lomo_end_of(_, _), [lomo_finishes]).
 question(overlaps,          'temporal specifications 6', lomo_overlaps(_, _), [lomo_overlaps]).
 question(timed_within,      'temporal specifications 6', lomo_in(_, _), [lomo_in]).
+question(first_dates,       'temporal specifications 1', lomo_first_date(_, _), [lomo_temporal_spec]).
+question(last_dates,        'temporal specifications 3', lomo_last_date(_, _), [lomo_temporal_spec]).
+question(later_times,       'temporal specifications 6', lomo_later_than(_, _), [lomo_temporal_spec]).
+question(times_within,      'temporal specifications 6', lomo_during(_, _), [lomo_temporal_spec]).
+question(broken_links,      'temporal specifications 6', lomo_breaks_link(_, _), [lomo_temporal_spec]).
+question(due_dates,         'temporal specifications 7', lomo_due(_, _, _), [lomo_function]).
+question(due_in_2027,       'temporal specifications 7', lomo_due_in(_, _, _, date(2027, 1, 1), date(2027, 12, 31)), [lomo_function]).
+question(hours_as_days,     'temporal specifications 1', lomo_hours_as_days(_), [lomo_duration]).
+question(rules_without_conditions, 'conditions', lomo_no_conditions(_), []).
+question(applies,           'compliance support 1', lomo_applies(_, _), []).
+question(set_aside,         'relations among rules 4', lomo_set_aside(_, _, _), [lomo_derogates_from]).
+question(must_perform,      'compliance support 1', lomo_must_perform(_, _, _, _), [lomo_function]).
+question(obliged,           'prescriptive rules 2', deontic_obliged(_, _), [lomo_modality]).
+question(permitted,         'prescriptive rules 4', deontic_permitted(_, _), [lomo_modality]).
+question(forbidden,         'prescriptive rules 3', deontic_forbidden(_, _), [lomo_modality]).
+question(holders_of_rights, 'prescriptive rules 5', deontic_right(_, _), [lomo_modality]).
+question(violations,        'compliance support 1', deontic_violated(_, _), [lomo_modality]).
 question(results,           'action results 1', lomo_has_result(_, _), [lomo_has_result]).
 question(result_categories, 'action results 3', lomo_result_category(_, _), [lomo_result_category]).
 question(datasets_of_results, 'action results 4', lomo_holds(_, _), [lomo_is_manifested_in]).
@@ -323,9 +398,21 @@ question(plain_texts,       'the way back', lomo_plain(_), [lomo_plain]).
 validity_entries(File, Es) :-
     (   catch(check_file(File, Rs), _, fail)
     ->  findall(entry(F, 'a validity rule of LOMO', encoded, 'kept as the description has it', '-', Msg),
-                member(result(F, _, _, _, Msg), Rs), Es)
-    ;   Es = []
-    ).
+                member(result(F, _, _, _, Msg), Rs), Es1)
+    ;   Es1 = []
+    ),
+    read_lomo(File, lomo(Sts, Nodes, _)),
+    findall(entry(V, 'a length of time', approximated, 'kept as text; no date is calculated from it', N, Msg),
+            ( member(st(S, _, lit(duration, V, _)), Sts),
+              \+ lomo_temporal:le_temporal_iso(V, _),
+              ( memberchk(node(S, N, _), Nodes) -> true ; N = '-' ),
+              format(string(Msg), "~q is not a length of time in the standard form of ISO 8601 (P1Y, P12M, PT72H): a calendar cannot count with it", [V]) ),
+            Es2),
+    append(Es1, Es2, Es).
+
+:- prolog_load_context(directory, D),
+   atomic_list_concat([D, '/../../lib/temporal.pl'], T),
+   lomo_temporal:consult(T).
 
 ledger(lomo(Sts, Nodes, Prefixes), info(PerSubject, FormatNotes), Ledger) :-
     findall(E, ( member(S-Facts, PerSubject), \+ rdf_is_bnode(S),

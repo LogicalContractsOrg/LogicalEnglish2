@@ -27,6 +27,8 @@ the knowledge base lomo_32024r1620_011_001 includes:
 
 the text of the source description is at "sources/32024R1620_011_001.ttl".
 
+the text of "http://data.europa.eu/eli/reg/2024/1620/art_11/par_1/2025-11-10" is at "sources/eli/reg_2024_1620_art_11_par_1_2025-11-10.txt".
+
 % Who bears a duty: the agent of this role of the action (lomo.le).
 the bearer role is addresser.
 
@@ -296,6 +298,9 @@ scenario description is, as stated in the source description:
     actions_of_rules expects answers ["reg 20241620 art 11 par 1 produces reg 20241620 art 11 par 1 action 1", "reg 20241620 art 11 par 1 produces reg 20241620 art 11 par 1 action 2", "reg 20241620 art 11 par 1 produces reg 20241620 art 11 par 1 action 3", "reg 20241620 art 11 par 1 produces reg 20241620 art 11 par 1 action 4", "reg 20241620 art 11 par 1 produces reg 20241620 art 11 par 1 action 5"].
     actions_of_agents expects answers ["european supervisory authorities acts as addressee in reg 20241620 art 11 par 1 action 3", "item the authority acts as addresser in reg 20241620 art 11 par 1 action 1", "item the authority acts as addresser in reg 20241620 art 11 par 1 action 2", "item the authority acts as addresser in reg 20241620 art 11 par 1 action 3", "item the authority acts as addresser in reg 20241620 art 11 par 1 action 4", "item the authority acts as addresser in reg 20241620 art 11 par 1 action 5", "non amlcft authorities acts as addressee in reg 20241620 art 11 par 1 action 3", "obliged entities acts as addressee in reg 20241620 art 11 par 1 action 5", "other national authorities acts as addressee in reg 20241620 art 11 par 1 action 3", "supervisory authorities acts as addressee in reg 20241620 art 11 par 1 action 3", "supervisory authorities acts as addressee in reg 20241620 art 11 par 1 action 5"].
 
+query parts is:
+    which thing is part of the description.
+
 query kinds is:
     which thing is of the kind which kind.
 
@@ -361,6 +366,27 @@ query concerned_agents is:
 
 query sequence is:
     which action comes before which second action.
+
+query rules_without_conditions is:
+    which rule has no written conditions.
+
+query applies is:
+    which rule applies to which party.
+
+query obliged is:
+    which party is obliged that which sentence.
+
+query permitted is:
+    which party is permitted that which sentence.
+
+query forbidden is:
+    which party is forbidden that which sentence.
+
+query holders_of_rights is:
+    which party has the right that which sentence.
+
+query violations is:
+    the obligation of which party that which sentence is violated.
 
 query results is:
     which action has the result which result.

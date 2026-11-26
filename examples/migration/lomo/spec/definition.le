@@ -1,0 +1,125 @@
+% The register of a LOMO description: the Logical English twin of
+% Definition.ttl (kept in sources/), written by the LOMO translator.
+% One fact for each statement of the description, in the words of lomo.le.
+% LOMO describes rules; it has no conditions and no cases. A question
+% about a case gets its answer only from the parts of the description that
+% have values (deadlines, agents, derogations).
+%
+% LOMO and its data: (c) European Union, Creative Commons Attribution 4.0
+% (https://creativecommons.org/licenses/by/4.0/); source: the LOMO
+% repository, https://code.europa.eu/drpm/lomo. The description was changed
+% into Logical English by the LOMO translator of Logical English.
+%
+% DISCLAIMER. This program was written by a translator from a program of another
+% system. It is provided "as is", without warranty of any kind, express or
+% implied, including any warranty that it is accurate, complete or fit for a
+% particular purpose. The translation may be wrong: check it against its source
+% before relying on it. It is not legal, tax, insurance, financial or other
+% professional advice. Its authors accept no liability for any loss or damage
+% arising from its use.
+
+the target language is: prolog.
+
+the knowledge base definition includes these resources:
+    lomo.
+
+the knowledge base definition includes:
+
+the text of the source description is at "sources/Definition.ttl".
+
+% Who bears a duty: the agent of this role of the action (lomo.le).
+the bearer role is addresser.
+
+
+def public interest entity is identified by "http://example.org/Def_PublicInterestEntity".
+
+def public interest entity is a definition.
+
+def public interest entity has the definiendum "public-interest entities".
+
+def public interest entity has the definiens "undertakings within the scope of Article 1 which are...".
+
+def public interest entity is established in "https://eur-lex.europa.eu/eli/dir/2013/34/oj/art_2/point_1".
+
+
+def related party is identified by "http://example.org/Def_RelatedParty".
+
+def related party is a definition.
+
+def related party has the definiendum "related party".
+
+def related party is equivalent to def related party equivalent definition.
+
+
+def related party equivalent definition is a definition.
+
+def related party equivalent definition has for "rdfs:seeAlso" the resource "https://www.ifrs.org/issued-standards/ias-24-related-party-disclosures/".
+
+
+def small undertakings is identified by "http://example.org/Def_SmallUndertakings".
+
+def small undertakings is a definition.
+
+def small undertakings has the definiendum "small undertakings".
+
+def small undertakings has the definiens "undertakings which on their balance sheet dates do not exceed the limits of at least two of the three following criteria:...".
+
+def small undertakings is established in "https://eur-lex.europa.eu/eli/dir/2013/34/oj/art_2/point_2".
+
+
+% The questions of LOMO's requirements document (its competency questions),
+% as far as a description can answer them.
+query parts is:
+    which thing is part of the description.
+
+query kinds is:
+    which thing is of the kind which kind.
+
+query bearer is:
+    the bearer role is which role.
+
+query rules_of_act is:
+    which rule is established by the act which act.
+
+query provisions is:
+    which thing is established in which provision.
+
+query places is:
+    which rule is laid down in which place.
+
+query joint_rules is:
+    which rule is established in more than one provision.
+
+query prescriptive is:
+    which thing is a prescriptive rule.
+
+query constitutive is:
+    which thing is a constitutive rule.
+
+query definitions is:
+    which thing is a definition.
+
+query definienda is:
+    which definition has the definiendum which text.
+
+query definientia is:
+    which definition has the definiens which text.
+
+query equivalent_definitions is:
+    which definition has the same meaning as which second definition.
+
+query rules_without_conditions is:
+    which rule has no written conditions.
+
+query applies is:
+    which rule applies to which party.
+
+query texts is:
+    which thing is described by the text which text.
+
+query other_resources is:
+    which thing has for which property the resource which resource.
+
+query addresses is:
+    which thing is identified by which address.
+

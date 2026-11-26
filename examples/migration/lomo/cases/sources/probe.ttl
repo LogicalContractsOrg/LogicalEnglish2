@@ -1,0 +1,66 @@
+# The probe of the research note (LOMO.md §3.3), as a LOMO description: the
+# notification of a personal data breach (GDPR Article 33(1), 72 hours after
+# the controller becomes aware of it), the publication of the financial
+# statements (Directive 2013/34/EU Article 30(1), 12 months after the balance
+# sheet date) and the exemption of micro-undertakings from publication (Article 36(1)(d);
+# the specification's example and the first probe said "Article 1a", which
+# the directive does not have), which
+# the reader turns into a register and the library runs.
+@prefix ex: <http://example.org/cases/probe#> .
+@prefix lomo: <http://data.europa.eu/leg/lomo#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix dm: <http://data.europa.eu/leg/deontic-modality/> .
+@prefix tf: <http://data.europa.eu/leg/temporal-function/> .
+@prefix role: <http://publications.europa.eu/resource/authority/role/> .
+
+ex:Norm_GDPR_33 a lomo:SubstantiveRule ;
+    rdfs:label "GDPR Article 33(1): notification of a personal data breach"@en ;
+    lomo:hasDeonticModality dm:Obligation ;
+    lomo:establishedIn <http://data.europa.eu/eli/reg/2016/679/art_33/par_1/oj> ;
+    lomo:legalText "In the case of a personal data breach, the controller shall without undue delay and, where feasible, not later than 72 hours after having become aware of it, notify the personal data breach to the supervisory authority competent in accordance with Article 55, unless the personal data breach is unlikely to result in a risk to the rights and freedoms of natural persons."@en ;
+    lomo:produces ex:NotifyTheBreach .
+ex:NotifyTheBreach a lomo:Action ;
+    rdfs:label "notify the personal data breach to the supervisory authority"@en ;
+    lomo:hasAgentRole ex:Role_Controller, ex:Role_Authority ;
+    lomo:atTime ex:Deadline_72_Hours .
+ex:Role_Controller a lomo:AgentRole ; lomo:forAgent ex:Controllers ; lomo:withRole role:ADDRESSER .
+ex:Role_Authority a lomo:AgentRole ; lomo:forAgent ex:SupervisoryAuthorities ; lomo:withRole role:ADDRESSEE .
+ex:Deadline_72_Hours a lomo:TemporalSpecification ;
+    lomo:hasFunction tf:deadline ;
+    lomo:duration "PT72H"^^xsd:duration ;
+    lomo:immediatelyAfter ex:Awareness .
+ex:Awareness a lomo:TemporalSpecification ;
+    lomo:temporalLabel "awareness of a personal data breach"@en .
+ex:Controllers a lomo:AgentType ; rdfs:label "Controllers"@en .
+ex:SupervisoryAuthorities a lomo:AgentType ; rdfs:label "Supervisory authorities"@en .
+
+ex:Norm_Accounts_30 a lomo:SubstantiveRule ;
+    rdfs:label "Directive 2013/34/EU Article 30(1): publication of the financial statements"@en ;
+    lomo:hasDeonticModality dm:Obligation ;
+    lomo:establishedIn <http://data.europa.eu/eli/dir/2013/34/art_30/par_1/oj> ;
+    lomo:produces ex:PublishTheStatements .
+ex:PublishTheStatements a lomo:Action ;
+    rdfs:label "publish the annual financial statements and the management report"@en ;
+    lomo:hasAgentRole ex:Role_Publisher ;
+    lomo:atTime ex:Deadline_12_Months .
+ex:Role_Publisher a lomo:AgentRole ; lomo:forAgent ex:Undertakings ; lomo:withRole role:ADDRESSER .
+ex:Deadline_12_Months a lomo:TemporalSpecification ;
+    lomo:hasFunction tf:deadline ;
+    lomo:duration "P12M"^^xsd:duration ;
+    lomo:after ex:BalanceSheetDate .
+ex:BalanceSheetDate a lomo:TemporalSpecification ;
+    lomo:temporalLabel "balance sheet date"@en .
+ex:Undertakings a lomo:AgentType ; rdfs:label "Undertakings"@en .
+
+ex:Norm_Micro_36 a lomo:PrescriptiveRule ;
+    rdfs:label "Directive 2013/34/EU Article 36(1)(d): micro-undertakings exempt from publication"@en ;
+    lomo:hasDeonticModality dm:Permission ;
+    lomo:establishedIn <http://data.europa.eu/eli/dir/2013/34/art_36/par_1/pnt_d/oj> ;
+    lomo:derogatesFrom ex:Norm_Accounts_30 ;
+    lomo:produces ex:SkipThePublication .
+ex:SkipThePublication a lomo:Action ;
+    rdfs:label "file the balance sheet information with a competent authority instead"@en ;
+    lomo:hasAgentRole ex:Role_Micro .
+ex:Role_Micro a lomo:AgentRole ; lomo:forAgent ex:MicroUndertakings ; lomo:withRole role:ADDRESSER .
+ex:MicroUndertakings a lomo:AgentType ; rdfs:label "Micro-undertakings"@en .

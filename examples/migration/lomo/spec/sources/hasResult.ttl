@@ -1,0 +1,44 @@
+# The Turtle example of lomo:hasResult in the specification of LOMO 1.1.0
+# (https://drpm.pages.code.europa.eu/lomo/latest/#hasResult), with the prefixes it uses.
+@prefix ex: <http://example.org/> .
+@prefix lomo: <http://data.europa.eu/leg/lomo#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix dctype: <http://purl.org/dc/dcmitype/> .
+@prefix cpsv: <http://purl.org/vocab/cpsv#> .
+@prefix eli: <http://data.europa.eu/eli/ontology#> .
+@prefix tf: <http://data.europa.eu/leg/temporal-function/> .
+@prefix dm: <http://data.europa.eu/leg/deontic-modality/> .
+@prefix dd: <http://data.europa.eu/leg/digital-dimensions/> .
+@prefix rc: <http://data.europa.eu/leg/result-category/> .
+@prefix role: <http://publications.europa.eu/resource/authority/role/> .
+
+
+# Example 1: Linking an action to a specific result instance
+ex:Action_PrepareFinancialStatements rdf:type lomo:Action ;
+    lomo:hasResult ex:Result_FinancialStatements_2024 .
+
+ex:Result_FinancialStatements_2024 rdf:type lomo:ActionResult ;
+    rdfs:label "Financial Statements 2024"@en .
+
+# Example 2: Linking an action to a result type
+ex:Action_Audit rdf:type lomo:Action ;
+    lomo:hasResult ex:AuditReportType .
+
+ex:AuditReportType rdf:type lomo:ActionResultType ;
+    rdfs:label "Audit Report"@en .
+
+# Example 3: Action producing multiple results
+ex:Action_AnnualReview rdf:type lomo:Action ;
+    lomo:hasResult ex:Result_AnnualReport_2024 , ex:Result_FinancialSummary_2024 .
+
+ex:Result_AnnualReport_2024 rdf:type lomo:ActionResult ;
+    rdfs:label "Annual Report 2024"@en .
+
+ex:Result_FinancialSummary_2024 rdf:type lomo:ActionResult ;
+    rdfs:label "Financial Summary 2024"@en .

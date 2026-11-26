@@ -27,6 +27,20 @@ the knowledge base financial_reporting_dir_2013_34_lomo_manual includes:
 
 the text of the source description is at "sources/financial-reporting-dir_2013_34-lomo-manual.ttl".
 
+the text of "http://data.europa.eu/eli/dir/2013/34/art_19/par_1/oj" is at "sources/eli/dir_2013_34_art_19_par_1_oj.txt".
+
+the text of "http://data.europa.eu/eli/dir/2013/34/art_2/par_1/oj" is at "sources/eli/dir_2013_34_art_2_par_1_oj.txt".
+
+the text of "http://data.europa.eu/eli/dir/2013/34/art_3/par_1/oj" is at "sources/eli/dir_2013_34_art_3_par_1_oj.txt".
+
+the text of "http://data.europa.eu/eli/dir/2013/34/art_30/par_1/oj" is at "sources/eli/dir_2013_34_art_30_par_1_oj.txt".
+
+the text of "http://data.europa.eu/eli/dir/2013/34/art_30/par_1/oj/art_30/par_1" is at "sources/eli/dir_2013_34_art_30_par_1_oj_art_30_par_1.txt".
+
+the text of "http://data.europa.eu/eli/dir/2013/34/art_53/par_1/oj" is at "sources/eli/dir_2013_34_art_53_par_1_oj.txt".
+
+the text of "http://data.europa.eu/eli/dir/2013/34/art_53/par_2/oj" is at "sources/eli/dir_2013_34_art_53_par_2_oj.txt".
+
 % Who bears a duty: the agent of this role of the action (lomo.le).
 the bearer role is addresser.
 
@@ -399,10 +413,30 @@ doc legislation has the legal text "laws, regulations and administrative provisi
 
 % The questions of LOMO's requirements document (its competency questions),
 % as far as a description can answer them.
+scenario calendar is, as stated in the source description:
+    % A case for the calendar: the events that a deadline counts from, and the rhythms that
+    % count from nothing else, start on 2027-01-01.
+    the calendar starts on 2027-01-01.
+    "balance sheet date" happens on 2027-01-01.
+    due_dates expects answers ["actor large undertaking has step publish full report due on 2028-01-01", "actor medium sized undertaking has step publish full report due on 2028-01-01", "actor micro undertaking has step publish full report due on 2028-01-01", "actor small undertaking has step publish full report due on 2028-01-01"].
+    due_in_2027 expects answers [].
+
 scenario description is, as stated in the source description:
     modalities expects answers ["norm publication obligation has the modality obligation", "norm transposition obligation has the modality obligation"].
     actions_of_rules expects answers ["norm publication obligation produces step publish full report", "norm transposition obligation produces step bring in force", "norm transposition obligation produces step communicate text"].
     actions_of_agents expects answers ["actor large undertaking acts as addresser in step publish full report", "actor medium sized undertaking acts as addresser in step publish full report", "actor micro undertaking acts as addresser in step publish full report", "actor small undertaking acts as addresser in step publish full report", "agent commission acts as addressee in step communicate text", "agent member state acts as addressee in step bring in force", "agent member state acts as addresser in step communicate text"].
+
+scenario reporting_2027 is, as stated in the source description:
+    bigco is of the type actor large undertaking.
+    smallco is of the type actor small undertaking.
+    "balance sheet date" happens to bigco on 2025-12-31.
+    "balance sheet date" happens to smallco on 2025-12-31.
+    bigco performs step publish full report on 2026-11-30.
+    must_perform expects answers ["bigco must perform step publish full report by 2026-12-31 under norm publication obligation", "smallco must perform step publish full report by 2026-12-31 under norm publication obligation"].
+    late_on_1_february_2027 expects answers ["smallco is late with step publish full report under norm publication obligation on 2027-02-01"].
+
+query parts is:
+    which thing is part of the description.
 
 query kinds is:
     which thing is of the kind which kind.
@@ -509,6 +543,54 @@ query instants is:
 query timed_after is:
     which temporal specification is timed after which second temporal specification.
 
+query first_dates is:
+    the first date of which temporal specification is which date.
+
+query last_dates is:
+    the last date of which temporal specification is which date.
+
+query later_times is:
+    which temporal specification is later than which second temporal specification.
+
+query times_within is:
+    which temporal specification is during which second temporal specification.
+
+query broken_links is:
+    which temporal specification breaks its link with which second temporal specification.
+
+query due_dates is:
+    which agent has which action due on which date.
+
+query due_in_2027 is:
+    which agent has which action due on which date in the period from 2027-01-01 to 2027-12-31.
+
+query hours_as_days is:
+    which temporal specification has a length of time that counts hours as whole days.
+
+query rules_without_conditions is:
+    which rule has no written conditions.
+
+query applies is:
+    which rule applies to which party.
+
+query must_perform is:
+    which party must perform which action by which date under which rule.
+
+query obliged is:
+    which party is obliged that which sentence.
+
+query permitted is:
+    which party is permitted that which sentence.
+
+query forbidden is:
+    which party is forbidden that which sentence.
+
+query holders_of_rights is:
+    which party has the right that which sentence.
+
+query violations is:
+    the obligation of which party that which sentence is violated.
+
 query results is:
     which action has the result which result.
 
@@ -532,4 +614,7 @@ query addresses is:
 
 query literal_forms is:
     the values of which property have the datatype which datatype.
+
+query late_on_1_february_2027 is:
+    which party is late with which action under which rule on 2027-02-01.
 

@@ -27,6 +27,8 @@ the knowledge base lomo_32024l2831_017_001 includes:
 
 the text of the source description is at "sources/32024L2831_017_001.ttl".
 
+the text of "http://data.europa.eu/eli/dir/2024/2831/art_17/par_1/2024-11-11" is at "sources/eli/dir_2024_2831_art_17_par_1_2024-11-11.txt".
+
 % Who bears a duty: the agent of this role of the action (lomo.le).
 the bearer role is addresser.
 
@@ -114,6 +116,9 @@ scenario description is, as stated in the source description:
     actions_of_rules expects answers ["dir 20242831 art 17 par 1 produces dir 20242831 art 17 par 1 action 1"].
     actions_of_agents expects answers ["competent authorities acts as addressee in dir 20242831 art 17 par 1 action 1", "member states acts as addresser in dir 20242831 art 17 par 1 action 1", "representatives of platform workers acts as addressee in dir 20242831 art 17 par 1 action 1"].
 
+query parts is:
+    which thing is part of the description.
+
 query kinds is:
     which thing is of the kind which kind.
 
@@ -176,6 +181,27 @@ query actions_of_agents is:
 
 query concerned_agents is:
     which rule concerns which agent.
+
+query rules_without_conditions is:
+    which rule has no written conditions.
+
+query applies is:
+    which rule applies to which party.
+
+query obliged is:
+    which party is obliged that which sentence.
+
+query permitted is:
+    which party is permitted that which sentence.
+
+query forbidden is:
+    which party is forbidden that which sentence.
+
+query holders_of_rights is:
+    which party has the right that which sentence.
+
+query violations is:
+    the obligation of which party that which sentence is violated.
 
 query results is:
     which action has the result which result.

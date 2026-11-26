@@ -1,0 +1,69 @@
+% The conditions of GDPR Article 33(1) (the notification of a personal data
+% breach to the supervisory authority), written by hand in Logical English
+% beside a LOMO description of the article (the register probe.le). The
+% description gives the duty, its bearer (controllers) and its deadline
+% (72 hours after the controller becomes aware of the breach). The text adds
+% one condition and one more duty:
+%
+% - "unless the personal data breach is unlikely to result in a risk to the
+%   rights and freedoms of natural persons": the condition of the rule;
+% - "Where the notification to the supervisory authority is not made within
+%   72 hours, it shall be accompanied by reasons for the delay": a second
+%   obligation, for a controller that notifies late.
+%
+% Regulation (EU) 2016/679: (c) European Union, https://eur-lex.europa.eu/eli/reg/2016/679/oj.
+% Copyright Miguel Calejo for the Logical English; Apache License 2.0. Not legal advice.
+
+the target language is: prolog.
+
+the templates are:
+    the personal data breach of *a controller* is unlikely to result in a risk to the rights and freedoms of natural persons; undefined.
+    *a controller* gives the reasons for the delay.
+
+the knowledge base gdpr_article_33_conditions includes these resources:
+    probe.
+
+the knowledge base gdpr_article_33_conditions includes:
+
+the text of "http://data.europa.eu/eli/reg/2016/679/art_33/par_1/oj" is at "sources/eli/reg_2016_679_art_33_par_1_oj.txt".
+
+norm gdpr 33 has written conditions.
+
+rule art_33_1 with provenance "http://data.europa.eu/eli/reg/2016/679/art_33/par_1/oj",
+        confer "unless the personal data breach is unlikely to result in a risk to the rights and freedoms of natural persons":
+the conditions of norm gdpr 33 hold for a controller if
+    the controller counts as controllers
+    and it is not the case that
+        the personal data breach of the controller is unlikely to result in a risk to the rights and freedoms of natural persons.
+
+rule art_33_1_delay with provenance "http://data.europa.eu/eli/reg/2016/679/art_33/par_1/oj",
+        confer "Where the notification to the supervisory authority is not made within 72 hours, it shall be accompanied by reasons for the delay.":
+a controller is obliged that the controller gives the reasons for the delay if
+    the controller must perform notify the breach by a due date under norm gdpr 33
+    and the controller performs notify the breach on a date
+    and the date is after the due date.
+
+% ---- cases, with the answers worked out from the text before the run -----
+
+scenario three_breaches is:
+    acme is of the type controllers.
+    "awareness of a personal data breach" happens to acme on 2026-03-01.
+    acme performs notify the breach on 2026-03-05.
+    quickco is of the type controllers.
+    "awareness of a personal data breach" happens to quickco on 2026-05-10.
+    quickco performs notify the breach on 2026-05-12.
+    safeco is of the type controllers.
+    "awareness of a personal data breach" happens to safeco on 2026-06-01.
+    the personal data breach of safeco is unlikely to result in a risk to the rights and freedoms of natural persons.
+    deadlines expects answers ["acme must perform notify the breach by 2026-03-04 under norm gdpr 33", "quickco must perform notify the breach by 2026-05-13 under norm gdpr 33"].
+    met expects answers ["quickco met notify the breach under norm gdpr 33"].
+    reasons expects answers ["acme is obliged that acme gives the reasons for the delay"].
+
+query deadlines is:
+    which party must perform notify the breach by which date under norm gdpr 33.
+
+query met is:
+    which party met which action under which rule.
+
+query reasons is:
+    which party is obliged that which party gives the reasons for the delay.

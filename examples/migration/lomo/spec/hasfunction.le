@@ -1,0 +1,160 @@
+% The register of a LOMO description: the Logical English twin of
+% hasFunction.ttl (kept in sources/), written by the LOMO translator.
+% One fact for each statement of the description, in the words of lomo.le.
+% LOMO describes rules; it has no conditions and no cases. A question
+% about a case gets its answer only from the parts of the description that
+% have values (deadlines, agents, derogations).
+%
+% LOMO and its data: (c) European Union, Creative Commons Attribution 4.0
+% (https://creativecommons.org/licenses/by/4.0/); source: the LOMO
+% repository, https://code.europa.eu/drpm/lomo. The description was changed
+% into Logical English by the LOMO translator of Logical English.
+%
+% DISCLAIMER. This program was written by a translator from a program of another
+% system. It is provided "as is", without warranty of any kind, express or
+% implied, including any warranty that it is accurate, complete or fit for a
+% particular purpose. The translation may be wrong: check it against its source
+% before relying on it. It is not legal, tax, insurance, financial or other
+% professional advice. Its authors accept no liability for any loss or damage
+% arising from its use.
+
+the target language is: prolog.
+
+the knowledge base hasfunction includes these resources:
+    lomo.
+
+the knowledge base hasfunction includes:
+
+the text of the source description is at "sources/hasFunction.ttl".
+
+% Who bears a duty: the agent of this role of the action (lomo.le).
+the bearer role is addresser.
+
+
+action submit report is identified by "http://example.org/Action_SubmitReport".
+
+action submit report is an action.
+
+action submit report has the time specification action submit report time.
+
+
+action submit report time is a temporal specification.
+
+action submit report time has the instant 2025-12-31.
+
+action submit report time has the function deadline.
+
+
+norm temporary measure is identified by "http://example.org/Rule_TemporaryMeasure".
+
+norm temporary measure is a prescriptive rule.
+
+norm temporary measure has the time specification norm temporary measure time.
+
+
+norm temporary measure time is a temporal specification.
+
+norm temporary measure time has the duration "P6M".
+
+norm temporary measure time has the function validity.
+
+
+norm data breach notification is identified by "http://example.org/Rule_DataBreachNotification".
+
+norm data breach notification is a prescriptive rule.
+
+norm data breach notification has the time specification norm data breach notification time.
+
+
+norm data breach notification time is a temporal specification.
+
+norm data breach notification time has the temporal label "personal data breach".
+
+norm data breach notification time has the function trigger.
+
+
+% The questions of LOMO's requirements document (its competency questions),
+% as far as a description can answer them.
+scenario calendar is, as stated in the source description:
+    % A case for the calendar: the events that a deadline counts from, and the rhythms that
+    % count from nothing else, start on 2027-01-01.
+    the calendar starts on 2027-01-01.
+    due_dates expects answers [].
+    due_in_2027 expects answers [].
+
+scenario the_functions is, as stated in the source description:
+    deadlines expects answers ["action submit report has action submit report time as deadline"].
+    first_dates expects answers ["the first date of action submit report time is 2025-12-31"].
+
+query parts is:
+    which thing is part of the description.
+
+query kinds is:
+    which thing is of the kind which kind.
+
+query bearer is:
+    the bearer role is which role.
+
+query prescriptive is:
+    which thing is a prescriptive rule.
+
+query constitutive is:
+    which thing is a constitutive rule.
+
+query triggers is:
+    which thing is triggered by which event.
+
+query deadlines is:
+    which thing has which temporal specification as deadline.
+
+query starting_points is:
+    which thing has which temporal specification as starting point.
+
+query validity is:
+    which thing has which temporal specification as validity.
+
+query durations is:
+    which temporal specification has the duration which duration.
+
+query instants is:
+    which temporal specification has the instant which date.
+
+query first_dates is:
+    the first date of which temporal specification is which date.
+
+query last_dates is:
+    the last date of which temporal specification is which date.
+
+query later_times is:
+    which temporal specification is later than which second temporal specification.
+
+query times_within is:
+    which temporal specification is during which second temporal specification.
+
+query broken_links is:
+    which temporal specification breaks its link with which second temporal specification.
+
+query due_dates is:
+    which agent has which action due on which date.
+
+query due_in_2027 is:
+    which agent has which action due on which date in the period from 2027-01-01 to 2027-12-31.
+
+query hours_as_days is:
+    which temporal specification has a length of time that counts hours as whole days.
+
+query rules_without_conditions is:
+    which rule has no written conditions.
+
+query applies is:
+    which rule applies to which party.
+
+query must_perform is:
+    which party must perform which action by which date under which rule.
+
+query texts is:
+    which thing is described by the text which text.
+
+query addresses is:
+    which thing is identified by which address.
+

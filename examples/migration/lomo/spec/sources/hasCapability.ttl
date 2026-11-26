@@ -1,0 +1,32 @@
+# The Turtle example of lomo:hasCapability in the specification of LOMO 1.1.0
+# (https://drpm.pages.code.europa.eu/lomo/latest/#hasCapability), with the prefixes it uses.
+@prefix ex: <http://example.org/> .
+@prefix lomo: <http://data.europa.eu/leg/lomo#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix dctype: <http://purl.org/dc/dcmitype/> .
+@prefix cpsv: <http://purl.org/vocab/cpsv#> .
+@prefix eli: <http://data.europa.eu/eli/ontology#> .
+@prefix tf: <http://data.europa.eu/leg/temporal-function/> .
+@prefix dm: <http://data.europa.eu/leg/deontic-modality/> .
+@prefix dd: <http://data.europa.eu/leg/digital-dimensions/> .
+@prefix rc: <http://data.europa.eu/leg/result-category/> .
+@prefix role: <http://publications.europa.eu/resource/authority/role/> .
+
+ex:Software_EUROBASE rdf:type dctype:Software ;
+    dcterms:title "EUROBASE Statistical Database"@en ;
+    lomo:hasCapability "Store and retrieve statistical datasets"@en ;
+    lomo:hasCapability "Provide public access via web interface"@en ;
+    lomo:hasCapability "Export data in multiple formats (CSV, SDMX, JSON)"@en ;
+    dcterms:publisher ex:Agent_Eurostat .
+
+ex:Software_DataValidation rdf:type dctype:Software ;
+    dcterms:title "Statistical Data Validation System"@en ;
+    lomo:hasCapability "Validate incoming data against predefined rules"@en ;
+    lomo:hasCapability "Generate validation reports"@en ;
+    lomo:hasCapability "Flag anomalies for manual review"@en .

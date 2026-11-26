@@ -1,0 +1,247 @@
+% The conditions of Directive 2013/34/EU, Article 30(1) (the publication of
+% the financial statements), the sizes of Article 3(1) to (4), the
+% exemption of micro-undertakings of Article 36(1)(d) with its limits in
+% Article 36(7) and Article 40, written by hand in Logical English beside
+% the LOMO description of the directive (its register,
+% financial_reporting_dir_2013_34_lomo_manual.le, from the LOMO repository).
+%
+% The description says who must publish what, within 12 months after the
+% balance sheet date. It has no conditions: this program writes them, each
+% rule with the provision it comes from and the words it rests on. The
+% words are checked against the text of each provision (sources/eli/), as
+% the Publications Office of the European Union serves it.
+%
+% The text is the directive as published in 2013 (the ELIs of the
+% description end in /oj). Delegated Directive (EU) 2023/2775 later raised
+% the limits of Article 3: EUR 450 000 and 900 000 for micro-undertakings,
+% EUR 5 000 000 and 10 000 000 for small ones, EUR 25 000 000 and
+% 50 000 000 for medium-sized ones. The description has no Article 1a: the
+% exemption of micro-undertakings is Article 36.
+%
+% Directive 2013/34/EU: (c) European Union, https://eur-lex.europa.eu/eli/dir/2013/34/oj.
+% Copyright Miguel Calejo for the Logical English; Apache License 2.0. Not legal advice.
+
+the target language is: prolog.
+
+the templates are:
+    *an undertaking* is in the scope of the directive; undefined.
+    the balance sheet total of *an undertaking* is *an amount*; undefined.
+    the net turnover of *an undertaking* is *an amount*; undefined.
+    the average number of employees of *an undertaking* is *a number*; undefined.
+    the value of *a criterion* for *an undertaking* is *an amount*.
+    the limit of *a criterion* for *a size* is *an amount*.
+    *an undertaking* exceeds the limit of *a criterion* for *a size*.
+    the number of the limits for *a size* that *an undertaking* exceeds is *a number*.
+    *an undertaking* is a public-interest entity; undefined.
+    *an undertaking* is an investment undertaking; undefined.
+    *an undertaking* is a financial holding undertaking; undefined.
+    the member state of *an undertaking* uses the exemption of Article 36(1)(d); undefined.
+    *an undertaking* files its balance sheet information with a competent authority; undefined.
+    *an undertaking* is excluded from the exemptions of micro-undertakings.
+
+the knowledge base directive_2013_34_conditions includes these resources:
+    financial_reporting_dir_2013_34_lomo_manual.
+
+the knowledge base directive_2013_34_conditions includes:
+
+the text of "http://data.europa.eu/eli/dir/2013/34/art_3/par_1/oj" is at "sources/eli/dir_2013_34_art_3_par_1_oj.txt".
+the text of "http://data.europa.eu/eli/dir/2013/34/art_3/par_2/oj" is at "sources/eli/dir_2013_34_art_3_par_2_oj.txt".
+the text of "http://data.europa.eu/eli/dir/2013/34/art_3/par_3/oj" is at "sources/eli/dir_2013_34_art_3_par_3_oj.txt".
+the text of "http://data.europa.eu/eli/dir/2013/34/art_3/par_4/oj" is at "sources/eli/dir_2013_34_art_3_par_4_oj.txt".
+the text of "http://data.europa.eu/eli/dir/2013/34/art_36/par_1/pnt_d/oj" is at "sources/eli/dir_2013_34_art_36_par_1_pnt_d_oj.txt".
+the text of "http://data.europa.eu/eli/dir/2013/34/art_36/par_7/oj" is at "sources/eli/dir_2013_34_art_36_par_7_oj.txt".
+the text of "http://data.europa.eu/eli/dir/2013/34/art_40/oj" is at "sources/eli/dir_2013_34_art_40_oj.txt".
+
+% ---- the sizes of undertakings (Article 3) --------------------------------
+
+the value of balance sheet total for an undertaking is an amount if
+    the balance sheet total of the undertaking is the amount.
+the value of net turnover for an undertaking is an amount if
+    the net turnover of the undertaking is the amount.
+the value of average number of employees for an undertaking is an amount if
+    the average number of employees of the undertaking is the amount.
+
+rule art_3_1_limits with provenance "http://data.europa.eu/eli/dir/2013/34/art_3/par_1/oj",
+        confer "(a) balance sheet total: EUR 350 000; (b) net turnover: EUR 700 000; (c) average number of employees during the financial year: 10.":
+the limit of a criterion for micro is an amount if
+    the criterion is balance sheet total and the amount is 350000
+    or the criterion is net turnover and the amount is 700000
+    or the criterion is average number of employees and the amount is 10.
+
+rule art_3_2_limits with provenance "http://data.europa.eu/eli/dir/2013/34/art_3/par_2/oj",
+        confer "(a) balance sheet total: EUR 4 000 000; (b) net turnover: EUR 8 000 000; (c) average number of employees during the financial year: 50.":
+the limit of a criterion for small is an amount if
+    the criterion is balance sheet total and the amount is 4000000
+    or the criterion is net turnover and the amount is 8000000
+    or the criterion is average number of employees and the amount is 50.
+
+rule art_3_3_limits with provenance "http://data.europa.eu/eli/dir/2013/34/art_3/par_3/oj",
+        confer "(a) balance sheet total: EUR 20 000 000; (b) net turnover: EUR 40 000 000; (c) average number of employees during the financial year: 250.":
+the limit of a criterion for medium is an amount if
+    the criterion is balance sheet total and the amount is 20000000
+    or the criterion is net turnover and the amount is 40000000
+    or the criterion is average number of employees and the amount is 250.
+
+an undertaking exceeds the limit of a criterion for a size if
+    the limit of the criterion for the size is a limit L
+    and the value of the criterion for the undertaking is a value V
+    and V > L.
+
+the number of the limits for a size that an undertaking exceeds is a number N if
+    the undertaking is in the scope of the directive
+    and the size is in [micro, small, medium]
+    and N is the count of each criterion such that
+        the undertaking exceeds the limit of the criterion for the size.
+
+rule art_3_1 with provenance "http://data.europa.eu/eli/dir/2013/34/art_3/par_1/oj",
+        confer "undertakings which on their balance sheet dates do not exceed the limits of at least two of the three following criteria":
+an undertaking meets the definition def micro undertaking if
+    the number of the limits for micro that the undertaking exceeds is a number N
+    and N <= 1
+    and it is not the case that
+        the undertaking is a public-interest entity.
+
+rule art_3_2 with provenance "http://data.europa.eu/eli/dir/2013/34/art_3/par_2/oj",
+        confer "Small undertakings shall be undertakings which on their balance sheet dates do not exceed the limits of at least two of the three following criteria":
+an undertaking is of the type actor small undertaking if
+    the number of the limits for small that the undertaking exceeds is a number N
+    and N <= 1
+    and it is not the case that
+        the undertaking is a public-interest entity.
+
+rule art_3_3 with provenance "http://data.europa.eu/eli/dir/2013/34/art_3/par_3/oj",
+        confer "Medium-sized undertakings shall be undertakings which are not micro-undertakings or small undertakings":
+an undertaking is of the type actor medium sized undertaking if
+    the number of the limits for medium that the undertaking exceeds is a number N
+    and N <= 1
+    and it is not the case that
+        the undertaking is of the type actor small undertaking
+    and it is not the case that
+        the undertaking is a public-interest entity.
+
+rule art_3_4 with provenance "http://data.europa.eu/eli/dir/2013/34/art_3/par_4/oj",
+        confer "Large undertakings shall be undertakings which on their balance sheet dates exceed at least two of the three following criteria":
+an undertaking is of the type actor large undertaking if
+    the number of the limits for medium that the undertaking exceeds is a number N
+    and N >= 2.
+
+rule art_40 with provenance "http://data.europa.eu/eli/dir/2013/34/art_40/oj",
+        confer "A public-interest entity shall be treated as a large undertaking regardless of its net turnover, balance sheet total or average number of employees during the financial year.":
+an undertaking is of the type actor large undertaking if
+    the undertaking is in the scope of the directive
+    and the undertaking is a public-interest entity.
+
+% ---- Article 30(1): who must publish --------------------------------------
+% The description names the four sizes as the bearers of the duty. The
+% condition that the text adds is the scope of the directive (Article 1:
+% the forms of undertaking of its Annexes I and II), a fact of each case.
+
+norm publication obligation has written conditions.
+
+the conditions of norm publication obligation hold for an undertaking if
+    the undertaking is in the scope of the directive.
+
+% ---- Article 36(1)(d): the exemption of micro-undertakings ---------------
+% The description of the LOMO repository does not describe it. Here it is,
+% in LOMO's words (the way back writes it as LOMO), and with its conditions.
+
+norm micro exemption is a prescriptive rule.
+norm micro exemption has the label "Directive 2013/34/EU Article 36(1)(d): micro-undertakings exempt from publication".
+norm micro exemption has the modality permission.
+norm micro exemption is established in "http://data.europa.eu/eli/dir/2013/34/art_36/par_1/pnt_d/oj".
+norm micro exemption derogates from norm publication obligation.
+norm micro exemption produces file the balance sheet information.
+file the balance sheet information is an action.
+file the balance sheet information has the label "file the balance sheet information with a competent authority".
+file the balance sheet information has the agent role role micro filer.
+role micro filer is an agent role.
+role micro filer is for the agent actor micro undertaking.
+role micro filer has the role addresser.
+
+norm micro exemption has written conditions.
+
+rule art_36_1_d with provenance "http://data.europa.eu/eli/dir/2013/34/art_36/par_1/pnt_d/oj",
+        confer "provided that the balance sheet information contained therein is duly filed, in accordance with national law, with at least one competent authority designated by the Member State concerned":
+the conditions of norm micro exemption hold for an undertaking if
+    the undertaking is in the scope of the directive
+    and the member state of the undertaking uses the exemption of Article 36(1)(d)
+    and the undertaking files its balance sheet information with a competent authority
+    and it is not the case that
+        the undertaking is excluded from the exemptions of micro-undertakings.
+
+rule art_36_7 with provenance "http://data.europa.eu/eli/dir/2013/34/art_36/par_7/oj",
+        confer "Member States shall not make available the derogations provided for in paragraphs 1, 2 and 3 in respect of investment undertakings or financial holding undertakings.":
+an undertaking is excluded from the exemptions of micro-undertakings if
+    the undertaking is an investment undertaking
+    or the undertaking is a financial holding undertaking.
+
+rule art_40_exemptions with provenance "http://data.europa.eu/eli/dir/2013/34/art_40/oj",
+        confer "Member States shall not make the simplifications and exemptions set out in this Directive available to public-interest entities.":
+an undertaking is excluded from the exemptions of micro-undertakings if
+    the undertaking is a public-interest entity.
+
+% ---- cases, with the answers worked out from the text before the run -----
+
+scenario seven_undertakings is:
+    acme is in the scope of the directive.
+    the balance sheet total of acme is 30000000.
+    the net turnover of acme is 60000000.
+    the average number of employees of acme is 300.
+    midco is in the scope of the directive.
+    the balance sheet total of midco is 15000000.
+    the net turnover of midco is 30000000.
+    the average number of employees of midco is 300.
+    smallco is in the scope of the directive.
+    the balance sheet total of smallco is 3000000.
+    the net turnover of smallco is 6000000.
+    the average number of employees of smallco is 60.
+    tiny is in the scope of the directive.
+    the balance sheet total of tiny is 200000.
+    the net turnover of tiny is 500000.
+    the average number of employees of tiny is 5.
+    the member state of tiny uses the exemption of Article 36(1)(d).
+    tiny files its balance sheet information with a competent authority.
+    tinytoo is in the scope of the directive.
+    the balance sheet total of tinytoo is 200000.
+    the net turnover of tinytoo is 500000.
+    the average number of employees of tinytoo is 5.
+    the member state of tinytoo uses the exemption of Article 36(1)(d).
+    fundco is in the scope of the directive.
+    the balance sheet total of fundco is 200000.
+    the net turnover of fundco is 500000.
+    the average number of employees of fundco is 5.
+    fundco is an investment undertaking.
+    the member state of fundco uses the exemption of Article 36(1)(d).
+    fundco files its balance sheet information with a competent authority.
+    bankco is in the scope of the directive.
+    the balance sheet total of bankco is 3000000.
+    the net turnover of bankco is 6000000.
+    the average number of employees of bankco is 40.
+    bankco is a public-interest entity.
+    "balance sheet date" happens to acme on 2025-12-31.
+    "balance sheet date" happens to midco on 2025-12-31.
+    "balance sheet date" happens to smallco on 2025-12-31.
+    "balance sheet date" happens to tiny on 2025-12-31.
+    "balance sheet date" happens to tinytoo on 2025-12-31.
+    "balance sheet date" happens to fundco on 2025-12-31.
+    "balance sheet date" happens to bankco on 2025-12-31.
+    sizes expects answers ["acme is of the type actor large undertaking", "midco is of the type actor medium sized undertaking", "smallco is of the type actor small undertaking", "tiny is of the type actor micro undertaking", "tiny is of the type actor small undertaking", "tinytoo is of the type actor micro undertaking", "tinytoo is of the type actor small undertaking", "fundco is of the type actor micro undertaking", "fundco is of the type actor small undertaking", "bankco is of the type actor large undertaking"].
+    publication expects answers ["norm publication obligation applies to acme", "norm publication obligation applies to midco", "norm publication obligation applies to smallco", "norm publication obligation applies to tinytoo", "norm publication obligation applies to fundco", "norm publication obligation applies to bankco"].
+    exempt expects answers ["norm publication obligation is set aside for tiny by norm micro exemption"].
+    deadlines expects answers ["acme must perform step publish full report by 2026-12-31 under norm publication obligation", "midco must perform step publish full report by 2026-12-31 under norm publication obligation", "smallco must perform step publish full report by 2026-12-31 under norm publication obligation", "tinytoo must perform step publish full report by 2026-12-31 under norm publication obligation", "fundco must perform step publish full report by 2026-12-31 under norm publication obligation", "bankco must perform step publish full report by 2026-12-31 under norm publication obligation"].
+    filing expects answers ["tiny is permitted that tiny performs file the balance sheet information"].
+
+query sizes is:
+    which party is of the type which agent type.
+
+query publication is:
+    norm publication obligation applies to which party.
+
+query exempt is:
+    which rule is set aside for which party by which second rule.
+
+query deadlines is:
+    which party must perform which action by which date under which rule.
+
+query filing is:
+    which party is permitted that which sentence.

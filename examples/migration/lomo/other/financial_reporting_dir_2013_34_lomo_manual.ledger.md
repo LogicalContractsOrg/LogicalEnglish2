@@ -14,7 +14,7 @@ Source licence: Creative Commons Attribution 4.0 (the description); the register
 | residue | 0 |
 | **total** | 24 |
 
-Fidelity: **3 of 3** source test expectation(s) reproduced (100%).
+Fidelity: **7 of 7** source test expectation(s) reproduced (100%).
 
 A source element is **encoded** when a documented mapping rule translated it with its meaning unchanged, **approximated** when the mapping changes its meaning in a documented way (see the note), and **residue** when it was not translated: it is marked in the program (`% RESIDUE <id> BEGIN ... END`) for the LE Contract Assistant or a person.
 
@@ -51,7 +51,11 @@ A source element is **encoded** when a documented mapping rule translated it wit
 
 | Source test | Query | Result | Detail |
 |---|---|---|---|
+| calendar | due_dates | pass |  |
+| calendar | due_in_2027 | pass |  |
 | description | modalities | pass |  |
 | description | actions_of_rules | pass |  |
 | description | actions_of_agents | pass |  |
+| reporting_2027 | must_perform | pass |  |
+| reporting_2027 | late_on_1_february_2027 | pass |  |
 

@@ -1,0 +1,894 @@
+% lib/lomo.le — the words of LOMO, the Legal Obligation Metadata Ontology of
+% the European institutions (http://data.europa.eu/leg/lomo, version 1.1.0),
+% and what the statements of a LOMO description mean together.
+%
+% A library, not syntax. The LOMO translator (migration/lomo/) turns each
+% LOMO description (a Turtle file) into a program of facts, the *register*,
+% which includes this library as a resource. One fact of the register is one
+% statement of the description:
+%
+%     norm publication obligation is a substantive rule.
+%     norm publication obligation has the modality obligation.
+%     norm publication obligation is established in "http://data.europa.eu/eli/dir/2013/34/art_30/par_1/oj".
+%     step publish full report has the agent role agent role micro undertaking publisher.
+%
+% The library says once what every register means: the kinds of rule, the
+% links read in both directions, who acts in which role, the acts and
+% articles of the provisions. The questions of LOMO's requirements document
+% are queries of each register (the translator writes them).
+%
+% A LOMO description has no conditions and no cases. So this library does
+% not decide whether a rule applies to a case; the parts of it that do
+% (deadlines, who is bound, derogation, the conditions of a rule) are below,
+% in their own sections.
+%
+% LOMO is published by the European Union under the Creative Commons
+% Attribution 4.0 licence. This library is part of Logical English
+% (Apache License 2.0); it was not written or reviewed by the makers of LOMO.
+
+the knowledge base lomo includes these resources:
+    lomo.pl,
+    temporal,
+    deontic.
+
+the functions are:
+    the act of *a provision* is *an act*.
+    the place of *a provision* in its act is *a text*.
+    the first day of the instant *an instant* is *a date*.
+    the last day of the instant *an instant* is *a date*.
+
+the templates are:
+    *a thing* is a legal rule.
+    *a thing* is a prescriptive rule.
+    *a thing* is a substantive rule.
+    *a thing* is an implementation and oversight rule.
+    *a thing* is a constitutive rule.
+    *a thing* is a definition.
+    *a thing* is a scope rule.
+    *a thing* is an institutional rule.
+    *a thing* is an action.
+    *a thing* is an agent.
+    *a thing* is an agent type.
+    *a thing* is an agent role.
+    *a thing* is a temporal specification.
+    *a thing* is an action result.
+    *a thing* is an action result type.
+    *a thing* is a legal condition.
+    *a thing* is a process.
+    *a thing* is a dataset.
+    *a thing* is a standard.
+    *a thing* is a software.
+    *a thing* is a public service.
+    *a thing* is an assessment.
+    *a thing* is an assessment statement.
+    *a thing* is a concept.
+    *a thing* is a concept scheme.
+    *a thing* is established in *a provision*.
+    *a thing* has the legal text *a text*.
+    *a rule* has the modality *a modality*.
+    *a rule* has the requirement type *a requirement type*.
+    *a rule* produces *an action*.
+    *a rule* has the digital dimension *a dimension*.
+    *a rule* involves the process *a process*.
+    *a rule* references *a resource*.
+    *a rule* specifies *a second rule*.
+    *a rule* is specified by *a second rule*.
+    *a rule* derogates from *a second rule*.
+    *a rule* is derogated by *a second rule*.
+    *a rule* relates to *a second rule*.
+    *an action* has the agent role *an agent role*.
+    *an agent role* is for the agent *an agent*.
+    *an agent role* has the role *a role*.
+    *an action* has the result *a result*.
+    *an action* is followed by *a second action*.
+    *an action* follows *a second action*.
+    *a thing* has the time specification *a temporal specification*.
+    *a temporal specification* has the function *a function*.
+    *a temporal specification* has the instant *a date*.
+    *a temporal specification* has the duration *a duration*.
+    *a temporal specification* has the frequency *a duration*.
+    *a temporal specification* has the number of repetitions *a number*.
+    *a temporal specification* has the temporal label *a text*.
+    *a temporal specification* is timed after *a second temporal specification*.
+    *a temporal specification* is timed before *a second temporal specification*.
+    *a temporal specification* is timed immediately after *a second temporal specification*.
+    *a temporal specification* is timed immediately before *a second temporal specification*.
+    *a temporal specification* starts *a second temporal specification*.
+    *a temporal specification* is started by *a second temporal specification*.
+    *a temporal specification* finishes *a second temporal specification*.
+    *a temporal specification* is finished by *a second temporal specification*.
+    *a temporal specification* overlaps *a second temporal specification*.
+    *a temporal specification* is timed within *a second temporal specification*.
+    *a result* has the result category *a category*.
+    *a result* is composed of *a second result*.
+    *a result* is manifested in *a dataset*.
+    *a dataset* manifests *a result*.
+    *a definition* defines *a thing*.
+    *a thing* is defined by *a definition*.
+    *a definition* is equivalent to *a second definition*.
+    *a definition* has the definiendum *a text*.
+    *a definition* has the definiens *a text*.
+    *a definition* has the term label *a text*.
+    *a thing* has the capability *a text*.
+    *a thing* has the purpose *a text*.
+    *a thing* has the condition *a condition*.
+    *a rule* uses the definition *a definition*.
+    *a definition* has the semantic flag *a truth value*.
+    *a thing* has the label *a text*.
+    *a thing* has the comment *a text*.
+    *a thing* has the title *a text*.
+    *a thing* has the description *a text*.
+    *a thing* conforms to *a standard*.
+    *a thing* is published by *an agent*.
+    *a thing* cites *a resource*.
+    *a thing* has the preferred label *a text*.
+    *a thing* has the explanation *a text*.
+    *a thing* is in the scheme *a scheme*.
+    *a thing* has the broader concept *a concept*.
+    *an assessment* results in *an assessment statement*.
+    *an assessment statement* has the judgement *a text*.
+    *an assessment statement* has the statement type *a type*.
+    *an assessment statement* has the interpretation *a text*.
+    *a temporal specification* has the date *a date*.
+    *a thing* concerns the service *a service*.
+    *a thing* has the type *a class*.
+    *a thing* has for *a property* the value *a value*.
+    *a thing* has for *a property* the resource *a resource*.
+    *a thing* is identified by *an address*.
+    the values of *a property* have the datatype *a datatype*.
+    the texts of *a property* have no language.
+    the value *a value* has the datatype *a datatype*.
+    the text *a text* has no language.
+    the bearer role is *a role*.
+    *a thing* is an agent or agent type.
+    *a thing* is of the kind *a kind*.
+    *a thing* is part of the description.
+    *a rule* is a derogation from *a second rule*.
+    *a rule* is a specification of *a second rule*.
+    *a rule* is related to *a second rule*.
+    *an action* comes before *a second action*.
+    *a definition* gives the meaning of *a thing*.
+    *a dataset* holds *a result*.
+    *a definition* has the same meaning as *a second definition*.
+    *a temporal specification* is the start of *a second temporal specification*.
+    *a temporal specification* is the end of *a second temporal specification*.
+    *an agent* acts as *a role* in *an action*.
+    *a rule* concerns *an agent*.
+    *a thing* has *a temporal specification* as *a function*.
+    *a rule* is established by the act *an act*.
+    *a rule* is established in more than one provision.
+    *a thing* is described by the text *a text*.
+    *a rule* is laid down in *a place*.
+    *a rule* has the modality *a modality* for *an agent* as *a role*.
+    *a thing* is triggered by *an event*.
+    *a temporal specification* is later than *a second temporal specification*.
+    *a temporal specification* is earlier than *a second temporal specification*.
+    *a temporal specification* is during *a second temporal specification*.
+    *a temporal specification* overlaps with *a second temporal specification*.
+    *an event* happens on *a date*.
+    the calendar starts on *a date*.
+    the first date of *a temporal specification* is *a date*.
+    the last date of *a temporal specification* is *a date*.
+    *a temporal specification* breaks its link with *a second temporal specification*.
+    the rhythm of *a temporal specification* starts on *a date*.
+    *a temporal specification* falls on *a date* in the period from *a first date* to *a last date*.
+    *an agent* has *an action* due on *a date*.
+    *an agent* has *an action* due on *a date* in the period from *a first date* to *a last date*.
+    *a temporal specification* has a length of time that counts hours as whole days.
+    *a party* is of the type *an agent type*.
+    *a party* counts as *an agent*.
+    *a party* meets the definition *a definition*.
+    *a rule* has written conditions.
+    *a rule* has no written conditions.
+    the conditions of *a rule* hold for *a party*.
+    *a rule* reaches *a party*.
+    *a rule* is set aside for *a party* by *a second rule*.
+    *a rule* applies to *a party*.
+    *a party* performs *an action*.
+    *a party* performs *an action* on *a date*.
+    *an event* happens to *a party* on *a date*.
+    the first date of *a temporal specification* for *a party* is *a date*.
+    the last date of *a temporal specification* for *a party* is *a date*.
+    *a party* must perform *an action* by *a date* under *a rule*.
+    *a party* met *an action* under *a rule*.
+    *a party* is late with *an action* under *a rule* on *a day*.
+
+the knowledge base lomo includes:
+
+% ---- the kinds of rule (LOMO's classes and subclasses) -------------------
+
+a thing is a legal rule if the thing is a prescriptive rule.
+a thing is a legal rule if the thing is a constitutive rule.
+a thing is a prescriptive rule if the thing is a substantive rule.
+a thing is a prescriptive rule if the thing is an implementation and oversight rule.
+a thing is a constitutive rule if the thing is a definition.
+a thing is a constitutive rule if the thing is a scope rule.
+a thing is a constitutive rule if the thing is an institutional rule.
+
+a thing is an agent or agent type if the thing is an agent.
+a thing is an agent or agent type if the thing is an agent type.
+
+% Every kind of thing a description names, as one sentence: "which thing
+% is of which kind" lists the things of a description.
+
+a thing is of the kind legal rule if the thing is a legal rule.
+a thing is of the kind prescriptive rule if the thing is a prescriptive rule.
+a thing is of the kind substantive rule if the thing is a substantive rule.
+a thing is of the kind implementation and oversight rule if the thing is an implementation and oversight rule.
+a thing is of the kind constitutive rule if the thing is a constitutive rule.
+a thing is of the kind definition if the thing is a definition.
+a thing is of the kind scope rule if the thing is a scope rule.
+a thing is of the kind institutional rule if the thing is an institutional rule.
+a thing is of the kind action if the thing is an action.
+a thing is of the kind agent if the thing is an agent.
+a thing is of the kind agent type if the thing is an agent type.
+a thing is of the kind agent role if the thing is an agent role.
+a thing is of the kind temporal specification if the thing is a temporal specification.
+a thing is of the kind action result if the thing is an action result.
+a thing is of the kind action result type if the thing is an action result type.
+a thing is of the kind legal condition if the thing is a legal condition.
+a thing is of the kind process if the thing is a process.
+a thing is of the kind dataset if the thing is a dataset.
+a thing is of the kind standard if the thing is a standard.
+a thing is of the kind software if the thing is a software.
+a thing is of the kind public service if the thing is a public service.
+a thing is of the kind assessment if the thing is an assessment.
+a thing is of the kind assessment statement if the thing is an assessment statement.
+a thing is of the kind concept if the thing is a concept.
+a thing is of the kind concept scheme if the thing is a concept scheme.
+
+% ---- the links, read in both directions -----------------------------------
+% A description may state a link or its opposite (LOMO declares both). The
+% sentences below hold whichever of the two was stated.
+
+a rule is a derogation from a second rule if the rule derogates from the second rule.
+a rule is a derogation from a second rule if the second rule is derogated by the rule.
+
+a rule is a specification of a second rule if the rule specifies the second rule.
+a rule is a specification of a second rule if the second rule is specified by the rule.
+
+a rule is related to a second rule if the rule relates to the second rule.
+a rule is related to a second rule if the second rule relates to the rule.
+
+an action comes before a second action if the action is followed by the second action.
+an action comes before a second action if the second action follows the action.
+
+a definition gives the meaning of a thing if the definition defines the thing.
+a definition gives the meaning of a thing if the thing is defined by the definition.
+
+a dataset holds a result if the dataset manifests the result.
+a dataset holds a result if the result is manifested in the dataset.
+
+a definition has the same meaning as a second definition if the definition is equivalent to the second definition.
+a definition has the same meaning as a second definition if the second definition is equivalent to the definition.
+
+a temporal specification is the start of a second temporal specification if the temporal specification starts the second temporal specification.
+a temporal specification is the start of a second temporal specification if the second temporal specification is started by the temporal specification.
+
+a temporal specification is the end of a second temporal specification if the temporal specification finishes the second temporal specification.
+a temporal specification is the end of a second temporal specification if the second temporal specification is finished by the temporal specification.
+
+% ---- agents and their roles -----------------------------------------------
+% An action has agent roles; each joins one agent (a named one, or a type of
+% agent) to one role: addresser, addressee or beneficiary.
+
+an agent acts as a role in an action if
+    the action has the agent role an agent role
+    and the agent role is for the agent the agent
+    and the agent role has the role the role.
+
+a rule concerns an agent if
+    the rule produces an action
+    and the agent acts as a role in the action.
+
+a rule has the modality a modality for an agent as a role if
+    the rule has the modality the modality
+    and the rule produces an action
+    and the agent acts as the role in the action.
+
+% ---- time -----------------------------------------------------------------
+
+a thing has a temporal specification as a function if
+    the thing has the time specification the temporal specification
+    and the temporal specification has the function the function.
+
+% The event that triggers an action or a rule, as the description names it.
+a thing is triggered by an event if
+    the thing has a temporal specification as trigger
+    and the temporal specification has the temporal label the event.
+
+% ---- time: the dates of a temporal specification -------------------------
+% A temporal specification names a point or a period: a date (an instant), a
+% period from a date (an instant and a duration), a length of time after or
+% before another specification (`12 months after the balance sheet date`),
+% or an event named in words, whose date a case gives:
+%
+%     "balance sheet date" happens on 2026-12-31.
+%
+% Lengths of time are written the ISO way ("P12M", "PT72H"); a date is a
+% day, so hours count as whole days, rounded up (lib/temporal.le).
+
+% The relations between temporal specifications, read in both directions.
+a temporal specification is later than a second temporal specification if
+    the temporal specification is timed after the second temporal specification.
+a temporal specification is later than a second temporal specification if
+    the temporal specification is timed immediately after the second temporal specification.
+a temporal specification is later than a second temporal specification if
+    the second temporal specification is timed before the temporal specification.
+a temporal specification is later than a second temporal specification if
+    the second temporal specification is timed immediately before the temporal specification.
+a temporal specification is earlier than a second temporal specification if
+    the second temporal specification is later than the temporal specification.
+
+a temporal specification is during a second temporal specification if
+    the temporal specification is timed within the second temporal specification.
+a temporal specification is during a second temporal specification if
+    the temporal specification starts the second temporal specification.
+a temporal specification is during a second temporal specification if
+    the temporal specification finishes the second temporal specification.
+a temporal specification is during a second temporal specification if
+    the second temporal specification is started by the temporal specification.
+a temporal specification is during a second temporal specification if
+    the second temporal specification is finished by the temporal specification.
+
+a temporal specification overlaps with a second temporal specification if
+    the temporal specification overlaps the second temporal specification.
+a temporal specification overlaps with a second temporal specification if
+    the second temporal specification overlaps the temporal specification.
+
+% The first date of a specification.
+the first date of a temporal specification is a date if
+    the temporal specification has the instant an instant
+    and the first day of the instant the instant is the date.
+the first date of a temporal specification is a date if
+    the temporal specification has the date the date.
+the first date of a temporal specification is a date if
+    the temporal specification has the temporal label an event
+    and the event happens on the date.
+the first date of a temporal specification is a date D if
+    the temporal specification is later than a second temporal specification
+    and the temporal specification has the duration a duration
+    and the last date of the second temporal specification is a date D2
+    and D is the period the duration after D2.
+the first date of a temporal specification is a date D if
+    the temporal specification is earlier than a second temporal specification
+    and the temporal specification has the duration a duration
+    and the first date of the second temporal specification is a date D2
+    and D is the period the duration before D2.
+
+% The last date: the end of a period from an instant, the last day of a
+% year or a month (an instant "2035"), else the first date.
+the last date of a temporal specification is a date D if
+    the temporal specification has the instant an instant
+    and the temporal specification has the duration a duration
+    and the first day of the instant the instant is a date D1
+    and D is the period the duration after D1.
+the last date of a temporal specification is a date if
+    the temporal specification has the instant an instant
+    and it is not the case that
+        the temporal specification has the duration a duration
+    and the last day of the instant the instant is the date.
+the last date of a temporal specification is a date if
+    it is not the case that
+        the temporal specification has the instant an instant
+    and the first date of the temporal specification is the date.
+
+% A length of time in hours, counted in whole days: said, so that an answer
+% that rests on it can show it.
+a temporal specification has a length of time that counts hours as whole days if
+    the temporal specification has the duration a duration
+    and the duration counts hours as whole days.
+
+% A link that the dates contradict: the description says that one
+% specification comes after another, but its dates put it before. One of
+% LOMO's uses is the detection of temporal conflicts.
+a temporal specification breaks its link with a second temporal specification if
+    the temporal specification is later than the second temporal specification
+    and the first date of the temporal specification is a date D1
+    and the last date of the second temporal specification is a date D2
+    and D1 is before D2.
+a temporal specification breaks its link with a second temporal specification if
+    the temporal specification starts the second temporal specification
+    and the first date of the temporal specification is a date D1
+    and the first date of the second temporal specification is a date D2
+    and D1 is different from D2.
+a temporal specification breaks its link with a second temporal specification if
+    the temporal specification finishes the second temporal specification
+    and the last date of the temporal specification is a date D1
+    and the last date of the second temporal specification is a date D2
+    and D1 is different from D2.
+a temporal specification breaks its link with a second temporal specification if
+    the temporal specification is during the second temporal specification
+    and the first date of the temporal specification is a date D1
+    and the first date of the second temporal specification is a date D2
+    and D1 is before D2.
+a temporal specification breaks its link with a second temporal specification if
+    the temporal specification is during the second temporal specification
+    and the last date of the temporal specification is a date D1
+    and the last date of the second temporal specification is a date D2
+    and D1 is after D2.
+a temporal specification breaks its link with a second temporal specification if
+    the temporal specification overlaps the second temporal specification
+    and the last date of the temporal specification is a date D1
+    and the first date of the second temporal specification is a date D2
+    and D1 is before D2.
+a temporal specification breaks its link with a second temporal specification if
+    the temporal specification overlaps the second temporal specification
+    and the last date of the second temporal specification is a date D1
+    and the first date of the temporal specification is a date D2
+    and D1 is before D2.
+
+% ---- time: rhythms and the calendar --------------------------------------
+% A specification with a frequency ("P1Y") repeats: the first date one
+% length of time after the start of the rhythm, then one more each time,
+% as many times as its repetitions say, and not after the end of the
+% specification that finishes it. The rhythm starts on the specification's
+% own first date; else on the last date of the specification it comes
+% after; else on the date the calendar starts (a fact of the case).
+
+the rhythm of a temporal specification starts on a date if
+    the temporal specification has the frequency a duration
+    and the first date of the temporal specification is the date.
+the rhythm of a temporal specification starts on a date if
+    the temporal specification has the frequency a duration
+    and it is not the case that
+        the first date of the temporal specification is a first date
+    and the temporal specification is later than a second temporal specification
+    and the last date of the second temporal specification is the date.
+the rhythm of a temporal specification starts on a date if
+    the temporal specification has the frequency a duration
+    and it is not the case that
+        the first date of the temporal specification is a first date
+    and it is not the case that
+        the temporal specification is later than a second temporal specification
+        and the last date of the second temporal specification is a second date
+    and the calendar starts on the date.
+
+% A one-off specification falls on its date.
+a temporal specification falls on a date in the period from a first date to a last date if
+    it is not the case that
+        the temporal specification has the frequency a duration
+    and the first date of the temporal specification is the date
+    and the date is in the period from the first date to the last date.
+% A rhythm falls on each of its dates in the period: as many as its
+% repetitions say, and none after the end of what finishes it.
+a temporal specification falls on a date in the period from a first date to a last date if
+    the temporal specification has the frequency a duration
+    and the duration is a length of time in the standard form
+    and the rhythm of the temporal specification starts on a start date
+    and the date is a date of every the duration from the start date in the period from the first date to the last date
+    and it is not the case that
+        the temporal specification has the number of repetitions a number N
+        and the occurrence N of every the duration after the start date is a later date
+        and the date is after the later date
+    and it is not the case that
+        the temporal specification is finished by a second temporal specification
+        and the last date of the second temporal specification is an end date
+        and the date is after the end date.
+
+% The calendar of the description: the actions that fall due, for the agent
+% who bears them ("which rule produces which action" names their rules).
+an agent has an action due on a date if
+    the action has a temporal specification as deadline
+    and it is not the case that
+        the temporal specification has the frequency a duration
+    and the first date of the temporal specification is the date
+    and the bearer role is a role
+    and the agent acts as the role in the action.
+
+an agent has an action due on a date in the period from a first date to a last date if
+    the action has a temporal specification as deadline
+    and the temporal specification falls on the date in the period from the first date to the last date
+    and the bearer role is a role
+    and the agent acts as the role in the action.
+
+% ---- who is bound ----------------------------------------------------------
+% A case names its parties and their types:
+%
+%     acme is of the type controllers.
+%
+% A party counts as an agent of the description when it is of the agent's
+% type, when it is the agent itself (a named agent, such as the European
+% Commission), or when it meets the definition that gives the agent's
+% meaning (a person decides that, unless a program writes the definition).
+
+a party counts as an agent if
+    the party is of the type the agent.
+an agent counts as the agent if
+    the agent is an agent.
+a party is of the type an agent type if
+    a definition gives the meaning of the agent type
+    and the party meets the definition the definition.
+
+% The conditions of a rule. LOMO has no place for them: a description says
+% who does what, not when the rule applies. Until somebody writes them, the
+% conditions of a rule count as holding, and every answer that rests on a
+% rule says so: "it is not the case that ... has written conditions". A
+% program that writes the conditions of a rule says that the rule has
+% written conditions, and writes them:
+%
+%     norm gdpr 6 1 has written conditions.
+%     the conditions of norm gdpr 6 1 hold for a party if ...
+
+the conditions of a rule hold for a party if
+    the rule is a legal rule
+    and the party counts as an agent
+    and it is not the case that
+        the rule has written conditions.
+
+a rule has no written conditions if
+    the rule is a legal rule
+    and it is not the case that
+        the rule has written conditions.
+
+% A rule reaches a party: the party bears an action of the rule (it counts
+% as the agent of the bearer role), or the description says that the rule
+% applies to the party's type (eli-lo:applies_to, which some descriptions
+% use), and the conditions of the rule hold for the party.
+a rule reaches a party if
+    the rule produces an action
+    and the bearer role is a role
+    and an agent acts as the role in the action
+    and the party counts as the agent
+    and the conditions of the rule hold for the party.
+a rule reaches a party if
+    the rule has for "eli-lo:applies_to" the resource an agent
+    and the party counts as the agent
+    and the conditions of the rule hold for the party.
+
+% A derogation sets a rule aside for the parties that the derogating rule
+% reaches. Whether something derogates from the derogating rule itself is
+% not asked: no description of LOMO has such a chain, and asking it would
+% make the rules depend on their own negation.
+a rule is set aside for a party by a second rule if
+    the second rule is a derogation from the rule
+    and the second rule reaches the party.
+
+a rule applies to a party if
+    the rule reaches the party
+    and it is not the case that
+        the rule is set aside for the party by a second rule.
+
+% What a rule that applies says, in the words of lib/deontic.le: an
+% obligation, a permission, a prohibition, or a right. The holder of a right
+% is the beneficiary of its action (else its addressee); the right binds the
+% bearer, who is then obliged (the correlative duty).
+a party performs an action if
+    the party performs the action on a date.
+
+a party is obliged that the party performs an action if
+    a rule has the modality obligation
+    and the rule applies to the party
+    and the rule produces the action.
+a party is permitted that the party performs an action if
+    a rule has the modality permission
+    and the rule applies to the party
+    and the rule produces the action.
+a party is forbidden that the party performs an action if
+    a rule has the modality prohibition
+    and the rule applies to the party
+    and the rule produces the action.
+a holder has the right that a party performs an action if
+    a rule has the modality right
+    and the rule applies to the party
+    and the rule produces the action
+    and an agent acts as beneficiary in the action
+    and the holder counts as the agent.
+the right of a holder that a party performs an action binds the party if
+    the holder has the right that the party performs the action.
+
+% ---- the calendar of a party ---------------------------------------------
+% The dates of a case: a date of the description, an event that happens to
+% the party, or a length of time after one.
+
+the first date of a temporal specification for a party is a date if
+    the party counts as an agent
+    and the first date of the temporal specification is the date.
+the first date of a temporal specification for a party is a date if
+    the temporal specification has the temporal label an event
+    and the event happens to the party on the date.
+the first date of a temporal specification for a party is a date D if
+    the temporal specification is later than a second temporal specification
+    and the temporal specification has the duration a duration
+    and the last date of the second temporal specification for the party is a date D2
+    and D is the period the duration after D2.
+
+the last date of a temporal specification for a party is a date if
+    the party counts as an agent
+    and the last date of the temporal specification is the date.
+the last date of a temporal specification for a party is a date if
+    it is not the case that
+        the temporal specification has the instant an instant
+    and the first date of the temporal specification for the party is the date.
+
+a party must perform an action by a date under a rule if
+    the rule applies to the party
+    and the rule produces the action
+    and the rule has the modality obligation
+    and the action has a temporal specification as deadline
+    and the first date of the temporal specification for the party is the date.
+a party must perform an action by a date under a rule if
+    the rule applies to the party
+    and the rule produces the action
+    and the rule has the modality right
+    and the action has a temporal specification as deadline
+    and the first date of the temporal specification for the party is the date.
+
+a party met an action under a rule if
+    the party must perform the action by a due date under the rule
+    and the party performs the action on a date
+    and the date is before or equal to the due date.
+
+a party is late with an action under a rule on a day if
+    the party must perform the action by a due date under the rule
+    and the day is after the due date
+    and it is not the case that
+        the party met the action under the rule.
+
+% ---- provisions and acts --------------------------------------------------
+% A provision is named by its ELI, the European Legislation Identifier: the
+% address of an act, an article, a paragraph or a point. lomo.pl reads the
+% act and the place in the act from the address.
+
+a rule is established by the act an act if
+    the rule is established in a provision
+    and the act of the provision is the act.
+
+a rule is laid down in a place if
+    the rule is established in a provision
+    and the place of the provision in its act is the place.
+
+a rule is established in more than one provision if
+    the rule is established in a provision
+    and the rule is established in a second provision
+    and the provision is different from the second provision.
+
+% ---- the texts of a thing -------------------------------------------------
+
+a thing is described by the text a text if the thing has the label the text.
+a thing is described by the text a text if the thing has the title the text.
+a thing is described by the text a text if the thing has the description the text.
+a thing is described by the text a text if the thing has the comment the text.
+a thing is described by the text a text if the thing has the preferred label the text.
+a thing is described by the text a text if the thing has the explanation the text.
+a thing is described by the text a text if the thing has the legal text the text.
+a thing is described by the text a text if the thing has the temporal label the text.
+a thing is described by the text a text if the thing has the definiendum the text.
+a thing is described by the text a text if the thing has the definiens the text.
+a thing is described by the text a text if the thing has the term label the text.
+a thing is described by the text a text if the thing has the capability the text.
+a thing is described by the text a text if the thing has the purpose the text.
+a thing is described by the text a text if the thing has the judgement the text.
+a thing is described by the text a text if the thing has the interpretation the text.
+
+% ---- every statement of a description -----------------------------------
+% A thing is part of the description when any statement is about it. One
+% sentence that reads every statement: "which thing is part of the
+% description" lists the things a description names, and a program that
+% includes a register reads all of its facts.
+
+a thing is part of the description if
+    the thing is a legal rule.
+a thing is part of the description if
+    the thing is a prescriptive rule.
+a thing is part of the description if
+    the thing is a substantive rule.
+a thing is part of the description if
+    the thing is an implementation and oversight rule.
+a thing is part of the description if
+    the thing is a constitutive rule.
+a thing is part of the description if
+    the thing is a definition.
+a thing is part of the description if
+    the thing is a scope rule.
+a thing is part of the description if
+    the thing is an institutional rule.
+a thing is part of the description if
+    the thing is an action.
+a thing is part of the description if
+    the thing is an agent.
+a thing is part of the description if
+    the thing is an agent type.
+a thing is part of the description if
+    the thing is an agent role.
+a thing is part of the description if
+    the thing is a temporal specification.
+a thing is part of the description if
+    the thing is an action result.
+a thing is part of the description if
+    the thing is an action result type.
+a thing is part of the description if
+    the thing is a legal condition.
+a thing is part of the description if
+    the thing is a process.
+a thing is part of the description if
+    the thing is a dataset.
+a thing is part of the description if
+    the thing is a standard.
+a thing is part of the description if
+    the thing is a software.
+a thing is part of the description if
+    the thing is a public service.
+a thing is part of the description if
+    the thing is an assessment.
+a thing is part of the description if
+    the thing is an assessment statement.
+a thing is part of the description if
+    the thing is a concept.
+a thing is part of the description if
+    the thing is a concept scheme.
+a thing is part of the description if
+    the thing is established in a provision.
+a thing is part of the description if
+    the thing has the legal text a text.
+a rule is part of the description if
+    the rule has the modality a modality.
+a rule is part of the description if
+    the rule has the requirement type a requirement type.
+a rule is part of the description if
+    the rule produces an action.
+a rule is part of the description if
+    the rule has the digital dimension a dimension.
+a rule is part of the description if
+    the rule involves the process a process.
+a rule is part of the description if
+    the rule references a resource.
+a rule is part of the description if
+    the rule specifies a second rule.
+a rule is part of the description if
+    the rule is specified by a second rule.
+a rule is part of the description if
+    the rule derogates from a second rule.
+a rule is part of the description if
+    the rule is derogated by a second rule.
+a rule is part of the description if
+    the rule relates to a second rule.
+an action is part of the description if
+    the action has the agent role an agent role.
+an agent role is part of the description if
+    the agent role is for the agent an agent.
+an agent role is part of the description if
+    the agent role has the role a role.
+an action is part of the description if
+    the action has the result a result.
+an action is part of the description if
+    the action is followed by a second action.
+an action is part of the description if
+    the action follows a second action.
+a thing is part of the description if
+    the thing has the time specification a temporal specification.
+a temporal specification is part of the description if
+    the temporal specification has the function a function.
+a temporal specification is part of the description if
+    the temporal specification has the instant a date.
+a temporal specification is part of the description if
+    the temporal specification has the duration a duration.
+a temporal specification is part of the description if
+    the temporal specification has the frequency a duration.
+a temporal specification is part of the description if
+    the temporal specification has the number of repetitions a number.
+a temporal specification is part of the description if
+    the temporal specification has the temporal label a text.
+a temporal specification is part of the description if
+    the temporal specification is timed after a second temporal specification.
+a temporal specification is part of the description if
+    the temporal specification is timed before a second temporal specification.
+a temporal specification is part of the description if
+    the temporal specification is timed immediately after a second temporal specification.
+a temporal specification is part of the description if
+    the temporal specification is timed immediately before a second temporal specification.
+a temporal specification is part of the description if
+    the temporal specification starts a second temporal specification.
+a temporal specification is part of the description if
+    the temporal specification is started by a second temporal specification.
+a temporal specification is part of the description if
+    the temporal specification finishes a second temporal specification.
+a temporal specification is part of the description if
+    the temporal specification is finished by a second temporal specification.
+a temporal specification is part of the description if
+    the temporal specification overlaps a second temporal specification.
+a temporal specification is part of the description if
+    the temporal specification is timed within a second temporal specification.
+a result is part of the description if
+    the result has the result category a category.
+a result is part of the description if
+    the result is composed of a second result.
+a result is part of the description if
+    the result is manifested in a dataset.
+a dataset is part of the description if
+    the dataset manifests a result.
+a definition is part of the description if
+    the definition defines a thing.
+a thing is part of the description if
+    the thing is defined by a definition.
+a definition is part of the description if
+    the definition is equivalent to a second definition.
+a definition is part of the description if
+    the definition has the definiendum a text.
+a definition is part of the description if
+    the definition has the definiens a text.
+a definition is part of the description if
+    the definition has the term label a text.
+a thing is part of the description if
+    the thing has the capability a text.
+a thing is part of the description if
+    the thing has the purpose a text.
+a thing is part of the description if
+    the thing has the condition a condition.
+a rule is part of the description if
+    the rule uses the definition a definition.
+a definition is part of the description if
+    the definition has the semantic flag a truth value.
+a thing is part of the description if
+    the thing has the label a text.
+a thing is part of the description if
+    the thing has the comment a text.
+a thing is part of the description if
+    the thing has the title a text.
+a thing is part of the description if
+    the thing has the description a text.
+a thing is part of the description if
+    the thing conforms to a standard.
+a thing is part of the description if
+    the thing is published by an agent.
+a thing is part of the description if
+    the thing cites a resource.
+a thing is part of the description if
+    the thing has the preferred label a text.
+a thing is part of the description if
+    the thing has the explanation a text.
+a thing is part of the description if
+    the thing is in the scheme a scheme.
+a thing is part of the description if
+    the thing has the broader concept a concept.
+an assessment is part of the description if
+    the assessment results in an assessment statement.
+an assessment statement is part of the description if
+    the assessment statement has the judgement a text.
+an assessment statement is part of the description if
+    the assessment statement has the statement type a type.
+an assessment statement is part of the description if
+    the assessment statement has the interpretation a text.
+a temporal specification is part of the description if
+    the temporal specification has the date a date.
+a thing is part of the description if
+    the thing concerns the service a service.
+a thing is part of the description if
+    the thing has the type a class.
+a thing is part of the description if
+    the thing has for a property the value a value.
+a thing is part of the description if
+    the thing has for a property the resource a resource.
+a thing is part of the description if
+    the thing is identified by an address.
+a property is part of the description if
+    the values of the property have the datatype a datatype.
+a property is part of the description if
+    the texts of the property have no language.
+a value is part of the description if
+    the value the value has the datatype a datatype.
+a text is part of the description if
+    the text the text has no language.
+
+% ---- the word lists of LOMO -----------------------------------------------
+% A register writes a term of LOMO's word lists as a word (obligation,
+% deadline, addresser, data ...). Their labels, in English, as the word lists
+% give them (the authority table of roles of the Publications Office for the
+% three roles).
+
+obligation has the preferred label "Obligation".
+permission has the preferred label "Permission".
+prohibition has the preferred label "Prohibition".
+right has the preferred label "Right".
+deadline has the preferred label "Deadline".
+validity has the preferred label "Validity".
+starting point has the preferred label "Starting Point".
+trigger has the preferred label "Trigger".
+report has the preferred label "Report".
+certificate has the preferred label "Certificate".
+data has the preferred label "Data".
+observation has the preferred label "Observation".
+digital public service has the preferred label "Digital Public Service".
+digital solutions has the preferred label "Digital Solution".
+process automation has the preferred label "Process Automation".
+data flow has the preferred label "Data Flow".

@@ -1,0 +1,170 @@
+% The register of a LOMO description: the Logical English twin of
+% PrescriptiveRule.ttl (kept in sources/), written by the LOMO translator.
+% One fact for each statement of the description, in the words of lomo.le.
+% LOMO describes rules; it has no conditions and no cases. A question
+% about a case gets its answer only from the parts of the description that
+% have values (deadlines, agents, derogations).
+%
+% LOMO and its data: (c) European Union, Creative Commons Attribution 4.0
+% (https://creativecommons.org/licenses/by/4.0/); source: the LOMO
+% repository, https://code.europa.eu/drpm/lomo. The description was changed
+% into Logical English by the LOMO translator of Logical English.
+%
+% DISCLAIMER. This program was written by a translator from a program of another
+% system. It is provided "as is", without warranty of any kind, express or
+% implied, including any warranty that it is accurate, complete or fit for a
+% particular purpose. The translation may be wrong: check it against its source
+% before relying on it. It is not legal, tax, insurance, financial or other
+% professional advice. Its authors accept no liability for any loss or damage
+% arising from its use.
+
+the target language is: prolog.
+
+the knowledge base prescriptiverule includes these resources:
+    lomo.
+
+the knowledge base prescriptiverule includes:
+
+the text of the source description is at "sources/PrescriptiveRule.ttl".
+
+% Who bears a duty: the agent of this role of the action (lomo.le).
+the bearer role is addresser.
+
+
+requirement art 4 par 1 is identified by "http://example.org/Requirement_Art4_Par1".
+
+requirement art 4 par 1 is a prescriptive rule.
+
+requirement art 4 par 1 has the modality obligation.
+
+requirement art 4 par 1 has the requirement type "http://publications.europa.eu/resource/dataset/administrative-obligation/c_80214a02".
+
+requirement art 4 par 1 produces action art 4 data collection.
+
+requirement art 4 par 1 produces action art 4 data transmission.
+
+requirement art 4 par 1 has the legal text "The detailed topics, transmission frequencies, reference periods and the dimensions related to sensitive species, organic production and regional breakdown on fisheries and aquaculture statistics referred to in Article 1, shall be as set out in the Annex.".
+
+requirement art 4 par 1 is established in "https://data.europa.eu/eli/dl/proc/2025/96/cod/doc/com/COM_2025_425/FINAL/eng/art_4/par_1".
+
+
+requirement art 30 par 1 publication obligation is identified by "http://example.org/Requirement_Art30_Par1_PublicationObligation".
+
+requirement art 30 par 1 publication obligation is a prescriptive rule.
+
+requirement art 30 par 1 publication obligation has the modality obligation.
+
+requirement art 30 par 1 publication obligation has the requirement type "http://publications.europa.eu/resource/dataset/administrative-obligation/c_80214a02".
+
+requirement art 30 par 1 publication obligation produces action art 30 publish.
+
+requirement art 30 par 1 publication obligation has the legal text "Member States shall ensure that undertakings publish within a reasonable period of time, which shall not exceed 12 months after the balance sheet date, the duly approved annual financial statements and the management report, together with the opinion submitted by the statutory auditor or audit firm.".
+
+requirement art 30 par 1 publication obligation is established in "http://data.europa.eu/eli/dir/2013/34/oj/art_30/par_1".
+
+
+requirement art 10 par 2 is identified by "http://example.org/Requirement_Art10_Par2".
+
+requirement art 10 par 2 is a prescriptive rule.
+
+requirement art 10 par 2 has the modality obligation.
+
+requirement art 10 par 2 has the requirement type "http://publications.europa.eu/resource/dataset/administrative-obligation/c_39b9f824".
+
+requirement art 10 par 2 has the legal text "Until [date of entry into force + 4 years] the competent authorities shall require the submission of only Part I of the physical registration certificate when re-registering a vehicle previously registered in another Member State. Until that date, they may also accept the presentation of a mobile registration certificate, if any.".
+
+requirement art 10 par 2 is established in "https://data.europa.eu/eli/dl/proc/2025/96/cod/doc/com/COM_2025_179/FINAL/art_10/par_2".
+
+
+% Things the description names but does not describe: their addresses.
+action art 4 data collection is identified by "http://example.org/Action_Art4_DataCollection".
+
+action art 4 data transmission is identified by "http://example.org/Action_Art4_DataTransmission".
+
+action art 30 publish is identified by "http://example.org/Action_Art30_Publish".
+
+
+% The questions of LOMO's requirements document (its competency questions),
+% as far as a description can answer them.
+scenario description is, as stated in the source description:
+    modalities expects answers ["requirement art 10 par 2 has the modality obligation", "requirement art 30 par 1 publication obligation has the modality obligation", "requirement art 4 par 1 has the modality obligation"].
+    actions_of_rules expects answers ["requirement art 30 par 1 publication obligation produces action art 30 publish", "requirement art 4 par 1 produces action art 4 data collection", "requirement art 4 par 1 produces action art 4 data transmission"].
+
+query parts is:
+    which thing is part of the description.
+
+query kinds is:
+    which thing is of the kind which kind.
+
+query bearer is:
+    the bearer role is which role.
+
+query rules_of_act is:
+    which rule is established by the act which act.
+
+query provisions is:
+    which thing is established in which provision.
+
+query places is:
+    which rule is laid down in which place.
+
+query legal_texts is:
+    which thing has the legal text which text.
+
+query joint_rules is:
+    which rule is established in more than one provision.
+
+query prescriptive is:
+    which thing is a prescriptive rule.
+
+query constitutive is:
+    which thing is a constitutive rule.
+
+query modalities is:
+    which rule has the modality which modality.
+
+query obligations is:
+    which rule has the modality obligation for which agent as which role.
+
+query prohibitions is:
+    which rule has the modality prohibition for which agent as which role.
+
+query permissions is:
+    which rule has the modality permission for which agent as which role.
+
+query rights is:
+    which rule has the modality right for which agent as which role.
+
+query requirement_types is:
+    which rule has the requirement type which requirement type.
+
+query actions_of_rules is:
+    which rule produces which action.
+
+query rules_without_conditions is:
+    which rule has no written conditions.
+
+query applies is:
+    which rule applies to which party.
+
+query obliged is:
+    which party is obliged that which sentence.
+
+query permitted is:
+    which party is permitted that which sentence.
+
+query forbidden is:
+    which party is forbidden that which sentence.
+
+query holders_of_rights is:
+    which party has the right that which sentence.
+
+query violations is:
+    the obligation of which party that which sentence is violated.
+
+query texts is:
+    which thing is described by the text which text.
+
+query addresses is:
+    which thing is identified by which address.
+

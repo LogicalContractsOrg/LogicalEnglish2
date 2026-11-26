@@ -1773,6 +1773,9 @@ scenario description is, as stated in the source description:
     actions_of_rules expects answers ["description 1 produces item 1 action", "description 10 produces item 10 action", "description 11 produces item 11 action", "description 12 produces item 12 action", "description 13 produces action 1", "description 13 produces item 13 action", "description 14 produces action 3", "description 14 produces item 14 action", "description 2 produces item 2 action", "description 3 produces action 1", "description 3 produces item 3 action", "description 4 produces action 1", "description 4 produces item 4 action", "description 5 produces action 1", "description 5 produces item 5 action", "description 6 produces action 1", "description 6 produces item 6 action", "description 7 produces action 1", "description 7 produces item 7 action", "description 8 produces action 1", "description 8 produces action 2", "description 8 produces item 8 action", "description 9 produces action 2", "description 9 produces item 9 action"].
     actions_of_agents expects answers ["electronic auction platform acts as addressee in action 3", "eu inc companies acts as addresser in action 1", "eu inc companies acts as addresser in action 2", "eu inc companies banks other payment providers member states acts as addressee in item 2 action", "eu inc companies directors shareholders acts as addressee in item 11 action", "eu inc companies directors shareholders liquidators third parties member acts as addressee in item 5 action", "eu inc companies founders directors member states european commission acts as addressee in item 4 action", "eu inc companies founders directors shareholders potential investors liquidators acts as addressee in item 1 action", "eu inc companies member states acts as addressee in item 9 action", "eu inc companies member states administrative judicial authorities acts as addressee in item 6 action", "eu inc companies member states business registers acts as addressee in item 8 action", "eu inc companies member states courts competent authorities creditors acts as addressee in item 14 action", "eu inc companies member states other businesses legal professionals acts as addressee in item 7 action", "eu inc companies national authorities acts as addresser in action 3", "eu inc companies shareholders directors acts as addressee in item 10 action", "eu inc companies shareholders investors acts as addressee in item 12 action", "eu inc companies shareholders investors acts as addressee in item 13 action", "founders prospective directors member states acts as addressee in item 3 action", "national authorities acts as addressee in action 1", "national authorities acts as addressee in action 2"].
 
+query parts is:
+    which thing is part of the description.
+
 query kinds is:
     which thing is of the kind which kind.
 
@@ -1826,6 +1829,36 @@ query starting_points is:
 
 query validity is:
     which thing has which temporal specification as validity.
+
+query first_dates is:
+    the first date of which temporal specification is which date.
+
+query last_dates is:
+    the last date of which temporal specification is which date.
+
+query later_times is:
+    which temporal specification is later than which second temporal specification.
+
+query times_within is:
+    which temporal specification is during which second temporal specification.
+
+query broken_links is:
+    which temporal specification breaks its link with which second temporal specification.
+
+query due_dates is:
+    which agent has which action due on which date.
+
+query due_in_2027 is:
+    which agent has which action due on which date in the period from 2027-01-01 to 2027-12-31.
+
+query rules_without_conditions is:
+    which rule has no written conditions.
+
+query applies is:
+    which rule applies to which party.
+
+query must_perform is:
+    which party must perform which action by which date under which rule.
 
 query results is:
     which action has the result which result.

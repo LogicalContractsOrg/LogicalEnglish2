@@ -27,6 +27,8 @@ the knowledge base lomo_32009r1217_001_002 includes:
 
 the text of the source description is at "sources/32009R1217_001_002.ttl".
 
+the text of "http://data.europa.eu/eli/reg/2009/1217/art_1/par_2/2024-01-01" is at "sources/eli/reg_2009_1217_art_1_par_2_2024-01-01.txt".
+
 % Who bears a duty: the agent of this role of the action (lomo.le).
 the bearer role is addresser.
 
@@ -87,6 +89,9 @@ scenario description is, as stated in the source description:
     modalities expects answers ["reg 20091217 art 1 par 2 has the modality obligation"].
     actions_of_rules expects answers ["reg 20091217 art 1 par 2 produces reg 20091217 art 1 par 2 action 1"].
     actions_of_agents expects answers ["member states acts as addresser in reg 20091217 art 1 par 2 action 1"].
+
+query parts is:
+    which thing is part of the description.
 
 query kinds is:
     which thing is of the kind which kind.
@@ -150,6 +155,27 @@ query actions_of_agents is:
 
 query concerned_agents is:
     which rule concerns which agent.
+
+query rules_without_conditions is:
+    which rule has no written conditions.
+
+query applies is:
+    which rule applies to which party.
+
+query obliged is:
+    which party is obliged that which sentence.
+
+query permitted is:
+    which party is permitted that which sentence.
+
+query forbidden is:
+    which party is forbidden that which sentence.
+
+query holders_of_rights is:
+    which party has the right that which sentence.
+
+query violations is:
+    the obligation of which party that which sentence is violated.
 
 query results is:
     which action has the result which result.

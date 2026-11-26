@@ -1,0 +1,83 @@
+% lib/temporal.le — dates, periods and lock times, as LE templates.
+%
+% Extension E3 of the design notes roadmap.md (§7.2): the
+% temporal and period LIBRARY the migrations share (Oracle Intelligent Advisor
+% rules that quantify over time, effective-dated product versions, Bitcoin
+% timelocks), so that no translator re-derives the same rules. A library, not
+% syntax: include it as a resource (a translator copies it beside the program
+% it writes, with temporal.pl), and use its templates like any other.
+%
+% LE itself already has `*a date* is *a number* days after *a date*`,
+% `... months after ...` and the date comparisons (`is after`, `is before or
+% equal to`, ...); this library adds what those do not give.
+%
+% Each template is implemented by the predicate of temporal.pl named after it
+% (LE's functor for the template, e.g. `is_years_after/3`), so the LE file
+% carries no Prolog text: no embedded `prolog` goals (language.md §15.6),
+% only sentences.
+%
+% Lengths of time written the ISO 8601 way (the standard form: P1Y, P12M,
+% P20D, P1W, P4Y1D, PT72H), as LOMO and other European data write them:
+%
+%     the due date is the period "P12M" after the balance sheet date
+%     the occurrence 3 of every "P1M" after 2026-01-31 is 2026-04-30
+%     a date is a date of every "P1W" from 2027-01-01 in the period from 2027-03-01 to 2027-03-31
+%
+% A date in LE is a day: hours, minutes and seconds count as whole days,
+% rounded up ("PT72H" is 3 days). `*a duration* counts hours as whole days`
+% says when that happened, for an explanation to show it. A date without its
+% year ("30 September", "September 30th"): `the day "30 September" in the
+% year 2027 is 2027-09-30`.
+%
+% What is NOT here: Oracle Intelligent Advisor's change-point semantics
+% (attributes as step functions recomputed over time). A rulebase that leans
+% on them is marked "approximated" in its migration ledger.
+
+the knowledge base temporal includes these resources:
+    temporal.pl.
+
+% Each of these gives ONE value for its arguments, so they are declared
+% FUNCTIONS (§2.4 of the language reference): the sentence may be written
+% without its last place wherever a value is expected, which is how a
+% condition about a date reads best —
+%
+%     and the year of the start date > 2020
+%
+% rather than binding the year in one condition and testing it in another.
+% The full sentence still works, so nothing that was written before has to
+% change.
+the functions are:
+    the age on *a date* of someone born on *a birth date* is *a number*.
+    the number of whole years from *a date* to *a second date* is *a number*.
+    the number of whole months from *a date* to *a second date* is *a number*.
+    the number of days from *a date* to *a second date* is *a number*.
+    the first day of the month of *a date* is *a first date*.
+    the last day of the month of *a date* is *a last date*.
+    the year of *a date* is *a number*.
+    the month of *a date* is *a number*.
+    the weekday of *a date* is *a number*.
+    the occurrence *a number* of every *a duration* after *a date* is *a later date*.
+    the day *a text* in the year *a number* is *a date*.
+
+the templates are:
+    *a later date* is *a number* years after *a date*.
+    *a later date* is *a number* calendar months after *a date*.
+    *an earlier date* is *a number* calendar months before *a date*.
+    *a date* is in the period from *a start date* to *an end date*.
+    *a date* is within the last *a number* months before *a reference date*.
+    *a date* is within the last *a number* days before *a reference date*.
+    *a date* is in a leap year.
+    the lock time *a number* is a block height.
+    the lock time *a number* is a time.
+    block *a height* is at least *a number* blocks after block *a first height*.
+    *a later date* is the period *a duration* after *a date*.
+    *an earlier date* is the period *a duration* before *a date*.
+    *a duration* is a length of time in the standard form.
+    *a duration* counts hours as whole days.
+    *a date* is a date of every *a duration* from *a start date* in the period from *a first date* to *a last date*.
+
+the knowledge base temporal includes:
+
+% Every other template is answered by temporal.pl.
+block a height H is at least a number N blocks after block a first height F if
+    H - F >= N.

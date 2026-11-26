@@ -147,6 +147,13 @@ le_import:importer(spreadsheet, "Spreadsheet (Excel .xlsx, .xlsm): formulas as r
                    xlsx_import:import_spreadsheet, xlsx_import:detect_spreadsheet) :-
     adapter('spreadsheet/xlsx_import.pl', File).
 
+%  LOMO (the Legal Obligation Metadata Ontology of the European
+%  institutions): a description in Turtle becomes its register; lomo/README.md.
+le_import:importer(lomo, "LOMO description (Turtle, Legal Obligation Metadata Ontology 1.1.0): one fact for each statement, with LOMO's questions as queries",
+                   [ttl, turtle], File,
+                   lomo_import:import_lomo, lomo_import:detect_lomo) :-
+    adapter('lomo/lomo_import.pl', File).
+
 %   The other way: a program written in another system's format.
 le_import:exporter(miniscript, "Bitcoin Miniscript policy (with its Miniscript and a Minsc link)",
                    policy, File,
@@ -195,6 +202,11 @@ le_import:exporter(rune, "Rune (a twin of a DRR report): the rules changed in Lo
                    rune_le_export:export_rune, rune_le_export:applies_rune) :-
     adapter('rune/rune_le_export.pl', File).
 
+le_import:exporter(lomo, "LOMO description (Turtle): a register written back, or the rules that cite their provisions described in LOMO's words",
+                   ttl, File,
+                   lomo_export:export_lomo, lomo_export:applies_lomo) :-
+    adapter('lomo/lomo_export.pl', File).
+
 %   The check each exporter runs before it writes (le_import.pl): a program
 %   that uses something the target cannot say is refused, with the list.
 le_import:export_check(miniscript, ms_export:check_miniscript).
@@ -206,3 +218,4 @@ le_import:export_check(catala, catala_export:check_catala).
 le_import:export_check(rune, rune_le_export:check_rune).
 le_import:export_check(dmn, dmn_export:check_dmn).
 le_import:export_check(ruml, ruml_export:check_ruml).
+le_import:export_check(lomo, lomo_export:check_lomo).

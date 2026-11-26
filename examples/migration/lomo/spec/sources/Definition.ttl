@@ -1,0 +1,37 @@
+# The Turtle example of lomo:Definition in the specification of LOMO 1.1.0
+# (https://drpm.pages.code.europa.eu/lomo/latest/#Definition), with the prefixes it uses.
+@prefix ex: <http://example.org/> .
+@prefix lomo: <http://data.europa.eu/leg/lomo#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix dctype: <http://purl.org/dc/dcmitype/> .
+@prefix cpsv: <http://purl.org/vocab/cpsv#> .
+@prefix eli: <http://data.europa.eu/eli/ontology#> .
+@prefix tf: <http://data.europa.eu/leg/temporal-function/> .
+@prefix dm: <http://data.europa.eu/leg/deontic-modality/> .
+@prefix dd: <http://data.europa.eu/leg/digital-dimensions/> .
+@prefix rc: <http://data.europa.eu/leg/result-category/> .
+@prefix role: <http://publications.europa.eu/resource/authority/role/> .
+
+ex:Def_PublicInterestEntity rdf:type lomo:Definition ;
+    lomo:hasDefiniendum "public-interest entities"@en ;
+    lomo:hasDefiniens "undertakings within the scope of Article 1 which are..."@en ;    
+    lomo:establishedIn <https://eur-lex.europa.eu/eli/dir/2013/34/oj/art_2/point_1> .
+
+ex:Def_RelatedParty rdf:type lomo:Definition ;
+    lomo:hasDefiniendum "related party"@en ;
+    # "has the same meaning as in IAS 24 (Related Party Disclosures)"
+    lomo:equivalentDefinition [
+        a lomo:Definition ;
+        rdfs:seeAlso <https://www.ifrs.org/issued-standards/ias-24-related-party-disclosures/>
+    ] .
+
+ex:Def_SmallUndertakings rdf:type lomo:Definition ;
+    lomo:hasDefiniendum "small undertakings"@en ;
+    lomo:hasDefiniens "undertakings which on their balance sheet dates do not exceed the limits of at least two of the three following criteria:..."@en ;
+    lomo:establishedIn <https://eur-lex.europa.eu/eli/dir/2013/34/oj/art_2/point_2> .

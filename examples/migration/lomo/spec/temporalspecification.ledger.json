@@ -1,0 +1,71 @@
+{
+  "counts": {"approximated":1,"encoded":4,"residue":0},
+  "entries": [
+    {
+      "element":"http://example.org/Deadline_BreachNotification",
+      "in_program":"deadline breach notification",
+      "kind":"*a thing* is a temporal specification",
+      "mapping":"4 statements(4), one fact each",
+      "note":"",
+      "verdict":"encoded"
+    },
+    {
+      "element":"http://example.org/BreachEvent",
+      "in_program":"breach event",
+      "kind":"*a thing* is a temporal specification",
+      "mapping":"2 statements(2), one fact each",
+      "note":"",
+      "verdict":"encoded"
+    },
+    {
+      "element":"http://example.org/Deadline_Submission",
+      "in_program":"deadline submission",
+      "kind":"*a thing* is a temporal specification",
+      "mapping":"4 statements(4), one fact each",
+      "note":"",
+      "verdict":"encoded"
+    },
+    {
+      "element":"http://example.org/CompletionOfLanding",
+      "in_program":"completion of landing",
+      "kind":"*a thing* is a temporal specification",
+      "mapping":"2 statements(2), one fact each",
+      "note":"",
+      "verdict":"encoded"
+    },
+    {
+      "element":"P24H",
+      "in_program":"deadline submission",
+      "kind":"a length of time",
+      "mapping":"kept as text; no date is calculated from it",
+      "note":"\"P24H\" is not a length of time in the standard form of ISO 8601 (P1Y, P12M, PT72H): a calendar cannot count with it",
+      "verdict":"approximated"
+    }
+  ],
+  "fidelity": {
+    "errors":0,
+    "failed":0,
+    "passed":4,
+    "tests": [
+      {"detail":"","query":"due_dates","result":"pass","scenario":"calendar"},
+      {"detail":"","query":"due_in_2027","result":"pass","scenario":"calendar"},
+      {"detail":"","query":"first_dates","result":"pass","scenario":"breach_on_1_march_2026"},
+      {
+	"detail":"",
+	"query":"hours_as_days",
+	"result":"pass",
+	"scenario":"breach_on_1_march_2026"
+      }
+    ]
+  },
+  "meta": {
+    "artifacts": ["TemporalSpecification.ttl" ],
+    "date":"2026-11-26",
+    "licence":"Creative Commons Attribution 4.0 (the description); the register: the same, as a changed copy",
+    "program":"temporalspecification",
+    "source":"a LOMO description (Legal Obligation Metadata Ontology 1.1.0, Turtle)",
+    "translator":"LE2 migration/lomo (lomo_twin.pl)"
+  },
+  "pending_expectations":0,
+  "source_tests":2
+}

@@ -2645,6 +2645,9 @@ scenario description is, as stated in the source description:
     actions_of_rules expects answers ["description 1 produces item 1 action", "description 10 produces item 10 action", "description 11 produces item 11 action", "description 12 produces action 11", "description 12 produces item 12 action", "description 13 produces item 13 action", "description 14 produces item 14 action", "description 15 produces item 15 action", "description 16 produces item 16 action", "description 17 produces item 17 action", "description 18 produces item 18 action", "description 19 produces item 19 action", "description 2 produces item 2 action", "description 20 produces action 16", "description 20 produces action 18", "description 20 produces item 20 action", "description 3 produces action 2", "description 3 produces item 3 action", "description 4 produces item 4 action", "description 5 produces action 3", "description 5 produces action 4", "description 5 produces action 5", "description 5 produces item 5 action", "description 6 produces item 6 action", "description 7 produces item 7 action", "description 8 produces action 6", "description 8 produces item 8 action", "description 9 produces action 7", "description 9 produces item 9 action"].
     actions_of_agents expects answers ["agent holder of the authorisation for the secure msshybrid acts as addressee in item 17 action", "agent holder of the authorisation for the secure msshybrid 2 acts as addressee in item 16 action", "agent holder of the authorisation for the secure msshybrid 3 acts as addresser in action 16", "applicant for the spectrum for the secure msshybrid system acts as addresser in action 17", "applicants acts as addressee in action 1", "applicants acts as addressee in action 11", "applicants acts as addressee in action 12", "applicants acts as addressee in action 13", "applicants acts as addressee in action 14", "applicants acts as addressee in action 4", "applicants acts as addressee in action 5", "applicants acts as addressee in action 6", "applicants acts as addressee in action 8", "applicants acts as addressee in item 3 action", "applicants acts as addressee in item 9 action", "applicants acts as addresser in action 10", "applicants acts as addresser in action 2", "applicants acts as addresser in action 3", "applicants acts as addresser in action 7", "applicants acts as addresser in action 9", "applicants for secure mss system acts as addressee in item 11 action", "applicants for the provision of commercial mss system acts as addresser in action 15", "applicants for the secure hybrid mss system acts as addressee in item 10 action", "commission acts as addressee in action 10", "commission acts as addressee in action 15", "commission acts as addressee in action 17", "commission acts as addressee in action 18", "commission acts as addressee in action 2", "commission acts as addressee in action 3", "commission acts as addressee in action 7", "commission acts as addressee in action 9", "commission acts as addressee in item 1 action", "commission acts as addressee in item 12 action", "commission acts as addressee in item 13 action", "commission acts as addressee in item 14 action", "commission acts as addressee in item 15 action", "commission acts as addressee in item 18 action", "commission acts as addressee in item 2 action", "commission acts as addressee in item 20 action", "commission acts as addressee in item 4 action", "commission acts as addressee in item 5 action", "commission acts as addressee in item 6 action", "commission acts as addressee in item 7 action", "commission acts as addressee in item 8 action", "commission acts as addresser in action 1", "commission acts as addresser in action 11", "commission acts as addresser in action 12", "commission acts as addresser in action 13", "commission acts as addresser in action 14", "commission acts as addresser in action 20", "commission acts as addresser in action 21", "commission acts as addresser in action 4", "commission acts as addresser in action 5", "commission acts as addresser in action 6", "commission acts as addresser in action 8", "commission communications committee acts as addressee in action 16", "commission member states collaborating with the communications committee the acts as addressee in action 19", "european parliament council acts as addressee in action 21", "holder of the authorisation for secure msshybrid system granted acts as addresser in action 18", "holders of the authorization for commercial mss system granted acts as addressee in item 19 action", "holders of union authorisation for use of 2 ghz acts as addresser in action 19", "incumbent rights holders acts as addressee in action 20"].
 
+query parts is:
+    which thing is part of the description.
+
 query kinds is:
     which thing is of the kind which kind.
 
@@ -2698,6 +2701,36 @@ query starting_points is:
 
 query validity is:
     which thing has which temporal specification as validity.
+
+query first_dates is:
+    the first date of which temporal specification is which date.
+
+query last_dates is:
+    the last date of which temporal specification is which date.
+
+query later_times is:
+    which temporal specification is later than which second temporal specification.
+
+query times_within is:
+    which temporal specification is during which second temporal specification.
+
+query broken_links is:
+    which temporal specification breaks its link with which second temporal specification.
+
+query due_dates is:
+    which agent has which action due on which date.
+
+query due_in_2027 is:
+    which agent has which action due on which date in the period from 2027-01-01 to 2027-12-31.
+
+query rules_without_conditions is:
+    which rule has no written conditions.
+
+query applies is:
+    which rule applies to which party.
+
+query must_perform is:
+    which party must perform which action by which date under which rule.
 
 query results is:
     which action has the result which result.

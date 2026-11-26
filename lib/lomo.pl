@@ -113,7 +113,33 @@ le_lomo_heading(prt, 'Part').
 le_lomo_heading(cit, 'Citation').
 le_lomo_heading(enc, 'Enacting terms').
 
+%   ---- instants ---------------------------------------------------------
+%   An instant is a date, or a text the description typed otherwise: a date
+%   and time ("2026-04-12T14:00:00": its day), a year ("2035": its first
+%   or last day), a year and a month ("2035-06").
+
+le_lomo_instant_days(date(Y, M, D), date(Y, M, D), date(Y, M, D)).
+le_lomo_instant_days(T, First, Last) :-
+    ( string(T) -> string_codes(T, Cs) ; atom(T) -> atom_codes(T, Cs) ),
+    le_lomo_digits_dashes(Cs, Parts),
+    le_lomo_instant_parts(Parts, First, Last).
+
+le_lomo_digits_dashes(Cs, Parts) :-
+    (   append(Before, [0'T|_], Cs) -> Day = Before ; Day = Cs ),
+    atom_codes(A, Day),
+    atomic_list_concat(Ps, '-', A),
+    le_lomo_numbers(Ps, Parts).
+
+le_lomo_numbers([], []).
+le_lomo_numbers([P|Ps], [N|Ns]) :- atom_number(P, N), integer(N), le_lomo_numbers(Ps, Ns).
+
+le_lomo_instant_parts([Y, M, D], date(Y, M, D), date(Y, M, D)).
+le_lomo_instant_parts([Y, M], date(Y, M, 1), date(Y, M, L)) :- le_temporal_days_in_month(Y, M, L).
+le_lomo_instant_parts([Y], date(Y, 1, 1), date(Y, 12, 31)) :- Y > 999.
+
 %   ---- The templates of lomo.le ----------------------------------------
 
 the_act_of_is(Provision, Act) :- le_lomo_act(Provision, Act).
 the_place_of_in_its_act_is(Provision, Text) :- le_lomo_place(Provision, Text).
+the_first_day_of_the_instant_is(I, D) :- le_lomo_instant_days(I, D, _).
+the_last_day_of_the_instant_is(I, D) :- le_lomo_instant_days(I, _, D).

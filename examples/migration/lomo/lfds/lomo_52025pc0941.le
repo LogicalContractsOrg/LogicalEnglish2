@@ -1283,6 +1283,9 @@ scenario description is, as stated in the source description:
     actions_of_rules expects answers ["description 1 produces item 1 action", "description 10 produces item 10 action", "description 11 produces item 11 action", "description 2 produces item 2 action", "description 3 produces item 3 action", "description 4 produces item 4 action", "description 5 produces item 5 action", "description 6 produces item 6 action", "description 7 produces item 7 action", "description 8 produces item 8 action", "description 9 produces item 9 action"].
     actions_of_agents expects answers ["competent authority member state acts as addressee in action 1", "competent authority member state acts as addresser in action 2", "competent authority member state acts as addresser in action 3", "competent authority member state acts as addresser in action 5", "competent authority member state acts as addresser in action 7", "competent authority member state esma acts as addressee in item 3 action", "competent authority member state esma acts as addressee in item 6 action", "competent authority member state esma ecbescb eba european systemic acts as addressee in item 11 action", "competent authority member state system operator esma national competent acts as addressee in item 5 action", "designating authorities registering authorities national competent authorities competent authorities acts as addressee in item 7 action", "ecbescb eba the european systemic risk board other member acts as addressee in action 7", "esma acts as addressee in action 2", "esma acts as addressee in action 7", "esma acts as addressee in item 1 action", "esma acts as addresser in action 6", "esma relevant authorities member state level eba escb acts as addressee in action 4", "esma system operator other relevant authorities eba escb acts as addressee in action 3", "esma system operator other relevant authorities eba escb acts as addressee in action 5", "general public acts as addressee in action 6", "registering authority third country system operator esma eba escb acts as addressee in item 10 action", "registering authority third country system operator esma eba escb acts as addressee in item 9 action", "system operator competent authority member state acts as addressee in item 2 action", "system operator competent authority member state acts as addressee in item 4 action", "system operators acts as addresser in action 1", "third country system operator esma eba competent authority member acts as addressee in item 8 action", "third country system operators acts as addresser in action 4"].
 
+query parts is:
+    which thing is part of the description.
+
 query kinds is:
     which thing is of the kind which kind.
 
@@ -1336,6 +1339,36 @@ query starting_points is:
 
 query validity is:
     which thing has which temporal specification as validity.
+
+query first_dates is:
+    the first date of which temporal specification is which date.
+
+query last_dates is:
+    the last date of which temporal specification is which date.
+
+query later_times is:
+    which temporal specification is later than which second temporal specification.
+
+query times_within is:
+    which temporal specification is during which second temporal specification.
+
+query broken_links is:
+    which temporal specification breaks its link with which second temporal specification.
+
+query due_dates is:
+    which agent has which action due on which date.
+
+query due_in_2027 is:
+    which agent has which action due on which date in the period from 2027-01-01 to 2027-12-31.
+
+query rules_without_conditions is:
+    which rule has no written conditions.
+
+query applies is:
+    which rule applies to which party.
+
+query must_perform is:
+    which party must perform which action by which date under which rule.
 
 query results is:
     which action has the result which result.

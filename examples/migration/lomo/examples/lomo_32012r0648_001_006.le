@@ -27,6 +27,8 @@ the knowledge base lomo_32012r0648_001_006 includes:
 
 the text of the source description is at "sources/32012R0648_001_006.ttl".
 
+the text of "http://data.europa.eu/eli/reg/2012/648/art_1/par_6/2025-01-17" is at "sources/eli/reg_2012_648_art_1_par_6_2025-01-17.txt".
+
 % Who bears a duty: the agent of this role of the action (lomo.le).
 the bearer role is addresser.
 
@@ -102,7 +104,7 @@ temporal specification 1 has the legal text "By 17 November 2012".
 
 temporal specification 1 has the function deadline.
 
-temporal specification 1 has for "time:inXSDDate" the value 2012-11-17.
+temporal specification 1 has the date 2012-11-17.
 
 
 reg 2012648 art 1 par 6 rule 1 is identified by "https://system.org/example#REG2012648ART1PAR6_Rule1".
@@ -271,10 +273,20 @@ item the council is identified by "https://system.org/example#TheCouncil".
 
 % The questions of LOMO's requirements document (its competency questions),
 % as far as a description can answer them.
+scenario calendar is, as stated in the source description:
+    % A case for the calendar: the events that a deadline counts from, and the rhythms that
+    % count from nothing else, start on 2027-01-01.
+    the calendar starts on 2027-01-01.
+    due_dates expects answers ["item the commission has reg 2012648 art 1 par 6 action 2 due on 2012-11-17"].
+    due_in_2027 expects answers [].
+
 scenario description is, as stated in the source description:
     modalities expects answers ["reg 2012648 art 1 par 6 rule 1 has the modality permission", "reg 2012648 art 1 par 6 rule 2 has the modality obligation", "reg 2012648 art 1 par 6 rule 3 has the modality obligation", "reg 2012648 art 1 par 6 rule 4 has the modality obligation"].
     actions_of_rules expects answers ["reg 2012648 art 1 par 6 rule 1 produces reg 2012648 art 1 par 6 action 1", "reg 2012648 art 1 par 6 rule 2 produces reg 2012648 art 1 par 6 action 2", "reg 2012648 art 1 par 6 rule 3 produces reg 2012648 art 1 par 6 action 3", "reg 2012648 art 1 par 6 rule 4 produces reg 2012648 art 1 par 6 action 4"].
     actions_of_agents expects answers ["item the commission acts as addresser in reg 2012648 art 1 par 6 action 1", "item the commission acts as addresser in reg 2012648 art 1 par 6 action 2", "item the commission acts as addresser in reg 2012648 art 1 par 6 action 3", "item the commission acts as addresser in reg 2012648 art 1 par 6 action 4", "item the council acts as addressee in reg 2012648 art 1 par 6 action 2", "item the european parliament acts as addressee in reg 2012648 art 1 par 6 action 2"].
+
+query parts is:
+    which thing is part of the description.
 
 query kinds is:
     which thing is of the kind which kind.
@@ -348,6 +360,51 @@ query starting_points is:
 query validity is:
     which thing has which temporal specification as validity.
 
+query first_dates is:
+    the first date of which temporal specification is which date.
+
+query last_dates is:
+    the last date of which temporal specification is which date.
+
+query later_times is:
+    which temporal specification is later than which second temporal specification.
+
+query times_within is:
+    which temporal specification is during which second temporal specification.
+
+query broken_links is:
+    which temporal specification breaks its link with which second temporal specification.
+
+query due_dates is:
+    which agent has which action due on which date.
+
+query due_in_2027 is:
+    which agent has which action due on which date in the period from 2027-01-01 to 2027-12-31.
+
+query rules_without_conditions is:
+    which rule has no written conditions.
+
+query applies is:
+    which rule applies to which party.
+
+query must_perform is:
+    which party must perform which action by which date under which rule.
+
+query obliged is:
+    which party is obliged that which sentence.
+
+query permitted is:
+    which party is permitted that which sentence.
+
+query forbidden is:
+    which party is forbidden that which sentence.
+
+query holders_of_rights is:
+    which party has the right that which sentence.
+
+query violations is:
+    the obligation of which party that which sentence is violated.
+
 query results is:
     which action has the result which result.
 
@@ -356,9 +413,6 @@ query result_categories is:
 
 query texts is:
     which thing is described by the text which text.
-
-query other_values is:
-    which thing has for which property the value which value.
 
 query addresses is:
     which thing is identified by which address.

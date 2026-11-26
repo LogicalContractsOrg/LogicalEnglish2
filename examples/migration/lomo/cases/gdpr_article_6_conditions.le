@@ -1,0 +1,129 @@
+% The conditions of GDPR Article 6(1), written by hand in Logical English
+% beside the LOMO description of the article (its register,
+% gdpr_article_6.le). LOMO's open request 166 gives this article as its
+% example of what LOMO cannot yet say: "Processing shall be lawful only if
+% and to the extent that at least one of the following applies".
+%
+% The register says who may process (controllers) and in which provision;
+% this program writes when. The rule of the register then applies to a
+% controller only when the conditions hold, and the answer shows them.
+%
+% Regulation (EU) 2016/679, Article 6(1): (c) European Union,
+% https://eur-lex.europa.eu/eli/reg/2016/679/oj. Copyright Miguel Calejo for
+% the Logical English; Apache License 2.0. Not legal advice.
+
+the target language is: prolog.
+
+the templates are:
+    *a party* has the consent of the data subject; undefined.
+    *a party* processes the data for a contract with the data subject; undefined.
+    *a party* processes the data to comply with a legal obligation; undefined.
+    *a party* processes the data to protect a vital interest; undefined.
+    *a party* processes the data for a task in the public interest; undefined.
+    *a party* processes the data for a legitimate interest; undefined.
+    the interests of the data subject override the interest of *a party*.
+    the processing of *a party* is lawful; opposite: the processing of *a party* is not lawful.
+
+the knowledge base gdpr_article_6_conditions includes these resources:
+    gdpr_article_6.
+
+the knowledge base gdpr_article_6_conditions includes:
+
+norm gdpr 6 1 has written conditions.
+
+rule art_6_1_conditions with provenance "http://data.europa.eu/eli/reg/2016/679/art_6/par_1/oj":
+the conditions of norm gdpr 6 1 hold for a party if
+    the party counts as controllers
+    and the processing of the party is lawful.
+
+rule art_6_1 with provenance "http://data.europa.eu/eli/reg/2016/679/art_6/par_1/oj",
+        confer "Processing shall be lawful only if and to the extent that at least one of the following applies":
+the processing of a party is lawful only if
+    the party has the consent of the data subject
+    or the party processes the data for a contract with the data subject
+    or the party processes the data to comply with a legal obligation
+    or the party processes the data to protect a vital interest
+    or the party processes the data for a task in the public interest
+    or the party processes the data for a legitimate interest
+        and it is not the case that
+            the interests of the data subject override the interest of the party.
+
+rule art_6_1_a with provenance "http://data.europa.eu/eli/reg/2016/679/art_6/par_1/pnt_a/oj",
+        confer "the data subject has given consent to the processing of his or her personal data for one or more specific purposes":
+the processing of a party is lawful if
+    the party has the consent of the data subject.
+
+rule art_6_1_b with provenance "http://data.europa.eu/eli/reg/2016/679/art_6/par_1/pnt_b/oj",
+        confer "processing is necessary for the performance of a contract to which the data subject is party":
+the processing of a party is lawful if
+    the party processes the data for a contract with the data subject.
+
+rule art_6_1_c with provenance "http://data.europa.eu/eli/reg/2016/679/art_6/par_1/pnt_c/oj",
+        confer "processing is necessary for compliance with a legal obligation to which the controller is subject":
+the processing of a party is lawful if
+    the party processes the data to comply with a legal obligation.
+
+rule art_6_1_d with provenance "http://data.europa.eu/eli/reg/2016/679/art_6/par_1/pnt_d/oj",
+        confer "processing is necessary in order to protect the vital interests of the data subject or of another natural person":
+the processing of a party is lawful if
+    the party processes the data to protect a vital interest.
+
+rule art_6_1_e with provenance "http://data.europa.eu/eli/reg/2016/679/art_6/par_1/pnt_e/oj",
+        confer "processing is necessary for the performance of a task carried out in the public interest":
+the processing of a party is lawful if
+    the party processes the data for a task in the public interest.
+
+rule art_6_1_f with provenance "http://data.europa.eu/eli/reg/2016/679/art_6/par_1/pnt_f/oj",
+        confer "except where such interests are overridden by the interests or fundamental rights and freedoms of the data subject":
+the processing of a party is lawful if
+    the party processes the data for a legitimate interest
+    and it is not the case that
+        the interests of the data subject override the interest of the party.
+
+scenario six_controllers is:
+    shop is of the type controllers.
+    shop has the consent of the data subject.
+    insurer is of the type controllers.
+    insurer processes the data for a contract with the data subject.
+    bank is of the type controllers.
+    bank processes the data to comply with a legal obligation.
+    hospital is of the type controllers.
+    hospital processes the data to protect a vital interest.
+    registry is of the type controllers.
+    registry processes the data for a task in the public interest.
+    club is of the type controllers.
+    club processes the data for a legitimate interest.
+    lawful expects answers ["the processing of shop is lawful", "the processing of insurer is lawful", "the processing of bank is lawful", "the processing of hospital is lawful", "the processing of registry is lawful", "the processing of club is lawful"].
+    permitted expects answers ["shop is permitted that shop performs process personal data", "insurer is permitted that insurer performs process personal data", "bank is permitted that bank performs process personal data", "hospital is permitted that hospital performs process personal data", "registry is permitted that registry performs process personal data", "club is permitted that club performs process personal data"].
+
+scenario no_basis is:
+    broker is of the type controllers.
+    tracker is of the type controllers.
+    tracker processes the data for a legitimate interest.
+    the interests of the data subject override the interest of tracker.
+    broker expects answers ["the processing of broker is not lawful"].
+    tracker expects answers ["the processing of tracker is not lawful"].
+    permitted expects answers [].
+    conditions expects answers [].
+
+query lawful is:
+    the processing of which party is lawful.
+
+% The rule "only if" concludes the opposite, "is not lawful", for a party
+% that none of the six points covers: ask it of a named party (the
+% verifier's warning on the rule says why: the party is named only under
+% "it is not the case that").
+query broker is:
+    the processing of broker is not lawful.
+
+query tracker is:
+    the processing of tracker is not lawful.
+
+query addresses is:
+    which thing is identified by which address.
+
+query permitted is:
+    which party is permitted that which sentence.
+
+query conditions is:
+    the conditions of which rule hold for which party.

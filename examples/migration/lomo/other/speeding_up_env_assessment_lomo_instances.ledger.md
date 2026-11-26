@@ -84,13 +84,13 @@ A source element is **encoded** when a documented mapping rule translated it wit
 | http://data.europa.eu/leg/lomo/test#DataScheme | *a thing* is a concept scheme | encoded | 2 statements(2), one fact each | data scheme |  |
 | http://data.europa.eu/leg/lomo/test#ProcessScheme | *a thing* is a concept scheme | encoded | 2 statements(2), one fact each | process scheme |  |
 | http://data.europa.eu/leg/lomo/test#DigitalDimensionScheme | *a thing* is a concept scheme | encoded | 2 statements(2), one fact each | digital dimension scheme |  |
-| http://data.europa.eu/leg/lomo/test#Rule_Article3_SinglePointOfContact | *a thing* is a prescriptive rule | encoded | 16 statements(16), one fact each | item rule article 3 single point of contact |  |
-| http://data.europa.eu/leg/lomo/test#Rule_Article10_ElectronicSubmission | *a thing* is a prescriptive rule | encoded | 18 statements(18), one fact each | item rule article 10 electronic submission |  |
-| http://data.europa.eu/leg/lomo/test#Rule_Article10_OnlineInformationAccess | *a thing* is a prescriptive rule | encoded | 20 statements(20), one fact each | item rule article 10 online information access |  |
-| http://data.europa.eu/leg/lomo/test#Rule_Article10_DigitalPublication | *a thing* is a prescriptive rule | encoded | 16 statements(16), one fact each | item rule article 10 digital publication |  |
-| http://data.europa.eu/leg/lomo/test#Rule_Article10_FullDigitalization | *a thing* is a prescriptive rule | encoded | 21 statements(21), one fact each | item rule article 10 full digitalization |  |
-| http://data.europa.eu/leg/lomo/test#Rule_Article10_DisputeSettlementInfo | *a thing* is a prescriptive rule | encoded | 15 statements(15), one fact each | item rule article 10 dispute settlement info |  |
-| http://data.europa.eu/leg/lomo/test#Rule_Article12_ResourcesAndTraining | *a thing* is a prescriptive rule | encoded | 12 statements(12), one fact each | item rule article 12 resources training |  |
+| http://data.europa.eu/leg/lomo/test#Rule_Article3_SinglePointOfContact | *a thing* is a prescriptive rule | encoded | 16 statements(16), one fact each | norm article 3 single point of contact |  |
+| http://data.europa.eu/leg/lomo/test#Rule_Article10_ElectronicSubmission | *a thing* is a prescriptive rule | encoded | 18 statements(18), one fact each | norm article 10 electronic submission |  |
+| http://data.europa.eu/leg/lomo/test#Rule_Article10_OnlineInformationAccess | *a thing* is a prescriptive rule | encoded | 20 statements(20), one fact each | norm article 10 online information access |  |
+| http://data.europa.eu/leg/lomo/test#Rule_Article10_DigitalPublication | *a thing* is a prescriptive rule | encoded | 16 statements(16), one fact each | norm article 10 digital publication |  |
+| http://data.europa.eu/leg/lomo/test#Rule_Article10_FullDigitalization | *a thing* is a prescriptive rule | encoded | 21 statements(21), one fact each | norm article 10 full digitalization |  |
+| http://data.europa.eu/leg/lomo/test#Rule_Article10_DisputeSettlementInfo | *a thing* is a prescriptive rule | encoded | 15 statements(15), one fact each | norm article 10 dispute settlement info |  |
+| http://data.europa.eu/leg/lomo/test#Rule_Article12_ResourcesAndTraining | *a thing* is a prescriptive rule | encoded | 12 statements(12), one fact each | norm article 12 resources training |  |
 | http://data.europa.eu/leg/lomo/test#DigitalSolution_OnlinePortal | owl:NamedIndividual | encoded | 9 statements(9), one fact each | digital solution online portal |  |
 | http://data.europa.eu/leg/lomo/test#DigitalSolution_ElectronicSubmission | owl:NamedIndividual | encoded | 8 statements(8), one fact each | digital solution electronic submission |  |
 | http://data.europa.eu/leg/lomo/test#DigitalSolution_DigitalProcedures | owl:NamedIndividual | encoded | 9 statements(9), one fact each | digital solution digital procedures |  |

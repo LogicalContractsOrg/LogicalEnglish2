@@ -1,0 +1,153 @@
+% The register of a LOMO description: the Logical English twin of
+% finishedBy.ttl (kept in sources/), written by the LOMO translator.
+% One fact for each statement of the description, in the words of lomo.le.
+% LOMO describes rules; it has no conditions and no cases. A question
+% about a case gets its answer only from the parts of the description that
+% have values (deadlines, agents, derogations).
+%
+% LOMO and its data: (c) European Union, Creative Commons Attribution 4.0
+% (https://creativecommons.org/licenses/by/4.0/); source: the LOMO
+% repository, https://code.europa.eu/drpm/lomo. The description was changed
+% into Logical English by the LOMO translator of Logical English.
+%
+% DISCLAIMER. This program was written by a translator from a program of another
+% system. It is provided "as is", without warranty of any kind, express or
+% implied, including any warranty that it is accurate, complete or fit for a
+% particular purpose. The translation may be wrong: check it against its source
+% before relying on it. It is not legal, tax, insurance, financial or other
+% professional advice. Its authors accept no liability for any loss or damage
+% arising from its use.
+
+the target language is: prolog.
+
+the knowledge base finishedby includes these resources:
+    lomo.
+
+the knowledge base finishedby includes:
+
+the text of the source description is at "sources/finishedBy.ttl".
+
+% Who bears a duty: the agent of this role of the action (lomo.le).
+the bearer role is addresser.
+
+
+deadline submit report is identified by "http://example.org/Deadline_SubmitReport".
+
+deadline submit report is a temporal specification.
+
+deadline submit report has the instant 2025-12-31.
+
+deadline submit report has the function deadline.
+
+deadline submit report is finished by fiscal year 2025.
+
+
+fiscal year 2025 is identified by "http://example.org/FiscalYear2025".
+
+fiscal year 2025 is a temporal specification.
+
+fiscal year 2025 has the instant 2025-12-31.
+
+fiscal year 2025 has the label "End of Fiscal Year 2025".
+
+
+action submit report is identified by "http://example.org/Action_SubmitReport".
+
+action submit report is an action.
+
+action submit report has the time specification action submit report time.
+
+
+action submit report time is a temporal specification.
+
+action submit report time is finished by action review report.
+
+
+action review report is identified by "http://example.org/Action_ReviewReport".
+
+action review report is an action.
+
+action review report has the time specification action review report time.
+
+
+action review report time is a temporal specification.
+
+action review report time has the instant 2025-12-31.
+
+
+% The questions of LOMO's requirements document (its competency questions),
+% as far as a description can answer them.
+scenario calendar is, as stated in the source description:
+    % A case for the calendar: the events that a deadline counts from, and the rhythms that
+    % count from nothing else, start on 2027-01-01.
+    the calendar starts on 2027-01-01.
+    due_dates expects answers [].
+    due_in_2027 expects answers [].
+
+scenario the_links is, as stated in the source description:
+    times_within expects answers ["fiscal year 2025 is during deadline submit report", "action review report is during action submit report time"].
+    broken_links expects answers [].
+
+query parts is:
+    which thing is part of the description.
+
+query kinds is:
+    which thing is of the kind which kind.
+
+query bearer is:
+    the bearer role is which role.
+
+query prescriptive is:
+    which thing is a prescriptive rule.
+
+query constitutive is:
+    which thing is a constitutive rule.
+
+query deadlines is:
+    which thing has which temporal specification as deadline.
+
+query starting_points is:
+    which thing has which temporal specification as starting point.
+
+query validity is:
+    which thing has which temporal specification as validity.
+
+query instants is:
+    which temporal specification has the instant which date.
+
+query first_dates is:
+    the first date of which temporal specification is which date.
+
+query last_dates is:
+    the last date of which temporal specification is which date.
+
+query later_times is:
+    which temporal specification is later than which second temporal specification.
+
+query times_within is:
+    which temporal specification is during which second temporal specification.
+
+query broken_links is:
+    which temporal specification breaks its link with which second temporal specification.
+
+query due_dates is:
+    which agent has which action due on which date.
+
+query due_in_2027 is:
+    which agent has which action due on which date in the period from 2027-01-01 to 2027-12-31.
+
+query rules_without_conditions is:
+    which rule has no written conditions.
+
+query applies is:
+    which rule applies to which party.
+
+query must_perform is:
+    which party must perform which action by which date under which rule.
+
+query texts is:
+    which thing is described by the text which text.
+
+query addresses is:
+    which thing is identified by which address.
+

@@ -484,6 +484,9 @@ scenario description is, as stated in the source description:
     actions_of_rules expects answers ["description 1 produces item 1 action", "description 2 produces item 2 action", "description 3 produces item 3 action"].
     actions_of_agents expects answers ["economic operators acts as addressee in item 1 action", "economic operators acts as addressee in item 2 action", "economic operators acts as addressee in item 3 action", "european commission acts as addressee in item 1 action", "european commission acts as addressee in item 2 action", "european commission acts as addressee in item 3 action", "european commissionmember states acts as addressee in action 2", "national authorities acts as addressee in item 1 action", "national authorities acts as addressee in item 2 action", "national authorities acts as addressee in item 3 action", "vehicle manufacturers acts as addresser in action 2", "vehicle manufacturersgrid operatorsother economic operators acts as addressee in action 1", "vehicle manufacturersgrid operatorsother economic operators acts as addresser in action 1"].
 
+query parts is:
+    which thing is part of the description.
+
 query kinds is:
     which thing is of the kind which kind.
 
@@ -525,6 +528,12 @@ query actions_of_agents is:
 
 query concerned_agents is:
     which rule concerns which agent.
+
+query rules_without_conditions is:
+    which rule has no written conditions.
+
+query applies is:
+    which rule applies to which party.
 
 query results is:
     which action has the result which result.

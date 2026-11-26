@@ -32,17 +32,17 @@ A source element is **encoded** when a documented mapping rule translated it wit
 | http://data.europa.eu/leg/lomo/test#Agent_RegisteringAuthority | agent type | encoded | 3 statements(3), one fact each | agent registering authority |  |
 | http://data.europa.eu/leg/lomo/test#Agent_NationalCompetentAuthority | agent type | encoded | 3 statements(3), one fact each | agent national competent authority |  |
 | http://data.europa.eu/leg/lomo/test#Agent_DesignatingAuthority | agent type | encoded | 3 statements(3), one fact each | agent designating authority |  |
-| http://data.europa.eu/leg/lomo/test#Rule_Article26_CentralDatabase | *a thing* is a prescriptive rule | encoded | 16 statements(16), one fact each | item rule article 26 central database |  |
-| http://data.europa.eu/leg/lomo/test#Rule_Article4_ElectronicApplication | *a thing* is a prescriptive rule | encoded | 20 statements(20), one fact each | item rule article 4 electronic application |  |
-| http://data.europa.eu/leg/lomo/test#Rule_Article6_Notification | *a thing* is a prescriptive rule | encoded | 18 statements(18), one fact each | item rule article 6 notification |  |
-| http://data.europa.eu/leg/lomo/test#Rule_Article8_ChangesNotification | *a thing* is a prescriptive rule | encoded | 18 statements(18), one fact each | item rule article 8 changes notification |  |
-| http://data.europa.eu/leg/lomo/test#Rule_Article9_WithdrawalNotification | *a thing* is a prescriptive rule | encoded | 23 statements(23), one fact each | item rule article 9 withdrawal notification |  |
-| http://data.europa.eu/leg/lomo/test#Rule_Article10_CompetentAuthorityNotification | *a thing* is a prescriptive rule | encoded | 17 statements(17), one fact each | item rule article 10 competent authority notification |  |
-| http://data.europa.eu/leg/lomo/test#Rule_Article11_InformationExchange | *a thing* is a prescriptive rule | encoded | 30 statements(30), one fact each | item rule article 11 information exchange |  |
-| http://data.europa.eu/leg/lomo/test#Rule_Article13_RegistrationApplication | *a thing* is a prescriptive rule | encoded | 21 statements(21), one fact each | item rule article 13 registration application |  |
-| http://data.europa.eu/leg/lomo/test#Rule_Article15_RegistrationNotification | *a thing* is a prescriptive rule | encoded | 22 statements(22), one fact each | item rule article 15 registration notification |  |
-| http://data.europa.eu/leg/lomo/test#Rule_Article16_RegistrationWithdrawalNotification | *a thing* is a prescriptive rule | encoded | 23 statements(23), one fact each | item rule article 16 registration withdrawal notification |  |
-| http://data.europa.eu/leg/lomo/test#Rule_Article22_InsolvencyNotification | *a thing* is a prescriptive rule | encoded | 22 statements(22), one fact each | item rule article 22 insolvency notification |  |
+| http://data.europa.eu/leg/lomo/test#Rule_Article26_CentralDatabase | *a thing* is a prescriptive rule | encoded | 16 statements(16), one fact each | norm article 26 central database |  |
+| http://data.europa.eu/leg/lomo/test#Rule_Article4_ElectronicApplication | *a thing* is a prescriptive rule | encoded | 20 statements(20), one fact each | norm article 4 electronic application |  |
+| http://data.europa.eu/leg/lomo/test#Rule_Article6_Notification | *a thing* is a prescriptive rule | encoded | 18 statements(18), one fact each | norm article 6 notification |  |
+| http://data.europa.eu/leg/lomo/test#Rule_Article8_ChangesNotification | *a thing* is a prescriptive rule | encoded | 18 statements(18), one fact each | norm article 8 changes notification |  |
+| http://data.europa.eu/leg/lomo/test#Rule_Article9_WithdrawalNotification | *a thing* is a prescriptive rule | encoded | 23 statements(23), one fact each | norm article 9 withdrawal notification |  |
+| http://data.europa.eu/leg/lomo/test#Rule_Article10_CompetentAuthorityNotification | *a thing* is a prescriptive rule | encoded | 17 statements(17), one fact each | norm article 10 competent authority notification |  |
+| http://data.europa.eu/leg/lomo/test#Rule_Article11_InformationExchange | *a thing* is a prescriptive rule | encoded | 30 statements(30), one fact each | norm article 11 information exchange |  |
+| http://data.europa.eu/leg/lomo/test#Rule_Article13_RegistrationApplication | *a thing* is a prescriptive rule | encoded | 21 statements(21), one fact each | norm article 13 registration application |  |
+| http://data.europa.eu/leg/lomo/test#Rule_Article15_RegistrationNotification | *a thing* is a prescriptive rule | encoded | 22 statements(22), one fact each | norm article 15 registration notification |  |
+| http://data.europa.eu/leg/lomo/test#Rule_Article16_RegistrationWithdrawalNotification | *a thing* is a prescriptive rule | encoded | 23 statements(23), one fact each | norm article 16 registration withdrawal notification |  |
+| http://data.europa.eu/leg/lomo/test#Rule_Article22_InsolvencyNotification | *a thing* is a prescriptive rule | encoded | 22 statements(22), one fact each | norm article 22 insolvency notification |  |
 | http://data.europa.eu/leg/lomo/test#Action_ESMA_EstablishDatabase | action | encoded | 6 statements(6), one fact each | action esma establish database |  |
 | http://data.europa.eu/leg/lomo/test#Action_SystemOperator_SubmitApplication | action | encoded | 8 statements(8), one fact each | action system operator submit application |  |
 | http://data.europa.eu/leg/lomo/test#Result_ApplicationSubmission | action result | encoded | 6 statements(6), one fact each | result application submission |  |

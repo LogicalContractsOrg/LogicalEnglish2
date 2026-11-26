@@ -178,6 +178,7 @@ other_prop(cav,     resultsIn,     lomo_results_in,     "*an assessment* results
 other_prop(cav,     judgement,     lomo_judgement,      "*an assessment statement* has the judgement *a text*", text).
 other_prop(cav,     type,          lomo_statement_type, "*an assessment statement* has the statement type *a type*", address).
 other_prop(cav,     interpretation,lomo_interpretation, "*an assessment statement* has the interpretation *a text*", text).
+other_prop(time,    inXSDDate,     lomo_xsd_date,       "*a temporal specification* has the date *a date*", date).
 other_prop(m8g,     hasRelatedService, lomo_related_service, "*a thing* concerns the service *a service*", thing).
 
 %   ---- word lists -----------------------------------------------------
@@ -214,6 +215,8 @@ generic_template(resource,lomo_resource,  "*a thing* has for *a property* the re
 generic_template(iri,     lomo_iri,       "*a thing* is identified by *an address*").
 generic_template(datatype,lomo_datatype,  "the values of *a property* have the datatype *a datatype*").
 generic_template(plain,   lomo_plain,     "the texts of *a property* have no language").
+generic_template(value_datatype, lomo_value_datatype, "the value *a value* has the datatype *a datatype*").
+generic_template(value_plain,    lomo_value_plain,    "the text *a text* has no language").
 
 %   The datatype a literal of each kind is written with, on the way back.
 literal_datatype(date,     'http://www.w3.org/2001/XMLSchema#date').

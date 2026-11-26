@@ -1,0 +1,398 @@
+% The register of a LOMO description: the Logical English twin of
+% probe.ttl (kept in sources/), written by the LOMO translator.
+% One fact for each statement of the description, in the words of lomo.le.
+% LOMO describes rules; it has no conditions and no cases. A question
+% about a case gets its answer only from the parts of the description that
+% have values (deadlines, agents, derogations).
+%
+% LOMO and its data: (c) European Union, Creative Commons Attribution 4.0
+% (https://creativecommons.org/licenses/by/4.0/); source: the LOMO
+% repository, https://code.europa.eu/drpm/lomo. The description was changed
+% into Logical English by the LOMO translator of Logical English.
+%
+% DISCLAIMER. This program was written by a translator from a program of another
+% system. It is provided "as is", without warranty of any kind, express or
+% implied, including any warranty that it is accurate, complete or fit for a
+% particular purpose. The translation may be wrong: check it against its source
+% before relying on it. It is not legal, tax, insurance, financial or other
+% professional advice. Its authors accept no liability for any loss or damage
+% arising from its use.
+
+the target language is: prolog.
+
+the knowledge base probe includes these resources:
+    lomo.
+
+the knowledge base probe includes:
+
+the text of the source description is at "sources/probe.ttl".
+
+the text of "http://data.europa.eu/eli/dir/2013/34/art_30/par_1/oj" is at "sources/eli/dir_2013_34_art_30_par_1_oj.txt".
+
+the text of "http://data.europa.eu/eli/dir/2013/34/art_36/par_1/pnt_d/oj" is at "sources/eli/dir_2013_34_art_36_par_1_pnt_d_oj.txt".
+
+the text of "http://data.europa.eu/eli/reg/2016/679/art_33/par_1/oj" is at "sources/eli/reg_2016_679_art_33_par_1_oj.txt".
+
+% Who bears a duty: the agent of this role of the action (lomo.le).
+the bearer role is addresser.
+
+
+norm gdpr 33 is identified by "http://example.org/cases/probe#Norm_GDPR_33".
+
+norm gdpr 33 is a substantive rule.
+
+norm gdpr 33 has the label "GDPR Article 33(1): notification of a personal data breach".
+
+norm gdpr 33 has the modality obligation.
+
+norm gdpr 33 is established in "http://data.europa.eu/eli/reg/2016/679/art_33/par_1/oj".
+
+norm gdpr 33 has the legal text "In the case of a personal data breach, the controller shall without undue delay and, where feasible, not later than 72 hours after having become aware of it, notify the personal data breach to the supervisory authority competent in accordance with Article 55, unless the personal data breach is unlikely to result in a risk to the rights and freedoms of natural persons.".
+
+norm gdpr 33 produces notify the breach.
+
+
+notify the breach is identified by "http://example.org/cases/probe#NotifyTheBreach".
+
+notify the breach is an action.
+
+notify the breach has the label "notify the personal data breach to the supervisory authority".
+
+notify the breach has the agent role role controller.
+
+notify the breach has the agent role role authority.
+
+notify the breach has the time specification deadline 72 hours.
+
+
+role controller is identified by "http://example.org/cases/probe#Role_Controller".
+
+role controller is an agent role.
+
+role controller is for the agent controllers.
+
+role controller has the role addresser.
+
+
+role authority is identified by "http://example.org/cases/probe#Role_Authority".
+
+role authority is an agent role.
+
+role authority is for the agent supervisory authorities.
+
+role authority has the role addressee.
+
+
+deadline 72 hours is identified by "http://example.org/cases/probe#Deadline_72_Hours".
+
+deadline 72 hours is a temporal specification.
+
+deadline 72 hours has the function deadline.
+
+deadline 72 hours has the duration "PT72H".
+
+deadline 72 hours is timed immediately after awareness.
+
+
+awareness is identified by "http://example.org/cases/probe#Awareness".
+
+awareness is a temporal specification.
+
+awareness has the temporal label "awareness of a personal data breach".
+
+
+controllers is identified by "http://example.org/cases/probe#Controllers".
+
+controllers is an agent type.
+
+controllers has the label "Controllers".
+
+
+supervisory authorities is identified by "http://example.org/cases/probe#SupervisoryAuthorities".
+
+supervisory authorities is an agent type.
+
+supervisory authorities has the label "Supervisory authorities".
+
+
+norm accounts 30 is identified by "http://example.org/cases/probe#Norm_Accounts_30".
+
+norm accounts 30 is a substantive rule.
+
+norm accounts 30 has the label "Directive 2013/34/EU Article 30(1): publication of the financial statements".
+
+norm accounts 30 has the modality obligation.
+
+norm accounts 30 is established in "http://data.europa.eu/eli/dir/2013/34/art_30/par_1/oj".
+
+norm accounts 30 produces publish the statements.
+
+
+publish the statements is identified by "http://example.org/cases/probe#PublishTheStatements".
+
+publish the statements is an action.
+
+publish the statements has the label "publish the annual financial statements and the management report".
+
+publish the statements has the agent role role publisher.
+
+publish the statements has the time specification deadline 12 months.
+
+
+role publisher is identified by "http://example.org/cases/probe#Role_Publisher".
+
+role publisher is an agent role.
+
+role publisher is for the agent undertakings.
+
+role publisher has the role addresser.
+
+
+deadline 12 months is identified by "http://example.org/cases/probe#Deadline_12_Months".
+
+deadline 12 months is a temporal specification.
+
+deadline 12 months has the function deadline.
+
+deadline 12 months has the duration "P12M".
+
+deadline 12 months is timed after balance sheet date.
+
+
+balance sheet date is identified by "http://example.org/cases/probe#BalanceSheetDate".
+
+balance sheet date is a temporal specification.
+
+balance sheet date has the temporal label "balance sheet date".
+
+
+undertakings is identified by "http://example.org/cases/probe#Undertakings".
+
+undertakings is an agent type.
+
+undertakings has the label "Undertakings".
+
+
+norm micro 36 is identified by "http://example.org/cases/probe#Norm_Micro_36".
+
+norm micro 36 is a prescriptive rule.
+
+norm micro 36 has the label "Directive 2013/34/EU Article 36(1)(d): micro-undertakings exempt from publication".
+
+norm micro 36 has the modality permission.
+
+norm micro 36 is established in "http://data.europa.eu/eli/dir/2013/34/art_36/par_1/pnt_d/oj".
+
+norm micro 36 derogates from norm accounts 30.
+
+norm micro 36 produces skip the publication.
+
+
+skip the publication is identified by "http://example.org/cases/probe#SkipThePublication".
+
+skip the publication is an action.
+
+skip the publication has the label "file the balance sheet information with a competent authority instead".
+
+skip the publication has the agent role role micro.
+
+
+role micro is identified by "http://example.org/cases/probe#Role_Micro".
+
+role micro is an agent role.
+
+role micro is for the agent micro undertakings.
+
+role micro has the role addresser.
+
+
+micro undertakings is identified by "http://example.org/cases/probe#MicroUndertakings".
+
+micro undertakings is an agent type.
+
+micro undertakings has the label "Micro-undertakings".
+
+
+% The questions of LOMO's requirements document (its competency questions),
+% as far as a description can answer them.
+scenario calendar is, as stated in the source description:
+    % A case for the calendar: the events that a deadline counts from, and the rhythms that
+    % count from nothing else, start on 2027-01-01.
+    the calendar starts on 2027-01-01.
+    "awareness of a personal data breach" happens on 2027-01-01.
+    "balance sheet date" happens on 2027-01-01.
+    due_dates expects answers ["controllers has notify the breach due on 2027-01-04", "undertakings has publish the statements due on 2028-01-01"].
+    due_in_2027 expects answers ["controllers has notify the breach due on 2027-01-04 in the period from 2027-01-01 to 2027-12-31"].
+
+scenario description is, as stated in the source description:
+    modalities expects answers ["norm accounts 30 has the modality obligation", "norm gdpr 33 has the modality obligation", "norm micro 36 has the modality permission"].
+    actions_of_rules expects answers ["norm accounts 30 produces publish the statements", "norm gdpr 33 produces notify the breach", "norm micro 36 produces skip the publication"].
+    actions_of_agents expects answers ["controllers acts as addresser in notify the breach", "micro undertakings acts as addresser in skip the publication", "supervisory authorities acts as addressee in notify the breach", "undertakings acts as addresser in publish the statements"].
+
+scenario case_one is, as stated in the source description:
+    acme is of the type controllers.
+    acme is of the type undertakings.
+    tiny is of the type undertakings.
+    tiny is of the type micro undertakings.
+    "awareness of a personal data breach" happens to acme on 2026-03-01.
+    acme performs notify the breach on 2026-03-05.
+    "balance sheet date" happens to acme on 2025-12-31.
+    "balance sheet date" happens to tiny on 2025-12-31.
+    applies expects answers ["norm gdpr 33 applies to acme", "norm accounts 30 applies to acme", "norm micro 36 applies to tiny"].
+    set_aside expects answers ["norm accounts 30 is set aside for tiny by norm micro 36"].
+    must_perform expects answers ["acme must perform notify the breach by 2026-03-04 under norm gdpr 33", "acme must perform publish the statements by 2026-12-31 under norm accounts 30"].
+    late_on_1_april_2026 expects answers ["acme is late with notify the breach under norm gdpr 33 on 2026-04-01"].
+    permitted expects answers ["tiny is permitted that tiny performs skip the publication"].
+    violations expects answers ["the obligation of acme that acme performs publish the statements is violated"].
+    rules_without_conditions expects answers ["norm gdpr 33 has no written conditions", "norm accounts 30 has no written conditions", "norm micro 36 has no written conditions"].
+
+query parts is:
+    which thing is part of the description.
+
+query kinds is:
+    which thing is of the kind which kind.
+
+query bearer is:
+    the bearer role is which role.
+
+query rules_of_act is:
+    which rule is established by the act which act.
+
+query provisions is:
+    which thing is established in which provision.
+
+query places is:
+    which rule is laid down in which place.
+
+query legal_texts is:
+    which thing has the legal text which text.
+
+query joint_rules is:
+    which rule is established in more than one provision.
+
+query prescriptive is:
+    which thing is a prescriptive rule.
+
+query constitutive is:
+    which thing is a constitutive rule.
+
+query modalities is:
+    which rule has the modality which modality.
+
+query obligations is:
+    which rule has the modality obligation for which agent as which role.
+
+query prohibitions is:
+    which rule has the modality prohibition for which agent as which role.
+
+query permissions is:
+    which rule has the modality permission for which agent as which role.
+
+query rights is:
+    which rule has the modality right for which agent as which role.
+
+query triggers is:
+    which thing is triggered by which event.
+
+query actions_of_rules is:
+    which rule produces which action.
+
+query addressers is:
+    which agent acts as addresser in which action.
+
+query addressees is:
+    which agent acts as addressee in which action.
+
+query beneficiaries is:
+    which agent acts as beneficiary in which action.
+
+query agent_types is:
+    which thing is an agent type.
+
+query actions_of_agents is:
+    which agent acts as which role in which action.
+
+query concerned_agents is:
+    which rule concerns which agent.
+
+query deadlines is:
+    which thing has which temporal specification as deadline.
+
+query starting_points is:
+    which thing has which temporal specification as starting point.
+
+query validity is:
+    which thing has which temporal specification as validity.
+
+query durations is:
+    which temporal specification has the duration which duration.
+
+query timed_after is:
+    which temporal specification is timed after which second temporal specification.
+
+query timed_immediately_after is:
+    which temporal specification is timed immediately after which second temporal specification.
+
+query first_dates is:
+    the first date of which temporal specification is which date.
+
+query last_dates is:
+    the last date of which temporal specification is which date.
+
+query later_times is:
+    which temporal specification is later than which second temporal specification.
+
+query times_within is:
+    which temporal specification is during which second temporal specification.
+
+query broken_links is:
+    which temporal specification breaks its link with which second temporal specification.
+
+query due_dates is:
+    which agent has which action due on which date.
+
+query due_in_2027 is:
+    which agent has which action due on which date in the period from 2027-01-01 to 2027-12-31.
+
+query hours_as_days is:
+    which temporal specification has a length of time that counts hours as whole days.
+
+query rules_without_conditions is:
+    which rule has no written conditions.
+
+query applies is:
+    which rule applies to which party.
+
+query set_aside is:
+    which rule is set aside for which party by which second rule.
+
+query must_perform is:
+    which party must perform which action by which date under which rule.
+
+query obliged is:
+    which party is obliged that which sentence.
+
+query permitted is:
+    which party is permitted that which sentence.
+
+query forbidden is:
+    which party is forbidden that which sentence.
+
+query holders_of_rights is:
+    which party has the right that which sentence.
+
+query violations is:
+    the obligation of which party that which sentence is violated.
+
+query derogations is:
+    which rule is a derogation from which second rule.
+
+query texts is:
+    which thing is described by the text which text.
+
+query addresses is:
+    which thing is identified by which address.
+
+query late_on_1_april_2026 is:
+    which party is late with which action under which rule on 2026-04-01.
+

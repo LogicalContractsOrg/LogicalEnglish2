@@ -1,0 +1,44 @@
+# The Turtle example of lomo:hasFunction in the specification of LOMO 1.1.0
+# (https://drpm.pages.code.europa.eu/lomo/latest/#hasFunction), with the prefixes it uses.
+@prefix ex: <http://example.org/> .
+@prefix lomo: <http://data.europa.eu/leg/lomo#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix dctype: <http://purl.org/dc/dcmitype/> .
+@prefix cpsv: <http://purl.org/vocab/cpsv#> .
+@prefix eli: <http://data.europa.eu/eli/ontology#> .
+@prefix tf: <http://data.europa.eu/leg/temporal-function/> .
+@prefix dm: <http://data.europa.eu/leg/deontic-modality/> .
+@prefix dd: <http://data.europa.eu/leg/digital-dimensions/> .
+@prefix rc: <http://data.europa.eu/leg/result-category/> .
+@prefix role: <http://publications.europa.eu/resource/authority/role/> .
+
+
+# Example 1: Deadline for an action
+ex:Action_SubmitReport a lomo:Action ;
+    lomo:atTime [
+        a lomo:TemporalSpecification ;
+        lomo:instant "2025-12-31"^^xsd:date ;
+        lomo:hasFunction <http://data.europa.eu/leg/temporal-function/deadline> ;
+    ] .
+
+# Example 2: Validity period for a rule
+ex:Rule_TemporaryMeasure a lomo:PrescriptiveRule ;
+    lomo:atTime [
+        a lomo:TemporalSpecification ;
+        lomo:duration "P6M"^^xsd:duration ;
+        lomo:hasFunction <http://data.europa.eu/leg/temporal-function/validity> ;
+    ] .
+
+# Example 3: Trigger for a rule
+ex:Rule_DataBreachNotification a lomo:PrescriptiveRule ;
+    lomo:atTime [
+        a lomo:TemporalSpecification ;
+        lomo:temporalLabel "personal data breach"@en ;
+        lomo:hasFunction <http://data.europa.eu/leg/temporal-function/trigger> ;
+    ] .

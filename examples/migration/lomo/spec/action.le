@@ -1,0 +1,106 @@
+% The register of a LOMO description: the Logical English twin of
+% Action.ttl (kept in sources/), written by the LOMO translator.
+% One fact for each statement of the description, in the words of lomo.le.
+% LOMO describes rules; it has no conditions and no cases. A question
+% about a case gets its answer only from the parts of the description that
+% have values (deadlines, agents, derogations).
+%
+% LOMO and its data: (c) European Union, Creative Commons Attribution 4.0
+% (https://creativecommons.org/licenses/by/4.0/); source: the LOMO
+% repository, https://code.europa.eu/drpm/lomo. The description was changed
+% into Logical English by the LOMO translator of Logical English.
+%
+% DISCLAIMER. This program was written by a translator from a program of another
+% system. It is provided "as is", without warranty of any kind, express or
+% implied, including any warranty that it is accurate, complete or fit for a
+% particular purpose. The translation may be wrong: check it against its source
+% before relying on it. It is not legal, tax, insurance, financial or other
+% professional advice. Its authors accept no liability for any loss or damage
+% arising from its use.
+
+the target language is: prolog.
+
+the knowledge base action includes these resources:
+    lomo.
+
+the knowledge base action includes:
+
+the text of the source description is at "sources/Action.ttl".
+
+% Who bears a duty: the agent of this role of the action (lomo.le).
+the bearer role is addresser.
+
+
+action publish report is identified by "http://example.org/Action_PublishReport".
+
+action publish report is an action.
+
+action publish report has the comment "The Commission publishes the annual interoperability report".
+
+action publish report has the agent role agent role commission publisher.
+
+action publish report has the result result annual report 2025 interoperability.
+
+
+agent role commission publisher is identified by "http://example.org/AgentRole_Commission_Publisher".
+
+agent role commission publisher is an agent role.
+
+agent role commission publisher is for the agent commission.
+
+agent role commission publisher has the role addresser.
+
+
+% Things the description names but does not describe: their addresses.
+result annual report 2025 interoperability is identified by "http://example.org/Result_AnnualReport2025_Interoperability".
+
+commission is identified by "http://example.org/Commission".
+
+
+% The questions of LOMO's requirements document (its competency questions),
+% as far as a description can answer them.
+scenario description is, as stated in the source description:
+    actions_of_agents expects answers ["commission acts as addresser in action publish report"].
+
+query parts is:
+    which thing is part of the description.
+
+query kinds is:
+    which thing is of the kind which kind.
+
+query bearer is:
+    the bearer role is which role.
+
+query prescriptive is:
+    which thing is a prescriptive rule.
+
+query constitutive is:
+    which thing is a constitutive rule.
+
+query addressers is:
+    which agent acts as addresser in which action.
+
+query addressees is:
+    which agent acts as addressee in which action.
+
+query beneficiaries is:
+    which agent acts as beneficiary in which action.
+
+query actions_of_agents is:
+    which agent acts as which role in which action.
+
+query rules_without_conditions is:
+    which rule has no written conditions.
+
+query applies is:
+    which rule applies to which party.
+
+query results is:
+    which action has the result which result.
+
+query texts is:
+    which thing is described by the text which text.
+
+query addresses is:
+    which thing is identified by which address.
+

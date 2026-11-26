@@ -96,7 +96,7 @@ judge_files(Fs, D) :-
 run_judge(Out, Fs) :-
     python(P), here(H), corpus_dir(C),
     atomic_list_concat([H, '/oracle/sparql_judge.py'], Script),
-    process_create(P, [Script, Out, C|Fs], [process(Pid)]),
+    process_create(P, [Script, Out, C|Fs], [process(Pid), stderr(null)]),
     process_wait(Pid, exit(0)).
 
 %   ---- Logical English queries on a register ---------------------------
@@ -327,9 +327,8 @@ cell(C, G, V0, V) :-
 blank_keys(row([K|Vs]), row([K1|Vs])) :- ( blank_id(K) -> K1 = "_:" ; K1 = K ).
 
 blank_id(K) :- string(K), sub_string(K, 0, 2, _, "_:"), !.
-blank_id(K) :-                                   % rdflib: N and 32 hexadecimal digits
-    string(K), string_length(K, 33), sub_string(K, 0, 1, _, "N"),
-    sub_string(K, 1, _, 0, H), string_codes(H, Cs), forall(member(C, Cs), code_type(C, xdigit(_))).
+blank_id(K) :-                                   % rdflib's own ids (N..., n...b1): no scheme
+    string(K), K \== "", \+ sub_string(K, _, _, _, ":").
 
 same_rows(Q, Judge0, Ours0, Missing, Extra) :-
     maplist(blank_keys, Judge0, Judge1), msort(Judge1, Judge),
@@ -407,9 +406,10 @@ gate_tests(TTL, Tests) :-
     (   catch(judge_rows(TTL, PerQuery), _, fail)
     ->  read_lomo(TTL, lomo(_, Nodes, _)),
         findall(E, gate_expectation(PerQuery, Nodes, E), Es),
-        (   Es == [] -> Tests = []
-        ;   Tests = [test(description, 'the source description', none, [], Es)]
-        )
+        (   Es == [] -> Tests1 = []
+        ;   Tests1 = [test(description, 'the source description', none, [], Es)]
+        ),
+        (   calendar_test(PerQuery, Nodes, CT) -> Tests = [CT|Tests1] ; Tests = Tests1 )
     ;   Tests = []
     ).
 
@@ -422,6 +422,30 @@ gate_expectation(PQ, Nodes, expects(actions_of_rules, Answers)) :-
 gate_expectation(PQ, Nodes, expects(actions_of_agents, Answers)) :-
     expect_rows(PQ, 'x-agents-in-roles', [agent, role, action], Nodes, Rows),
     findall(lomo_acts_as(G, Ro, A), member([G, Ro, A], Rows), Answers).
+
+%   The calendar of step 3, for a description with a deadline that has a
+%   value: every event that a deadline counts from, and the start of every
+%   rhythm that counts from nothing else, on 2027-01-01; the expected due
+%   dates are those of the judge's own calendar (sparql_judge.py), which
+%   does its date arithmetic without Logical English.
+calendar_test(PQ, Nodes, test(calendar, 'the source description', none, Facts, Es)) :-
+    get_dict('x-deadline-values', PQ, DV), DV \== [],
+    get_dict('x-happened', PQ, H),
+    findall(lomo_happens_on(L, date(2027, 1, 1)), ( member(X, H), get_dict(event, X, L) ), HFs),
+    Facts = [comment("A case for the calendar: the events that a deadline counts from, and the rhythms that\ncount from nothing else, start on 2027-01-01."),
+             lomo_calendar_starts(date(2027, 1, 1))|HFs],
+    findall(expects(Q, As),
+            ( member(Q-K, [due_dates-'x-due', due_in_2027-'x-due-2027']),
+              get_dict(K, PQ, Rows0),
+              findall([G, A, Dt], ( member(D, Rows0), named(D, Nodes, agent, G), named(D, Nodes, action, A),
+                                   get_dict(date, D, DS), date_of(DS, Dt) ), Rows1),
+              length(Rows0, N), length(Rows1, N),
+              sort(Rows1, Rows),
+              findall(Lit, ( member([G, A, Dt], Rows),
+                             ( Q == due_dates -> Lit = lomo_due(G, A, Dt) ; Lit = lomo_due_in(G, A, Dt, date(2027, 1, 1), date(2027, 12, 31)) ) ), As) ),
+            Es).
+
+date_of(S, date(Y, M, D)) :- split_string(S, "-", "", [YS, MS, DS]), number_string(Y, YS), number_string(M, MS), number_string(D, DS).
 
 expect_rows(PQ, Q, Cols, Nodes, Rows) :-
     get_dict(Q, PQ, Rows0), Rows0 \== [],
@@ -444,9 +468,7 @@ shacl_cache(F) :- here(D), atomic_list_concat([D, '/oracle/cache/shacl.json'], F
 %   descriptions broken on purpose (corpus/broken/).
 shacl_files(Fs) :-
     findall(F, lomo_file(_, F), Fs1),
-    here(D), atomic_list_concat([D, '/corpus/spec-examples'], SD),
-    directory_files(SD, Ns0), msort(Ns0, Ns),
-    findall(F, ( member(N, Ns), file_name_extension(_, ttl, N), atomic_list_concat([SD, '/', N], F) ), Fs2),
+    here(D), Fs2 = [],
     atomic_list_concat([D, '/corpus/broken'], BD),
     directory_files(BD, Bs0), msort(Bs0, Bs),
     findall(F, ( member(N, Bs), file_name_extension(_, ttl, N), atomic_list_concat([BD, '/', N], F) ), Fs3),

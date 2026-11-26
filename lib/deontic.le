@@ -14,6 +14,12 @@
 % reparation, a penalty) is the program's own rule, concluding a new
 % obligation from the violation.
 %
+% A right is a permission of its holder and, where the right binds another
+% party, an obligation of that party (the correlative duty): the right of a
+% data subject that the controller gives access is the controller's
+% obligation that the controller gives access. A program says whom a right
+% binds; the obligation then follows, with its violation and compliance.
+%
 % The timeless reading: who is obliged, permitted, forbidden, and what is
 % violated in a case. Deadlines and the life of an obligation over time are
 % LE for LPS, where an obligation is a fluent its trigger initiates and its
@@ -27,6 +33,8 @@ the templates are:
     the prohibition of *a party* that *a sentence* is violated.
     *a party* complies with the obligation that *a sentence*.
     *a party* is in breach.
+    *a party* has the right that *a sentence*.
+    the right of *a party* that *a sentence* binds *a second party*.
 
 the knowledge base deontic includes:
 
@@ -48,3 +56,10 @@ a party is in breach if
 
 a party is in breach if
     the prohibition of the party that a sentence is violated.
+
+a party is permitted that a sentence if
+    the party has the right that the sentence.
+
+a second party is obliged that a sentence if
+    a party has the right that the sentence
+    and the right of the party that the sentence binds the second party.

@@ -16,6 +16,19 @@
 % carries no Prolog text: no embedded `prolog` goals (language.md §15.6),
 % only sentences.
 %
+% Lengths of time written the ISO 8601 way (the standard form: P1Y, P12M,
+% P20D, P1W, P4Y1D, PT72H), as LOMO and other European data write them:
+%
+%     the due date is the period "P12M" after the balance sheet date
+%     the occurrence 3 of every "P1M" after 2026-01-31 is 2026-04-30
+%     a date is a date of every "P1W" from 2027-01-01 in the period from 2027-03-01 to 2027-03-31
+%
+% A date in LE is a day: hours, minutes and seconds count as whole days,
+% rounded up ("PT72H" is 3 days). `*a duration* counts hours as whole days`
+% says when that happened, for an explanation to show it. A date without its
+% year ("30 September", "September 30th"): `the day "30 September" in the
+% year 2027 is 2027-09-30`.
+%
 % What is NOT here: Oracle Intelligent Advisor's change-point semantics
 % (attributes as step functions recomputed over time). A rulebase that leans
 % on them is marked "approximated" in its migration ledger.
@@ -43,6 +56,8 @@ the functions are:
     the year of *a date* is *a number*.
     the month of *a date* is *a number*.
     the weekday of *a date* is *a number*.
+    the occurrence *a number* of every *a duration* after *a date* is *a later date*.
+    the day *a text* in the year *a number* is *a date*.
 
 the templates are:
     *a later date* is *a number* years after *a date*.
@@ -55,6 +70,11 @@ the templates are:
     the lock time *a number* is a block height.
     the lock time *a number* is a time.
     block *a height* is at least *a number* blocks after block *a first height*.
+    *a later date* is the period *a duration* after *a date*.
+    *an earlier date* is the period *a duration* before *a date*.
+    *a duration* is a length of time in the standard form.
+    *a duration* counts hours as whole days.
+    *a date* is a date of every *a duration* from *a start date* in the period from *a first date* to *a last date*.
 
 the knowledge base temporal includes:
 

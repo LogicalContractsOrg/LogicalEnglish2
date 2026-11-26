@@ -1,0 +1,42 @@
+# The Turtle example of lomo:ActionResultType in the specification of LOMO 1.1.0
+# (https://drpm.pages.code.europa.eu/lomo/latest/#ActionResultType), with the prefixes it uses.
+@prefix ex: <http://example.org/> .
+@prefix lomo: <http://data.europa.eu/leg/lomo#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix dctype: <http://purl.org/dc/dcmitype/> .
+@prefix cpsv: <http://purl.org/vocab/cpsv#> .
+@prefix eli: <http://data.europa.eu/eli/ontology#> .
+@prefix tf: <http://data.europa.eu/leg/temporal-function/> .
+@prefix dm: <http://data.europa.eu/leg/deontic-modality/> .
+@prefix dd: <http://data.europa.eu/leg/digital-dimensions/> .
+@prefix rc: <http://data.europa.eu/leg/result-category/> .
+@prefix role: <http://publications.europa.eu/resource/authority/role/> .
+
+# Example 1: Annual interoperability report
+ex:ResultType_AnnualInteroperabilityReport rdf:type lomo:ActionResultType ;
+    rdfs:label "Annual report on interoperability in the Union"@en ;
+    rdfs:comment "A recurring report produced annually to assess interoperability progress in the European Union"@en .
+
+# Example 2: Certificate from Regulation (EU) 2018/848 Article 35(1)
+ex:ResultType_Certificate rdf:type lomo:ActionResultType ;
+    rdfs:label "Certificate of activity"@en ;
+    rdfs:comment "A certificate provided by the competent authorities to any operator or group of operators that has notified its activity in accordance with Article 34(1) and complies with the Regulation (EU) 2018/848."@en ;
+    lomo:establishedIn <http://data.europa.eu/eli/reg/2018/848/oj/eng#art_35> .
+
+# Example 3: Label from Directive 2009/48 Article 4(5)
+ex:ResultType_LabelOfIdentification rdf:type lomo:ActionResultType ;
+    rdfs:label "Label of Identification"@en ;
+    rdfs:comment "A label affixed on a toy containing a type, batch, serial or model number or other element allowing their identification"@en ;
+    lomo:establishedIn <http://data.europa.eu/eli/dir/2009/48/oj/eng#art_4> .
+
+# Example 4: Formal Expert Group from Regulation (EU) 2019/516 Article 4
+ex:ResultType_FormalExpertGroup rdf:type lomo:ActionResultType ;
+    rdfs:label "Formal Expert Group"@en ;
+    rdfs:comment "A formal expert group, composed of representatives of all the Member States and chaired by a representative of the Commission, to advise the Commission."@en ;
+    lomo:establishedIn <http://data.europa.eu/eli/reg/2019/516/oj/art_4> .
