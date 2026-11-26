@@ -1,0 +1,370 @@
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix dctype: <http://purl.org/dc/dcmitype/> .
+@prefix dd: <http://data.europa.eu/leg/digital-dimensions/> .
+@prefix lomo: <http://data.europa.eu/leg/lomo#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix tf: <http://data.europa.eu/leg/temporal-function/> .
+@prefix y6k: <http://data.europa.eu/y6k/> .
+
+<http://example.org/analysis/description/1> a lomo:LegalRule ;
+    rdfs:label "Article 15"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/504/cod/doc/com/COM_2026_504/FINAL/eng/art_15> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/application> ;
+    lomo:produces <http://example.org/analysis/action/1>,
+        <http://example.org/analysis/description/1/action> ;
+    lomo:references <http://example.org/dataset/data-in-the-context-of-the-application-for-status-of-a-european-semiconductor-technology-initiative> ;
+    dcterms:description "Application for the status as European semiconductor technology initiative"@en .
+
+<http://example.org/analysis/description/2> a lomo:LegalRule ;
+    rdfs:label "Article 22"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/504/cod/doc/com/COM_2026_504/FINAL/eng/art_22> ;
+    lomo:hasCategory dd:Data,
+        dd:ProcessAutomation ;
+    lomo:involvesProcess <http://example.org/process/permit-granting> ;
+    lomo:produces <http://example.org/analysis/action/2>,
+        <http://example.org/analysis/description/2/action> ;
+    lomo:references <http://example.org/dataset/permit-granting-applications> ;
+    dcterms:description "Member States shall establish a single permit-granting procedure based on a single application covering all permits required for European semiconductor technology initiatives and strategic projects"@en .
+
+<http://example.org/analysis/description/3> a lomo:LegalRule ;
+    rdfs:label "Article 24"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/504/cod/doc/com/COM_2026_504/FINAL/eng/art_24> ;
+    lomo:hasCategory dd:ProcessAutomation ;
+    lomo:involvesProcess <http://example.org/process/permit-granting> ;
+    lomo:produces <http://example.org/analysis/description/3/action> ;
+    dcterms:description "Member States shall set up a single access poirtal at national level, , for the submission of the single permit application for European semiconductor technology facilities and strategic projects"@en .
+
+<http://example.org/analysis/description/4> a lomo:LegalRule ;
+    rdfs:label "Article 33"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/504/cod/doc/com/COM_2026_504/FINAL/eng/art_33> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/monitoring> ;
+    lomo:produces <http://example.org/analysis/action/3>,
+        <http://example.org/analysis/description/4/action> ;
+    lomo:references <http://example.org/dataset/data-needed-for-a-strategic-mapping-of-the-unions-semiconductor-sector> ;
+    dcterms:description "Strategic mapping of the Union’s semiconductor sector"@en .
+
+<http://example.org/analysis/description/5> a lomo:LegalRule ;
+    rdfs:label "Article 34"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/504/cod/doc/com/COM_2026_504/FINAL/eng/art_34> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/data-sharing> ;
+    lomo:produces <http://example.org/analysis/action/4>,
+        <http://example.org/analysis/description/5/action> ;
+    lomo:references <http://example.org/dataset/data-in-the-context-of-the-business-to-business-semiconductor-supply-chain-platform> ;
+    dcterms:description "Set up of the Business-to-Business Semiconductor Supply Chain Platform"@en .
+
+<http://example.org/analysis/description/6> a lomo:LegalRule ;
+    rdfs:label "Article 35"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/504/cod/doc/com/COM_2026_504/FINAL/eng/art_35> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/monitoring> ;
+    lomo:produces <http://example.org/analysis/action/5>,
+        <http://example.org/analysis/description/6/action> ;
+    lomo:references <http://example.org/dataset/data-needed-for-the-monitoring-of-the-semiconductor-value-chain> ;
+    dcterms:description "The Commission, in consultation with the European Semiconductors Board shall carry out regular monitoring of the semiconductor value chain with a view to identifying factors that may disrupt, compromise or negatively affect the supply of semiconductors or trade in semiconductors"@en .
+
+<http://example.org/analysis/description/7> a lomo:LegalRule ;
+    rdfs:label "Article 38"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/504/cod/doc/com/COM_2026_504/FINAL/eng/art_38> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess y6k:c_422e961c ;
+    lomo:produces <http://example.org/analysis/action/6>,
+        <http://example.org/analysis/description/7/action> ;
+    lomo:references <http://example.org/dataset/preventive-information-gathering> ;
+    dcterms:description "Preventive information gathering"@en .
+
+<http://example.org/analysis/description/8> a lomo:LegalRule ;
+    rdfs:label "Article 41"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/504/cod/doc/com/COM_2026_504/FINAL/eng/art_41> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess y6k:c_422e961c ;
+    lomo:produces <http://example.org/analysis/action/7>,
+        <http://example.org/analysis/description/8/action> ;
+    lomo:references <http://example.org/dataset/information-gathering-in-the-crisis-stage> ;
+    dcterms:description "Information gathering in the crisis stage"@en .
+
+<http://example.org/analysis/solution/1> a dctype:Software ;
+    rdfs:label "Digital Permitting System"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/504/cod/doc/com/COM_2026_504/FINAL/eng/art_22> ;
+    lomo:hasCapability "Permit-granting procedures are carried out through fully digital means.The system shall provide a single user interface enabling interaction with the relevant public services.The digital permitting system shall enable the paperless submission, tracking, and decision-making of permit applications." ;
+    dcterms:publisher <http://example.org/agent/member-statesnational-competent-authorities> ;
+    dcterms:title "Digital Permitting System"@en .
+
+<http://example.org/analysis/solution/2> a dctype:Software ;
+    rdfs:label "Business-to-Business Semiconductor Supply Chain Platform"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/504/cod/doc/com/COM_2026_504/FINAL/eng/art_34> ;
+    lomo:hasCapability "The Platform should gather data from participating undertakings to increase transparency and resilience of the semi–conductor supply chain" ;
+    dcterms:publisher <http://example.org/agent/private-operators> ;
+    dcterms:title "Business-to-Business Semiconductor Supply Chain Platform"@en .
+
+<http://example.org/analysis/action/1> a lomo:Action ;
+    rdfs:label "Data in the context of the application for status of a European semiconductor technology initiative"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/504/cod/doc/com/COM_2026_504/FINAL/eng/art_15> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/1/role/addressee-european-commission>,
+        <http://example.org/analysis/action/1/role/addresser-industry> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Data in the context of the application for status of a European semiconductor technology initiative"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/data-in-the-context-of-the-application-for-status-of-a-european-semiconductor-technology-initiative> ] .
+
+<http://example.org/analysis/action/1/role/addressee-european-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/european-commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/1/role/addresser-industry> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/industry> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/2> a lomo:Action ;
+    rdfs:label "Permit-granting applications"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/504/cod/doc/com/COM_2026_504/FINAL/eng/art_22> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/2/role/addressee-member-states>,
+        <http://example.org/analysis/action/2/role/addresser-industry> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Permit-granting applications"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/permit-granting-applications> ] .
+
+<http://example.org/analysis/action/2/role/addressee-member-states> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/2/role/addresser-industry> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/industry> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/3> a lomo:Action ;
+    rdfs:label "Data needed for a strategic mapping of the Union’s semiconductor sector"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/504/cod/doc/com/COM_2026_504/FINAL/eng/art_33> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/3/role/addressee-european-commission>,
+        <http://example.org/analysis/action/3/role/addresser-industry> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Data needed for a strategic mapping of the Union’s semiconductor sector"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/data-needed-for-a-strategic-mapping-of-the-unions-semiconductor-sector> ] .
+
+<http://example.org/analysis/action/3/role/addressee-european-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/european-commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/3/role/addresser-industry> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/industry> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/4> a lomo:Action ;
+    rdfs:label "Data in the context of the Business-to-Business Semiconductor Supply Chain Platform"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/504/cod/doc/com/COM_2026_504/FINAL/eng/art_34> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/4/role/addressee-european-commission>,
+        <http://example.org/analysis/action/4/role/addresser-industry> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Data in the context of the Business-to-Business Semiconductor Supply Chain Platform"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/data-in-the-context-of-the-business-to-business-semiconductor-supply-chain-platform> ] .
+
+<http://example.org/analysis/action/4/role/addressee-european-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/european-commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/4/role/addresser-industry> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/industry> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/5> a lomo:Action ;
+    rdfs:label "Data needed for the monitoring of the semiconductor value chain"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/504/cod/doc/com/COM_2026_504/FINAL/eng/art_35> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/5/role/addressee-european-commission>,
+        <http://example.org/analysis/action/5/role/addresser-industry> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Data needed for the monitoring of the semiconductor value chain"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/data-needed-for-the-monitoring-of-the-semiconductor-value-chain> ] .
+
+<http://example.org/analysis/action/5/role/addressee-european-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/european-commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/5/role/addresser-industry> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/industry> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/6> a lomo:Action ;
+    rdfs:label "Preventive information gathering"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Pre-Crisis stage"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/504/cod/doc/com/COM_2026_504/FINAL/eng/art_38> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/6/role/addressee-european-commission>,
+        <http://example.org/analysis/action/6/role/addresser-industry> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Preventive information gathering"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/preventive-information-gathering> ] .
+
+<http://example.org/analysis/action/6/role/addressee-european-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/european-commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/6/role/addresser-industry> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/industry> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/7> a lomo:Action ;
+    rdfs:label "Information gathering in the crisis stage"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Crisis stage"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/504/cod/doc/com/COM_2026_504/FINAL/eng/art_41> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/7/role/addressee-european-commission>,
+        <http://example.org/analysis/action/7/role/addresser-industry> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Information gathering in the crisis stage"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/information-gathering-in-the-crisis-stage> ] .
+
+<http://example.org/analysis/action/7/role/addressee-european-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/european-commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/7/role/addresser-industry> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/industry> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/description/1/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/1/action/role/addressee-european-commission> .
+
+<http://example.org/analysis/description/1/action/role/addressee-european-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/european-commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/2/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/2/action/role/addressee-member-states>,
+        <http://example.org/analysis/description/2/action/role/addressee-national-competent-authorities> .
+
+<http://example.org/analysis/description/2/action/role/addressee-member-states> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/2/action/role/addressee-national-competent-authorities> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/national-competent-authorities> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/3/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/3/action/role/addressee-member-states>,
+        <http://example.org/analysis/description/3/action/role/addressee-national-competent-authorities> .
+
+<http://example.org/analysis/description/3/action/role/addressee-member-states> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/3/action/role/addressee-national-competent-authorities> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/national-competent-authorities> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/4/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/4/action/role/addressee-european-commission> .
+
+<http://example.org/analysis/description/4/action/role/addressee-european-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/european-commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/5/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/5/action/role/addressee-private-operators> .
+
+<http://example.org/analysis/description/5/action/role/addressee-private-operators> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/private-operators> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/6/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/6/action/role/addressee-european-commission> .
+
+<http://example.org/analysis/description/6/action/role/addressee-european-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/european-commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/7/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/7/action/role/addressee-european-commission> .
+
+<http://example.org/analysis/description/7/action/role/addressee-european-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/european-commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/8/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/8/action/role/addressee-european-commission> .
+
+<http://example.org/analysis/description/8/action/role/addressee-european-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/european-commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/process/application> skos:prefLabel "Application"@en .
+
+<http://example.org/process/data-sharing> skos:prefLabel "Data sharing"@en .
+
+y6k:c_422e961c skos:prefLabel "Reporting"@en .
+
+<http://example.org/agent/national-competent-authorities> rdfs:label "National competent authorities"@en .
+
+<http://example.org/agent/private-operators> rdfs:label "Private operators"@en .
+
+<http://example.org/dataset/data-in-the-context-of-the-application-for-status-of-a-european-semiconductor-technology-initiative> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/504/cod/doc/com/COM_2026_504/FINAL/eng/art_15> ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Data in the context of the application for status of a European semiconductor technology initiative"@en ] ;
+    dcterms:title "Data in the context of the application for status of a European semiconductor technology initiative"@en .
+
+<http://example.org/dataset/data-in-the-context-of-the-business-to-business-semiconductor-supply-chain-platform> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/504/cod/doc/com/COM_2026_504/FINAL/eng/art_34> ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Data in the context of the Business-to-Business Semiconductor Supply Chain Platform"@en ] ;
+    dcterms:title "Data in the context of the Business-to-Business Semiconductor Supply Chain Platform"@en .
+
+<http://example.org/dataset/data-needed-for-a-strategic-mapping-of-the-unions-semiconductor-sector> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/504/cod/doc/com/COM_2026_504/FINAL/eng/art_33> ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Data needed for a strategic mapping of the Union’s semiconductor sector"@en ] ;
+    dcterms:title "Data needed for a strategic mapping of the Union’s semiconductor sector"@en .
+
+<http://example.org/dataset/data-needed-for-the-monitoring-of-the-semiconductor-value-chain> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/504/cod/doc/com/COM_2026_504/FINAL/eng/art_35> ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Data needed for the monitoring of the semiconductor value chain"@en ] ;
+    dcterms:title "Data needed for the monitoring of the semiconductor value chain"@en .
+
+<http://example.org/dataset/information-gathering-in-the-crisis-stage> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/504/cod/doc/com/COM_2026_504/FINAL/eng/art_41> ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Information gathering in the crisis stage"@en ] ;
+    dcterms:title "Information gathering in the crisis stage"@en .
+
+<http://example.org/dataset/permit-granting-applications> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/504/cod/doc/com/COM_2026_504/FINAL/eng/art_22> ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Permit-granting applications"@en ] ;
+    dcterms:title "Permit-granting applications"@en .
+
+<http://example.org/dataset/preventive-information-gathering> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/504/cod/doc/com/COM_2026_504/FINAL/eng/art_38> ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Preventive information gathering"@en ] ;
+    dcterms:title "Preventive information gathering"@en .
+
+<http://example.org/process/monitoring> skos:prefLabel "Monitoring"@en .
+
+<http://example.org/process/permit-granting> skos:prefLabel "Permit granting"@en .
+
+<http://example.org/agent/member-states> rdfs:label "Member States"@en .
+
+<http://example.org/agent/industry> rdfs:label "Industry"@en .
+
+<http://example.org/agent/european-commission> rdfs:label "European Commission"@en .
+

@@ -1,0 +1,802 @@
+@prefix adms: <http://www.w3.org/ns/adms#> .
+@prefix cav: <http://data.europa.eu/2sa/cav#> .
+@prefix cpsv: <http://purl.org/vocab/cpsv#> .
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix dd: <http://data.europa.eu/leg/digital-dimensions/> .
+@prefix iac: <http://data.europa.eu/leg/interop-assessment#> .
+@prefix iopa: <http://data.europa.eu/2qy/iopa#> .
+@prefix lomo: <http://data.europa.eu/leg/lomo#> .
+@prefix m8g: <http://data.europa.eu/m8g/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix tf: <http://data.europa.eu/leg/temporal-function/> .
+
+<http://example.org/analysis/action/5> a lomo:Action ;
+    rdfs:label "Product technical documentation"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Product controlConformity assessment procedures"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/531/cod/doc/com/COM_2025_531/FINAL/eng/anx_4/art_3/par_4> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/5/role/addressee-member-states-authoritiesnotified-bodies>,
+        <http://example.org/analysis/action/5/role/addresser-economic-operator> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Product technical documentation"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/product-technical-documentation> ] .
+
+<http://example.org/analysis/assessment/1> a cav:Assessment ;
+    cav:assesses <http://example.org/analysis/description/1>,
+        <http://example.org/analysis/description/10>,
+        <http://example.org/analysis/description/11>,
+        <http://example.org/analysis/description/2>,
+        <http://example.org/analysis/description/4>,
+        <http://example.org/analysis/description/5>,
+        <http://example.org/analysis/description/6>,
+        <http://example.org/analysis/description/8> ;
+    cav:resultsIn <http://example.org/analysis/assessment/1/1/measure>,
+        <http://example.org/analysis/assessment/1/2/barrier>,
+        <http://example.org/analysis/assessment/1/2/measure>,
+        <http://example.org/analysis/assessment/1/3/measure>,
+        <http://example.org/analysis/assessment/1/4/barrier>,
+        <http://example.org/analysis/assessment/1/4/measure>,
+        <http://example.org/analysis/assessment/1/5/measure>,
+        <http://example.org/analysis/assessment/1/6/barrier>,
+        <http://example.org/analysis/assessment/1/6/measure>,
+        <http://example.org/analysis/assessment/1/7/measure>,
+        <http://example.org/analysis/assessment/1/8/barrier>,
+        <http://example.org/analysis/assessment/1/8/measure> ;
+    m8g:isProvidedBy <http://publications.europa.eu/resource/authority/corporate-body/COM> .
+
+<http://example.org/analysis/description/3> a lomo:LegalRule ;
+    rdfs:label "Article 3(2)(a)(i), Annex IV, point (3)"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/531/cod/doc/com/COM_2025_531/FINAL/eng/anx_4/art_3/par_2> ;
+    lomo:hasCategory dd:Data,
+        dd:DigitalPublicService,
+        dd:DigitalSolutions ;
+    lomo:involvesProcess <http://example.org/process/market-surveillance-verification-and-monitoring> ;
+    lomo:produces <http://example.org/analysis/description/3/action> ;
+    dcterms:description "Where compliance of an EU fertilising product with the applicable requirements laid down in this Regulation has been demonstrated by that conformity assessment procedure, manufacturers shall draw up an EU declaration of conformity, in electronic form, and affix the CE marking."@en .
+
+<http://example.org/analysis/description/7> a lomo:LegalRule ;
+    rdfs:label "Article 3(6)(a)"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/531/cod/doc/com/COM_2025_531/FINAL/eng/art_3/par_6> ;
+    lomo:hasCategory dd:Data,
+        dd:DigitalPublicService ;
+    lomo:involvesProcess <http://example.org/process/conformity-assessment-procedures> ;
+    lomo:produces <http://example.org/analysis/description/7/action> ;
+    dcterms:description "Records and correspondence relating to the conformity assessment procedures shall be drawn up, in electronic form, in an official language of the Member State where the notified body carrying out the procedures is established or in a language accepted by that body."@en .
+
+<http://example.org/analysis/description/9> a lomo:LegalRule ;
+    rdfs:label "Article 3(7)"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/531/cod/doc/com/COM_2025_531/FINAL/eng/art_3/par_7> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/market-surveillance-verification> ;
+    lomo:produces <http://example.org/analysis/description/9/action> ;
+    dcterms:description "Where a data carrier is used for providing access to the EU declaration of conformity, it shall meet the requirements for digital labels set out in Article 11b(4) and (5) and be based on one of the electronic technical solutions which economic operators can use for providing the digital label established in accordance with Article 42(9)"@en .
+
+<http://example.org/agent/consumers-and-other-end-users> rdfs:label "Consumers and other End-users"@en .
+
+<http://example.org/agent/consumersand-other-end-users> rdfs:label "Consumersand other End-users"@en .
+
+<http://example.org/agent/economic-operators-member-states-authorities> rdfs:label "Economic Operators, Member States Authorities"@en .
+
+<http://example.org/agent/member-states-authoritiesnotified-bodiesconsumers-and-end-users> rdfs:label "Member States AuthoritiesNotified BodiesConsumers and end users"@en .
+
+<http://example.org/analysis/action/1> a lomo:Action ;
+    rdfs:label "Digital contact"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Product controlConformity assessment procedures"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/531/cod/doc/com/COM_2025_531/FINAL/eng/anx_1/art_1/par_1> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/1/role/addressee-member-states-authoritiesnotified-bodiesconsumers-and-other-end-users>,
+        <http://example.org/analysis/action/1/role/addresser-economic-operator> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Digital contact"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/digital-contact> ] .
+
+<http://example.org/analysis/action/1/role/addressee-member-states-authoritiesnotified-bodiesconsumers-and-other-end-users> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states-authoritiesnotified-bodiesconsumers-and-other-end-users> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/1/role/addresser-economic-operator> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/economic-operator> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/2> a lomo:Action ;
+    rdfs:label "EU declaration of conformity, in electronic form"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Product controlConformity assessment procedures"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/531/cod/doc/com/COM_2025_531/FINAL/eng/anx_4/art_3/par_2> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/2/role/addressee-member-states-authoritiesnotified-bodies>,
+        <http://example.org/analysis/action/2/role/addresser-economic-operator> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "EU declaration of conformity, in electronic form"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/eu-declaration-of-conformity-in-electronic-form> ] .
+
+<http://example.org/analysis/action/2/role/addressee-member-states-authoritiesnotified-bodies> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states-authoritiesnotified-bodies> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/2/role/addresser-economic-operator> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/economic-operator> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/3> a lomo:Action ;
+    rdfs:label "Internet address"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Product controlConformity assessment procedures"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/531/cod/doc/com/COM_2025_531/FINAL/eng/art_3/par_2>,
+        <https://data.europa.eu/eli/dl/proc/2025/531/cod/doc/com/COM_2025_531/FINAL/eng/art_4/par_4>,
+        <https://data.europa.eu/eli/dl/proc/2025/531/cod/doc/com/COM_2025_531/FINAL/eng/art_5/par_5> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/3/role/addressee-member-states-authoritiesnotified-bodies>,
+        <http://example.org/analysis/action/3/role/addresser-economic-operator> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Internet address"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/internet-address> ] .
+
+<http://example.org/analysis/action/3/role/addressee-member-states-authoritiesnotified-bodies> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states-authoritiesnotified-bodies> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/3/role/addresser-economic-operator> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/economic-operator> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/4> a lomo:Action ;
+    rdfs:label "Data carrier"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Product controlConformity assessment procedures"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/531/cod/doc/com/COM_2025_531/FINAL/eng/art_3/par_2>,
+        <https://data.europa.eu/eli/dl/proc/2025/531/cod/doc/com/COM_2025_531/FINAL/eng/art_4/par_4>,
+        <https://data.europa.eu/eli/dl/proc/2025/531/cod/doc/com/COM_2025_531/FINAL/eng/art_5/par_5>,
+        <https://data.europa.eu/eli/dl/proc/2025/531/cod/doc/com/COM_2025_531/FINAL/eng/art_7/par_7> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/4/role/addressee-member-states-authoritiesnotified-bodies>,
+        <http://example.org/analysis/action/4/role/addresser-economic-operator> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Data carrier"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/data-carrier> ] .
+
+<http://example.org/analysis/action/4/role/addressee-member-states-authoritiesnotified-bodies> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states-authoritiesnotified-bodies> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/4/role/addresser-economic-operator> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/economic-operator> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/5/role/addressee-member-states-authoritiesnotified-bodies> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states-authoritiesnotified-bodies> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/5/role/addresser-economic-operator> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/economic-operator> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/6> a lomo:Action ;
+    rdfs:label "Information and documentation relating to conformity assessment procedures"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Product controlConformity assessment procedures"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/531/cod/doc/com/COM_2025_531/FINAL/eng/art_3/par_6> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/6/role/addressee-member-states-authoritiesnotified-bodies>,
+        <http://example.org/analysis/action/6/role/addresser-economic-operator> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Information and documentation relating to conformity assessment procedures"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/information-and-documentation-relating-to-conformity-assessment-procedures> ] .
+
+<http://example.org/analysis/action/6/role/addressee-member-states-authoritiesnotified-bodies> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states-authoritiesnotified-bodies> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/6/role/addresser-economic-operator> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/economic-operator> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/7> a lomo:Action ;
+    rdfs:label "Digital label"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Product controlConformity assessment procedures"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/531/cod/doc/com/COM_2025_531/FINAL/eng/art_3/par_7> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/7/role/addressee-member-states-authoritiesnotified-bodiesconsumers-and-other-end-users>,
+        <http://example.org/analysis/action/7/role/addresser-economic-operator> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Digital label"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/digital-label> ] .
+
+<http://example.org/analysis/action/7/role/addressee-member-states-authoritiesnotified-bodiesconsumers-and-other-end-users> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states-authoritiesnotified-bodiesconsumers-and-other-end-users> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/7/role/addresser-economic-operator> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/economic-operator> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/8> a lomo:Action ;
+    rdfs:label "Digital product passport"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Product controlConformity assessment procedures"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/531/cod/doc/com/COM_2025_531/FINAL/eng/art_3/par_7> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/8/role/addressee-member-states-authoritiesnotified-bodiesconsumers-and-other-end-users>,
+        <http://example.org/analysis/action/8/role/addresser-economic-operator> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Digital product passport"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/digital-product-passport> ] .
+
+<http://example.org/analysis/action/8/role/addressee-member-states-authoritiesnotified-bodiesconsumers-and-other-end-users> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states-authoritiesnotified-bodiesconsumers-and-other-end-users> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/8/role/addresser-economic-operator> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/economic-operator> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/9> a lomo:Action ;
+    rdfs:label "Label elements that may be provided on a digital label only"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Product control"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/531/cod/doc/com/COM_2025_531/FINAL/eng/anx_1> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/9/role/addressee-member-states-authoritiesnotified-bodiesconsumers-and-end-users>,
+        <http://example.org/analysis/action/9/role/addresser-economic-operator> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Label elements that may be provided on a digital label only"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/label-elements-that-may-be-provided-on-a-digital-label-only> ] .
+
+<http://example.org/analysis/action/9/role/addressee-member-states-authoritiesnotified-bodiesconsumers-and-end-users> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states-authoritiesnotified-bodiesconsumers-and-end-users> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/9/role/addresser-economic-operator> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/economic-operator> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/assessment/1/1/measure> a cav:Statement ;
+    cav:interpretation iac:InterpretationPositive ;
+    cav:judgement """-Proposal for a Regulation of the European Parliament and of the Council amending Regulations [...] as regards digitalisation and common specifications (COM(2025)504)
+-Regulation (EU) 2024/1781."""@en ;
+    cav:type iac:StatementTypeAlignmentMeasure ;
+    m8g:hasRelatedService <http://example.org/analysis/interop/1> ;
+    dcterms:description "Alignment with existing digital and sectorial policiesPlease list the applicable digital and sectorial policies identified"@en .
+
+<http://example.org/analysis/assessment/1/2/barrier> a cav:Statement ;
+    cav:interpretation iac:InterpretationNegative ;
+    cav:judgement "-In the case of exports, third countries might still require documents to be provided in paper form."@en ;
+    cav:type iac:StatementTypeOrganisationBarrier ;
+    m8g:hasRelatedService <http://example.org/analysis/interop/1> ;
+    dcterms:description "Organisational measures for a smooth cross-border digital public services deliveryPlease list the governance measures foreseen"@en .
+
+<http://example.org/analysis/assessment/1/2/measure> a cav:Statement ;
+    cav:interpretation iac:InterpretationPositive ;
+    cav:judgement "-Use of commonly agreed open technical specifications and standards (see below)"@en ;
+    cav:type iac:StatementTypeOrganisationMeasure ;
+    m8g:hasRelatedService <http://example.org/analysis/interop/1> ;
+    dcterms:description "Organisational measures for a smooth cross-border digital public services deliveryPlease list the governance measures foreseen"@en .
+
+<http://example.org/analysis/assessment/1/3/measure> a cav:Statement ;
+    cav:interpretation iac:InterpretationPositive ;
+    cav:judgement "-Use of commonly agreed open technical specifications and standards (see below)"@en ;
+    cav:type iac:StatementTypeSharedMeasure ;
+    m8g:hasRelatedService <http://example.org/analysis/interop/1> ;
+    dcterms:description "Measures taken to ensure a shared understanding of the dataPlease list such measures"@en .
+
+<http://example.org/analysis/assessment/1/4/barrier> a cav:Statement ;
+    cav:interpretation iac:InterpretationNegative ;
+    cav:judgement "-Accessibility requirements not defined in detail"@en ;
+    cav:type iac:StatementTypeStandardsBarrier ;
+    m8g:hasRelatedService <http://example.org/analysis/interop/1> ;
+    dcterms:description "Use of commonly agreed open technical specifications and standardsPlease list such measures"@en .
+
+<http://example.org/analysis/assessment/1/4/measure> a cav:Statement ;
+    cav:interpretation iac:InterpretationPositive ;
+    cav:judgement """-Internet address
+-Digital Label
+-Digital Product Passport"""@en ;
+    cav:type iac:StatementTypeStandardsMeasure ;
+    m8g:hasRelatedService <http://example.org/analysis/interop/1> ;
+    dcterms:description "Use of commonly agreed open technical specifications and standardsPlease list such measures"@en .
+
+<http://example.org/analysis/assessment/1/5/measure> a cav:Statement ;
+    cav:interpretation iac:InterpretationPositive ;
+    cav:judgement """-Proposal for a Regulation of the European Parliament and of the Council amending Regulations [...] as regards digitalisation and common specifications (COM(2025)504)
+-Regulation (EU) 2024/1781"""@en ;
+    cav:type iac:StatementTypeAlignmentMeasure ;
+    m8g:hasRelatedService <http://example.org/analysis/interop/2> ;
+    dcterms:description "Alignment with existing digital and sectorial policiesPlease list the applicable digital and sectorial policies identified"@en .
+
+<http://example.org/analysis/assessment/1/6/barrier> a cav:Statement ;
+    cav:interpretation iac:InterpretationNegative ;
+    cav:judgement "-In the case of exports, third countries might still require documents to be provided in paper form."@en ;
+    cav:type iac:StatementTypeOrganisationBarrier ;
+    m8g:hasRelatedService <http://example.org/analysis/interop/2> ;
+    dcterms:description "Organisational measures for a smooth cross-border digital public services deliveryPlease list the governance measures foreseen"@en .
+
+<http://example.org/analysis/assessment/1/6/measure> a cav:Statement ;
+    cav:interpretation iac:InterpretationPositive ;
+    cav:judgement "-Use of commonly agreed open technical specifications and standards (see below)"@en ;
+    cav:type iac:StatementTypeOrganisationMeasure ;
+    m8g:hasRelatedService <http://example.org/analysis/interop/2> ;
+    dcterms:description "Organisational measures for a smooth cross-border digital public services deliveryPlease list the governance measures foreseen"@en .
+
+<http://example.org/analysis/assessment/1/7/measure> a cav:Statement ;
+    cav:interpretation iac:InterpretationPositive ;
+    cav:judgement "-Use of commonly agreed open technical specifications and standards (see below)"@en ;
+    cav:type iac:StatementTypeSharedMeasure ;
+    m8g:hasRelatedService <http://example.org/analysis/interop/2> ;
+    dcterms:description "Measures taken to ensure a shared understanding of the dataPlease list such measures"@en .
+
+<http://example.org/analysis/assessment/1/8/barrier> a cav:Statement ;
+    cav:interpretation iac:InterpretationNegative ;
+    cav:judgement "-Accessibility requirements not defined in detail."@en ;
+    cav:type iac:StatementTypeStandardsBarrier ;
+    m8g:hasRelatedService <http://example.org/analysis/interop/2> ;
+    dcterms:description "Use of commonly agreed open technical specifications and standardsPlease list such measures"@en .
+
+<http://example.org/analysis/assessment/1/8/measure> a cav:Statement ;
+    cav:interpretation iac:InterpretationPositive ;
+    cav:judgement """-Internet address
+-Digital Label
+-Digital Product Passport"""@en ;
+    cav:type iac:StatementTypeStandardsMeasure ;
+    m8g:hasRelatedService <http://example.org/analysis/interop/2> ;
+    dcterms:description "Use of commonly agreed open technical specifications and standardsPlease list such measures"@en .
+
+<http://example.org/analysis/description/1> a iopa:BindingRequirement,
+        lomo:LegalRule ;
+    rdfs:label "Article 1(3)"@en ;
+    iopa:affects <http://example.org/analysis/interop/1> ;
+    cav:valueDescription "The label shall also include the product identifier referred to in Article 18 and the name, address and digital contact of the supplier of the mixture."@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/531/cod/doc/com/COM_2025_531/FINAL/eng/art_1/par_3> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/market-surveillance-verification> ;
+    lomo:produces <http://example.org/analysis/description/1/action> ;
+    dcterms:description "The label shall also include the product identifier referred to in Article 18 and the name, address and digital contact of the supplier of the mixture."@en ;
+    dcterms:relation <http://example.org/ie-solution/icscms> .
+
+<http://example.org/analysis/description/1/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/1/action/role/addressee-consumers>,
+        <http://example.org/analysis/description/1/action/role/addressee-economic-operators>,
+        <http://example.org/analysis/description/1/action/role/addressee-market-surveillance-authorities> .
+
+<http://example.org/analysis/description/1/action/role/addressee-consumers> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/consumers> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/1/action/role/addressee-economic-operators> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/economic-operators> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/1/action/role/addressee-market-surveillance-authorities> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/market-surveillance-authorities> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/10> a iopa:BindingRequirement,
+        lomo:LegalRule ;
+    rdfs:label "Article 3(7)"@en ;
+    iopa:affects <http://example.org/analysis/interop/1>,
+        <http://example.org/analysis/interop/2> ;
+    cav:valueDescription "Where other Union legislation applicable to EU fertilising products requires the economic operator to include the information that the product complies with the requirements set out in that legislation in a digital product passport or to upload the EU declaration of conformity in a digital product passport, the information set out in Annex V to be included in the EU declaration of conformity and any digital labelling information in accordance with Article 11b, if applicable, shall be provided only in that digital product passport."@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ],
+        [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/531/cod/doc/com/COM_2025_531/FINAL/eng/art_3/par_7> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/market-surveillance-verification-and-monitoring> ;
+    lomo:produces <http://example.org/analysis/action/7>,
+        <http://example.org/analysis/action/8>,
+        <http://example.org/analysis/description/10/action> ;
+    lomo:references <http://example.org/dataset/digital-label>,
+        <http://example.org/dataset/digital-product-passport> ;
+    dcterms:description "Where other Union legislation applicable to EU fertilising products requires the economic operator to include the information that the product complies with the requirements set out in that legislation in a digital product passport or to upload the EU declaration of conformity in a digital product passport, the information set out in Annex V to be included in the EU declaration of conformity and any digital labelling information in accordance with Article 11b, if applicable, shall be provided only in that digital product passport."@en ;
+    dcterms:relation <http://example.org/ie-solution/icscms>,
+        <http://example.org/ie-solution/nando> .
+
+<http://example.org/analysis/description/10/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/10/action/role/addressee-consumers>,
+        <http://example.org/analysis/description/10/action/role/addressee-economic-operators>,
+        <http://example.org/analysis/description/10/action/role/addressee-member-states-authorities> .
+
+<http://example.org/analysis/description/10/action/role/addressee-consumers> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/consumers> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/10/action/role/addressee-economic-operators> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/economic-operators> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/10/action/role/addressee-member-states-authorities> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states-authorities> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/11> a iopa:BindingRequirement,
+        lomo:LegalRule ;
+    rdfs:label "Annex I, point (8)"@en ;
+    iopa:affects <http://example.org/analysis/interop/1> ;
+    cav:valueDescription "Label elements that may be provided on a digital label only (a) Supplemental information referred to in Article 25(3); (b) Where more than one supplier is indicated on the label in accordance with Article 17(1), point (a), the name, address and digital contact of the suppliers may be provided on a digital label only, as long as the supplier referred to in in Article 4(11) is indicated on the physical label.’;"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/531/cod/doc/com/COM_2025_531/FINAL/eng/anx_1> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/market-surveillance-verification-and-monitoring> ;
+    lomo:produces <http://example.org/analysis/action/9>,
+        <http://example.org/analysis/description/11/action> ;
+    lomo:references <http://example.org/dataset/label-elements-that-may-be-provided-on-a-digital-label-only> ;
+    dcterms:description "Label elements that may be provided on a digital label only (a) Supplemental information referred to in Article 25(3); (b) Where more than one supplier is indicated on the label in accordance with Article 17(1), point (a), the name, address and digital contact of the suppliers may be provided on a digital label only, as long as the supplier referred to in in Article 4(11) is indicated on the physical label.’;"@en ;
+    dcterms:relation <http://example.org/ie-solution/icscms> .
+
+<http://example.org/analysis/description/11/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/11/action/role/addressee-consumers-and-other-end-users>,
+        <http://example.org/analysis/description/11/action/role/addressee-economic-operators>,
+        <http://example.org/analysis/description/11/action/role/addressee-member-states-authorities> .
+
+<http://example.org/analysis/description/11/action/role/addressee-consumers-and-other-end-users> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/consumers-and-other-end-users> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/11/action/role/addressee-economic-operators> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/economic-operators> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/11/action/role/addressee-member-states-authorities> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states-authorities> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/2> a iopa:BindingRequirement,
+        lomo:LegalRule ;
+    rdfs:label "Article 1(1), (2) and (3), Article 3(1), (2)(c), (4)(b) Annex I, points (3) and (8), Annex IV, point (3)"@en ;
+    iopa:affects <http://example.org/analysis/interop/1> ;
+    cav:valueDescription "‘digital contact’ means any up-to-date and accessible online communication channel through which supplier can be reached or engaged without the need to register or to download an application."@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/531/cod/doc/com/COM_2025_531/FINAL/eng/anx_1/art_1/par_1> ;
+    lomo:hasCategory dd:Data,
+        dd:DigitalPublicService ;
+    lomo:involvesProcess <http://example.org/process/market-surveillance-verification-and-monitoring> ;
+    lomo:produces <http://example.org/analysis/action/1>,
+        <http://example.org/analysis/description/2/action> ;
+    lomo:references <http://example.org/dataset/digital-contact> ;
+    dcterms:description "‘digital contact’ means any up-to-date and accessible online communication channel through which supplier can be reached or engaged without the need to register or to download an application."@en ;
+    dcterms:relation <http://example.org/ie-solution/icscms> .
+
+<http://example.org/analysis/description/2/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/2/action/role/addressee-consumersand-other-end-users>,
+        <http://example.org/analysis/description/2/action/role/addressee-economic-operators>,
+        <http://example.org/analysis/description/2/action/role/addressee-member-states-authorities> .
+
+<http://example.org/analysis/description/2/action/role/addressee-consumersand-other-end-users> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/consumersand-other-end-users> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/2/action/role/addressee-economic-operators> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/economic-operators> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/2/action/role/addressee-member-states-authorities> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states-authorities> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/3/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/3/action/role/addressee-economic-operators>,
+        <http://example.org/analysis/description/3/action/role/addressee-member-states-authorities> .
+
+<http://example.org/analysis/description/3/action/role/addressee-economic-operators> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/economic-operators> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/3/action/role/addressee-member-states-authorities> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states-authorities> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/4> a iopa:BindingRequirement,
+        lomo:LegalRule ;
+    rdfs:label "Article 3(2)(d), (3)(4)(d), (5)(b), Annex IV, point (3)"@en ;
+    iopa:affects <http://example.org/analysis/interop/1> ;
+    cav:valueDescription "Manufacturers, authorised representatives, importers and distributors shall, further to a reasoned request from a competent national authority, provide it, in electronic form, with all the information and documentation necessary to demonstrate the conformity of the EU fertilising product with this Regulation in a language which can be easily understood by that authority."@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/531/cod/doc/com/COM_2025_531/FINAL/eng/anx_4/art_3/par_2> ;
+    lomo:hasCategory dd:DigitalPublicService ;
+    lomo:involvesProcess <http://example.org/process/conformity-assessment-procedures>,
+        <http://example.org/process/market-surveillance-verification-and-monitoring> ;
+    lomo:produces <http://example.org/analysis/action/2>,
+        <http://example.org/analysis/description/4/action> ;
+    lomo:references <http://example.org/dataset/eu-declaration-of-conformity-in-electronic-form> ;
+    dcterms:description "Manufacturers, authorised representatives, importers and distributors shall, further to a reasoned request from a competent national authority, provide it, in electronic form, with all the information and documentation necessary to demonstrate the conformity of the EU fertilising product with this Regulation in a language which can be easily understood by that authority."@en ;
+    dcterms:relation <http://example.org/ie-solution/icscms> .
+
+<http://example.org/analysis/description/4/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/4/action/role/addressee-economic-operators-member-states-authorities> .
+
+<http://example.org/analysis/description/4/action/role/addressee-economic-operators-member-states-authorities> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/economic-operators-member-states-authorities> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/5> a iopa:BindingRequirement,
+        lomo:LegalRule ;
+    rdfs:label "Article 3(2)(a)(ii), (4)(a), (5)(a), and (8)"@en ;
+    iopa:affects <http://example.org/analysis/interop/1>,
+        <http://example.org/analysis/interop/2> ;
+    cav:valueDescription "Economic operators shall ensure that the that the EU fertilising product is accompanied by the internet address or data carrier through which the EU declaration of conformity can be accessed"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ],
+        [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ],
+        [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ],
+        [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ],
+        [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ],
+        [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/531/cod/doc/com/COM_2025_531/FINAL/eng/art_3/par_2>,
+        <https://data.europa.eu/eli/dl/proc/2025/531/cod/doc/com/COM_2025_531/FINAL/eng/art_4/par_4>,
+        <https://data.europa.eu/eli/dl/proc/2025/531/cod/doc/com/COM_2025_531/FINAL/eng/art_5/par_5>,
+        <https://data.europa.eu/eli/dl/proc/2025/531/cod/doc/com/COM_2025_531/FINAL/eng/art_8/par_8> ;
+    lomo:hasCategory dd:Data,
+        dd:DigitalPublicService ;
+    lomo:involvesProcess <http://example.org/process/conformity-assessment-procedures>,
+        <http://example.org/process/market-surveillance-verification-and-monitoring> ;
+    lomo:produces <http://example.org/analysis/action/3>,
+        <http://example.org/analysis/action/4>,
+        <http://example.org/analysis/description/5/action> ;
+    lomo:references <http://example.org/dataset/data-carrier>,
+        <http://example.org/dataset/internet-address> ;
+    dcterms:description "Economic operators shall ensure that the that the EU fertilising product is accompanied by the internet address or data carrier through which the EU declaration of conformity can be accessed"@en ;
+    dcterms:relation <http://example.org/ie-solution/icscms>,
+        <http://example.org/ie-solution/nando> .
+
+<http://example.org/analysis/description/5/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/5/action/role/addressee-consumers>,
+        <http://example.org/analysis/description/5/action/role/addressee-economic-operators>,
+        <http://example.org/analysis/description/5/action/role/addressee-market-surveillance-authorities>,
+        <http://example.org/analysis/description/5/action/role/addressee-notified-bodies> .
+
+<http://example.org/analysis/description/5/action/role/addressee-consumers> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/consumers> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/5/action/role/addressee-economic-operators> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/economic-operators> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/5/action/role/addressee-market-surveillance-authorities> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/market-surveillance-authorities> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/5/action/role/addressee-notified-bodies> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/notified-bodies> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/6> a iopa:BindingRequirement,
+        lomo:LegalRule ;
+    rdfs:label "Article 3(4)"@en ;
+    iopa:affects <http://example.org/analysis/interop/1>,
+        <http://example.org/analysis/interop/2> ;
+    cav:valueDescription "Importers shall, for 5 years after the EU fertilising product has been placed on the market, keep the electronic EU declaration of conformity at the disposal of the market surveillance authorities"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/531/cod/doc/com/COM_2025_531/FINAL/eng/art_3/par_4> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/market-surveillance-verification> ;
+    lomo:produces <http://example.org/analysis/description/6/action> ;
+    dcterms:description "Importers shall, for 5 years after the EU fertilising product has been placed on the market, keep the electronic EU declaration of conformity at the disposal of the market surveillance authorities"@en ;
+    dcterms:relation <http://example.org/ie-solution/icscms>,
+        <http://example.org/ie-solution/nando> .
+
+<http://example.org/analysis/description/6/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/6/action/role/addressee-consumers>,
+        <http://example.org/analysis/description/6/action/role/addressee-economic-operators>,
+        <http://example.org/analysis/description/6/action/role/addressee-market-surveillance-authorities> .
+
+<http://example.org/analysis/description/6/action/role/addressee-consumers> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/consumers> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/6/action/role/addressee-economic-operators> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/economic-operators> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/6/action/role/addressee-market-surveillance-authorities> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/market-surveillance-authorities> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/7/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/7/action/role/addressee-economic-operators>,
+        <http://example.org/analysis/description/7/action/role/addressee-notified-bodies> .
+
+<http://example.org/analysis/description/7/action/role/addressee-economic-operators> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/economic-operators> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/7/action/role/addressee-notified-bodies> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/notified-bodies> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/8> a iopa:BindingRequirement,
+        lomo:LegalRule ;
+    rdfs:label "Article 3(6)(b)"@en ;
+    iopa:affects <http://example.org/analysis/interop/1>,
+        <http://example.org/analysis/interop/2> ;
+    cav:valueDescription "The manufacturer shall provide the notified body carrying out the conformity assessment procedure with all the information and documentation relating to conformity assessment procedures in electronic form."@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/531/cod/doc/com/COM_2025_531/FINAL/eng/art_3/par_6> ;
+    lomo:hasCategory dd:Data,
+        dd:DigitalPublicService ;
+    lomo:involvesProcess <http://example.org/process/conformity-assessment-procedures> ;
+    lomo:produces <http://example.org/analysis/action/6>,
+        <http://example.org/analysis/description/8/action> ;
+    lomo:references <http://example.org/dataset/information-and-documentation-relating-to-conformity-assessment-procedures> ;
+    dcterms:description "The manufacturer shall provide the notified body carrying out the conformity assessment procedure with all the information and documentation relating to conformity assessment procedures in electronic form."@en ;
+    dcterms:relation <http://example.org/ie-solution/icscms>,
+        <http://example.org/ie-solution/nando> .
+
+<http://example.org/analysis/description/8/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/8/action/role/addressee-economic-operators>,
+        <http://example.org/analysis/description/8/action/role/addressee-notified-bodies> .
+
+<http://example.org/analysis/description/8/action/role/addressee-economic-operators> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/economic-operators> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/8/action/role/addressee-notified-bodies> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/notified-bodies> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/9/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/9/action/role/addressee-consumers>,
+        <http://example.org/analysis/description/9/action/role/addressee-economic-operators>,
+        <http://example.org/analysis/description/9/action/role/addressee-market-surveillance-authorities> .
+
+<http://example.org/analysis/description/9/action/role/addressee-consumers> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/consumers> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/9/action/role/addressee-economic-operators> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/economic-operators> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/9/action/role/addressee-market-surveillance-authorities> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/market-surveillance-authorities> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/dataset/product-technical-documentation> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/531/cod/doc/com/COM_2025_531/FINAL/eng/anx_4/art_3/par_4> ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Product technical documentation"@en ] ;
+    dcterms:title "Product technical documentation"@en .
+
+<http://example.org/standard/in-accessible-formats-free-of-charge-in-a-clear-comprehensive-user-friendly-and-easily-accessible-way-without-the-need-to-register-or-to-download-an-application> a dcterms:Standard ;
+    dcterms:title "In accessible formats; free of charge in a clear, comprehensive, user-friendly and easily accessible way, without the need to register or to download an application."@en .
+
+<http://example.org/standard/machine-readable-and-open-format-as-defined-in-the-directive-eu20191024-article-21314-and-requirements-for-digital-labels-set-out-in-article-11ba-d-of-regulation-eu-20191009> a dcterms:Standard ;
+    dcterms:title "Machine-readable and open format, as defined in the Directive (EU)2019/1024, Article 2(13)(14) and requirements for digital labels set out in Article 11b(a)-(d) of Regulation (EU) 2019/1009."@en .
+
+<http://example.org/standard/regulation-ec-no-12722008-as-amended-by-regulation-20242865> a dcterms:Standard ;
+    dcterms:title "Regulation (EC) No 1272/2008, as amended by Regulation 2024/2865"@en .
+
+<http://example.org/standard/regulation-eu-20191009-electronic-technical-solutions-established-on-the-basis-of-article-429> a dcterms:Standard ;
+    dcterms:title "Regulation (EU) 2019/1009, electronic technical solutions established on the basis of Article 42(9)."@en .
+
+<http://example.org/standard/regulation-eu-20191009-incl-specifications-and-electronic-technical-solutions-established-on-the-basis-of-article-429> a dcterms:Standard ;
+    dcterms:title "Regulation (EU) 2019/1009, incl. specifications and electronic technical solutions established on the basis of Article 42(9)."@en .
+
+<http://example.org/standard/regulation-eu-20241781> a dcterms:Standard ;
+    dcterms:title "Regulation (EU) 2024/1781"@en .
+
+<http://publications.europa.eu/resource/authority/corporate-body/COM> a m8g:PublicOrganisation ;
+    dcterms:description "The European Commission, provider of the interoperability assessment."@en ;
+    skos:prefLabel "European Commission"@en .
+
+<http://example.org/dataset/data-carrier> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/531/cod/doc/com/COM_2025_531/FINAL/eng/art_3/par_2>,
+        <https://data.europa.eu/eli/dl/proc/2025/531/cod/doc/com/COM_2025_531/FINAL/eng/art_4/par_4>,
+        <https://data.europa.eu/eli/dl/proc/2025/531/cod/doc/com/COM_2025_531/FINAL/eng/art_5/par_5>,
+        <https://data.europa.eu/eli/dl/proc/2025/531/cod/doc/com/COM_2025_531/FINAL/eng/art_7/par_7> ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Data carrier"@en ] ;
+    dcterms:conformsTo <http://example.org/standard/regulation-eu-20191009-electronic-technical-solutions-established-on-the-basis-of-article-429> ;
+    dcterms:title "Data carrier"@en .
+
+<http://example.org/dataset/digital-contact> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/531/cod/doc/com/COM_2025_531/FINAL/eng/anx_1/art_1/par_1> ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Digital contact"@en ] ;
+    dcterms:conformsTo <http://example.org/standard/in-accessible-formats-free-of-charge-in-a-clear-comprehensive-user-friendly-and-easily-accessible-way-without-the-need-to-register-or-to-download-an-application> ;
+    dcterms:title "Digital contact"@en .
+
+<http://example.org/dataset/digital-label> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/531/cod/doc/com/COM_2025_531/FINAL/eng/art_3/par_7> ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Digital label"@en ] ;
+    dcterms:conformsTo <http://example.org/standard/regulation-eu-20191009-incl-specifications-and-electronic-technical-solutions-established-on-the-basis-of-article-429> ;
+    dcterms:title "Digital label"@en .
+
+<http://example.org/dataset/digital-product-passport> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/531/cod/doc/com/COM_2025_531/FINAL/eng/art_3/par_7> ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Digital product passport"@en ] ;
+    dcterms:conformsTo <http://example.org/standard/regulation-eu-20241781> ;
+    dcterms:title "Digital product passport"@en .
+
+<http://example.org/dataset/eu-declaration-of-conformity-in-electronic-form> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/531/cod/doc/com/COM_2025_531/FINAL/eng/anx_4/art_3/par_2> ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "EU declaration of conformity, in electronic form"@en ] ;
+    dcterms:conformsTo <http://example.org/standard/machine-readable-and-open-format-as-defined-in-the-directive-eu20191024-article-21314-and-requirements-for-digital-labels-set-out-in-article-11ba-d-of-regulation-eu-20191009> ;
+    dcterms:title "EU declaration of conformity, in electronic form"@en .
+
+<http://example.org/dataset/information-and-documentation-relating-to-conformity-assessment-procedures> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/531/cod/doc/com/COM_2025_531/FINAL/eng/art_3/par_6> ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Information and documentation relating to conformity assessment procedures"@en ] ;
+    dcterms:title "Information and documentation relating to conformity assessment procedures"@en .
+
+<http://example.org/dataset/internet-address> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/531/cod/doc/com/COM_2025_531/FINAL/eng/art_3/par_2>,
+        <https://data.europa.eu/eli/dl/proc/2025/531/cod/doc/com/COM_2025_531/FINAL/eng/art_4/par_4>,
+        <https://data.europa.eu/eli/dl/proc/2025/531/cod/doc/com/COM_2025_531/FINAL/eng/art_5/par_5> ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Internet address"@en ] ;
+    dcterms:title "Internet address"@en .
+
+<http://example.org/dataset/label-elements-that-may-be-provided-on-a-digital-label-only> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/531/cod/doc/com/COM_2025_531/FINAL/eng/anx_1> ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Label elements that may be provided on a digital label only"@en ] ;
+    dcterms:conformsTo <http://example.org/standard/regulation-ec-no-12722008-as-amended-by-regulation-20242865> ;
+    dcterms:title "Label elements that may be provided on a digital label only"@en .
+
+<http://example.org/agent/member-states-authoritiesnotified-bodiesconsumers-and-other-end-users> rdfs:label "Member States AuthoritiesNotified BodiesConsumers and other end users"@en .
+
+<http://example.org/agent/notified-bodies> rdfs:label "Notified Bodies"@en .
+
+<http://example.org/process/market-surveillance-verification> skos:prefLabel "Market Surveillance Verification"@en .
+
+<http://example.org/agent/market-surveillance-authorities> rdfs:label "Market Surveillance Authorities"@en .
+
+<http://example.org/agent/member-states-authorities> rdfs:label "Member States Authorities"@en .
+
+<http://example.org/process/conformity-assessment-procedures> skos:prefLabel "Conformity assessment procedures"@en .
+
+<http://example.org/agent/consumers> rdfs:label "Consumers"@en .
+
+<http://example.org/agent/member-states-authoritiesnotified-bodies> rdfs:label "Member States AuthoritiesNotified Bodies"@en .
+
+<http://example.org/ie-solution/nando> a adms:Asset ;
+    dcterms:description "NANDO"@en ;
+    dcterms:title "NANDO"@en .
+
+<http://example.org/process/market-surveillance-verification-and-monitoring> skos:prefLabel "Market surveillance verification and monitoring"@en .
+
+<http://example.org/agent/economic-operator> rdfs:label "Economic Operator"@en .
+
+<http://example.org/ie-solution/icscms> a adms:Asset ;
+    dcterms:description "ICSCMS"@en ;
+    dcterms:title "ICSCMS"@en .
+
+<http://example.org/agent/economic-operators> rdfs:label "Economic Operators"@en .
+
+<http://example.org/analysis/interop/2> a cpsv:PublicService ;
+    rdfs:label "Conformity assessment procedures"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/531/cod/doc/com/COM_2025_531/FINAL/eng/art_3> ;
+    dcterms:description "Notified bodies assess the conformity of products. All information and documentation is to be provided to them in electronic form."@en ;
+    dcterms:identifier "interop/2" ;
+    dcterms:references <http://example.org/ie-solution/nando> ;
+    dcterms:title "Conformity assessment procedures"@en .
+
+<http://example.org/analysis/interop/1> a cpsv:PublicService ;
+    rdfs:label "Market surveillance verification and monitoring"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/531/cod/doc/com/COM_2025_531/FINAL/eng/anx_1>,
+        <https://data.europa.eu/eli/dl/proc/2025/531/cod/doc/com/COM_2025_531/FINAL/eng/anx_4>,
+        <https://data.europa.eu/eli/dl/proc/2025/531/cod/doc/com/COM_2025_531/FINAL/eng/art_1>,
+        <https://data.europa.eu/eli/dl/proc/2025/531/cod/doc/com/COM_2025_531/FINAL/eng/art_3> ;
+    dcterms:description "Market surveillance authorities check compliance of products, including the EU declaration of conformity accessible via an internet address or data carrier, and other documents that are to be provided by economic operators upon request."@en ;
+    dcterms:identifier "interop/1" ;
+    dcterms:references <http://example.org/ie-solution/icscms> ;
+    dcterms:title "Market surveillance verification and monitoring"@en .
+

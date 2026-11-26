@@ -1,0 +1,616 @@
+@prefix : <http://data.europa.eu/leg/lomo/test#> .
+@prefix lomo: <http://data.europa.eu/leg/lomo#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix eli: <http://data.europa.eu/eli/ontology#> .
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix cpsv: <http://purl.org/vocab/cpsv#> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix cav: <http://data.europa.eu/2sa/cav#> .
+@prefix lfds: <http://data.europa.eu/2qy/lfds#> .
+
+@base <http://data.europa.eu/leg/lomo/test> .
+
+<http://data.europa.eu/leg/lomo/test> rdf:type owl:Ontology ;
+    dcterms:title "Proposal for a REGULATION OF THE EUROPEAN PARLIAMENT AND OF THE COUNCIL on speeding-up environmental assessments"@en ;
+    dcterms:description "Regulation to streamline and accelerate environmental assessment procedures while maintaining environmental protection standards"@en ;
+    dcterms:created "2026-02-17"^^xsd:date ;
+    dcterms:modified "2026-02-17"^^xsd:date ;
+    owl:imports <http://data.europa.eu/leg/lomo> .
+
+#################################################################
+#    AGENTS (from Articles 3, 10, 12)
+#################################################################
+
+:Agent_MemberState rdf:type owl:NamedIndividual , lomo:Agent ;
+    rdfs:label "Member State"@en .
+
+:Agent_Developers rdf:type owl:NamedIndividual , lomo:Agent ;
+    rdfs:label "Developers"@en .
+
+:Agent_CompetentAuthority rdf:type owl:NamedIndividual , lomo:Agent ;
+    rdfs:label "Competent Authority"@en .
+
+:Agent_Public rdf:type owl:NamedIndividual , lomo:Agent ;
+    rdfs:label "Public"@en .
+
+:Agent_Commission rdf:type owl:NamedIndividual , lomo:Agent ;
+    rdfs:label "European Commission"@en .
+
+#################################################################
+#    AGENT TYPES
+#################################################################
+
+:AgentType_MemberState rdf:type owl:NamedIndividual , lomo:AgentType ;
+    rdfs:label "Member State"@en .
+
+:AgentType_Developers rdf:type owl:NamedIndividual , lomo:AgentType ;
+    rdfs:label "Developers"@en .
+
+:AgentType_CompetentAuthority rdf:type owl:NamedIndividual , lomo:AgentType ;
+    rdfs:label "Competent Authority"@en .
+
+#################################################################
+#    AGENT ROLES
+#################################################################
+
+:AgentRole_MemberState_Provider rdf:type owl:NamedIndividual , lomo:AgentRole ;
+    rdfs:label "Member State as Information Provider"@en ;
+    lomo:forAgent :Agent_MemberState ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+:AgentRole_Developers_Submitter rdf:type owl:NamedIndividual , lomo:AgentRole ;
+    rdfs:label "Developers as Electronic Submitter"@en ;
+    lomo:forAgent :Agent_Developers ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+:AgentRole_CompetentAuthority_Processor rdf:type owl:NamedIndividual , lomo:AgentRole ;
+    rdfs:label "Competent Authority as Processor"@en ;
+    lomo:forAgent :Agent_CompetentAuthority ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+:AgentRole_Public_Recipient rdf:type owl:NamedIndividual , lomo:AgentRole ;
+    rdfs:label "Public as Information Recipient"@en ;
+    lomo:forAgent :Agent_Public ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+:AgentRole_MemberState_Publisher rdf:type owl:NamedIndividual , lomo:AgentRole ;
+    rdfs:label "Member State as Data Publisher"@en ;
+    lomo:forAgent :Agent_MemberState ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+:AgentRole_MemberState_CrossBorderEnabler rdf:type owl:NamedIndividual , lomo:AgentRole ;
+    rdfs:label "Member State as Cross-Border Exchange Enabler"@en ;
+    lomo:forAgent :Agent_MemberState ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+:AgentRole_CompetentAuthority_DigitalManager rdf:type owl:NamedIndividual , lomo:AgentRole ;
+    rdfs:label "Competent Authority as Digital Procedure Manager"@en ;
+    lomo:forAgent :Agent_CompetentAuthority ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+#################################################################
+#    TEMPORAL SPECIFICATIONS
+#################################################################
+
+:TemporalSpec_SixMonthsAfterEntry rdf:type owl:NamedIndividual , lomo:TemporalSpecification ;
+    rdfs:label "Six months after entry into force"@en ;
+    lomo:hasStartDate "2026-08-17"^^xsd:date ;
+    lomo:hasDescription "Six months after regulation entry into force"@en .
+
+:TemporalSpec_TwelveMonthsAfterEntry rdf:type owl:NamedIndividual , lomo:TemporalSpecification ;
+    rdfs:label "Twelve months after entry into force"@en ;
+    lomo:hasStartDate "2027-02-17"^^xsd:date ;
+    lomo:hasDescription "Twelve months after regulation entry into force"@en .
+
+:TemporalSpec_TwentyFourMonthsAfterEntry rdf:type owl:NamedIndividual , lomo:TemporalSpecification ;
+    rdfs:label "Twenty-four months after entry into force"@en ;
+    lomo:hasStartDate "2028-02-17"^^xsd:date ;
+    lomo:hasDescription "Twenty-four months after regulation entry into force"@en .
+
+:TemporalSpec_Ongoing rdf:type owl:NamedIndividual , lomo:TemporalSpecification ;
+    rdfs:label "Ongoing"@en ;
+    lomo:hasDescription "Continuous/ongoing timeline"@en .
+
+:TemporalSpec_PerCase rdf:type owl:NamedIndividual , lomo:TemporalSpecification ;
+    rdfs:label "Per case basis"@en ;
+    lomo:hasDescription "Triggered on a per-case basis"@en .
+
+#################################################################
+#    ACTIONS (from DIGITAL_DIMENSIONS.TXT requirements)
+#################################################################
+
+:Action_MemberState_ProvideOnlineInfo rdf:type owl:NamedIndividual , lomo:Action ;
+    rdfs:label "Member States provide online information access"@en ;
+    lomo:hasAgentRole :AgentRole_MemberState_Provider ;
+    lomo:atTime :TemporalSpec_SixMonthsAfterEntry ;
+    lomo:produces :Result_OnlineInformationAccess ;
+    lomo:involvesProcess :Process_InformationProvision ;
+    rdfs:comment "Member States shall provide developers and the public with access to environmental single points of contact and procedure information online"@en .
+
+:Action_Developers_SubmitElectronicInfo rdf:type owl:NamedIndividual , lomo:Action ;
+    rdfs:label "Developers submit information electronically"@en ;
+    lomo:hasAgentRole :AgentRole_Developers_Submitter ;
+    lomo:atTime :TemporalSpec_SixMonthsAfterEntry ;
+    lomo:produces :Result_ElectronicSubmission ;
+    lomo:involvesProcess :Process_ElectronicSubmission ;
+    rdfs:comment "Developers shall be allowed to submit any information related to environmental assessments in electronic form"@en .
+
+:Action_MemberState_PublishAssessmentData rdf:type owl:NamedIndividual , lomo:Action ;
+    rdfs:label "Member States publish assessment data digitally"@en ;
+    lomo:hasAgentRole :AgentRole_MemberState_Publisher ;
+    lomo:atTime :TemporalSpec_TwelveMonthsAfterEntry ;
+    lomo:produces :Result_DigitalPublication ;
+    lomo:involvesProcess :Process_DataPublication ;
+    rdfs:comment "Member States shall ensure that reports and data from environmental assessments are made publicly available in digital format through a central online portal"@en .
+
+:Action_MemberState_EnableCrossBorderExchange rdf:type owl:NamedIndividual , lomo:Action ;
+    rdfs:label "Member States enable cross-border data exchange"@en ;
+    lomo:hasAgentRole :AgentRole_MemberState_CrossBorderEnabler ;
+    lomo:atTime :TemporalSpec_TwentyFourMonthsAfterEntry ;
+    lomo:produces :Result_CrossBorderExchange ;
+    lomo:involvesProcess :Process_CrossBorderExchange ;
+    rdfs:comment "Member States shall ensure that environmental assessment procedures are fully digitalized and enable seamless cross-border data sharing"@en .
+
+:Action_CompetentAuthority_ProcessSubmissions rdf:type owl:NamedIndividual , lomo:Action ;
+    rdfs:label "Competent authorities process electronic submissions"@en ;
+    lomo:hasAgentRole :AgentRole_CompetentAuthority_Processor ;
+    lomo:atTime :TemporalSpec_SixMonthsAfterEntry ;
+    lomo:produces :Result_SubmissionProcessing ;
+    lomo:involvesProcess :Process_SubmissionProcessing ;
+    rdfs:comment "Competent authorities shall accept and process electronic submissions from developers"@en .
+
+:Action_CompetentAuthority_ManageDigitalProcedures rdf:type owl:NamedIndividual , lomo:Action ;
+    rdfs:label "Competent authorities manage digital procedures"@en ;
+    lomo:hasAgentRole :AgentRole_CompetentAuthority_DigitalManager ;
+    lomo:atTime :TemporalSpec_TwentyFourMonthsAfterEntry ;
+    lomo:produces :Result_DigitalProcedureManagement ;
+    lomo:involvesProcess :Process_DigitalProcedureManagement ;
+    rdfs:comment "Competent authorities shall manage fully digitalized environmental assessment procedures"@en .
+
+:Action_Public_AccessInformation rdf:type owl:NamedIndividual , lomo:Action ;
+    rdfs:label "Public accesses environmental information"@en ;
+    lomo:hasAgentRole :AgentRole_Public_Recipient ;
+    lomo:atTime :TemporalSpec_SixMonthsAfterEntry ;
+    lomo:produces :Result_PublicInformationAccess ;
+    lomo:involvesProcess :Process_InformationAccess ;
+    rdfs:comment "Public shall have access to environmental assessment information through online portals"@en .
+
+#################################################################
+#    ACTION RESULTS
+#################################################################
+
+:Result_OnlineInformationAccess rdf:type owl:NamedIndividual , lomo:ActionResult ;
+    rdfs:label "Online information access provided"@en ;
+    lomo:isManifestedIn :Dataset_SinglePointOfContactInfo , :Dataset_ProcedureInfo ;
+    rdfs:comment "Result of Member States providing online access to SPOC and procedure information"@en .
+
+:Result_ElectronicSubmission rdf:type owl:NamedIndividual , lomo:ActionResult ;
+    rdfs:label "Electronic submission completed"@en ;
+    lomo:isManifestedIn :Dataset_DeveloperSubmissions ;
+    rdfs:comment "Result of developers submitting environmental assessment information electronically"@en .
+
+:Result_DigitalPublication rdf:type owl:NamedIndividual , lomo:ActionResult ;
+    rdfs:label "Digital publication of assessment data"@en ;
+    lomo:isManifestedIn :Dataset_PublishedAssessmentData ;
+    rdfs:comment "Result of Member States publishing environmental assessment data digitally"@en .
+
+:Result_CrossBorderExchange rdf:type owl:NamedIndividual , lomo:ActionResult ;
+    rdfs:label "Cross-border data exchange enabled"@en ;
+    lomo:isManifestedIn :Dataset_CrossBorderData ;
+    rdfs:comment "Result of enabling seamless cross-border data sharing for environmental assessments"@en .
+
+:Result_SubmissionProcessing rdf:type owl:NamedIndividual , lomo:ActionResult ;
+    rdfs:label "Electronic submission processed"@en ;
+    lomo:isManifestedIn :Dataset_ProcessedSubmissions ;
+    rdfs:comment "Result of competent authorities processing electronic submissions"@en .
+
+:Result_DigitalProcedureManagement rdf:type owl:NamedIndividual , lomo:ActionResult ;
+    rdfs:label "Digital procedure management implemented"@en ;
+    lomo:isManifestedIn :Dataset_DigitalProcedureData ;
+    rdfs:comment "Result of implementing fully digitalized environmental assessment procedures"@en .
+
+:Result_PublicInformationAccess rdf:type owl:NamedIndividual , lomo:ActionResult ;
+    rdfs:label "Public information access provided"@en ;
+    lomo:isManifestedIn :Dataset_PublicAccessData ;
+    rdfs:comment "Result of public accessing environmental assessment information"@en .
+
+#################################################################
+#    DATASETS (from DIGITAL_DIMENSIONS.TXT section 4.2)
+#################################################################
+
+:Dataset_SinglePointOfContactInfo rdf:type owl:NamedIndividual , dcat:Dataset ;
+    dcterms:title "Environmental Single Point of Contact Information"@en ;
+    dcterms:description "Information about environmental single points of contact established by Member States"@en ;
+    lomo:hasStandard "Not specified in proposal"@en ;
+    skos:prefLabel "SPOC Information Dataset"@en .
+
+:Dataset_ProcedureInfo rdf:type owl:NamedIndividual , dcat:Dataset ;
+    dcterms:title "Environmental Assessment Procedure Information"@en ;
+    dcterms:description "Information about environmental assessment procedures including timelines and dispute settlement"@en ;
+    lomo:hasStandard "Not specified in proposal"@en ;
+    skos:prefLabel "Procedure Information Dataset"@en .
+
+:Dataset_DeveloperSubmissions rdf:type owl:NamedIndividual , dcat:Dataset ;
+    dcterms:title "Developer Electronic Submissions"@en ;
+    dcterms:description "Documents and information submitted by developers in electronic form for environmental assessments"@en ;
+    lomo:hasStandard "Not specified in proposal"@en ;
+    skos:prefLabel "Developer Submissions Dataset"@en .
+
+:Dataset_PublishedAssessmentData rdf:type owl:NamedIndividual , dcat:Dataset ;
+    dcterms:title "Published Environmental Assessment Data"@en ;
+    dcterms:description "Reports and data from environmental assessments made publicly available through central online portal"@en ;
+    lomo:hasStandard "Protection of business secrets and compliance with EU/national data protection requirements"@en ;
+    skos:prefLabel "Published Assessment Data Dataset"@en .
+
+:Dataset_CrossBorderData rdf:type owl:NamedIndividual , dcat:Dataset ;
+    dcterms:title "Cross-Border Environmental Assessment Data"@en ;
+    dcterms:description "Data shared between Member States for environmental assessment procedures with cross-border relevance"@en ;    
+    lomo:hasStandard "Not specified in proposal"@en ;
+    skos:prefLabel "Cross-Border Data Dataset"@en .
+
+:Dataset_ProcessedSubmissions rdf:type owl:NamedIndividual , dcat:Dataset ;
+    dcterms:title "Processed Electronic Submissions"@en ;
+    dcterms:description "Electronic submissions processed by competent authorities for environmental assessments"@en ;    
+    lomo:hasStandard "Not specified in proposal"@en ;
+    skos:prefLabel "Processed Submissions Dataset"@en .
+
+:Dataset_DigitalProcedureData rdf:type owl:NamedIndividual , dcat:Dataset ;
+    dcterms:title "Digital Procedure Management Data"@en ;
+    dcterms:description "Data from fully digitalized environmental assessment procedures"@en ;    
+    lomo:hasStandard "Not specified in proposal"@en .
+
+:Dataset_PublicAccessData rdf:type owl:NamedIndividual , dcat:Dataset ;
+    dcterms:title "Public Access Environmental Data"@en ;
+    dcterms:description "Environmental assessment data accessible to the public through online portals"@en ;    
+    lomo:hasStandard "Not specified in proposal"@en .
+
+#################################################################
+#    PROCESSES
+#################################################################
+
+:Process_InformationProvision rdf:type owl:NamedIndividual , lomo:Process ;
+    rdfs:label "Information Provision Process"@en ;
+    skos:prefLabel "Information Provision"@en ;
+    skos:inScheme :ProcessScheme ;
+    skos:broader lomo:Processes .
+
+:Process_OnlineInformationProvision rdf:type owl:NamedIndividual , lomo:Process ;
+    rdfs:label "Online Information Provision Process"@en ;
+    skos:prefLabel "Online Information Provision"@en ;
+    skos:inScheme :ProcessScheme ;
+    skos:broader lomo:Processes .
+
+:Process_ElectronicSubmission rdf:type owl:NamedIndividual , lomo:Process ;
+    rdfs:label "Electronic Submission Process"@en ;
+    skos:prefLabel "Electronic Submission"@en ;
+    skos:inScheme :ProcessScheme ;
+    skos:broader lomo:Processes .
+
+:Process_Intake rdf:type owl:NamedIndividual , lomo:Process ;
+    rdfs:label "Intake Process"@en ;
+    skos:prefLabel "Intake"@en ;
+    skos:inScheme :ProcessScheme ;
+    skos:broader lomo:Processes .
+
+:Process_Transparency rdf:type owl:NamedIndividual , lomo:Process ;
+    rdfs:label "Transparency Process"@en ;
+    skos:prefLabel "Transparency"@en ;
+    skos:inScheme :ProcessScheme ;
+    skos:broader lomo:Processes .
+
+:Process_DataProtectionCompliance rdf:type owl:NamedIndividual , lomo:Process ;
+    rdfs:label "Data Protection Compliance Process"@en ;
+    skos:prefLabel "Data Protection Compliance"@en ;
+    skos:inScheme :ProcessScheme ;
+    skos:broader lomo:Processes .
+
+:Process_DigitalProcedureManagement rdf:type owl:NamedIndividual , lomo:Process ;
+    rdfs:label "Digital Procedure Management Process"@en ;
+    skos:prefLabel "Digital Procedure Management"@en ;
+    skos:inScheme :ProcessScheme ;
+    skos:broader lomo:Processes .
+
+:Process_CrossBorderExchange rdf:type owl:NamedIndividual , lomo:Process ;
+    rdfs:label "Cross-Border Exchange Process"@en ;
+    skos:prefLabel "Cross-Border Exchange"@en ;
+    skos:inScheme :ProcessScheme ;
+    skos:broader lomo:Processes .
+
+:Process_AutomationGovernance rdf:type owl:NamedIndividual , lomo:Process ;
+    rdfs:label "Automation Governance Process"@en ;
+    skos:prefLabel "Automation Governance"@en ;
+    skos:inScheme :ProcessScheme ;
+    skos:broader lomo:Processes .
+
+:Process_CapacityBuilding rdf:type owl:NamedIndividual , lomo:Process ;
+    rdfs:label "Capacity Building Process"@en ;
+    skos:prefLabel "Capacity Building"@en ;
+    skos:inScheme :ProcessScheme ;
+    skos:broader lomo:Processes .
+
+:Process_TechnologyReadiness rdf:type owl:NamedIndividual , lomo:Process ;
+    rdfs:label "Technology Readiness Process"@en ;
+    skos:prefLabel "Technology Readiness"@en ;
+    skos:inScheme :ProcessScheme ;
+    skos:broader lomo:Processes .
+
+:Process_AccessToInformation rdf:type owl:NamedIndividual , lomo:Process ;
+    rdfs:label "Access to Information Process"@en ;
+    skos:prefLabel "Access to Information"@en ;
+    skos:inScheme :ProcessScheme ;
+    skos:broader lomo:Processes .
+
+:Process_RedressPathways rdf:type owl:NamedIndividual , lomo:Process ;
+    rdfs:label "Redress Pathways Process"@en ;
+    skos:prefLabel "Redress Pathways"@en ;
+    skos:inScheme :ProcessScheme ;
+    skos:broader lomo:Processes .
+
+:Process_ElectronicSubmission rdf:type owl:NamedIndividual , lomo:Process ;
+    rdfs:label "Electronic Submission Process"@en ;
+    skos:prefLabel "Electronic Submission"@en ;
+    skos:inScheme :ProcessScheme ;
+    skos:broader lomo:Processes .
+
+:Process_DataPublication rdf:type owl:NamedIndividual , lomo:Process ;
+    rdfs:label "Data Publication Process"@en ;
+    skos:prefLabel "Data Publication"@en ;
+    skos:inScheme :ProcessScheme ;
+    skos:broader lomo:Processes .
+
+:Process_CrossBorderExchange rdf:type owl:NamedIndividual , lomo:Process ;
+    rdfs:label "Cross-Border Exchange Process"@en ;
+    skos:prefLabel "Cross-Border Exchange"@en ;
+    skos:inScheme :ProcessScheme ;
+    skos:broader lomo:Processes .
+
+:Process_SubmissionProcessing rdf:type owl:NamedIndividual , lomo:Process ;
+    rdfs:label "Submission Processing Process"@en ;
+    skos:prefLabel "Submission Processing"@en ;
+    skos:inScheme :ProcessScheme ;
+    skos:broader lomo:Processes .
+
+:Process_DigitalProcedureManagement rdf:type owl:NamedIndividual , lomo:Process ;
+    rdfs:label "Digital Procedure Management Process"@en ;
+    skos:prefLabel "Digital Procedure Management"@en ;
+    skos:inScheme :ProcessScheme ;
+    skos:broader lomo:Processes .
+
+:Process_InformationAccess rdf:type owl:NamedIndividual , lomo:Process ;
+    rdfs:label "Information Access Process"@en ;
+    skos:prefLabel "Information Access"@en ;
+    skos:inScheme :ProcessScheme ;
+    skos:broader lomo:Processes .
+
+:Process_Intake rdf:type owl:NamedIndividual , lomo:Process ;
+    rdfs:label "Intake Process"@en ;
+    skos:prefLabel "Intake"@en ;
+    skos:inScheme :ProcessScheme ;
+    skos:broader lomo:Processes .
+
+:Process_Transparency rdf:type owl:NamedIndividual , lomo:Process ;
+    rdfs:label "Transparency Process"@en ;
+    skos:prefLabel "Transparency"@en ;
+    skos:inScheme :ProcessScheme ;
+    skos:broader lomo:Processes .
+
+:Process_DataProtectionCompliance rdf:type owl:NamedIndividual , lomo:Process ;
+    rdfs:label "Data Protection Compliance Process"@en ;
+    skos:prefLabel "Data Protection Compliance"@en ;
+    skos:inScheme :ProcessScheme ;
+    skos:broader lomo:Processes .
+
+:Process_AutomationGovernance rdf:type owl:NamedIndividual , lomo:Process ;
+    rdfs:label "Automation Governance Process"@en ;
+    skos:prefLabel "Automation Governance"@en ;
+    skos:inScheme :ProcessScheme ;
+    skos:broader lomo:Processes .
+
+:Process_CapacityBuilding rdf:type owl:NamedIndividual , lomo:Process ;
+    rdfs:label "Capacity Building Process"@en ;
+    skos:prefLabel "Capacity Building"@en ;
+    skos:inScheme :ProcessScheme ;
+    skos:broader lomo:Processes .
+
+:Process_TechnologyReadiness rdf:type owl:NamedIndividual , lomo:Process ;
+    rdfs:label "Technology Readiness Process"@en ;
+    skos:prefLabel "Technology Readiness"@en ;
+    skos:inScheme :ProcessScheme ;
+    skos:broader lomo:Processes .
+
+:Process_AccessToInformation rdf:type owl:NamedIndividual , lomo:Process ;
+    rdfs:label "Access to Information Process"@en ;
+    skos:prefLabel "Access to Information"@en ;
+    skos:inScheme :ProcessScheme ;
+    skos:broader lomo:Processes .
+
+:Process_RedressPathways rdf:type owl:NamedIndividual , lomo:Process ;
+    rdfs:label "Redress Pathways Process"@en ;
+    skos:prefLabel "Redress Pathways"@en ;
+    skos:inScheme :ProcessScheme ;
+    skos:broader lomo:Processes .
+
+#################################################################
+#    SCHEMES FOR CLASSIFICATION
+#################################################################
+
+:DataScheme rdf:type skos:ConceptScheme ;
+    skos:prefLabel "Data Categories"@en .
+
+:ProcessScheme rdf:type skos:ConceptScheme ;
+    skos:prefLabel "Process Categories"@en .
+
+:DigitalDimensionScheme rdf:type skos:ConceptScheme ;
+    skos:prefLabel "Digital Dimensions"@en .
+
+#################################################################
+#    PRESCRIPTIVE RULES (from key articles)
+#################################################################
+
+:Rule_Article3_SinglePointOfContact rdf:type owl:NamedIndividual , lomo:PrescriptiveRule , lomo:ImplementationAndOversightRule ;
+    rdfs:label "Establishment of Environmental Single Points of Contact"@en ;
+    lomo:hasDeonticModality <http://data.europa.eu/leg/deontic-modality/Obligation> ;
+    lomo:produces :Action_MemberState_ProvideOnlineInfo ;
+    lomo:establishedIn <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:52025PC0984/art_3/par_3> ;
+    lomo:legalText "Member States shall provide tools to help developers identify the appropriate established or designated contact point on the online portal set up in accordance with Article 10."@en ;
+    lomo:references :DigitalSolution_OnlinePortal , :DigitalPublicService_EnvironmentalPortal , :Dataset_SinglePointOfContactInfo , :Dataset_ProcedureInfo ;
+    lomo:involvesProcess :Process_InformationProvision ;
+    lomo:hasCategory <http://data.europa.eu/leg/digital-dimensions/DigitalPublicService> , <http://data.europa.eu/leg/digital-dimensions/DigitalSolutions> ;
+    rdfs:comment "Member States shall provide tools to help developers identify the appropriate established or designated contact point on the online portal."@en .
+
+:Rule_Article10_ElectronicSubmission rdf:type owl:NamedIndividual , lomo:PrescriptiveRule , lomo:SubstantiveRule ;
+    rdfs:label "Electronic Submission of Environmental Information"@en ;
+    lomo:hasDeonticModality <http://data.europa.eu/leg/deontic-modality/Obligation> ;
+    lomo:produces :Action_Developers_SubmitElectronicInfo , :Action_CompetentAuthority_ProcessSubmissions ;
+    lomo:establishedIn <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:52025PC0984/art_10/par_1> ;
+    lomo:legalText "Developers shall be allowed to submit any information related to the environmental assessments and screening procedures in electronic form (after six months from entry into force)."@en ;
+    lomo:references :DigitalSolution_ElectronicSubmission , :DigitalPublicService_EnvironmentalPortal , :Dataset_DeveloperSubmissions , :Dataset_ProcessedSubmissions ;
+    lomo:involvesProcess :Process_ElectronicSubmission , :Process_Intake ;
+    lomo:hasCategory <http://data.europa.eu/leg/digital-dimensions/DigitalSolutions> , <http://data.europa.eu/leg/digital-dimensions/DigitalPublicService> ;
+    rdfs:comment "Developers shall be allowed to submit any information related to the environmental assessment in electronic form (after six months from entry into force)."@en .
+
+:Rule_Article10_OnlineInformationAccess rdf:type owl:NamedIndividual , lomo:PrescriptiveRule , lomo:SubstantiveRule ;
+    rdfs:label "Online Access to Environmental Assessment Information"@en ;
+    lomo:hasDeonticModality <http://data.europa.eu/leg/deontic-modality/Obligation> ;
+    lomo:produces :Action_MemberState_ProvideOnlineInfo , :Action_Public_AccessInformation ;
+    lomo:establishedIn <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:52025PC0984/art_10/par_2> ;
+    lomo:legalText "Member States shall provide developers and the public access to the following information as regards plans, programmes or projects, online and in a centralised and easily accessible manner: (a) the environmental single points of contact referred to in Article 3; (b) the progress of the environmental assessments and screening procedure, including the upcoming steps of the procedure and the timeline of those steps as well as information on dispute settlement (after six months from entry into force)."@en ;
+    lomo:references :DigitalSolution_OnlinePortal , :DigitalPublicService_EnvironmentalPortal , :Dataset_SinglePointOfContactInfo , :Dataset_ProcedureInfo , :Dataset_PublicAccessData ;
+    lomo:involvesProcess :Process_OnlineInformationProvision , :Process_Transparency ;
+    lomo:hasCategory <http://data.europa.eu/leg/digital-dimensions/Data> , <http://data.europa.eu/leg/digital-dimensions/DigitalSolutions> , <http://data.europa.eu/leg/digital-dimensions/DigitalPublicService> ;
+    rdfs:comment "Member States shall provide developers and the public access to environmental single points of contact and procedure information online and in a centralised and easily accessible manner."@en .
+
+:Rule_Article10_DigitalPublication rdf:type owl:NamedIndividual , lomo:PrescriptiveRule , lomo:SubstantiveRule ;
+    rdfs:label "Digital Publication of Assessment Reports"@en ;
+    lomo:hasDeonticModality <http://data.europa.eu/leg/deontic-modality/Obligation> ;
+    lomo:produces :Action_MemberState_PublishAssessmentData ;
+    lomo:establishedIn <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:52025PC0984/art_10/par_3> ;
+    lomo:legalText "Member States shall ensure that reports and data resulting from environmental assessments and screening procedures, related decisions and monitoring of environmental effects and procedures are made and remain publicly available in a digital format through a central online portal, in a manner that is compatible with the preservation of business secrets and Union or national data protection requirements. That portal shall be based on a digital geographic information system and shall include all available data on species observations and other environmental and geological data. (after twelve months from entry into force)."@en ;
+    lomo:references :DigitalSolution_OnlinePortal , :DigitalPublicService_EnvironmentalPortal , :Dataset_PublishedAssessmentData ;
+    lomo:involvesProcess :Process_DataPublication , :Process_DataProtectionCompliance ;
+    lomo:hasCategory <http://data.europa.eu/leg/digital-dimensions/Data> , <http://data.europa.eu/leg/digital-dimensions/DigitalSolutions> ;
+    rdfs:comment "Member States shall ensure that reports and data from environmental assessments are made publicly available in a digital format through a central online portal, in a manner compatible with data protection requirements."@en .
+
+:Rule_Article10_FullDigitalization rdf:type owl:NamedIndividual , lomo:PrescriptiveRule , lomo:SubstantiveRule ;
+    rdfs:label "Full Digitalization of Assessment Procedures"@en ;
+    lomo:hasDeonticModality <http://data.europa.eu/leg/deontic-modality/Obligation> ;
+    lomo:produces :Action_MemberState_EnableCrossBorderExchange , :Action_CompetentAuthority_ManageDigitalProcedures ;
+    lomo:establishedIn <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:52025PC0984/art_10/par_4> ;
+    lomo:legalText "Member States shall ensure that environmental assessment and screening procedures are fully digitalized and enable the re-use of data and documents held by public authorities at national level as well as the sharing of such data between Member States, developers and the public, in a seamless manner. Where appropriate, such procedures shall be interoperable with European Digital Identity Wallets and European Business Wallets. (after twenty four months of the entry into force)."@en ;
+    lomo:references :DigitalSolution_DigitalProcedures , :DigitalPublicService_EnvironmentalPortal , :DigitalPublicService_CrossBorderExchange , :Dataset_CrossBorderData , :Dataset_DigitalProcedureData ;
+    lomo:involvesProcess :Process_DigitalProcedureManagement , :Process_CrossBorderExchange , :Process_AutomationGovernance ;
+    lomo:hasCategory <http://data.europa.eu/leg/digital-dimensions/Data> , <http://data.europa.eu/leg/digital-dimensions/DigitalSolutions> , <http://data.europa.eu/leg/digital-dimensions/DigitalPublicService> ;
+    rdfs:comment "Member States shall ensure that environmental assessment procedures are fully digitalized and enable seamless cross-border data sharing, with interoperability with European Digital Identity Wallets and European Business Wallets where appropriate."@en .
+
+:Rule_Article10_DisputeSettlementInfo rdf:type owl:NamedIndividual , lomo:PrescriptiveRule , lomo:SubstantiveRule ;
+    rdfs:label "Access to Dispute Settlement Information"@en ;
+    lomo:hasDeonticModality <http://data.europa.eu/leg/deontic-modality/Obligation> ;
+    lomo:produces :Action_MemberState_ProvideOnlineInfo ;
+    lomo:establishedIn <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:52025PC0984/art_10/par_2/b/5> ;
+    lomo:legalText "Member States shall provide developers and the public with access to the information on dispute settlement as regards plans, programmes or projects, online and in a centralised and easily accessible manner."@en ;
+    lomo:references :DigitalSolution_OnlinePortal , :DigitalPublicService_EnvironmentalPortal , :Dataset_ProcedureInfo ;
+    lomo:involvesProcess :Process_AccessToInformation , :Process_RedressPathways ;
+    lomo:hasCategory <http://data.europa.eu/leg/digital-dimensions/DigitalPublicService> ;
+    rdfs:comment "Member States shall provide developers and the public with access to information on dispute settlement procedures online."@en .
+
+:Rule_Article12_ResourcesAndTraining rdf:type owl:NamedIndividual , lomo:PrescriptiveRule , lomo:ImplementationAndOversightRule ;
+    rdfs:label "Resources and Training for Digital Implementation"@en ;
+    lomo:hasDeonticModality <http://data.europa.eu/leg/deontic-modality/Obligation> ;
+    lomo:produces :Action_CompetentAuthority_ManageDigitalProcedures ;
+    lomo:establishedIn <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:52025PC0984/art_12> ;
+    lomo:legalText "Member States shall ensure that competent authorities have sufficient resources and training for effective performance of digital environmental assessment tasks."@en ;
+    lomo:involvesProcess :Process_CapacityBuilding , :Process_TechnologyReadiness ;
+    lomo:hasCategory <http://data.europa.eu/leg/digital-dimensions/DigitalPublicService> ;
+    rdfs:comment "Member States shall provide resources and training for authorities to implement digital procedures."@en .
+
+#################################################################
+#    DIGITAL SOLUTIONS (from DIGITAL_DIMENSIONS.TXT section 4.3)
+#################################################################
+
+:DigitalSolution_OnlinePortal rdf:type owl:NamedIndividual , dcterms:Software ;
+    dcterms:title "Environmental Assessments Online Portal"@en ;
+    dcterms:description "Central online portal providing access to environmental single points of contact, procedure information, and assessment data."@en ;
+    lomo:hasCapability "Centralised information access" , "Digital publication of assessment data" , "SPOC locator functionality" ;
+    dcterms:publisher :Agent_MemberState ;
+    rdfs:comment "Online portal for environmental assessments with centralised information access and digital publication capabilities."@en .
+
+:DigitalSolution_ElectronicSubmission rdf:type owl:NamedIndividual , dcterms:Software ;
+    dcterms:title "Electronic Submission Channel"@en ;
+    dcterms:description "System for accepting electronic submissions of environmental assessment information from developers."@en ;
+    lomo:hasCapability "Electronic document intake" , "Digital form processing" ;
+    dcterms:publisher :Agent_MemberState ;
+    rdfs:comment "Electronic submission channel for developers to submit any information related to environmental assessments in electronic form."@en .
+
+:DigitalSolution_DigitalProcedures rdf:type owl:NamedIndividual , dcterms:Software ;
+    dcterms:title "Digital Environmental Assessment Procedures"@en ;
+    dcterms:description "Fully digitalized systems for environmental assessment procedures with cross-border capabilities."@en ;
+    lomo:hasCapability "Full procedure digitalization" , "Cross-border interoperability" , "Automated processing with safeguards" ;
+    dcterms:publisher :Agent_MemberState ;
+    rdfs:comment "Fully digitalized environmental assessment procedures with cross-border data exchange capabilities and automated systems."@en .
+
+#################################################################
+#    DIGITAL PUBLIC SERVICES (from DIGITAL_DIMENSIONS.TXT section 4.4)
+#################################################################
+
+:DigitalPublicService_EnvironmentalPortal rdf:type owl:NamedIndividual , cpsv:PublicService ;
+    dcterms:title "Environmental Assessments Public Portal"@en ;
+    dcterms:description "Public service providing centralised online access to environmental assessment information and procedures."@en ;
+    lomo:hasReference "Article 10(2)-(3), Article 3(3)" ;
+    cpsv:hasCompetentAuthority :Agent_MemberState ;
+    skos:prefLabel "Environmental Assessments Portal"@en ;
+    skos:inScheme :DigitalDimensionScheme ;
+    skos:definition "Centralised online access to environmental single points of contact and assessment procedure information"@en ;
+    skos:broader <http://data.europa.eu/leg/digital-dimensions/DigitalPublicService> .
+
+:DigitalPublicService_CrossBorderExchange rdf:type owl:NamedIndividual , cpsv:PublicService ;
+    dcterms:title "Cross-Border Environmental Data Exchange"@en ;
+    dcterms:description "Public service enabling seamless sharing of environmental assessment data between Member States."@en ;
+    lomo:hasReference "Article 10(4)" ;
+    cpsv:hasCompetentAuthority :Agent_MemberState ;
+    skos:prefLabel "Cross-Border Data Exchange Service"@en ;
+    skos:inScheme :DigitalDimensionScheme ;
+    skos:definition "Seamless sharing of environmental assessment data between Member States"@en ;
+    skos:broader <http://data.europa.eu/leg/digital-dimensions/DigitalPublicService> .
+
+#################################################################
+#    INTEROPERABILITY ASSESSMENT (from DIGITAL_DIMENSIONS.TXT section 4.4)
+#################################################################
+
+:InteroperabilityAssessment_AlignmentWithPolicies rdf:type owl:NamedIndividual , cav:InteroperabilityAssessment ;
+    dcterms:title "Alignment with Existing Digital and Sectorial Policies"@en ;
+    cav:assesses :DigitalPublicService_EnvironmentalPortal , :DigitalPublicService_CrossBorderExchange ;
+    cav:hasAssessmentType cav:PolicyAlignmentAssessment ;
+    rdfs:comment "Assessment of alignment with existing digital and sectorial policies for environmental assessment services."@en ;
+    cav:hasAssessmentStatement "The regulation promotes digitalization of environmental assessment procedures and cross-border data sharing, aligning with EU digital policies."@en .
+
+:InteroperabilityAssessment_OrganizationalMeasures rdf:type owl:NamedIndividual , cav:InteroperabilityAssessment ;
+    dcterms:title "Organizational Measures for Cross-Border Services"@en ;
+    cav:assesses :DigitalPublicService_CrossBorderExchange ;
+    cav:hasAssessmentType cav:OrganizationalAssessment ;
+    rdfs:comment "Assessment of organizational measures for smooth cross-border delivery of environmental assessment services."@en ;
+    cav:hasAssessmentStatement "Member States are responsible for implementing digital procedures and ensuring cross-border interoperability through the established systems."@en .
+
+:InteroperabilityAssessment_DataUnderstanding rdf:type owl:NamedIndividual , cav:InteroperabilityAssessment ;
+    dcterms:title "Shared Understanding of Environmental Data"@en ;
+    cav:assesses :DigitalPublicService_EnvironmentalPortal ;
+    cav:hasAssessmentType cav:SemanticAssessment ;
+    rdfs:comment "Assessment of measures taken to ensure shared understanding of environmental assessment data."@en ;
+    cav:hasAssessmentStatement "The central online portal provides standardised access to environmental assessment data, promoting shared understanding across Member States."@en .
+
+:InteroperabilityAssessment_TechnicalStandards rdf:type owl:NamedIndividual , cav:InteroperabilityAssessment ;
+    dcterms:title "Use of Open Technical Specifications and Standards"@en ;
+    cav:assesses :DigitalSolution_DigitalProcedures , :DigitalPublicService_CrossBorderExchange ;
+    cav:hasAssessmentType cav:TechnicalAssessment ;
+    rdfs:comment "Assessment of the use of commonly agreed open technical specifications and standards."@en ;
+    cav:hasAssessmentStatement "Digital procedures should comply with relevant Union policies and technical standards, though specific standards are not named in the proposal."@en .
+
+:CompleteInteroperabilityAssessment_EnvironmentalServices rdf:type owl:NamedIndividual , cav:CompleteInteroperabilityAssessment ;
+    dcterms:title "Complete Interoperability Assessment for Environmental Assessment Services"@en ;
+    cav:hasSubAssessment :InteroperabilityAssessment_AlignmentWithPolicies , :InteroperabilityAssessment_OrganizationalMeasures , :InteroperabilityAssessment_DataUnderstanding , :InteroperabilityAssessment_TechnicalStandards ;
+    rdfs:comment "Complete interoperability assessment covering all aspects of environmental assessment digital services."@en .

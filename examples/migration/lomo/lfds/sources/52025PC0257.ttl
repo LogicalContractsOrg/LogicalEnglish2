@@ -1,0 +1,133 @@
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix dd: <http://data.europa.eu/leg/digital-dimensions/> .
+@prefix lomo: <http://data.europa.eu/leg/lomo#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix tf: <http://data.europa.eu/leg/temporal-function/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<http://example.org/analysis/description/1> a lomo:LegalRule ;
+    rdfs:label "Article 1(2), amending Article 13(8) of Council Regulation (EU) 2025/202"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:frequency "P1W"^^xsd:duration ;
+            lomo:hasFunction tf:validity ],
+        [ a lomo:TemporalSpecification ;
+            lomo:frequency "P1W"^^xsd:duration ;
+            lomo:hasFunction tf:validity ],
+        [ a lomo:TemporalSpecification ;
+            lomo:frequency "P1Y"^^xsd:duration ;
+            lomo:hasFunction tf:validity ],
+        [ a lomo:TemporalSpecification ;
+            lomo:frequency "P1Y"^^xsd:duration ;
+            lomo:hasFunction tf:validity ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/257/cod/doc/com/COM_2025_257/FINAL/eng/art_1/par_2>,
+        <https://data.europa.eu/eli/dl/proc/2025/257/cod/doc/com/COM_2025_257/FINAL/eng/art_13/par_8> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/data-submission-reporting> ;
+    lomo:produces <http://example.org/analysis/action/1>,
+        <http://example.org/analysis/action/2>,
+        <http://example.org/analysis/description/1/action> ;
+    lomo:references <http://example.org/dataset/catches-of-certain-fish-stocks> ;
+    dcterms:description "Additional reporting requirements regarding the closure period or periods for European eel in the north-east Atlantic. Digital solutions are not envisaged for those reporting requirements in relation to that annual and temporary measure."@en .
+
+<http://example.org/analysis/description/2> a lomo:LegalRule ;
+    rdfs:label "Article 1(3) and Annex, amending certain Annexes to Council Regulation (EU) 2025/202"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/257/cod/doc/com/COM_2025_257/FINAL/eng/art_1/par_3> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/data-submission-reporting> ;
+    lomo:produces <http://example.org/analysis/description/2/action> ;
+    dcterms:description "Reporting levels (i.e.individual fishing vessels to Member States), triggers and frequencies, as well as codes for catches of certain fish stocks in relation to the existing reporting requirements under the ‘Fisheries Control Regulation’ (Council Regulation (EC) No 1224/2009) and the relevant digital solutions."@en .
+
+<http://example.org/agent/flag-member-states> rdfs:label "(Flag) Member States"@en .
+
+<http://example.org/agent/flag-member-states-and-european-commission> rdfs:label "(Flag) Member States and European Commission"@en .
+
+<http://example.org/agent/member-states> rdfs:label "Member States"@en .
+
+<http://example.org/agent/rfmo-secretariat> rdfs:label "RFMO Secretariat"@en .
+
+<http://example.org/analysis/action/1> a lomo:Action ;
+    rdfs:label "Catches of certain fish stocks at a certain level"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:frequency "P1Y"^^xsd:duration ;
+            lomo:hasFunction tf:deadline ],
+        [ a lomo:TemporalSpecification ;
+            lomo:frequency "P1W"^^xsd:duration ;
+            lomo:hasFunction tf:deadline ],
+        [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Certain frequency or overall catch level"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/257/cod/doc/com/COM_2025_257/FINAL/eng/art_1/par_2> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/1/role/addressee-european-commission>,
+        <http://example.org/analysis/action/1/role/addresser-flag-member-states> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Catches of certain fish stocks at a certain level"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/catches-of-certain-fish-stocks-at-a-certain-level> ] .
+
+<http://example.org/analysis/action/1/role/addressee-european-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/european-commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/1/role/addresser-flag-member-states> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/flag-member-states> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/2> a lomo:Action ;
+    rdfs:label "Catches of certain fish stocks at a certain level (in certain cases)"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:frequency "P1W"^^xsd:duration ;
+            lomo:hasFunction tf:deadline ],
+        [ a lomo:TemporalSpecification ;
+            lomo:frequency "P1Y"^^xsd:duration ;
+            lomo:hasFunction tf:deadline ],
+        [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Certain frequency or reception of flag Member States data"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/257/cod/doc/com/COM_2025_257/FINAL/eng/art_1/par_2> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/2/role/addressee-rfmo-secretariat>,
+        <http://example.org/analysis/action/2/role/addresser-european-commission> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Catches of certain fish stocks at a certain level (in certain cases)"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/catches-of-certain-fish-stocks-at-a-certain-level-in-certain-cases> ] .
+
+<http://example.org/analysis/action/2/role/addressee-rfmo-secretariat> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/rfmo-secretariat> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/2/role/addresser-european-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/european-commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/description/1/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/1/action/role/addressee-member-states> .
+
+<http://example.org/analysis/description/1/action/role/addressee-member-states> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/2/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/2/action/role/addressee-flag-member-states-and-european-commission> .
+
+<http://example.org/analysis/description/2/action/role/addressee-flag-member-states-and-european-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/flag-member-states-and-european-commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/dataset/catches-of-certain-fish-stocks> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/257/cod/doc/com/COM_2025_257/FINAL/eng/art_1/par_2> ;
+    dcterms:title "Catches of certain fish stocks"@en .
+
+<http://example.org/dataset/catches-of-certain-fish-stocks-at-a-certain-level> a dcat:Dataset ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Catches of certain fish stocks at a certain level"@en ] ;
+    dcterms:title "Catches of certain fish stocks at a certain level"@en .
+
+<http://example.org/dataset/catches-of-certain-fish-stocks-at-a-certain-level-in-certain-cases> a dcat:Dataset ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Catches of certain fish stocks at a certain level (in certain cases)"@en ] ;
+    dcterms:title "Catches of certain fish stocks at a certain level (in certain cases)"@en .
+
+<http://example.org/agent/european-commission> rdfs:label "European Commission"@en .
+
+<http://example.org/process/data-submission-reporting> skos:prefLabel "Data submission, reporting"@en .
+

@@ -1,0 +1,58 @@
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix lomo: <http://data.europa.eu/leg/lomo#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+
+<http://example.org/analysis/description/1> a lomo:LegalRule ;
+    rdfs:label "Article 1(6)"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/art_1/par_6> ;
+    lomo:involvesProcess <http://example.org/process/labelling-of-grapevine-products> ;
+    lomo:produces <http://example.org/analysis/description/1/action> ;
+    dcterms:description "The Commission is empowered to define rules and provisions on the electronic labelling of mandatory information defined in Article 119 of the regulation."@en .
+
+<http://example.org/analysis/description/2> a lomo:LegalRule ;
+    rdfs:label "Article 2(3)"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/art_2/par_3> ;
+    lomo:involvesProcess <http://example.org/process/labelling-of-aromatised-wine-products> ;
+    lomo:produces <http://example.org/analysis/description/2/action> ;
+    dcterms:description "As above for aromatised wine products."@en .
+
+<http://example.org/agent/commission> rdfs:label "Commission"@en .
+
+<http://example.org/analysis/description/1/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/1/action/role/addressee-commission>,
+        <http://example.org/analysis/description/1/action/role/addressee-general-public>,
+        <http://example.org/analysis/description/1/action/role/addressee-stakeholders> .
+
+<http://example.org/analysis/description/1/action/role/addressee-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/1/action/role/addressee-general-public> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/general-public> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/1/action/role/addressee-stakeholders> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/stakeholders> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/2/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/2/action/role/addressee-general-public>,
+        <http://example.org/analysis/description/2/action/role/addressee-stakeholders> .
+
+<http://example.org/analysis/description/2/action/role/addressee-general-public> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/general-public> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/2/action/role/addressee-stakeholders> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/stakeholders> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/process/labelling-of-aromatised-wine-products> skos:prefLabel "Labelling of aromatised wine products"@en .
+
+<http://example.org/process/labelling-of-grapevine-products> skos:prefLabel "Labelling of grapevine products"@en .
+
+<http://example.org/agent/general-public> rdfs:label "General public"@en .
+
+<http://example.org/agent/stakeholders> rdfs:label "Stakeholders"@en .
+

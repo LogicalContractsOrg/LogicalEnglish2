@@ -1,0 +1,41 @@
+# Article 1 - Messages exchanged by means of the computerised system relating to the national and central registers
+# The structure and the content of messages relating to the registration of economic operators and tax warehouses in the national registers and in the Central Register shall comply with Annex I.
+#
+# Note: In this Turtle file, no explicit agents (addresser or addressee) have been modelled for this provision. The legal text specifies requirements concerning the structure and content of messages exchanged between registers, which are considered technical instruments rather than legal actors. On the basis of this article alone, it is not possible to unambiguously identify who performs the action or for whom it is performed. In the context of the serialisation of the entire Act, relevant agents are expected to be derived from the broader legal and institutional context.
+
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix eli: <http://data.europa.eu/eli/ontology#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix example: <https://system.org/example#> .
+@prefix lomo: <http://data.europa.eu/leg/lomo#> .
+
+# Agent Role instance
+example:REG2013612ART1PAR1_AgentRole1
+    a lomo:AgentRole ;
+    lomo:forAgent example:CompetentAuthorities ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+# Legal Rule
+example:REG2013612ART1PAR1
+    a lomo:PrescriptiveRule ;
+    rdfs:label "Compliance obligation concerning the structure and content of messages related to the registration of economic operators"@en ;
+    lomo:hasDeonticModality <http://data.europa.eu/leg/deontic-modality/Obligation> ;
+    lomo:hasRequirementType <http://publications.europa.eu/resource/dataset/administrative-obligation/c_80214a02> ;
+    lomo:establishedIn <http://data.europa.eu/eli/reg_impl/2013/612/art_1/par_1/2023-02-13> ;
+    lomo:produces example:REG2013612ART1PAR1_Action1 ;
+    lomo:legalText "The structure and the content of messages relating to the registration of economic operators and tax warehouses in the national registers and in the Central Register shall comply with Annex I."@en .
+
+# Actions
+example:REG2013612ART1PAR1_Action1
+    a lomo:Action ;
+    lomo:hasAgentRole example:REG2013612ART1PAR1_AgentRole1 ;
+    lomo:legalText "Ensure messages comply with Annex I"@en .
+
+# Action Results
+example:REG2013612ART1PAR1_ActionResult1
+    a lomo:ActionResult ;
+    rdfs:label "Compliance of the structure and content of messages with Annex I"@en ;
+    lomo:legalText "Compliance of the structure and content of messages with Annex I."@en .

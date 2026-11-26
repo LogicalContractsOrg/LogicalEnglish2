@@ -1,0 +1,2564 @@
+@prefix adms: <http://www.w3.org/ns/adms#> .
+@prefix cav: <http://data.europa.eu/2sa/cav#> .
+@prefix cpsv: <http://purl.org/vocab/cpsv#> .
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix dctype: <http://purl.org/dc/dcmitype/> .
+@prefix dd: <http://data.europa.eu/leg/digital-dimensions/> .
+@prefix iac: <http://data.europa.eu/leg/interop-assessment#> .
+@prefix iopa: <http://data.europa.eu/2qy/iopa#> .
+@prefix lomo: <http://data.europa.eu/leg/lomo#> .
+@prefix m8g: <http://data.europa.eu/m8g/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix tc: <http://data.europa.eu/9bx/> .
+@prefix tf: <http://data.europa.eu/leg/temporal-function/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix y6k: <http://data.europa.eu/y6k/> .
+
+<http://example.org/analysis/assessment/1> a cav:Assessment ;
+    cav:assesses <http://example.org/analysis/description/32>,
+        <http://example.org/analysis/description/66> ;
+    cav:resultsIn <http://example.org/analysis/assessment/1/1/measure>,
+        <http://example.org/analysis/assessment/1/2/measure>,
+        <http://example.org/analysis/assessment/1/3/measure>,
+        <http://example.org/analysis/assessment/1/4/measure> ;
+    m8g:isProvidedBy <http://publications.europa.eu/resource/authority/corporate-body/COM> .
+
+<http://example.org/analysis/description/10> a lomo:LegalRule ;
+    rdfs:label "Article 8"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_8> ;
+    lomo:hasCategory dd:Data,
+        dd:DigitalPublicService ;
+    lomo:involvesProcess <http://example.org/process/request-for-authorisation> ;
+    lomo:produces <http://example.org/analysis/description/10/action> ;
+    dcterms:description "Specific permission to operate DLT trading venue including reporting; provision of evidence of safeguards."@en .
+
+<http://example.org/analysis/description/11> a lomo:LegalRule ;
+    rdfs:label "Article 10, 10a, 10b, 10c, 10d, 10e"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_10> ;
+    lomo:hasCategory dd:Data,
+        dd:DigitalPublicService ;
+    lomo:involvesProcess <http://example.org/process/request-for-a-specific-permission-to-operate-a-dlt-tss-reporting-to-esma> ;
+    lomo:produces <http://example.org/analysis/description/11/action> ;
+    dcterms:description "Specific permission to operate DLT trading and settlement system; Specific permission to provide individual CSD services; Settlement between DLT central account keepers; Authorisation and supervision of the settlement scheme; ESMA to develop guidelines and forms/template;"@en .
+
+<http://example.org/analysis/description/12> a lomo:LegalRule ;
+    rdfs:label "Article 10g"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:frequency "P1M"^^xsd:duration ;
+            lomo:hasFunction tf:validity ],
+        [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ],
+        [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ],
+        [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_10> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/data-standardisation> ;
+    lomo:produces <http://example.org/analysis/action/10>,
+        <http://example.org/analysis/action/11>,
+        <http://example.org/analysis/action/8>,
+        <http://example.org/analysis/action/9>,
+        <http://example.org/analysis/description/12/action> ;
+    lomo:references <http://example.org/dataset/data-standardisation-in-supporting-interoperability-between-dlt-market-infrastructures>,
+        <http://example.org/dataset/information-about-transfers-that-take-place-with-the-settlement-scheme-they-participate>,
+        <http://example.org/dataset/information-concerning-dlt-notaries-and-dlt-central-account-managers>,
+        <http://example.org/dataset/information-on-cross-border-dlt-csd-services>,
+        <http://example.org/dataset/information-supporting-the-application-for-a-specific-permission-to-provide-the-dlt-notary-service-or-the-dlt-central-maintenance>,
+        <http://example.org/dataset/information-supporting-the-authorization-and-supervision-of-the-settlement-scheme> ;
+    dcterms:description "Data standardisation in supporting interoperability between DLT market infrastructures"@en .
+
+<http://example.org/analysis/description/13> a lomo:LegalRule ;
+    rdfs:label "Article 11, 11a"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_11> ;
+    lomo:hasCategory dd:Data,
+        dd:DigitalPublicService ;
+    lomo:involvesProcess <http://example.org/process/operators-of-dlt-market-to-notify-and-report-to-ncas> ;
+    lomo:produces <http://example.org/analysis/description/13/action> ;
+    dcterms:description "Operators of DLT market infrastructures to notify NCAs and to report on basic parameters of their activities every 6 months. NCAs to submit the reports to ESMA; Requirements for reporting and record keeping."@en .
+
+<http://example.org/analysis/description/14> a lomo:LegalRule ;
+    rdfs:label "Article 13"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_13> ;
+    lomo:hasCategory dd:Data,
+        dd:DigitalPublicService ;
+    lomo:involvesProcess <http://example.org/process/mss-to-notify-ncas-esma-to-publish-a-list-of-ncas> ;
+    lomo:produces <http://example.org/analysis/description/14/action> ;
+    dcterms:description "Notification of competent authorities"@en .
+
+<http://example.org/analysis/description/16> a lomo:LegalRule ;
+    rdfs:label "Article 6"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_6> ;
+    lomo:hasCategory dd:Data,
+        dd:ProcessAutomation ;
+    lomo:involvesProcess <http://example.org/process/processing-settlement-instructions-communication-of-allocation-and-confirmation> ;
+    lomo:produces <http://example.org/analysis/description/16/action> ;
+    dcterms:description "Full automation of settlement instructions processing Harmonisation of the procedures and standards for communication"@en .
+
+<http://example.org/analysis/description/17> a lomo:LegalRule ;
+    rdfs:label "Article 9"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:frequency "P3M"^^xsd:duration ;
+            lomo:hasFunction tf:validity ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_9> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/regular-reporting> ;
+    lomo:produces <http://example.org/analysis/action/24>,
+        <http://example.org/analysis/description/17/action> ;
+    lomo:references <http://example.org/dataset/settlement-efficiency-reporting> ;
+    dcterms:description "Data reporting on internalised settlement as regards settlement efficiency"@en .
+
+<http://example.org/analysis/description/18> a lomo:LegalRule ;
+    rdfs:label "Articles 16"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_16> ;
+    lomo:hasCategory dd:Data,
+        dd:ProcessAutomation ;
+    lomo:involvesProcess <http://example.org/process/competent-authority-designation> ;
+    lomo:produces <http://example.org/analysis/action/25>,
+        <http://example.org/analysis/description/18/action> ;
+    lomo:references <http://example.org/dataset/information-on-the-applicant-csd>,
+        <http://example.org/dataset/information-related-to-csd-applications-for-authorisations> ;
+    dcterms:description "Designation of the competent authority for the supervision of CSDs to be communicated on the central database"@en .
+
+<http://example.org/analysis/description/19> a lomo:LegalRule ;
+    rdfs:label "Article 17"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_17> ;
+    lomo:hasCategory dd:Data,
+        dd:ProcessAutomation ;
+    lomo:involvesProcess <http://example.org/process/authorisation-management> ;
+    lomo:produces <http://example.org/analysis/description/19/action> ;
+    dcterms:description "Procedures pertaining to the applications for authorisation to provide CSD services to be submitted on the central database"@en .
+
+<http://example.org/analysis/description/2> a lomo:LegalRule ;
+    rdfs:label "Article 12"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_12> ;
+    lomo:hasCategory dd:Data,
+        dd:DigitalPublicService ;
+    lomo:involvesProcess <http://example.org/process/cross-border-collaboration>,
+        <http://example.org/process/information-and-document-exchange> ;
+    lomo:produces <http://example.org/analysis/description/2/action> ;
+    dcterms:description "Central portal (data platform) for the cross-border notifications of funds and interaction between home and host NCAs on cross-border matters. ESMA’s one-stop-shop platform that will facilitate the exchange of information and documentation between home and host competent authorities concerning the marketing requirements of AIFs and UCITS."@en .
+
+<http://example.org/analysis/description/20> a lomo:LegalRule ;
+    rdfs:label "Article 17a"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_17> ;
+    lomo:hasCategory dd:ProcessAutomation ;
+    lomo:involvesProcess <http://example.org/process/decision-making-process> ;
+    lomo:produces <http://example.org/analysis/description/20/action> ;
+    dcterms:description "Procedure for adopting decisions, reports or other measures"@en .
+
+<http://example.org/analysis/description/21> a lomo:LegalRule ;
+    rdfs:label "Article 19a"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_19> ;
+    lomo:hasCategory dd:Data,
+        dd:ProcessAutomation ;
+    lomo:involvesProcess <http://example.org/process/application-for-authorisation-to-outsource-services> ;
+    lomo:produces <http://example.org/analysis/description/21/action> ;
+    lomo:references <http://example.org/dataset/information-on-the-outsourcing-services>,
+        <http://example.org/dataset/information-related-to-csd-applications-for-authorisations> ;
+    dcterms:description "Procedures pertaining to the applications for the outsourcing of CSD services to be submitted on the central database"@en .
+
+<http://example.org/analysis/description/22> a lomo:LegalRule ;
+    rdfs:label "Article 21a"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_21> ;
+    lomo:involvesProcess <http://example.org/process/establish-a-digital-public-service> ;
+    lomo:produces <http://example.org/analysis/description/22/action> ;
+    lomo:references <http://example.org/dataset/information-related-to-csd-applications-for-authorisations> ;
+    dcterms:description "Access for all authorised CSDs to a database for the submission of data pertaining to the authorisations and approvals set out in the CSDR."@en .
+
+<http://example.org/analysis/description/23> a lomo:LegalRule ;
+    rdfs:label "Article 22"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_22> ;
+    lomo:hasCategory dd:Data,
+        dd:DigitalSolutions ;
+    lomo:involvesProcess <http://example.org/process/establish-a-digital-public-service> ;
+    lomo:produces <http://example.org/analysis/description/23/action> ;
+    dcterms:description "Opinion by the competent and relevant authorities pertaining to the review evaluation to be communicated on the central database"@en .
+
+<http://example.org/analysis/description/24> a lomo:LegalRule ;
+    rdfs:label "Article 23"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_23> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/notify> ;
+    lomo:produces <http://example.org/analysis/action/27>,
+        <http://example.org/analysis/description/24/action> ;
+    lomo:references <http://example.org/dataset/information-on-the-passported-services> ;
+    dcterms:description "Requirement for notification to passport of services on financial instruments governed by the law of another Member State to be communicated on the central database"@en .
+
+<http://example.org/analysis/description/25> a lomo:LegalRule ;
+    rdfs:label "Article 48"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_48> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/authorisation-management> ;
+    lomo:produces <http://example.org/analysis/description/25/action> ;
+    dcterms:description "Procedure pertaining to the applications for CSD links to be communicated on the central database"@en .
+
+<http://example.org/analysis/description/26> a lomo:LegalRule ;
+    rdfs:label "Article 48a"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_48> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/notification-and-authorisation> ;
+    lomo:produces <http://example.org/analysis/description/26/action> ;
+    dcterms:description "Requirement for notification of a CSD hub, Requirement to establish a bilateral link to be both submitted via the central database"@en .
+
+<http://example.org/analysis/description/27> a lomo:LegalRule ;
+    rdfs:label "Article 48b"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_48> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/authorisation-and-notification> ;
+    lomo:produces <http://example.org/analysis/action/28>,
+        <http://example.org/analysis/description/27/action> ;
+    lomo:references <http://example.org/dataset/information-on-the-instruments-and-services-provided-via-the-link>,
+        <http://example.org/dataset/information-related-to-csd-applications-for-authorisations> ;
+    dcterms:description "Procedure for the authorisation for the establishment of an interoperable link to be submitted on the central database"@en .
+
+<http://example.org/analysis/description/28> a lomo:LegalRule ;
+    rdfs:label "Article 52"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_52> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/application-for-authorisation> ;
+    lomo:produces <http://example.org/analysis/description/28/action> ;
+    lomo:references <http://example.org/dataset/information-on-the-instruments-and-services-provided-via-the-link> ;
+    dcterms:description "Procedures for the establishment/refusal of a link to be communicated on the central database"@en .
+
+<http://example.org/analysis/description/29> a lomo:LegalRule ;
+    rdfs:label "Article 55"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_55> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/authorisation-to-provide-banking-type-ancillary-services> ;
+    lomo:produces <http://example.org/analysis/action/29>,
+        <http://example.org/analysis/description/29/action> ;
+    lomo:references <http://example.org/dataset/information-on-the-banking-type-ancillary-service> ;
+    dcterms:description "Procedures pertaining to the application for the authorisation to provide banking-type ancillary services to be communicated on the central database"@en .
+
+<http://example.org/analysis/description/31> a lomo:LegalRule ;
+    rdfs:label "Article 59, paragraph 6, para 8"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_59>,
+        <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_6>,
+        <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_8> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/management-of-authorisation-for-casps> ;
+    lomo:produces <http://example.org/analysis/description/31/action> ;
+    dcterms:description "ESMA verifies the authorisations, extension of authorisation, and may request for update and complement by crypto-service provider."@en .
+
+<http://example.org/analysis/description/33> a lomo:LegalRule ;
+    rdfs:label "Article 62, Article 63"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_62>,
+        <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_63> ;
+    lomo:hasCategory dd:Data,
+        dd:DigitalPublicService,
+        dd:DigitalSolutions ;
+    lomo:involvesProcess <http://example.org/process/management-of-casp-authorization> ;
+    lomo:produces <http://example.org/analysis/action/31>,
+        <http://example.org/analysis/description/33/action> ;
+    lomo:references <http://example.org/dataset/relevant-data-for-casp-authorization-in-eu> ;
+    dcterms:description "Management of authorization - Submission of application of prospective crypto-service providers, acknowledge, assess and grant/refuse authorisation; consult NCAs; request additional information; update register)"@en .
+
+<http://example.org/analysis/description/34> a lomo:LegalRule ;
+    rdfs:label "Article 63"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_63> ;
+    lomo:hasCategory dd:Data,
+        dd:DigitalPublicService ;
+    lomo:involvesProcess <http://example.org/process/issue-guidelines> ;
+    lomo:produces <http://example.org/analysis/action/31>,
+        <http://example.org/analysis/description/34/action> ;
+    lomo:references <http://example.org/dataset/relevant-data-for-casp-authorization-in-eu> ;
+    dcterms:description "ESMA and EBA to jointly issue guidelines on management body suitability;"@en .
+
+<http://example.org/analysis/description/35> a lomo:LegalRule ;
+    rdfs:label "Article 64"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_64> ;
+    lomo:hasCategory dd:Data,
+        dd:DigitalPublicService ;
+    lomo:involvesProcess <http://example.org/process/management-of-casp-authorization> ;
+    lomo:produces <http://example.org/analysis/description/35/action> ;
+    lomo:references <http://example.org/dataset/relevant-data-for-casp-authorization-in-eu> ;
+    dcterms:description "ESMA to assess if criteria for withdrawing of application are met; publish information in register; consulting NCAs; EBA and NCAs can consult ESMA; crypto-services provider to establish procedures for orderly transfer of crypto assets/funds"@en .
+
+<http://example.org/analysis/description/36> a lomo:LegalRule ;
+    rdfs:label "Article 65"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_65> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/management-of-casp-authorization> ;
+    lomo:produces <http://example.org/analysis/description/36/action> ;
+    lomo:references <http://example.org/dataset/relevant-data-for-casp-authorization-in-eu> ;
+    dcterms:description "Provision of cross-border crypto-services: crypto-service provider to notify intention to provide cross-border services; ESMA to inform NCA and EBA"@en .
+
+<http://example.org/analysis/description/37> a lomo:LegalRule ;
+    rdfs:label "Article 68"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_68> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/risk-assessment> ;
+    lomo:produces <http://example.org/analysis/description/37/action> ;
+    dcterms:description "Crypto-services providers to risk-assess their systems; record keeping; ESMA to supervise; records available to clients on request"@en .
+
+<http://example.org/analysis/description/38> a lomo:LegalRule ;
+    rdfs:label "Article 73"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_73> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/third-parties-to-provide-information-about-outsourcing> ;
+    lomo:produces <http://example.org/analysis/description/38/action> ;
+    dcterms:description "Third parties to provide information about outsourcing arrangements"@en .
+
+<http://example.org/analysis/description/39> a lomo:LegalRule ;
+    rdfs:label "Article 76"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_76> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/monitoring-of-market-abuse-and-transactionsorders-on-trading-platforms> ;
+    lomo:produces <http://example.org/analysis/description/39/action> ;
+    dcterms:description "Crypto-service providers operating a trading platform to inform ESMA about potential market abuse cases, data on transactions and orders"@en .
+
+<http://example.org/analysis/description/4> a lomo:LegalRule ;
+    rdfs:label "Article 35c"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_35> ;
+    lomo:hasCategory dd:DigitalSolutions ;
+    lomo:involvesProcess <http://example.org/process/establishment-of-digital-solutions>,
+        <http://example.org/process/information-exchange> ;
+    lomo:produces <http://example.org/analysis/description/4/action> ;
+    dcterms:description "Data platform /IT infrastructure The Authority shall establish and maintain a data platform to facilitate the submission, exchange and access to information as provided for in other Union acts."@en .
+
+<http://example.org/analysis/description/40> a lomo:LegalRule ;
+    rdfs:label "Article 81"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_81> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/management-of-casp-authorization> ;
+    lomo:produces <http://example.org/analysis/description/40/action> ;
+    dcterms:description "Crypto-service providers to demonstrate knowledge to provide crypto advice, in line with published ESMA criteria"@en .
+
+<http://example.org/analysis/description/41> a lomo:LegalRule ;
+    rdfs:label "Article 85, article 85a,"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_85> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/management-of-casp-authorisation> ;
+    lomo:produces <http://example.org/analysis/description/41/action> ;
+    dcterms:description "Classification of crypto-asset service providers as significant Voluntary classification of crypto-asset service providers as significant"@en .
+
+<http://example.org/analysis/description/42> a lomo:LegalRule ;
+    rdfs:label "Article 92"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_92> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/prevention-and-detection-of-market-abuse> ;
+    lomo:produces <http://example.org/analysis/description/42/action> ;
+    dcterms:description "Notification to NCAs or ESMA of market abuse suspicion;"@en .
+
+<http://example.org/analysis/description/43> a lomo:LegalRule ;
+    rdfs:label "Article 93"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_93> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/governance> ;
+    lomo:produces <http://example.org/analysis/description/43/action> ;
+    dcterms:description "MS to designate responsible NCA for this Regulation and for assisting ESMA"@en .
+
+<http://example.org/analysis/description/44> a lomo:LegalRule ;
+    rdfs:label "Article 102"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_102> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess tc:49 ;
+    lomo:produces <http://example.org/analysis/description/44/action> ;
+    dcterms:description "Precautionary measures by host NCA while informing home NCA and ESMA"@en .
+
+<http://example.org/analysis/description/45> a lomo:LegalRule ;
+    rdfs:label "Article 138c"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_138> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/esma-to-request-information-from-relevant-legal-and-natural-persons>,
+        <http://example.org/process/provisions-of-information> ;
+    lomo:produces <http://example.org/analysis/description/45/action> ;
+    dcterms:description "ESMA to request information from crypto-asset service providers and related persons."@en .
+
+<http://example.org/analysis/description/46> a lomo:LegalRule ;
+    rdfs:label "Article 138f"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_138> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/exchange-information> ;
+    lomo:produces <http://example.org/analysis/description/46/action> ;
+    dcterms:description "ESMA and NCA to provide each other with information"@en .
+
+<http://example.org/analysis/description/47> a lomo:LegalRule ;
+    rdfs:label "Article 138g, 138h, 138i"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_138> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/exchange-information> ;
+    lomo:produces <http://example.org/analysis/description/47/action> ;
+    dcterms:description "ESMA to conclude agreements on information exchange; ESMA to obtain express agreement from third country NCAs for disclosures; ESMA to cooperate with other authorities"@en .
+
+<http://example.org/analysis/description/48> a lomo:LegalRule ;
+    rdfs:label "Article 138n"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_138> ;
+    lomo:hasCategory dd:Data,
+        dd:DigitalPublicService ;
+    lomo:involvesProcess <http://example.org/process/esma-to-disclose-to-the-public-fines-and-periodic-penalty-payments>,
+        <http://example.org/process/if-esma-decides-not-to-impose-fines-or-penalty-payments-it-shall-inform-the-european-parliament-the-council-the-ec-and-the-ncas> ;
+    lomo:produces <http://example.org/analysis/description/48/action> ;
+    dcterms:description "Disclosure of penalty payments of ESMA"@en .
+
+<http://example.org/analysis/description/49> a lomo:LegalRule ;
+    rdfs:label "Article 138k"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_138> ;
+    lomo:hasCategory dd:Data,
+        dd:DigitalPublicService ;
+    lomo:involvesProcess <http://example.org/process/supervisory-measures> ;
+    lomo:produces <http://example.org/analysis/description/49/action> ;
+    lomo:references <http://example.org/dataset/disclosure-of-penalty-payments-of-esma>,
+        <http://example.org/dataset/exchange-of-information-between-esma-and-third-countriesdisclosure-of-information-from-third-countries> ;
+    dcterms:description "Handling of data in relation to supervisory measures (collecting information from supervised entities and disseminating information where necessary)"@en .
+
+<http://example.org/analysis/description/5> a lomo:LegalRule ;
+    rdfs:label "Article 8(ia), (iaa)"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_8> ;
+    lomo:hasCategory dd:Data,
+        dd:DigitalSolutions ;
+    lomo:involvesProcess <http://example.org/process/establishment-of-a-common-union-financial-data-strategy> ;
+    lomo:produces <http://example.org/analysis/description/5/action> ;
+    dcterms:description "‘(ia) to contribute to the establishment of a common Union financial data strategy and ensure efficient exchange of information within the EU;’ ‘(iaa) to contribute to the development of supervisory technology tools in collaboration with competent authorities;’"@en .
+
+<http://example.org/analysis/description/51> a lomo:LegalRule ;
+    rdfs:label "Article 5"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ],
+        [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_5> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/notification> ;
+    lomo:produces <http://example.org/analysis/action/13>,
+        <http://example.org/analysis/action/5>,
+        <http://example.org/analysis/description/51/action> ;
+    lomo:references <http://example.org/dataset/compliance-information-for-authorization-of-ccp-to-clear-a-class-of-otc-derivatives>,
+        <http://example.org/dataset/compliance-information-for-request-of-specific-exemptions-regarding-dlt-settlement-system> ;
+    dcterms:description "Clearing obligation procedure communicated on the central database"@en .
+
+<http://example.org/analysis/description/52> a lomo:LegalRule ;
+    rdfs:label "Articles 6a, 6b"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ],
+        [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_6> ;
+    lomo:hasCategory dd:Data,
+        dd:ProcessAutomation ;
+    lomo:involvesProcess <http://example.org/process/suspension-of-clearing-obligation> ;
+    lomo:produces <http://example.org/analysis/action/14>,
+        <http://example.org/analysis/action/23>,
+        <http://example.org/analysis/description/52/action> ;
+    lomo:references <http://example.org/dataset/allocation-confirmation-and-settlement-instructions>,
+        <http://example.org/dataset/request-for-the-suspension-of-the-clearing-obligation> ;
+    dcterms:description "Procedures pertaining to suspension of clearing obligation to be carried out on the central database."@en .
+
+<http://example.org/analysis/description/53> a lomo:LegalRule ;
+    rdfs:label "Article 7"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ],
+        [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_7> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/tv-to-send-request-to-ccp-tv-to-inform-esma-of-request> ;
+    lomo:produces <http://example.org/analysis/action/15>,
+        <http://example.org/analysis/action/6>,
+        <http://example.org/analysis/description/53/action> ;
+    lomo:references <http://example.org/dataset/compliance-information-for-authorization-to-operate-under-the-simplified-regime>,
+        <http://example.org/dataset/notification-on-whether-the-operator-intends-to-transition-to-the-regular-regime>,
+        <http://example.org/dataset/request-for-access-to-a-ccp> ;
+    dcterms:description "Procedure pertaining to access to a CCP to be carried out on the central database"@en .
+
+<http://example.org/analysis/description/54> a lomo:LegalRule ;
+    rdfs:label "Article 8"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ],
+        [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_8> ;
+    lomo:hasCategory dd:Data,
+        dd:ProcessAutomation ;
+    lomo:involvesProcess <http://example.org/process/ccp-to-send-request-to-tv-ccp-to-inform-esma> ;
+    lomo:produces <http://example.org/analysis/action/16>,
+        <http://example.org/analysis/action/7>,
+        <http://example.org/analysis/description/54/action> ;
+    lomo:references <http://example.org/dataset/information-supporting-the-application-for-specific-permission-to-operate-dlt-tv>,
+        <http://example.org/dataset/request-for-access-to-a-tv> ;
+    dcterms:description "Procedure pertaining to access to a trading venue to be carried out on the central database"@en .
+
+<http://example.org/analysis/description/55> a lomo:LegalRule ;
+    rdfs:label "Articles 14, 17, 17a, 17b, 22a, 88"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ],
+        [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_14>,
+        <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_17>,
+        <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_22>,
+        <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_88> ;
+    lomo:hasCategory dd:Data,
+        dd:ProcessAutomation ;
+    lomo:involvesProcess <http://example.org/process/management-of-authorisations> ;
+    lomo:produces <http://example.org/analysis/action/18>,
+        <http://example.org/analysis/description/55/action> ;
+    lomo:references <http://example.org/dataset/ccp-request-for-authorization-quantitative-data-to-determine-significance> ;
+    dcterms:description "CCP application for authorisation to CA, ESMA; ESMA to draft opinion for CA; ESMA to publish list of significant CCPs and list of CCP authorisations"@en .
+
+<http://example.org/analysis/description/56> a lomo:LegalRule ;
+    rdfs:label "Article 17c"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_17> ;
+    lomo:hasCategory dd:DigitalPublicService,
+        dd:DigitalSolutions,
+        dd:ProcessAutomation ;
+    lomo:involvesProcess <http://example.org/process/management-of-authorisations> ;
+    lomo:produces <http://example.org/analysis/description/56/action> ;
+    dcterms:description "ESMA to establish and maintain a central database"@en .
+
+<http://example.org/analysis/description/57> a lomo:LegalRule ;
+    rdfs:label "Article 17c"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ;
+            lomo:temporalLabel "At least every 3 years"@en ],
+        [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ],
+        [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_17> ;
+    lomo:hasCategory dd:DigitalPublicService,
+        dd:DigitalSolutions,
+        dd:ProcessAutomation ;
+    lomo:involvesProcess <http://example.org/process/management-of-authorisations> ;
+    lomo:produces <http://example.org/analysis/action/18>,
+        <http://example.org/analysis/action/19>,
+        <http://example.org/analysis/action/26>,
+        <http://example.org/analysis/description/57/action> ;
+    lomo:references <http://example.org/dataset/ccp-request-for-authorization-quantitative-data-to-determine-significance>,
+        <http://example.org/dataset/decisions-documents-notifications>,
+        <http://example.org/dataset/information-on-the-applicant-csd>,
+        <http://example.org/dataset/opinion> ;
+    dcterms:description "ESMA to establish and maintain a central database"@en .
+
+<http://example.org/analysis/description/58> a lomo:LegalRule ;
+    rdfs:label "Article 76"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_76> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess y6k:c_1cd39254c5a5 ;
+    lomo:produces <http://example.org/analysis/description/58/action> ;
+    dcterms:description "Appropriate authorities of third countries that do not have any trade repository established in their jurisdiction may contact ESMA with a view to establishing cooperation arrangements to access information on derivatives contracts held in Union trade repositories. ESMA may establish cooperation arrangements with those appropriate authorities regarding access to information on derivatives contracts held in Union trade repositories that these authorities need to fulfil their respective responsibilities and mandates, provided that guarantees of professional secrecy exist, including the protection of business secrets shared by the authorities with third parties."@en .
+
+<http://example.org/analysis/description/59> a lomo:LegalRule ;
+    rdfs:label "Article 76a"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_76> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess y6k:c_1cd39254c5a5 ;
+    lomo:produces <http://example.org/analysis/action/21>,
+        <http://example.org/analysis/description/59/action> ;
+    lomo:references <http://example.org/dataset/information-on-derivatives-contracts-held-in-union-trade-repositories> ;
+    dcterms:description "Where necessary for the exercise of their duties, appropriate authorities of third countries in which one or more trade repositories are established shall have direct access to information in trade repositories established in the Union, provided that the Commission has adopted an implementing act in accordance with paragraph 2 to that effect."@en .
+
+<http://example.org/analysis/description/61> a lomo:LegalRule ;
+    rdfs:label "Article 22b"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ;
+            lomo:temporalLabel "Ongoing"@en ],
+        [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ],
+        [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_22> ;
+    lomo:hasCategory dd:Data,
+        dd:ProcessAutomation ;
+    lomo:involvesProcess <http://example.org/process/data-transmission> ;
+    lomo:produces <http://example.org/analysis/action/18>,
+        <http://example.org/analysis/action/20>,
+        <http://example.org/analysis/action/33>,
+        <http://example.org/analysis/description/61/action> ;
+    lomo:references <http://example.org/dataset/ccp-request-for-authorization-quantitative-data-to-determine-significance>,
+        <http://example.org/dataset/list-of-competent-authorities-designated-by-the-member-states>,
+        <http://example.org/dataset/opinion>,
+        <http://example.org/dataset/quotes-price-and-volume-in-respect-of-shares-and-etfs> ;
+    dcterms:description "The data transmitted to the CTP pursuant to Article 22a(1) and the data disseminated by the CTP pursuant to Article 27h(1), point (d), shall comply with the regulatory technical standards adopted pursuant to Article 4(6), point (a), Article 7(2), point (a), Article 11(4), point (a), Article 11a(3), point (a), and Article 14(7), unless provided otherwise in the regulatory technical standards adopted pursuant to paragraph 3, points (b) and (d), of this Article."@en .
+
+<http://example.org/analysis/description/62> a lomo:LegalRule ;
+    rdfs:label "Article 25"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ;
+            lomo:temporalLabel "Ongoing or on request"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_25> ;
+    lomo:hasCategory dd:Data,
+        dd:ProcessAutomation ;
+    lomo:involvesProcess <http://example.org/process/access-to-data> ;
+    lomo:produces <http://example.org/analysis/action/34>,
+        <http://example.org/analysis/description/62/action> ;
+    lomo:references <http://example.org/dataset/details-of-orders-in-financial-instruments> ;
+    dcterms:description "Ability for ESMA to request access to the data relating to all orders in financial instruments to the national surveillance authorities"@en .
+
+<http://example.org/analysis/description/63> a lomo:LegalRule ;
+    rdfs:label "Article 26"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_26> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/reporting-obligations> ;
+    lomo:produces <http://example.org/analysis/description/63/action> ;
+    dcterms:description "Reporting requirements for operators of trading venues."@en .
+
+<http://example.org/analysis/description/64> a lomo:LegalRule ;
+    rdfs:label "Article 34b"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_34> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/reporting-obligations> ;
+    lomo:produces <http://example.org/analysis/description/64/action> ;
+    dcterms:description "ESMA may develop draft implementing technical standards to determine the format of the reports referred to in point (a) of paragraph 1. ESMA may develop draft implementing technical standards to specify the measures to require all reports referred to in point (a) of paragraph 1 to be sent to ESMA at a specified weekly time, for their centralised publication by the latter."@en .
+
+<http://example.org/analysis/description/65> a lomo:LegalRule ;
+    rdfs:label "Article 38fd"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_38> ;
+    lomo:hasCategory dd:Data,
+        dd:DigitalSolutions ;
+    lomo:involvesProcess <http://example.org/process/establish-a-digital-public-service> ;
+    lomo:produces <http://example.org/analysis/description/65/action> ;
+    dcterms:description "ESMA shall establish and maintain a central database to ensure that the following entities and authorities can submit their documents and access their documents and documents addressed to them, as registered within that database: (a) PEMO; (b) market operators that operate at least one significant trading venue; (c) investment firms that operate at least one significant trading venue with respect to the operation of MTFs or OTFs; (d) other trading venues that belong to the same group as market operators and investment firms referred to in points (b) and (c); (e) relevant national surveillance authorities of the entities referred to in points (a) do (d); (f) ESMA; (g) relevant national competent authority referred to in Article 2q to Article 2t of this Regulation; (h) any other recipients, as specified under this Regulation."@en .
+
+<http://example.org/analysis/description/7> a lomo:LegalRule ;
+    rdfs:label "Article 4 and 4a"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_4> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/request-for-exemption> ;
+    lomo:produces <http://example.org/analysis/action/4>,
+        <http://example.org/analysis/description/7/action> ;
+    lomo:references <http://example.org/dataset/compliance-information-for-request-of-specific-exemptions-regarding-dlt-trading-venues> ;
+    dcterms:description "Requirements and application for exemptions regarding DLT trading venues including record-keeping obligations."@en .
+
+<http://example.org/analysis/description/8> a lomo:LegalRule ;
+    rdfs:label "Article 5 and 5a"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_5> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/request-for-exemption> ;
+    lomo:produces <http://example.org/analysis/description/8/action> ;
+    dcterms:description "Requirements and application for exemptions regarding DLT settlement system including record keeping."@en .
+
+<http://example.org/analysis/description/9> a lomo:LegalRule ;
+    rdfs:label "Article 7a"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_7> ;
+    lomo:hasCategory dd:Data,
+        dd:DigitalPublicService ;
+    lomo:involvesProcess <http://example.org/process/request-permission-for-simplified-regime> ;
+    lomo:produces <http://example.org/analysis/description/9/action> ;
+    dcterms:description "Additional requirements for DLT market infrastructures participating in the simplified regime, including reporting, publicly available documentation, transparency, security, audit, liability."@en .
+
+<http://example.org/analysis/interop/2> a cpsv:PublicService ;
+    rdfs:label "Supervisory data platform coverage of CCPs, CSDs,TV"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_648>,
+        <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_909> ;
+    dcterms:description "Granting authorisationExchange of information between ESMA, MSs competent authorities and operators,Supervisory workflows and procedures"@en ;
+    dcterms:identifier "interop/2" ;
+    dcterms:references <http://example.org/ie-solution/existing-solutions-in-place-at-esma-will-be-extended-and-reused-eg-the-central-database-as-established-in-article-17c-of-emir> ;
+    dcterms:title "Supervisory data platform coverage of CCPs, CSDs,TV"@en .
+
+<http://example.org/analysis/interop/3> a cpsv:PublicService ;
+    rdfs:label "Central register forCASPs markets surveillance"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_2023> ;
+    dcterms:description "Establishment of the central system for CASPs authorisation and monitoring, exchange of information, maintain public register"@en ;
+    dcterms:identifier "interop/3" ;
+    dcterms:references <http://example.org/ie-solution/existing-solutions-in-place-at-esma-will-be-reused-and-extended-with-the-new-functionalities-eg-the-central-database-as-established-in-article-17c-of-emir> ;
+    dcterms:title "Central register forCASPs markets surveillance"@en .
+
+<http://example.org/analysis/solution/1> a dctype:Software ;
+    rdfs:label "ESMA Central Database and supervisory data platform coverage of CCPs, CSDs and TVs"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_22>,
+        <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_600>,
+        <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_648>,
+        <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_909> ;
+    lomo:hasCapability "Central data platform, provides functionalities for data collection, exchange of information between ESMA, competent authorities and operators (CSDs, CCPs, payments systems, market operators and investment firms operating a trading venue), registration authorities, among others, and automates supervisory workflows and procedures" ;
+    dcterms:publisher <http://example.org/agent/esma> ;
+    dcterms:title "ESMA Central Database and supervisory data platform coverage of CCPs, CSDs and TVs"@en .
+
+<http://example.org/analysis/solution/2> a dctype:Software ;
+    rdfs:label "ESMA data platform for cross-border notifications of funds and interaction between home and host NCAs on cross-border matters"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_12>,
+        <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_2019> ;
+    lomo:hasCapability "Functions to collect, process, generate, and exchange or share data/documents and facilitate communication between national competent authorities.Translation servicesPublic interface to make relevant data available to the general public (ESMA’s one-stop-shop portal)" ;
+    dcterms:publisher <http://example.org/agent/esma> ;
+    dcterms:title "ESMA data platform for cross-border notifications of funds and interaction between home and host NCAs on cross-border matters"@en .
+
+<http://example.org/analysis/solution/3> a dctype:Software ;
+    rdfs:label "ESMA Central register forCASPs markets surveillance"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_2023> ;
+    lomo:hasCapability "Central public register and supervisory platform" ;
+    dcterms:publisher <http://example.org/agent/esma> ;
+    dcterms:title "ESMA Central register forCASPs markets surveillance"@en .
+
+<http://example.org/analysis/solution/4> a dctype:Software ;
+    rdfs:label "Centralised data and analytics"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_1095>,
+        <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_8> ;
+    lomo:hasCapability "Enable timely sharing of supervisory insights with competent authorities",
+        "Provide common tools to supervise and analyse market data, in collaboration with competent authorities",
+        "andFacilitate secure, standardised data access and exchange across the EU supervisory framework." ;
+    dcterms:publisher <http://example.org/agent/esma> ;
+    dcterms:title "Centralised data and analytics"@en .
+
+<http://example.org/dataset/amendment-to-regulation-eu-20191156cbdr> a dcat:Dataset ;
+    dcterms:title "Amendment to Regulation (EU) 2019/1156(CBDR)"@en .
+
+<http://example.org/dataset/amendments-to-regulation-9092014-csdr> a dcat:Dataset ;
+    dcterms:title "Amendments to Regulation 909/2014 (CSDR)"@en .
+
+<http://example.org/dataset/amendments-to-regulation-eu-2022858-dlt-pilot-regime> a dcat:Dataset ;
+    dcterms:title "Amendments to Regulation (EU) 2022/858 (DLT Pilot regime)"@en .
+
+<http://example.org/dataset/amendments-to-regulation-eu-20231114-mica> a dcat:Dataset ;
+    dcterms:title "Amendments to Regulation (EU) 2023/1114 (MICA)"@en .
+
+<http://example.org/dataset/amendments-to-regulation-eu-no-6002014-mifir> a dcat:Dataset ;
+    dcterms:title "Amendments to Regulation (EU) No 600/2014 (MiFIR)"@en .
+
+<http://example.org/dataset/regulation-eu-6482012-emir> a dcat:Dataset ;
+    dcterms:title "Regulation (EU) 648/2012 (EMIR)"@en .
+
+tc:49 skos:prefLabel "Send notifications"@en .
+
+<http://example.org/agent/authorities-of-third-countries-european-commission-union-trade-repositories> rdfs:label "Authorities of third countries; European Commission; Union trade repositories"@en .
+
+<http://example.org/agent/banking-supervisory-authorities-competent-authorities> rdfs:label "Banking supervisory authorities, competent authorities"@en .
+
+<http://example.org/agent/ca> rdfs:label "CA"@en .
+
+<http://example.org/agent/ccp-resolution-authority> rdfs:label "CCP resolution authority"@en .
+
+<http://example.org/agent/ccp-tv-esma> rdfs:label "CCP; TV; ESMA"@en .
+
+<http://example.org/agent/competent-and-relevant-authorities> rdfs:label "Competent and relevant authorities"@en .
+
+<http://example.org/agent/crypto-service-provider-esma> rdfs:label "Crypto-service provider, ESMA"@en .
+
+<http://example.org/agent/crypto-service-providers-clients-esma> rdfs:label "Crypto-service providers; clients; ESMA"@en .
+
+<http://example.org/agent/crypto-service-providers-esma> rdfs:label "Crypto-service providers; ESMA;"@en .
+
+<http://example.org/agent/crypto-service-providers-esma-clients> rdfs:label "Crypto-service providers, ESMA; clients"@en .
+
+<http://example.org/agent/crypto-service-providers-national-competent-authority-esma-eba> rdfs:label "Crypto-service providers; national competent authority, ESMA; EBA"@en .
+
+<http://example.org/agent/csds-banking-supervisory-authorities> rdfs:label "CSDs, banking supervisory authorities"@en .
+
+<http://example.org/agent/csds-competent-and-relevant-authorities> rdfs:label "CSDs, Competent and relevant authorities"@en .
+
+<http://example.org/agent/csds-designated-credit-institutions-member-states-and-esma> rdfs:label "CSDs, designated credit institutions, Member States and ESMA"@en .
+
+<http://example.org/agent/dlt-market-infrastructure-operator> rdfs:label "DLT market infrastructure operator"@en .
+
+<http://example.org/agent/dlt-notary-or-a-dlt-central-account-keeper> rdfs:label "DLT notary or a DLT central account keeper"@en .
+
+<http://example.org/agent/dlt-ss-operator> rdfs:label "DLT SS operator"@en .
+
+<http://example.org/agent/dlt-tv-operator> rdfs:label "DLT TV operator"@en .
+
+<http://example.org/agent/ec> rdfs:label "EC"@en .
+
+<http://example.org/agent/ec-ep-council> rdfs:label "EC, EP, Council"@en .
+
+<http://example.org/agent/esma-and-further-shared-with-ncas> rdfs:label "ESMA, and further shared with NCAs"@en .
+
+<http://example.org/agent/esma-authorities-of-third-countries-union-trade-repositories> rdfs:label "ESMA; Authorities of third countries; Union trade repositories"@en .
+
+<http://example.org/agent/esma-cas-ccp-college> rdfs:label "ESMA; CAs; CCP college"@en .
+
+<http://example.org/agent/esma-crypto-asset-provider-natural-or-legal-person-ncas-ec> rdfs:label "ESMA; crypto-asset provider; natural or legal person; NCAs; EC"@en .
+
+<http://example.org/agent/esma-crypto-service-provider-person-involved-in-crypto-activities-controlling-person> rdfs:label "ESMA; crypto-service provider; person involved in crypto activities; controlling person"@en .
+
+<http://example.org/agent/esma-member-states-authorities> rdfs:label "ESMA, Member States authorities"@en .
+
+<http://example.org/agent/esma-member-states-competent-authorities-businesses-the-general-public> rdfs:label "ESMA, Member States competent authorities, businesses, the general public."@en .
+
+<http://example.org/agent/esma-national-surveillance-authorities-national-competent-authorities-or-market-operators-and-investment-firms-operating-trading-venues-subject-to-esma-supervision> rdfs:label "ESMA, national surveillance authorities, national competent authorities or market operators and investment firms operating trading venues subject to ESMA supervision"@en .
+
+<http://example.org/agent/esma-ncas> rdfs:label "ESMA; NCAs"@en .
+
+<http://example.org/agent/esma-ncas-other-authorities> rdfs:label "ESMA; NCAs; other authorities"@en .
+
+<http://example.org/agent/esma-public-european-parliament-ec-council-ncas> rdfs:label "ESMA; public; European Parliament; EC; Council; NCAs"@en .
+
+<http://example.org/agent/eu-market-participants-and-central-securities-depositories-csds> rdfs:label "EU market participants and central securities depositories (CSDs)."@en .
+
+<http://example.org/agent/european-commission> rdfs:label "European Commission"@en .
+
+<http://example.org/agent/home-nca-and-further-shared-with-the-host-ncas> rdfs:label "Home NCA, and further shared with the host NCAs"@en .
+
+<http://example.org/agent/host-nca-home-nca-esma> rdfs:label "Host NCA, home NCA, ESMA"@en .
+
+<http://example.org/agent/investment-firm-market-operator-operating-the-dlt-trading-venue-ncas-esma-ec> rdfs:label "Investment firm / market operator operating the DLT trading venue; NCAs, ESMA, EC"@en .
+
+<http://example.org/agent/investment-firm-market-operator-operating-the-dlt-trading-venue-ncas-esma-mss-ec> rdfs:label "Investment firm / market operator operating the DLT trading venue; NCAs, ESMA; MSs, EC"@en .
+
+<http://example.org/agent/legal-persons-or-other-undertakings-that-intend-to-provide-crypto-asset-services> rdfs:label "Legal persons or other undertakings that intend to provide crypto-asset services"@en .
+
+<http://example.org/agent/legal-personsundertakings-esma> rdfs:label "Legal persons/undertakings, ESMA;"@en .
+
+<http://example.org/agent/market-operators-and-investment-firms-operating-trading-venues-subject-to-esma-supervision-national-competent-authorities-national-surveillance-authorities-and-esma> rdfs:label "Market operators and investment firms operating trading venues subject to ESMA supervision, national competent authorities, national surveillance authorities and ESMA"@en .
+
+<http://example.org/agent/market-operators-esma> rdfs:label "Market operators; ESMA"@en .
+
+<http://example.org/agent/member-states-and-esma> rdfs:label "Member States and ESMA"@en .
+
+<http://example.org/agent/member-states-authorities> rdfs:label "Member States authorities"@en .
+
+<http://example.org/agent/ms-nca-esma> rdfs:label "MS; NCA; ESMA"@en .
+
+<http://example.org/agent/mss-ncas-esma-ec> rdfs:label "MSs; NCAs; ESMA; EC"@en .
+
+<http://example.org/agent/national-competent-authorities> rdfs:label "National Competent authorities"@en .
+
+<http://example.org/agent/national-competent-authorities-national-surveillance-authorities-esma> rdfs:label "National competent authorities, national surveillance authorities, ESMA"@en .
+
+<http://example.org/agent/nca-esma> rdfs:label "NCA, ESMA"@en .
+
+<http://example.org/agent/ncas-esma> rdfs:label "NCAs; ESMA"@en .
+
+<http://example.org/agent/ncas-esma-ec-ccp-resolution-authority> rdfs:label "NCAs; ESMA; EC; CCP resolution authority"@en .
+
+<http://example.org/agent/ncas-esma-notifying-entity> rdfs:label "NCAs, ESMA, notifying entity"@en .
+
+<http://example.org/agent/operators-of-a-dlt-ss-a-dlt-tss-and-dlt-account-keepers-participating-in-a-settlement-scheme> rdfs:label "Operators of a DLT SS, a DLT TSS and DLT account keepers participating in a settlement scheme"@en .
+
+<http://example.org/agent/operators-of-dlt-trading-and-settlement-systems-competent-authorities-esma-dlt-central-account-keepers> rdfs:label "Operators of DLT trading and settlement systems; competent authorities, ESMA; DLT central account keepers;"@en .
+
+<http://example.org/agent/operators-of-dlt-trading-venues-competent-authorities-esma> rdfs:label "Operators of DLT trading venues; competent authorities, ESMA;"@en .
+
+<http://example.org/agent/pemo-market-operators-investment-firms-trading-venues-national-surveillance-authorities-esma-national-competent-authorities> rdfs:label "PEMO; Market Operators; Investment firms; Trading venues; National surveillance authorities; ESMA; National competent authorities"@en .
+
+<http://example.org/agent/persons-professionally-arranging-or-executing-transactions-esma-ncas-ec> rdfs:label "Persons professionally arranging or executing transactions ; ESMA; NCAs; EC"@en .
+
+<http://example.org/agent/prospective-crypto-providers-esma-eba-ncas> rdfs:label "Prospective crypto-providers; ESMA; EBA; NCAs"@en .
+
+<http://example.org/agent/provider-of-a-consolidated-tape-for-shares-and-etfs> rdfs:label "Provider of a consolidated tape for shares and ETFs"@en .
+
+<http://example.org/agent/settlement-internalisers> rdfs:label "Settlement internalisers"@en .
+
+<http://example.org/agent/settlement-internalisers-including-investment-firms-and-credit-institutions> rdfs:label "Settlement internalisers, including investment firms and credit institutions"@en .
+
+<http://example.org/agent/systematic-internalisers> rdfs:label "Systematic internalisers"@en .
+
+<http://example.org/agent/systematic-internalisers-and-provider-of-the-consolidated-tape-for-shares-and-etfs> rdfs:label "Systematic internalisers and provider of the consolidated tape for shares and ETFs"@en .
+
+<http://example.org/agent/third-parties-crypto-service-providers-esma-competent-authorities> rdfs:label "Third parties; crypto-service providers; ESMA; competent authorities"@en .
+
+<http://example.org/agent/trading-venues> rdfs:label "Trading venues"@en .
+
+<http://example.org/agent/tv-ccp-esma> rdfs:label "TV; CCP; ESMA"@en .
+
+<http://example.org/analysis/action/10> a lomo:Action ;
+    rdfs:label "Information supporting the authorization and supervision of the settlement scheme"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Request for authorisation"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_10> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/10/role/addressee-esma>,
+        <http://example.org/analysis/action/10/role/addresser-dlt-central-account-keepers> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Information supporting the authorization and supervision of the settlement scheme"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/information-supporting-the-authorization-and-supervision-of-the-settlement-scheme> ] .
+
+<http://example.org/analysis/action/10/role/addressee-esma> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/esma> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/10/role/addresser-dlt-central-account-keepers> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/dlt-central-account-keepers> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/11> a lomo:Action ;
+    rdfs:label "Information on cross-border DLT CSD services"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Submit intention to provide services in more than one Member States"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_10> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/11/role/addressee-home-nca-and-further-shared-with-the-host-ncas>,
+        <http://example.org/analysis/action/11/role/addresser-dlt-notary-or-a-dlt-central-account-keeper> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Information on cross-border DLT CSD services"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/information-on-cross-border-dlt-csd-services> ] .
+
+<http://example.org/analysis/action/11/role/addressee-home-nca-and-further-shared-with-the-host-ncas> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/home-nca-and-further-shared-with-the-host-ncas> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/11/role/addresser-dlt-notary-or-a-dlt-central-account-keeper> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/dlt-notary-or-a-dlt-central-account-keeper> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/13> a lomo:Action ;
+    rdfs:label "Authorisation for a CCP to clear a class of OTC derivatives"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Authorisation"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_5> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/13/role/addressee-esma>,
+        <http://example.org/analysis/action/13/role/addresser-nca> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Authorisation for a CCP to clear a class of OTC derivatives"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/authorisation-for-a-ccp-to-clear-a-class-of-otc-derivatives> ] .
+
+<http://example.org/analysis/action/13/role/addressee-esma> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/esma> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/13/role/addresser-nca> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/nca> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/14> a lomo:Action ;
+    rdfs:label "Request for the suspension of the clearing obligation"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Request for suspension of obligation"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_6> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/14/role/addressee-ec>,
+        <http://example.org/analysis/action/14/role/addressee-ec-ep-council>,
+        <http://example.org/analysis/action/14/role/addressee-esma>,
+        <http://example.org/analysis/action/14/role/addresser-ccp-resolution-authority>,
+        <http://example.org/analysis/action/14/role/addresser-esma>,
+        <http://example.org/analysis/action/14/role/addresser-nca> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Request for the suspension of the clearing obligation"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/request-for-the-suspension-of-the-clearing-obligation> ] .
+
+<http://example.org/analysis/action/14/role/addressee-ec> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/ec> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/14/role/addressee-ec-ep-council> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/ec-ep-council> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/14/role/addressee-esma> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/esma> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/14/role/addresser-ccp-resolution-authority> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/ccp-resolution-authority> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/14/role/addresser-esma> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/esma> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/14/role/addresser-nca> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/nca> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/15> a lomo:Action ;
+    rdfs:label "Request for access to a CCP"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Request to access CCP"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_7> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/15/role/addressee-ccp>,
+        <http://example.org/analysis/action/15/role/addressee-esma>,
+        <http://example.org/analysis/action/15/role/addresser-tv> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Request for access to a CCP"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/request-for-access-to-a-ccp> ] .
+
+<http://example.org/analysis/action/15/role/addressee-ccp> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/ccp> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/15/role/addressee-esma> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/esma> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/15/role/addresser-tv> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/tv> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/16> a lomo:Action ;
+    rdfs:label "Request for access to a TV"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Request to access trading venue"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_8> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/16/role/addressee-esma>,
+        <http://example.org/analysis/action/16/role/addressee-tv>,
+        <http://example.org/analysis/action/16/role/addresser-ccp> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Request for access to a TV"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/request-for-access-to-a-tv> ] .
+
+<http://example.org/analysis/action/16/role/addressee-esma> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/esma> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/16/role/addressee-tv> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/tv> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/16/role/addresser-ccp> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/ccp> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/17> a lomo:Action ;
+    rdfs:label "Public disclosure of penalties"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Disclosure of penalties to the public"@en ],
+        [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:deadline ;
+            lomo:temporalLabel "Regular intervals"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_12>,
+        <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_66> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/17/role/addressee-public>,
+        <http://example.org/analysis/action/17/role/addresser-esma> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Public disclosure of penalties"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/public-disclosure-of-penalties> ] .
+
+<http://example.org/analysis/action/17/role/addressee-public> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/public> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/17/role/addresser-esma> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/esma> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/18/role/addressee-ca> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/ca> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/18/role/addressee-esma> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/esma> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/18/role/addressee-public> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/public> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/18/role/addresser-ccp> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/ccp> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/18/role/addresser-esma> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/esma> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/19> a lomo:Action ;
+    rdfs:label "Decisions, documents, notifications"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Any need for transmitting documents, decisions, notifications, information"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_17> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/19/role/addressee-ccp>,
+        <http://example.org/analysis/action/19/role/addressee-ccp-college>,
+        <http://example.org/analysis/action/19/role/addressee-esma>,
+        <http://example.org/analysis/action/19/role/addressee-ncas>,
+        <http://example.org/analysis/action/19/role/addressee-relevant-authorities>,
+        <http://example.org/analysis/action/19/role/addresser-ccp>,
+        <http://example.org/analysis/action/19/role/addresser-ccp-college>,
+        <http://example.org/analysis/action/19/role/addresser-esma>,
+        <http://example.org/analysis/action/19/role/addresser-ncas>,
+        <http://example.org/analysis/action/19/role/addresser-relevant-authorities> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Decisions, documents, notifications"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/decisions-documents-notifications> ] .
+
+<http://example.org/analysis/action/19/role/addressee-ccp> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/ccp> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/19/role/addressee-ccp-college> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/ccp-college> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/19/role/addressee-esma> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/esma> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/19/role/addressee-ncas> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/ncas> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/19/role/addressee-relevant-authorities> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/relevant-authorities> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/19/role/addresser-ccp> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/ccp> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/19/role/addresser-ccp-college> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/ccp-college> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/19/role/addresser-esma> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/esma> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/19/role/addresser-ncas> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/ncas> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/19/role/addresser-relevant-authorities> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/relevant-authorities> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/2> a lomo:Action ;
+    rdfs:label "Continuous transfer of data from national competent authorities to ESMA, which then makes the data available."@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Receipt of data by the national competent authority from supervised entities; decisions, procedural measures, or attestations by national competent authorities."@en ],
+        [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:deadline ;
+            lomo:temporalLabel "Ongoing, as soon as NCAs receive the data, it shall be provided to ESMA."@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_12> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/2/role/addressee-esma>,
+        <http://example.org/analysis/action/2/role/addresser-national-competent-authorities> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Continuous transfer of data from national competent authorities to ESMA, which then makes the data available."@en ;
+            lomo:isManifestedIn <http://example.org/dataset/continuous-transfer-of-data-from-national-competent-authorities-to-esma-which-then-makes-the-data-available> ] .
+
+<http://example.org/analysis/action/2/role/addressee-esma> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/esma> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/2/role/addresser-national-competent-authorities> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/national-competent-authorities> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/20> a lomo:Action ;
+    rdfs:label "List of competent authorities designated by the Member States"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "List of CCP CAs"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_22> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/20/role/addressee-public>,
+        <http://example.org/analysis/action/20/role/addresser-esma> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "List of competent authorities designated by the Member States"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/list-of-competent-authorities-designated-by-the-member-states> ] .
+
+<http://example.org/analysis/action/20/role/addressee-public> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/public> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/20/role/addresser-esma> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/esma> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/21> a lomo:Action ;
+    rdfs:label "Request by third country to establish cooperation arrangements to access information in Union trade repositories"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Request by third-country authority; Third-country authorities to access information in Union trade repositories"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_76> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/21/role/addressee-esma>,
+        <http://example.org/analysis/action/21/role/addressee-third-country-authority>,
+        <http://example.org/analysis/action/21/role/addresser-third-country-authority> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Request by third country to establish cooperation arrangements to access information in Union trade repositories"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/request-by-third-country-to-establish-cooperation-arrangements-to-access-information-in-union-trade-repositories> ] .
+
+<http://example.org/analysis/action/21/role/addressee-esma> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/esma> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/21/role/addressee-third-country-authority> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/third-country-authority> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/21/role/addresser-third-country-authority> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/third-country-authority> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/23> a lomo:Action ;
+    rdfs:label "Allocation Confirmation and settlement instructions"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Market operations"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_6> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/23/role/addressee-csds-and-market-participants>,
+        <http://example.org/analysis/action/23/role/addresser-csds-and-market-participants> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Allocation Confirmation and settlement instructions"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/allocation-confirmation-and-settlement-instructions> ] .
+
+<http://example.org/analysis/action/23/role/addressee-csds-and-market-participants> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/csds-and-market-participants> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/23/role/addresser-csds-and-market-participants> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/csds-and-market-participants> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/24> a lomo:Action ;
+    rdfs:label "Settlement efficiency reporting"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:frequency "P3M"^^xsd:duration ;
+            lomo:hasFunction tf:deadline ],
+        [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Regular reporting"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_9> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/24/role/addressee-competent-authorities>,
+        <http://example.org/analysis/action/24/role/addresser-settlement-internalisers> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Settlement efficiency reporting"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/settlement-efficiency-reporting> ] .
+
+<http://example.org/analysis/action/24/role/addressee-competent-authorities> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/competent-authorities> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/24/role/addresser-settlement-internalisers> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/settlement-internalisers> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/25> a lomo:Action ;
+    rdfs:label "Information on the applicant CSD"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Request for authorisation"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_16> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/25/role/addressee-competent-authorities>,
+        <http://example.org/analysis/action/25/role/addresser-csds> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Information on the applicant CSD"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/information-on-the-applicant-csd> ] .
+
+<http://example.org/analysis/action/25/role/addressee-competent-authorities> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/competent-authorities> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/25/role/addresser-csds> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/csds> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/26> a lomo:Action ;
+    rdfs:label "Opinion"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Regular review and evaluation"@en ],
+        [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:deadline ;
+            lomo:temporalLabel "At least every 3 years"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_17> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/26/role/addressee-csds>,
+        <http://example.org/analysis/action/26/role/addresser-competent-and-relevant-authorities> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Opinion"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/opinion> ] .
+
+<http://example.org/analysis/action/26/role/addressee-csds> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/csds> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/26/role/addresser-competent-and-relevant-authorities> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/competent-and-relevant-authorities> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/27> a lomo:Action ;
+    rdfs:label "Information on the passported services"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Provision of the services"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_23> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/27/role/addressee-competent-authorities>,
+        <http://example.org/analysis/action/27/role/addresser-csds> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Information on the passported services"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/information-on-the-passported-services> ] .
+
+<http://example.org/analysis/action/27/role/addressee-competent-authorities> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/competent-authorities> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/27/role/addresser-csds> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/csds> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/28> a lomo:Action ;
+    rdfs:label "Information on the instruments and services provided via the link"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Request for authorisation"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_48> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/28/role/addressee-competent-authorities>,
+        <http://example.org/analysis/action/28/role/addresser-csds-competent-and-relevant-authorities> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Information on the instruments and services provided via the link"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/information-on-the-instruments-and-services-provided-via-the-link> ] .
+
+<http://example.org/analysis/action/28/role/addressee-competent-authorities> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/competent-authorities> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/28/role/addresser-csds-competent-and-relevant-authorities> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/csds-competent-and-relevant-authorities> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/29> a lomo:Action ;
+    rdfs:label "Information on the banking-type ancillary service"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Request for authorisation"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_55> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/29/role/addressee-banking-supervisory-authorities-competent-authorities>,
+        <http://example.org/analysis/action/29/role/addresser-csds-banking-supervisory-authorities> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Information on the banking-type ancillary service"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/information-on-the-banking-type-ancillary-service> ] .
+
+<http://example.org/analysis/action/29/role/addressee-banking-supervisory-authorities-competent-authorities> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/banking-supervisory-authorities-competent-authorities> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/29/role/addresser-csds-banking-supervisory-authorities> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/csds-banking-supervisory-authorities> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/31/role/addressee-esma> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/esma> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/31/role/addresser-legal-persons-or-other-undertakings-that-intend-to-provide-crypto-asset-services> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/legal-persons-or-other-undertakings-that-intend-to-provide-crypto-asset-services> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/33> a lomo:Action ;
+    rdfs:label "Quotes in respect of shares and ETFs"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Market operations"@en ],
+        [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:deadline ;
+            lomo:temporalLabel "Ongoing"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_22> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/33/role/addressee-provider-of-a-consolidated-tape-for-shares-and-etfs>,
+        <http://example.org/analysis/action/33/role/addresser-systematic-internalisers> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Quotes in respect of shares and ETFs"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/quotes-in-respect-of-shares-and-etfs> ] .
+
+<http://example.org/analysis/action/33/role/addressee-provider-of-a-consolidated-tape-for-shares-and-etfs> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/provider-of-a-consolidated-tape-for-shares-and-etfs> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/33/role/addresser-systematic-internalisers> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/systematic-internalisers> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/34> a lomo:Action ;
+    rdfs:label "Details of orders in financial instruments"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Regular reporting or reporting on request"@en ],
+        [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:deadline ;
+            lomo:temporalLabel "Ongoing or on request"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_25> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/34/role/addressee-national-competent-authorities-national-surveillance-authorities-esma>,
+        <http://example.org/analysis/action/34/role/addresser-trading-venues> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Details of orders in financial instruments"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/details-of-orders-in-financial-instruments> ] .
+
+<http://example.org/analysis/action/34/role/addressee-national-competent-authorities-national-surveillance-authorities-esma> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/national-competent-authorities-national-surveillance-authorities-esma> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/34/role/addresser-trading-venues> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/trading-venues> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/35> a lomo:Action ;
+    rdfs:label "Information on the authorisation of trading venues subject to ESMA supervision, as well as formal supervisory requests addressed to supervised entities and responses to those requests."@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Request for authorisation, request for information for supervisory purposes, responses to those requests"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_38> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/35/role/addressee-esma>,
+        <http://example.org/analysis/action/35/role/addresser-esma-national-surveillance-authorities-national-competent-authorities-or-market-operators-and-investment-firms-operating-trading-venues-subject-to-esma-supervision> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Information on the authorisation of trading venues subject to ESMA supervision, as well as formal supervisory requests addressed to supervised entities and responses to those requests."@en ;
+            lomo:isManifestedIn <http://example.org/dataset/information-on-the-authorisation-of-trading-venues-subject-to-esma-supervision-as-well-as-formal-supervisory-requests-addressed-to-supervised-entities-and-responses-to-those-requests> ] .
+
+<http://example.org/analysis/action/35/role/addressee-esma> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/esma> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/35/role/addresser-esma-national-surveillance-authorities-national-competent-authorities-or-market-operators-and-investment-firms-operating-trading-venues-subject-to-esma-supervision> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/esma-national-surveillance-authorities-national-competent-authorities-or-market-operators-and-investment-firms-operating-trading-venues-subject-to-esma-supervision> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/4> a lomo:Action ;
+    rdfs:label "Compliance information for request of specific exemptions regarding DLT trading venues"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Request for exemption"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_4> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/4/role/addressee-ncas-ec-esma>,
+        <http://example.org/analysis/action/4/role/addresser-dlt-tv-operator> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Compliance information for request of specific exemptions regarding DLT trading venues"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/compliance-information-for-request-of-specific-exemptions-regarding-dlt-trading-venues> ] .
+
+<http://example.org/analysis/action/4/role/addressee-ncas-ec-esma> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/ncas-ec-esma> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/4/role/addresser-dlt-tv-operator> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/dlt-tv-operator> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/5> a lomo:Action ;
+    rdfs:label "Compliance information for request of specific exemptions regarding DLT settlement system"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Request for exemption"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_5> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/5/role/addressee-ncas-ec-esma>,
+        <http://example.org/analysis/action/5/role/addresser-dlt-ss-operator> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Compliance information for request of specific exemptions regarding DLT settlement system"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/compliance-information-for-request-of-specific-exemptions-regarding-dlt-settlement-system> ] .
+
+<http://example.org/analysis/action/5/role/addressee-ncas-ec-esma> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/ncas-ec-esma> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/5/role/addresser-dlt-ss-operator> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/dlt-ss-operator> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/6> a lomo:Action ;
+    rdfs:label "Compliance information for authorization to operate under the simplified regime"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Request for authorisation"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_7> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/6/role/addressee-nca>,
+        <http://example.org/analysis/action/6/role/addresser-dlt-market-infrastructure-operator> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Compliance information for authorization to operate under the simplified regime"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/compliance-information-for-authorization-to-operate-under-the-simplified-regime> ] .
+
+<http://example.org/analysis/action/6/role/addressee-nca> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/nca> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/6/role/addresser-dlt-market-infrastructure-operator> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/dlt-market-infrastructure-operator> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/7> a lomo:Action ;
+    rdfs:label "Application for specific permission to operate DLT TV"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Request for authorisation"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_8> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/7/role/addressee-nca-esma>,
+        <http://example.org/analysis/action/7/role/addresser-authorised-legal-person> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Application for specific permission to operate DLT TV"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/application-for-specific-permission-to-operate-dlt-tv> ] .
+
+<http://example.org/analysis/action/7/role/addressee-nca-esma> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/nca-esma> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/7/role/addresser-authorised-legal-person> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/authorised-legal-person> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/8> a lomo:Action ;
+    rdfs:label "Application for a specific permission to provide DLT notary service or the DLT central maintenance"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Request for authorisation"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_10> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/8/role/addressee-nca>,
+        <http://example.org/analysis/action/8/role/addresser-authorised-legal-person> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Application for a specific permission to provide DLT notary service or the DLT central maintenance"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/application-for-a-specific-permission-to-provide-dlt-notary-service-or-the-dlt-central-maintenance> ] .
+
+<http://example.org/analysis/action/8/role/addressee-nca> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/nca> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/8/role/addresser-authorised-legal-person> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/authorised-legal-person> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/9> a lomo:Action ;
+    rdfs:label "Information about transfers that take place with the settlement scheme they participate to"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Reporting obligation"@en ],
+        [ a lomo:TemporalSpecification ;
+            lomo:frequency "P1M"^^xsd:duration ;
+            lomo:hasFunction tf:deadline ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_10> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/9/role/addressee-esma-and-further-shared-with-ncas>,
+        <http://example.org/analysis/action/9/role/addresser-dlt-central-account-keepers> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Information about transfers that take place with the settlement scheme they participate to"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/information-about-transfers-that-take-place-with-the-settlement-scheme-they-participate-to> ] .
+
+<http://example.org/analysis/action/9/role/addressee-esma-and-further-shared-with-ncas> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/esma-and-further-shared-with-ncas> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/9/role/addresser-dlt-central-account-keepers> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/dlt-central-account-keepers> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/assessment/1/1/measure> a cav:Statement ;
+    cav:interpretation iac:InterpretationPositive ;
+    cav:judgement "-The central database is implemented across several financial sectors (trading, post-trading, etc) in a consistent and coherent manner to ensure that the same digital solution can serve for the purpose of the documents/information storage and access across all relevant financial sectors."@en ;
+    cav:type iac:StatementTypeAlignmentMeasure ;
+    dcterms:description "Alignment with existing digital and sectorial policiesPlease list the applicable digital and sectorial policies identified"@en ;
+    dcterms:title "MiFIR Central database"@en .
+
+<http://example.org/analysis/assessment/1/2/measure> a cav:Statement ;
+    cav:interpretation iac:InterpretationPositive ;
+    cav:judgement "-As the central database will be run by a European authority (ESMA), it will ensure that the data is submitted and accessed in a fair and non-disproportionate manner by all relevant authorities and market participants."@en ;
+    cav:type iac:StatementTypeOrganisationMeasure ;
+    dcterms:description "Organisational measures for a smooth cross-border digital public services deliveryPlease list the governance measures foreseen"@en ;
+    dcterms:title "MiFIR Central database"@en .
+
+<http://example.org/analysis/assessment/1/3/measure> a cav:Statement ;
+    cav:interpretation iac:InterpretationPositive ;
+    cav:judgement "-As the central database will be run by a European authority (ESMA), it will ensure that the data format is universally applied to all information/documents submitted by the relevant authorities and marker participants. Furthermore, the information to be submitted (notably for authorisations) is set out in legislation."@en ;
+    cav:type iac:StatementTypeSharedMeasure ;
+    dcterms:description "Measures taken to ensure a shared understanding of the dataPlease list such measures"@en ;
+    dcterms:title "MiFIR Central database"@en .
+
+<http://example.org/analysis/assessment/1/4/measure> a cav:Statement ;
+    cav:interpretation iac:InterpretationPositive ;
+    cav:judgement "-As the central database will be run by a European authority (ESMA), it will ensure that the data format is universally applied to all information/documents submitted by the relevant authorities and marker participants. Furthermore, the information to be submitted (notably for authorisations) is set out in legislation."@en ;
+    cav:type iac:StatementTypeStandardsMeasure ;
+    dcterms:description "Use of commonly agreed open technical specifications and standardsPlease list such measures"@en ;
+    dcterms:title "MiFIR Central database"@en .
+
+<http://example.org/analysis/description/10/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/10/action/role/addressee-operators-of-dlt-trading-venues-competent-authorities-esma> .
+
+<http://example.org/analysis/description/10/action/role/addressee-operators-of-dlt-trading-venues-competent-authorities-esma> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/operators-of-dlt-trading-venues-competent-authorities-esma> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/11/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/11/action/role/addressee-operators-of-dlt-trading-and-settlement-systems-competent-authorities-esma-dlt-central-account-keepers> .
+
+<http://example.org/analysis/description/11/action/role/addressee-operators-of-dlt-trading-and-settlement-systems-competent-authorities-esma-dlt-central-account-keepers> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/operators-of-dlt-trading-and-settlement-systems-competent-authorities-esma-dlt-central-account-keepers> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/12/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/12/action/role/addressee-esma>,
+        <http://example.org/analysis/description/12/action/role/addressee-european-commission>,
+        <http://example.org/analysis/description/12/action/role/addressee-operators-of-a-dlt-ss-a-dlt-tss-and-dlt-account-keepers-participating-in-a-settlement-scheme> .
+
+<http://example.org/analysis/description/12/action/role/addressee-esma> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/esma> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/12/action/role/addressee-european-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/european-commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/12/action/role/addressee-operators-of-a-dlt-ss-a-dlt-tss-and-dlt-account-keepers-participating-in-a-settlement-scheme> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/operators-of-a-dlt-ss-a-dlt-tss-and-dlt-account-keepers-participating-in-a-settlement-scheme> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/13/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/13/action/role/addressee-operators-of-dlt-market-infrastructures-competent-authorities-esma> .
+
+<http://example.org/analysis/description/13/action/role/addressee-operators-of-dlt-market-infrastructures-competent-authorities-esma> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/operators-of-dlt-market-infrastructures-competent-authorities-esma> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/14/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/14/action/role/addressee-mss-ncas-esma-ec> .
+
+<http://example.org/analysis/description/14/action/role/addressee-mss-ncas-esma-ec> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/mss-ncas-esma-ec> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/16/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/16/action/role/addressee-eu-market-participants-and-central-securities-depositories-csds> .
+
+<http://example.org/analysis/description/16/action/role/addressee-eu-market-participants-and-central-securities-depositories-csds> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/eu-market-participants-and-central-securities-depositories-csds> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/17/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/17/action/role/addressee-settlement-internalisers-including-investment-firms-and-credit-institutions> .
+
+<http://example.org/analysis/description/17/action/role/addressee-settlement-internalisers-including-investment-firms-and-credit-institutions> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/settlement-internalisers-including-investment-firms-and-credit-institutions> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/18/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/18/action/role/addressee-csds-member-states-and-esma> .
+
+<http://example.org/analysis/description/18/action/role/addressee-csds-member-states-and-esma> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/csds-member-states-and-esma> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/19/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/19/action/role/addressee-csds-member-states-and-esma> .
+
+<http://example.org/analysis/description/19/action/role/addressee-csds-member-states-and-esma> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/csds-member-states-and-esma> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/2/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/2/action/role/addressee-esma-member-states-competent-authorities-businesses-the-general-public> .
+
+<http://example.org/analysis/description/2/action/role/addressee-esma-member-states-competent-authorities-businesses-the-general-public> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/esma-member-states-competent-authorities-businesses-the-general-public> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/20/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/20/action/role/addressee-member-states-and-esma> .
+
+<http://example.org/analysis/description/20/action/role/addressee-member-states-and-esma> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states-and-esma> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/21/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/21/action/role/addressee-csds-member-states-and-esma> .
+
+<http://example.org/analysis/description/21/action/role/addressee-csds-member-states-and-esma> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/csds-member-states-and-esma> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/22/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/22/action/role/addressee-csds-member-states-and-esma> .
+
+<http://example.org/analysis/description/22/action/role/addressee-csds-member-states-and-esma> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/csds-member-states-and-esma> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/23/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/23/action/role/addressee-csds-member-states-and-esma> .
+
+<http://example.org/analysis/description/23/action/role/addressee-csds-member-states-and-esma> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/csds-member-states-and-esma> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/24/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/24/action/role/addressee-csds-member-states-and-esma> .
+
+<http://example.org/analysis/description/24/action/role/addressee-csds-member-states-and-esma> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/csds-member-states-and-esma> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/25/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/25/action/role/addressee-csds-member-states-and-esma> .
+
+<http://example.org/analysis/description/25/action/role/addressee-csds-member-states-and-esma> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/csds-member-states-and-esma> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/26/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/26/action/role/addressee-csds-member-states-and-esma> .
+
+<http://example.org/analysis/description/26/action/role/addressee-csds-member-states-and-esma> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/csds-member-states-and-esma> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/27/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/27/action/role/addressee-csds-member-states-and-esma> .
+
+<http://example.org/analysis/description/27/action/role/addressee-csds-member-states-and-esma> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/csds-member-states-and-esma> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/28/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/28/action/role/addressee-csds-member-states-and-esma> .
+
+<http://example.org/analysis/description/28/action/role/addressee-csds-member-states-and-esma> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/csds-member-states-and-esma> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/29/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/29/action/role/addressee-csds-designated-credit-institutions-member-states-and-esma> .
+
+<http://example.org/analysis/description/29/action/role/addressee-csds-designated-credit-institutions-member-states-and-esma> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/csds-designated-credit-institutions-member-states-and-esma> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/31/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/31/action/role/addressee-crypto-service-provider-esma> .
+
+<http://example.org/analysis/description/31/action/role/addressee-crypto-service-provider-esma> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/crypto-service-provider-esma> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/32> a iopa:BindingRequirement,
+        lomo:LegalRule ;
+    rdfs:label "Article 60, paragraph 8, paragraph 11, paragraph 12"@en ;
+    iopa:affects <http://example.org/analysis/interop/1> ;
+    cav:valueDescription "NCA receiving notification to assess information provided and notify ESMA. NCA revoking right to provide crypto-services by an entity. ESMA to make notification available in register."@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ;
+            lomo:temporalLabel "Ongoing, as soon as NCAs receive the data, it shall be provided to ESMA."@en ],
+        [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ;
+            lomo:temporalLabel "Regular intervals"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_11>,
+        <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_12>,
+        <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_60>,
+        <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_8> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/assessment-of-requirements-and-issue-notifications> ;
+    lomo:produces <http://example.org/analysis/action/17>,
+        <http://example.org/analysis/action/2>,
+        <http://example.org/analysis/description/32/action> ;
+    lomo:references <http://example.org/dataset/data-and-information-that-is-requested-by-national-competent-authorities-from-funds-in-relation-to-authorisation-notification-for-cross-border-marketing-of-funds-this-information-includes-notifications-of-marketing-intensions-compulsory-fund-disclosure-documents-and-marketing-documents-decisions-procedural-measures-and-attestations-issued-by-the-competent-authorities>,
+        <http://example.org/dataset/relevant-data-for-casp-authorization-in-eu>,
+        <http://example.org/dataset/report-on-basic-parameters-of-the-activities-of-the-dlt-market-infrastructures> ;
+    dcterms:description "NCA receiving notification to assess information provided and notify ESMA. NCA revoking right to provide crypto-services by an entity. ESMA to make notification available in register."@en ;
+    dcterms:relation <http://example.org/ie-solution/existing-solutions-in-place-at-esma-will-be-reused-eg-the-central-database-as-established-in-article-17c-of-emir> .
+
+<http://example.org/analysis/description/32/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/32/action/role/addressee-ncas-esma-notifying-entity> .
+
+<http://example.org/analysis/description/32/action/role/addressee-ncas-esma-notifying-entity> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/ncas-esma-notifying-entity> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/33/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/33/action/role/addressee-legal-personsundertakings-esma> .
+
+<http://example.org/analysis/description/33/action/role/addressee-legal-personsundertakings-esma> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/legal-personsundertakings-esma> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/34/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/34/action/role/addressee-prospective-crypto-providers-esma-eba-ncas> .
+
+<http://example.org/analysis/description/34/action/role/addressee-prospective-crypto-providers-esma-eba-ncas> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/prospective-crypto-providers-esma-eba-ncas> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/35/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/35/action/role/addressee-crypto-service-providers-esma-eba-ncas> .
+
+<http://example.org/analysis/description/35/action/role/addressee-crypto-service-providers-esma-eba-ncas> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/crypto-service-providers-esma-eba-ncas> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/36/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/36/action/role/addressee-crypto-service-providers-national-competent-authority-esma-eba> .
+
+<http://example.org/analysis/description/36/action/role/addressee-crypto-service-providers-national-competent-authority-esma-eba> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/crypto-service-providers-national-competent-authority-esma-eba> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/37/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/37/action/role/addressee-crypto-service-providers-esma-clients> .
+
+<http://example.org/analysis/description/37/action/role/addressee-crypto-service-providers-esma-clients> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/crypto-service-providers-esma-clients> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/38/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/38/action/role/addressee-third-parties-crypto-service-providers-esma-competent-authorities> .
+
+<http://example.org/analysis/description/38/action/role/addressee-third-parties-crypto-service-providers-esma-competent-authorities> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/third-parties-crypto-service-providers-esma-competent-authorities> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/39/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/39/action/role/addressee-crypto-service-providers-esma> .
+
+<http://example.org/analysis/description/39/action/role/addressee-crypto-service-providers-esma> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/crypto-service-providers-esma> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/4/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/4/action/role/addressee-member-states-authorities> .
+
+<http://example.org/analysis/description/4/action/role/addressee-member-states-authorities> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states-authorities> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/40/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/40/action/role/addressee-crypto-service-providers-clients-esma> .
+
+<http://example.org/analysis/description/40/action/role/addressee-crypto-service-providers-clients-esma> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/crypto-service-providers-clients-esma> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/41/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/41/action/role/addressee-crypto-service-providers-esma-eba-ncas> .
+
+<http://example.org/analysis/description/41/action/role/addressee-crypto-service-providers-esma-eba-ncas> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/crypto-service-providers-esma-eba-ncas> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/42/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/42/action/role/addressee-persons-professionally-arranging-or-executing-transactions-esma-ncas-ec> .
+
+<http://example.org/analysis/description/42/action/role/addressee-persons-professionally-arranging-or-executing-transactions-esma-ncas-ec> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/persons-professionally-arranging-or-executing-transactions-esma-ncas-ec> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/43/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/43/action/role/addressee-ms-nca-esma> .
+
+<http://example.org/analysis/description/43/action/role/addressee-ms-nca-esma> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/ms-nca-esma> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/44/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/44/action/role/addressee-host-nca-home-nca-esma> .
+
+<http://example.org/analysis/description/44/action/role/addressee-host-nca-home-nca-esma> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/host-nca-home-nca-esma> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/45/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/45/action/role/addressee-esma-crypto-service-provider-person-involved-in-crypto-activities-controlling-person> .
+
+<http://example.org/analysis/description/45/action/role/addressee-esma-crypto-service-provider-person-involved-in-crypto-activities-controlling-person> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/esma-crypto-service-provider-person-involved-in-crypto-activities-controlling-person> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/46/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/46/action/role/addressee-esma-ncas> .
+
+<http://example.org/analysis/description/46/action/role/addressee-esma-ncas> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/esma-ncas> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/47/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/47/action/role/addressee-esma-ncas-other-authorities> .
+
+<http://example.org/analysis/description/47/action/role/addressee-esma-ncas-other-authorities> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/esma-ncas-other-authorities> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/48/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/48/action/role/addressee-esma-public-european-parliament-ec-council-ncas> .
+
+<http://example.org/analysis/description/48/action/role/addressee-esma-public-european-parliament-ec-council-ncas> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/esma-public-european-parliament-ec-council-ncas> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/49/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/49/action/role/addressee-esma-crypto-asset-provider-natural-or-legal-person-ncas-ec> .
+
+<http://example.org/analysis/description/49/action/role/addressee-esma-crypto-asset-provider-natural-or-legal-person-ncas-ec> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/esma-crypto-asset-provider-natural-or-legal-person-ncas-ec> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/5/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/5/action/role/addressee-esma-member-states-authorities> .
+
+<http://example.org/analysis/description/5/action/role/addressee-esma-member-states-authorities> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/esma-member-states-authorities> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/51/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/51/action/role/addressee-ncas-esma> .
+
+<http://example.org/analysis/description/51/action/role/addressee-ncas-esma> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/ncas-esma> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/52/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/52/action/role/addressee-ncas-esma-ec-ccp-resolution-authority> .
+
+<http://example.org/analysis/description/52/action/role/addressee-ncas-esma-ec-ccp-resolution-authority> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/ncas-esma-ec-ccp-resolution-authority> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/53/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/53/action/role/addressee-tv-ccp-esma> .
+
+<http://example.org/analysis/description/53/action/role/addressee-tv-ccp-esma> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/tv-ccp-esma> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/54/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/54/action/role/addressee-ccp-tv-esma> .
+
+<http://example.org/analysis/description/54/action/role/addressee-ccp-tv-esma> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/ccp-tv-esma> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/55/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/55/action/role/addressee-esma-cas-ccp-college> .
+
+<http://example.org/analysis/description/55/action/role/addressee-esma-cas-ccp-college> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/esma-cas-ccp-college> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/56/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/56/action/role/addressee-esma-ncas-relevant-authorities-ccp-college-ccp> .
+
+<http://example.org/analysis/description/56/action/role/addressee-esma-ncas-relevant-authorities-ccp-college-ccp> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/esma-ncas-relevant-authorities-ccp-college-ccp> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/57/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/57/action/role/addressee-esma-ncas-relevant-authorities-ccp-college-ccp> .
+
+<http://example.org/analysis/description/57/action/role/addressee-esma-ncas-relevant-authorities-ccp-college-ccp> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/esma-ncas-relevant-authorities-ccp-college-ccp> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/58/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/58/action/role/addressee-esma-authorities-of-third-countries-union-trade-repositories> .
+
+<http://example.org/analysis/description/58/action/role/addressee-esma-authorities-of-third-countries-union-trade-repositories> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/esma-authorities-of-third-countries-union-trade-repositories> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/59/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/59/action/role/addressee-authorities-of-third-countries-european-commission-union-trade-repositories> .
+
+<http://example.org/analysis/description/59/action/role/addressee-authorities-of-third-countries-european-commission-union-trade-repositories> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/authorities-of-third-countries-european-commission-union-trade-repositories> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/61/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/61/action/role/addressee-systematic-internalisers-and-provider-of-the-consolidated-tape-for-shares-and-etfs> .
+
+<http://example.org/analysis/description/61/action/role/addressee-systematic-internalisers-and-provider-of-the-consolidated-tape-for-shares-and-etfs> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/systematic-internalisers-and-provider-of-the-consolidated-tape-for-shares-and-etfs> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/62/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/62/action/role/addressee-national-surveillance-authorities-and-esma-operators-of-trading-venues> .
+
+<http://example.org/analysis/description/62/action/role/addressee-national-surveillance-authorities-and-esma-operators-of-trading-venues> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/national-surveillance-authorities-and-esma-operators-of-trading-venues> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/63/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/63/action/role/addressee-national-surveillance-authorities-and-esma-operators-of-trading-venues> .
+
+<http://example.org/analysis/description/63/action/role/addressee-national-surveillance-authorities-and-esma-operators-of-trading-venues> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/national-surveillance-authorities-and-esma-operators-of-trading-venues> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/64/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/64/action/role/addressee-market-operators-esma> .
+
+<http://example.org/analysis/description/64/action/role/addressee-market-operators-esma> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/market-operators-esma> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/65/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/65/action/role/addressee-pemo-market-operators-investment-firms-trading-venues-national-surveillance-authorities-esma-national-competent-authorities> .
+
+<http://example.org/analysis/description/65/action/role/addressee-pemo-market-operators-investment-firms-trading-venues-national-surveillance-authorities-esma-national-competent-authorities> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/pemo-market-operators-investment-firms-trading-venues-national-surveillance-authorities-esma-national-competent-authorities> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/66> a iopa:BindingRequirement,
+        lomo:LegalRule ;
+    rdfs:label "Article 38fd"@en ;
+    iopa:affects <http://example.org/analysis/interop/4> ;
+    cav:valueDescription "Information/document submission, its storage and subsequent access to the relevant supervisory data for market operators and investment firms operating trading venues subject to ESMA supervision, relevant national competent authorities, relevant national surveillance authorities and ESMA."@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_38> ;
+    lomo:hasCategory dd:Data,
+        dd:ProcessAutomation ;
+    lomo:involvesProcess <http://example.org/process/establish-a-digital-public-service> ;
+    lomo:produces <http://example.org/analysis/action/35>,
+        <http://example.org/analysis/description/66/action> ;
+    lomo:references <http://example.org/dataset/information-on-the-authorisation-of-trading-venues-subject-to-esma-supervision-formal-supervisory-requests-addressed-to-supervised-entities-and-responses-to-those-requests> ;
+    dcterms:description "Information/document submission, its storage and subsequent access to the relevant supervisory data for market operators and investment firms operating trading venues subject to ESMA supervision, relevant national competent authorities, relevant national surveillance authorities and ESMA."@en ;
+    dcterms:relation <http://example.org/ie-solution/existing-solutions-in-place-at-esma-will-be-reused-where-it-already-exits-eg-the-central-database-as-established-in-article-17c-of-emir> .
+
+<http://example.org/analysis/description/66/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/66/action/role/addressee-market-operators-and-investment-firms-operating-trading-venues-subject-to-esma-supervision-national-competent-authorities-national-surveillance-authorities-and-esma> .
+
+<http://example.org/analysis/description/66/action/role/addressee-market-operators-and-investment-firms-operating-trading-venues-subject-to-esma-supervision-national-competent-authorities-national-surveillance-authorities-and-esma> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/market-operators-and-investment-firms-operating-trading-venues-subject-to-esma-supervision-national-competent-authorities-national-surveillance-authorities-and-esma> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/7/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/7/action/role/addressee-investment-firm-market-operator-operating-the-dlt-trading-venue-ncas-esma-ec> .
+
+<http://example.org/analysis/description/7/action/role/addressee-investment-firm-market-operator-operating-the-dlt-trading-venue-ncas-esma-ec> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/investment-firm-market-operator-operating-the-dlt-trading-venue-ncas-esma-ec> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/8/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/8/action/role/addressee-investment-firm-market-operator-operating-the-dlt-trading-venue-ncas-esma-mss-ec> .
+
+<http://example.org/analysis/description/8/action/role/addressee-investment-firm-market-operator-operating-the-dlt-trading-venue-ncas-esma-mss-ec> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/investment-firm-market-operator-operating-the-dlt-trading-venue-ncas-esma-mss-ec> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/9/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/9/action/role/addressee-operators-of-dlt-market-infrastructures-competent-authorities-esma> .
+
+<http://example.org/analysis/description/9/action/role/addressee-operators-of-dlt-market-infrastructures-competent-authorities-esma> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/operators-of-dlt-market-infrastructures-competent-authorities-esma> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/interop/1> a cpsv:PublicService ;
+    rdfs:label "ESMA data platform for cross-border notification of funds and interaction between home and host NCAs on cross-border matters"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_12>,
+        <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_2019> ;
+    dcterms:description "The process with national competent authorities for notifications of cross-border marketing of funds."@en ;
+    dcterms:identifier "interop/1" ;
+    dcterms:references <http://example.org/ie-solution/existing-solutions-in-place-at-esma-will-be-reused-eg-the-central-database-as-established-in-article-17c-of-emir> ;
+    dcterms:title "ESMA data platform for cross-border notification of funds and interaction between home and host NCAs on cross-border matters"@en .
+
+<http://example.org/analysis/interop/4> a cpsv:PublicService ;
+    rdfs:label "Central database-"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_38>,
+        <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_600> ;
+    dcterms:description "A central database for information/documents storage and access for market operators and investment firms operating trading venues subject to ESMA supervision, national competent authorities, national surveillance authorities and ESMA, to a database for the submission of information pertaining to the authorisations under MiFIR, as well as other supervision-related information (including supervisory requests and responses to those requests)."@en ;
+    dcterms:identifier "interop/4" ;
+    dcterms:references <http://example.org/ie-solution/existing-solutions-in-place-at-esma-will-be-reused-where-it-already-exits-eg-the-central-database-as-established-in-article-17c-of-emir> ;
+    dcterms:title "Central database-"@en .
+
+<http://example.org/dataset/application-for-a-specific-permission-to-provide-dlt-notary-service-or-the-dlt-central-maintenance> a dcat:Dataset ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Application for a specific permission to provide DLT notary service or the DLT central maintenance"@en ] ;
+    dcterms:title "Application for a specific permission to provide DLT notary service or the DLT central maintenance"@en .
+
+<http://example.org/dataset/application-for-specific-permission-to-operate-dlt-tv> a dcat:Dataset ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Application for specific permission to operate DLT TV"@en ] ;
+    dcterms:title "Application for specific permission to operate DLT TV"@en .
+
+<http://example.org/dataset/authorisation-for-a-ccp-to-clear-a-class-of-otc-derivatives> a dcat:Dataset ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Authorisation for a CCP to clear a class of OTC derivatives"@en ] ;
+    dcterms:title "Authorisation for a CCP to clear a class of OTC derivatives"@en .
+
+<http://example.org/dataset/ccp-request-for-authorization-of-extension-of-authorization-quantitative-data-to-determine-significance-list-of-significant-ccps-and-ccp-authorisations> a dcat:Dataset ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "CCP request for authorization of extension of authorization; Quantitative data to determine significance; List of significant CCPs and CCP authorisations"@en ] ;
+    dcterms:title "CCP request for authorization of extension of authorization; Quantitative data to determine significance; List of significant CCPs and CCP authorisations"@en .
+
+<http://example.org/dataset/compliance-information-for-authorization-of-ccp-to-clear-a-class-of-otc-derivatives> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_5> ;
+    dcterms:conformsTo <http://example.org/standard/esma-shall-develop-technical-standards> ;
+    dcterms:title "Compliance information for authorization of CCP to clear a class of OTC derivatives"@en .
+
+<http://example.org/dataset/continuous-transfer-of-data-from-national-competent-authorities-to-esma-which-then-makes-the-data-available> a dcat:Dataset ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Continuous transfer of data from national competent authorities to ESMA, which then makes the data available."@en ] ;
+    dcterms:title "Continuous transfer of data from national competent authorities to ESMA, which then makes the data available."@en .
+
+<http://example.org/dataset/data-and-information-that-is-requested-by-national-competent-authorities-from-funds-in-relation-to-authorisation-notification-for-cross-border-marketing-of-funds-this-information-includes-notifications-of-marketing-intensions-compulsory-fund-disclosure-documents-and-marketing-documents-decisions-procedural-measures-and-attestations-issued-by-the-competent-authorities> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_12>,
+        <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_2019> ;
+    dcterms:conformsTo <http://example.org/standard/esma-shall-develop-guidelines-to-establish-standard-forms-formats-and-templates> ;
+    dcterms:title "Data and information that is requested by national competent authorities from funds in relation to authorisation & notification for cross-border marketing of funds. This information includes notifications of marketing intensions, compulsory fund disclosure documents and marketing documents, decisions, procedural measures and attestations issued by the competent authorities."@en .
+
+<http://example.org/dataset/data-standardisation-in-supporting-interoperability-between-dlt-market-infrastructures> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_10> ;
+    dcterms:conformsTo <http://example.org/standard/esma-shall-submit-to-the-commission-technical-advice-on-supporting-interoperability-betweendlt-market-infrastructures> ;
+    dcterms:title "Data standardisation in supporting interoperability between DLT market infrastructures"@en .
+
+<http://example.org/dataset/disclosure-of-penalty-payments-of-esma> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_138> ;
+    dcterms:conformsTo <http://example.org/standard/disclosure-of-penalty-fines> ;
+    dcterms:title "Disclosure of penalty payments of ESMA"@en .
+
+<http://example.org/dataset/exchange-of-information-between-esma-and-third-countriesdisclosure-of-information-from-third-countries> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_138> ;
+    dcterms:conformsTo <http://example.org/standard/esma-to-conclude-agreements-with-third-country-authorities> ;
+    dcterms:title "Exchange of information between ESMA and third countriesDisclosure of information from third countries"@en .
+
+<http://example.org/dataset/information-about-transfers-that-take-place-with-the-settlement-scheme-they-participate> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_10> ;
+    dcterms:conformsTo <http://example.org/standard/esma-shall-develop-guidelines-to-establish-standard-forms-formats-and-templates> ;
+    dcterms:title "Information about transfers that take place with the settlement scheme they participate"@en .
+
+<http://example.org/dataset/information-about-transfers-that-take-place-with-the-settlement-scheme-they-participate-to> a dcat:Dataset ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Information about transfers that take place with the settlement scheme they participate to"@en ] ;
+    dcterms:title "Information about transfers that take place with the settlement scheme they participate to"@en .
+
+<http://example.org/dataset/information-concerning-dlt-notaries-and-dlt-central-account-managers> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_10> ;
+    dcterms:title "Information concerning DLT notaries and DLT central account managers"@en .
+
+<http://example.org/dataset/information-on-derivatives-contracts-held-in-union-trade-repositories> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_76> ;
+    dcterms:conformsTo <http://example.org/standard/esma-may-establish-cooperation-arrangements> ;
+    dcterms:title "Information on derivatives contracts held in Union trade repositories"@en .
+
+<http://example.org/dataset/information-on-the-authorisation-of-trading-venues-subject-to-esma-supervision-as-well-as-formal-supervisory-requests-addressed-to-supervised-entities-and-responses-to-those-requests> a dcat:Dataset ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Information on the authorisation of trading venues subject to ESMA supervision, as well as formal supervisory requests addressed to supervised entities and responses to those requests."@en ] ;
+    dcterms:title "Information on the authorisation of trading venues subject to ESMA supervision, as well as formal supervisory requests addressed to supervised entities and responses to those requests."@en .
+
+<http://example.org/dataset/information-on-the-authorisation-of-trading-venues-subject-to-esma-supervision-formal-supervisory-requests-addressed-to-supervised-entities-and-responses-to-those-requests> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_38> ;
+    dcterms:title "Information on the authorisation of trading venues subject to ESMA supervision, formal supervisory requests addressed to supervised entities and responses to those requests."@en .
+
+<http://example.org/dataset/information-on-the-outsourcing-services> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_19> ;
+    dcterms:conformsTo <http://example.org/standard/the-information-specified-in-the-rts-drafted-by-esma-pursuant-to-article-19a> ;
+    dcterms:title "Information on the outsourcing services"@en .
+
+<http://example.org/dataset/information-supporting-the-application-for-a-specific-permission-to-provide-the-dlt-notary-service-or-the-dlt-central-maintenance> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_10> ;
+    dcterms:conformsTo <http://example.org/standard/esma-shall-develop-guidelines-to-establish-standard-forms-formats-and-templates-for-the-purpose-of-the-application-referred-to-in-paragraph-1> ;
+    dcterms:title "Information supporting the application for a specific permission to provide the DLT notary service or the DLT central maintenance"@en .
+
+<http://example.org/dataset/information-supporting-the-application-for-specific-permission-to-operate-dlt-tv> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_8> ;
+    dcterms:title "Information supporting the application for specific permission to operate DLT TV"@en .
+
+<http://example.org/dataset/notification-on-whether-the-operator-intends-to-transition-to-the-regular-regime> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_7> ;
+    dcterms:title "Notification on whether the operator intends to transition to the regular regime"@en .
+
+<http://example.org/dataset/public-disclosure-of-penalties> a dcat:Dataset ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Public disclosure of penalties"@en ] ;
+    dcterms:title "Public disclosure of penalties"@en .
+
+<http://example.org/dataset/quotes-in-respect-of-shares-and-etfs> a dcat:Dataset ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Quotes in respect of shares and ETFs"@en ] ;
+    dcterms:title "Quotes in respect of shares and ETFs"@en .
+
+<http://example.org/dataset/quotes-price-and-volume-in-respect-of-shares-and-etfs> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_22> ;
+    dcterms:title "Quotes (price and volume) in respect of shares and ETFs"@en .
+
+<http://example.org/dataset/report-on-basic-parameters-of-the-activities-of-the-dlt-market-infrastructures> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_11> ;
+    dcterms:title "Report on basic parameters of the activities of the DLT market infrastructures"@en .
+
+<http://example.org/dataset/request-by-third-country-to-establish-cooperation-arrangements-to-access-information-in-union-trade-repositories> a dcat:Dataset ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Request by third country to establish cooperation arrangements to access information in Union trade repositories"@en ] ;
+    dcterms:title "Request by third country to establish cooperation arrangements to access information in Union trade repositories"@en .
+
+<http://example.org/ie-solution/existing-solutions-in-place-at-esma-will-be-extended-and-reused-eg-the-central-database-as-established-in-article-17c-of-emir> a adms:Asset ;
+    dcterms:description "Existing solutions in place at ESMA will be extended and reused (e.g. the central database as established in Article 17c of EMIR)"@en ;
+    dcterms:title "Existing solutions in place at ESMA will be extended and reused (e.g. the central database as established in Article 17c of EMIR)"@en .
+
+<http://example.org/ie-solution/existing-solutions-in-place-at-esma-will-be-reused-and-extended-with-the-new-functionalities-eg-the-central-database-as-established-in-article-17c-of-emir> a adms:Asset ;
+    dcterms:description "Existing solutions in place at ESMA will be reused and extended with the new functionalities (e.g. the central database as established in Article 17c of EMIR)"@en ;
+    dcterms:title "Existing solutions in place at ESMA will be reused and extended with the new functionalities (e.g. the central database as established in Article 17c of EMIR)"@en .
+
+<http://example.org/process/access-to-data> skos:prefLabel "Access to data"@en .
+
+<http://example.org/process/application-for-authorisation> skos:prefLabel "Application for authorisation"@en .
+
+<http://example.org/process/application-for-authorisation-to-outsource-services> skos:prefLabel "Application for authorisation to outsource services"@en .
+
+<http://example.org/process/assessment-of-requirements-and-issue-notifications> skos:prefLabel "Assessment of requirements and issue notifications;"@en .
+
+<http://example.org/process/authorisation-and-notification> skos:prefLabel "Authorisation and notification"@en .
+
+<http://example.org/process/authorisation-to-provide-banking-type-ancillary-services> skos:prefLabel "Authorisation to provide banking-type ancillary services"@en .
+
+<http://example.org/process/ccp-to-send-request-to-tv-ccp-to-inform-esma> skos:prefLabel "CCP to send request to TV; CCP to inform ESMA"@en .
+
+<http://example.org/process/competent-authority-designation> skos:prefLabel "Competent authority designation"@en .
+
+<http://example.org/process/cross-border-collaboration> skos:prefLabel "Cross-border collaboration"@en .
+
+<http://example.org/process/data-standardisation> skos:prefLabel "Data standardisation"@en .
+
+<http://example.org/process/data-transmission> skos:prefLabel "Data transmission"@en .
+
+<http://example.org/process/decision-making-process> skos:prefLabel "Decision-making process"@en .
+
+<http://example.org/process/esma-to-disclose-to-the-public-fines-and-periodic-penalty-payments> skos:prefLabel "ESMA to disclose to the public fines and periodic penalty payments."@en .
+
+<http://example.org/process/esma-to-request-information-from-relevant-legal-and-natural-persons> skos:prefLabel "ESMA to request information from relevant legal and natural persons;"@en .
+
+<http://example.org/process/establishment-of-a-common-union-financial-data-strategy> skos:prefLabel "Establishment of a common Union financial data strategy"@en .
+
+<http://example.org/process/establishment-of-digital-solutions> skos:prefLabel "Establishment of digital solutions"@en .
+
+<http://example.org/process/governance> skos:prefLabel "Governance"@en .
+
+<http://example.org/process/if-esma-decides-not-to-impose-fines-or-penalty-payments-it-shall-inform-the-european-parliament-the-council-the-ec-and-the-ncas> skos:prefLabel "If ESMA decides not to impose fines or penalty payments, it shall inform the European Parliament, the Council, the EC, and the NCAs"@en .
+
+<http://example.org/process/information-and-document-exchange> skos:prefLabel "Information and document exchange"@en .
+
+<http://example.org/process/information-exchange> skos:prefLabel "Information exchange"@en .
+
+<http://example.org/process/issue-guidelines> skos:prefLabel "Issue guidelines; -"@en .
+
+<http://example.org/process/management-of-authorisation-for-casps> skos:prefLabel "Management of authorisation for CASPs"@en .
+
+<http://example.org/process/management-of-casp-authorisation> skos:prefLabel "Management of CASP authorisation"@en .
+
+<http://example.org/process/monitoring-of-market-abuse-and-transactionsorders-on-trading-platforms> skos:prefLabel "monitoring of market abuse and transactions/orders on trading platforms"@en .
+
+<http://example.org/process/mss-to-notify-ncas-esma-to-publish-a-list-of-ncas> skos:prefLabel "MSs to notify NCAs; ESMA to publish a list of NCAs."@en .
+
+<http://example.org/process/notification> skos:prefLabel "Notification"@en .
+
+<http://example.org/process/notification-and-authorisation> skos:prefLabel "Notification and authorisation"@en .
+
+<http://example.org/process/notify> skos:prefLabel "Notify"@en .
+
+<http://example.org/process/operators-of-dlt-market-to-notify-and-report-to-ncas> skos:prefLabel "Operators of DLT market to notify and report to NCAs"@en .
+
+<http://example.org/process/prevention-and-detection-of-market-abuse> skos:prefLabel "Prevention and detection of market abuse"@en .
+
+<http://example.org/process/processing-settlement-instructions-communication-of-allocation-and-confirmation> skos:prefLabel "Processing settlement instructions, communication of allocation and confirmation"@en .
+
+<http://example.org/process/provisions-of-information> skos:prefLabel "Provisions of information"@en .
+
+<http://example.org/process/regular-reporting> skos:prefLabel "Regular Reporting"@en .
+
+<http://example.org/process/request-for-a-specific-permission-to-operate-a-dlt-tss-reporting-to-esma> skos:prefLabel "Request for a specific permission to operate a DLT TSS; Reporting to ESMA;"@en .
+
+<http://example.org/process/request-for-authorisation> skos:prefLabel "Request for authorisation;"@en .
+
+<http://example.org/process/request-permission-for-simplified-regime> skos:prefLabel "Request permission for simplified regime;"@en .
+
+<http://example.org/process/risk-assessment> skos:prefLabel "Risk Assessment"@en .
+
+<http://example.org/process/supervisory-measures> skos:prefLabel "Supervisory measures"@en .
+
+<http://example.org/process/suspension-of-clearing-obligation> skos:prefLabel "Suspension of clearing obligation"@en .
+
+<http://example.org/process/third-parties-to-provide-information-about-outsourcing> skos:prefLabel "Third parties to provide information about outsourcing"@en .
+
+<http://example.org/process/tv-to-send-request-to-ccp-tv-to-inform-esma-of-request> skos:prefLabel "TV to send request to CCP; TV to inform ESMA of request"@en .
+
+<http://example.org/standard/disclosure-of-penalty-fines> a dcterms:Standard ;
+    dcterms:title "Disclosure of penalty fines."@en .
+
+<http://example.org/standard/esma-may-establish-cooperation-arrangements> a dcterms:Standard ;
+    dcterms:title "ESMA may establish cooperation arrangements"@en .
+
+<http://example.org/standard/esma-shall-develop-guidelines-to-establish-standard-forms-formats-and-templates-for-the-application-for-authorization-under-the-simplified-regime-referred-to-in-paragraph-3> a dcterms:Standard ;
+    dcterms:title "ESMA shall develop guidelines to establish standard forms, formats and templates for the application for authorization under the simplified regime referred to in paragraph 3."@en .
+
+<http://example.org/standard/esma-shall-develop-guidelines-to-establish-standard-forms-formats-and-templates-for-the-purpose-of-the-application-referred-to-in-paragraph-1> a dcterms:Standard ;
+    dcterms:title "ESMA shall develop guidelines to establish standard forms, formats and templates for the purpose of the application referred to in paragraph 1."@en .
+
+<http://example.org/standard/esma-shall-develop-technical-standards> a dcterms:Standard ;
+    dcterms:title "ESMA shall develop technical standards"@en .
+
+<http://example.org/standard/esma-shall-develop-technical-standards-articles-14-and-17a-esma-shall-develop-guidelines-to-establish-standard-forms-formats-and-templates-articles-17-and-17b-the-commission-is-empowered-to-adopt-a-delegated-act-article-22a-esma-shall-maintain-a-website-article-88> a dcterms:Standard ;
+    dcterms:title "ESMA shall develop technical standards (Articles 14 and 17a); ESMA shall develop guidelines to establish standard forms, formats and templates (Articles 17 and 17b); The Commission is empowered to adopt a delegated act (Article 22a); ESMA shall maintain a website (Article 88)"@en .
+
+<http://example.org/standard/esma-shall-publish-on-its-website> a dcterms:Standard ;
+    dcterms:title "ESMA shall publish on its website"@en .
+
+<http://example.org/standard/esma-shall-submit-to-the-commission-technical-advice-on-supporting-interoperability-betweendlt-market-infrastructures> a dcterms:Standard ;
+    dcterms:title "ESMA shall submit to the Commission technical advice on supporting interoperability betweenDLT market infrastructures"@en .
+
+<http://example.org/standard/esma-to-conclude-agreements-with-third-country-authorities> a dcterms:Standard ;
+    dcterms:title "ESMA to conclude agreements with third country authorities"@en .
+
+<http://example.org/standard/esma-to-establish-and-maintain> a dcterms:Standard ;
+    dcterms:title "ESMA to establish and maintain"@en .
+
+<http://example.org/standard/legal-persons-or-other-undertakings-that-intend-to-provide-crypto-asset-services-shall-submit-their-application-for-an-authorisation-as-a-crypto-asset-service-provider-to-esma> a dcterms:Standard ;
+    dcterms:title "Legal persons or other undertakings that intend to provide crypto-asset services shall submit their application for an authorisation as a crypto-asset service provider to ESMA"@en .
+
+<http://example.org/standard/the-information-laid-down-in-the-rts-drafted-by-esma-pursuant-to-article-23> a dcterms:Standard ;
+    dcterms:title "The information laid down in the RTS drafted by ESMA pursuant to Article 23"@en .
+
+<http://example.org/standard/the-information-set-out-in-the-rts-drafted-by-eba-pursuant-to-article-55> a dcterms:Standard ;
+    dcterms:title "The information set out in the RTS drafted by EBA pursuant to Article 55"@en .
+
+<http://example.org/standard/the-information-set-out-in-the-rts-drafted-by-esma-pursuant-to-articles-16-and-17> a dcterms:Standard ;
+    dcterms:title "The information set out in the RTS drafted by ESMA pursuant to Articles 16 and 17"@en .
+
+<http://example.org/standard/the-information-specified-by-esma-in-the-rts-pursuant-to-article-253> a dcterms:Standard ;
+    dcterms:title "The information specified by ESMA in the RTS pursuant to Article 25(3)"@en .
+
+<http://example.org/standard/the-information-specified-by-esma-in-the-rts-pursuant-to-article-94> a dcterms:Standard ;
+    dcterms:title "The information specified by ESMA in the RTS pursuant to Article 9(4)"@en .
+
+<http://example.org/standard/the-information-specified-in-the-relevant-rts-drafted-by-esma> a dcterms:Standard ;
+    dcterms:title "The information specified in the relevant RTS drafted by ESMA"@en .
+
+<http://example.org/standard/the-information-specified-in-the-rts-drafted-by-esma-pursuant-to-article-19a> a dcterms:Standard ;
+    dcterms:title "The information specified in the RTS drafted by ESMA pursuant to Article 19a"@en .
+
+<http://example.org/standard/the-international-standards-specified-by-esma-in-the-relevant-rts> a dcterms:Standard ;
+    dcterms:title "The international standards specified by ESMA in the relevant RTS"@en .
+
+<http://publications.europa.eu/resource/authority/corporate-body/COM> a m8g:PublicOrganisation ;
+    dcterms:description "The European Commission, provider of the interoperability assessment."@en ;
+    skos:prefLabel "European Commission"@en .
+
+y6k:c_1cd39254c5a5 skos:prefLabel "Access to information"@en .
+
+<http://example.org/agent/authorised-legal-person> rdfs:label "Authorised legal person"@en .
+
+<http://example.org/agent/ccp-college> rdfs:label "CCP College"@en .
+
+<http://example.org/agent/crypto-service-providers-esma-eba-ncas> rdfs:label "Crypto-service providers; ESMA; EBA; NCAs"@en .
+
+<http://example.org/agent/csds-and-market-participants> rdfs:label "CSDs and market participants"@en .
+
+<http://example.org/agent/dlt-central-account-keepers> rdfs:label "DLT central account keepers"@en .
+
+<http://example.org/agent/esma-ncas-relevant-authorities-ccp-college-ccp> rdfs:label "ESMA; NCAs; Relevant authorities; CCP College; CCP"@en .
+
+<http://example.org/agent/national-surveillance-authorities-and-esma-operators-of-trading-venues> rdfs:label "National surveillance authorities and ESMA; Operators of trading venues"@en .
+
+<http://example.org/agent/ncas> rdfs:label "NCAs"@en .
+
+<http://example.org/agent/ncas-ec-esma> rdfs:label "NCAs, EC, ESMA,"@en .
+
+<http://example.org/agent/operators-of-dlt-market-infrastructures-competent-authorities-esma> rdfs:label "Operators of DLT market infrastructures; competent authorities, ESMA"@en .
+
+<http://example.org/agent/relevant-authorities> rdfs:label "Relevant authorities"@en .
+
+<http://example.org/agent/third-country-authority> rdfs:label "Third-country authority"@en .
+
+<http://example.org/agent/tv> rdfs:label "TV"@en .
+
+<http://example.org/analysis/action/31> a lomo:Action ;
+    rdfs:label "Relevant Data for CASP authorization in EU"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Request for authorisation or changes"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_62>,
+        <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_63> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/31/role/addressee-esma>,
+        <http://example.org/analysis/action/31/role/addresser-legal-persons-or-other-undertakings-that-intend-to-provide-crypto-asset-services> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Relevant Data for CASP authorization in EU"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/relevant-data-for-casp-authorization-in-eu> ] .
+
+<http://example.org/dataset/allocation-confirmation-and-settlement-instructions> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_6> ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Allocation Confirmation and settlement instructions"@en ] ;
+    dcterms:conformsTo <http://example.org/standard/the-international-standards-specified-by-esma-in-the-relevant-rts> ;
+    dcterms:title "Allocation Confirmation and settlement instructions"@en .
+
+<http://example.org/dataset/compliance-information-for-authorization-to-operate-under-the-simplified-regime> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_7> ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Compliance information for authorization to operate under the simplified regime"@en ] ;
+    dcterms:conformsTo <http://example.org/standard/esma-shall-develop-guidelines-to-establish-standard-forms-formats-and-templates-for-the-application-for-authorization-under-the-simplified-regime-referred-to-in-paragraph-3> ;
+    dcterms:title "Compliance information for authorization to operate under the simplified regime"@en .
+
+<http://example.org/dataset/compliance-information-for-request-of-specific-exemptions-regarding-dlt-settlement-system> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_5> ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Compliance information for request of specific exemptions regarding DLT settlement system"@en ] ;
+    dcterms:conformsTo <http://example.org/standard/esma-shall-develop-guidelines-to-establish-standard-forms-formats-and-templates-for-submitting-the-requests-referred-to-in-paragraph-1> ;
+    dcterms:title "Compliance information for request of specific exemptions regarding DLT settlement system"@en .
+
+<http://example.org/dataset/compliance-information-for-request-of-specific-exemptions-regarding-dlt-trading-venues> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_4> ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Compliance information for request of specific exemptions regarding DLT trading venues"@en ] ;
+    dcterms:conformsTo <http://example.org/standard/esma-shall-develop-guidelines-to-establish-standard-forms-formats-and-templates-for-submitting-the-requests-referred-to-in-paragraph-1> ;
+    dcterms:title "Compliance information for request of specific exemptions regarding DLT trading venues"@en .
+
+<http://example.org/dataset/decisions-documents-notifications> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_17> ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Decisions, documents, notifications"@en ] ;
+    dcterms:conformsTo <http://example.org/standard/esma-to-establish-and-maintain> ;
+    dcterms:title "Decisions, documents, notifications"@en .
+
+<http://example.org/dataset/details-of-orders-in-financial-instruments> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_25> ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Details of orders in financial instruments"@en ] ;
+    dcterms:conformsTo <http://example.org/standard/the-information-specified-by-esma-in-the-rts-pursuant-to-article-253> ;
+    dcterms:title "Details of orders in financial instruments"@en .
+
+<http://example.org/dataset/information-on-cross-border-dlt-csd-services> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_10> ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Information on cross-border DLT CSD services"@en ] ;
+    dcterms:title "Information on cross-border DLT CSD services"@en .
+
+<http://example.org/dataset/information-on-the-banking-type-ancillary-service> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_55> ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Information on the banking-type ancillary service"@en ] ;
+    dcterms:conformsTo <http://example.org/standard/the-information-set-out-in-the-rts-drafted-by-eba-pursuant-to-article-55> ;
+    dcterms:title "Information on the banking-type ancillary service"@en .
+
+<http://example.org/dataset/information-on-the-passported-services> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_23> ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Information on the passported services"@en ] ;
+    dcterms:conformsTo <http://example.org/standard/the-information-laid-down-in-the-rts-drafted-by-esma-pursuant-to-article-23> ;
+    dcterms:title "Information on the passported services"@en .
+
+<http://example.org/dataset/information-supporting-the-authorization-and-supervision-of-the-settlement-scheme> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_10> ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Information supporting the authorization and supervision of the settlement scheme"@en ] ;
+    dcterms:title "Information supporting the authorization and supervision of the settlement scheme"@en .
+
+<http://example.org/dataset/list-of-competent-authorities-designated-by-the-member-states> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_22> ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "List of competent authorities designated by the Member States"@en ] ;
+    dcterms:conformsTo <http://example.org/standard/esma-shall-publish-on-its-website> ;
+    dcterms:title "List of competent authorities designated by the Member States"@en .
+
+<http://example.org/dataset/request-for-access-to-a-ccp> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_7> ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Request for access to a CCP"@en ] ;
+    dcterms:conformsTo <http://example.org/standard/esma-shall-develop-guidelines-to-establish-standard-forms-formats-and-templates> ;
+    dcterms:title "Request for access to a CCP"@en .
+
+<http://example.org/dataset/request-for-access-to-a-tv> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_8> ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Request for access to a TV"@en ] ;
+    dcterms:conformsTo <http://example.org/standard/esma-shall-develop-guidelines-to-establish-standard-forms-formats-and-templates> ;
+    dcterms:title "Request for access to a TV"@en .
+
+<http://example.org/dataset/request-for-the-suspension-of-the-clearing-obligation> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_6> ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Request for the suspension of the clearing obligation"@en ] ;
+    dcterms:conformsTo <http://example.org/standard/esma-shall-develop-guidelines-to-establish-standard-forms-formats-and-templates> ;
+    dcterms:title "Request for the suspension of the clearing obligation"@en .
+
+<http://example.org/dataset/settlement-efficiency-reporting> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_9> ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Settlement efficiency reporting"@en ] ;
+    dcterms:conformsTo <http://example.org/standard/the-information-specified-by-esma-in-the-rts-pursuant-to-article-94> ;
+    dcterms:title "Settlement efficiency reporting"@en .
+
+<http://example.org/ie-solution/existing-solutions-in-place-at-esma-will-be-reused-eg-the-central-database-as-established-in-article-17c-of-emir> a adms:Asset ;
+    dcterms:description "Existing solutions in place at ESMA will be reused (e.g. the central database as established in Article 17c of EMIR)"@en ;
+    dcterms:title "Existing solutions in place at ESMA will be reused (e.g. the central database as established in Article 17c of EMIR)"@en .
+
+<http://example.org/ie-solution/existing-solutions-in-place-at-esma-will-be-reused-where-it-already-exits-eg-the-central-database-as-established-in-article-17c-of-emir> a adms:Asset ;
+    dcterms:description "Existing solutions in place at ESMA will be reused where it already exits (e.g. the central database as established in Article 17c of EMIR)"@en ;
+    dcterms:title "Existing solutions in place at ESMA will be reused where it already exits (e.g. the central database as established in Article 17c of EMIR)"@en .
+
+<http://example.org/process/authorisation-management> skos:prefLabel "Authorisation management"@en .
+
+<http://example.org/process/exchange-information> skos:prefLabel "Exchange information"@en .
+
+<http://example.org/process/reporting-obligations> skos:prefLabel "Reporting obligations"@en .
+
+<http://example.org/process/request-for-exemption> skos:prefLabel "Request for exemption;"@en .
+
+<http://example.org/standard/esma-shall-develop-guidelines-to-establish-standard-forms-formats-and-templates-for-submitting-the-requests-referred-to-in-paragraph-1> a dcterms:Standard ;
+    dcterms:title "ESMA shall develop guidelines to establish standard forms, formats and templates for submitting the requests referred to in paragraph 1."@en .
+
+<http://example.org/agent/csds> rdfs:label "CSDs"@en .
+
+<http://example.org/agent/public> rdfs:label "Public"@en .
+
+<http://example.org/analysis/action/18> a lomo:Action ;
+    rdfs:label "CCP request for authorization of extension of authorization; Quantitative data to determine significance; List of significant CCPs and CCP authorisations"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "CCP request for authorisation; Information on average open interest, average gross notional outstanding, average aggregated initial margin requirements, group structure, interoperability arrangements; ESMA to publish list of significant CCPs and CCP authorisations"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_14>,
+        <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_17>,
+        <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_22>,
+        <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_88> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/18/role/addressee-ca>,
+        <http://example.org/analysis/action/18/role/addressee-esma>,
+        <http://example.org/analysis/action/18/role/addressee-public>,
+        <http://example.org/analysis/action/18/role/addresser-ccp>,
+        <http://example.org/analysis/action/18/role/addresser-esma> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "CCP request for authorization of extension of authorization; Quantitative data to determine significance; List of significant CCPs and CCP authorisations"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/ccp-request-for-authorization-of-extension-of-authorization-quantitative-data-to-determine-significance-list-of-significant-ccps-and-ccp-authorisations> ] .
+
+<http://example.org/dataset/ccp-request-for-authorization-quantitative-data-to-determine-significance> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_14>,
+        <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_17>,
+        <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_22>,
+        <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_88> ;
+    dcterms:conformsTo <http://example.org/standard/esma-shall-develop-guidelines-to-establish-standard-forms-formats-and-templates>,
+        <http://example.org/standard/esma-shall-develop-technical-standards-articles-14-and-17a-esma-shall-develop-guidelines-to-establish-standard-forms-formats-and-templates-articles-17-and-17b-the-commission-is-empowered-to-adopt-a-delegated-act-article-22a-esma-shall-maintain-a-website-article-88> ;
+    dcterms:title "CCP request for authorization; Quantitative data to determine significance"@en .
+
+<http://example.org/dataset/information-on-the-applicant-csd> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_16>,
+        <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_17> ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Information on the applicant CSD"@en ] ;
+    dcterms:conformsTo <http://example.org/standard/the-information-set-out-in-the-rts-drafted-by-esma-pursuant-to-articles-16-and-17> ;
+    dcterms:title "Information on the applicant CSD"@en .
+
+<http://example.org/dataset/information-on-the-instruments-and-services-provided-via-the-link> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_48>,
+        <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_52> ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Information on the instruments and services provided via the link"@en ] ;
+    dcterms:conformsTo <http://example.org/standard/the-information-specified-in-the-relevant-rts-drafted-by-esma> ;
+    dcterms:title "Information on the instruments and services provided via the link"@en .
+
+<http://example.org/dataset/opinion> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_17>,
+        <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_22> ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Opinion"@en ] ;
+    dcterms:title "Opinion"@en .
+
+<http://example.org/process/management-of-authorisations> skos:prefLabel "Management of authorisations"@en .
+
+<http://example.org/agent/competent-authorities> rdfs:label "Competent authorities"@en .
+
+<http://example.org/agent/nca> rdfs:label "NCA"@en .
+
+<http://example.org/dataset/information-related-to-csd-applications-for-authorisations> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_16>,
+        <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_19>,
+        <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_21>,
+        <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_48>,
+        <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_54>,
+        <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_56> ;
+    dcterms:title "Information related to CSD applications for authorisations"@en .
+
+<http://example.org/process/establish-a-digital-public-service> skos:prefLabel "Establish a Digital Public Service"@en .
+
+<http://example.org/process/management-of-casp-authorization> skos:prefLabel "Management of CASP authorization"@en .
+
+<http://example.org/agent/ccp> rdfs:label "CCP"@en .
+
+<http://example.org/dataset/relevant-data-for-casp-authorization-in-eu> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_60>,
+        <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_62>,
+        <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_63>,
+        <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_64>,
+        <https://data.europa.eu/eli/dl/proc/2025/943/cod/doc/com/COM_2025_943/FINAL/eng/art_65> ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Relevant Data for CASP authorization in EU"@en ] ;
+    dcterms:conformsTo <http://example.org/standard/legal-persons-or-other-undertakings-that-intend-to-provide-crypto-asset-services-shall-submit-their-application-for-an-authorisation-as-a-crypto-asset-service-provider-to-esma> ;
+    dcterms:title "Relevant data for CASP authorization in EU"@en .
+
+<http://example.org/standard/esma-shall-develop-guidelines-to-establish-standard-forms-formats-and-templates> a dcterms:Standard ;
+    dcterms:title "ESMA shall develop guidelines to establish standard forms, formats and templates"@en .
+
+<http://example.org/agent/csds-member-states-and-esma> rdfs:label "CSDs, Member States and ESMA"@en .
+
+<http://example.org/agent/esma> rdfs:label "ESMA"@en .
+

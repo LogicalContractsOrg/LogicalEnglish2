@@ -1,0 +1,318 @@
+% lib/lomo.le — the words of LOMO, the Legal Obligation Metadata Ontology of
+% the European institutions (http://data.europa.eu/leg/lomo, version 1.1.0),
+% and what the statements of a LOMO description mean together.
+%
+% A library, not syntax. The LOMO translator (migration/lomo/) turns each
+% LOMO description (a Turtle file) into a program of facts, the *register*,
+% which includes this library as a resource. One fact of the register is one
+% statement of the description:
+%
+%     norm publication obligation is a substantive rule.
+%     norm publication obligation has the modality obligation.
+%     norm publication obligation is established in "http://data.europa.eu/eli/dir/2013/34/art_30/par_1/oj".
+%     step publish full report has the agent role agent role micro undertaking publisher.
+%
+% The library says once what every register means: the kinds of rule, the
+% links read in both directions, who acts in which role, the acts and
+% articles of the provisions. The questions of LOMO's requirements document
+% are queries of each register (the translator writes them).
+%
+% A LOMO description has no conditions and no cases. So this library does
+% not decide whether a rule applies to a case; the parts of it that do
+% (deadlines, who is bound, derogation, the conditions of a rule) are below,
+% in their own sections.
+%
+% LOMO is published by the European Union under the Creative Commons
+% Attribution 4.0 licence. This library is part of Logical English
+% (Apache License 2.0); it was not written or reviewed by the makers of LOMO.
+
+the knowledge base lomo includes these resources:
+    lomo.pl.
+
+the functions are:
+    the act of *a provision* is *an act*.
+    the place of *a provision* in its act is *a text*.
+
+the templates are:
+    *a thing* is a legal rule.
+    *a thing* is a prescriptive rule.
+    *a thing* is a substantive rule.
+    *a thing* is an implementation and oversight rule.
+    *a thing* is a constitutive rule.
+    *a thing* is a definition.
+    *a thing* is a scope rule.
+    *a thing* is an institutional rule.
+    *a thing* is an action.
+    *a thing* is an agent.
+    *a thing* is an agent type.
+    *a thing* is an agent role.
+    *a thing* is a temporal specification.
+    *a thing* is an action result.
+    *a thing* is an action result type.
+    *a thing* is a legal condition.
+    *a thing* is a process.
+    *a thing* is a dataset.
+    *a thing* is a standard.
+    *a thing* is a software.
+    *a thing* is a public service.
+    *a thing* is an assessment.
+    *a thing* is an assessment statement.
+    *a thing* is a concept.
+    *a thing* is a concept scheme.
+    *a thing* is established in *a provision*.
+    *a thing* has the legal text *a text*.
+    *a rule* has the modality *a modality*.
+    *a rule* has the requirement type *a requirement type*.
+    *a rule* produces *an action*.
+    *a rule* has the digital dimension *a dimension*.
+    *a rule* involves the process *a process*.
+    *a rule* references *a resource*.
+    *a rule* specifies *a second rule*.
+    *a rule* is specified by *a second rule*.
+    *a rule* derogates from *a second rule*.
+    *a rule* is derogated by *a second rule*.
+    *a rule* relates to *a second rule*.
+    *an action* has the agent role *an agent role*.
+    *an agent role* is for the agent *an agent*.
+    *an agent role* has the role *a role*.
+    *an action* has the result *a result*.
+    *an action* is followed by *a second action*.
+    *an action* follows *a second action*.
+    *a thing* has the time specification *a temporal specification*.
+    *a temporal specification* has the function *a function*.
+    *a temporal specification* has the instant *a date*.
+    *a temporal specification* has the duration *a duration*.
+    *a temporal specification* has the frequency *a duration*.
+    *a temporal specification* has the number of repetitions *a number*.
+    *a temporal specification* has the temporal label *a text*.
+    *a temporal specification* is timed after *a second temporal specification*.
+    *a temporal specification* is timed before *a second temporal specification*.
+    *a temporal specification* is timed immediately after *a second temporal specification*.
+    *a temporal specification* is timed immediately before *a second temporal specification*.
+    *a temporal specification* starts *a second temporal specification*.
+    *a temporal specification* is started by *a second temporal specification*.
+    *a temporal specification* finishes *a second temporal specification*.
+    *a temporal specification* is finished by *a second temporal specification*.
+    *a temporal specification* overlaps *a second temporal specification*.
+    *a temporal specification* is timed within *a second temporal specification*.
+    *a result* has the result category *a category*.
+    *a result* is composed of *a second result*.
+    *a result* is manifested in *a dataset*.
+    *a dataset* manifests *a result*.
+    *a definition* defines *a thing*.
+    *a thing* is defined by *a definition*.
+    *a definition* is equivalent to *a second definition*.
+    *a definition* has the definiendum *a text*.
+    *a definition* has the definiens *a text*.
+    *a definition* has the term label *a text*.
+    *a thing* has the capability *a text*.
+    *a thing* has the purpose *a text*.
+    *a thing* has the condition *a condition*.
+    *a rule* uses the definition *a definition*.
+    *a definition* has the semantic flag *a truth value*.
+    *a thing* has the label *a text*.
+    *a thing* has the comment *a text*.
+    *a thing* has the title *a text*.
+    *a thing* has the description *a text*.
+    *a thing* conforms to *a standard*.
+    *a thing* is published by *an agent*.
+    *a thing* cites *a resource*.
+    *a thing* has the preferred label *a text*.
+    *a thing* has the explanation *a text*.
+    *a thing* is in the scheme *a scheme*.
+    *a thing* has the broader concept *a concept*.
+    *an assessment* results in *an assessment statement*.
+    *an assessment statement* has the judgement *a text*.
+    *an assessment statement* has the statement type *a type*.
+    *an assessment statement* has the interpretation *a text*.
+    *a thing* concerns the service *a service*.
+    *a thing* has the type *a class*.
+    *a thing* has for *a property* the value *a value*.
+    *a thing* has for *a property* the resource *a resource*.
+    *a thing* is identified by *an address*.
+    the values of *a property* have the datatype *a datatype*.
+    the texts of *a property* have no language.
+    the bearer role is *a role*.
+    *a thing* is an agent or agent type.
+    *a thing* is of the kind *a kind*.
+    *a rule* is a derogation from *a second rule*.
+    *a rule* is a specification of *a second rule*.
+    *a rule* is related to *a second rule*.
+    *an action* comes before *a second action*.
+    *a definition* gives the meaning of *a thing*.
+    *a dataset* holds *a result*.
+    *a definition* has the same meaning as *a second definition*.
+    *a temporal specification* is the start of *a second temporal specification*.
+    *a temporal specification* is the end of *a second temporal specification*.
+    *an agent* acts as *a role* in *an action*.
+    *a rule* concerns *an agent*.
+    *a thing* has *a temporal specification* as *a function*.
+    *a rule* is established by the act *an act*.
+    *a rule* is established in more than one provision.
+    *a thing* is described by the text *a text*.
+    *a rule* is laid down in *a place*.
+    *a rule* has the modality *a modality* for *an agent* as *a role*.
+    *a thing* is triggered by *an event*.
+
+the knowledge base lomo includes:
+
+% ---- the kinds of rule (LOMO's classes and subclasses) -------------------
+
+a thing is a legal rule if the thing is a prescriptive rule.
+a thing is a legal rule if the thing is a constitutive rule.
+a thing is a prescriptive rule if the thing is a substantive rule.
+a thing is a prescriptive rule if the thing is an implementation and oversight rule.
+a thing is a constitutive rule if the thing is a definition.
+a thing is a constitutive rule if the thing is a scope rule.
+a thing is a constitutive rule if the thing is an institutional rule.
+
+a thing is an agent or agent type if the thing is an agent.
+a thing is an agent or agent type if the thing is an agent type.
+
+% Every kind of thing a description names, as one sentence: "which thing
+% is of which kind" lists the things of a description.
+
+a thing is of the kind legal rule if the thing is a legal rule.
+a thing is of the kind prescriptive rule if the thing is a prescriptive rule.
+a thing is of the kind substantive rule if the thing is a substantive rule.
+a thing is of the kind implementation and oversight rule if the thing is an implementation and oversight rule.
+a thing is of the kind constitutive rule if the thing is a constitutive rule.
+a thing is of the kind definition if the thing is a definition.
+a thing is of the kind scope rule if the thing is a scope rule.
+a thing is of the kind institutional rule if the thing is an institutional rule.
+a thing is of the kind action if the thing is an action.
+a thing is of the kind agent if the thing is an agent.
+a thing is of the kind agent type if the thing is an agent type.
+a thing is of the kind agent role if the thing is an agent role.
+a thing is of the kind temporal specification if the thing is a temporal specification.
+a thing is of the kind action result if the thing is an action result.
+a thing is of the kind action result type if the thing is an action result type.
+a thing is of the kind legal condition if the thing is a legal condition.
+a thing is of the kind process if the thing is a process.
+a thing is of the kind dataset if the thing is a dataset.
+a thing is of the kind standard if the thing is a standard.
+a thing is of the kind software if the thing is a software.
+a thing is of the kind public service if the thing is a public service.
+a thing is of the kind assessment if the thing is an assessment.
+a thing is of the kind assessment statement if the thing is an assessment statement.
+a thing is of the kind concept if the thing is a concept.
+a thing is of the kind concept scheme if the thing is a concept scheme.
+
+% ---- the links, read in both directions -----------------------------------
+% A description may state a link or its opposite (LOMO declares both). The
+% sentences below hold whichever of the two was stated.
+
+a rule is a derogation from a second rule if the rule derogates from the second rule.
+a rule is a derogation from a second rule if the second rule is derogated by the rule.
+
+a rule is a specification of a second rule if the rule specifies the second rule.
+a rule is a specification of a second rule if the second rule is specified by the rule.
+
+a rule is related to a second rule if the rule relates to the second rule.
+a rule is related to a second rule if the second rule relates to the rule.
+
+an action comes before a second action if the action is followed by the second action.
+an action comes before a second action if the second action follows the action.
+
+a definition gives the meaning of a thing if the definition defines the thing.
+a definition gives the meaning of a thing if the thing is defined by the definition.
+
+a dataset holds a result if the dataset manifests the result.
+a dataset holds a result if the result is manifested in the dataset.
+
+a definition has the same meaning as a second definition if the definition is equivalent to the second definition.
+a definition has the same meaning as a second definition if the second definition is equivalent to the definition.
+
+a temporal specification is the start of a second temporal specification if the temporal specification starts the second temporal specification.
+a temporal specification is the start of a second temporal specification if the second temporal specification is started by the temporal specification.
+
+a temporal specification is the end of a second temporal specification if the temporal specification finishes the second temporal specification.
+a temporal specification is the end of a second temporal specification if the second temporal specification is finished by the temporal specification.
+
+% ---- agents and their roles -----------------------------------------------
+% An action has agent roles; each joins one agent (a named one, or a type of
+% agent) to one role: addresser, addressee or beneficiary.
+
+an agent acts as a role in an action if
+    the action has the agent role an agent role
+    and the agent role is for the agent the agent
+    and the agent role has the role the role.
+
+a rule concerns an agent if
+    the rule produces an action
+    and the agent acts as a role in the action.
+
+a rule has the modality a modality for an agent as a role if
+    the rule has the modality the modality
+    and the rule produces an action
+    and the agent acts as the role in the action.
+
+% ---- time -----------------------------------------------------------------
+
+a thing has a temporal specification as a function if
+    the thing has the time specification the temporal specification
+    and the temporal specification has the function the function.
+
+% The event that triggers an action or a rule, as the description names it.
+a thing is triggered by an event if
+    the thing has a temporal specification as trigger
+    and the temporal specification has the temporal label the event.
+
+% ---- provisions and acts --------------------------------------------------
+% A provision is named by its ELI, the European Legislation Identifier: the
+% address of an act, an article, a paragraph or a point. lomo.pl reads the
+% act and the place in the act from the address.
+
+a rule is established by the act an act if
+    the rule is established in a provision
+    and the act of the provision is the act.
+
+a rule is laid down in a place if
+    the rule is established in a provision
+    and the place of the provision in its act is the place.
+
+a rule is established in more than one provision if
+    the rule is established in a provision
+    and the rule is established in a second provision
+    and the provision is different from the second provision.
+
+% ---- the texts of a thing -------------------------------------------------
+
+a thing is described by the text a text if the thing has the label the text.
+a thing is described by the text a text if the thing has the title the text.
+a thing is described by the text a text if the thing has the description the text.
+a thing is described by the text a text if the thing has the comment the text.
+a thing is described by the text a text if the thing has the preferred label the text.
+a thing is described by the text a text if the thing has the explanation the text.
+a thing is described by the text a text if the thing has the legal text the text.
+a thing is described by the text a text if the thing has the temporal label the text.
+a thing is described by the text a text if the thing has the definiendum the text.
+a thing is described by the text a text if the thing has the definiens the text.
+a thing is described by the text a text if the thing has the term label the text.
+a thing is described by the text a text if the thing has the capability the text.
+a thing is described by the text a text if the thing has the purpose the text.
+a thing is described by the text a text if the thing has the judgement the text.
+a thing is described by the text a text if the thing has the interpretation the text.
+
+% ---- the word lists of LOMO -----------------------------------------------
+% A register writes a term of LOMO's word lists as a word (obligation,
+% deadline, addresser, data ...). Their labels, in English, as the word lists
+% give them (the authority table of roles of the Publications Office for the
+% three roles).
+
+obligation has the preferred label "Obligation".
+permission has the preferred label "Permission".
+prohibition has the preferred label "Prohibition".
+right has the preferred label "Right".
+deadline has the preferred label "Deadline".
+validity has the preferred label "Validity".
+starting point has the preferred label "Starting Point".
+trigger has the preferred label "Trigger".
+report has the preferred label "Report".
+certificate has the preferred label "Certificate".
+data has the preferred label "Data".
+observation has the preferred label "Observation".
+digital public service has the preferred label "Digital Public Service".
+digital solutions has the preferred label "Digital Solution".
+process automation has the preferred label "Process Automation".
+data flow has the preferred label "Data Flow".

@@ -1,0 +1,875 @@
+@prefix adms: <http://www.w3.org/ns/adms#> .
+@prefix cav: <http://data.europa.eu/2sa/cav#> .
+@prefix cpsv: <http://purl.org/vocab/cpsv#> .
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix iac: <http://data.europa.eu/leg/interop-assessment#> .
+@prefix iopa: <http://data.europa.eu/2qy/iopa#> .
+@prefix lomo: <http://data.europa.eu/leg/lomo#> .
+@prefix m8g: <http://data.europa.eu/m8g/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix tf: <http://data.europa.eu/leg/temporal-function/> .
+
+<http://example.org/analysis/action/1> a lomo:Action ;
+    rdfs:label "Business and bank data from registers, company information, beneficial ownership data from registers. Common data dictionaries on reporting and disclosure requirements. Financial data and indicators."@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Legal obligations95"@en ] ;
+    lomo:hasAgentRole <http://example.org/analysis/action/1/role/addressee-national-authorities-european-commission-and-other-european-bodies-and-authorities>,
+        <http://example.org/analysis/action/1/role/addresser-national-authorities-businesses-consumers-citizens-investors-european-commission-and-other-european-bodies-and-authorities> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Business and bank data from registers, company information, beneficial ownership data from registers. Common data dictionaries on reporting and disclosure requirements. Financial data and indicators."@en ;
+            lomo:isManifestedIn <http://example.org/dataset/business-and-bank-data-from-registers-company-information-beneficial-ownership-data-from-registers-common-data-dictionaries-on-reporting-and-disclosure-requirements-financial-data-and-indicators> ] .
+
+<http://example.org/analysis/action/10> a lomo:Action ;
+    rdfs:label "Customs data"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Continuously"@en ] ;
+    lomo:hasAgentRole <http://example.org/analysis/action/10/role/addressee-member-states-authorities-the-commission>,
+        <http://example.org/analysis/action/10/role/addresser-economic-operators-member-states-customs-authorities-the-commission> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Customs data"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/customs-data> ] .
+
+<http://example.org/analysis/action/11> a lomo:Action ;
+    rdfs:label "Transport data"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Continuously"@en ] ;
+    lomo:hasAgentRole <http://example.org/analysis/action/11/role/addressee-member-states-authorities-the-commission>,
+        <http://example.org/analysis/action/11/role/addresser-economic-operators-member-states-customs-authorities-the-commission> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Transport data"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/transport-data> ] .
+
+<http://example.org/analysis/action/12> a lomo:Action ;
+    rdfs:label "Trade data"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Continuously"@en ] ;
+    lomo:hasAgentRole <http://example.org/analysis/action/12/role/addressee-member-states-authorities-the-commission>,
+        <http://example.org/analysis/action/12/role/addresser-statistical-authorities-economic-operators> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Trade data"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/trade-data> ] .
+
+<http://example.org/analysis/action/13> a lomo:Action ;
+    rdfs:label "Data on EU funded projects"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Continuously"@en ] ;
+    lomo:hasAgentRole <http://example.org/analysis/action/13/role/addressee-member-states-authorities-the-commission>,
+        <http://example.org/analysis/action/13/role/addresser-economic-operators-member-states-authorities-the-commission> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Data on EU funded projects"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/data-on-eu-funded-projects> ] .
+
+<http://example.org/analysis/action/2> a lomo:Action ;
+    rdfs:label "Standardisation data"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "On demand/periodic"@en ] ;
+    lomo:hasAgentRole <http://example.org/analysis/action/2/role/addressee-commission>,
+        <http://example.org/analysis/action/2/role/addresser-european-standardisation-organisations-and-national-standardisation-bodies> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Standardisation data"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/standardisation-data> ] .
+
+<http://example.org/analysis/action/3> a lomo:Action ;
+    rdfs:label "Procurement data, metadata, personal data, external service providers data, financial data/indicators, access logs, security data, business-related information, product information, case-investigation information, EU acquis related data, judicial data,-Product compliance data"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "continuously or periodically, automatically or on demand."@en ] ;
+    lomo:hasAgentRole <http://example.org/analysis/action/3/role/addressee-national-administrations-commission>,
+        <http://example.org/analysis/action/3/role/addresser-publication-office-national-administrationseconomic-operators> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Procurement data, metadata, personal data, external service providers data, financial data/indicators, access logs, security data, business-related information, product information, case-investigation information, EU acquis related data, judicial data,-Product compliance data"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/procurement-data-metadata-personal-data-external-service-providers-data-financial-dataindicators-access-logs-security-data-business-related-information-product-information-case-investigation-information-eu-acquis-related-data-judicial-data-product-compliance-data> ] .
+
+<http://example.org/analysis/action/4> a lomo:Action ;
+    rdfs:label "Market Surveillance data"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "On demand/periodic"@en ] ;
+    lomo:hasAgentRole <http://example.org/analysis/action/4/role/addressee-national-administrations-commission>,
+        <http://example.org/analysis/action/4/role/addresser-economic-operators> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Market Surveillance data"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/market-surveillance-data> ] .
+
+<http://example.org/analysis/action/5> a lomo:Action ;
+    rdfs:label "Stakeholder profiles, consumer complaints and inquiries on products and services, case handling data, product safety data, market surveillance data, consumer law infringements, and enforcement data, cross-border transaction data, ADR procedure data, redress outcomes, trader data, consumer behaviour data, best practice examples"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Submission of consumer complaints or enquiries, safety alerts and notifications, market surveillance reporting, enforcement cooperation requests, monitoring or reporting requirements"@en ] ;
+    lomo:hasAgentRole <http://example.org/analysis/action/5/role/addressee-member-states-eu-institutions-authorities-bodies-authorised-third-parties-businesses-consumerscitizens>,
+        <http://example.org/analysis/action/5/role/addresser-member-states-eu-institutions-authorities-bodies-authorised-third-parties-businesses-consumerscitizens> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Stakeholder profiles, consumer complaints and inquiries on products and services, case handling data, product safety data, market surveillance data, consumer law infringements, and enforcement data, cross-border transaction data, ADR procedure data, redress outcomes, trader data, consumer behaviour data, best practice examples"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/stakeholder-profiles-consumer-complaints-and-inquiries-on-products-and-services-case-handling-data-product-safety-data-market-surveillance-data-consumer-law-infringements-and-enforcement-data-cross-border-transaction-data-adr-procedure-data-redress-outcomes-trader-data-consumer-behaviour-data-best-practice-examples> ] .
+
+<http://example.org/analysis/action/6> a lomo:Action ;
+    rdfs:label "European statistics cover all key EU policy areas – Eurostat receives data in more than 2000 datasets and metadata sets and disseminates more than 7500 datasets."@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "According to legal requirements laid down in the EUacquison European statistics.The data transmissions from the Member States to Eurostat are almost exclusively based on legal requirements laid down in the EU acquis on European statistics, as well as some voluntary data transmissions"@en ] ;
+    lomo:hasAgentRole <http://example.org/analysis/action/6/role/addressee-businesses-and-financial-markets>,
+        <http://example.org/analysis/action/6/role/addressee-citizens>,
+        <http://example.org/analysis/action/6/role/addressee-eurostat-which-validates-the-data-and-disseminates-them-as-european-statistics-to-its-users-ie-policymakers-eu-institutions-and-services>,
+        <http://example.org/analysis/action/6/role/addressee-media>,
+        <http://example.org/analysis/action/6/role/addressee-researchers-and-academia>,
+        <http://example.org/analysis/action/6/role/addresser-authorised-third-parties-eg-international-organisations>,
+        <http://example.org/analysis/action/6/role/addresser-businesses>,
+        <http://example.org/analysis/action/6/role/addresser-consumerscitizens>,
+        <http://example.org/analysis/action/6/role/addresser-efta-countries-enlargement-countries>,
+        <http://example.org/analysis/action/6/role/addresser-eu-institutions-authorities-bodies>,
+        <http://example.org/analysis/action/6/role/addresser-statistical-authorities-of-member-states>,
+        <http://example.org/analysis/action/6/role/addresser-third-countries> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "European statistics cover all key EU policy areas – Eurostat receives data in more than 2000 datasets and metadata sets and disseminates more than 7500 datasets."@en ;
+            lomo:isManifestedIn <http://example.org/dataset/european-statistics-cover-all-key-eu-policy-areas-eurostat-receives-data-in-more-than-2000-datasets-and-metadata-sets-and-disseminates-more-than-7500-datasets> ] .
+
+<http://example.org/analysis/action/7> a lomo:Action ;
+    rdfs:label "Business-related information, case-investigation information"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Continuously"@en ] ;
+    lomo:hasAgentRole <http://example.org/analysis/action/7/role/addressee-european-commission-dg-comp-authorised-third-parties-businesses-member-states-national-competition-authorities-citizens-for-public-information>,
+        <http://example.org/analysis/action/7/role/addresser-european-commission-dg-comp-authorised-third-parties-businesses-member-states-national-competition-authorities> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Business-related information, case-investigation information"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/business-related-information-case-investigation-information> ] .
+
+<http://example.org/analysis/action/8> a lomo:Action ;
+    rdfs:label "Taxation data"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Continuously"@en ] ;
+    lomo:hasAgentRole <http://example.org/analysis/action/8/role/addressee-member-states-tax-authoritieseurofiscthe-commission>,
+        <http://example.org/analysis/action/8/role/addresser-economic-operators-individuals-member-states-tax-authorities> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Taxation data"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/taxation-data> ] .
+
+<http://example.org/analysis/action/9> a lomo:Action ;
+    rdfs:label "Customs data"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Continuously"@en ] ;
+    lomo:hasAgentRole <http://example.org/analysis/action/9/role/addressee-economic-operators-member-states-customs-authorities-the-commission>,
+        <http://example.org/analysis/action/9/role/addresser-economic-operators-member-states-customs-authorities-the-commission> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Customs data"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/customs-data> ] .
+
+<http://example.org/analysis/assessment/1> a cav:Assessment ;
+    cav:assesses <http://example.org/analysis/description/11>,
+        <http://example.org/analysis/description/8> ;
+    cav:resultsIn <http://example.org/analysis/assessment/1/1/measure>,
+        <http://example.org/analysis/assessment/1/2/measure>,
+        <http://example.org/analysis/assessment/1/3/measure>,
+        <http://example.org/analysis/assessment/1/4/measure> ;
+    m8g:isProvidedBy <http://publications.europa.eu/resource/authority/corporate-body/COM> .
+
+<http://example.org/analysis/description/1> a lomo:LegalRule ;
+    rdfs:label "Article 3(a)(b)"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/590/cod/doc/com/COM_2025_590/FINAL/eng/art_3> ;
+    lomo:involvesProcess <http://example.org/process/evidence-based-policy-making-procurement-coordination-and-cooperation-implementation-and-enforcement> ;
+    lomo:produces <http://example.org/analysis/description/1/action> ;
+    dcterms:description "Develop and operate the common components of Union-level digital solutions; and to boost the operational, technical, and administrative capacities of national authorities (e.g. Business Registers Interconnection System - BRIS)"@en .
+
+<http://example.org/analysis/description/10> a lomo:LegalRule ;
+    rdfs:label "Article 3 (b), (e) and (f)"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/590/cod/doc/com/COM_2025_590/FINAL/eng/art_3> ;
+    lomo:involvesProcess <http://example.org/process/functioning-of-taxation-related-union-digital-systems-common-components-in-support-of-eu-taxation-policy-priorities-including-to-improve-union-taxation-systems-and-tax-collection-cooperation-programme-management-implementation-support-tools>,
+        <http://example.org/process/taxation-related-digital-landscape-is-composed-of-30-systems-with-new-systems-to-be-developed-these-systems-have-their-own-legal-basis-whereas-the-programme-provides-funding-for-their-development-operation-and-maintenance>,
+        <http://example.org/process/tools-are-required-to-enable-the-implementation-of-programme-activities-learning-management-system-programme-information-and-collaboration-space-reporting-tools-eg-activity-reporting-tool-eu-taxedu-website> ;
+    lomo:produces <http://example.org/analysis/description/10/action> ;
+    dcterms:description "(b) to foster cooperation among Member States national authorities, and between Member States national authorities, the Commission and other Union bodies in all programme areas, including the preparedness and economic security of the Single Market and response to crises; to develop and operate the common components of Union-level digital solutions; and to boost the operational, technical, and administrative capacities of national authorities; (e) to support tax policy and implementation of Union law relating to taxation, improve the Union taxation systems and tax collection in view of enhancing Europe’s competitiveness and investments; (f) to improve evidence-based and digital-ready policymaking, and the use of digital implementation tools to support above-mentioned specific objectives."@en .
+
+<http://example.org/analysis/description/2> a lomo:LegalRule ;
+    rdfs:label "Article 3 (a)(b)"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/590/cod/doc/com/COM_2025_590/FINAL/eng/art_3> ;
+    lomo:involvesProcess <http://example.org/process/evidence-based-policymaking-standardisation-harmonisation-policy-development-complianceenforcement-stakeholder-engagement-information-and-communication-and-visibility> ;
+    lomo:produces <http://example.org/analysis/description/2/action> ;
+    dcterms:description "To develop and operate Union-level digital solutions; facilitate data sharing and exchange of informationbetween MemberStates or between them and European institutions and bodies, and to boost the operational, technical, and administrative capacities of national authorities92"@en .
+
+<http://example.org/analysis/description/3> a lomo:LegalRule ;
+    rdfs:label "Article 3 (c)"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/590/cod/doc/com/COM_2025_590/FINAL/eng/art_3> ;
+    lomo:involvesProcess <http://example.org/process/evidence-based-policymaking-standardisation-harmonisation-stakeholder-engagement-coordination-and-cooperation-complianceimplementation-data-collection-and-analysis-information-and-communication> ;
+    lomo:produces <http://example.org/analysis/description/3/action> ;
+    dcterms:description "facilitate harmonised standard-setting and reinforce the development of European and international standards"@en .
+
+<http://example.org/analysis/description/4> a lomo:LegalRule ;
+    rdfs:label "Article 3(f)"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/590/cod/doc/com/COM_2025_590/FINAL/eng/art_3> ;
+    lomo:involvesProcess <http://example.org/process/evidence-based-policymaking-procurement-stakeholder-engagement-data-collection-and-analysis-coordination-and-cooperation-information-communication-and-visibility> ;
+    lomo:produces <http://example.org/analysis/description/4/action> ;
+    dcterms:description "improve evidence-based and digital-ready policymaking, and the use of digital implementation tools to support above-mentioned specific objectives93"@en .
+
+<http://example.org/analysis/description/5> a lomo:LegalRule ;
+    rdfs:label "Article 3 (a)"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/590/cod/doc/com/COM_2025_590/FINAL/eng/art_3> ;
+    lomo:involvesProcess <http://example.org/process/evidence-based-policymaking-procurement-harmonisation-coordination-and-cooperation-complianceenforcement-procurement> ;
+    lomo:produces <http://example.org/analysis/description/5/action> ;
+    dcterms:description "improve the understanding of the Single Market and its challenges by supporting data collection activities, analyses and tools"@en .
+
+<http://example.org/analysis/description/6> a lomo:LegalRule ;
+    rdfs:label "Article 3 (a),(b), (c), (d), (f)"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/590/cod/doc/com/COM_2025_590/FINAL/eng/art_3> ;
+    lomo:involvesProcess <http://example.org/process/evidence-based-policymaking-harmonisation-coordination-and-cooperation-complianceenforcement-data-collection-and-analysis-information-and-communication-and-visibility-monitoring-and-investigation-digitalisation-of-stakeholders-processes> ;
+    lomo:produces <http://example.org/analysis/description/6/action> ;
+    dcterms:description "(a)empower citizens, consumers, investors, economic operators and businesses with information, guidance and advice enabling them to make informed decisions and to access the opportunities of the Single Market for goods, services and capital, to ensure access to redress mechanisms, to support representative organisations in their participative role (…) (b) to foster cooperation among Member States national authorities, and between Member States national authorities and the Commission (…) (c) to ensure the effective design, uniform interpretation and implementation as well as the enforcement of Union law (d) to ensure high level consumer protection and product safety (f) to improve evidence-based and digital-ready policymaking"@en .
+
+<http://example.org/analysis/description/7> a lomo:LegalRule ;
+    rdfs:label "Article 3 (a)"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/590/cod/doc/com/COM_2025_590/FINAL/eng/art_3> ;
+    lomo:involvesProcess <http://example.org/process/evidence-based-policymaking-data-collection-and-analysis-coordination-and-cooperation-harmonisation-stakeholder-engagement-impact-assessment-and-evaluations-information-communication-and-visibility-compliance-and-enforcement-the-programming-framework-for-european-statistics-will-employ-digital-solutions-for-leveraging-the-use-of-new-data-sources-and-the-re-use-of-existing-data-from-eu-and-national-sources-moreover-it-will-significantly-invest-in-it-infrastructures-and-services-to-exploit-the-full-potential-of-digital-technologies-cloud-services-and-artificial-intelligence> ;
+    lomo:produces <http://example.org/analysis/description/7/action> ;
+    dcterms:description "provide relevant and comparable official European statistics"@en .
+
+<http://example.org/analysis/description/9> a lomo:LegalRule ;
+    rdfs:label "Article 3 (f)"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/590/cod/doc/com/COM_2025_590/FINAL/eng/art_3> ;
+    lomo:involvesProcess <http://example.org/process/evidence-based-policymakingcomplianceenforcement94monitoring-and-investigation-stakeholder-engagement-coordination-and-cooperation> ;
+    lomo:produces <http://example.org/analysis/description/9/action> ;
+    dcterms:description "Develop and operate digital solutions and leverage AI to enable the efficient and effective enforcement of competition rules within the internal market in collaboration with external stakeholders"@en .
+
+<http://example.org/agent/authorised-third-parties-eg-international-organisations> rdfs:label "authorised third parties (e.g. international organisations)"@en .
+
+<http://example.org/agent/businesses> rdfs:label "businesses"@en .
+
+<http://example.org/agent/businesses-and-financial-markets> rdfs:label "businesses and financial markets"@en .
+
+<http://example.org/agent/citizens> rdfs:label "citizens"@en .
+
+<http://example.org/agent/commission> rdfs:label "Commission"@en .
+
+<http://example.org/agent/consumerscitizens> rdfs:label "consumers/citizens."@en .
+
+<http://example.org/agent/economic-operators> rdfs:label "Economic operators"@en .
+
+<http://example.org/agent/economic-operators-individuals-member-states-tax-authorities> rdfs:label "Economic operators/ individuals, Member States’ tax authorities"@en .
+
+<http://example.org/agent/economic-operators-member-states-authorities-the-commission> rdfs:label "Economic operators, Member States authorities, the Commission"@en .
+
+<http://example.org/agent/efta-countries-enlargement-countries> rdfs:label "EFTA countries, enlargement countries"@en .
+
+<http://example.org/agent/eu-institutions-authorities-bodies> rdfs:label "EU Institutions, Authorities, Bodies"@en .
+
+<http://example.org/agent/european-commission-dg-comp-authorised-third-parties-businesses-member-states-national-competition-authorities> rdfs:label "European Commission (DG COMP) Authorised third parties/ businesses, Member States, National Competition Authorities,"@en .
+
+<http://example.org/agent/european-commission-dg-comp-authorised-third-parties-businesses-member-states-national-competition-authorities-citizens-for-public-information> rdfs:label "European, Commission (DG COMP), Authorised third parties/ businesses, Member States, National Competition Authorities, citizens (for public information)"@en .
+
+<http://example.org/agent/european-commission-european-bodies-and-authorities-national-authorities-beneficiaries-businesses-consumerscitizens> rdfs:label "European Commission, European bodies and authorities, National authorities, Beneficiaries, Businesses, Consumers/citizens"@en .
+
+<http://example.org/agent/european-commission-national-authorities-businesses> rdfs:label "European Commission, National authorities, Businesses"@en .
+
+<http://example.org/agent/european-commission-national-authorities-partner-third-countries-international-organisations-and-other-eu-bodies-beneficiaries> rdfs:label "European Commission, National authorities, partner third coun​tries, international organisations, and other EU bodies, Beneficiaries"@en .
+
+<http://example.org/agent/european-commission-national-customs-authorities> rdfs:label "European Commission, national customs authorities"@en .
+
+<http://example.org/agent/european-commission-national-taxation-authorities-economic-operators> rdfs:label "European Commission, national taxation authorities, economic operators"@en .
+
+<http://example.org/agent/european-standardisation-organisations-and-national-standardisation-bodies> rdfs:label "European Standardisation Organisations and National Standardisation Bodies"@en .
+
+<http://example.org/agent/eurostat-which-validates-the-data-and-disseminates-them-as-european-statistics-to-its-users-ie-policymakers-eu-institutions-and-services> rdfs:label "Eurostat, which validates the data and disseminates them as European statistics to its users, i.e. policymakers, EU institutions and services"@en .
+
+<http://example.org/agent/media> rdfs:label "media"@en .
+
+<http://example.org/agent/member-states-tax-authoritieseurofiscthe-commission> rdfs:label "Member States’ tax authorities,EUROFISC,the Commission"@en .
+
+<http://example.org/agent/national-authorities-businesses-consumers-citizens-investors-european-commission-and-other-european-bodies-and-authorities> rdfs:label "National authorities, businesses, consumers, citizens, investors, European Commission and other European bodies and authorities."@en .
+
+<http://example.org/agent/national-authorities-european-commission-and-other-european-bodies-and-authorities> rdfs:label "National authorities, European Commission and other European bodies and authorities"@en .
+
+<http://example.org/agent/publication-office-national-administrationseconomic-operators> rdfs:label "Publication office, National AdministrationsEconomic operators"@en .
+
+<http://example.org/agent/researchers-and-academia> rdfs:label "researchers and academia."@en .
+
+<http://example.org/agent/statistical-authorities-economic-operators> rdfs:label "Statistical authorities, Economic operators"@en .
+
+<http://example.org/agent/statistical-authorities-of-member-states> rdfs:label "Statistical authorities of Member States"@en .
+
+<http://example.org/agent/third-countries> rdfs:label "third countries"@en .
+
+<http://example.org/analysis/action/1/role/addressee-national-authorities-european-commission-and-other-european-bodies-and-authorities> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/national-authorities-european-commission-and-other-european-bodies-and-authorities> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/1/role/addresser-national-authorities-businesses-consumers-citizens-investors-european-commission-and-other-european-bodies-and-authorities> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/national-authorities-businesses-consumers-citizens-investors-european-commission-and-other-european-bodies-and-authorities> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/10/role/addressee-member-states-authorities-the-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states-authorities-the-commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/10/role/addresser-economic-operators-member-states-customs-authorities-the-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/economic-operators-member-states-customs-authorities-the-commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/11/role/addressee-member-states-authorities-the-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states-authorities-the-commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/11/role/addresser-economic-operators-member-states-customs-authorities-the-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/economic-operators-member-states-customs-authorities-the-commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/12/role/addressee-member-states-authorities-the-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states-authorities-the-commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/12/role/addresser-statistical-authorities-economic-operators> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/statistical-authorities-economic-operators> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/13/role/addressee-member-states-authorities-the-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states-authorities-the-commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/13/role/addresser-economic-operators-member-states-authorities-the-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/economic-operators-member-states-authorities-the-commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/2/role/addressee-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/2/role/addresser-european-standardisation-organisations-and-national-standardisation-bodies> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/european-standardisation-organisations-and-national-standardisation-bodies> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/3/role/addressee-national-administrations-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/national-administrations-commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/3/role/addresser-publication-office-national-administrationseconomic-operators> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/publication-office-national-administrationseconomic-operators> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/4/role/addressee-national-administrations-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/national-administrations-commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/4/role/addresser-economic-operators> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/economic-operators> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/5/role/addressee-member-states-eu-institutions-authorities-bodies-authorised-third-parties-businesses-consumerscitizens> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states-eu-institutions-authorities-bodies-authorised-third-parties-businesses-consumerscitizens> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/5/role/addresser-member-states-eu-institutions-authorities-bodies-authorised-third-parties-businesses-consumerscitizens> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states-eu-institutions-authorities-bodies-authorised-third-parties-businesses-consumerscitizens> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/6/role/addressee-businesses-and-financial-markets> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/businesses-and-financial-markets> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/6/role/addressee-citizens> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/citizens> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/6/role/addressee-eurostat-which-validates-the-data-and-disseminates-them-as-european-statistics-to-its-users-ie-policymakers-eu-institutions-and-services> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/eurostat-which-validates-the-data-and-disseminates-them-as-european-statistics-to-its-users-ie-policymakers-eu-institutions-and-services> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/6/role/addressee-media> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/media> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/6/role/addressee-researchers-and-academia> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/researchers-and-academia> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/6/role/addresser-authorised-third-parties-eg-international-organisations> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/authorised-third-parties-eg-international-organisations> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/6/role/addresser-businesses> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/businesses> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/6/role/addresser-consumerscitizens> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/consumerscitizens> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/6/role/addresser-efta-countries-enlargement-countries> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/efta-countries-enlargement-countries> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/6/role/addresser-eu-institutions-authorities-bodies> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/eu-institutions-authorities-bodies> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/6/role/addresser-statistical-authorities-of-member-states> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/statistical-authorities-of-member-states> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/6/role/addresser-third-countries> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/third-countries> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/7/role/addressee-european-commission-dg-comp-authorised-third-parties-businesses-member-states-national-competition-authorities-citizens-for-public-information> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/european-commission-dg-comp-authorised-third-parties-businesses-member-states-national-competition-authorities-citizens-for-public-information> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/7/role/addresser-european-commission-dg-comp-authorised-third-parties-businesses-member-states-national-competition-authorities> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/european-commission-dg-comp-authorised-third-parties-businesses-member-states-national-competition-authorities> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/8/role/addressee-member-states-tax-authoritieseurofiscthe-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states-tax-authoritieseurofiscthe-commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/8/role/addresser-economic-operators-individuals-member-states-tax-authorities> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/economic-operators-individuals-member-states-tax-authorities> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/9/role/addressee-economic-operators-member-states-customs-authorities-the-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/economic-operators-member-states-customs-authorities-the-commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/9/role/addresser-economic-operators-member-states-customs-authorities-the-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/economic-operators-member-states-customs-authorities-the-commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/assessment/1/1/measure> a cav:Statement ;
+    cav:interpretation iac:InterpretationPositive ;
+    cav:judgement "The requirements concerning the digital public service in question are aligned with the digital and sectoral policies (GDPR, Cybersecurity, Interoperability, Single Market, Customs, Pharmaceutical, Chemical, Education, Trade, Internal Market, Product Safety, Market Surveillance, Consumer Protection, Standardisation, Industrial Policy…)"@en ;
+    cav:type iac:StatementTypeAlignmentMeasure ;
+    dcterms:description "Alignment with existing digital and sectorial policies.Please list the applicable digital and sectorial policies identified"@en .
+
+<http://example.org/analysis/assessment/1/2/measure> a cav:Statement ;
+    cav:interpretation iac:InterpretationPositive ;
+    cav:judgement """There are cross-border governance framework describing, among others, the roles and responsibilities involved in the delivery of digital public service (such as interoperability framework, EU Cybersecurity framework, eIDAS, recognised standards…).
+There are competent authorities and/or single points of contact established and they have a mandate to supervise the digital public service concerned.
+Digital by-default is prioritised and there is a mechanism for users to provide feedback on the digital public service (surveys, contact forms)."""@en ;
+    cav:type iac:StatementTypeOrganisationMeasure ;
+    dcterms:description "Organisational measures for a smooth cross-border digital public services delivery.Please list the governance measures foreseen"@en .
+
+<http://example.org/analysis/assessment/1/3/measure> a cav:Statement ;
+    cav:interpretation iac:InterpretationPositive ;
+    cav:judgement "The proposal uses commonly agreed guidelines and standards (depending on the policy and system the following are used: standardisation request for a data specification, standardisation request for data formats, use of open standards and specifications, setting up an expert group…)"@en ;
+    cav:type iac:StatementTypeSharedMeasure ;
+    dcterms:description "Measures taken to ensure a shared understanding of the data.Please list such measures"@en .
+
+<http://example.org/analysis/assessment/1/4/measure> a cav:Statement ;
+    cav:interpretation iac:InterpretationPositive ;
+    cav:judgement """The possibility of machine-readable data has been addressed by the requirement and machine-to-machine interaction is addressed whenever possible. When appropriate and applicable, systems use standardized data models and ontologies for data representation and exchange, APIs…
+Requirements refrain from imposing specific technical implementations or products."""@en ;
+    cav:type iac:StatementTypeStandardsMeasure ;
+    dcterms:description "Use of commonly agreed open technical specifications and standards.Please list such measures"@en .
+
+<http://example.org/analysis/description/1/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/1/action/role/addressee-european-commission-national-authorities-businesses> .
+
+<http://example.org/analysis/description/1/action/role/addressee-european-commission-national-authorities-businesses> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/european-commission-national-authorities-businesses> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/10/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/10/action/role/addressee-european-commission-national-taxation-authorities-economic-operators> .
+
+<http://example.org/analysis/description/10/action/role/addressee-european-commission-national-taxation-authorities-economic-operators> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/european-commission-national-taxation-authorities-economic-operators> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/11> a iopa:BindingRequirement,
+        lomo:LegalRule ;
+    rdfs:label "Article 3 (b), (d) and (f)"@en ;
+    iopa:affects <http://example.org/analysis/interop/1>,
+        <http://example.org/analysis/interop/10>,
+        <http://example.org/analysis/interop/11>,
+        <http://example.org/analysis/interop/12>,
+        <http://example.org/analysis/interop/13>,
+        <http://example.org/analysis/interop/14>,
+        <http://example.org/analysis/interop/15>,
+        <http://example.org/analysis/interop/16>,
+        <http://example.org/analysis/interop/17>,
+        <http://example.org/analysis/interop/18>,
+        <http://example.org/analysis/interop/19>,
+        <http://example.org/analysis/interop/2>,
+        <http://example.org/analysis/interop/3>,
+        <http://example.org/analysis/interop/4>,
+        <http://example.org/analysis/interop/5>,
+        <http://example.org/analysis/interop/6>,
+        <http://example.org/analysis/interop/7>,
+        <http://example.org/analysis/interop/8>,
+        <http://example.org/analysis/interop/9> ;
+    cav:valueDescription "(b) to foster cooperation among Member States national authorities, and between Member States national authorities, the Commission and other Union bodies in all programme areas, including the preparedness and economic security of the Single Market and response to crises; to develop and operate the common components of Union-level digital solutions; and to boost the operational, technical, and administrative capacities of national authorities; (d) to support the Customs Union and customs authorities working together and acting as one in achieving their mission and contributing to Europe’s economic security; (f) to improve evidence-based and digital-ready policymaking, and the use of digital implementation tools to support above-mentioned specific objectives."@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/590/cod/doc/com/COM_2025_590/FINAL/eng/art_3> ;
+    lomo:involvesProcess <http://example.org/process/customs-union-related-digital-landscape-is-composed-of-more-than-70-systems-which-have-their-own-legal-basis-eg-union-customs-code-and-other-acts-in-addition-the-customs-reform-proposal-has-introduced-the-concept-of-the-eu-customs-data-hub-a-single-online-environment-that-will-be-able-to-log-all-information-on-products-and-supply-chain-for-goods-passing-through-customs-these-systems-have-their-own-legal-basis-whereas-the-programme-provides-funding-for-the-digital-systems-common-components-development-operation-and-maintenance>,
+        <http://example.org/process/functioning-of-customs-digital-systems-common-components-including-legacy-it-systems-and-eu-customs-data-hub-to-customs-authorities-working-together-and-acting-as-one-in-achieving-their-mission-cooperation-programme-management-implementation-support-tools>,
+        <http://example.org/process/tools-are-required-to-enable-the-implementation-of-programme-activities-learning-management-system-programme-information-and-collaboration-space-reporting-tools-eg-activity-reporting-tool-eu-taxedu-website> ;
+    lomo:produces <http://example.org/analysis/description/11/action> ;
+    dcterms:description "(b) to foster cooperation among Member States national authorities, and between Member States national authorities, the Commission and other Union bodies in all programme areas, including the preparedness and economic security of the Single Market and response to crises; to develop and operate the common components of Union-level digital solutions; and to boost the operational, technical, and administrative capacities of national authorities; (d) to support the Customs Union and customs authorities working together and acting as one in achieving their mission and contributing to Europe’s economic security; (f) to improve evidence-based and digital-ready policymaking, and the use of digital implementation tools to support above-mentioned specific objectives."@en ;
+    dcterms:relation <http://example.org/ie-solution/all-customs-systems-are-interoperable-between-themselves-and-with-the-national-components-of-the-member-states>,
+        <http://example.org/ie-solution/harmonised-data-models-for-case-types-legal-bases-and-infringement-categories-standardised-procedural-templates-for-alerts-coordinated-actions-and-enforcement-notifications-multilingual-interfaces-and-glossary-terms>,
+        <http://example.org/ie-solution/harmonised-data-models-for-case-types-legal-bases-and-infringement-categories-standardised-procedural-templates-for-alerts-coordinated-actions-and-enforcement-notifications-multilingual-interfaces-and-glossary-terms-in-integrated-knowledge-base>,
+        <http://example.org/ie-solution/interoperability-is-mainly-with-national-components-of-each-system>,
+        <http://example.org/ie-solution/interoperable-with-systems-of-eu-entities-and-member-state-authorities>,
+        <http://example.org/ie-solution/secure-messaging-and-document-sharing-modules-aligned-with-isa-principles-drupal-cms-framework-supporting-modular-development-and-integration-common-metadata-tagging-for-searchable-content-and-semantic-alignment>,
+        <http://example.org/ie-solution/standardised-procedural-templates-for-alerts-multilingual-interfaces-and-glossary-terms-in-integrated-knowledge-base> .
+
+<http://example.org/analysis/description/11/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/11/action/role/addressee-european-commission-national-customs-authorities> .
+
+<http://example.org/analysis/description/11/action/role/addressee-european-commission-national-customs-authorities> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/european-commission-national-customs-authorities> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/2/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/2/action/role/addressee-european-commission-and-other-european-bodies-and-authorities-national-authorities-beneficiaries-businesses-consumerscitizens> .
+
+<http://example.org/analysis/description/2/action/role/addressee-european-commission-and-other-european-bodies-and-authorities-national-authorities-beneficiaries-businesses-consumerscitizens> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/european-commission-and-other-european-bodies-and-authorities-national-authorities-beneficiaries-businesses-consumerscitizens> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/3/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/3/action/role/addressee-european-commission-and-other-european-bodies-and-authorities-national-authorities-beneficiaries-businesses-consumerscitizens> .
+
+<http://example.org/analysis/description/3/action/role/addressee-european-commission-and-other-european-bodies-and-authorities-national-authorities-beneficiaries-businesses-consumerscitizens> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/european-commission-and-other-european-bodies-and-authorities-national-authorities-beneficiaries-businesses-consumerscitizens> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/4/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/4/action/role/addressee-european-commission-european-bodies-and-authorities-national-authorities-beneficiaries-businesses-consumerscitizens> .
+
+<http://example.org/analysis/description/4/action/role/addressee-european-commission-european-bodies-and-authorities-national-authorities-beneficiaries-businesses-consumerscitizens> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/european-commission-european-bodies-and-authorities-national-authorities-beneficiaries-businesses-consumerscitizens> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/5/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/5/action/role/addressee-european-commission-national-authorities-beneficiaries-businesses-consumerscitizens> .
+
+<http://example.org/analysis/description/5/action/role/addressee-european-commission-national-authorities-beneficiaries-businesses-consumerscitizens> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/european-commission-national-authorities-beneficiaries-businesses-consumerscitizens> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/6/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/6/action/role/addressee-european-commission-national-authorities-beneficiaries-businesses-consumerscitizens> .
+
+<http://example.org/analysis/description/6/action/role/addressee-european-commission-national-authorities-beneficiaries-businesses-consumerscitizens> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/european-commission-national-authorities-beneficiaries-businesses-consumerscitizens> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/7/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/7/action/role/addressee-european-commission-national-authorities-beneficiaries-businesses-consumerscitizens> .
+
+<http://example.org/analysis/description/7/action/role/addressee-european-commission-national-authorities-beneficiaries-businesses-consumerscitizens> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/european-commission-national-authorities-beneficiaries-businesses-consumerscitizens> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/8> a iopa:BindingRequirement,
+        lomo:LegalRule ;
+    rdfs:label "Article 3 (b), (e), (f)"@en ;
+    iopa:affects <http://example.org/analysis/interop/18> ;
+    cav:valueDescription "(b) to foster cooperation among Member States national authorities, and between Member States national authorities, the Commission and other Union bodies in all programme areas; to develop and operate the common components of Union-level digital solutions; and to boost the operational, technical, and administrative capacities of national authorities; (e)to protect the Union’s and its Member States’ economic and financial interest from fraud, corruption and other illegal activities, including risks related to expenditure, revenue and assets, as well as reputational risks; f) to improve evidence-based and digital-ready policymaking, and the use of digital implementation tools to support above-mentioned specific objectives."@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/590/cod/doc/com/COM_2025_590/FINAL/eng/art_3>,
+        <https://data.europa.eu/eli/dl/proc/2025/590/cod/doc/com/COM_2025_590/FINAL/eng/art_31/par_31>,
+        <https://data.europa.eu/eli/dl/proc/2025/590/cod/doc/com/COM_2025_590/FINAL/eng/art_515> ;
+    lomo:involvesProcess <http://example.org/process/anti-fraud-activities-coordination-and-cooperation-mutual-assistance-between-the-authorities-of-the-member-states-and-cooperation-between-the-latter-and-the-commission-irregularities-reporting>,
+        <http://example.org/process/evidence-based-policy-making-coordination-and-cooperation-implementation-and-enforcement-monitoring-and-investigation-case-management-data-collection-and-analysis-information-and-communication> ;
+    lomo:produces <http://example.org/analysis/description/8/action> ;
+    dcterms:description "(b) to foster cooperation among Member States national authorities, and between Member States national authorities, the Commission and other Union bodies in all programme areas; to develop and operate the common components of Union-level digital solutions; and to boost the operational, technical, and administrative capacities of national authorities; (e)to protect the Union’s and its Member States’ economic and financial interest from fraud, corruption and other illegal activities, including risks related to expenditure, revenue and assets, as well as reputational risks; f) to improve evidence-based and digital-ready policymaking, and the use of digital implementation tools to support above-mentioned specific objectives."@en ;
+    dcterms:relation <http://example.org/ie-solution/interoperable-with-systems-of-eu-entities-and-member-state-authorities> .
+
+<http://example.org/analysis/description/8/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/8/action/role/addressee-european-commission-national-authorities-partner-third-countries-international-organisations-and-other-eu-bodies-beneficiaries> .
+
+<http://example.org/analysis/description/8/action/role/addressee-european-commission-national-authorities-partner-third-countries-international-organisations-and-other-eu-bodies-beneficiaries> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/european-commission-national-authorities-partner-third-countries-international-organisations-and-other-eu-bodies-beneficiaries> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/9/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/9/action/role/addressee-european-commission-national-authorities-beneficiaries-businesses-consumerscitizens> .
+
+<http://example.org/analysis/description/9/action/role/addressee-european-commission-national-authorities-beneficiaries-businesses-consumerscitizens> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/european-commission-national-authorities-beneficiaries-businesses-consumerscitizens> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/interop/1> a cpsv:PublicService ;
+    rdfs:label "Digital public service #1: Implementation tools (e.g. single digital gateway, Your Europe)"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/590/cod/doc/com/COM_2025_590/FINAL/eng/art_3> ;
+    dcterms:description "Reduce administrative burdens and create transparency for citizens, consumers and businesses."@en ;
+    dcterms:identifier "interop/1" ;
+    dcterms:title "Digital public service #1: Implementation tools (e.g. single digital gateway, Your Europe)"@en .
+
+<http://example.org/analysis/interop/10> a cpsv:PublicService ;
+    rdfs:label "Acquis management, Knowledge Online on European Legislation (KOEL)"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/590/cod/doc/com/COM_2025_590/FINAL/eng/art_3> ;
+    dcterms:description "Acquis management, Knowledge Online on European Legislation (KOEL)"@en ;
+    dcterms:identifier "interop/10" ;
+    dcterms:title "Acquis management, Knowledge Online on European Legislation (KOEL)"@en .
+
+<http://example.org/analysis/interop/11> a cpsv:PublicService ;
+    rdfs:label "Eurostat maintains a Single Entry Point for electronic data transmissions (currently implemented in EDAMIS) that is used by National Statistical Institutes and Other National Authorities in the European Union and beyond (EFTA, candidate countries, potential candidate countries, European Central Bank, OECD, …).Eurostat exchanges high quality dataset metadata using semantic web technologies and according to FAIR principles for increased interoperability."@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/590/cod/doc/com/COM_2025_590/FINAL/eng/art_3> ;
+    dcterms:description "Eurostat uses international statistical standards to data and metadata exchange (SDMX) in the process of collection and dissemination of data. This allows seamless, understandable for all parties’ exchanges, based on statistical concepts harmonisation and enforced by the standard technical interoperability between the systems, by standardised application programming interfaces (APIs). Leveraging all the potential of such API-driven technological infrastructures the solutions allow sharing and reuse and ensure no duplications when supporting business functions. Eurostat also develops different tools supporting different parts of those standards, which are reused by several entities, both inside and outside the European Commission.European statistics are disseminated in a publicly available, cost-free database available on Eurostat’s website and are free for both, commercial and non-commercial use.Eurostat exchanges high quality metadata on Eurostat datasets regularly with the data.europa.eu using semantic web technologies and according to FAIR principles on interoperability."@en ;
+    dcterms:identifier "interop/11" ;
+    dcterms:title "Eurostat maintains a Single Entry Point for electronic data transmissions (currently implemented in EDAMIS) that is used by National Statistical Institutes and Other National Authorities in the European Union and beyond (EFTA, candidate countries, potential candidate countries, European Central Bank, OECD, …).Eurostat exchanges high quality dataset metadata using semantic web technologies and according to FAIR principles for increased interoperability."@en .
+
+<http://example.org/analysis/interop/12> a cpsv:PublicService ;
+    rdfs:label "EC-REACT platform"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/590/cod/doc/com/COM_2025_590/FINAL/eng/art_3> ;
+    dcterms:description "Facilitates the cross-border interoperability of public and civic sector bodies by allowing structured information sharing and coordination in a multilingual, secure digital environment. The system ensures mutual recognition of qualified entities and supports legal standing across jurisdictions. Ensures data integrity and alignment for Member States' legal private enforcement actions"@en ;
+    dcterms:identifier "interop/12" ;
+    dcterms:references <http://example.org/ie-solution/secure-messaging-and-document-sharing-modules-aligned-with-isa-principles-drupal-cms-framework-supporting-modular-development-and-integration-common-metadata-tagging-for-searchable-content-and-semantic-alignment> ;
+    dcterms:title "EC-REACT platform"@en .
+
+<http://example.org/analysis/interop/13> a cpsv:PublicService ;
+    rdfs:label "CPC-IMI database, EU eLab and CPC case management IT tool (new)"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/590/cod/doc/com/COM_2025_590/FINAL/eng/art_3> ;
+    dcterms:description "Enables consistent, multilingual case-handling and data exchange between all Member States and the EC; fosters procedural alignment, streamlines urgent alerting and response across jurisdictions"@en ;
+    dcterms:identifier "interop/13" ;
+    dcterms:references <http://example.org/ie-solution/harmonised-data-models-for-case-types-legal-bases-and-infringement-categories-standardised-procedural-templates-for-alerts-coordinated-actions-and-enforcement-notifications-multilingual-interfaces-and-glossary-terms> ;
+    dcterms:title "CPC-IMI database, EU eLab and CPC case management IT tool (new)"@en .
+
+<http://example.org/analysis/interop/14> a cpsv:PublicService ;
+    rdfs:label "ECC Net IT tool"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/590/cod/doc/com/COM_2025_590/FINAL/eng/art_3> ;
+    dcterms:description "Facilitate cross-border interactions between ECCs, national enforcement authorities, national consumer organisations, dispute resolution bodies and the EC.Enables consistent case-handling, data exchange and identification of cross-border enforcement concerns."@en ;
+    dcterms:identifier "interop/14" ;
+    dcterms:references <http://example.org/ie-solution/harmonised-data-models-for-case-types-legal-bases-and-infringement-categories-standardised-procedural-templates-for-alerts-coordinated-actions-and-enforcement-notifications-multilingual-interfaces-and-glossary-terms-in-integrated-knowledge-base> ;
+    dcterms:title "ECC Net IT tool"@en .
+
+<http://example.org/analysis/interop/15> a cpsv:PublicService ;
+    rdfs:label "The Safety Gate Rapid Alert System, the Safety Business Gateway, the Consumer Safety Gateway, and the eSurveillance webcrawler"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/590/cod/doc/com/COM_2025_590/FINAL/eng/art_3> ;
+    dcterms:description "Systems are interoperable with the Information and Communication System on Market Surveillance (ICSMS). This integration allows for seamless data exchange and coordination among MS enhancing the EU’s ability to swiftly address and manage product safety issues."@en ;
+    dcterms:identifier "interop/15" ;
+    dcterms:references <http://example.org/ie-solution/standardised-procedural-templates-for-alerts-multilingual-interfaces-and-glossary-terms-in-integrated-knowledge-base> ;
+    dcterms:title "The Safety Gate Rapid Alert System, the Safety Business Gateway, the Consumer Safety Gateway, and the eSurveillance webcrawler"@en .
+
+<http://example.org/analysis/interop/16> a cpsv:PublicService ;
+    rdfs:label "Customs systems"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/590/cod/doc/com/COM_2025_590/FINAL/eng/art_3> ;
+    dcterms:description "Facilitate cross-border interactions between EU entities and Member States administrations and economic operators in relation to customs policy"@en ;
+    dcterms:identifier "interop/16" ;
+    dcterms:references <http://example.org/ie-solution/all-customs-systems-are-interoperable-between-themselves-and-with-the-national-components-of-the-member-states> ;
+    dcterms:title "Customs systems"@en .
+
+<http://example.org/analysis/interop/17> a cpsv:PublicService ;
+    rdfs:label "Taxation systems"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/590/cod/doc/com/COM_2025_590/FINAL/eng/art_3> ;
+    dcterms:description "Facilitate cross-border interactions between EU entities and Member States administrations and economic operators in relation to taxation policy"@en ;
+    dcterms:identifier "interop/17" ;
+    dcterms:references <http://example.org/ie-solution/interoperability-is-mainly-with-national-components-of-each-system> ;
+    dcterms:title "Taxation systems"@en .
+
+<http://example.org/analysis/interop/19> a cpsv:PublicService ;
+    rdfs:label "Irregularity Management System (IMS)"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/590/cod/doc/com/COM_2025_590/FINAL/eng/art_3> ;
+    dcterms:description "Facilitates cross-border interactions between EU entities and Member States authorities"@en ;
+    dcterms:identifier "interop/19" ;
+    dcterms:references <http://example.org/ie-solution/interoperable-with-systems-of-eu-entities-and-member-state-authorities> ;
+    dcterms:title "Irregularity Management System (IMS)"@en .
+
+<http://example.org/analysis/interop/2> a cpsv:PublicService ;
+    rdfs:label "Digital public service #2: Competition policy"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/590/cod/doc/com/COM_2025_590/FINAL/eng/art_3> ;
+    dcterms:description "Facilitate cross-border interaction between EU entities, Member State administrations, and undertakings operating within the internal market, notably with regard to competition cases."@en ;
+    dcterms:identifier "interop/2" ;
+    dcterms:title "Digital public service #2: Competition policy"@en .
+
+<http://example.org/analysis/interop/3> a cpsv:PublicService ;
+    rdfs:label "Bank account registers interconnection system (BARIS)"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/590/cod/doc/com/COM_2025_590/FINAL/eng/art_3> ;
+    dcterms:description "Exchange of data and information across Member States and among EU entities. Interoperability of registers."@en ;
+    dcterms:identifier "interop/3" ;
+    dcterms:title "Bank account registers interconnection system (BARIS)"@en .
+
+<http://example.org/analysis/interop/4> a cpsv:PublicService ;
+    rdfs:label "Beneficial ownership registers interconnection systems (BORIS)"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/590/cod/doc/com/COM_2025_590/FINAL/eng/art_3> ;
+    dcterms:description "Exchange of data and information across Member States and among EU entities. Interoperability of registers."@en ;
+    dcterms:identifier "interop/4" ;
+    dcterms:title "Beneficial ownership registers interconnection systems (BORIS)"@en .
+
+<http://example.org/analysis/interop/5> a cpsv:PublicService ;
+    rdfs:label "Business Registers Interconnection System (BRIS)"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/590/cod/doc/com/COM_2025_590/FINAL/eng/art_3> ;
+    dcterms:description "Exchange of company information across Member States, and among EU entities through optional access points. Interoperability of registers."@en ;
+    dcterms:identifier "interop/5" ;
+    dcterms:title "Business Registers Interconnection System (BRIS)"@en .
+
+<http://example.org/analysis/interop/6> a cpsv:PublicService ;
+    rdfs:label "EU Taxonomy Navigator"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/590/cod/doc/com/COM_2025_590/FINAL/eng/art_3> ;
+    dcterms:description "Create transparency for citizens, consumers and businesses."@en ;
+    dcterms:identifier "interop/6" ;
+    dcterms:title "EU Taxonomy Navigator"@en .
+
+<http://example.org/analysis/interop/7> a cpsv:PublicService ;
+    rdfs:label "Integrated reporting system in EU financial services and common dictionary and data space"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/590/cod/doc/com/COM_2025_590/FINAL/eng/art_3> ;
+    dcterms:description "Exchange of data and information across Member States and among EU entities. Interoperability of solutions developed by the ESAs and national authorities."@en ;
+    dcterms:identifier "interop/7" ;
+    dcterms:title "Integrated reporting system in EU financial services and common dictionary and data space"@en .
+
+<http://example.org/analysis/interop/8> a cpsv:PublicService ;
+    rdfs:label "Monitoring of Informatics Contracts for Experts (MICE)"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/590/cod/doc/com/COM_2025_590/FINAL/eng/art_3> ;
+    dcterms:description "Monitoring of Informatics Contracts for Experts (MICE)"@en ;
+    dcterms:identifier "interop/8" ;
+    dcterms:title "Monitoring of Informatics Contracts for Experts (MICE)"@en .
+
+<http://example.org/analysis/interop/9> a cpsv:PublicService ;
+    rdfs:label "FISMA data analysis infrastructure"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/590/cod/doc/com/COM_2025_590/FINAL/eng/art_3> ;
+    dcterms:description "FISMA data analysis infrastructure"@en ;
+    dcterms:identifier "interop/9" ;
+    dcterms:title "FISMA data analysis infrastructure"@en .
+
+<http://example.org/dataset/business-and-bank-data-from-registers-company-information-beneficial-ownership-data-from-registers-common-data-dictionaries-on-reporting-and-disclosure-requirements-financial-data-and-indicators> a dcat:Dataset ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Business and bank data from registers, company information, beneficial ownership data from registers. Common data dictionaries on reporting and disclosure requirements. Financial data and indicators."@en ] ;
+    dcterms:title "Business and bank data from registers, company information, beneficial ownership data from registers. Common data dictionaries on reporting and disclosure requirements. Financial data and indicators."@en .
+
+<http://example.org/dataset/business-related-information-case-investigation-information> a dcat:Dataset ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Business-related information, case-investigation information"@en ] ;
+    dcterms:title "Business-related information, case-investigation information"@en .
+
+<http://example.org/dataset/data-on-eu-funded-projects> a dcat:Dataset ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Data on EU funded projects"@en ] ;
+    dcterms:title "Data on EU funded projects"@en .
+
+<http://example.org/dataset/european-statistics-cover-all-key-eu-policy-areas-eurostat-receives-data-in-more-than-2000-datasets-and-metadata-sets-and-disseminates-more-than-7500-datasets> a dcat:Dataset ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "European statistics cover all key EU policy areas – Eurostat receives data in more than 2000 datasets and metadata sets and disseminates more than 7500 datasets."@en ] ;
+    dcterms:title "European statistics cover all key EU policy areas – Eurostat receives data in more than 2000 datasets and metadata sets and disseminates more than 7500 datasets."@en .
+
+<http://example.org/dataset/market-surveillance-data> a dcat:Dataset ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Market Surveillance data"@en ] ;
+    dcterms:title "Market Surveillance data"@en .
+
+<http://example.org/dataset/procurement-data-metadata-personal-data-external-service-providers-data-financial-dataindicators-access-logs-security-data-business-related-information-product-information-case-investigation-information-eu-acquis-related-data-judicial-data-product-compliance-data> a dcat:Dataset ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Procurement data, metadata, personal data, external service providers data, financial data/indicators, access logs, security data, business-related information, product information, case-investigation information, EU acquis related data, judicial data,-Product compliance data"@en ] ;
+    dcterms:title "Procurement data, metadata, personal data, external service providers data, financial data/indicators, access logs, security data, business-related information, product information, case-investigation information, EU acquis related data, judicial data,-Product compliance data"@en .
+
+<http://example.org/dataset/stakeholder-profiles-consumer-complaints-and-inquiries-on-products-and-services-case-handling-data-product-safety-data-market-surveillance-data-consumer-law-infringements-and-enforcement-data-cross-border-transaction-data-adr-procedure-data-redress-outcomes-trader-data-consumer-behaviour-data-best-practice-examples> a dcat:Dataset ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Stakeholder profiles, consumer complaints and inquiries on products and services, case handling data, product safety data, market surveillance data, consumer law infringements, and enforcement data, cross-border transaction data, ADR procedure data, redress outcomes, trader data, consumer behaviour data, best practice examples"@en ] ;
+    dcterms:title "Stakeholder profiles, consumer complaints and inquiries on products and services, case handling data, product safety data, market surveillance data, consumer law infringements, and enforcement data, cross-border transaction data, ADR procedure data, redress outcomes, trader data, consumer behaviour data, best practice examples"@en .
+
+<http://example.org/dataset/standardisation-data> a dcat:Dataset ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Standardisation data"@en ] ;
+    dcterms:title "Standardisation data"@en .
+
+<http://example.org/dataset/taxation-data> a dcat:Dataset ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Taxation data"@en ] ;
+    dcterms:title "Taxation data"@en .
+
+<http://example.org/dataset/trade-data> a dcat:Dataset ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Trade data"@en ] ;
+    dcterms:title "Trade data"@en .
+
+<http://example.org/dataset/transport-data> a dcat:Dataset ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Transport data"@en ] ;
+    dcterms:title "Transport data"@en .
+
+<http://example.org/process/anti-fraud-activities-coordination-and-cooperation-mutual-assistance-between-the-authorities-of-the-member-states-and-cooperation-between-the-latter-and-the-commission-irregularities-reporting> skos:prefLabel "Anti-fraud activities, coordination and cooperation, mutual assistance between the authorities of the Member States and cooperation between the latter and the Commission, irregularities reporting."@en .
+
+<http://example.org/process/customs-union-related-digital-landscape-is-composed-of-more-than-70-systems-which-have-their-own-legal-basis-eg-union-customs-code-and-other-acts-in-addition-the-customs-reform-proposal-has-introduced-the-concept-of-the-eu-customs-data-hub-a-single-online-environment-that-will-be-able-to-log-all-information-on-products-and-supply-chain-for-goods-passing-through-customs-these-systems-have-their-own-legal-basis-whereas-the-programme-provides-funding-for-the-digital-systems-common-components-development-operation-and-maintenance> skos:prefLabel "Customs Union related digital landscape is composed of more than 70 systems which have their own legal basis (e.g., Union Customs Code and other acts). In addition, the Customs Reform proposal has introduced the concept of the EU Customs Data hub [a single online environment that will be able to log all information on products and supply chain for goods passing through customs]. These systems have their own legal basis whereas the programme provides funding for the digital systems (common components) development, operation and maintenance."@en .
+
+<http://example.org/process/evidence-based-policy-making-coordination-and-cooperation-implementation-and-enforcement-monitoring-and-investigation-case-management-data-collection-and-analysis-information-and-communication> skos:prefLabel "Evidence-based policy making, coordination and cooperation, implementation and enforcement, monitoring and investigation, case management, data collection and analysis, information and communication."@en .
+
+<http://example.org/process/evidence-based-policy-making-procurement-coordination-and-cooperation-implementation-and-enforcement> skos:prefLabel "Evidence-based policy making, procurement, coordination and cooperation, implementation and enforcement"@en .
+
+<http://example.org/process/evidence-based-policymaking-data-collection-and-analysis-coordination-and-cooperation-harmonisation-stakeholder-engagement-impact-assessment-and-evaluations-information-communication-and-visibility-compliance-and-enforcement-the-programming-framework-for-european-statistics-will-employ-digital-solutions-for-leveraging-the-use-of-new-data-sources-and-the-re-use-of-existing-data-from-eu-and-national-sources-moreover-it-will-significantly-invest-in-it-infrastructures-and-services-to-exploit-the-full-potential-of-digital-technologies-cloud-services-and-artificial-intelligence> skos:prefLabel "Evidence-based policymaking, data collection and analysis, coordination and cooperation, harmonisation, stakeholder engagement, impact assessment and evaluations, information communication and visibility, compliance and enforcement. The programming framework for European statistics will employ digital solutions for leveraging the use of new data sources and the re-use of existing data from EU and national sources. Moreover, it will significantly invest in IT infrastructures and services to exploit the full potential of digital technologies, cloud services and Artificial Intelligence."@en .
+
+<http://example.org/process/evidence-based-policymaking-harmonisation-coordination-and-cooperation-complianceenforcement-data-collection-and-analysis-information-and-communication-and-visibility-monitoring-and-investigation-digitalisation-of-stakeholders-processes> skos:prefLabel "Evidence-based policymaking, harmonisation, coordination and cooperation compliance/enforcement, data collection and analysis, information and communication and visibility, monitoring and investigation, digitalisation of stakeholders’ processes"@en .
+
+<http://example.org/process/evidence-based-policymaking-procurement-harmonisation-coordination-and-cooperation-complianceenforcement-procurement> skos:prefLabel "Evidence-based policymaking, procurement, harmonisation, coordination and cooperation, compliance/enforcement, procurement"@en .
+
+<http://example.org/process/evidence-based-policymaking-procurement-stakeholder-engagement-data-collection-and-analysis-coordination-and-cooperation-information-communication-and-visibility> skos:prefLabel "Evidence-based policymaking, procurement, stakeholder engagement, data collection and analysis, coordination and cooperation, information, communication and visibility"@en .
+
+<http://example.org/process/evidence-based-policymaking-standardisation-harmonisation-policy-development-complianceenforcement-stakeholder-engagement-information-and-communication-and-visibility> skos:prefLabel "Evidence-based policymaking, standardisation, harmonisation, policy development, compliance/enforcement, stakeholder engagement, information and communication and visibility"@en .
+
+<http://example.org/process/evidence-based-policymaking-standardisation-harmonisation-stakeholder-engagement-coordination-and-cooperation-complianceimplementation-data-collection-and-analysis-information-and-communication> skos:prefLabel "Evidence-based policymaking, standardisation, harmonisation, stakeholder engagement, coordination and cooperation, compliance/implementation, data collection and analysis, information and communication"@en .
+
+<http://example.org/process/evidence-based-policymakingcomplianceenforcement94monitoring-and-investigation-stakeholder-engagement-coordination-and-cooperation> skos:prefLabel "Evidence-based policymaking,compliance/enforcement94,monitoring and investigation, stakeholder engagement, coordination and cooperation"@en .
+
+<http://example.org/process/functioning-of-customs-digital-systems-common-components-including-legacy-it-systems-and-eu-customs-data-hub-to-customs-authorities-working-together-and-acting-as-one-in-achieving-their-mission-cooperation-programme-management-implementation-support-tools> skos:prefLabel "Functioning of customs digital systems (common components) including legacy IT systems and EU Customs Data Hub to customs authorities working together and acting as one in achieving their mission; cooperation; programme management / implementation support tools."@en .
+
+<http://example.org/process/functioning-of-taxation-related-union-digital-systems-common-components-in-support-of-eu-taxation-policy-priorities-including-to-improve-union-taxation-systems-and-tax-collection-cooperation-programme-management-implementation-support-tools> skos:prefLabel "Functioning of taxation related Union digital systems (common components) in support of EU taxation policy priorities including to improve Union taxation systems and tax collection; cooperation; programme management / implementation support tools."@en .
+
+<http://example.org/process/taxation-related-digital-landscape-is-composed-of-30-systems-with-new-systems-to-be-developed-these-systems-have-their-own-legal-basis-whereas-the-programme-provides-funding-for-their-development-operation-and-maintenance> skos:prefLabel "Taxation related digital landscape is composed of 30 systems (with new systems to be developed). These systems have their own legal basis whereas the programme provides funding for their development, operation and maintenance."@en .
+
+<http://publications.europa.eu/resource/authority/corporate-body/COM> a m8g:PublicOrganisation ;
+    dcterms:description "The European Commission, provider of the interoperability assessment."@en ;
+    skos:prefLabel "European Commission"@en .
+
+<http://example.org/agent/european-commission-and-other-european-bodies-and-authorities-national-authorities-beneficiaries-businesses-consumerscitizens> rdfs:label "European Commission and other European bodies and authorities, National authorities, Beneficiaries, Businesses, Consumers/citizens"@en .
+
+<http://example.org/agent/member-states-eu-institutions-authorities-bodies-authorised-third-parties-businesses-consumerscitizens> rdfs:label "Member States, EU Institutions, authorities, bodies, authorised third parties, businesses, consumers/citizens"@en .
+
+<http://example.org/agent/national-administrations-commission> rdfs:label "National Administrations, Commission"@en .
+
+<http://example.org/analysis/interop/18> a cpsv:PublicService ;
+    rdfs:label "Anti-Fraud Information System (AFIS)"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/590/cod/doc/com/COM_2025_590/FINAL/eng/art_3>,
+        <https://data.europa.eu/eli/dl/proc/2025/590/cod/doc/com/COM_2025_590/FINAL/eng/art_515> ;
+    dcterms:description "Facilitates cross-border interactions between EU entities and Member States authorities and economic operators"@en ;
+    dcterms:identifier "interop/18" ;
+    dcterms:references <http://example.org/ie-solution/interoperable-with-systems-of-eu-entities-and-member-state-authorities> ;
+    dcterms:title "Anti-Fraud Information System (AFIS)"@en .
+
+<http://example.org/dataset/customs-data> a dcat:Dataset ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Customs data"@en ],
+        [ a lomo:ActionResult ;
+            rdfs:label "Customs data"@en ] ;
+    dcterms:title "Customs data"@en .
+
+<http://example.org/ie-solution/all-customs-systems-are-interoperable-between-themselves-and-with-the-national-components-of-the-member-states> a adms:Asset ;
+    dcterms:description "All customs systems are interoperable between themselves and with the national components of the Member States."@en ;
+    dcterms:title "All customs systems are interoperable between themselves and with the national components of the Member States."@en .
+
+<http://example.org/ie-solution/harmonised-data-models-for-case-types-legal-bases-and-infringement-categories-standardised-procedural-templates-for-alerts-coordinated-actions-and-enforcement-notifications-multilingual-interfaces-and-glossary-terms> a adms:Asset ;
+    dcterms:description "Harmonised data models for case types, legal bases, and infringement categories. Standardised procedural templates for alerts, coordinated actions, and enforcement notifications. Multilingual interfaces and glossary terms"@en ;
+    dcterms:title "Harmonised data models for case types, legal bases, and infringement categories. Standardised procedural templates for alerts, coordinated actions, and enforcement notifications. Multilingual interfaces and glossary terms"@en .
+
+<http://example.org/ie-solution/harmonised-data-models-for-case-types-legal-bases-and-infringement-categories-standardised-procedural-templates-for-alerts-coordinated-actions-and-enforcement-notifications-multilingual-interfaces-and-glossary-terms-in-integrated-knowledge-base> a adms:Asset ;
+    dcterms:description "Harmonised data models for case types, legal bases, and infringement categories. Standardised procedural templates for alerts, coordinated actions, and enforcement notifications. Multilingual interfaces and glossary terms in integrated knowledge base."@en ;
+    dcterms:title "Harmonised data models for case types, legal bases, and infringement categories. Standardised procedural templates for alerts, coordinated actions, and enforcement notifications. Multilingual interfaces and glossary terms in integrated knowledge base."@en .
+
+<http://example.org/ie-solution/interoperability-is-mainly-with-national-components-of-each-system> a adms:Asset ;
+    dcterms:description "Interoperability is mainly with national components of each system."@en ;
+    dcterms:title "Interoperability is mainly with national components of each system."@en .
+
+<http://example.org/ie-solution/secure-messaging-and-document-sharing-modules-aligned-with-isa-principles-drupal-cms-framework-supporting-modular-development-and-integration-common-metadata-tagging-for-searchable-content-and-semantic-alignment> a adms:Asset ;
+    dcterms:description "Secure messaging and document sharing modules aligned with ISA principles. Drupal CMS framework supporting modular development and integration. Common metadata tagging for searchable content and semantic alignment."@en ;
+    dcterms:title "Secure messaging and document sharing modules aligned with ISA principles. Drupal CMS framework supporting modular development and integration. Common metadata tagging for searchable content and semantic alignment."@en .
+
+<http://example.org/ie-solution/standardised-procedural-templates-for-alerts-multilingual-interfaces-and-glossary-terms-in-integrated-knowledge-base> a adms:Asset ;
+    dcterms:description "Standardised procedural templates for alerts. Multilingual interfaces and glossary terms in integrated knowledge base."@en ;
+    dcterms:title "Standardised procedural templates for alerts. Multilingual interfaces and glossary terms in integrated knowledge base."@en .
+
+<http://example.org/process/tools-are-required-to-enable-the-implementation-of-programme-activities-learning-management-system-programme-information-and-collaboration-space-reporting-tools-eg-activity-reporting-tool-eu-taxedu-website> skos:prefLabel "Tools are required to enable the implementation of programme activities: Learning Management System, Programme Information and Collaboration Space, reporting tools (e.g. Activity Reporting Tool), EU TaxEdu website."@en .
+
+<http://example.org/agent/economic-operators-member-states-customs-authorities-the-commission> rdfs:label "Economic operators, Member States customs authorities, the Commission"@en .
+
+<http://example.org/agent/european-commission-national-authorities-beneficiaries-businesses-consumerscitizens> rdfs:label "European Commission, National authorities, Beneficiaries, Businesses, Consumers/citizens"@en .
+
+<http://example.org/agent/member-states-authorities-the-commission> rdfs:label "Member States authorities, the Commission"@en .
+
+<http://example.org/ie-solution/interoperable-with-systems-of-eu-entities-and-member-state-authorities> a adms:Asset ;
+    dcterms:description "Interoperable with systems of EU entities and Member State authorities"@en ;
+    dcterms:title "Interoperable with systems of EU entities and Member State authorities"@en .
+

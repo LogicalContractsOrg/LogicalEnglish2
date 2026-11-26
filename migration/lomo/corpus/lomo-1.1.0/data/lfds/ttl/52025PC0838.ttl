@@ -1,0 +1,1353 @@
+@prefix adms: <http://www.w3.org/ns/adms#> .
+@prefix cav: <http://data.europa.eu/2sa/cav#> .
+@prefix cpsv: <http://purl.org/vocab/cpsv#> .
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix dctype: <http://purl.org/dc/dcmitype/> .
+@prefix dd: <http://data.europa.eu/leg/digital-dimensions/> .
+@prefix iac: <http://data.europa.eu/leg/interop-assessment#> .
+@prefix iopa: <http://data.europa.eu/2qy/iopa#> .
+@prefix lomo: <http://data.europa.eu/leg/lomo#> .
+@prefix m8g: <http://data.europa.eu/m8g/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix tc: <http://data.europa.eu/9bx/> .
+@prefix tf: <http://data.europa.eu/leg/temporal-function/> .
+@prefix y6k: <http://data.europa.eu/y6k/> .
+
+<http://example.org/analysis/action/1> a lomo:Action ;
+    rdfs:label "Information on validation mechanisms"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Without undue delay"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/838/cod/doc/com/COM_2025_838/FINAL/eng/art_6/par_2> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/1/role/addressee-the-commission>,
+        <http://example.org/analysis/action/1/role/addresser-providers-of-ebw> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Information on validation mechanisms"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/information-on-validation-mechanisms> ] .
+
+<http://example.org/analysis/action/10> a lomo:Action ;
+    rdfs:label "Information for the purpose of maintaining the EDD"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Upon issuance of the EBW (for the purpose of maintaining the EDD)"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/838/cod/doc/com/COM_2025_838/FINAL/eng/art_10/par_3> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/10/role/addressee-the-commission>,
+        <http://example.org/analysis/action/10/role/addresser-provider-of-ebw> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Information for the purpose of maintaining the EDD"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/information-for-the-purpose-of-maintaining-the-edd> ] .
+
+<http://example.org/analysis/action/11> a lomo:Action ;
+    rdfs:label "Notification on providers of EBW"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/838/cod/doc/com/COM_2025_838/FINAL/eng/art_11/par_1> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/11/role/addressee-ms-supervisory-body>,
+        <http://example.org/analysis/action/11/role/addresser-notifying-entity> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Notification on providers of EBW"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/notification-on-providers-of-ebw> ] .
+
+<http://example.org/analysis/action/12> a lomo:Action ;
+    rdfs:label "Notification on providers of EBW"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Notification sent by notifying entity – 30 days"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/838/cod/doc/com/COM_2025_838/FINAL/eng/art_11/par_4> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/12/role/addressee-notifying-entity>,
+        <http://example.org/analysis/action/12/role/addresser-ms-supervisory-bodies> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Notification on providers of EBW"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/notification-on-providers-of-ebw> ] .
+
+<http://example.org/analysis/action/13> a lomo:Action ;
+    rdfs:label "List of notified providers of EBW"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "24 hours 4 hours of the expiration of the 30-day period referred to in Article 11"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/838/cod/doc/com/COM_2025_838/FINAL/eng/art_12/par_1> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/13/role/addressee-the-commission>,
+        <http://example.org/analysis/action/13/role/addresser-ms> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "List of notified providers of EBW"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/list-of-notified-providers-of-ebw> ] .
+
+<http://example.org/analysis/action/14> a lomo:Action ;
+    rdfs:label "List of MS supervisory bodies"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/838/cod/doc/com/COM_2025_838/FINAL/eng/art_13/par_3> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/14/role/addressee-the-commission>,
+        <http://example.org/analysis/action/14/role/addresser-ms> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "List of MS supervisory bodies"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/list-of-ms-supervisory-bodies> ] .
+
+<http://example.org/analysis/action/15> a lomo:Action ;
+    rdfs:label "List of MS supervisory bodies"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/838/cod/doc/com/COM_2025_838/FINAL/eng/art_13/par_3> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/15/role/addressee-general-public>,
+        <http://example.org/analysis/action/15/role/addresser-the-commission> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "List of MS supervisory bodies"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/list-of-ms-supervisory-bodies> ] .
+
+<http://example.org/analysis/action/16> a lomo:Action ;
+    rdfs:label "Information on national registries"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/838/cod/doc/com/COM_2025_838/FINAL/eng/art_13/par_5> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/16/role/addressee-the-commission>,
+        <http://example.org/analysis/action/16/role/addresser-ms-supervisory-bodies> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Information on national registries"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/information-on-national-registries> ] .
+
+<http://example.org/analysis/action/17> a lomo:Action ;
+    rdfs:label "Reporting obligations on the main activities"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/838/cod/doc/com/COM_2025_838/FINAL/eng/art_13/par_5> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/17/role/addressee-the-commission>,
+        <http://example.org/analysis/action/17/role/addresser-ms-supervisory-bodies> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Reporting obligations on the main activities"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/reporting-obligations-on-the-main-activities> ] .
+
+<http://example.org/analysis/action/18> a lomo:Action ;
+    rdfs:label "List of Business Wallets and other similar instruments offered in third countries"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/838/cod/doc/com/COM_2025_838/FINAL/eng/art_17/par_4> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/18/role/addressee-general-public>,
+        <http://example.org/analysis/action/18/role/addresser-the-commission> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "List of Business Wallets and other similar instruments offered in third countries"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/list-of-business-wallets-and-other-similar-instruments-offered-in-third-countries> ] .
+
+<http://example.org/analysis/action/3> a lomo:Action ;
+    rdfs:label "Notification about terms, conditions rights and obligations related to the EBW"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Use of EBW"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/838/cod/doc/com/COM_2025_838/FINAL/eng/art_7/par_6> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/3/role/addressee-ebw-owners-representatives-of-ebw-owners>,
+        <http://example.org/analysis/action/3/role/addresser-providers-of-ebw> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Notification about terms, conditions rights and obligations related to the EBW"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/notification-about-terms-conditions-rights-and-obligations-related-to-the-ebw> ] .
+
+<http://example.org/analysis/action/4> a lomo:Action ;
+    rdfs:label "Notification about substantive changes to the EBW service"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/838/cod/doc/com/COM_2025_838/FINAL/eng/art_7/par_6> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/4/role/addressee-national-supervisory-body-or-the-commission>,
+        <http://example.org/analysis/action/4/role/addresser-providers-of-ebw> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Notification about substantive changes to the EBW service"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/notification-about-substantive-changes-to-the-ebw-service> ] .
+
+<http://example.org/analysis/action/5> a lomo:Action ;
+    rdfs:label "Notification about the suspension, revocation or voluntary termination of EBW service"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/838/cod/doc/com/COM_2025_838/FINAL/eng/art_7/par_6> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/5/role/addressee-ebw-owners>,
+        <http://example.org/analysis/action/5/role/addresser-providers-of-ebw> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Notification about the suspension, revocation or voluntary termination of EBW service"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/notification-about-the-suspension-revocation-or-voluntary-termination-of-ebw-service> ] .
+
+<http://example.org/analysis/action/6> a lomo:Action ;
+    rdfs:label "Information on EBW owners (and subsequent changes)"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/838/cod/doc/com/COM_2025_838/FINAL/eng/art_7/par_6> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/6/role/addressee-the-commission>,
+        <http://example.org/analysis/action/6/role/addresser-providers-of-ebw> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Information on EBW owners (and subsequent changes)"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/information-on-ebw-owners-and-subsequent-changes> ] .
+
+<http://example.org/analysis/action/7> a lomo:Action ;
+    rdfs:label "EBW owner identification data"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Request of the EBW owner"@en ],
+        [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:deadline ;
+            lomo:temporalLabel "once"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/838/cod/doc/com/COM_2025_838/FINAL/eng/art_8/par_1> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/7/role/addressee-ebw-owner>,
+        <http://example.org/analysis/action/7/role/addresser-providers-of-ebw-identification-data> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "EBW owner identification data"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/ebw-owner-identification-data> ] .
+
+<http://example.org/analysis/action/9> a lomo:Action ;
+    rdfs:label "Notification on the national registers and associated registration numbers"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "No later than 3 months after the entry into force"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/838/cod/doc/com/COM_2025_838/FINAL/eng/art_9/par_6> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/9/role/addressee-the-commission>,
+        <http://example.org/analysis/action/9/role/addresser-ms> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Notification on the national registers and associated registration numbers"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/notification-on-the-national-registers-and-associated-registration-numbers> ] .
+
+<http://example.org/analysis/assessment/1> a cav:Assessment ;
+    cav:assesses <http://example.org/analysis/description/1>,
+        <http://example.org/analysis/description/10>,
+        <http://example.org/analysis/description/11>,
+        <http://example.org/analysis/description/12>,
+        <http://example.org/analysis/description/15>,
+        <http://example.org/analysis/description/17>,
+        <http://example.org/analysis/description/2>,
+        <http://example.org/analysis/description/3>,
+        <http://example.org/analysis/description/4>,
+        <http://example.org/analysis/description/5>,
+        <http://example.org/analysis/description/6>,
+        <http://example.org/analysis/description/7>,
+        <http://example.org/analysis/description/8>,
+        <http://example.org/analysis/description/9> ;
+    cav:resultsIn <http://example.org/analysis/assessment/1/1/measure>,
+        <http://example.org/analysis/assessment/1/2/measure>,
+        <http://example.org/analysis/assessment/1/3/measure>,
+        <http://example.org/analysis/assessment/1/4/measure>,
+        <http://example.org/analysis/assessment/1/5/measure>,
+        <http://example.org/analysis/assessment/1/6/measure>,
+        <http://example.org/analysis/assessment/1/7/barrier>,
+        <http://example.org/analysis/assessment/1/8/barrier> ;
+    m8g:isProvidedBy <http://publications.europa.eu/resource/authority/corporate-body/COM> .
+
+<http://example.org/analysis/description/13> a lomo:LegalRule ;
+    rdfs:label "Article 14"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/838/cod/doc/com/COM_2025_838/FINAL/eng/art_14> ;
+    lomo:involvesProcess <http://example.org/process/information-exchange-and-coordination> ;
+    lomo:produces <http://example.org/analysis/description/13/action> ;
+    dcterms:description "European Digital Identity Cooperation Group extension of support to EBW"@en .
+
+<http://example.org/analysis/description/14> a lomo:LegalRule ;
+    rdfs:label "Article 15"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/838/cod/doc/com/COM_2025_838/FINAL/eng/art_15> ;
+    lomo:hasCategory dd:Data ;
+    dcterms:description "Governance and supervision of Union entities that are providers of European Business Wallets (reports)"@en .
+
+<http://example.org/analysis/description/16> a lomo:LegalRule ;
+    rdfs:label "Article 17"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/838/cod/doc/com/COM_2025_838/FINAL/eng/art_17> ;
+    lomo:hasCategory dd:Data,
+        dd:DigitalSolutions ;
+    lomo:involvesProcess <http://example.org/process/publication-of-equivalent-systems-from-third-countries> ;
+    lomo:produces <http://example.org/analysis/description/16/action> ;
+    lomo:references <http://example.org/dataset/list-of-business-wallets-and-other-similar-instruments-offered-in-third-countries> ;
+    dcterms:description "List of Business Wallets and other similar instruments offered in third countries"@en .
+
+<http://example.org/analysis/description/18> a lomo:LegalRule ;
+    rdfs:label "Article 20"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/838/cod/doc/com/COM_2025_838/FINAL/eng/art_20> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/legal-person-identification-authentication-and-data-sharing> ;
+    lomo:produces <http://example.org/analysis/description/18/action> ;
+    dcterms:description "Removal of legal persons from Regulation (EU) 910/2014, due to obsolescence with advent of EBW"@en .
+
+<http://example.org/analysis/solution/1> a dctype:Software ;
+    rdfs:label "European Business Wallet"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/838/cod/doc/com/COM_2025_838/FINAL/eng/art_16>,
+        <https://data.europa.eu/eli/dl/proc/2025/838/cod/doc/com/COM_2025_838/FINAL/eng/art_17/par_1>,
+        <https://data.europa.eu/eli/dl/proc/2025/838/cod/doc/com/COM_2025_838/FINAL/eng/art_18>,
+        <https://data.europa.eu/eli/dl/proc/2025/838/cod/doc/com/COM_2025_838/FINAL/eng/art_2/par_2>,
+        <https://data.europa.eu/eli/dl/proc/2025/838/cod/doc/com/COM_2025_838/FINAL/eng/art_3/par_3>,
+        <https://data.europa.eu/eli/dl/proc/2025/838/cod/doc/com/COM_2025_838/FINAL/eng/art_4>,
+        <https://data.europa.eu/eli/dl/proc/2025/838/cod/doc/com/COM_2025_838/FINAL/eng/art_4/par_4>,
+        <https://data.europa.eu/eli/dl/proc/2025/838/cod/doc/com/COM_2025_838/FINAL/eng/art_5/par_1>,
+        <https://data.europa.eu/eli/dl/proc/2025/838/cod/doc/com/COM_2025_838/FINAL/eng/art_5/par_5>,
+        <https://data.europa.eu/eli/dl/proc/2025/838/cod/doc/com/COM_2025_838/FINAL/eng/art_6/par_1>,
+        <https://data.europa.eu/eli/dl/proc/2025/838/cod/doc/com/COM_2025_838/FINAL/eng/art_7>,
+        <https://data.europa.eu/eli/dl/proc/2025/838/cod/doc/com/COM_2025_838/FINAL/eng/art_9> ;
+    lomo:hasCapability "(1)selectively disclose European Business Wallet owner identification data and attributes contained in electronic attestations of attributes, in the context of the functionalities listed under point a",
+        "(10)authorise European Business Wallet-relying parties to request electronic attestations of attributes issued to the owner of the European Business Wallet, and for the Business Wallet owner to manage and revoke such authorisations",
+        "(11)exercise the European Business Wallet owner’s right to data portability and export their data, including issued European Business Wallet owner identification data, electronic attestations of attributes, communication logs, and interaction records, in a structured, commonly used and machine-readable format, at the request of the owner or in the event of termination of service or revocation of the notification of the provider of the European Business Wallet",
+        "(12)access a log of all transactions",
+        "(13)accessa common dashboard for accessing, storing and verifying communications exchanged through thequalified electronic registered delivery service referred to in point (i).",
+        "(2)request and share European Business Wallet owner identification data and electronic attestations of attributes in a secured way between European Business Wallets and European Digital Identity Wallets and with European Business Wallet-relying parties",
+        "(3)sign by means of qualified electronic signatures and seal by means of qualified electronic seals, as applicable",
+        "(4)bind data in electronic form to a particular time by means of qualified electronic time stamps",
+        "(5)issue electronic attestations of attributes to European Business Wallets and European Digital Identity Wallets",
+        "(6)issue electronic attestations of attributes through the European Business Wallet of the owner, allowing the issued attestation to be linked to other relevant attestations forming part of a chain.(7)enable the use of qualified and non-qualified attestations of attributes to allow European Business Wallet owners and their legal representatives to authenticate(8)transmit and receive electronic documents and data by means of a qualified electronic registered delivery service able to support confidentiality",
+        "(9)authorise multiple users to access and operate the European Business Wallet of the owner, and for the Business Wallet owner to manage and revoke such authorisations",
+        "Providers of European Business Wallets shall ensure that the European Business Wallets they provide enable European Business Wallet owners, at a minimum, to:(10)securely issue, request, obtain, select, combine, store, delete, share and present electronic attestations of attributes" ;
+    dcterms:publisher <http://example.org/agent/providers-of-the-european-business-wallet> ;
+    dcterms:title "European Business Wallet"@en .
+
+<http://example.org/analysis/solution/2> a dctype:Software ;
+    rdfs:label "European Digital Directory"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/838/cod/doc/com/COM_2025_838/FINAL/eng/art_10> ;
+    lomo:hasCapability "The Commission shall establish, operate and maintain a European Digital Directory as a web application comprising of two interfaces:·a machine-readable interface exposed through an API for automated system-to-system communication",
+        "·an online portal for European Business Wallets users, built on and communicating withthe API, ensuring consistency between both interfaces." ;
+    dcterms:publisher <http://example.org/agent/european-commission> ;
+    dcterms:title "European Digital Directory"@en .
+
+<http://example.org/analysis/solution/3> a dctype:Software ;
+    rdfs:label "Signature creation applications"@en ;
+    lomo:hasCapability "Signing or sealing data provided by European Business Wallets users.Signing or sealing data provided by relying parties.Creating signatures or seals in accordance with at least the mandatory format.Creating signatures or seals in accordance with the optional format.Informing Wallets users about the result of the signature or seal creation process." ;
+    dcterms:publisher <http://example.org/agent/european-business-wallets-providersproviders-of-trust-servicesbusiness-wallet-relying-parties> ;
+    dcterms:title "Signature creation applications"@en .
+
+<http://example.org/analysis/solution/4> a dctype:Software ;
+    rdfs:label "Qualified electronic registered delivery service"@en ;
+    lomo:hasCapability "In line with Article 5 of this Regulation, Business Wallets shall integrate and support the use of a specific qualified electronic registered delivery service in accordance with Articles 43 and 44 of Regulation (EU) No 910/2014.Interoperability between Business Wallets and the designated qualified electronic registered delivery service shall be mandatory. Providers of Business Wallets shall ensure technical integration in accordance with the implementing acts." ;
+    dcterms:publisher <http://example.org/agent/european-commission> ;
+    dcterms:title "Qualified electronic registered delivery service"@en .
+
+<http://example.org/dataset/ebw-owners-data-for-portability-purposes> a dcat:Dataset ;
+    dcterms:conformsTo <http://example.org/standard/open-format> ;
+    dcterms:title "EBW owner’s data for portability purposes"@en .
+
+tc:57 skos:prefLabel "Authentication"@en .
+
+y6k:c_d63972244bc8 skos:prefLabel "Publication"@en .
+
+<http://example.org/agent/competent-supervisory-bodies> rdfs:label "Competent supervisory bodies"@en .
+
+<http://example.org/agent/ebw-owners> rdfs:label "EBW owners"@en .
+
+<http://example.org/agent/ebw-owners-representatives-of-ebw-owners> rdfs:label "EBW owners/ representatives of EBW owners"@en .
+
+<http://example.org/agent/economic-operators> rdfs:label "Economic operators"@en .
+
+<http://example.org/agent/economic-operators-established-in-a-third-country> rdfs:label "Economic operators established in a third country"@en .
+
+<http://example.org/agent/eu-entities> rdfs:label "EU entities"@en .
+
+<http://example.org/agent/european-digital-identity-cooperation-group> rdfs:label "European Digital Identity Cooperation Group"@en .
+
+<http://example.org/agent/legal-person> rdfs:label "Legal person"@en .
+
+<http://example.org/agent/member-states-of-the-qualified-trust-service-providers> rdfs:label "Member States of the qualified trust service providers"@en .
+
+<http://example.org/agent/ms-supervisory-body> rdfs:label "MS Supervisory body"@en .
+
+<http://example.org/agent/national-supervisory-body-or-the-commission> rdfs:label "National supervisory body or the Commission"@en .
+
+<http://example.org/agent/non-eu-countries> rdfs:label "Non-EU countries"@en .
+
+<http://example.org/agent/provider-of-ebw> rdfs:label "Provider of EBW"@en .
+
+<http://example.org/agent/providers-of-ebw-identification-data> rdfs:label "Providers of EBW identification data"@en .
+
+<http://example.org/agent/providers-of-european-business-wallet-identification-data> rdfs:label "Providers of European Business Wallet identification data"@en .
+
+<http://example.org/agent/providers-of-european-business-wallet-owner-identification-data> rdfs:label "Providers of European Business Wallet owner identification data"@en .
+
+<http://example.org/agent/qeaa-providers> rdfs:label "(Q)EAA providers"@en .
+
+<http://example.org/agent/qualified-trust-service-providers-established-in-a-member-state> rdfs:label "Qualified trust service providers established in a Member State"@en .
+
+<http://example.org/agent/self-employed-persons> rdfs:label "Self-employed persons"@en .
+
+<http://example.org/agent/sole-traders> rdfs:label "Sole traders"@en .
+
+<http://example.org/agent/supervisory-bodies-in-each-member-state> rdfs:label "Supervisory bodies in each Member State"@en .
+
+<http://example.org/agent/supervisory-body-in-the-member-state-of-establishment> rdfs:label "Supervisory body in the Member State of establishment"@en .
+
+<http://example.org/agent/union-entities> rdfs:label "Union entities"@en .
+
+<http://example.org/analysis/action/1/role/addressee-the-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/the-commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/1/role/addresser-providers-of-ebw> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/providers-of-ebw> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/10/role/addressee-the-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/the-commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/10/role/addresser-provider-of-ebw> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/provider-of-ebw> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/11/role/addressee-ms-supervisory-body> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/ms-supervisory-body> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/11/role/addresser-notifying-entity> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/notifying-entity> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/12/role/addressee-notifying-entity> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/notifying-entity> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/12/role/addresser-ms-supervisory-bodies> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/ms-supervisory-bodies> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/13/role/addressee-the-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/the-commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/13/role/addresser-ms> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/ms> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/14/role/addressee-the-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/the-commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/14/role/addresser-ms> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/ms> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/15/role/addressee-general-public> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/general-public> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/15/role/addresser-the-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/the-commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/16/role/addressee-the-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/the-commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/16/role/addresser-ms-supervisory-bodies> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/ms-supervisory-bodies> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/17/role/addressee-the-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/the-commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/17/role/addresser-ms-supervisory-bodies> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/ms-supervisory-bodies> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/18/role/addressee-general-public> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/general-public> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/18/role/addresser-the-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/the-commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/2> a lomo:Action ;
+    rdfs:label "Information on validation mechanisms"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Notification from the provider of EBW"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/838/cod/doc/com/COM_2025_838/FINAL/eng/art_6/par_3> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/2/role/addressee-general-public>,
+        <http://example.org/analysis/action/2/role/addresser-the-commission> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Information on validation mechanisms"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/information-on-validation-mechanisms> ] .
+
+<http://example.org/analysis/action/2/role/addressee-general-public> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/general-public> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/2/role/addresser-the-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/the-commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/3/role/addressee-ebw-owners-representatives-of-ebw-owners> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/ebw-owners-representatives-of-ebw-owners> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/3/role/addresser-providers-of-ebw> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/providers-of-ebw> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/4/role/addressee-national-supervisory-body-or-the-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/national-supervisory-body-or-the-commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/4/role/addresser-providers-of-ebw> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/providers-of-ebw> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/5/role/addressee-ebw-owners> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/ebw-owners> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/5/role/addresser-providers-of-ebw> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/providers-of-ebw> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/6/role/addressee-the-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/the-commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/6/role/addresser-providers-of-ebw> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/providers-of-ebw> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/7/role/addressee-ebw-owner> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/ebw-owner> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/7/role/addresser-providers-of-ebw-identification-data> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/providers-of-ebw-identification-data> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/8> a lomo:Action ;
+    rdfs:label "EAA/QEAA (Electronic Attestations of Attributes / Qualified Electronic Attestations of Attributes)"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Request of the EBW owner"@en ],
+        [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:deadline ;
+            lomo:temporalLabel "Upon request"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/838/cod/doc/com/COM_2025_838/FINAL/eng/art_8> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/8/role/addressee-ebw-owner>,
+        <http://example.org/analysis/action/8/role/addresser-qeaa-providers> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "EAA/QEAA (Electronic Attestations of Attributes / Qualified Electronic Attestations of Attributes)"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/eaaqeaa-electronic-attestations-of-attributes-qualified-electronic-attestations-of-attributes> ] .
+
+<http://example.org/analysis/action/8/role/addressee-ebw-owner> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/ebw-owner> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/8/role/addresser-qeaa-providers> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/qeaa-providers> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/9/role/addressee-the-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/the-commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/9/role/addresser-ms> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/ms> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/assessment/1/1/measure> a cav:Statement ;
+    cav:interpretation iac:InterpretationPositive ;
+    cav:judgement """The European Business Wallets will build on and extend the ecosystem of trust established under the European Digital Identity Framework, established by Regulation (EU) 910/2014 on electronic identification and trust services for electronic transactions in the internal market, as amended by Regulation (EU) 2024/118318 (including adopted implementing acts).
+Providers of the European Business wallets must comply with the requirements of Directive (EU) 2022/2555 (NIS2) of the European Parliament and of the Council on measures for a high common level of cybersecurity across the Union. Likewise, the European Digital Directory shall be operated in alignment with the principles enshrined under NIS2.
+Cryptographic operators or other operations processing critical assets shall be performed in accordance with the requirements for the characteristics and design of electronic identification means at assurance level substantial as set out in Commission Implementing Regulation (EU) 2015/1502.
+The European Data Protection Supervisor were consulted in accordance with Article 42(1) of Regulation (EU) 2018/1725.
+The proposal anticipates that the European Business Wallets should also enable the exchange of attestations for the purpose of delegating digital power of attorney, as established by Directive (EU) 2025/25, allowing economic operators and public sector bodies to exchange attestations with their Business Wallets to delegate authority to representatives."""@en ;
+    cav:type iac:StatementTypeAlignmentMeasure ;
+    dcterms:description "Alignmentwith existing digital and sectorial policiesPlease list the applicable digital and sectorial policies identified"@en ;
+    dcterms:title "European Business Wallet"@en .
+
+<http://example.org/analysis/assessment/1/2/measure> a cav:Statement ;
+    cav:interpretation iac:InterpretationPositive ;
+    cav:judgement """In each Member State, the supervisory bodies designated pursuant to Article 46a of Regulation (EU) No 910/2014 shall also be the supervisory bodies for the purposes of this Regulation. The Regulation provides for the role and tasks of such authorities.
+Member States shall ensure that the supervisory bodies referred to in paragraph 1 possess the necessary powers and adequate resources for the exercise of their tasks in an effective, efficient, and independent manner.
+Where a Union entity is a provider of European Business Wallets the Commission shall be the responsible supervisory body."""@en ;
+    cav:type iac:StatementTypeOrganisationMeasure ;
+    dcterms:description "Organisational measures for a smooth cross-border digital public services deliveryPlease list the governance measures foreseen"@en ;
+    dcterms:title "European Business Wallet"@en .
+
+<http://example.org/analysis/assessment/1/3/measure> a cav:Statement ;
+    cav:interpretation iac:InterpretationPositive ;
+    cav:judgement """EBW owner identification data shall be issued in a format according to one of the standards listed in Annex II of Commission Implementing Regulation (EU) 2024/2979 and as QEAA or EAA depending on the issuing entity.
+The annexes define the high-level requirements that will be then instantiated in specifications and standards in the upcoming implementing act to ensure a shared understanding of the data.
+Business Wallets shall support the secure export and portability of an owner’s European Business Wallet data in at least an open format."""@en ;
+    cav:type iac:StatementTypeSharedMeasure ;
+    dcterms:description "Measures taken to ensure a shared understanding of the dataPlease list such measures"@en ;
+    dcterms:title "European Business Wallet"@en .
+
+<http://example.org/analysis/assessment/1/4/measure> a cav:Statement ;
+    cav:interpretation iac:InterpretationPositive ;
+    cav:judgement "Adopt implementing acts for the definition of reference standards and specifications."@en ;
+    cav:type iac:StatementTypeStandardsMeasure ;
+    dcterms:description "Use of commonly agreed open technical specifications and standardsPlease list such measures"@en ;
+    dcterms:title "European Business Wallet"@en .
+
+<http://example.org/analysis/assessment/1/5/measure> a cav:Statement ;
+    cav:interpretation iac:InterpretationPositive ;
+    cav:judgement "Alignment ensured for the European Business Wallets, as detailed above."@en ;
+    cav:type iac:StatementTypeAlignmentMeasure ;
+    dcterms:description "Alignmentwith existing digital and sectorial policiesPlease list the applicable digital and sectorial policies identified"@en ;
+    dcterms:title "Digital public services in Member States that are mandated to receive evidence through European Business Wallets"@en .
+
+<http://example.org/analysis/assessment/1/6/measure> a cav:Statement ;
+    cav:interpretation iac:InterpretationPositive ;
+    cav:judgement "Article 15 mandates Member States to enable economic operators to exchange information with public sector bodies via the European Business Wallet."@en ;
+    cav:type iac:StatementTypeOrganisationMeasure ;
+    dcterms:description "Organisational measures for a smooth cross-border digital public services deliveryPlease list the governance measures foreseen"@en ;
+    dcterms:title "Digital public services in Member States that are mandated to receive evidence through European Business Wallets"@en .
+
+<http://example.org/analysis/assessment/1/7/barrier> a cav:Statement ;
+    cav:interpretation iac:InterpretationPositive ;
+    cav:judgement "No remaining barriers."@en ;
+    cav:type iac:StatementTypeSharedBarrier ;
+    dcterms:description "Measures taken to ensure a shared understanding of the dataPlease list such measures"@en ;
+    dcterms:title "Digital public services in Member States that are mandated to receive evidence through European Business Wallets"@en .
+
+<http://example.org/analysis/assessment/1/8/barrier> a cav:Statement ;
+    cav:interpretation iac:InterpretationPositive ;
+    cav:judgement "No remaining barriers."@en ;
+    cav:type iac:StatementTypeStandardsBarrier ;
+    dcterms:description "Use of commonly agreed open technical specifications and standardsPlease list such measures"@en ;
+    dcterms:title "Digital public services in Member States that are mandated to receive evidence through European Business Wallets"@en .
+
+<http://example.org/analysis/description/1> a iopa:BindingRequirement,
+        lomo:LegalRule ;
+    rdfs:label "Article 4"@en ;
+    iopa:affects <http://example.org/analysis/interop/1> ;
+    cav:valueDescription "Principle of equivalence"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/838/cod/doc/com/COM_2025_838/FINAL/eng/art_4> ;
+    lomo:hasCategory dd:DigitalSolutions,
+        dd:ProcessAutomation ;
+    lomo:involvesProcess <http://example.org/process/use-of-the-ebw-and-the-qualified-electronic-registered-delivery-service-as-digital-solutions> ;
+    lomo:produces <http://example.org/analysis/description/1/action> ;
+    dcterms:description "Principle of equivalence"@en ;
+    dcterms:relation <http://example.org/ie-solution/business-registers-interconnection-system-bris-and-the-beneficial-ownership-registers-interconnection-system-borissdgdpp-walletedd> .
+
+<http://example.org/analysis/description/1/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/1/action/role/addressee-european-business-wallet-owners>,
+        <http://example.org/analysis/description/1/action/role/addressee-self-employed-persons>,
+        <http://example.org/analysis/description/1/action/role/addressee-sole-traders>,
+        <http://example.org/analysis/description/1/action/role/addressee-union-entities> .
+
+<http://example.org/analysis/description/1/action/role/addressee-european-business-wallet-owners> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/european-business-wallet-owners> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/1/action/role/addressee-self-employed-persons> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/self-employed-persons> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/1/action/role/addressee-sole-traders> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/sole-traders> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/1/action/role/addressee-union-entities> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/union-entities> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/10> a iopa:BindingRequirement,
+        lomo:LegalRule ;
+    rdfs:label "Article 11"@en ;
+    iopa:affects <http://example.org/analysis/interop/1> ;
+    cav:valueDescription "Notification of providers of European Business Wallets"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/838/cod/doc/com/COM_2025_838/FINAL/eng/art_11> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/notification-procedure-for-providers-of-ebw> ;
+    lomo:produces <http://example.org/analysis/description/10/action> ;
+    lomo:references <http://example.org/dataset/notification-of-providers-of-ebw> ;
+    dcterms:description "Notification of providers of European Business Wallets"@en ;
+    dcterms:relation <http://example.org/ie-solution/business-registers-interconnection-system-bris-and-the-beneficial-ownership-registers-interconnection-system-borissdgdpp-walletedd> .
+
+<http://example.org/analysis/description/10/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/10/action/role/addressee-providers-of-european-business-wallets>,
+        <http://example.org/analysis/description/10/action/role/addressee-supervisory-body-in-the-member-state-of-establishment> .
+
+<http://example.org/analysis/description/10/action/role/addressee-providers-of-european-business-wallets> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/providers-of-european-business-wallets> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/10/action/role/addressee-supervisory-body-in-the-member-state-of-establishment> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/supervisory-body-in-the-member-state-of-establishment> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/11> a iopa:BindingRequirement,
+        lomo:LegalRule ;
+    rdfs:label "Article 12"@en ;
+    iopa:affects <http://example.org/analysis/interop/1> ;
+    cav:valueDescription "Notification of providers of European Business Wallets by the Member States to the European Commission"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/838/cod/doc/com/COM_2025_838/FINAL/eng/art_12> ;
+    lomo:hasCategory dd:Data,
+        dd:DigitalSolutions ;
+    lomo:involvesProcess y6k:c_d63972244bc8,
+        <http://example.org/process/notification> ;
+    lomo:produces <http://example.org/analysis/description/11/action> ;
+    lomo:references <http://example.org/dataset/list-of-notified-providers-of-ebw> ;
+    dcterms:description "Notification of providers of European Business Wallets by the Member States to the European Commission"@en ;
+    dcterms:relation <http://example.org/ie-solution/business-registers-interconnection-system-bris-and-the-beneficial-ownership-registers-interconnection-system-borissdgdpp-walletedd> .
+
+<http://example.org/analysis/description/11/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/11/action/role/addressee-member-states>,
+        <http://example.org/analysis/description/11/action/role/addressee-the-european-commission> .
+
+<http://example.org/analysis/description/11/action/role/addressee-member-states> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/11/action/role/addressee-the-european-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/the-european-commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/12> a iopa:BindingRequirement,
+        lomo:LegalRule ;
+    rdfs:label "Article 13"@en ;
+    iopa:affects <http://example.org/analysis/interop/1> ;
+    cav:valueDescription "Member State supervision"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/838/cod/doc/com/COM_2025_838/FINAL/eng/art_13> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/notification-of-relevant-national-registries>,
+        <http://example.org/process/supervision-of-ebw-providers> ;
+    lomo:produces <http://example.org/analysis/description/12/action> ;
+    lomo:references <http://example.org/dataset/information-on-national-registries-holding-information-on-economic-operators-and-public-sector-bodies>,
+        <http://example.org/dataset/list-of-ms-supervisory-bodies> ;
+    dcterms:description "Member State supervision"@en ;
+    dcterms:relation <http://example.org/ie-solution/business-registers-interconnection-system-bris-and-the-beneficial-ownership-registers-interconnection-system-borissdgdpp-walletedd> .
+
+<http://example.org/analysis/description/12/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/12/action/role/addressee-providers-of-european-business-wallets>,
+        <http://example.org/analysis/description/12/action/role/addressee-supervisory-bodies-in-each-member-state>,
+        <http://example.org/analysis/description/12/action/role/addressee-the-european-commission> .
+
+<http://example.org/analysis/description/12/action/role/addressee-providers-of-european-business-wallets> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/providers-of-european-business-wallets> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/12/action/role/addressee-supervisory-bodies-in-each-member-state> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/supervisory-bodies-in-each-member-state> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/12/action/role/addressee-the-european-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/the-european-commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/13/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/13/action/role/addressee-european-digital-identity-cooperation-group>,
+        <http://example.org/analysis/description/13/action/role/addressee-member-states>,
+        <http://example.org/analysis/description/13/action/role/addressee-the-european-commission> .
+
+<http://example.org/analysis/description/13/action/role/addressee-european-digital-identity-cooperation-group> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/european-digital-identity-cooperation-group> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/13/action/role/addressee-member-states> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/13/action/role/addressee-the-european-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/the-european-commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/15> a iopa:BindingRequirement,
+        lomo:LegalRule ;
+    rdfs:label "Article 16"@en ;
+    iopa:affects <http://example.org/analysis/interop/2> ;
+    cav:valueDescription "Obligations on public sector bodies to enable the use of the EBW and provide a Qualified Electronic Registered Delivery Service (QERDS)"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/838/cod/doc/com/COM_2025_838/FINAL/eng/art_16> ;
+    lomo:hasCategory dd:DigitalSolutions,
+        dd:ProcessAutomation ;
+    lomo:involvesProcess tc:57,
+        <http://example.org/process/identification>,
+        <http://example.org/process/notification>,
+        <http://example.org/process/signature-and-seal>,
+        <http://example.org/process/submission-of-documents> ;
+    lomo:produces <http://example.org/analysis/description/15/action> ;
+    dcterms:description "Obligations on public sector bodies to enable the use of the EBW and provide a Qualified Electronic Registered Delivery Service (QERDS)"@en .
+
+<http://example.org/analysis/description/15/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/15/action/role/addressee-european-business-wallet-owners>,
+        <http://example.org/analysis/description/15/action/role/addressee-providers-of-european-business-wallets>,
+        <http://example.org/analysis/description/15/action/role/addressee-public-sector-bodies> .
+
+<http://example.org/analysis/description/15/action/role/addressee-european-business-wallet-owners> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/european-business-wallet-owners> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/15/action/role/addressee-providers-of-european-business-wallets> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/providers-of-european-business-wallets> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/15/action/role/addressee-public-sector-bodies> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/public-sector-bodies> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/16/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/16/action/role/addressee-non-eu-countries>,
+        <http://example.org/analysis/description/16/action/role/addressee-the-european-commission> .
+
+<http://example.org/analysis/description/16/action/role/addressee-non-eu-countries> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/non-eu-countries> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/16/action/role/addressee-the-european-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/the-european-commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/17> a iopa:BindingRequirement,
+        lomo:LegalRule ;
+    rdfs:label "Article 18"@en ;
+    iopa:affects <http://example.org/analysis/interop/1> ;
+    cav:valueDescription "Issuing of European Business Wallets to economic operators established outside the Union"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/838/cod/doc/com/COM_2025_838/FINAL/eng/art_18> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/identity-proofing-and-verification>,
+        <http://example.org/process/issuance-of-european-business-wallets> ;
+    lomo:produces <http://example.org/analysis/description/17/action> ;
+    dcterms:description "Issuing of European Business Wallets to economic operators established outside the Union"@en ;
+    dcterms:relation <http://example.org/ie-solution/business-registers-interconnection-system-bris-and-the-beneficial-ownership-registers-interconnection-system-borissdgdpp-walletedd> .
+
+<http://example.org/analysis/description/17/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/17/action/role/addressee-economic-operators-established-in-a-third-country>,
+        <http://example.org/analysis/description/17/action/role/addressee-member-states-of-the-qualified-trust-service-providers>,
+        <http://example.org/analysis/description/17/action/role/addressee-providers-of-european-business-wallets>,
+        <http://example.org/analysis/description/17/action/role/addressee-qualified-trust-service-providers-established-in-a-member-state> .
+
+<http://example.org/analysis/description/17/action/role/addressee-economic-operators-established-in-a-third-country> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/economic-operators-established-in-a-third-country> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/17/action/role/addressee-member-states-of-the-qualified-trust-service-providers> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states-of-the-qualified-trust-service-providers> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/17/action/role/addressee-providers-of-european-business-wallets> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/providers-of-european-business-wallets> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/17/action/role/addressee-qualified-trust-service-providers-established-in-a-member-state> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/qualified-trust-service-providers-established-in-a-member-state> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/18/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/18/action/role/addressee-legal-person>,
+        <http://example.org/analysis/description/18/action/role/addressee-member-states> .
+
+<http://example.org/analysis/description/18/action/role/addressee-legal-person> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/legal-person> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/18/action/role/addressee-member-states> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/2> a iopa:BindingRequirement,
+        lomo:LegalRule ;
+    rdfs:label "Article 5(1),(2),(3),(4)"@en ;
+    iopa:affects <http://example.org/analysis/interop/1> ;
+    cav:valueDescription "European Business Wallet (EBW) functionalities"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/838/cod/doc/com/COM_2025_838/FINAL/eng/art_2/par_2>,
+        <https://data.europa.eu/eli/dl/proc/2025/838/cod/doc/com/COM_2025_838/FINAL/eng/art_3/par_3>,
+        <https://data.europa.eu/eli/dl/proc/2025/838/cod/doc/com/COM_2025_838/FINAL/eng/art_4/par_4>,
+        <https://data.europa.eu/eli/dl/proc/2025/838/cod/doc/com/COM_2025_838/FINAL/eng/art_5/par_1> ;
+    lomo:hasCategory dd:DigitalSolutions,
+        dd:ProcessAutomation ;
+    lomo:involvesProcess <http://example.org/process/it-development-core-functionalities> ;
+    lomo:produces <http://example.org/analysis/description/2/action> ;
+    dcterms:description "European Business Wallet (EBW) functionalities"@en ;
+    dcterms:relation <http://example.org/ie-solution/business-registers-interconnection-system-bris-and-the-beneficial-ownership-registers-interconnection-system-borissdgdpp-walletedd> .
+
+<http://example.org/analysis/description/2/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/2/action/role/addressee-authorised-representatives-of-european-business-wallet-owners>,
+        <http://example.org/analysis/description/2/action/role/addressee-business-wallet-relying-parties>,
+        <http://example.org/analysis/description/2/action/role/addressee-european-business-wallet-owners>,
+        <http://example.org/analysis/description/2/action/role/addressee-providers-of-european-business-wallets> .
+
+<http://example.org/analysis/description/2/action/role/addressee-authorised-representatives-of-european-business-wallet-owners> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/authorised-representatives-of-european-business-wallet-owners> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/2/action/role/addressee-business-wallet-relying-parties> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/business-wallet-relying-parties> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/2/action/role/addressee-european-business-wallet-owners> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/european-business-wallet-owners> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/2/action/role/addressee-providers-of-european-business-wallets> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/providers-of-european-business-wallets> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/3> a iopa:BindingRequirement,
+        lomo:LegalRule ;
+    rdfs:label "Article 6(1),(2),(4)"@en ;
+    iopa:affects <http://example.org/analysis/interop/1> ;
+    cav:valueDescription "Technical features for European Business Wallets"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/838/cod/doc/com/COM_2025_838/FINAL/eng/art_2/par_2>,
+        <https://data.europa.eu/eli/dl/proc/2025/838/cod/doc/com/COM_2025_838/FINAL/eng/art_4/par_4>,
+        <https://data.europa.eu/eli/dl/proc/2025/838/cod/doc/com/COM_2025_838/FINAL/eng/art_6/par_1> ;
+    lomo:hasCategory dd:Data,
+        dd:DigitalSolutions ;
+    lomo:involvesProcess <http://example.org/process/it-development-technical-features> ;
+    lomo:produces <http://example.org/analysis/description/3/action> ;
+    dcterms:description "Technical features for European Business Wallets"@en ;
+    dcterms:relation <http://example.org/ie-solution/business-registers-interconnection-system-bris-and-the-beneficial-ownership-registers-interconnection-system-borissdgdpp-walletedd> .
+
+<http://example.org/analysis/description/3/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/3/action/role/addressee-business-wallet-relying-parties>,
+        <http://example.org/analysis/description/3/action/role/addressee-european-business-wallet-owners>,
+        <http://example.org/analysis/description/3/action/role/addressee-providers-of-european-business-wallets> .
+
+<http://example.org/analysis/description/3/action/role/addressee-business-wallet-relying-parties> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/business-wallet-relying-parties> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/3/action/role/addressee-european-business-wallet-owners> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/european-business-wallet-owners> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/3/action/role/addressee-providers-of-european-business-wallets> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/providers-of-european-business-wallets> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/4> a iopa:BindingRequirement,
+        lomo:LegalRule ;
+    rdfs:label "Article 6(3)"@en ;
+    iopa:affects <http://example.org/analysis/interop/1> ;
+    cav:valueDescription "Making available information notified"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/838/cod/doc/com/COM_2025_838/FINAL/eng/art_6/par_3> ;
+    lomo:hasCategory dd:Data,
+        dd:ProcessAutomation ;
+    lomo:involvesProcess <http://example.org/process/publish-validation-mechanisms> ;
+    lomo:produces <http://example.org/analysis/action/2>,
+        <http://example.org/analysis/description/4/action> ;
+    dcterms:description "Making available information notified"@en ;
+    dcterms:relation <http://example.org/ie-solution/business-registers-interconnection-system-bris-and-the-beneficial-ownership-registers-interconnection-system-borissdgdpp-walletedd> .
+
+<http://example.org/analysis/description/4/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/4/action/role/addressee-european-commission>,
+        <http://example.org/analysis/description/4/action/role/addressee-general-public> .
+
+<http://example.org/analysis/description/4/action/role/addressee-european-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/european-commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/4/action/role/addressee-general-public> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/general-public> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/5> a iopa:BindingRequirement,
+        lomo:LegalRule ;
+    rdfs:label "Article 6(5)"@en ;
+    iopa:affects <http://example.org/analysis/interop/1> ;
+    cav:valueDescription "Establish a set of reference standards and specifications"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/838/cod/doc/com/COM_2025_838/FINAL/eng/art_6/par_5> ;
+    lomo:involvesProcess <http://example.org/process/development-of-implementing-acts> ;
+    lomo:produces <http://example.org/analysis/description/5/action> ;
+    dcterms:description "Establish a set of reference standards and specifications"@en ;
+    dcterms:relation <http://example.org/ie-solution/business-registers-interconnection-system-bris-and-the-beneficial-ownership-registers-interconnection-system-borissdgdpp-walletedd> .
+
+<http://example.org/analysis/description/5/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/5/action/role/addressee-european-commission> .
+
+<http://example.org/analysis/description/5/action/role/addressee-european-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/european-commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/6> a iopa:BindingRequirement,
+        lomo:LegalRule ;
+    rdfs:label "Article 7"@en ;
+    iopa:affects <http://example.org/analysis/interop/1> ;
+    cav:valueDescription "Requirements and obligations for providers of European Business Wallets"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/838/cod/doc/com/COM_2025_838/FINAL/eng/art_7> ;
+    lomo:hasCategory dd:Data,
+        dd:DigitalSolutions,
+        dd:ProcessAutomation ;
+    lomo:involvesProcess <http://example.org/process/establishing-requirements-and-obligations-for-providers-of-european-business-wallets> ;
+    lomo:produces <http://example.org/analysis/description/6/action> ;
+    dcterms:description "Requirements and obligations for providers of European Business Wallets"@en ;
+    dcterms:relation <http://example.org/ie-solution/business-registers-interconnection-system-bris-and-the-beneficial-ownership-registers-interconnection-system-borissdgdpp-walletedd> .
+
+<http://example.org/analysis/description/6/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/6/action/role/addressee-authorised-representatives-of-european-business-wallet-owners>,
+        <http://example.org/analysis/description/6/action/role/addressee-competent-supervisory-bodies>,
+        <http://example.org/analysis/description/6/action/role/addressee-european-business-wallet-owners>,
+        <http://example.org/analysis/description/6/action/role/addressee-providers-of-european-business-wallets>,
+        <http://example.org/analysis/description/6/action/role/addressee-the-european-commission> .
+
+<http://example.org/analysis/description/6/action/role/addressee-authorised-representatives-of-european-business-wallet-owners> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/authorised-representatives-of-european-business-wallet-owners> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/6/action/role/addressee-competent-supervisory-bodies> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/competent-supervisory-bodies> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/6/action/role/addressee-european-business-wallet-owners> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/european-business-wallet-owners> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/6/action/role/addressee-providers-of-european-business-wallets> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/providers-of-european-business-wallets> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/6/action/role/addressee-the-european-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/the-european-commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/7> a iopa:BindingRequirement,
+        lomo:LegalRule ;
+    rdfs:label "Article 8"@en ;
+    iopa:affects <http://example.org/analysis/interop/1> ;
+    cav:valueDescription "European Business Wallet owner identification data"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ;
+            lomo:temporalLabel "Upon request"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/838/cod/doc/com/COM_2025_838/FINAL/eng/art_8> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/management-of-owner-identification-data-pertaining-to-ebw-owners> ;
+    lomo:produces <http://example.org/analysis/action/8>,
+        <http://example.org/analysis/description/7/action> ;
+    lomo:references <http://example.org/dataset/eaaqeaa-electronic-attestations-of-attributes-qualified-electronic-attestations-of-attributes>,
+        <http://example.org/dataset/ebw-owner-identification-data>,
+        <http://example.org/dataset/ebw-owner-identification-data-elements> ;
+    dcterms:description "European Business Wallet owner identification data"@en ;
+    dcterms:relation <http://example.org/ie-solution/business-registers-interconnection-system-bris-and-the-beneficial-ownership-registers-interconnection-system-borissdgdpp-walletedd> .
+
+<http://example.org/analysis/description/7/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/7/action/role/addressee-eu-entities>,
+        <http://example.org/analysis/description/7/action/role/addressee-european-business-wallet-owners>,
+        <http://example.org/analysis/description/7/action/role/addressee-providers-of-european-business-wallet-identification-data>,
+        <http://example.org/analysis/description/7/action/role/addressee-the-european-commission> .
+
+<http://example.org/analysis/description/7/action/role/addressee-eu-entities> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/eu-entities> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/7/action/role/addressee-european-business-wallet-owners> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/european-business-wallet-owners> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/7/action/role/addressee-providers-of-european-business-wallet-identification-data> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/providers-of-european-business-wallet-identification-data> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/7/action/role/addressee-the-european-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/the-european-commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/8> a iopa:BindingRequirement,
+        lomo:LegalRule ;
+    rdfs:label "Article 9"@en ;
+    iopa:affects <http://example.org/analysis/interop/1> ;
+    cav:valueDescription "Unique identifiers for EBW owners"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/838/cod/doc/com/COM_2025_838/FINAL/eng/art_9> ;
+    lomo:hasCategory dd:Data,
+        dd:DigitalPublicService,
+        dd:DigitalSolutions ;
+    lomo:involvesProcess <http://example.org/process/allocation-of-unique-identifiers-for-european-business-wallet-owners> ;
+    lomo:produces <http://example.org/analysis/description/8/action> ;
+    lomo:references <http://example.org/dataset/unique-identifiers-for-ebw-owners-euid> ;
+    dcterms:description "Unique identifiers for EBW owners"@en ;
+    dcterms:relation <http://example.org/ie-solution/business-registers-interconnection-system-bris-and-the-beneficial-ownership-registers-interconnection-system-borissdgdpp-walletedd> .
+
+<http://example.org/analysis/description/8/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/8/action/role/addressee-economic-operators>,
+        <http://example.org/analysis/description/8/action/role/addressee-providers-of-european-business-wallet-owner-identification-data>,
+        <http://example.org/analysis/description/8/action/role/addressee-public-sector-bodies>,
+        <http://example.org/analysis/description/8/action/role/addressee-the-european-commission> .
+
+<http://example.org/analysis/description/8/action/role/addressee-economic-operators> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/economic-operators> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/8/action/role/addressee-providers-of-european-business-wallet-owner-identification-data> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/providers-of-european-business-wallet-owner-identification-data> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/8/action/role/addressee-public-sector-bodies> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/public-sector-bodies> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/8/action/role/addressee-the-european-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/the-european-commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/9> a iopa:BindingRequirement,
+        lomo:LegalRule ;
+    rdfs:label "Article 10"@en ;
+    iopa:affects <http://example.org/analysis/interop/1> ;
+    cav:valueDescription "European Digital Directory"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/838/cod/doc/com/COM_2025_838/FINAL/eng/art_10> ;
+    lomo:hasCategory dd:Data,
+        dd:DigitalSolutions ;
+    lomo:involvesProcess <http://example.org/process/establishment-operation-and-maintenance-of-the-european-digital-directory> ;
+    lomo:produces <http://example.org/analysis/description/9/action> ;
+    lomo:references <http://example.org/dataset/information-for-the-purpose-of-maintaining-the-edd> ;
+    dcterms:description "European Digital Directory"@en ;
+    dcterms:relation <http://example.org/ie-solution/business-registers-interconnection-system-bris-and-the-beneficial-ownership-registers-interconnection-system-borissdgdpp-walletedd> .
+
+<http://example.org/analysis/description/9/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/9/action/role/addressee-european-business-wallet-owners>,
+        <http://example.org/analysis/description/9/action/role/addressee-providers-of-european-business-wallets>,
+        <http://example.org/analysis/description/9/action/role/addressee-the-european-commission> .
+
+<http://example.org/analysis/description/9/action/role/addressee-european-business-wallet-owners> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/european-business-wallet-owners> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/9/action/role/addressee-providers-of-european-business-wallets> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/providers-of-european-business-wallets> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/9/action/role/addressee-the-european-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/the-european-commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/interop/2> a cpsv:PublicService ;
+    rdfs:label "Digital public services in Member States that are mandated to accept evidence through European Business Wallets"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/838/cod/doc/com/COM_2025_838/FINAL/eng/art_16/par_1> ;
+    dcterms:description "National digital public services impacted by the use of European Business Wallets in administrative procedures where public sector bodies are required to accept identification and authentication, eSignature or eSeal, submission of documents, the sending or receiving of notifications."@en ;
+    dcterms:identifier "interop/2" ;
+    dcterms:title "Digital public services in Member States that are mandated to accept evidence through European Business Wallets"@en .
+
+<http://example.org/dataset/ebw-owner-identification-data-elements> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/838/cod/doc/com/COM_2025_838/FINAL/eng/art_8/par_6> ;
+    dcterms:conformsTo <http://example.org/standard/must-contain-at-least-the-following-attributes-the-official-name-of-the-economic-operator-or-public-sector-body-as-recorded-in-the-relevant-register-or-official-record-the-relevant-unique-identifier-attributed-in-accordance-with-article-9> ;
+    dcterms:title "EBW owner identification data elements"@en .
+
+<http://example.org/dataset/information-on-ebw-owners-and-subsequent-changes> a dcat:Dataset ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Information on EBW owners (and subsequent changes)"@en ] ;
+    dcterms:title "Information on EBW owners (and subsequent changes)"@en .
+
+<http://example.org/dataset/information-on-national-registries> a dcat:Dataset ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Information on national registries"@en ] ;
+    dcterms:title "Information on national registries"@en .
+
+<http://example.org/dataset/information-on-national-registries-holding-information-on-economic-operators-and-public-sector-bodies> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/838/cod/doc/com/COM_2025_838/FINAL/eng/art_13/par_5> ;
+    dcterms:conformsTo <http://example.org/standard/not-specified> ;
+    dcterms:title "Information on national registries holding information on economic operators and public sector bodies"@en .
+
+<http://example.org/dataset/notification-about-substantive-changes-to-the-ebw-service> a dcat:Dataset ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Notification about substantive changes to the EBW service"@en ] ;
+    dcterms:title "Notification about substantive changes to the EBW service"@en .
+
+<http://example.org/dataset/notification-about-terms-conditions-rights-and-obligations-related-to-the-ebw> a dcat:Dataset ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Notification about terms, conditions rights and obligations related to the EBW"@en ] ;
+    dcterms:title "Notification about terms, conditions rights and obligations related to the EBW"@en .
+
+<http://example.org/dataset/notification-about-the-suspension-revocation-or-voluntary-termination-of-ebw-service> a dcat:Dataset ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Notification about the suspension, revocation or voluntary termination of EBW service"@en ] ;
+    dcterms:title "Notification about the suspension, revocation or voluntary termination of EBW service"@en .
+
+<http://example.org/dataset/notification-of-providers-of-ebw> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/838/cod/doc/com/COM_2025_838/FINAL/eng/art_11/par_2> ;
+    dcterms:conformsTo <http://example.org/standard/lists-elements-to-be-included-in-the-notification> ;
+    dcterms:title "Notification of providers of EBW"@en .
+
+<http://example.org/dataset/notification-on-the-national-registers-and-associated-registration-numbers> a dcat:Dataset ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Notification on the national registers and associated registration numbers"@en ] ;
+    dcterms:title "Notification on the national registers and associated registration numbers"@en .
+
+<http://example.org/dataset/reporting-obligations-on-the-main-activities> a dcat:Dataset ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Reporting obligations on the main activities"@en ] ;
+    dcterms:title "Reporting obligations on the main activities"@en .
+
+<http://example.org/dataset/unique-identifiers-for-ebw-owners-euid> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/838/cod/doc/com/COM_2025_838/FINAL/eng/art_9/par_1> ;
+    dcterms:conformsTo <http://example.org/standard/euid-identifier-must-be-used-if-an-economic-operator-falls-within-the-scope-of-directive-eu-20171132-or-directive-eu-2015849> ;
+    dcterms:title "Unique identifiers for EBW owners (EUID)"@en .
+
+<http://example.org/process/allocation-of-unique-identifiers-for-european-business-wallet-owners> skos:prefLabel "Allocation of unique identifiers for European Business Wallet owners"@en .
+
+<http://example.org/process/development-of-implementing-acts> skos:prefLabel "Development of implementing acts"@en .
+
+<http://example.org/process/establishing-requirements-and-obligations-for-providers-of-european-business-wallets> skos:prefLabel "Establishing requirements and obligations for providers of European Business Wallets"@en .
+
+<http://example.org/process/establishment-operation-and-maintenance-of-the-european-digital-directory> skos:prefLabel "Establishment, operation, and maintenance of the European Digital Directory"@en .
+
+<http://example.org/process/identification> skos:prefLabel "Identification"@en .
+
+<http://example.org/process/identity-proofing-and-verification> skos:prefLabel "Identity proofing and verification"@en .
+
+<http://example.org/process/information-exchange-and-coordination> skos:prefLabel "Information exchange and coordination"@en .
+
+<http://example.org/process/issuance-of-european-business-wallets> skos:prefLabel "Issuance of European business wallets"@en .
+
+<http://example.org/process/it-development-core-functionalities> skos:prefLabel "IT development (core functionalities)"@en .
+
+<http://example.org/process/it-development-technical-features> skos:prefLabel "IT development (technical features)"@en .
+
+<http://example.org/process/legal-person-identification-authentication-and-data-sharing> skos:prefLabel "Legal person identification, authentication and data sharing"@en .
+
+<http://example.org/process/management-of-owner-identification-data-pertaining-to-ebw-owners> skos:prefLabel "Management of owner identification data pertaining to EBW owners"@en .
+
+<http://example.org/process/notification-of-relevant-national-registries> skos:prefLabel "Notification of relevant national registries"@en .
+
+<http://example.org/process/notification-procedure-for-providers-of-ebw> skos:prefLabel "Notification procedure for providers of EBW"@en .
+
+<http://example.org/process/publication-of-equivalent-systems-from-third-countries> skos:prefLabel "Publication of equivalent systems from third countries"@en .
+
+<http://example.org/process/publish-validation-mechanisms> skos:prefLabel "Publish validation mechanisms"@en .
+
+<http://example.org/process/signature-and-seal> skos:prefLabel "Signature and Seal"@en .
+
+<http://example.org/process/submission-of-documents> skos:prefLabel "Submission of documents"@en .
+
+<http://example.org/process/supervision-of-ebw-providers> skos:prefLabel "Supervision of EBW providers"@en .
+
+<http://example.org/process/use-of-the-ebw-and-the-qualified-electronic-registered-delivery-service-as-digital-solutions> skos:prefLabel "Use of the EBW and the qualified electronic registered delivery service as digital solutions"@en .
+
+<http://example.org/standard/data-elements-to-be-included-names-and-addresses> a dcterms:Standard ;
+    dcterms:title "Data elements to be included: names and addresses"@en .
+
+<http://example.org/standard/eaa-when-issued-by-or-on-behalf-of-a-public-sector-body-responsible-for-an-authentic-source-when-provided-by-a-public-sector-body> a dcterms:Standard ;
+    dcterms:title "-EAA when issued by or on behalf of a public sector body responsible for an authentic source, when provided by a public sector body;"@en .
+
+<http://example.org/standard/eaa-when-provided-by-the-commission> a dcterms:Standard ;
+    dcterms:title "-EAA when provided by the Commission."@en .
+
+<http://example.org/standard/ebw-owner-identification-data-shall-be-issued-in-a-format-according-to-one-of-the-standards-listed-in-annex-ii-of-commission-implementing-regulation-eu-20242979-and-as> a dcterms:Standard ;
+    dcterms:title "EBW owner identification data shall be issued in a format according to one of the standards listed in Annex II of Commission Implementing Regulation (EU) 2024/2979 and as:"@en .
+
+<http://example.org/standard/euid-identifier-must-be-used-if-an-economic-operator-falls-within-the-scope-of-directive-eu-20171132-or-directive-eu-2015849> a dcterms:Standard ;
+    dcterms:title "EUID identifier must be used if an economic operator falls within the scope of Directive (EU) 2017/1132 or Directive (EU) 2015/849"@en .
+
+<http://example.org/standard/interoperability-trust-verification-relying-parties-might-be-able-to-verify-them-there-must-be-revocation-suspension-mechanics-and-trust-infrastructure-must-ensure-their-validity> a dcterms:Standard ;
+    dcterms:title "Interoperability, trust / verification: Relying parties might be able to verify them, there must be revocation / suspension mechanics, and trust infrastructure must ensure their validity."@en .
+
+<http://example.org/standard/issuer-requirements-for-qeaa-the-issuer-must-be-a-qualified-trust-service-provider-satisfying-legal-and-technical-requirements> a dcterms:Standard ;
+    dcterms:title "Issuer requirements: For QEAA, the issuer must be a Qualified Trust Service Provider, satisfying legal and technical requirements."@en .
+
+<http://example.org/standard/lists-elements-to-be-included-in-the-notification> a dcterms:Standard ;
+    dcterms:title "Lists elements to be included in the notification"@en .
+
+<http://example.org/standard/machine-readable-format> a dcterms:Standard ;
+    dcterms:title "Machine readable format"@en .
+
+<http://example.org/standard/must-contain-at-least-the-following-attributes-the-official-name-of-the-economic-operator-or-public-sector-body-as-recorded-in-the-relevant-register-or-official-record-the-relevant-unique-identifier-attributed-in-accordance-with-article-9> a dcterms:Standard ;
+    dcterms:title "Must contain at least the following attributes: the official name of the economic operator or public sector body, as recorded in the relevant register or official record, the relevant unique identifier attributed in accordance with Article 9."@en .
+
+<http://example.org/standard/open-format> a dcterms:Standard ;
+    dcterms:title "Open format"@en .
+
+<http://example.org/standard/qeaa-when-provided-by-qualified-trust-service-providers> a dcterms:Standard ;
+    dcterms:title "-QEAA when provided by qualified trust service providers;"@en .
+
+<http://example.org/standard/regulation-eu-20241183-eidas-20---annex-v-etsi-ts-119-471-etsi-en-319-412-series-etsi-ts-119-182-1-etsi-ts-119-102-1-etsi-ts-119-102-2-etsi-en-319-401-etsi-en-319-411-1-411-2-etsi-ts-119-461-etsi-ts-119-172-4-cenen-319-521> a dcterms:Standard ;
+    dcterms:title "Regulation (EU) 2024/1183 (eIDAS 2.0) - Annex V; ETSI TS 119 471; ETSI EN 319 412 (series); ETSI TS 119 182-1; ETSI TS 119 102-1; ETSI TS 119 102-2; ETSI EN 319 401; ETSI EN 319 411-1 / 411-2; ETSI TS 119 461; ETSI TS 119 172-4; CEN/EN 319 521"@en .
+
+<http://example.org/standard/standards-and-technical-specifications-for-the-edd-to-be-established-in-the-implementing-acts-to-be-adopted> a dcterms:Standard ;
+    dcterms:title "Standards and technical specifications for the EDD to be established in the implementing acts to be adopted"@en .
+
+<http://example.org/standard/standards-formats-the-attestations-must-follow-the-schemas-formats-prescribed-within-arf-toolbox-for-attribute-attestations-the-attributes-themselves-must-be-accurate-derived-from-authentic-sources> a dcterms:Standard ;
+    dcterms:title "Standards / formats: The attestations must follow the schemas / formats prescribed (within ARF / toolbox) for attribute attestations. The attributes themselves must be accurate, derived from authentic sources."@en .
+
+<http://publications.europa.eu/resource/authority/corporate-body/COM> a m8g:PublicOrganisation ;
+    dcterms:description "The European Commission, provider of the interoperability assessment."@en ;
+    skos:prefLabel "European Commission"@en .
+
+<http://example.org/agent/authorised-representatives-of-european-business-wallet-owners> rdfs:label "Authorised representatives of European Business Wallet owners"@en .
+
+<http://example.org/agent/business-wallet-relying-parties> rdfs:label "Business Wallet-relying parties"@en .
+
+<http://example.org/agent/ebw-owner> rdfs:label "EBW owner"@en .
+
+<http://example.org/agent/notifying-entity> rdfs:label "Notifying entity"@en .
+
+<http://example.org/agent/public-sector-bodies> rdfs:label "Public sector bodies"@en .
+
+<http://example.org/dataset/eaaqeaa-electronic-attestations-of-attributes-qualified-electronic-attestations-of-attributes> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/838/cod/doc/com/COM_2025_838/FINAL/eng/art_8/par_1> ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "EAA/QEAA (Electronic Attestations of Attributes / Qualified Electronic Attestations of Attributes)"@en ] ;
+    dcterms:conformsTo <http://example.org/standard/interoperability-trust-verification-relying-parties-might-be-able-to-verify-them-there-must-be-revocation-suspension-mechanics-and-trust-infrastructure-must-ensure-their-validity>,
+        <http://example.org/standard/issuer-requirements-for-qeaa-the-issuer-must-be-a-qualified-trust-service-provider-satisfying-legal-and-technical-requirements>,
+        <http://example.org/standard/regulation-eu-20241183-eidas-20---annex-v-etsi-ts-119-471-etsi-en-319-412-series-etsi-ts-119-182-1-etsi-ts-119-102-1-etsi-ts-119-102-2-etsi-en-319-401-etsi-en-319-411-1-411-2-etsi-ts-119-461-etsi-ts-119-172-4-cenen-319-521>,
+        <http://example.org/standard/standards-formats-the-attestations-must-follow-the-schemas-formats-prescribed-within-arf-toolbox-for-attribute-attestations-the-attributes-themselves-must-be-accurate-derived-from-authentic-sources> ;
+    dcterms:title "EAA/QEAA (Electronic Attestations of Attributes / Qualified Electronic Attestations of Attributes)"@en .
+
+<http://example.org/dataset/ebw-owner-identification-data> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/838/cod/doc/com/COM_2025_838/FINAL/eng/art_8/par_1> ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "EBW owner identification data"@en ] ;
+    dcterms:conformsTo <http://example.org/standard/eaa-when-issued-by-or-on-behalf-of-a-public-sector-body-responsible-for-an-authentic-source-when-provided-by-a-public-sector-body>,
+        <http://example.org/standard/eaa-when-provided-by-the-commission>,
+        <http://example.org/standard/ebw-owner-identification-data-shall-be-issued-in-a-format-according-to-one-of-the-standards-listed-in-annex-ii-of-commission-implementing-regulation-eu-20242979-and-as>,
+        <http://example.org/standard/qeaa-when-provided-by-qualified-trust-service-providers> ;
+    dcterms:title "EBW owner identification data"@en .
+
+<http://example.org/dataset/information-for-the-purpose-of-maintaining-the-edd> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/838/cod/doc/com/COM_2025_838/FINAL/eng/art_10/par_3> ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Information for the purpose of maintaining the EDD"@en ] ;
+    dcterms:conformsTo <http://example.org/standard/standards-and-technical-specifications-for-the-edd-to-be-established-in-the-implementing-acts-to-be-adopted> ;
+    dcterms:title "Information for the purpose of maintaining the EDD"@en .
+
+<http://example.org/dataset/information-on-validation-mechanisms> a dcat:Dataset ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Information on validation mechanisms"@en ],
+        [ a lomo:ActionResult ;
+            rdfs:label "Information on validation mechanisms"@en ] ;
+    dcterms:title "Information on validation mechanisms"@en .
+
+<http://example.org/dataset/list-of-business-wallets-and-other-similar-instruments-offered-in-third-countries> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/838/cod/doc/com/COM_2025_838/FINAL/eng/art_17/par_4> ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "List of Business Wallets and other similar instruments offered in third countries"@en ] ;
+    dcterms:conformsTo <http://example.org/standard/not-specified> ;
+    dcterms:title "List of Business Wallets and other similar instruments offered in third countries"@en .
+
+<http://example.org/dataset/list-of-notified-providers-of-ebw> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/838/cod/doc/com/COM_2025_838/FINAL/eng/art_12> ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "List of notified providers of EBW"@en ] ;
+    dcterms:conformsTo <http://example.org/standard/machine-readable-format> ;
+    dcterms:title "List of notified providers of EBW"@en .
+
+<http://example.org/dataset/notification-on-providers-of-ebw> a dcat:Dataset ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Notification on providers of EBW"@en ],
+        [ a lomo:ActionResult ;
+            rdfs:label "Notification on providers of EBW"@en ] ;
+    dcterms:title "Notification on providers of EBW"@en .
+
+<http://example.org/process/notification> skos:prefLabel "Notification"@en .
+
+<http://example.org/standard/not-specified> a dcterms:Standard ;
+    dcterms:title "Not specified"@en .
+
+<http://example.org/agent/member-states> rdfs:label "Member States"@en .
+
+<http://example.org/agent/ms> rdfs:label "MS"@en .
+
+<http://example.org/agent/ms-supervisory-bodies> rdfs:label "MS Supervisory bodies"@en .
+
+<http://example.org/dataset/list-of-ms-supervisory-bodies> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/838/cod/doc/com/COM_2025_838/FINAL/eng/art_13/par_3> ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "List of MS supervisory bodies"@en ],
+        [ a lomo:ActionResult ;
+            rdfs:label "List of MS supervisory bodies"@en ] ;
+    dcterms:conformsTo <http://example.org/standard/data-elements-to-be-included-names-and-addresses> ;
+    dcterms:title "List of MS supervisory bodies"@en .
+
+<http://example.org/agent/european-commission> rdfs:label "European Commission"@en .
+
+<http://example.org/agent/general-public> rdfs:label "General Public"@en .
+
+<http://example.org/agent/providers-of-ebw> rdfs:label "Providers of EBW"@en .
+
+<http://example.org/agent/european-business-wallet-owners> rdfs:label "European Business Wallet owners"@en .
+
+<http://example.org/agent/providers-of-european-business-wallets> rdfs:label "Providers of European Business Wallets"@en .
+
+<http://example.org/agent/the-european-commission> rdfs:label "The European Commission"@en .
+
+<http://example.org/agent/the-commission> rdfs:label "The Commission"@en .
+
+<http://example.org/analysis/interop/1> a cpsv:PublicService ;
+    rdfs:label "Digital identity verification and authorisation, European Business Wallets (COFOG 01.6 - BT.1 - General public services)"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/838/cod/doc/com/COM_2025_838/FINAL/eng/art_10>,
+        <https://data.europa.eu/eli/dl/proc/2025/838/cod/doc/com/COM_2025_838/FINAL/eng/art_11>,
+        <https://data.europa.eu/eli/dl/proc/2025/838/cod/doc/com/COM_2025_838/FINAL/eng/art_12>,
+        <https://data.europa.eu/eli/dl/proc/2025/838/cod/doc/com/COM_2025_838/FINAL/eng/art_13>,
+        <https://data.europa.eu/eli/dl/proc/2025/838/cod/doc/com/COM_2025_838/FINAL/eng/art_18/par_1>,
+        <https://data.europa.eu/eli/dl/proc/2025/838/cod/doc/com/COM_2025_838/FINAL/eng/art_19>,
+        <https://data.europa.eu/eli/dl/proc/2025/838/cod/doc/com/COM_2025_838/FINAL/eng/art_2/par_2>,
+        <https://data.europa.eu/eli/dl/proc/2025/838/cod/doc/com/COM_2025_838/FINAL/eng/art_21>,
+        <https://data.europa.eu/eli/dl/proc/2025/838/cod/doc/com/COM_2025_838/FINAL/eng/art_3/par_3>,
+        <https://data.europa.eu/eli/dl/proc/2025/838/cod/doc/com/COM_2025_838/FINAL/eng/art_4>,
+        <https://data.europa.eu/eli/dl/proc/2025/838/cod/doc/com/COM_2025_838/FINAL/eng/art_4/par_4>,
+        <https://data.europa.eu/eli/dl/proc/2025/838/cod/doc/com/COM_2025_838/FINAL/eng/art_5/par_1>,
+        <https://data.europa.eu/eli/dl/proc/2025/838/cod/doc/com/COM_2025_838/FINAL/eng/art_5/par_5>,
+        <https://data.europa.eu/eli/dl/proc/2025/838/cod/doc/com/COM_2025_838/FINAL/eng/art_6/par_1>,
+        <https://data.europa.eu/eli/dl/proc/2025/838/cod/doc/com/COM_2025_838/FINAL/eng/art_6/par_3>,
+        <https://data.europa.eu/eli/dl/proc/2025/838/cod/doc/com/COM_2025_838/FINAL/eng/art_6/par_5>,
+        <https://data.europa.eu/eli/dl/proc/2025/838/cod/doc/com/COM_2025_838/FINAL/eng/art_7>,
+        <https://data.europa.eu/eli/dl/proc/2025/838/cod/doc/com/COM_2025_838/FINAL/eng/art_8>,
+        <https://data.europa.eu/eli/dl/proc/2025/838/cod/doc/com/COM_2025_838/FINAL/eng/art_9> ;
+    dcterms:description "Public service facilitates secure cross-border transactions by providing a framework for digital identity and authentication for economic operators and public sector bodies."@en ;
+    dcterms:identifier "interop/1" ;
+    dcterms:references <http://example.org/ie-solution/business-registers-interconnection-system-bris-and-the-beneficial-ownership-registers-interconnection-system-borissdgdpp-walletedd> ;
+    dcterms:title "Digital identity verification and authorisation, European Business Wallets (COFOG 01.6 - BT.1 - General public services)"@en .
+
+<http://example.org/ie-solution/business-registers-interconnection-system-bris-and-the-beneficial-ownership-registers-interconnection-system-borissdgdpp-walletedd> a adms:Asset ;
+    dcterms:description "Business Registers Interconnection System (‘BRIS’) and the Beneficial Ownership Registers Interconnection System (‘BORIS’)SDGDPP WalletEDD"@en ;
+    dcterms:title "Business Registers Interconnection System (‘BRIS’) and the Beneficial Ownership Registers Interconnection System (‘BORIS’)SDGDPP WalletEDD"@en .
+

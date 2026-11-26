@@ -1,0 +1,26 @@
+PREFIX lomo:    <http://data.europa.eu/leg/lomo#>
+PREFIX dcterms: <http://purl.org/dc/terms/>
+PREFIX dctype:  <http://purl.org/dc/dcmitype/>
+PREFIX rdf:     <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs:    <http://www.w3.org/2000/01/rdf-schema#>
+
+# Reverse of process_solution_table -> solution.html
+# One row per software: digital solution | reference(s) | functionalities | responsible body
+# ELI and publisher live directly on the software (establishedIn / dcterms:publisher).
+SELECT ?software ?title ?publisher
+       (GROUP_CONCAT(DISTINCT COALESCE(STR(?eli), "");        SEPARATOR="||") AS ?elis)
+       (GROUP_CONCAT(DISTINCT COALESCE(STR(?capability), ""); SEPARATOR="||") AS ?capabilities)
+WHERE {
+  ?software rdf:type dctype:Software ;
+            dcterms:title ?title .
+
+  OPTIONAL { ?software lomo:establishedIn ?eli . }
+  OPTIONAL { ?software lomo:hasCapability ?capability . }
+  OPTIONAL {
+    ?software dcterms:publisher ?publisherURI .
+    OPTIONAL { ?publisherURI rdfs:label ?publisherLbl . }
+    BIND(COALESCE(?publisherLbl, REPLACE(STR(?publisherURI), "^.*/agent/", "")) AS ?publisher)
+  }
+}
+GROUP BY ?software ?title ?publisher
+ORDER BY ?title

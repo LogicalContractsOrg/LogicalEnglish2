@@ -1,0 +1,851 @@
+@prefix : <http://data.europa.eu/leg/lomo/financial-reporting#> .
+@prefix lomo: <http://data.europa.eu/leg/lomo#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix eli: <http://data.europa.eu/eli/ontology#> .
+
+@base <http://data.europa.eu/leg/lomo/financial-reporting> .
+
+<http://data.europa.eu/leg/lomo/financial-reporting> rdf:type owl:Ontology ;
+    dcterms:title "Financial Reporting Directive 2013/34/EU - LOMO Instantiation"@en ;
+    dcterms:description "Partial instantiation of Directive 2013/34/EU on annual financial statements, consolidated financial statements and related reports using the Legal Requirements Metadata Ontology (LOMO)."@en ;
+    dcterms:created "2025-12-01"^^xsd:date ;
+    dcterms:source "Directive 2013/34/EU of the European Parliament and of the Council on annual financial statements"@en ;
+    owl:imports <http://data.europa.eu/leg/lomo> ,
+                <http://data.europa.eu/leg/lomo/ontology/0.6.6> .
+
+#################################################################
+#    AGENTS (Specific Entities)
+#################################################################
+
+:Agent_Commission rdf:type owl:NamedIndividual , lomo:Agent ;
+    rdfs:label "European Commission"@en ;
+    rdfs:comment "The European Commission with delegated powers to amend thresholds."@en .
+
+#################################################################
+#    AGENT TYPES (Categories of Entities)
+#################################################################
+
+:AgentType_MemberStates rdf:type owl:NamedIndividual , lomo:AgentType ;
+    rdfs:label "Member States"@en ;
+    rdfs:comment "EU Member States responsible for transposing and implementing the Directive."@en .
+
+:AgentType_StatutoryAuditor rdf:type owl:NamedIndividual , lomo:AgentType ;
+    rdfs:label "Statutory Auditor or Audit Firm"@en ;
+    rdfs:comment "Auditors responsible for providing opinions on financial statements."@en .
+
+#################################################################
+#    UNDERTAKING CATEGORIES (Agent Types)
+#################################################################
+
+:AgentType_MicroUndertaking rdf:type owl:NamedIndividual , lomo:AgentType ;
+    rdfs:label "Micro-undertakings"@en ;
+    rdfs:comment "Undertakings not exceeding limits of at least 2 of 3 criteria: balance sheet €350k, net turnover €700k, 10 employees."@en ;
+    lomo:usesDefinition :Def_MicroUndertaking .
+
+:AgentType_SmallUndertaking rdf:type owl:NamedIndividual , lomo:AgentType ;
+    rdfs:label "Small Undertakings"@en ;
+    rdfs:comment "Undertakings not exceeding limits of at least 2 of 3 criteria: balance sheet €4M, net turnover €8M, 50 employees."@en ;
+    lomo:usesDefinition :Def_SmallUndertaking .
+
+:AgentType_MediumSizedUndertaking rdf:type owl:NamedIndividual , lomo:AgentType ;
+    rdfs:label "Medium-sized Undertakings"@en ;
+    rdfs:comment "Undertakings not exceeding limits of at least 2 of 3 criteria: balance sheet €20M, net turnover €40M, 250 employees."@en ;
+    lomo:usesDefinition :Def_MediumSizedUndertaking .
+
+:AgentType_LargeUndertaking rdf:type owl:NamedIndividual , lomo:AgentType ;
+    rdfs:label "Large Undertakings"@en ;
+    rdfs:comment "Undertakings exceeding at least 2 of 3 criteria: balance sheet €20M, net turnover €40M, 250 employees."@en ;
+    lomo:usesDefinition :Def_LargeUndertaking .
+
+:AgentType_PublicInterestEntity rdf:type owl:NamedIndividual , lomo:AgentType ;
+    rdfs:label "Public-Interest Entities"@en ;
+    rdfs:comment "Undertakings including those with securities on regulated markets, credit institutions, insurance undertakings, or designated by Member States."@en ;
+    lomo:usesDefinition :Def_PublicInterestEntity .
+
+:AgentType_Undertaking rdf:type owl:NamedIndividual , lomo:AgentType ;
+    rdfs:label "Undertakings"@en ;
+    rdfs:comment "Undertakings of any size within the scope of Article 1, i.e. the addressees of the general reporting and publication duties regardless of size category."@en .
+
+:AgentType_ParentUndertaking rdf:type owl:NamedIndividual , lomo:AgentType ;
+    rdfs:label "Parent Undertakings"@en ;
+    rdfs:comment "Undertakings which control one or more subsidiary undertakings and draw up consolidated financial statements."@en ;
+    lomo:usesDefinition :Def_ParentUndertaking .
+
+:AgentType_SmallGroup rdf:type owl:NamedIndividual , lomo:AgentType ;
+    rdfs:label "Small Groups"@en ;
+    rdfs:comment "Groups not exceeding on consolidated basis at least 2 of 3 criteria."@en ;
+    lomo:usesDefinition :Def_SmallGroup .
+
+:AgentType_MediumGroup rdf:type owl:NamedIndividual , lomo:AgentType ;
+    rdfs:label "Medium-sized Groups"@en ;
+    rdfs:comment "Groups not exceeding on consolidated basis at least 2 of 3 criteria."@en ;
+    lomo:usesDefinition :Def_MediumSizedGroup .
+
+:AgentType_LargeGroup rdf:type owl:NamedIndividual , lomo:AgentType ;
+    rdfs:label "Large Groups"@en ;
+    rdfs:comment "Groups exceeding on consolidated basis at least 2 of 3 criteria."@en ;
+    lomo:usesDefinition :Def_LargeGroup .
+
+#################################################################
+#    SHARED AGENT ROLES
+#################################################################
+
+:AgentRole_MS_OptionHolder rdf:type owl:NamedIndividual , lomo:AgentRole ;
+    lomo:forAgent :AgentType_MemberStates ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> ;
+    rdfs:comment "Member States as holders of a Member State option, i.e. the addressees of the permissions ('Member States may ...') granted by this Directive."@en .
+
+#################################################################
+#    RESULT TYPES
+#################################################################
+
+:ResultType_FinancialStatements rdf:type owl:NamedIndividual , lomo:ActionResultType ;
+    rdfs:label "Annual Financial Statements"@en ;
+    skos:definition "Duly approved annual financial statements."@en .
+
+:ResultType_ManagementReport rdf:type owl:NamedIndividual , lomo:ActionResultType ;
+    rdfs:label "Management Report"@en ;
+    skos:definition "Management report including fair review and key performance indicators."@en .
+
+:ResultType_AuditorOpinion rdf:type owl:NamedIndividual , lomo:ActionResultType ;
+    rdfs:label "Auditor Opinion"@en ;
+    skos:definition "Opinion submitted by statutory auditor or audit firm."@en .
+
+:ResultType_ConsolidatedStatements rdf:type owl:NamedIndividual , lomo:ActionResultType ;
+    rdfs:label "Consolidated Financial Statements"@en ;
+    skos:definition "Consolidated financial statements for groups."@en .
+
+:ResultType_ConsolidatedFinancialStatements rdf:type owl:NamedIndividual , lomo:ActionResultType ;
+    rdfs:label "Consolidated Financial Statements"@en ;
+    skos:definition "Consolidated financial statements for parent and subsidiary undertakings."@en .
+
+:ResultType_ConsolidatedManagementReport rdf:type owl:NamedIndividual , lomo:ActionResultType ;
+    rdfs:label "Consolidated Management Report"@en ;
+    skos:definition "Consolidated management report for groups."@en .
+
+#################################################################
+#    FREQUENCIES
+#################################################################
+
+:Frequency_Annual rdf:type owl:NamedIndividual , lomo:Frequency ;
+    rdfs:label "Annually"@en ;
+    rdfs:comment "Action must be performed once per year."@en ;
+    lomo:frequencyValue 1 ;
+    lomo:frequencyUnit "year" .
+
+:Frequency_FiveYears rdf:type owl:NamedIndividual , lomo:Frequency ;
+    rdfs:label "At Least Every Five Years"@en ;
+    rdfs:comment "Action must be performed at least once every five years."@en ;
+    lomo:frequencyValue 5 ;
+    lomo:frequencyUnit "year" .
+
+#################################################################
+#    TEMPORAL SPECIFICATIONS
+#################################################################
+
+:TriggerInstant_BalanceSheetDate rdf:type owl:NamedIndividual , lomo:TemporalSpecification ;
+    rdfs:label "Balance Sheet Date"@en ;
+    lomo:temporalLabel "balance sheet date"@en ;
+    lomo:triggerDescription "balance sheet date of the reporting undertaking"@en ;
+    rdfs:comment "The date of the balance sheet, triggering various obligations."@en .
+
+:TemporalSpec_12MonthsAfterBalanceSheet rdf:type owl:NamedIndividual , lomo:IntervalSpec ;
+    rdfs:label "Within 12 Months After Balance Sheet Date"@en ;
+    lomo:hasStart :TriggerInstant_BalanceSheetDate ;
+    lomo:hasDuration "P12M"^^xsd:duration ;
+    lomo:hasFunction <http://data.europa.eu/leg/temporal-function/deadline> ;
+    rdfs:comment "Deadline for publication: not exceeding 12 months after balance sheet date."@en .
+
+:TemporalSpec_TranspositionDeadline rdf:type owl:NamedIndividual , lomo:TemporalSpecification ;
+    rdfs:label "Transposition Deadline"@en ;
+    lomo:instant "2015-07-20"^^xsd:date ;
+    lomo:temporalLabel "transposition deadline"@en ;
+    lomo:triggerDescription "deadline for transposition into national law"@en ;
+    rdfs:comment "Deadline for Member States to transpose the Directive."@en .
+
+#################################################################
+#    ARTICLE 2 - DEFINITIONS
+#################################################################
+
+### Definitions from Article 2 (in order of appearance)
+
+## Point (1) - Public-Interest Entities
+:Def_PublicInterestEntity rdf:type owl:NamedIndividual , lomo:Definition ;
+    rdfs:label "Definition: Public-Interest Entities"@en ;
+    lomo:hasDefiniendum "public-interest entities"@en ;
+    lomo:hasDefiniens "undertakings within the scope of Article 1 which are: (a) governed by the law of a Member State and whose transferable securities are admitted to trading on a regulated market of any Member State within the meaning of point (14) of Article 4(1) of Directive 2004/39/EC of the European Parliament and of the Council of 21 April 2004 on markets in financial instruments; (b) credit institutions as defined in point (1) of Article 4 of Directive 2006/48/EC of the European Parliament and of the Council of 14 June 2006 relating to the taking up and pursuit of the business of credit institutions, other than those referred to in Article 2 of that Directive; (c) insurance undertakings within the meaning of Article 2(1) of Council Directive 91/674/EEC of 19 December 1991 on the annual accounts of insurance undertakings; or (d) designated by Member States as public-interest entities, for instance undertakings that are of significant public relevance because of the nature of their business, their size or the number of their employees"@en ;
+    lomo:establishedIn <http://data.europa.eu/eli/dir/2013/34/oj/art_2/pnt_1> .
+
+## Point (2) - Participating Interest
+:Def_ParticipatingInterest rdf:type owl:NamedIndividual , lomo:Definition ;
+    rdfs:label "Definition: Participating Interest"@en ;
+    lomo:hasDefiniendum "participating interest"@en ;
+    lomo:hasDefiniens "rights in the capital of other undertakings, whether or not represented by certificates, which, by creating a durable link with those undertakings, are intended to contribute to the activities of the undertaking which holds those rights. The holding of part of the capital of another undertaking is presumed to constitute a participating interest where it exceeds a percentage threshold fixed by the Member States which is lower than or equal to 20 %"@en ;
+    lomo:isSemanticDefinition "true"^^xsd:boolean ;
+    lomo:establishedIn <http://data.europa.eu/eli/dir/2013/34/oj/art_2/pnt_2> .
+
+## Point (3) - Related Party
+:Def_RelatedParty rdf:type owl:NamedIndividual , lomo:Definition ;
+    rdfs:label "Definition: Related Party (by reference)"@en ;
+    lomo:hasDefiniendum "related party"@en ;
+    lomo:hasDefiniens "as defined in the international accounting standards adopted in accordance with Regulation (EC) No 1606/2002"@en ;
+    lomo:isSemanticDefinition "false"^^xsd:boolean ;
+    lomo:establishedIn <http://data.europa.eu/eli/dir/2013/34/oj/art_2/pnt_3> .
+
+## Point (4) - Fixed Assets
+:Def_FixedAssets rdf:type owl:NamedIndividual , lomo:Definition ;
+    rdfs:label "Definition: Fixed Assets"@en ;
+    lomo:hasDefiniendum "fixed assets"@en ;
+    lomo:hasDefiniens "those assets which are intended for use on a continuing basis for the undertaking's activities"@en ;
+    lomo:isSemanticDefinition "true"^^xsd:boolean ;
+    lomo:establishedIn <http://data.europa.eu/eli/dir/2013/34/oj/art_2/pnt_4> .
+
+## Point (5) - Net Turnover
+:Def_NetTurnover rdf:type owl:NamedIndividual , lomo:Definition ;
+    rdfs:label "Definition: Net Turnover"@en ;
+    lomo:hasDefiniendum "net turnover"@en ;
+    lomo:hasDefiniens "the amounts derived from the sale of products and the provision of services after deducting sales rebates and value added tax and other taxes directly linked to turnover"@en ;
+    lomo:isSemanticDefinition "true"^^xsd:boolean ;
+    lomo:establishedIn <http://data.europa.eu/eli/dir/2013/34/oj/art_2/pnt_5> .
+
+## Point (6) - Purchase Price
+:Def_PurchasePrice rdf:type owl:NamedIndividual , lomo:Definition ;
+    rdfs:label "Definition: Purchase Price"@en ;
+    lomo:hasDefiniendum "purchase price"@en ;
+    lomo:hasDefiniens "the price payable and any incidental expenses minus any incidental reductions in the cost of acquisition"@en ;
+    lomo:isSemanticDefinition "true"^^xsd:boolean ;
+    lomo:establishedIn <http://data.europa.eu/eli/dir/2013/34/oj/art_2/pnt_6> .
+
+## Point (7) - Production Cost
+:Def_ProductionCost rdf:type owl:NamedIndividual , lomo:Definition ;
+    rdfs:label "Definition: Production Cost"@en ;
+    lomo:hasDefiniendum "production cost"@en ;
+    lomo:hasDefiniens "the purchase price of raw materials, consumables and other costs directly attributable to the item in question. Member States shall permit or require the inclusion of a reasonable proportion of fixed or variable overhead costs indirectly attributable to the item in question, to the extent that they relate to the period of production. Distribution costs shall not be included"@en ;
+    lomo:isSemanticDefinition "true"^^xsd:boolean ;
+    lomo:establishedIn <http://data.europa.eu/eli/dir/2013/34/oj/art_2/pnt_7> .
+
+## Point (8) - Value Adjustment
+:Def_ValueAdjustment rdf:type owl:NamedIndividual , lomo:Definition ;
+    rdfs:label "Definition: Value Adjustment"@en ;
+    lomo:hasDefiniendum "value adjustment"@en ;
+    lomo:hasDefiniens "the adjustments intended to take account of changes in the values of individual assets established at the balance sheet date, whether the change is final or not"@en ;
+    lomo:isSemanticDefinition "true"^^xsd:boolean ;
+    lomo:establishedIn <http://data.europa.eu/eli/dir/2013/34/oj/art_2/pnt_8> .
+
+## Point (9) - Parent Undertaking
+:Def_ParentUndertaking rdf:type owl:NamedIndividual , lomo:Definition ;
+    rdfs:label "Definition: Parent Undertaking"@en ;
+    lomo:hasDefiniendum "parent undertaking"@en ;
+    lomo:hasDefiniens "an undertaking which controls one or more subsidiary undertakings"@en ;
+    lomo:isSemanticDefinition "true"^^xsd:boolean ;
+    lomo:establishedIn <http://data.europa.eu/eli/dir/2013/34/oj/art_2/pnt_9> .
+
+## Point (10) - Subsidiary Undertaking
+:Def_SubsidiaryUndertaking rdf:type owl:NamedIndividual , lomo:Definition ;
+    rdfs:label "Definition: Subsidiary Undertaking"@en ;
+    lomo:hasDefiniendum "subsidiary undertaking"@en ;
+    lomo:hasDefiniens "an undertaking controlled by a parent undertaking, including any subsidiary undertaking of an ultimate parent undertaking"@en ;
+    lomo:isSemanticDefinition "true"^^xsd:boolean ;
+    lomo:establishedIn <http://data.europa.eu/eli/dir/2013/34/oj/art_2/pnt_10> .
+
+## Point (11) - Group
+:Def_Group rdf:type owl:NamedIndividual , lomo:Definition ;
+    rdfs:label "Definition: Group"@en ;
+    lomo:hasDefiniendum "group"@en ;
+    lomo:hasDefiniens "a parent undertaking and all its subsidiary undertakings"@en ;
+    lomo:isSemanticDefinition "true"^^xsd:boolean ;
+    lomo:establishedIn <http://data.europa.eu/eli/dir/2013/34/oj/art_2/pnt_11> .
+
+## Point (12) - Affiliated Undertakings
+:Def_AffiliatedUndertakings rdf:type owl:NamedIndividual , lomo:Definition ;
+    rdfs:label "Definition: Affiliated Undertakings"@en ;
+    lomo:hasDefiniendum "affiliated undertakings"@en ;
+    lomo:hasDefiniens "any two or more undertakings within a group"@en ;
+    lomo:isSemanticDefinition "true"^^xsd:boolean ;
+    lomo:establishedIn <http://data.europa.eu/eli/dir/2013/34/oj/art_2/pnt_12> .
+
+## Point (13) - Associated Undertaking
+:Def_AssociatedUndertaking rdf:type owl:NamedIndividual , lomo:Definition ;
+    rdfs:label "Definition: Associated Undertaking"@en ;
+    lomo:hasDefiniendum "associated undertaking"@en ;
+    lomo:hasDefiniens "an undertaking in which another undertaking has a participating interest, and over whose operating and financial policies that other undertaking exercises significant influence. An undertaking is presumed to exercise a significant influence over another undertaking where it has 20 % or more of the shareholders' or members' voting rights in that other undertaking"@en ;
+    lomo:isSemanticDefinition "true"^^xsd:boolean ;
+    lomo:establishedIn <http://data.europa.eu/eli/dir/2013/34/oj/art_2/pnt_13> .
+
+## Point (14) - Investment Undertakings
+:Def_InvestmentUndertakings rdf:type owl:NamedIndividual , lomo:Definition ;
+    rdfs:label "Definition: Investment Undertakings"@en ;
+    lomo:hasDefiniendum "investment undertakings"@en ;
+    lomo:hasDefiniens "undertakings the sole object of which is to invest their funds in various securities, real property and other assets, with the sole aim of spreading investment risks and giving their shareholders the benefit of the results of the management of their assets; and undertakings associated with investment undertakings with fixed capital, if the sole object of those associated undertakings is to acquire fully paid shares issued by those investment undertakings without prejudice to point (h) of Article 22(1) of Directive 2012/30/EU"@en ;
+    lomo:isSemanticDefinition "true"^^xsd:boolean ;
+    lomo:establishedIn <http://data.europa.eu/eli/dir/2013/34/oj/art_2/pnt_14> .
+
+## Point (15) - Financial Holding Undertakings
+:Def_FinancialHoldingUndertakings rdf:type owl:NamedIndividual , lomo:Definition ;
+    rdfs:label "Definition: Financial Holding Undertakings"@en ;
+    lomo:hasDefiniendum "financial holding undertakings"@en ;
+    lomo:hasDefiniens "undertakings the sole object of which is to acquire holdings in other undertakings and to manage such holdings and turn them to profit, without involving themselves directly or indirectly in the management of those undertakings, without prejudice to their rights as shareholders"@en ;
+    lomo:isSemanticDefinition "true"^^xsd:boolean ;
+    lomo:establishedIn <http://data.europa.eu/eli/dir/2013/34/oj/art_2/pnt_15> .
+
+## Point (16) - Material
+:Def_Material rdf:type owl:NamedIndividual , lomo:Definition ;
+    rdfs:label "Definition: Material"@en ;
+    lomo:hasDefiniendum "material"@en ;
+    lomo:hasDefiniens "the status of information where its omission or misstatement could reasonably be expected to influence decisions that users make on the basis of the financial statements"@en ;
+    lomo:isSemanticDefinition "true"^^xsd:boolean ;
+    lomo:establishedIn <http://data.europa.eu/eli/dir/2013/34/oj/art_2/pnt_16> .
+
+#################################################################
+#    ARTICLE 3 - SIZE CRITERIA FOR UNDERTAKINGS
+#################################################################
+
+## Article 3 Definitions
+
+:Def_MicroUndertaking rdf:type owl:NamedIndividual , lomo:Definition ;
+    rdfs:label "Definition: Micro-undertaking"@en ;
+    lomo:hasDefiniendum "micro-undertaking"@en ;
+    lomo:hasDefiniens """undertakings which on their balance sheet dates do not exceed the limits of at least two of the three following criteria: (a) balance sheet total: EUR 350 000; (b) net turnover: EUR 700 000; (c) average number of employees during the financial year: 10. In applying one or more of the options in Article 36, Member States may define thresholds exceeding the thresholds in points (a) and (b) of the first subparagraph. However, the thresholds shall not exceed EUR 450 000 for the balance sheet total and EUR 900 000 for the net turnover."""@en ;
+    lomo:isSemanticDefinition "true"^^xsd:boolean ;
+    lomo:establishedIn <http://data.europa.eu/eli/dir/2013/34/oj/art_3/par_1> .
+
+:Def_SmallUndertaking rdf:type owl:NamedIndividual , lomo:Definition ;
+    rdfs:label "Definition: Small Undertaking"@en ;
+    lomo:hasDefiniendum "small undertaking"@en ;
+    lomo:hasDefiniens """undertakings which are not micro-undertakings and which on their balance sheet dates do not exceed the limits of at least two of the three following criteria: (a) balance sheet total: EUR 4 000 000; (b) net turnover: EUR 8 000 000; (c) average number of employees during the financial year: 50. Member States may define thresholds exceeding the thresholds in points (a) and (b) of the first subparagraph. However, the thresholds shall not exceed EUR 6 000 000 for the balance sheet total and EUR 12 000 000 for the net turnover."""@en ;
+    lomo:isSemanticDefinition "true"^^xsd:boolean ;
+    lomo:establishedIn <http://data.europa.eu/eli/dir/2013/34/oj/art_3/par_2> .
+
+:Def_MediumSizedUndertaking rdf:type owl:NamedIndividual , lomo:Definition ;
+    rdfs:label "Definition: Medium-sized Undertaking"@en ;
+    lomo:hasDefiniendum "medium-sized undertaking"@en ;
+    lomo:hasDefiniens """undertakings which are not micro-undertakings or small undertakings and which on their balance sheet dates do not exceed the limits of at least two of the three following criteria: (a) balance sheet total: EUR 20 000 000; (b) net turnover: EUR 40 000 000; (c) average number of employees during the financial year: 250."""@en ;
+    lomo:isSemanticDefinition "true"^^xsd:boolean ;
+    lomo:establishedIn <http://data.europa.eu/eli/dir/2013/34/oj/art_3/par_3> .
+
+:Def_LargeUndertaking rdf:type owl:NamedIndividual , lomo:Definition ;
+    rdfs:label "Definition: Large Undertaking"@en ;
+    lomo:hasDefiniendum "large undertaking"@en ;
+    lomo:hasDefiniens """undertakings which on their balance sheet dates exceed at least two of the three following criteria: (a) balance sheet total: EUR 20 000 000; (b) net turnover: EUR 40 000 000; (c) average number of employees during the financial year: 250."""@en ;
+    lomo:isSemanticDefinition "true"^^xsd:boolean ;
+    lomo:establishedIn <http://data.europa.eu/eli/dir/2013/34/oj/art_3/par_4> .
+
+:Def_SmallGroup rdf:type owl:NamedIndividual , lomo:Definition ;
+    rdfs:label "Definition: Small Group"@en ;
+    lomo:hasDefiniendum "small group"@en ;
+    lomo:hasDefiniens """groups consisting of parent and subsidiary undertakings to be included in a consolidation and which, on a consolidated basis, do not exceed the limits of at least two of the three following criteria on the balance sheet date of the parent undertaking: (a) balance sheet total: EUR 4 000 000; (b) net turnover: EUR 8 000 000; (c) average number of employees during the financial year: 50. Member States may define thresholds exceeding the thresholds in points (a) and (b) of the first subparagraph. However, the thresholds shall not exceed EUR 6 000 000 for the balance sheet total and EUR 12 000 000 for the net turnover."""@en ;
+    lomo:isSemanticDefinition "true"^^xsd:boolean ;
+    lomo:establishedIn <http://data.europa.eu/eli/dir/2013/34/oj/art_3/par_5> .
+
+:Def_MediumSizedGroup rdf:type owl:NamedIndividual , lomo:Definition ;
+    rdfs:label "Definition: Medium-sized Group"@en ;
+    lomo:hasDefiniendum "medium-sized group"@en ;
+    lomo:hasDefiniens """groups which are not small groups, which consist of parent and subsidiary undertakings to be included in a consolidation and which, on a consolidated basis, do not exceed the limits of at least two of the three following criteria on the balance sheet date of the parent undertaking: (a) balance sheet total: EUR 20 000 000; (b) net turnover: EUR 40 000 000; (c) average number of employees during the financial year: 250."""@en ;
+    lomo:isSemanticDefinition "true"^^xsd:boolean ;
+    lomo:establishedIn <http://data.europa.eu/eli/dir/2013/34/oj/art_3/par_6> .
+
+:Def_LargeGroup rdf:type owl:NamedIndividual , lomo:Definition ;
+    rdfs:label "Definition: Large Group"@en ;
+    lomo:hasDefiniendum "large group"@en ;
+    lomo:hasDefiniens """groups consisting of parent and subsidiary undertakings to be included in a consolidation and which, on a consolidated basis, exceed the limits of at least two of the three following criteria on the balance sheet date of the parent undertaking: (a) balance sheet total: EUR 20 000 000; (b) net turnover: EUR 40 000 000; (c) average number of employees during the financial year: 250."""@en ;
+    lomo:isSemanticDefinition "true"^^xsd:boolean ;
+    lomo:establishedIn <http://data.europa.eu/eli/dir/2013/34/oj/art_3/par_7> .
+
+:Def_BalanceSheetTotal rdf:type owl:NamedIndividual , lomo:Definition ;
+    rdfs:label "Definition: Balance Sheet Total"@en ;
+    lomo:hasDefiniendum "balance sheet total"@en ;
+    lomo:hasDefiniens """those assets that are to be shown in accordance with point (A) of the general provisions of Articles 9 and 10."""@en ;
+    lomo:isSemanticDefinition "true"^^xsd:boolean ;
+    lomo:establishedIn <http://data.europa.eu/eli/dir/2013/34/oj/art_3/par_11> .
+
+:Def_NetTurnover rdf:type owl:NamedIndividual , lomo:Definition ;
+    rdfs:label "Definition: Net Turnover"@en ;
+    lomo:hasDefiniendum "net turnover"@en ;
+    lomo:hasDefiniens """the amounts derived from the sale of products and the provision of services falling within the undertaking's ordinary activities, after deducting sales rebates and value added tax and other taxes directly linked to turnover."""@en ;
+    lomo:isSemanticDefinition "true"^^xsd:boolean ;
+    lomo:establishedIn <http://data.europa.eu/eli/dir/2013/34/oj/art_3/par_12> .
+
+## Article 3 Requirements
+
+:Requirement_Art3_MicroUndertakingDefinition rdf:type owl:NamedIndividual , lomo:ConstitutiveRule ;
+    rdfs:label "Article 3(1) - Micro-undertakings Definition"@en ;
+    lomo:hasCategory <http://data.europa.eu/leg/digital-dimensions/Observation> ;
+    lomo:defines :Def_MicroUndertaking ;
+    lomo:establishedIn <http://data.europa.eu/eli/dir/2013/34/oj/art_3/par_1> ;
+    lomo:legalText """In applying one or more of the options in Article 36, Member States shall define micro-undertakings as undertakings which on their balance sheet dates do not exceed the limits of at least two of the three following criteria:
+(a) balance sheet total: EUR 350 000;
+(b) net turnover: EUR 700 000;
+(c) average number of employees during the financial year: 10."""@en ;
+    rdfs:comment "Constitutive rule defining micro-undertakings by size thresholds (€350k balance sheet, €700k turnover, 10 employees)."@en .
+
+:Requirement_Art3_SmallUndertakingDefinition rdf:type owl:NamedIndividual , lomo:ConstitutiveRule ;
+    rdfs:label "Article 3(2) - Small Undertakings Definition"@en ;
+    lomo:hasCategory <http://data.europa.eu/leg/digital-dimensions/Observation> ;
+    lomo:defines :Def_SmallUndertaking ;
+    lomo:establishedIn <http://data.europa.eu/eli/dir/2013/34/oj/art_3/par_2> ;
+    lomo:legalText """Small undertakings shall be undertakings which on their balance sheet dates do not exceed the limits of at least two of the three following criteria:
+(a) balance sheet total: EUR 4 000 000;
+(b) net turnover: EUR 8 000 000;
+(c) average number of employees during the financial year: 50.
+Member States may define thresholds exceeding the thresholds in points (a) and (b) of the first subparagraph. However, the thresholds shall not exceed EUR 6 000 000 for the balance sheet total and EUR 12 000 000 for the net turnover."""@en ;
+    rdfs:comment "Constitutive rule defining small undertakings by size thresholds (€4M/€6M balance sheet, €8M/€12M turnover, 50 employees)."@en .
+
+:Requirement_Art3_MediumSizedUndertakingDefinition rdf:type owl:NamedIndividual , lomo:ConstitutiveRule ;
+    rdfs:label "Article 3(3) - Medium-sized Undertakings Definition"@en ;
+    lomo:hasCategory <http://data.europa.eu/leg/digital-dimensions/Observation> ;
+    lomo:defines :Def_MediumSizedUndertaking ;
+    lomo:establishedIn <http://data.europa.eu/eli/dir/2013/34/oj/art_3/par_3> ;
+    lomo:legalText """Medium-sized undertakings shall be undertakings which are not micro-undertakings or small undertakings and which on their balance sheet dates do not exceed the limits of at least two of the three following criteria:
+(a) balance sheet total: EUR 20 000 000;
+(b) net turnover: EUR 40 000 000;
+(c) average number of employees during the financial year: 250."""@en ;
+    rdfs:comment "Constitutive rule defining medium-sized undertakings by size thresholds (€20M balance sheet, €40M turnover, 250 employees)."@en .
+
+:Requirement_Art3_LargeUndertakingDefinition rdf:type owl:NamedIndividual , lomo:ConstitutiveRule ;
+    rdfs:label "Article 3(4) - Large Undertakings Definition"@en ;
+    lomo:hasCategory <http://data.europa.eu/leg/digital-dimensions/Observation> ;
+    lomo:defines :Def_LargeUndertaking ;
+    lomo:establishedIn <http://data.europa.eu/eli/dir/2013/34/oj/art_3/par_4> ;
+    lomo:legalText """Large undertakings shall be undertakings which on their balance sheet dates exceed at least two of the three following criteria:
+(a) balance sheet total: EUR 20 000 000;
+(b) net turnover: EUR 40 000 000;
+(c) average number of employees during the financial year: 250."""@en ;
+    rdfs:comment "Constitutive rule defining large undertakings by size thresholds (€20M balance sheet, €40M turnover, 250 employees)."@en .
+
+:Requirement_Art3_Par5_SmallGroupDefinition rdf:type owl:NamedIndividual , lomo:ConstitutiveRule ;
+    rdfs:label "Article 3(5) - Small Groups Definition"@en ;
+    lomo:hasCategory <http://data.europa.eu/leg/digital-dimensions/Observation> ;
+    lomo:defines :Def_SmallGroup ;
+    lomo:establishedIn <http://data.europa.eu/eli/dir/2013/34/oj/art_3/par_5> ;
+    lomo:legalText """Small groups shall be groups consisting of parent and subsidiary undertakings to be included in a consolidation and which, on a consolidated basis, do not exceed the limits of at least two of the three following criteria on the balance sheet date of the parent undertaking:
+(a) balance sheet total: EUR 4 000 000;
+(b) net turnover: EUR 8 000 000;
+(c) average number of employees during the financial year: 50.
+Member States may define thresholds exceeding the thresholds in points (a) and (b) of the first subparagraph. However, the thresholds shall not exceed EUR 6 000 000 for the balance sheet total and EUR 12 000 000 for the net turnover."""@en ;
+    rdfs:comment "Constitutive rule defining small groups by consolidated size thresholds (€4M/€8M/50, with Member State flexibility up to €6M/€12M)."@en .
+
+:Requirement_Art3_Par6_MediumGroupDefinition rdf:type owl:NamedIndividual , lomo:ConstitutiveRule ;
+    rdfs:label "Article 3(6) - Medium-sized Groups Definition"@en ;
+    lomo:hasCategory <http://data.europa.eu/leg/digital-dimensions/Observation> ;
+    lomo:defines :Def_MediumSizedGroup ;
+    lomo:establishedIn <http://data.europa.eu/eli/dir/2013/34/oj/art_3/par_6> ;
+    lomo:legalText """Medium-sized groups shall be groups which are not small groups, which consist of parent and subsidiary undertakings to be included in a consolidation and which, on a consolidated basis, do not exceed the limits of at least two of the three following criteria on the balance sheet date of the parent undertaking:
+(a) balance sheet total: EUR 20 000 000;
+(b) net turnover: EUR 40 000 000;
+(c) average number of employees during the financial year: 250."""@en ;
+    rdfs:comment "Constitutive rule defining medium-sized groups by consolidated size thresholds (€20M balance sheet, €40M turnover, 250 employees)."@en .
+
+:Requirement_Art3_Par7_LargeGroupDefinition rdf:type owl:NamedIndividual , lomo:ConstitutiveRule ;
+    rdfs:label "Article 3(7) - Large Groups Definition"@en ;
+    lomo:hasCategory <http://data.europa.eu/leg/digital-dimensions/Observation> ;
+    lomo:defines :Def_LargeGroup ;
+    lomo:establishedIn <http://data.europa.eu/eli/dir/2013/34/oj/art_3/par_7> ;
+    lomo:legalText """Large groups shall be groups consisting of parent and subsidiary undertakings to be included in a consolidation and which, on a consolidated basis, exceed the limits of at least two of the three following criteria on the balance sheet date of the parent undertaking:
+(a) balance sheet total: EUR 20 000 000;
+(b) net turnover: EUR 40 000 000;
+(c) average number of employees during the financial year: 250."""@en ;
+    rdfs:comment "Constitutive rule defining large groups by consolidated size thresholds (€20M balance sheet, €40M turnover, 250 employees)."@en .
+
+:Requirement_Art3_Par8_SetOffProvision rdf:type owl:NamedIndividual , lomo:ConstitutiveRule ;
+    rdfs:label "Article 3(8) - Set-off Provision in Consolidation"@en ;
+    lomo:establishedIn <http://data.europa.eu/eli/dir/2013/34/oj/art_3/par_8> ;
+    lomo:legalText """In the case of a group consisting of parent and subsidiary undertakings to be included in a consolidation, the balance sheet total, net turnover and average number of employees as well as the limits of paragraphs 5, 6 and 7 of this Article shall be calculated on a consolidated basis, in accordance with Articles 22 to 29 and points (b) and (h) of Article 30(8), but disregarding Article 30(1) to (7). In the case of a consolidated balance sheet and a consolidated profit and loss account, the figures relating to the parent undertaking's balance sheet or profit and loss account, as the case may be, shall be left out, but without prejudice to the set-off referred to in Article 30(1)(g)."""@en ;
+    rdfs:comment "Constitutive rule specifying how to calculate group size thresholds for consolidation purposes."@en .
+
+:Requirement_Art3_Par9_CurrencyConversion rdf:type owl:NamedIndividual , lomo:ConstitutiveRule ;
+    rdfs:label "Article 3(9) - Currency Conversion Rules"@en ;
+    lomo:establishedIn <http://data.europa.eu/eli/dir/2013/34/oj/art_3/par_9> ;
+    lomo:legalText """For the purposes of paragraphs 1 to 7, the balance sheet total, net turnover and average number of employees of an undertaking or a group which does not have the euro as its currency shall be determined by applying the exchange rates at the balance sheet date applicable to the translation of the balance sheet into euros. Where on the balance sheet date there is no exchange rate applicable to such translation, the most recent exchange rate applicable to the translation of the balance sheet shall apply."""@en ;
+    rdfs:comment "Constitutive rule specifying how to convert non-euro amounts for threshold calculations."@en .
+
+:Requirement_Art3_Par10_ConsecutiveYearsRule rdf:type owl:NamedIndividual , lomo:ConstitutiveRule ;
+    rdfs:label "Article 3(10) - Two Consecutive Years Rule"@en ;
+    lomo:establishedIn <http://data.europa.eu/eli/dir/2013/34/oj/art_3/par_10> ;
+    lomo:legalText """Undertakings and groups shall qualify as small, medium-sized or large, where, on their balance sheet dates, they exceed or cease to exceed the limits of two of the three criteria specified in paragraphs 1 to 7 of this Article. This shall apply to undertakings and groups in respect of two consecutive financial years."""@en ;
+    rdfs:comment "Constitutive rule specifying that threshold changes apply only after two consecutive years."@en .
+
+:Requirement_Art3_Par11_BalanceSheetTotalDefinition rdf:type owl:NamedIndividual , lomo:ConstitutiveRule ;
+    rdfs:label "Article 3(11) - Balance Sheet Total Definition"@en ;
+    lomo:defines :Def_BalanceSheetTotal ;
+    lomo:establishedIn <http://data.europa.eu/eli/dir/2013/34/oj/art_3/par_11> ;
+    lomo:legalText """For the purpose of this Directive 'balance sheet total' shall comprise those assets that are to be shown in accordance with point (A) of the general provisions of Articles 9 and 10."""@en ;
+    rdfs:comment "Constitutive rule defining what is included in balance sheet total."@en .
+
+:Requirement_Art3_Par12_AnnualThresholdCalculation rdf:type owl:NamedIndividual , lomo:ConstitutiveRule ;
+    rdfs:label "Article 3(12) - Annual Threshold Calculation"@en ;
+    lomo:defines :Def_NetTurnover ;
+    lomo:establishedIn <http://data.europa.eu/eli/dir/2013/34/oj/art_3/par_12> ;
+    lomo:legalText """Where, on its balance sheet date, an undertaking or a group exceeds or ceases to exceed the limits of two of the three criteria specified in paragraphs 1 to 7 of this Article, that fact shall affect the application of those paragraphs only if it occurs for two consecutive financial years. Net turnover shall comprise the amounts derived from the sale of products and the provision of services falling within the undertaking's ordinary activities, after deducting sales rebates and value added tax and other taxes directly linked to turnover."""@en ;
+    rdfs:comment "Constitutive rule specifying annual threshold calculation with net turnover definition."@en .
+
+:Requirement_Art3_Par13_CommissionReviewThresholds rdf:type owl:NamedIndividual , lomo:PrescriptiveRule ;
+    rdfs:label "Article 3(13) - Commission Review of Thresholds"@en ;
+    lomo:hasDeonticModality <http://data.europa.eu/leg/deontic-modality/Obligation> ;
+    lomo:hasRequirementType <http://publications.europa.eu/resource/dataset/administrative-obligation/c_80214a02> ;
+    lomo:produces :Action_Art3_ReviewThresholds ;
+    lomo:establishedIn <http://data.europa.eu/eli/dir/2013/34/oj/art_3/par_13> ;
+    lomo:legalText """In order to adjust for the effects of inflation, the Commission shall at least every five years review and, where appropriate, amend, by means of delegated acts in accordance with Article 49, the thresholds referred to in paragraphs 1 to 7 of this Article."""@en ;
+    rdfs:comment "Obligation for Commission to review and potentially amend thresholds every 5 years."@en .
+
+:Action_Art3_ReviewThresholds rdf:type owl:NamedIndividual , lomo:Action ;
+    rdfs:label "Review and Amend Thresholds"@en ;
+    lomo:hasAgentRole :AgentRole_Art3_Commission_Reviewer ;
+    lomo:atTime :TemporalSpec_Art3_FiveYearReview .
+
+:TemporalSpec_Art3_FiveYearReview rdf:type owl:NamedIndividual , lomo:IntervalSpec ;
+    rdfs:label "Five-Year Review Cycle"@en ;
+    lomo:hasFrequency :Frequency_FiveYears ;
+    lomo:hasFunction <http://data.europa.eu/leg/temporal-function/deadline> .
+
+:AgentRole_Art3_Commission_Reviewer rdf:type owl:NamedIndividual , lomo:AgentRole ;
+    lomo:forAgent :Agent_Commission ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+#################################################################
+#    ARTICLE 19 - CONTENT OF MANAGEMENT REPORT
+#################################################################
+
+## Article 19 Definitions
+
+:Def_ManagementReport rdf:type owl:NamedIndividual , lomo:Definition ;
+    rdfs:label "Definition: Management Report"@en ;
+    lomo:hasDefiniendum "management report"@en ;
+    lomo:hasDefiniens """a report that includes a fair review of the development and performance of the undertaking's business and of its position, together with a description of the principal risks and uncertainties that it faces, providing a balanced and comprehensive analysis consistent with the size and complexity of the business"""@en ;
+    lomo:establishedIn <http://data.europa.eu/eli/dir/2013/34/oj/art_19/par_1> ;
+    lomo:isSemanticDefinition "true"^^xsd:boolean .
+
+:Def_KeyPerformanceIndicators rdf:type owl:NamedIndividual , lomo:Definition ;
+    rdfs:label "Definition: Key Performance Indicators"@en ;
+    lomo:hasDefiniendum "key performance indicators"@en ;
+    lomo:hasDefiniens """both financial and, where appropriate, non-financial indicators relevant to the particular business, including information relating to environmental and employee matters, necessary for an understanding of the undertaking's development, performance or position"""@en ;
+    lomo:establishedIn <http://data.europa.eu/eli/dir/2013/34/oj/art_19/par_1> ;
+    lomo:isSemanticDefinition "true"^^xsd:boolean .
+
+## Article 19 Requirements
+
+:Requirement_Art19_Par1_ManagementReportContent rdf:type owl:NamedIndividual , lomo:PrescriptiveRule ;
+    rdfs:label "Article 19(1) - Management Report Content"@en ;
+    lomo:hasDeonticModality <http://data.europa.eu/leg/deontic-modality/Obligation> ;
+    lomo:hasRequirementType <http://publications.europa.eu/resource/dataset/administrative-obligation/c_d98a69b9> ;
+    lomo:hasCategory <http://data.europa.eu/leg/digital-dimensions/Data> ;
+    lomo:defines :Def_ManagementReport , :Def_KeyPerformanceIndicators ;
+    lomo:produces :Action_Art19_PrepareManagementReport ;
+    lomo:establishedIn <http://data.europa.eu/eli/dir/2013/34/oj/art_19/par_1> ;
+    lomo:legalText """The management report shall include a fair review of the development and performance of the undertaking's business and of its position, together with a description of the principal risks and uncertainties that it faces.
+
+The review shall be a balanced and comprehensive analysis of the development and performance of the undertaking's business and of its position, consistent with the size and complexity of the business.
+
+To the extent necessary for an understanding of the undertaking's development, performance or position, the analysis shall include both financial and, where appropriate, non-financial key performance indicators relevant to the particular business, including information relating to environmental and employee matters. In providing the analysis, the management report shall, where appropriate, include references to, and additional explanations of, amounts reported in the annual financial statements."""@en ;
+    rdfs:comment "Obligation to include fair review, balanced analysis, and key performance indicators in management report."@en .
+
+:Requirement_Art19_Par2_AdditionalInfo rdf:type owl:NamedIndividual , lomo:PrescriptiveRule ;
+    rdfs:label "Article 19(2) - Additional Information in Management Report"@en ;
+    lomo:hasDeonticModality <http://data.europa.eu/leg/deontic-modality/Obligation> ;
+    lomo:hasRequirementType <http://publications.europa.eu/resource/dataset/administrative-obligation/c_d98a69b9> ;
+    lomo:hasCategory <http://data.europa.eu/leg/digital-dimensions/Data> ;
+    lomo:produces :Action_Art19_IncludeAdditionalInfo ;
+    lomo:establishedIn <http://data.europa.eu/eli/dir/2013/34/oj/art_19/par_2> ;
+    lomo:legalText """The management report shall also give an indication of:
+
+(a) the undertaking's likely future development;
+
+(b) activities in the field of research and development;
+
+(c) the information concerning acquisitions of own shares prescribed by Article 24(2) of Directive 2012/30/EU;
+
+(d) the existence of branches of the undertaking; and
+
+(e) in relation to the undertaking's use of financial instruments and where material for the assessment of its assets, liabilities, financial position and profit or loss:
+
+(i) the undertaking's financial risk management objectives and policies, including its policy for hedging each major type of forecasted transaction for which hedge accounting is used; and
+
+(ii) the undertaking's exposure to price risk, credit risk, liquidity risk and cash flow risk."""@en ;
+    rdfs:comment "Additional information requirements for management report: future development, R&D, own shares, branches, financial instruments and risk exposure."@en .
+
+:Requirement_Art19_Par3_ExemptSmallUndertakings rdf:type owl:NamedIndividual , lomo:PrescriptiveRule ;
+    rdfs:label "Article 19(3) - Exemption for Small Undertakings"@en ;
+    lomo:hasDeonticModality <http://data.europa.eu/leg/deontic-modality/Permission> ;
+    lomo:usesDefinition :Def_SmallUndertaking ;
+    lomo:produces :Action_Art19_ExemptSmallFromManagementReport ;
+    lomo:establishedIn <http://data.europa.eu/eli/dir/2013/34/oj/art_19/par_3> ;
+    lomo:legalText """Member States may exempt small undertakings from the obligation to prepare management reports, provided that they require the information referred to in Article 24(2) of Directive 2012/30/EU concerning the acquisition by an undertaking of its own shares to be given in the notes to the financial statements."""@en ;
+    rdfs:comment "Permission for Member States to exempt small undertakings from preparing management reports, with condition on own shares disclosure."@en .
+
+:Requirement_Art19_Par4_ExemptSmallMediumNonFinancial rdf:type owl:NamedIndividual , lomo:PrescriptiveRule ;
+    rdfs:label "Article 19(4) - Exemption for Small and Medium-sized from Non-financial Info"@en ;
+    lomo:hasDeonticModality <http://data.europa.eu/leg/deontic-modality/Permission> ;
+    lomo:usesDefinition :Def_SmallUndertaking , :Def_MediumSizedUndertaking ;
+    lomo:produces :Action_Art19_ExemptSmallMediumFromNonFinancialInfo ;
+    lomo:establishedIn <http://data.europa.eu/eli/dir/2013/34/oj/art_19/par_4> ;
+    lomo:legalText """Member States may exempt small and medium-sized undertakings from the obligation set out in the third subparagraph of paragraph 1 in so far as it relates to non-financial information."""@en ;
+    rdfs:comment "Permission for Member States to exempt small and medium-sized undertakings from non-financial KPI requirements."@en .
+
+:Action_Art19_PrepareManagementReport rdf:type owl:NamedIndividual , lomo:Action ;
+    rdfs:label "Prepare Management Report with Fair Review and KPIs"@en ;
+    lomo:hasAgentRole :AgentRole_Art19_Undertaking_Preparer ;
+    lomo:hasResult :Result_ManagementReport ;
+    lomo:atTime :TemporalSpec_Art19_AnnualReporting .
+
+:TemporalSpec_Art19_AnnualReporting rdf:type owl:NamedIndividual , lomo:IntervalSpec ;
+    rdfs:label "Annual Management Report Cycle"@en ;
+    lomo:hasFrequency :Frequency_Annual ;
+    lomo:hasFunction <http://data.europa.eu/leg/temporal-function/deadline> .
+
+:Action_Art19_IncludeAdditionalInfo rdf:type owl:NamedIndividual , lomo:Action ;
+    rdfs:label "Include Additional Information in Management Report"@en ;
+    lomo:hasAgentRole :AgentRole_Art19_Undertaking_Preparer ;
+    rdfs:comment "Include future development, R&D, own shares, branches, financial instruments."@en .
+
+:AgentRole_Art19_Undertaking_Preparer rdf:type owl:NamedIndividual , lomo:AgentRole ;
+    lomo:forAgent :AgentType_Undertaking ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> ;
+    rdfs:comment "Undertakings of any size category preparing the management report; the size-specific exemptions are modelled by the Article 19(3) and 19(4) rules."@en .
+
+:Result_ManagementReport rdf:type owl:NamedIndividual , lomo:ActionResult ;
+    rdfs:label "Management Report"@en ;
+    lomo:hasResultType :ResultType_ManagementReport .
+
+:Action_Art19_ExemptSmallFromManagementReport rdf:type owl:NamedIndividual , lomo:Action ;
+    rdfs:label "Exempt Small Undertakings from Preparing a Management Report"@en ;
+    lomo:hasAgentRole :AgentRole_MS_OptionHolder ;
+    rdfs:comment "Action Member States may take under the Article 19(3) option, conditional on requiring the Article 24(2) information on own shares in the notes to the financial statements."@en .
+
+:Action_Art19_ExemptSmallMediumFromNonFinancialInfo rdf:type owl:NamedIndividual , lomo:Action ;
+    rdfs:label "Exempt Small and Medium-sized Undertakings from Non-financial Information"@en ;
+    lomo:hasAgentRole :AgentRole_MS_OptionHolder ;
+    rdfs:comment "Action Member States may take under the Article 19(4) option, limited to the non-financial information part of the management report."@en .
+
+#################################################################
+#    ARTICLE 30 - GENERAL PUBLICATION REQUIREMENT
+#################################################################
+
+
+## Article 30 Requirements
+
+:Requirement_Art30_Par1_PublicationObligation rdf:type owl:NamedIndividual , lomo:PrescriptiveRule ;
+    rdfs:label "Article 30(1) - General Publication Obligation"@en ;
+    lomo:hasDeonticModality <http://data.europa.eu/leg/deontic-modality/Obligation> ;
+    lomo:hasRequirementType <http://publications.europa.eu/resource/dataset/administrative-obligation/c_d98a69b9> ;
+    lomo:hasCategory <http://data.europa.eu/leg/digital-dimensions/DigitalPublicService> ;
+    lomo:produces :Action_Art30_Publish ;
+    lomo:establishedIn <http://data.europa.eu/eli/dir/2013/34/oj/art_30/par_1> ;
+    lomo:legalText """Member States shall ensure that undertakings publish within a reasonable period of time, which shall not exceed 12 months after the balance sheet date, the duly approved annual financial statements and the management report, together with the opinion submitted by the statutory auditor or audit firm referred to in Article 34 of this Directive, as laid down by the laws of each Member State in accordance with Chapter 2 of Directive 2009/101/EC.
+
+Member States may, however, exempt undertakings from the obligation to publish the management report where a copy of all or part of any such report can be easily obtained upon request at a price not exceeding its administrative cost."""@en ;
+    rdfs:comment "Obligation for Member States to ensure undertakings publish financial statements, management report, and auditor opinion within 12 months, with optional exemption for management report."@en .
+
+:Requirement_Art30_Par2_ExemptAnnexII rdf:type owl:NamedIndividual , lomo:PrescriptiveRule ;
+    rdfs:label "Article 30(2) - Exemption for Annex II Undertakings"@en ;
+    lomo:hasDeonticModality <http://data.europa.eu/leg/deontic-modality/Permission> ;
+    lomo:produces :Action_Art30_ExemptAnnexIIFromPublication ;
+    lomo:establishedIn <http://data.europa.eu/eli/dir/2013/34/oj/art_30/par_2> ;
+    lomo:legalText """Member States may exempt an undertaking referred to in Annex II to which the coordination measures prescribed by this Directive apply by virtue of point (b) of Article 1(1) from publishing its financial statements in accordance with Article 3 of Directive 2009/101/EC, provided that those financial statements are available to the public at its head office, in the following cases:
+
+(a) all the members of the undertaking concerned that have unlimited liability are undertakings referred to in Annex I governed by the laws of Member States other than the Member State whose law governs that undertaking, and none of those undertakings publishes the financial statements of the undertaking concerned with its own financial statements;
+
+(b) all the members of the undertaking concerned that have unlimited liability are undertakings which are not governed by the laws of a Member State but which have a legal form comparable to those referred to in Directive 2009/101/EC.
+
+Copies of the financial statements shall be obtainable upon request. The price of such a copy may not exceed its administrative cost."""@en ;
+    rdfs:comment "Permission for Member States to exempt Annex II undertakings from publication requirements under specific conditions regarding unlimited liability members."@en .
+
+:Requirement_Art30_Par3_ConsolidatedStatements rdf:type owl:NamedIndividual , lomo:PrescriptiveRule ;
+    rdfs:label "Article 30(3) - Publication of Consolidated Statements"@en ;
+    lomo:hasDeonticModality <http://data.europa.eu/leg/deontic-modality/Obligation> ;
+    lomo:hasRequirementType <http://publications.europa.eu/resource/dataset/administrative-obligation/c_d98a69b9> ;
+    lomo:hasCategory <http://data.europa.eu/leg/digital-dimensions/DigitalPublicService> ;
+    lomo:produces :Action_Art30_PublishConsolidated ;
+    lomo:establishedIn <http://data.europa.eu/eli/dir/2013/34/oj/art_30/par_3> ;
+    lomo:legalText """Paragraph 1 shall apply with respect to consolidated financial statements and consolidated management reports.
+
+Where the undertaking drawing up the consolidated financial statements is established as one of the types of undertaking listed in Annex II and is not required by the national law of its Member State to publish the documents referred to in paragraph 1 in the same manner as prescribed in Article 3 of Directive 2009/101/EC, it shall, as a minimum, make those documents available to the public at its head office and a copy shall be provided upon request, the price of which shall not exceed its administrative cost."""@en ;
+    rdfs:comment "Obligation to publish consolidated financial statements and reports, with alternative availability requirements for Annex II undertakings."@en .
+
+:Action_Art30_Publish rdf:type owl:NamedIndividual , lomo:Action ;
+    rdfs:label "Publish Annual Financial Statements, Management Report, and Auditor Opinion"@en ;
+    lomo:hasAgentRole :AgentRole_Art30_Undertaking_Publisher ;
+    lomo:atTime :TemporalSpec_12MonthsAfterBalanceSheet ;
+    lomo:hasResult :Result_PublishedStatements .
+
+:AgentRole_Art30_Undertaking_Publisher rdf:type owl:NamedIndividual , lomo:AgentRole ;
+    lomo:forAgent :AgentType_Undertaking ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> ;
+    rdfs:comment "Undertakings of any size category publishing the documents listed in Article 30(1)."@en .
+
+:Result_PublishedStatements rdf:type owl:NamedIndividual , lomo:ActionResult ;
+    rdfs:label "Published Financial Statements and Reports"@en ;
+    lomo:hasResultType :ResultType_FinancialStatements , :ResultType_ManagementReport , :ResultType_AuditorOpinion .
+
+:Action_Art30_PublishConsolidated rdf:type owl:NamedIndividual , lomo:Action ;
+    rdfs:label "Publish Consolidated Financial Statements and Management Reports"@en ;
+    lomo:hasAgentRole :AgentRole_Art30_ParentUndertaking_Publisher ;
+    lomo:atTime :TemporalSpec_12MonthsAfterBalanceSheet ;
+    lomo:hasResult :Result_PublishedConsolidatedStatements .
+
+:AgentRole_Art30_ParentUndertaking_Publisher rdf:type owl:NamedIndividual , lomo:AgentRole ;
+    lomo:forAgent :AgentType_ParentUndertaking ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> ;
+    rdfs:comment "Parent undertakings drawing up consolidated statements."@en .
+
+:Result_PublishedConsolidatedStatements rdf:type owl:NamedIndividual , lomo:ActionResult ;
+    rdfs:label "Published Consolidated Financial Statements and Reports"@en ;
+    lomo:hasResultType :ResultType_ConsolidatedFinancialStatements , :ResultType_ConsolidatedManagementReport .
+
+:Action_Art30_ExemptAnnexIIFromPublication rdf:type owl:NamedIndividual , lomo:Action ;
+    rdfs:label "Exempt Annex II Undertakings from Publishing Financial Statements"@en ;
+    lomo:hasAgentRole :AgentRole_MS_OptionHolder ;
+    rdfs:comment "Action Member States may take under the Article 30(2) option, conditional on the statements being available to the public at the undertaking's head office."@en .
+
+#################################################################
+#    ARTICLE 31 - SIMPLIFICATIONS FOR SMALL AND MEDIUM-SIZED UNDERTAKINGS
+#################################################################
+
+
+## Article 31 Requirements
+
+:Requirement_Art31_Par1_ExemptSmallFromPublication rdf:type owl:NamedIndividual , lomo:PrescriptiveRule ;
+    rdfs:label "Article 31(1) - Exemption for Small Undertakings from Publication"@en ;
+    lomo:hasDeonticModality <http://data.europa.eu/leg/deontic-modality/Permission> ;
+    lomo:usesDefinition :Def_SmallUndertaking ;
+    lomo:produces :Action_Art31_ExemptSmallFromPublication ;
+    lomo:establishedIn <http://data.europa.eu/eli/dir/2013/34/oj/art_31/par_1> ;
+    lomo:legalText """Member States may exempt small undertakings from the obligation to publish their profit and loss accounts and management reports."""@en ;
+    rdfs:comment "Permission for Member States to exempt small undertakings from publishing P&L accounts and management reports."@en .
+
+:Requirement_Art31_Par2_PermitMediumSizedAbridged rdf:type owl:NamedIndividual , lomo:PrescriptiveRule ;
+    rdfs:label "Article 31(2) - Permit Medium-sized Undertakings Abridged Statements"@en ;
+    lomo:hasDeonticModality <http://data.europa.eu/leg/deontic-modality/Permission> ;
+    lomo:usesDefinition :Def_MediumSizedUndertaking ;
+    lomo:produces :Action_Art31_PermitMediumSizedAbridgedPublication ;
+    lomo:establishedIn <http://data.europa.eu/eli/dir/2013/34/oj/art_31/par_2> ;
+    lomo:legalText """Member States may permit medium-sized undertakings to publish:
+
+(a) abridged balance sheets showing only those items preceded by letters and roman numerals in Annexes III and IV and disclosing separately, either in the balance sheet or in the notes to the financial statements:
+
+(i) C (I) (3), C (II) (1), (2), (3) and (4), C (III) (1), (2), (3) and (4), D (II) (2), (3) and (6) and D (III) (1) and (2) under 'Assets' and C, (1), (2), (6), (7) and (9) under 'Capital, reserves and liabilities' in Annex III,
+
+(ii) C (I) (3), C (II) (1), (2), (3) and (4), C (III) (1), (2), (3) and (4), D (II) (2), (3) and (6), D (III) (1) and (2), F (1), (2), (6), (7) and (9) and (I) (1), (2), (6), (7) and (9) in Annex IV,
+
+(iii) the information required as indicated in brackets in D (II) under 'Assets' and C under 'Capital, reserves and liabilities' in Annex III, in total for all the items concerned and separately for D (II) (2) and (3) under 'Assets' and C (1), (2), (6), (7) and (9) under 'Capital, reserves and liabilities',
+
+(iv) the information required as indicated in brackets in D (II) in Annex IV, in total for all the items concerned, and separately for D (II) (2) and (3);
+
+(b) abridged notes to their financial statements without the information required in points (f) and (j) of Article 17(1).
+
+This paragraph shall be without prejudice to Article 30(1), in so far as that Article relates to the profit and loss account, the management report and the opinion of the statutory auditor or audit firm."""@en ;
+    rdfs:comment "Permission for Member States to allow medium-sized undertakings to publish abridged balance sheets and notes, without affecting P&L, management report, and auditor opinion publication requirements."@en .
+
+:Action_Art31_ExemptSmallFromPublication rdf:type owl:NamedIndividual , lomo:Action ;
+    rdfs:label "Exempt Small Undertakings from Publishing Profit and Loss Accounts and Management Reports"@en ;
+    lomo:hasAgentRole :AgentRole_MS_OptionHolder ;
+    rdfs:comment "Action Member States may take under the Article 31(1) option."@en .
+
+:Action_Art31_PermitMediumSizedAbridgedPublication rdf:type owl:NamedIndividual , lomo:Action ;
+    rdfs:label "Permit Medium-sized Undertakings to Publish Abridged Balance Sheets and Notes"@en ;
+    lomo:hasAgentRole :AgentRole_MS_OptionHolder ;
+    rdfs:comment "Action Member States may take under the Article 31(2) option, without prejudice to Article 30(1)."@en .
+
+#################################################################
+#    ARTICLE 53 - TRANSPOSITION
+#################################################################
+
+## Article 53 Definitions
+
+:Def_Transposition rdf:type owl:NamedIndividual , lomo:Definition ;
+    rdfs:label "Definition: Transposition"@en ;
+    lomo:hasDefiniendum "transposition"@en ;
+    lomo:hasDefiniens """bringing into force the laws, regulations and administrative provisions necessary to comply with this Directive by 20 July 2015, with provisions containing a reference to this Directive or accompanied by such reference on official publication"""@en ;
+    lomo:isSemanticDefinition "true"^^xsd:boolean ;
+    lomo:establishedIn <http://data.europa.eu/eli/dir/2013/34/oj/art_53/par_1> .
+
+## Article 53 Requirements
+
+:Requirement_Art53_Par1_TranspositionObligation rdf:type owl:NamedIndividual , lomo:PrescriptiveRule ;
+    rdfs:label "Article 53(1) - Transposition Obligation"@en ;
+    lomo:hasDeonticModality <http://data.europa.eu/leg/deontic-modality/Obligation> ;
+    lomo:hasRequirementType <http://publications.europa.eu/resource/dataset/administrative-obligation/c_80214a02> ;
+    lomo:defines :Def_Transposition ;
+    lomo:produces :Action_Art53_BringIntoForce , :Action_Art53_InformCommission ;
+    lomo:establishedIn <http://data.europa.eu/eli/dir/2013/34/oj/art_53/par_1> ;
+    lomo:legalText """Member States shall bring into force the laws, regulations and administrative provisions necessary to comply with this Directive by 20 July 2015. They shall immediately inform the Commission thereof.
+
+Member States may provide that the provisions referred to in the first subparagraph are first to apply to financial statements for financial years beginning on 1 January 2016 or during the calendar year 2016.
+
+When Member States adopt those provisions, they shall contain a reference to this Directive or be accompanied by such a reference on the occasion of their official publication. The methods of making such reference shall be laid down by Member States."""@en ;
+    rdfs:comment "Obligation for Member States to transpose Directive by 20 July 2015, with optional delayed application to 2016 financial statements and requirement for references."@en .
+
+:Requirement_Art53_Par1_Sub2_DelayedApplication rdf:type owl:NamedIndividual , lomo:PrescriptiveRule ;
+    rdfs:label "Article 53(1) sub-para 2 - Optional Delayed Application"@en ;
+    lomo:hasDeonticModality <http://data.europa.eu/leg/deontic-modality/Permission> ;
+    lomo:hasRequirementType <http://publications.europa.eu/resource/dataset/administrative-obligation/c_80214a02> ;
+    lomo:produces :Action_Art53_DeferApplicationTo2016 ;
+    lomo:establishedIn <http://data.europa.eu/eli/dir/2013/34/oj/art_53/par_1> ;
+    lomo:legalText """Member States may provide that the provisions referred to in the first subparagraph are first to apply to financial statements for financial years beginning on 1 January 2016 or during the calendar year 2016."""@en ;
+    rdfs:comment "Permission for Member States to delay application of transposed provisions to financial years beginning in 2016."@en .
+
+:Requirement_Art53_Par1_Sub3_ReferenceObligation rdf:type owl:NamedIndividual , lomo:PrescriptiveRule ;
+    rdfs:label "Article 53(1) sub-para 3 - Reference to Directive Obligation"@en ;
+    lomo:hasDeonticModality <http://data.europa.eu/leg/deontic-modality/Obligation> ;
+    lomo:hasRequirementType <http://publications.europa.eu/resource/dataset/administrative-obligation/c_80214a02> ;
+    lomo:produces :Action_Art53_IncludeReferenceToDirective ;
+    lomo:establishedIn <http://data.europa.eu/eli/dir/2013/34/oj/art_53/par_1> ;
+    lomo:legalText """When Member States adopt those provisions, they shall contain a reference to this Directive or be accompanied by such a reference on the occasion of their official publication. The methods of making such reference shall be laid down by Member States."""@en ;
+    rdfs:comment "Obligation for national provisions to contain or be accompanied by reference to this Directive upon official publication."@en .
+
+:Requirement_Art53_Par2_CommunicateText rdf:type owl:NamedIndividual , lomo:PrescriptiveRule ;
+    rdfs:label "Article 53(2) - Communicate National Law Provisions"@en ;
+    lomo:hasDeonticModality <http://data.europa.eu/leg/deontic-modality/Obligation> ;
+    lomo:hasRequirementType <http://publications.europa.eu/resource/dataset/administrative-obligation/c_80214a02> ;
+    lomo:produces :Action_Art53_CommunicateText ;
+    lomo:establishedIn <http://data.europa.eu/eli/dir/2013/34/oj/art_53/par_2> ;
+    lomo:legalText """Member States shall communicate to the Commission the text of the main provisions of national law which they adopt in the field covered by this Directive."""@en ;
+    rdfs:comment "Obligation to communicate text of national law provisions to Commission."@en .
+
+:Action_Art53_BringIntoForce rdf:type owl:NamedIndividual , lomo:Action ;
+    rdfs:label "Bring into Force Laws, Regulations and Administrative Provisions"@en ;
+    lomo:hasAgentRole :AgentRole_Art53_MS_Transposer ;
+    lomo:atTime :TemporalSpec_TranspositionDeadline .
+
+:Action_Art53_InformCommission rdf:type owl:NamedIndividual , lomo:Action ;
+    rdfs:label "Inform Commission of Transposition"@en ;
+    lomo:hasAgentRole :AgentRole_Art53_MS_Informer , :AgentRole_Art53_Commission_Informed ;
+    rdfs:comment "Immediately inform Commission after transposition."@en .
+
+:Action_Art53_CommunicateText rdf:type owl:NamedIndividual , lomo:Action ;
+    rdfs:label "Communicate Text of National Law Provisions"@en ;
+    lomo:hasAgentRole :AgentRole_Art53_MS_Communicator , :AgentRole_Art53_Commission_Recipient .
+
+:Action_Art53_DeferApplicationTo2016 rdf:type owl:NamedIndividual , lomo:Action ;
+    rdfs:label "Defer First Application to Financial Years Beginning in 2016"@en ;
+    lomo:hasAgentRole :AgentRole_MS_OptionHolder ;
+    rdfs:comment "Action Member States may take under the second subparagraph of Article 53(1)."@en .
+
+:Action_Art53_IncludeReferenceToDirective rdf:type owl:NamedIndividual , lomo:Action ;
+    rdfs:label "Include a Reference to this Directive in the Adopted Provisions"@en ;
+    lomo:hasAgentRole :AgentRole_Art53_MS_Transposer ;
+    rdfs:comment "Reference to be contained in, or accompany, the national provisions on official publication; the method of reference is left to Member States."@en .
+
+:AgentRole_Art53_MS_Transposer rdf:type owl:NamedIndividual , lomo:AgentRole ;
+    lomo:forAgent :AgentType_MemberStates ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+:AgentRole_Art53_MS_Informer rdf:type owl:NamedIndividual , lomo:AgentRole ;
+    lomo:forAgent :AgentType_MemberStates ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+:AgentRole_Art53_Commission_Informed rdf:type owl:NamedIndividual , lomo:AgentRole ;
+    lomo:forAgent :Agent_Commission ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/BENEF> .
+
+:AgentRole_Art53_MS_Communicator rdf:type owl:NamedIndividual , lomo:AgentRole ;
+    lomo:forAgent :AgentType_MemberStates ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+:AgentRole_Art53_Commission_Recipient rdf:type owl:NamedIndividual , lomo:AgentRole ;
+    lomo:forAgent :Agent_Commission ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/BENEF> .

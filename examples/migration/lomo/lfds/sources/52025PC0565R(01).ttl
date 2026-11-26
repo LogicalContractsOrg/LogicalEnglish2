@@ -1,0 +1,260 @@
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix dd: <http://data.europa.eu/leg/digital-dimensions/> .
+@prefix lomo: <http://data.europa.eu/leg/lomo#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix tc: <http://data.europa.eu/9bx/> .
+@prefix tf: <http://data.europa.eu/leg/temporal-function/> .
+@prefix y6k: <http://data.europa.eu/y6k/> .
+
+<http://example.org/analysis/description/1> a lomo:LegalRule ;
+    rdfs:label "Articles 3 on specific objectives and 22 on requirements for the NRP Plan"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/art_3> ;
+    lomo:hasCategory dd:DigitalPublicService,
+        dd:DigitalSolutions ;
+    lomo:involvesProcess <http://example.org/process/support-to-the-digital-transition> ;
+    lomo:produces <http://example.org/analysis/description/1/action> ;
+    dcterms:description "The Plans shall contribute in a comprehensive and adequate manner all the Fund’s specific objectives, taking into account the specific challenges of the Member State concerned, including: I)supporting the digital transformation and promoting the development and use of advanced technologies and ICT connectivity,while addressing the digital divide; II)support the […] digital transition of transport; III)improving the attractiveness and living standards in ruraland coastalareas and fair working conditions and[…]accelerating the digital transition for a thriving agri-food sector. The Plans shall be consistent, inter alia, with the […] national digital decade strategic roadmaps under Decision (EU) 2022/2481 and effectively contribute, in particular, to supporting the digital and data-driven transition of agriculture and rural areas."@en .
+
+<http://example.org/analysis/description/2> a lomo:LegalRule ;
+    rdfs:label "Article 63 on Data collection and recording"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ;
+            lomo:temporalLabel "Two times per year, annually for the interventions supporting the Common Agricultural Policy"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/art_63> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/data-collection-and-recording> ;
+    lomo:produces <http://example.org/analysis/action/1>,
+        <http://example.org/analysis/description/2/action> ;
+    lomo:references <http://example.org/dataset/data-on-i-the-beneficiary-ii-the-recipient-and-the-final-recipient-iii-the-contractor-iv-the-subcontractor-v-the-operation-vi-on-community-led-local-development-in-relation-to-each-local-action-group-lag-vii-on-each-eip-agri-operational-group> ;
+    dcterms:description "Member States shall collect, record and store electronically the required information on (i) the beneficiary, (ii) the recipient and the final recipient, (iii) the contractor, (iv) the subcontractor, (v) the operation, (vi) on Community-Led Local Development, in relation to each Local Action Group (LAG), (vii) on each EIP-AGRI operational group for the purposes of audit and controls, transparency and performance monitoring, analysis, evaluation and statistics while ensuring the security, integrity and confidentiality of data and the authentication of used and allowing automated data exchange with the electronic system identified by the Commission."@en .
+
+<http://example.org/analysis/description/3> a lomo:LegalRule ;
+    rdfs:label "Article 64 on Transparency"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/art_64> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess y6k:c_1cd39254c5a5 ;
+    lomo:produces <http://example.org/analysis/description/3/action> ;
+    dcterms:description "Member States shall ensure that a website is operational where information on support under this Regulation is available, covering the Plan’s objectives, activities, available funding opportunities and achievements. Member States should also ensure the publication of the information referred in Article 63 on the website. They should also ensure publication on the website of the elements referred to in the [Performance Regulation]."@en .
+
+<http://example.org/analysis/description/4> a lomo:LegalRule ;
+    rdfs:label "Article 64 on Transparency"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ;
+            lomo:temporalLabel "Website operational within 6 months of the adoption of the Commission decision of the approval of the Plan.The data shall be updated every6months."@en ],
+        [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ;
+            lomo:temporalLabel "Regular updates based on the information received from Member States"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/art_64> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess y6k:c_1cd39254c5a5 ;
+    lomo:produces <http://example.org/analysis/action/2>,
+        <http://example.org/analysis/action/3>,
+        <http://example.org/analysis/description/4/action> ;
+    lomo:references <http://example.org/dataset/information-on-the-member-states-plans-objectives-activities-available-funding-and-opportunitiesdata-on-i-the-beneficiary-ii-the-recipient-and-the-final-recipient-iii-the-contractor-iv-the-subcontractor-v-the-operation-vi-on-community-led-local-development-in-relation-to-each-local-action-group-lag-vii-on-each-eip-agri-operational-groupinformation-linked-to-the-relevant-elements-referred-to-in-the-performance-regulation-in-relation-to-calls-for-proposals-and-tenders-under-the-fundtimetable-of-the-planned-calls-for-proposals-under-the-fund> ;
+    dcterms:description "The European Commission shall publish the data referred to in Article 63 on the centralised website referred to in the [Performance Regulation]."@en .
+
+<http://example.org/analysis/description/5> a lomo:LegalRule ;
+    rdfs:label "Article 58 on the responsibilities of Member States, Annex IV on key requirements for the Member State’s management, control and audit systems and Annex XVI on SCF2027,"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/anx_4/art_58> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/data-collection-and-recording> ;
+    lomo:produces <http://example.org/analysis/description/5/action> ;
+    dcterms:description "Member States ensure the reporting of all cases of suspected fraud, corruption and irregularities, including conflict of interest, double funding and other breaches of the applicable law in the Commission’s Irregularity Management System (IMS); the Commission shall summarise and publish that information annually and shall communicate it to the European Parliament. Member States shall ensure that all official exchanges of information with the Commission are carried out by means of an electronic data exchange system referred to in Annex XVI [SFC2027: electronic data exchange system between the Member States and the Commission]"@en .
+
+<http://example.org/analysis/description/6> a lomo:LegalRule ;
+    rdfs:label "Article 58 on the responsibilities of Member States"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/art_58> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess tc:44 ;
+    lomo:produces <http://example.org/analysis/description/6/action> ;
+    lomo:references <http://example.org/dataset/electronic-data-exchange-systems> ;
+    dcterms:description "Member States shall ensure that all exchanges of information between beneficiaries of funding and the Plan authorities, as well as with the Commission, are carried out by means of electronic data exchange systems."@en .
+
+<http://example.org/analysis/description/7> a lomo:LegalRule ;
+    rdfs:label "Annex XIV on Union actions supported through the EU Facility"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/anx_14> ;
+    lomo:involvesProcess <http://example.org/process/data-collection-and-recording> ;
+    lomo:produces <http://example.org/analysis/description/7/action> ;
+    dcterms:description "The Facility shall support the implementation of the Common Fisheries Policy, inter alia to provide scientific advice, data collection and knowledge for the purposes of promoting sound and efficient fisheries management decisions; develop and implement the EU fisheries control system, promote clean and healthy oceans, develop and disseminate market intelligence for fishery and aquaculture products, promote maritime security and surveillance"@en .
+
+<http://example.org/dataset/data-for-monitoring-progress-reporting-evaluation-financial-management-verifications-and-audits> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/anx_16/art_58> ;
+    dcterms:conformsTo <http://example.org/standard/member-states-shall-have-systems-and-procedures-in-place-to-ensure-that-all-supporting-documents-necessary-for-the-audit-trail-related-to-a-measure-supported-by-the-fund-are-kept-at-the-appropriate-level-for-a-10-year-period-from-31-december-of-the-year-in-which-the-last-payment-by-the-commission-to-the-member-state-is-made-where-a-redress-procedure-has-been-initiated-an-appeal-has-been-lodged-or-where-court-proceedings-have-begun-the-supporting-documents-shall-be-kept-until-those-procedures-or-any-subsequent-recovery-procedures-are-terminated> ;
+    dcterms:title "Data for monitoring, progress reporting, evaluation, financial management verifications and audits"@en .
+
+tc:44 skos:prefLabel "Process digitalisation"@en .
+
+<http://example.org/analysis/action/1> a lomo:Action ;
+    rdfs:label "Data on (i) the beneficiary, (ii) the recipient and the final recipient, (iii) the contractor, (iv) the subcontractor, (v) the operation, (vi) on Community-Led Local Development, in relation to each Local Action Group (LAG), (vii) on each EIP-AGRI operational group"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:deadline ;
+            lomo:temporalLabel "Two times per year, annually for the interventions supporting the Common Agricultural Policy"@en ],
+        [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Adoption of the decision for approval of the Plan"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/art_63> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/1/role/addressee-european-commission>,
+        <http://example.org/analysis/action/1/role/addresser-member-states> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Data on (i) the beneficiary, (ii) the recipient and the final recipient, (iii) the contractor, (iv) the subcontractor, (v) the operation, (vi) on Community-Led Local Development, in relation to each Local Action Group (LAG), (vii) on each EIP-AGRI operational group"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/data-on-i-the-beneficiary-ii-the-recipient-and-the-final-recipient-iii-the-contractor-iv-the-subcontractor-v-the-operation-vi-on-community-led-local-development-in-relation-to-each-local-action-group-lag-vii-on-each-eip-agri-operational-group> ] .
+
+<http://example.org/analysis/action/1/role/addressee-european-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/european-commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/1/role/addresser-member-states> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/2> a lomo:Action ;
+    rdfs:label "Data on (i) the beneficiary, (ii) the recipient and the final recipient, (iii) the contractor, (iv) the subcontractor, (v) the operation, (vi) on Community-Led Local Development, in relation to each Local Action Group (LAG), (vii) on each EIP-AGRI operational group"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Reception of the information from the Member State"@en ],
+        [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:deadline ;
+            lomo:temporalLabel "Regular updates based on the information received from Member States"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/art_64> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/2/role/addressee-the-public>,
+        <http://example.org/analysis/action/2/role/addresser-european-commission> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Data on (i) the beneficiary, (ii) the recipient and the final recipient, (iii) the contractor, (iv) the subcontractor, (v) the operation, (vi) on Community-Led Local Development, in relation to each Local Action Group (LAG), (vii) on each EIP-AGRI operational group"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/data-on-i-the-beneficiary-ii-the-recipient-and-the-final-recipient-iii-the-contractor-iv-the-subcontractor-v-the-operation-vi-on-community-led-local-development-in-relation-to-each-local-action-group-lag-vii-on-each-eip-agri-operational-group> ] .
+
+<http://example.org/analysis/action/2/role/addressee-the-public> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/the-public> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/2/role/addresser-european-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/european-commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/3> a lomo:Action ;
+    rdfs:label "Information on the Member State’s Plan’s objectives, activities, available funding and opportunities.Data on (i) the beneficiary, (ii) the recipient and the final recipient, (iii) the contractor, (iv) the subcontractor, (v) the operation, (vi) on Community-Led Local Development, in relation to each Local Action Group (LAG), (vii) on each EIP-AGRI operational groupInformation linked to Article 10(3) of the Performance Regulation.Timetable of the planned calls for proposals under the Fund"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:deadline ;
+            lomo:temporalLabel "Website operational within 6 months of the adoption of the Commission decision of the approval of the Plan.The data shall be updated every6months."@en ],
+        [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Adoption of the decision for approval of the Plan"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/art_64> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/3/role/addressee-the-public>,
+        <http://example.org/analysis/action/3/role/addresser-member-states> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Information on the Member State’s Plan’s objectives, activities, available funding and opportunities.Data on (i) the beneficiary, (ii) the recipient and the final recipient, (iii) the contractor, (iv) the subcontractor, (v) the operation, (vi) on Community-Led Local Development, in relation to each Local Action Group (LAG), (vii) on each EIP-AGRI operational groupInformation linked to Article 10(3) of the Performance Regulation.Timetable of the planned calls for proposals under the Fund"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/information-on-the-member-states-plans-objectives-activities-available-funding-and-opportunitiesdata-on-i-the-beneficiary-ii-the-recipient-and-the-final-recipient-iii-the-contractor-iv-the-subcontractor-v-the-operation-vi-on-community-led-local-development-in-relation-to-each-local-action-group-lag-vii-on-each-eip-agri-operational-groupinformation-linked-to-article-103-of-the-performance-regulationtimetable-of-the-planned-calls-for-proposals-under-the-fund> ] .
+
+<http://example.org/analysis/action/3/role/addressee-the-public> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/the-public> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/3/role/addresser-member-states> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/description/1/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/1/action/role/addressee-member-states> .
+
+<http://example.org/analysis/description/1/action/role/addressee-member-states> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/2/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/2/action/role/addressee-member-states-european-commission> .
+
+<http://example.org/analysis/description/2/action/role/addressee-member-states-european-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states-european-commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/3/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/3/action/role/addressee-member-states> .
+
+<http://example.org/analysis/description/3/action/role/addressee-member-states> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/4/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/4/action/role/addressee-european-commission> .
+
+<http://example.org/analysis/description/4/action/role/addressee-european-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/european-commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/5/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/5/action/role/addressee-member-states-european-commission> .
+
+<http://example.org/analysis/description/5/action/role/addressee-member-states-european-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states-european-commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/6/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/6/action/role/addressee-member-states> .
+
+<http://example.org/analysis/description/6/action/role/addressee-member-states> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/7/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/7/action/role/addressee-european-commission> .
+
+<http://example.org/analysis/description/7/action/role/addressee-european-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/european-commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/dataset/electronic-data-exchange-systems> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/art_58> ;
+    dcterms:conformsTo <http://example.org/standard/these-systems-shall-include-among-others-use-of-automatic-and-interactive-forms-and-calculations-ensure-record-keeping-and-data-storage-in-the-system-enabling-both-administrative-verifications-of-payment-claims-submitted-by-beneficiaries-and-audits-as-well-as-allow-for-automatic-synchronisation-and-transmission-of-data-between-beneficiaries-and-member-states-systems> ;
+    dcterms:title "Electronic data exchange systems"@en .
+
+<http://example.org/dataset/information-on-the-member-states-plans-objectives-activities-available-funding-and-opportunitiesdata-on-i-the-beneficiary-ii-the-recipient-and-the-final-recipient-iii-the-contractor-iv-the-subcontractor-v-the-operation-vi-on-community-led-local-development-in-relation-to-each-local-action-group-lag-vii-on-each-eip-agri-operational-groupinformation-linked-to-article-103-of-the-performance-regulationtimetable-of-the-planned-calls-for-proposals-under-the-fund> a dcat:Dataset ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Information on the Member State’s Plan’s objectives, activities, available funding and opportunities.Data on (i) the beneficiary, (ii) the recipient and the final recipient, (iii) the contractor, (iv) the subcontractor, (v) the operation, (vi) on Community-Led Local Development, in relation to each Local Action Group (LAG), (vii) on each EIP-AGRI operational groupInformation linked to Article 10(3) of the Performance Regulation.Timetable of the planned calls for proposals under the Fund"@en ] ;
+    dcterms:title "Information on the Member State’s Plan’s objectives, activities, available funding and opportunities.Data on (i) the beneficiary, (ii) the recipient and the final recipient, (iii) the contractor, (iv) the subcontractor, (v) the operation, (vi) on Community-Led Local Development, in relation to each Local Action Group (LAG), (vii) on each EIP-AGRI operational groupInformation linked to Article 10(3) of the Performance Regulation.Timetable of the planned calls for proposals under the Fund"@en .
+
+<http://example.org/dataset/information-on-the-member-states-plans-objectives-activities-available-funding-and-opportunitiesdata-on-i-the-beneficiary-ii-the-recipient-and-the-final-recipient-iii-the-contractor-iv-the-subcontractor-v-the-operation-vi-on-community-led-local-development-in-relation-to-each-local-action-group-lag-vii-on-each-eip-agri-operational-groupinformation-linked-to-the-relevant-elements-referred-to-in-the-performance-regulation-in-relation-to-calls-for-proposals-and-tenders-under-the-fundtimetable-of-the-planned-calls-for-proposals-under-the-fund> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/art_64> ;
+    dcterms:conformsTo <http://example.org/standard/the-information-shall-be-updated-at-least-every-six-months-the-information-on-the-calls-for-proposals-shall-be-updated-at-least-two-times-a-year>,
+        <http://example.org/standard/this-data-should-be-in-at-least-one-of-the-official-language-or-languages-of-the-member-state-andor-in-either-english-french-or-german-and-shall-remain-available-on-the-website-for-two-years-from-the-date-of-its-initial-publication-the-data-published-on-the-website-shall-be-a-digital-ready-open-interoperable-and-machine-readable-format-which-allows-data-to-be-sorted-searched-extracted-compared-and-reused> ;
+    dcterms:title "Information on the Member State’s Plan’s objectives, activities, available funding and opportunities.Data on (i) the beneficiary, (ii) the recipient and the final recipient, (iii) the contractor, (iv) the subcontractor, v) the operation, (vi) on Community-Led Local Development, in relation to each Local Action Group (LAG), (vii) on each EIP-AGRI operational groupInformation linked to the relevant elements referred to in the Performance Regulation in relation to calls for proposals and tenders under the FundTimetable of the planned calls for proposals under the Fund."@en .
+
+<http://example.org/process/support-to-the-digital-transition> skos:prefLabel "Support to the digital transition"@en .
+
+<http://example.org/standard/member-states-shall-have-systems-and-procedures-in-place-to-ensure-that-all-supporting-documents-necessary-for-the-audit-trail-related-to-a-measure-supported-by-the-fund-are-kept-at-the-appropriate-level-for-a-10-year-period-from-31-december-of-the-year-in-which-the-last-payment-by-the-commission-to-the-member-state-is-made-where-a-redress-procedure-has-been-initiated-an-appeal-has-been-lodged-or-where-court-proceedings-have-begun-the-supporting-documents-shall-be-kept-until-those-procedures-or-any-subsequent-recovery-procedures-are-terminated> a dcterms:Standard ;
+    dcterms:title "Member States shall have systems and procedures in place to ensure that all supporting documents necessary for the audit trail related to a measure supported by the Fund are kept at the appropriate level for a 10-year period from 31 December of the year in which the last payment by the Commission to the Member State is made; where a redress procedure has been initiated, an appeal has been lodged or where court proceedings have begun, the supporting documents shall be kept until those procedures or any subsequent recovery procedures are terminated;"@en .
+
+<http://example.org/standard/the-commission-shall-publish-this-data-subject-to-exceptions-provided-for-by-the-regulation-on-a-centralised-website-with-the-share-of-union-contribution-referred-to-in-the-performance-regulation-information-on-name-and-surname-in-case-of-a-natural-person-or-name-in-case-of-a-legal-entity-shall-not-be-published-if-the-amount-received-by-them-in-one-year-is-equal-to-or-less-than-eur-2500> a dcterms:Standard ;
+    dcterms:title "The Commission shall publish this data, subject to exceptions provided for by the regulation, on a centralised website with the share of Union contribution referred to in the [Performance regulation]. Information on name and surname, in case of a natural person, or name, in case of a legal entity, shall not be published, if the amount received by them in one year is equal to or less than EUR 2500."@en .
+
+<http://example.org/standard/the-information-shall-be-updated-at-least-every-six-months-the-information-on-the-calls-for-proposals-shall-be-updated-at-least-two-times-a-year> a dcterms:Standard ;
+    dcterms:title "The information shall be updated at least every six months. The information on the calls for proposals shall be updated at least two times a year."@en .
+
+<http://example.org/standard/these-systems-shall-include-among-others-use-of-automatic-and-interactive-forms-and-calculations-ensure-record-keeping-and-data-storage-in-the-system-enabling-both-administrative-verifications-of-payment-claims-submitted-by-beneficiaries-and-audits-as-well-as-allow-for-automatic-synchronisation-and-transmission-of-data-between-beneficiaries-and-member-states-systems> a dcterms:Standard ;
+    dcterms:title "These systems shall include, among others, use of automatic and interactive forms and calculations, ensure record-keeping and data storage in the system enabling both administrative verifications of payment claims submitted by beneficiaries and audits as well as allow for automatic synchronisation and transmission of data between beneficiaries' and Member States' systems."@en .
+
+<http://example.org/standard/this-data-should-be-in-at-least-one-of-the-official-language-or-languages-of-the-member-state-andor-in-either-english-french-or-german-and-shall-remain-available-on-the-website-for-two-years-from-the-date-of-its-initial-publication-the-data-published-on-the-website-shall-be-a-digital-ready-open-interoperable-and-machine-readable-format-which-allows-data-to-be-sorted-searched-extracted-compared-and-reused> a dcterms:Standard ;
+    dcterms:title "This data should be in at least one of the official language or languages of the Member State and/or in either English, French or German and shall remain available on the website for two years from the date of its initial publication. The data published on the website shall be a digital-ready, open, interoperable and machine-readable format, which allows data to be sorted, searched, extracted, compared and reused."@en .
+
+y6k:c_1cd39254c5a5 skos:prefLabel "Transparency"@en .
+
+<http://example.org/agent/member-states-european-commission> rdfs:label "Member States, European Commission"@en .
+
+<http://example.org/agent/the-public> rdfs:label "The public"@en .
+
+<http://example.org/dataset/data-on-i-the-beneficiary-ii-the-recipient-and-the-final-recipient-iii-the-contractor-iv-the-subcontractor-v-the-operation-vi-on-community-led-local-development-in-relation-to-each-local-action-group-lag-vii-on-each-eip-agri-operational-group> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/art_63> ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Data on (i) the beneficiary, (ii) the recipient and the final recipient, (iii) the contractor, (iv) the subcontractor, (v) the operation, (vi) on Community-Led Local Development, in relation to each Local Action Group (LAG), (vii) on each EIP-AGRI operational group"@en ],
+        [ a lomo:ActionResult ;
+            rdfs:label "Data on (i) the beneficiary, (ii) the recipient and the final recipient, (iii) the contractor, (iv) the subcontractor, (v) the operation, (vi) on Community-Led Local Development, in relation to each Local Action Group (LAG), (vii) on each EIP-AGRI operational group"@en ] ;
+    dcterms:conformsTo <http://example.org/standard/the-commission-shall-publish-this-data-subject-to-exceptions-provided-for-by-the-regulation-on-a-centralised-website-with-the-share-of-union-contribution-referred-to-in-the-performance-regulation-information-on-name-and-surname-in-case-of-a-natural-person-or-name-in-case-of-a-legal-entity-shall-not-be-published-if-the-amount-received-by-them-in-one-year-is-equal-to-or-less-than-eur-2500> ;
+    dcterms:title "Data on (i) the beneficiary, (ii) the recipient and the final recipient, (iii) the contractor, (iv) the subcontractor, (v) the operation, (vi) on Community-Led Local Development, in relation to each Local Action Group (LAG), (vii) on each EIP-AGRI operational group"@en .
+
+<http://example.org/process/data-collection-and-recording> skos:prefLabel "Data collection and recording"@en .
+
+<http://example.org/agent/european-commission> rdfs:label "European Commission"@en .
+
+<http://example.org/agent/member-states> rdfs:label "Member States"@en .
+

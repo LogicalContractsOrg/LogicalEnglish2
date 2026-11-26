@@ -1,0 +1,32 @@
+PREFIX cav: <http://data.europa.eu/2sa/cav#>
+PREFIX dct: <http://purl.org/dc/terms/>
+PREFIX m8g: <http://data.europa.eu/m8g/>
+
+# Reverse of process_assessment_table -> the assessment subtable(s) appended to
+# interoperability.html. The act has ONE cav:Assessment; each source table row
+# is reconstructed from its statements' URIs (…/assessment/1/{row}/{kind}).
+# A row has at most one measure and one barrier statement; the statement's
+# judgement holds the cell's paragraphs newline-separated. Rows are grouped
+# into one subtable per service caption (the linked service's title, or the
+# statement's dct:title fallback).
+SELECT ?row ?label
+       (SAMPLE(COALESCE(?svcTitle, ?ownTitle, "")) AS ?caption)
+       (MAX(?m) AS ?measures)
+       (MAX(?b) AS ?barriers)
+WHERE {
+  ?assessment a cav:Assessment ;
+              cav:resultsIn ?s .
+  ?s cav:type ?t ;
+     cav:judgement ?j ;
+     dct:description ?label .
+  BIND(REPLACE(STR(?s), "/(measure|barrier)$", "") AS ?row)
+  OPTIONAL {
+    ?s m8g:hasRelatedService ?svc .
+    ?svc dct:title ?svcTitle .
+  }
+  OPTIONAL { ?s dct:title ?ownTitle . }
+  BIND(IF(STRENDS(STR(?t), "Measure"), STR(?j), "") AS ?m)
+  BIND(IF(STRENDS(STR(?t), "Barrier"), STR(?j), "") AS ?b)
+}
+GROUP BY ?row ?label
+ORDER BY ?row

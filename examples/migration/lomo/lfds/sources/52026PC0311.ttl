@@ -1,0 +1,1078 @@
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix dd: <http://data.europa.eu/leg/digital-dimensions/> .
+@prefix lomo: <http://data.europa.eu/leg/lomo#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix tf: <http://data.europa.eu/leg/temporal-function/> .
+
+<http://example.org/analysis/action/1> a lomo:Action ;
+    rdfs:label "Call for applications, decisions made throughout the phases of the comparative selection procedure and the final selection of applicants in the OJ of the EU"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:deadline ;
+            lomo:temporalLabel "Once"@en ],
+        [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "EU-level comparative selection procedure"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/311/cod/doc/com/COM_2026_311/FINAL/eng/art_4/par_6> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/1/role/addressee-applicants>,
+        <http://example.org/analysis/action/1/role/addresser-commission> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Call for applications, decisions made throughout the phases of the comparative selection procedure and the final selection of applicants in the OJ of the EU"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/call-for-applications-decisions-made-throughout-the-phases-of-the-comparative-selection-procedure-and-the-final-selection-of-applicants-in-the-oj-of-the-eu> ] .
+
+<http://example.org/analysis/action/10> a lomo:Action ;
+    rdfs:label "Data on the applicants’ compliance with admissibility requirements for the commercial MSS systems"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "EU-level comparative selection procedure"@en ],
+        [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:deadline ;
+            lomo:temporalLabel "Once"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/311/cod/doc/com/COM_2026_311/FINAL/eng/art_10/par_1> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/10/role/addressee-commission>,
+        <http://example.org/analysis/action/10/role/addresser-applicants> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Data on the applicants’ compliance with admissibility requirements for the commercial MSS systems"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/data-on-the-applicants-compliance-with-admissibility-requirements-for-the-commercial-mss-systems> ] .
+
+<http://example.org/analysis/action/12> a lomo:Action ;
+    rdfs:label "Implementing act on conditions of general authorisation"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:deadline ;
+            lomo:temporalLabel "Once (and if applicable)"@en ],
+        [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Relevant step of EU-level comparative selection procedure"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/311/cod/doc/com/COM_2026_311/FINAL/eng/art_13/par_5> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/12/role/addressee-applicants>,
+        <http://example.org/analysis/action/12/role/addresser-commission> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Implementing act on conditions of general authorisation"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/implementing-act-on-conditions-of-general-authorisation> ] .
+
+<http://example.org/analysis/action/13> a lomo:Action ;
+    rdfs:label "Implementing act related to setting contributions"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Relevant step of EU-level comparative selection procedure"@en ],
+        [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:deadline ;
+            lomo:temporalLabel "Once (and if applicable)"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/311/cod/doc/com/COM_2026_311/FINAL/eng/art_18/par_2> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/13/role/addressee-applicants>,
+        <http://example.org/analysis/action/13/role/addresser-commission> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Implementing act related to setting contributions"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/implementing-act-related-to-setting-contributions> ] .
+
+<http://example.org/analysis/action/14> a lomo:Action ;
+    rdfs:label "Delegated act on methodology related to contributions"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Relevant step of EU-level comparative selection procedure"@en ],
+        [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:deadline ;
+            lomo:temporalLabel "Once"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/311/cod/doc/com/COM_2026_311/FINAL/eng/art_18/par_5> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/14/role/addressee-applicants>,
+        <http://example.org/analysis/action/14/role/addresser-commission> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Delegated act on methodology related to contributions"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/delegated-act-on-methodology-related-to-contributions> ] .
+
+<http://example.org/analysis/action/15> a lomo:Action ;
+    rdfs:label "Statements and evidence"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Relevant step of EU-level comparative selection procedure"@en ],
+        [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:deadline ;
+            lomo:temporalLabel "Once"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/311/cod/doc/com/COM_2026_311/FINAL/eng/art_10/par_2>,
+        <https://data.europa.eu/eli/dl/proc/2026/311/cod/doc/com/COM_2026_311/FINAL/eng/art_9/par_2> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/15/role/addressee-commission>,
+        <http://example.org/analysis/action/15/role/addresser-applicants-for-the-provision-of-commercial-mss-system> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Statements and evidence"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/statements-and-evidence> ] .
+
+<http://example.org/analysis/action/17> a lomo:Action ;
+    rdfs:label "Information on the security accreditation of satellite systems"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "EU-level comparative selection procedure"@en ],
+        [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:deadline ;
+            lomo:temporalLabel "Once"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/311/cod/doc/com/COM_2026_311/FINAL/eng/art_7/par_1> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/17/role/addressee-commission>,
+        <http://example.org/analysis/action/17/role/addresser-applicant-for-the-spectrum-for-the-secure-msshybrid-system> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Information on the security accreditation of satellite systems"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/information-on-the-security-accreditation-of-satellite-systems> ] .
+
+<http://example.org/analysis/action/19> a lomo:Action ;
+    rdfs:label "Data from the monitoring of compliance of holders of Union authorisation for use of 2 GHz MSS band"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:deadline ;
+            lomo:temporalLabel "Permanent"@en ],
+        [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "EU-level comparative selection procedure"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/311/cod/doc/com/COM_2026_311/FINAL/eng/art_19/par_1> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/19/role/addressee-commission-and-member-states-collaborating-with-the-communications-committee-and-the-rspg>,
+        <http://example.org/analysis/action/19/role/addresser-holders-of-union-authorisation-for-use-of-2-ghz-mss-band> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Data from the monitoring of compliance of holders of Union authorisation for use of 2 GHz MSS band"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/data-from-the-monitoring-of-compliance-of-holders-of-union-authorisation-for-use-of-2-ghz-mss-band> ] .
+
+<http://example.org/analysis/action/20> a lomo:Action ;
+    rdfs:label "Decision to impose sharing conditions to enable testing and experimental use of the band"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:deadline ;
+            lomo:temporalLabel "Once (and if applicable)"@en ],
+        [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Need to impose sharing conditions to enable testing and experimental use of the band."@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/311/cod/doc/com/COM_2026_311/FINAL/eng/art_20/par_2> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/20/role/addressee-incumbent-rights-holders>,
+        <http://example.org/analysis/action/20/role/addresser-commission> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Decision to impose sharing conditions to enable testing and experimental use of the band"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/decision-to-impose-sharing-conditions-to-enable-testing-and-experimental-use-of-the-band> ] .
+
+<http://example.org/analysis/action/21> a lomo:Action ;
+    rdfs:label "Notification of adoption of a delegated act"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:deadline ;
+            lomo:temporalLabel "Once"@en ],
+        [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Adoption of a delegated act"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/311/cod/doc/com/COM_2026_311/FINAL/eng/art_21/par_5> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/21/role/addressee-european-parliament-and-council>,
+        <http://example.org/analysis/action/21/role/addresser-commission> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Notification of adoption of a delegated act"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/notification-of-adoption-of-a-delegated-act> ] .
+
+<http://example.org/analysis/action/8> a lomo:Action ;
+    rdfs:label "Delegated act"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:deadline ;
+            lomo:temporalLabel "Once (and if applicable)"@en ],
+        [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "EU-level comparative selection procedure"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/311/cod/doc/com/COM_2026_311/FINAL/eng/art_6/par_4> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/8/role/addressee-applicants>,
+        <http://example.org/analysis/action/8/role/addresser-commission> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Delegated act"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/delegated-act> ] .
+
+<http://example.org/analysis/action/9> a lomo:Action ;
+    rdfs:label "Data on the applicants’ compliance with admissibility requirements for the commercial MSS systems"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:deadline ;
+            lomo:temporalLabel "Once"@en ],
+        [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "EU-level comparative selection procedure"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/311/cod/doc/com/COM_2026_311/FINAL/eng/art_9/par_1> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/9/role/addressee-commission>,
+        <http://example.org/analysis/action/9/role/addresser-applicants> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Data on the applicants’ compliance with admissibility requirements for the commercial MSS systems"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/data-on-the-applicants-compliance-with-admissibility-requirements-for-the-commercial-mss-systems> ] .
+
+<http://example.org/analysis/description/1> a lomo:LegalRule ;
+    rdfs:label "Article 5(2)"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/311/cod/doc/com/COM_2026_311/FINAL/eng/art_5/par_2> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/publish-all-decisions-made-by-the-commission>,
+        <http://example.org/process/publish-the-call-for-applications> ;
+    lomo:produces <http://example.org/analysis/description/1/action> ;
+    dcterms:description "The call for applications and all decisions made by the Commission throughout the phases of the comparative selection procedure as well as the final selection of applicants shall be published in the OJ of the EU."@en .
+
+<http://example.org/analysis/description/10> a lomo:LegalRule ;
+    rdfs:label "Article 6(2), Article 7 and Article 8"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/311/cod/doc/com/COM_2026_311/FINAL/eng/art_6/par_2>,
+        <https://data.europa.eu/eli/dl/proc/2026/311/cod/doc/com/COM_2026_311/FINAL/eng/art_7> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/include-statements-and-evidence-concerning-the-2-ghz-mss-band-requested-and-its-efficient-use> ;
+    lomo:produces <http://example.org/analysis/description/10/action> ;
+    lomo:references <http://example.org/dataset/information-on-the-security-accreditation-of-satellite-systems>,
+        <http://example.org/dataset/reasoned-decisions> ;
+    dcterms:description "Include statements and evidence concerning the 2 GHz MSS band requested and its effective use."@en .
+
+<http://example.org/analysis/description/11> a lomo:LegalRule ;
+    rdfs:label "Article 8(1)"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/311/cod/doc/com/COM_2026_311/FINAL/eng/art_8/par_1> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/specify-the-amount> ;
+    lomo:produces <http://example.org/analysis/description/11/action> ;
+    dcterms:description "Specify an amount of the one-off financial contribution for right of use for the 2 GHz MSS. Secure systems"@en .
+
+<http://example.org/analysis/description/12> a lomo:LegalRule ;
+    rdfs:label "Article 8(2)"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ;
+            lomo:temporalLabel "Once"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/311/cod/doc/com/COM_2026_311/FINAL/eng/art_8/par_2> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/adopt-a-reasoned-decision-on-selecting-the-applicants> ;
+    lomo:produces <http://example.org/analysis/action/11>,
+        <http://example.org/analysis/description/12/action> ;
+    lomo:references <http://example.org/dataset/reasoned-decisions> ;
+    dcterms:description "Adopt a reasoned decision on selecting the applicants for the right of use of the 2 GHz MSS band for secure MSS systems."@en .
+
+<http://example.org/analysis/description/13> a lomo:LegalRule ;
+    rdfs:label "Article 12(1)"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/311/cod/doc/com/COM_2026_311/FINAL/eng/art_12/par_1> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/ranking-of-eligible-applicants> ;
+    lomo:produces <http://example.org/analysis/description/13/action> ;
+    dcterms:description "Rank eligible applicants based on selection criteria specified in the call for applications."@en .
+
+<http://example.org/analysis/description/14> a lomo:LegalRule ;
+    rdfs:label "Article 12(2)"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/311/cod/doc/com/COM_2026_311/FINAL/eng/art_12/par_2> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/adopt-implementing-act> ;
+    lomo:produces <http://example.org/analysis/description/14/action> ;
+    lomo:references <http://example.org/dataset/reasoned-decisions> ;
+    dcterms:description "Adopt a reasoned decision on selecting the highest-ranking applicants for commercial MSS systems."@en .
+
+<http://example.org/analysis/description/15> a lomo:LegalRule ;
+    rdfs:label "Article 13(1)"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/311/cod/doc/com/COM_2026_311/FINAL/eng/art_13/par_1> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/authorise-the-use-of-the-2-ghz-mss-band-by-the-selected-applicant> ;
+    lomo:produces <http://example.org/analysis/description/15/action> ;
+    dcterms:description "Authorise the use of the 2 GHz MSS band by the selected applicant under Article 14(1) or Article 15(1)."@en .
+
+<http://example.org/analysis/description/16> a lomo:LegalRule ;
+    rdfs:label "Article 14(1l)"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/311/cod/doc/com/COM_2026_311/FINAL/eng/art_14> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/provide-an-annual-report> ;
+    lomo:produces <http://example.org/analysis/description/16/action> ;
+    dcterms:description "Provide annual report detailing the status of development of their proposed system."@en .
+
+<http://example.org/analysis/description/17> a lomo:LegalRule ;
+    rdfs:label "Article 14(4k)"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/311/cod/doc/com/COM_2026_311/FINAL/eng/art_14> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/provide-security-accreditation> ;
+    lomo:produces <http://example.org/analysis/description/17/action> ;
+    dcterms:description "Provide the security accreditation of satellite systems in accordance with Article 37 of Regulation (EU) 2021/696."@en .
+
+<http://example.org/analysis/description/18> a lomo:LegalRule ;
+    rdfs:label "Article 12(3)"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/311/cod/doc/com/COM_2026_311/FINAL/eng/art_12/par_3> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/define-efficient-use-of-paired-blocks-of-5-mhz-in-the-2-ghz-mss-band> ;
+    lomo:produces <http://example.org/analysis/description/18/action> ;
+    dcterms:description "Define efficient use of paired blocks of 5 MHz in the 2 GHz MSS band in detailed arrangements for monitoring set out in accordance with Article 14(3)."@en .
+
+<http://example.org/analysis/description/19> a lomo:LegalRule ;
+    rdfs:label "Article 15(1) and"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/311/cod/doc/com/COM_2026_311/FINAL/eng/art_15/par_1> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/provide-an-annual-report> ;
+    lomo:produces <http://example.org/analysis/description/19/action> ;
+    dcterms:description "Provide an annual report detailing the status of development of their proposed system."@en .
+
+<http://example.org/analysis/description/2> a lomo:LegalRule ;
+    rdfs:label "Article 5(2)"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/311/cod/doc/com/COM_2026_311/FINAL/eng/art_5/par_2> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/adopt-the-call-for-applications> ;
+    lomo:produces <http://example.org/analysis/description/2/action> ;
+    dcterms:description "Call for applications to be adopted in accordance with the advisory procedure"@en .
+
+<http://example.org/analysis/description/20> a lomo:LegalRule ;
+    rdfs:label "Article 14(1)"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ;
+            lomo:temporalLabel "Once"@en ],
+        [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ;
+            lomo:temporalLabel "Once"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/311/cod/doc/com/COM_2026_311/FINAL/eng/art_14/par_1> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/determine-the-duration-of-the-right-of-use-of-the-2-ghz-mss-band> ;
+    lomo:produces <http://example.org/analysis/action/16>,
+        <http://example.org/analysis/action/18>,
+        <http://example.org/analysis/description/20/action> ;
+    lomo:references <http://example.org/dataset/annual-report-detailing-the-status-of-development-of-their-proposed-system>,
+        <http://example.org/dataset/eu-classified-information-euci> ;
+    dcterms:description "Determine the duration of the right of use of the 2 GHz MSS band pursuant to Article 14(1) and 15(1)."@en .
+
+<http://example.org/analysis/description/3> a lomo:LegalRule ;
+    rdfs:label "Article 5(3)"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ;
+            lomo:temporalLabel "Once"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/311/cod/doc/com/COM_2026_311/FINAL/eng/art_5/par_3> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/submission-of-applications> ;
+    lomo:produces <http://example.org/analysis/action/2>,
+        <http://example.org/analysis/description/3/action> ;
+    lomo:references <http://example.org/dataset/applications> ;
+    dcterms:description "Submit applications to the Commission."@en .
+
+<http://example.org/analysis/description/4> a lomo:LegalRule ;
+    rdfs:label "Article5(4)"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/311/cod/doc/com/COM_2026_311/FINAL/eng/art_5/par_4> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/inform-applicants-about-the-admissibility-of-their-applications>,
+        <http://example.org/process/publish-a-list-of-admissible-applicants>,
+        <http://example.org/process/request-additional-information> ;
+    lomo:produces <http://example.org/analysis/description/4/action> ;
+    dcterms:description "Request applicants to supply additional information about the fulfilment of admissibility requirements. Inform applicants whether their applications are considered as admissible or not and publish a list of admissible applicants."@en .
+
+<http://example.org/analysis/description/5> a lomo:LegalRule ;
+    rdfs:label "Article 5(4)"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ;
+            lomo:temporalLabel "Upon request"@en ],
+        [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ;
+            lomo:temporalLabel "Once"@en ],
+        [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ;
+            lomo:temporalLabel "Once"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/311/cod/doc/com/COM_2026_311/FINAL/eng/art_5/par_4> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/adopt-a-reasoned-decision> ;
+    lomo:produces <http://example.org/analysis/action/3>,
+        <http://example.org/analysis/action/4>,
+        <http://example.org/analysis/action/5>,
+        <http://example.org/analysis/description/5/action> ;
+    lomo:references <http://example.org/dataset/additional-information-about-the-fulfilment-of-admissibility-requirements>,
+        <http://example.org/dataset/information-on-the-admissibility-of-applications>,
+        <http://example.org/dataset/publication-of-the-list-of-admissible-applicants> ;
+    dcterms:description "Adopt a reasoned decision on non-admissibility or non-eligibility of applications."@en .
+
+<http://example.org/analysis/description/6> a lomo:LegalRule ;
+    rdfs:label "Article 5(5)"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/311/cod/doc/com/COM_2026_311/FINAL/eng/art_5/par_5> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/checking-the-compliance-with-admissibility-requirements-for-mss-systems> ;
+    lomo:produces <http://example.org/analysis/description/6/action> ;
+    dcterms:description "Comply with eligibility requirements for the MSS systems."@en .
+
+<http://example.org/analysis/description/7> a lomo:LegalRule ;
+    rdfs:label "Article 5(6)"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/311/cod/doc/com/COM_2026_311/FINAL/eng/art_5/par_6> ;
+    lomo:hasCategory dd:Data ;
+    lomo:produces <http://example.org/analysis/description/7/action> ;
+    dcterms:description "Commission to rank eligible applicants"@en .
+
+<http://example.org/analysis/description/8> a lomo:LegalRule ;
+    rdfs:label "Article 5(7),"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ;
+            lomo:temporalLabel "Once"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/311/cod/doc/com/COM_2026_311/FINAL/eng/art_5/par_7> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/adopt-a-reasoned-decision> ;
+    lomo:produces <http://example.org/analysis/action/6>,
+        <http://example.org/analysis/description/8/action> ;
+    lomo:references <http://example.org/dataset/reasoned-decisions> ;
+    dcterms:description "Adopt a reasoned decision on non-admissibility or non-eligibility of applicants for the right of use of the 2 GHz MSS"@en .
+
+<http://example.org/analysis/description/9> a lomo:LegalRule ;
+    rdfs:label "Article6(1)"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ;
+            lomo:temporalLabel "Once"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/311/cod/doc/com/COM_2026_311/FINAL/eng/art_6/par_1> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/checking-the-compliance-with-admissibility-requirements-for-secure-hybridmss-systems> ;
+    lomo:produces <http://example.org/analysis/action/7>,
+        <http://example.org/analysis/description/9/action> ;
+    lomo:references <http://example.org/dataset/data-on-the-applicants-compliance-with-admissibility-requirements-for-the-secure-msshybrid-system> ;
+    dcterms:description "Comply with admissibility requirements for secure hybrid/MSS systems."@en .
+
+<http://example.org/dataset/data-on-the-applicants-compliance-with-admissibility-requirements-for-other-commercial-mss-systems> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/311/cod/doc/com/COM_2026_311/FINAL/eng/art_10/par_1> ;
+    dcterms:title "Data on the applicants’ compliance with admissibility requirements for other commercial MSS systems"@en .
+
+<http://example.org/dataset/data-on-the-applicants-compliance-with-admissibility-requirements-for-the-commercial-mss-systems-of-union-new-entrant> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/311/cod/doc/com/COM_2026_311/FINAL/eng/art_9/par_1> ;
+    dcterms:title "Data on the applicants’ compliance with admissibility requirements for the commercial MSS systems of Union new entrant"@en .
+
+<http://example.org/dataset/implementing-act> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/311/cod/doc/com/COM_2026_311/FINAL/eng/art_18/par_2> ;
+    dcterms:conformsTo <http://example.org/standard/in-the-required-format> ;
+    dcterms:title "Implementing act"@en .
+
+<http://example.org/dataset/publication-of-the-call-for-applications-and-of-all-decisions-made-by-the-commission-throughout-the-phases-of-the-comparative-selection-procedure-and-of-the-final-selection-of-applicants-in-the-oj-of-the-eu> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/311/cod/doc/com/COM_2026_311/FINAL/eng/art_4/par_4> ;
+    dcterms:title "Publication of the call for applications and of all decisions made by the Commission throughout the phases of the comparative selection procedure and of the final selection of applicants in the OJ of the EU."@en .
+
+<http://example.org/dataset/review-of-the-annual-and-one-off-fees-for-the-use-of-the-2-ghz-mss-band> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/311/cod/doc/com/COM_2026_311/FINAL/eng/art_16/par_5> ;
+    dcterms:title "Review of the annual and one-off fees for the use of the 2 GHz MSS band"@en .
+
+<http://example.org/agent/applicant-for-the-spectrum-for-the-secure-msshybrid-system> rdfs:label "Applicant for the spectrum for the secure MSS/hybrid system"@en .
+
+<http://example.org/agent/applicants-for-secure-mss-system> rdfs:label "Applicants for secure MSS system."@en .
+
+<http://example.org/agent/applicants-for-the-provision-of-commercial-mss-system> rdfs:label "Applicants for the provision of commercial MSS system"@en .
+
+<http://example.org/agent/applicants-for-the-secure-hybrid-mss-system> rdfs:label "Applicants for the secure hybrid/ MSS system."@en .
+
+<http://example.org/agent/commission-and-communications-committee> rdfs:label "Commission and Communications Committee"@en .
+
+<http://example.org/agent/commission-and-member-states-collaborating-with-the-communications-committee-and-the-rspg> rdfs:label "Commission and Member States, collaborating with the Communications Committee and the RSPG"@en .
+
+<http://example.org/agent/european-parliament-and-council> rdfs:label "European Parliament and Council"@en .
+
+<http://example.org/agent/holder-of-the-authorisation-for-secure-msshybrid-system-granted-under-article-111> rdfs:label "Holder of the authorisation for secure MSS/hybrid system granted under Article 11(1)"@en .
+
+<http://example.org/agent/holder-of-the-authorisation-for-the-secure-msshybrid-system-granted-under-article-111> rdfs:label "Holder of the authorisation for the secure MSS/hybrid system granted under Article 11(1)"@en .
+
+<http://example.org/agent/holder-of-the-authorisation-for-the-secure-msshybrid-system-granted-under-article-131> rdfs:label "Holder of the authorisation for the secure MSS/hybrid system granted under Article 13(1)"@en .
+
+<http://example.org/agent/holder-of-the-authorisation-for-the-secure-msshybrid-system-granted-under-article-131holders-of-the-authorisation-for-commercial-mss-systems-granted-under-article-131> rdfs:label "Holder of the authorisation for the secure MSS/hybrid system, granted under Article 13(1).Holders of the authorisation for commercial MSS systems, granted under Article 13(1)."@en .
+
+<http://example.org/agent/holders-of-the-authorization-for-commercial-mss-system-granted-under-article-131> rdfs:label "Holders of the authorization for commercial MSS system granted under Article 13(1)"@en .
+
+<http://example.org/agent/holders-of-union-authorisation-for-use-of-2-ghz-mss-band> rdfs:label "Holders of Union authorisation for use of 2 GHz MSS band"@en .
+
+<http://example.org/agent/incumbent-rights-holders> rdfs:label "Incumbent rights holder(s)"@en .
+
+<http://example.org/analysis/action/1/role/addressee-applicants> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/applicants> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/1/role/addresser-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/10/role/addressee-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/10/role/addresser-applicants> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/applicants> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/11> a lomo:Action ;
+    rdfs:label "Reasoned decisions via implementing acts"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Relevant step of EU-level comparative selection procedure"@en ],
+        [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:deadline ;
+            lomo:temporalLabel "Once"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/311/cod/doc/com/COM_2026_311/FINAL/eng/art_11/par_2>,
+        <https://data.europa.eu/eli/dl/proc/2026/311/cod/doc/com/COM_2026_311/FINAL/eng/art_7/par_2>,
+        <https://data.europa.eu/eli/dl/proc/2026/311/cod/doc/com/COM_2026_311/FINAL/eng/art_8/par_2> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/11/role/addressee-applicants>,
+        <http://example.org/analysis/action/11/role/addresser-commission> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Reasoned decisions via implementing acts"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/reasoned-decisions-via-implementing-acts> ] .
+
+<http://example.org/analysis/action/11/role/addressee-applicants> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/applicants> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/11/role/addresser-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/12/role/addressee-applicants> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/applicants> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/12/role/addresser-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/13/role/addressee-applicants> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/applicants> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/13/role/addresser-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/14/role/addressee-applicants> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/applicants> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/14/role/addresser-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/15/role/addressee-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/15/role/addresser-applicants-for-the-provision-of-commercial-mss-system> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/applicants-for-the-provision-of-commercial-mss-system> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/16> a lomo:Action ;
+    rdfs:label "Annual report detailing the status of development of their proposed system"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:deadline ;
+            lomo:temporalLabel "Once"@en ],
+        [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "EU-level comparative selection procedure"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/311/cod/doc/com/COM_2026_311/FINAL/eng/art_14/par_1> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/16/role/addressee-commission-and-communications-committee>,
+        <http://example.org/analysis/action/16/role/addresser-holder-of-the-authorisation-for-the-secure-msshybrid-system-granted-under-article-131holders-of-the-authorisation-for-commercial-mss-systems-granted-under-article-131> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Annual report detailing the status of development of their proposed system"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/annual-report-detailing-the-status-of-development-of-their-proposed-system> ] .
+
+<http://example.org/analysis/action/16/role/addressee-commission-and-communications-committee> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/commission-and-communications-committee> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/16/role/addresser-holder-of-the-authorisation-for-the-secure-msshybrid-system-granted-under-article-131holders-of-the-authorisation-for-commercial-mss-systems-granted-under-article-131> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/holder-of-the-authorisation-for-the-secure-msshybrid-system-granted-under-article-131holders-of-the-authorisation-for-commercial-mss-systems-granted-under-article-131> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/17/role/addressee-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/17/role/addresser-applicant-for-the-spectrum-for-the-secure-msshybrid-system> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/applicant-for-the-spectrum-for-the-secure-msshybrid-system> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/18> a lomo:Action ;
+    rdfs:label "EU Classified Information (EUCI)"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "EU-level comparative selection procedure"@en ],
+        [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:deadline ;
+            lomo:temporalLabel "Once"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/311/cod/doc/com/COM_2026_311/FINAL/eng/art_14/par_1> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/18/role/addressee-commission>,
+        <http://example.org/analysis/action/18/role/addresser-holder-of-the-authorisation-for-secure-msshybrid-system-granted-under-article-111> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "EU Classified Information (EUCI)"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/eu-classified-information-euci> ] .
+
+<http://example.org/analysis/action/18/role/addressee-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/18/role/addresser-holder-of-the-authorisation-for-secure-msshybrid-system-granted-under-article-111> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/holder-of-the-authorisation-for-secure-msshybrid-system-granted-under-article-111> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/19/role/addressee-commission-and-member-states-collaborating-with-the-communications-committee-and-the-rspg> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/commission-and-member-states-collaborating-with-the-communications-committee-and-the-rspg> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/19/role/addresser-holders-of-union-authorisation-for-use-of-2-ghz-mss-band> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/holders-of-union-authorisation-for-use-of-2-ghz-mss-band> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/2> a lomo:Action ;
+    rdfs:label "Applications"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:deadline ;
+            lomo:temporalLabel "Once"@en ],
+        [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "EU-level comparative selection procedure"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/311/cod/doc/com/COM_2026_311/FINAL/eng/art_5/par_3> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/2/role/addressee-commission>,
+        <http://example.org/analysis/action/2/role/addresser-applicants> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Applications"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/applications> ] .
+
+<http://example.org/analysis/action/2/role/addressee-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/2/role/addresser-applicants> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/applicants> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/20/role/addressee-incumbent-rights-holders> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/incumbent-rights-holders> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/20/role/addresser-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/21/role/addressee-european-parliament-and-council> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/european-parliament-and-council> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/21/role/addresser-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/3> a lomo:Action ;
+    rdfs:label "Additional information about the fulfilment of admissibility requirements"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "EU-level comparative selection procedure"@en ],
+        [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:deadline ;
+            lomo:temporalLabel "Upon request"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/311/cod/doc/com/COM_2026_311/FINAL/eng/art_5/par_4> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/3/role/addressee-commission>,
+        <http://example.org/analysis/action/3/role/addresser-applicants> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Additional information about the fulfilment of admissibility requirements"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/additional-information-about-the-fulfilment-of-admissibility-requirements> ] .
+
+<http://example.org/analysis/action/3/role/addressee-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/3/role/addresser-applicants> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/applicants> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/4> a lomo:Action ;
+    rdfs:label "Information on the admissibility of applications"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "EU-level comparative selection procedure"@en ],
+        [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:deadline ;
+            lomo:temporalLabel "Once"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/311/cod/doc/com/COM_2026_311/FINAL/eng/art_5/par_4> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/4/role/addressee-applicants>,
+        <http://example.org/analysis/action/4/role/addresser-commission> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Information on the admissibility of applications"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/information-on-the-admissibility-of-applications> ] .
+
+<http://example.org/analysis/action/4/role/addressee-applicants> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/applicants> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/4/role/addresser-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/5> a lomo:Action ;
+    rdfs:label "List of admissible applicants"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "EU-level comparative selection procedure"@en ],
+        [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:deadline ;
+            lomo:temporalLabel "Once"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/311/cod/doc/com/COM_2026_311/FINAL/eng/art_5/par_4> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/5/role/addressee-applicants>,
+        <http://example.org/analysis/action/5/role/addresser-commission> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "List of admissible applicants"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/list-of-admissible-applicants> ] .
+
+<http://example.org/analysis/action/5/role/addressee-applicants> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/applicants> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/5/role/addresser-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/6> a lomo:Action ;
+    rdfs:label "Reasoned decision via implementing act"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:deadline ;
+            lomo:temporalLabel "Once"@en ],
+        [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "EU-level comparative selection procedure"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/311/cod/doc/com/COM_2026_311/FINAL/eng/art_5/par_7> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/6/role/addressee-applicants>,
+        <http://example.org/analysis/action/6/role/addresser-commission> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Reasoned decision via implementing act"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/reasoned-decision-via-implementing-act> ] .
+
+<http://example.org/analysis/action/6/role/addressee-applicants> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/applicants> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/6/role/addresser-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/7> a lomo:Action ;
+    rdfs:label "Data on the applicants’ compliance with admissibility requirements for the secure MSS/hybrid system"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:deadline ;
+            lomo:temporalLabel "Once"@en ],
+        [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "EU-level comparative selection procedure"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/311/cod/doc/com/COM_2026_311/FINAL/eng/art_6/par_1> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/7/role/addressee-commission>,
+        <http://example.org/analysis/action/7/role/addresser-applicants> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Data on the applicants’ compliance with admissibility requirements for the secure MSS/hybrid system"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/data-on-the-applicants-compliance-with-admissibility-requirements-for-the-secure-msshybrid-system> ] .
+
+<http://example.org/analysis/action/7/role/addressee-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/7/role/addresser-applicants> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/applicants> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/8/role/addressee-applicants> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/applicants> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/8/role/addresser-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/9/role/addressee-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/9/role/addresser-applicants> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/applicants> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/description/1/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/1/action/role/addressee-commission> .
+
+<http://example.org/analysis/description/1/action/role/addressee-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/10/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/10/action/role/addressee-applicants-for-the-secure-hybrid-mss-system> .
+
+<http://example.org/analysis/description/10/action/role/addressee-applicants-for-the-secure-hybrid-mss-system> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/applicants-for-the-secure-hybrid-mss-system> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/11/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/11/action/role/addressee-applicants-for-secure-mss-system> .
+
+<http://example.org/analysis/description/11/action/role/addressee-applicants-for-secure-mss-system> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/applicants-for-secure-mss-system> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/12/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/12/action/role/addressee-commission> .
+
+<http://example.org/analysis/description/12/action/role/addressee-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/13/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/13/action/role/addressee-commission> .
+
+<http://example.org/analysis/description/13/action/role/addressee-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/14/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/14/action/role/addressee-commission> .
+
+<http://example.org/analysis/description/14/action/role/addressee-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/15/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/15/action/role/addressee-commission> .
+
+<http://example.org/analysis/description/15/action/role/addressee-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/16/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/16/action/role/addressee-holder-of-the-authorisation-for-the-secure-msshybrid-system-granted-under-article-131> .
+
+<http://example.org/analysis/description/16/action/role/addressee-holder-of-the-authorisation-for-the-secure-msshybrid-system-granted-under-article-131> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/holder-of-the-authorisation-for-the-secure-msshybrid-system-granted-under-article-131> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/17/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/17/action/role/addressee-holder-of-the-authorisation-for-the-secure-msshybrid-system-granted-under-article-111> .
+
+<http://example.org/analysis/description/17/action/role/addressee-holder-of-the-authorisation-for-the-secure-msshybrid-system-granted-under-article-111> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/holder-of-the-authorisation-for-the-secure-msshybrid-system-granted-under-article-111> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/18/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/18/action/role/addressee-commission> .
+
+<http://example.org/analysis/description/18/action/role/addressee-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/19/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/19/action/role/addressee-holders-of-the-authorization-for-commercial-mss-system-granted-under-article-131> .
+
+<http://example.org/analysis/description/19/action/role/addressee-holders-of-the-authorization-for-commercial-mss-system-granted-under-article-131> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/holders-of-the-authorization-for-commercial-mss-system-granted-under-article-131> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/2/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/2/action/role/addressee-commission> .
+
+<http://example.org/analysis/description/2/action/role/addressee-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/20/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/20/action/role/addressee-commission> .
+
+<http://example.org/analysis/description/20/action/role/addressee-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/3/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/3/action/role/addressee-applicants> .
+
+<http://example.org/analysis/description/3/action/role/addressee-applicants> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/applicants> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/4/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/4/action/role/addressee-commission> .
+
+<http://example.org/analysis/description/4/action/role/addressee-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/5/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/5/action/role/addressee-commission> .
+
+<http://example.org/analysis/description/5/action/role/addressee-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/6/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/6/action/role/addressee-commission> .
+
+<http://example.org/analysis/description/6/action/role/addressee-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/7/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/7/action/role/addressee-commission> .
+
+<http://example.org/analysis/description/7/action/role/addressee-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/8/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/8/action/role/addressee-commission> .
+
+<http://example.org/analysis/description/8/action/role/addressee-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/9/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/9/action/role/addressee-applicants> .
+
+<http://example.org/analysis/description/9/action/role/addressee-applicants> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/applicants> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/dataset/call-for-applications-decisions-made-throughout-the-phases-of-the-comparative-selection-procedure-and-the-final-selection-of-applicants-in-the-oj-of-the-eu> a dcat:Dataset ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Call for applications, decisions made throughout the phases of the comparative selection procedure and the final selection of applicants in the OJ of the EU"@en ] ;
+    dcterms:title "Call for applications, decisions made throughout the phases of the comparative selection procedure and the final selection of applicants in the OJ of the EU"@en .
+
+<http://example.org/dataset/data-from-the-monitoring-of-compliance-of-holders-of-union-authorisation-for-use-of-2-ghz-mss-band> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/311/cod/doc/com/COM_2026_311/FINAL/eng/art_19/par_1> ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Data from the monitoring of compliance of holders of Union authorisation for use of 2 GHz MSS band"@en ] ;
+    dcterms:title "Data from the monitoring of compliance of holders of Union authorisation for use of 2 GHz MSS band"@en .
+
+<http://example.org/dataset/decision-to-impose-sharing-conditions-to-enable-testing-and-experimental-use-of-the-band> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/311/cod/doc/com/COM_2026_311/FINAL/eng/art_20/par_2> ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Decision to impose sharing conditions to enable testing and experimental use of the band"@en ] ;
+    dcterms:title "Decision to impose sharing conditions to enable testing and experimental use of the band."@en .
+
+<http://example.org/dataset/delegated-act> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/311/cod/doc/com/COM_2026_311/FINAL/eng/art_18/par_5> ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Delegated act"@en ] ;
+    dcterms:conformsTo <http://example.org/standard/in-the-required-format> ;
+    dcterms:title "Delegated act"@en .
+
+<http://example.org/dataset/delegated-act-on-methodology-related-to-contributions> a dcat:Dataset ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Delegated act on methodology related to contributions"@en ] ;
+    dcterms:title "Delegated act on methodology related to contributions"@en .
+
+<http://example.org/dataset/implementing-act-on-conditions-of-general-authorisation> a dcat:Dataset ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Implementing act on conditions of general authorisation"@en ] ;
+    dcterms:title "Implementing act on conditions of general authorisation"@en .
+
+<http://example.org/dataset/implementing-act-related-to-setting-contributions> a dcat:Dataset ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Implementing act related to setting contributions"@en ] ;
+    dcterms:title "Implementing act related to setting contributions"@en .
+
+<http://example.org/dataset/list-of-admissible-applicants> a dcat:Dataset ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "List of admissible applicants"@en ] ;
+    dcterms:title "List of admissible applicants"@en .
+
+<http://example.org/dataset/notification-of-adoption-of-a-delegated-act> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/311/cod/doc/com/COM_2026_311/FINAL/eng/art_21/par_5> ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Notification of adoption of a delegated act"@en ] ;
+    dcterms:title "Notification of adoption of a delegated act"@en .
+
+<http://example.org/dataset/publication-of-the-list-of-admissible-applicants> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/311/cod/doc/com/COM_2026_311/FINAL/eng/art_5/par_4> ;
+    dcterms:title "Publication of the list of admissible applicants"@en .
+
+<http://example.org/dataset/reasoned-decision-via-implementing-act> a dcat:Dataset ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Reasoned decision via implementing act"@en ] ;
+    dcterms:title "Reasoned decision via implementing act"@en .
+
+<http://example.org/dataset/reasoned-decisions-via-implementing-acts> a dcat:Dataset ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Reasoned decisions via implementing acts"@en ] ;
+    dcterms:title "Reasoned decisions via implementing acts"@en .
+
+<http://example.org/dataset/statements-and-evidence> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/311/cod/doc/com/COM_2026_311/FINAL/eng/art_10/par_2>,
+        <https://data.europa.eu/eli/dl/proc/2026/311/cod/doc/com/COM_2026_311/FINAL/eng/art_9/par_2> ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Statements and evidence"@en ] ;
+    dcterms:title "Statements and evidence"@en .
+
+<http://example.org/process/adopt-a-reasoned-decision-on-selecting-the-applicants> skos:prefLabel "Adopt a reasoned decision on selecting the applicants."@en .
+
+<http://example.org/process/adopt-implementing-act> skos:prefLabel "Adopt implementing act"@en .
+
+<http://example.org/process/adopt-the-call-for-applications> skos:prefLabel "Adopt the call for applications"@en .
+
+<http://example.org/process/authorise-the-use-of-the-2-ghz-mss-band-by-the-selected-applicant> skos:prefLabel "Authorise the use of the 2 GHz MSS band by the selected applicant."@en .
+
+<http://example.org/process/checking-the-compliance-with-admissibility-requirements-for-mss-systems> skos:prefLabel "Checking the compliance with admissibility requirements for MSS systems."@en .
+
+<http://example.org/process/checking-the-compliance-with-admissibility-requirements-for-secure-hybridmss-systems> skos:prefLabel "Checking the compliance with admissibility requirements for secure hybrid/MSS systems."@en .
+
+<http://example.org/process/define-efficient-use-of-paired-blocks-of-5-mhz-in-the-2-ghz-mss-band> skos:prefLabel "Define efficient use of paired blocks of 5 MHz in the 2 GHz MSS band."@en .
+
+<http://example.org/process/determine-the-duration-of-the-right-of-use-of-the-2-ghz-mss-band> skos:prefLabel "Determine the duration of the right of use of the 2 GHz MSS band."@en .
+
+<http://example.org/process/include-statements-and-evidence-concerning-the-2-ghz-mss-band-requested-and-its-efficient-use> skos:prefLabel "Include statements and evidence concerning the 2 GHz MSS band requested and its efficient use."@en .
+
+<http://example.org/process/inform-applicants-about-the-admissibility-of-their-applications> skos:prefLabel "Inform applicants about the admissibility of their applications."@en .
+
+<http://example.org/process/provide-security-accreditation> skos:prefLabel "Provide security accreditation."@en .
+
+<http://example.org/process/publish-a-list-of-admissible-applicants> skos:prefLabel "Publish a list of admissible applicants."@en .
+
+<http://example.org/process/publish-all-decisions-made-by-the-commission> skos:prefLabel "Publish all decisions made by the Commission."@en .
+
+<http://example.org/process/publish-the-call-for-applications> skos:prefLabel "Publish the call for applications."@en .
+
+<http://example.org/process/ranking-of-eligible-applicants> skos:prefLabel "Ranking of eligible applicants."@en .
+
+<http://example.org/process/request-additional-information> skos:prefLabel "Request additional information."@en .
+
+<http://example.org/process/specify-the-amount> skos:prefLabel "Specify the amount."@en .
+
+<http://example.org/process/submission-of-applications> skos:prefLabel "Submission of applications."@en .
+
+<http://example.org/standard/in-accordance-with-article-37-of-regulation-eu-2021696> a dcterms:Standard ;
+    dcterms:title "In accordance with Article 37 of Regulation (EU) 2021/696."@en .
+
+<http://example.org/standard/to-be-protected-in-accordance-with-article-43-of-regulation-eu-2021696> a dcterms:Standard ;
+    dcterms:title "To be protected in accordance with Article 43 of Regulation (EU) 2021/696."@en .
+
+<http://example.org/dataset/additional-information-about-the-fulfilment-of-admissibility-requirements> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/311/cod/doc/com/COM_2026_311/FINAL/eng/art_5/par_4> ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Additional information about the fulfilment of admissibility requirements"@en ] ;
+    dcterms:title "Additional information about the fulfilment of admissibility requirements"@en .
+
+<http://example.org/dataset/annual-report-detailing-the-status-of-development-of-their-proposed-system> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/311/cod/doc/com/COM_2026_311/FINAL/eng/art_14/par_1> ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Annual report detailing the status of development of their proposed system"@en ] ;
+    dcterms:title "Annual report detailing the status of development of their proposed system"@en .
+
+<http://example.org/dataset/applications> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/311/cod/doc/com/COM_2026_311/FINAL/eng/art_5/par_3> ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Applications"@en ] ;
+    dcterms:title "Applications"@en .
+
+<http://example.org/dataset/data-on-the-applicants-compliance-with-admissibility-requirements-for-the-commercial-mss-systems> a dcat:Dataset ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Data on the applicants’ compliance with admissibility requirements for the commercial MSS systems"@en ],
+        [ a lomo:ActionResult ;
+            rdfs:label "Data on the applicants’ compliance with admissibility requirements for the commercial MSS systems"@en ] ;
+    dcterms:title "Data on the applicants’ compliance with admissibility requirements for the commercial MSS systems"@en .
+
+<http://example.org/dataset/data-on-the-applicants-compliance-with-admissibility-requirements-for-the-secure-msshybrid-system> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/311/cod/doc/com/COM_2026_311/FINAL/eng/art_6/par_1> ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Data on the applicants’ compliance with admissibility requirements for the secure MSS/hybrid system"@en ] ;
+    dcterms:title "Data on the applicants’ compliance with admissibility requirements for the secure MSS/hybrid system"@en .
+
+<http://example.org/dataset/eu-classified-information-euci> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/311/cod/doc/com/COM_2026_311/FINAL/eng/art_14/par_1> ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "EU Classified Information (EUCI)"@en ] ;
+    dcterms:conformsTo <http://example.org/standard/to-be-protected-in-accordance-with-article-43-of-regulation-eu-2021696> ;
+    dcterms:title "EU Classified Information (EUCI)"@en .
+
+<http://example.org/dataset/information-on-the-admissibility-of-applications> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/311/cod/doc/com/COM_2026_311/FINAL/eng/art_5/par_4> ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Information on the admissibility of applications"@en ] ;
+    dcterms:title "Information on the admissibility of applications"@en .
+
+<http://example.org/dataset/information-on-the-security-accreditation-of-satellite-systems> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/311/cod/doc/com/COM_2026_311/FINAL/eng/art_7/par_1> ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Information on the security accreditation of satellite systems"@en ] ;
+    dcterms:conformsTo <http://example.org/standard/in-accordance-with-article-37-of-regulation-eu-2021696> ;
+    dcterms:title "Information on the security accreditation of satellite systems"@en .
+
+<http://example.org/process/adopt-a-reasoned-decision> skos:prefLabel "Adopt a reasoned decision."@en .
+
+<http://example.org/process/provide-an-annual-report> skos:prefLabel "Provide an annual report."@en .
+
+<http://example.org/standard/in-the-required-format> a dcterms:Standard ;
+    dcterms:title "In the required format."@en .
+
+<http://example.org/dataset/reasoned-decisions> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/311/cod/doc/com/COM_2026_311/FINAL/eng/art_11/par_3>,
+        <https://data.europa.eu/eli/dl/proc/2026/311/cod/doc/com/COM_2026_311/FINAL/eng/art_12/par_2>,
+        <https://data.europa.eu/eli/dl/proc/2026/311/cod/doc/com/COM_2026_311/FINAL/eng/art_5/par_7>,
+        <https://data.europa.eu/eli/dl/proc/2026/311/cod/doc/com/COM_2026_311/FINAL/eng/art_7/par_2>,
+        <https://data.europa.eu/eli/dl/proc/2026/311/cod/doc/com/COM_2026_311/FINAL/eng/art_8/par_2> ;
+    dcterms:conformsTo <http://example.org/standard/in-the-required-format> ;
+    dcterms:title "Reasoned decisions"@en .
+
+<http://example.org/agent/applicants> rdfs:label "Applicants"@en .
+
+<http://example.org/agent/commission> rdfs:label "Commission"@en .
+

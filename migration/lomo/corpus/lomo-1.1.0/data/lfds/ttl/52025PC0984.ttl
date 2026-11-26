@@ -1,0 +1,444 @@
+@prefix adms: <http://www.w3.org/ns/adms#> .
+@prefix cav: <http://data.europa.eu/2sa/cav#> .
+@prefix cpsv: <http://purl.org/vocab/cpsv#> .
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix dctype: <http://purl.org/dc/dcmitype/> .
+@prefix dd: <http://data.europa.eu/leg/digital-dimensions/> .
+@prefix iac: <http://data.europa.eu/leg/interop-assessment#> .
+@prefix iopa: <http://data.europa.eu/2qy/iopa#> .
+@prefix lomo: <http://data.europa.eu/leg/lomo#> .
+@prefix m8g: <http://data.europa.eu/m8g/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix tc: <http://data.europa.eu/9bx/> .
+@prefix tf: <http://data.europa.eu/leg/temporal-function/> .
+
+<http://example.org/analysis/assessment/1> a cav:Assessment ;
+    cav:assesses <http://example.org/analysis/description/1>,
+        <http://example.org/analysis/description/5>,
+        <http://example.org/analysis/description/7> ;
+    cav:resultsIn <http://example.org/analysis/assessment/1/1/barrier>,
+        <http://example.org/analysis/assessment/1/1/measure>,
+        <http://example.org/analysis/assessment/1/2/barrier>,
+        <http://example.org/analysis/assessment/1/2/measure>,
+        <http://example.org/analysis/assessment/1/3/barrier>,
+        <http://example.org/analysis/assessment/1/3/measure>,
+        <http://example.org/analysis/assessment/1/4/barrier>,
+        <http://example.org/analysis/assessment/1/4/measure> ;
+    m8g:isProvidedBy <http://publications.europa.eu/resource/authority/corporate-body/COM> .
+
+<http://example.org/analysis/description/2> a lomo:LegalRule ;
+    rdfs:label "Article 10(1)"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ;
+            lomo:temporalLabel "Per case"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/984/cod/doc/com/COM_2025_984/FINAL/eng/art_10/par_1> ;
+    lomo:hasCategory <http://data.europa.eu/leg/digital-dimensions/DigitalSolutions>,
+        <http://data.europa.eu/leg/digital-dimensions/DigitalPublicService> ;
+    lomo:involvesProcess <http://example.org/process/electronic-submission-intake> ;
+    lomo:produces <http://example.org/analysis/action/1>,
+        <http://example.org/analysis/description/2/action> ;
+    lomo:references <http://example.org/dataset/developer-submissions-documentsinformation-for-environmental-assessments-in-electronic-form> ;
+    dcterms:description "Developers shall be allowed to submit any information related to the environmental assessment in electronic form (after six months from entry into force)."@en .
+
+<http://example.org/analysis/description/3> a lomo:LegalRule ;
+    rdfs:label "Article 10(2)(a)-(b)"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/984/cod/doc/com/COM_2025_984/FINAL/eng/art_10/par_2> ;
+    lomo:hasCategory <http://data.europa.eu/leg/digital-dimensions/Data>,
+        <http://data.europa.eu/leg/digital-dimensions/DigitalSolutions>,
+        <http://data.europa.eu/leg/digital-dimensions/DigitalPublicService> ;
+    lomo:involvesProcess <http://example.org/process/online-information-provision-transparency> ;
+    lomo:produces <http://example.org/analysis/description/3/action> ;
+    dcterms:description "Member States shall provide developers and the public access to the following information as regards plans, programmes or projects, online and in a centralised and easily accessible manner : (a) the environmental single points of contact referred to in Article 3; (b) the progress of the environmental assessments and screening procedure, including the upcoming steps of the procedure and the timeline or those steps as well as information on dispute settlement (after six months from entry into force)."@en .
+
+<http://example.org/analysis/description/4> a lomo:LegalRule ;
+    rdfs:label ":"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ;
+            lomo:temporalLabel "Ongoing"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/984/cod/doc/com/COM_2025_984/FINAL/eng/art_10/par_3> ;
+    lomo:hasCategory <http://data.europa.eu/leg/digital-dimensions/Data>,
+        <http://data.europa.eu/leg/digital-dimensions/DigitalSolutions> ;
+    lomo:involvesProcess <http://example.org/process/publication-data-protection-compliance> ;
+    lomo:produces <http://example.org/analysis/action/3>,
+        <http://example.org/analysis/description/4/action> ;
+    lomo:references <http://example.org/dataset/relevant-information-related-to-environmental-assessment-and-screening-procedures-made-publicly-available-via-an-online-portal> ;
+    dcterms:description "Member States shall ensure that reports and data resulting from environmental assessments and screening procedures, related decisions and monitoring of environmental effects and procedures are made and remain publicly available in a digital format through a central online portal, in a manner that is compatible with the preservation of business secrets and Union or national data protection requirements. That portal shall be based on a digital geographic information system and shall include all available data on species observations and other environmental and geological data.(after twelve months from entry into force)."@en .
+
+<http://example.org/analysis/description/6> a lomo:LegalRule ;
+    rdfs:label "Article 12"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/984/cod/doc/com/COM_2025_984/FINAL/eng/art_12> ;
+    lomo:hasCategory dd:DigitalSolutions ;
+    lomo:involvesProcess <http://example.org/process/capacity-building-technology-readiness> ;
+    lomo:produces <http://example.org/analysis/description/6/action> ;
+    dcterms:description "Member States shall ensure that the single point of contact and all competent authorities responsible for any step in the screening and environmental assessments procedures, including all procedural steps, have a sufficient number of qualified staff and sufficient financial, technical and technological resources necessary, including, where appropriate, for up-skilling and re-skilling of staff, for the effective performance of their tasks under this Regulation and under the Directives referred to in Article 1."@en .
+
+<http://example.org/analysis/solution/1> a dctype:Software ;
+    rdfs:label "Online portal for environmental assessments"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/984/cod/doc/com/COM_2025_984/FINAL/eng/art_10/par_2>,
+        <https://data.europa.eu/eli/dl/proc/2025/984/cod/doc/com/COM_2025_984/FINAL/eng/art_3/par_3> ;
+    lomo:hasCapability "Provide online, centralised and easily accessible information",
+        "host tools to help identify",
+        "publish relevant information in digital format" ;
+    dcterms:publisher <http://example.org/agent/member-states-competent-authorities> ;
+    dcterms:title "Online portal for environmental assessments"@en .
+
+<http://example.org/analysis/solution/2> a dctype:Software ;
+    rdfs:label "Electronic submission channel for developers"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/984/cod/doc/com/COM_2025_984/FINAL/eng/art_10/par_1> ;
+    lomo:hasCapability "Accept electronic submission of any information relevant to environmental assessments." ;
+    dcterms:publisher <http://example.org/agent/member-states-competent-authorities> ;
+    dcterms:title "Electronic submission channel for developers"@en .
+
+<http://example.org/analysis/solution/3> a dctype:Software ;
+    rdfs:label "Systems enabling full digitalisation and cross‑border data exchange"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/984/cod/doc/com/COM_2025_984/FINAL/eng/art_10/par_4> ;
+    lomo:hasCapability "End-to-end digital procedures",
+        "seamless crossborder data sharing",
+        "where used, automated systems aligned with EU policies, with human decisional control and compliance with data protection/privacy." ;
+    dcterms:publisher <http://example.org/agent/member-states-competent-authorities> ;
+    dcterms:title "Systems enabling full digitalisation and cross‑border data exchange"@en .
+
+tc:1 skos:prefLabel "Information provision"@en .
+
+<http://example.org/agent/competent-authorities-single-point-of-contact> rdfs:label "Competent authorities / Single point of contact"@en .
+
+<http://example.org/agent/developers> rdfs:label "Developers"@en .
+
+<http://example.org/agent/developers-competent-authorities> rdfs:label "Developers; Competent authorities"@en .
+
+<http://example.org/agent/other-member-states-authorities> rdfs:label "Other Member States’ authorities"@en .
+
+<http://example.org/agent/public-developers> rdfs:label "Public / Developers"@en .
+
+<http://example.org/agent/public-stakeholders> rdfs:label "Public / Stakeholders"@en .
+
+<http://example.org/analysis/action/1> a lomo:Action ;
+    rdfs:label "Developer submissions (electronic)"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:deadline ;
+            lomo:temporalLabel "Per case"@en ],
+        [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Filing of information for an assessment"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/984/cod/doc/com/COM_2025_984/FINAL/eng/art_10/par_1> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/1/role/addressee-competent-authorities-single-point-of-contact>,
+        <http://example.org/analysis/action/1/role/addresser-developers> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Developer submissions (electronic)"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/developer-submissions-electronic> ] .
+
+<http://example.org/analysis/action/1/role/addressee-competent-authorities-single-point-of-contact> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/competent-authorities-single-point-of-contact> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/1/role/addresser-developers> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/developers> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/2> a lomo:Action ;
+    rdfs:label "Online information on SPOCs and EA procedures (incl. dispute settlement info)"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:deadline ;
+            lomo:temporalLabel "Ongoing"@en ],
+        [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Initial set-up; subsequent updates"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/984/cod/doc/com/COM_2025_984/FINAL/eng/art_10/par_2> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/2/role/addressee-public-developers>,
+        <http://example.org/analysis/action/2/role/addresser-member-states> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Online information on SPOCs and EA procedures (incl. dispute settlement info)"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/online-information-on-spocs-and-ea-procedures-incl-dispute-settlement-info> ] .
+
+<http://example.org/analysis/action/2/role/addressee-public-developers> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/public-developers> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/2/role/addresser-member-states> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/3> a lomo:Action ;
+    rdfs:label "Publicly available information on environmental assessment and screening procedures"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Portal publication/update"@en ],
+        [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:deadline ;
+            lomo:temporalLabel "Ongoing"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/984/cod/doc/com/COM_2025_984/FINAL/eng/art_10/par_3> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/3/role/addressee-public-stakeholders>,
+        <http://example.org/analysis/action/3/role/addresser-member-states> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Publicly available information on environmental assessment and screening procedures"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/publicly-available-information-on-environmental-assessment-and-screening-procedures> ] .
+
+<http://example.org/analysis/action/3/role/addressee-public-stakeholders> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/public-stakeholders> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/3/role/addresser-member-states> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/4> a lomo:Action ;
+    rdfs:label "Cross-border sharing of assessment-related data; use in digitalised/automated procedures"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Where relevant for procedures with cross-border relevance"@en ],
+        [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:deadline ;
+            lomo:temporalLabel "As required"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/984/cod/doc/com/COM_2025_984/FINAL/eng/art_10/par_4> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/4/role/addressee-other-member-states-authorities>,
+        <http://example.org/analysis/action/4/role/addresser-member-states> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Cross-border sharing of assessment-related data; use in digitalised/automated procedures"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/cross-border-sharing-of-assessment-related-data-use-in-digitalisedautomated-procedures> ] .
+
+<http://example.org/analysis/action/4/role/addressee-other-member-states-authorities> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/other-member-states-authorities> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/4/role/addresser-member-states> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/assessment/1/1/barrier> a cav:Statement ;
+    cav:interpretation iac:InterpretationNegative ;
+    cav:judgement "Not specified in the operative provisions."@en ;
+    cav:type iac:StatementTypeAlignmentBarrier ;
+    dcterms:description "Alignment with existing digital and sectorial policies.Please list the applicable digital and sectorial policies identified"@en .
+
+<http://example.org/analysis/assessment/1/1/measure> a cav:Statement ;
+    cav:interpretation iac:InterpretationPositive ;
+    cav:judgement "Not specified in the operative provisions."@en ;
+    cav:type iac:StatementTypeAlignmentMeasure ;
+    dcterms:description "Alignment with existing digital and sectorial policies.Please list the applicable digital and sectorial policies identified"@en .
+
+<http://example.org/analysis/assessment/1/2/barrier> a cav:Statement ;
+    cav:interpretation iac:InterpretationNegative ;
+    cav:judgement "Not specified in the operative provisions."@en ;
+    cav:type iac:StatementTypeOrganisationBarrier ;
+    dcterms:description "Organisational measures for a smooth cross-border digital public services delivery.Please list the governance measures foreseen"@en .
+
+<http://example.org/analysis/assessment/1/2/measure> a cav:Statement ;
+    cav:interpretation iac:InterpretationPositive ;
+    cav:judgement "Not specified in the operative provisions."@en ;
+    cav:type iac:StatementTypeOrganisationMeasure ;
+    dcterms:description "Organisational measures for a smooth cross-border digital public services delivery.Please list the governance measures foreseen"@en .
+
+<http://example.org/analysis/assessment/1/3/barrier> a cav:Statement ;
+    cav:interpretation iac:InterpretationNegative ;
+    cav:judgement "Not specified in the operative provisions."@en ;
+    cav:type iac:StatementTypeSharedBarrier ;
+    dcterms:description "Measures taken to ensure a shared understanding of the data.Please list such measures"@en .
+
+<http://example.org/analysis/assessment/1/3/measure> a cav:Statement ;
+    cav:interpretation iac:InterpretationPositive ;
+    cav:judgement "Not specified in the operative provisions."@en ;
+    cav:type iac:StatementTypeSharedMeasure ;
+    dcterms:description "Measures taken to ensure a shared understanding of the data.Please list such measures"@en .
+
+<http://example.org/analysis/assessment/1/4/barrier> a cav:Statement ;
+    cav:interpretation iac:InterpretationNegative ;
+    cav:judgement "Not specified in the operative provisions."@en ;
+    cav:type iac:StatementTypeStandardsBarrier ;
+    dcterms:description "Use of commonly agreed open technical specifications and standards.Please list such measures"@en .
+
+<http://example.org/analysis/assessment/1/4/measure> a cav:Statement ;
+    cav:interpretation iac:InterpretationPositive ;
+    cav:judgement "Not specified in the operative provisions."@en ;
+    cav:type iac:StatementTypeStandardsMeasure ;
+    dcterms:description "Use of commonly agreed open technical specifications and standards.Please list such measures"@en .
+
+<http://example.org/analysis/description/1> a iopa:BindingRequirement,
+        lomo:LegalRule ;
+    rdfs:label "Article 3(3)"@en ;
+    iopa:affects <http://example.org/analysis/interop/1> ;
+    cav:valueDescription "Member States shall provide tools to help developers identify the appropriate established or designated contact point on the online portal set up in accordance with Article 10 ."@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/984/cod/doc/com/COM_2025_984/FINAL/eng/art_3/par_3> ;
+    lomo:hasCategory <http://data.europa.eu/leg/digital-dimensions/DigitalPublicService>,
+        <http://data.europa.eu/leg/digital-dimensions/DigitalSolutions> ;
+    lomo:involvesProcess tc:1 ;
+    lomo:produces <http://example.org/analysis/description/1/action> ;
+    dcterms:description "Member States shall provide tools to help developers identify the appropriate established or designated contact point on the online portal set up in accordance with Article 10 ."@en ;
+    dcterms:relation <http://example.org/ie-solution/not-specified> .
+
+<http://example.org/analysis/description/1/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/1/action/role/addressee-member-states-developers> .
+
+<http://example.org/analysis/description/1/action/role/addressee-member-states-developers> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states-developers> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/2/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/2/action/role/addressee-developers-competent-authorities> .
+
+<http://example.org/analysis/description/2/action/role/addressee-developers-competent-authorities> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/developers-competent-authorities> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/3/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/3/action/role/addressee-member-states-public-developers> .
+
+<http://example.org/analysis/description/3/action/role/addressee-member-states-public-developers> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states-public-developers> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/4/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/4/action/role/addressee-member-states-public-developers> .
+
+<http://example.org/analysis/description/4/action/role/addressee-member-states-public-developers> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states-public-developers> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/5> a iopa:BindingRequirement,
+        lomo:LegalRule ;
+    rdfs:label "Article 10(4)"@en ;
+    iopa:affects <http://example.org/analysis/interop/2> ;
+    cav:valueDescription "Member States shall ensure that environmental assessment and screening procedures are fully digitalized and enable the re-use of data and documents held by public authorities at national level as well as the sharing of such data between Member States, developers and the public, in a seamless manner. Where appropriate, such procedures shall be interoperable with European Digital Identity Wallets and European Business Wallets.] (after twenty four months of the entry into force)."@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ;
+            lomo:temporalLabel "As required"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/984/cod/doc/com/COM_2025_984/FINAL/eng/art_10/par_4> ;
+    lomo:hasCategory <http://data.europa.eu/leg/digital-dimensions/Data>,
+        <http://data.europa.eu/leg/digital-dimensions/DigitalSolutions>,
+        <http://data.europa.eu/leg/digital-dimensions/DigitalPublicService> ;
+    lomo:involvesProcess <http://example.org/process/process-digitalisation-cross-border-exchange-automation-governance> ;
+    lomo:produces <http://example.org/analysis/action/4>,
+        <http://example.org/analysis/description/5/action> ;
+    lomo:references <http://example.org/dataset/data-enabling-cross-border-exchange-and-fully-digitalised-procedures-data-used-by-automated-systems-where-applicable> ;
+    dcterms:description "Member States shall ensure that environmental assessment and screening procedures are fully digitalized and enable the re-use of data and documents held by public authorities at national level as well as the sharing of such data between Member States, developers and the public, in a seamless manner. Where appropriate, such procedures shall be interoperable with European Digital Identity Wallets and European Business Wallets.] (after twenty four months of the entry into force)."@en ;
+    dcterms:relation <http://example.org/ie-solution/not-specified> .
+
+<http://example.org/analysis/description/5/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/5/action/role/addressee-member-states-competent-authorities> .
+
+<http://example.org/analysis/description/5/action/role/addressee-member-states-competent-authorities> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states-competent-authorities> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/6/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/6/action/role/addressee-member-states-competent-authorities> .
+
+<http://example.org/analysis/description/6/action/role/addressee-member-states-competent-authorities> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states-competent-authorities> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/7> a iopa:BindingRequirement,
+        lomo:LegalRule ;
+    rdfs:label "Article 10(2)(b)(5)"@en ;
+    iopa:affects <http://example.org/analysis/interop/1> ;
+    cav:valueDescription "Member States shall provide developers and the public with access to the information on dispute settlement as regards plans, programmes or projects, online and in a centralised and easily accessible manner."@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ;
+            lomo:temporalLabel "Ongoing"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/984/cod/doc/com/COM_2025_984/FINAL/eng/art_10/par_2> ;
+    lomo:involvesProcess <http://example.org/process/access-to-information-redress-pathways> ;
+    lomo:produces <http://example.org/analysis/action/2>,
+        <http://example.org/analysis/description/7/action> ;
+    lomo:references <http://example.org/dataset/information-on-single-points-of-contact-and-on-the-environmental-assessments-procedures-including-dispute-settlement-procedures> ;
+    dcterms:description "Member States shall provide developers and the public with access to the information on dispute settlement as regards plans, programmes or projects, online and in a centralised and easily accessible manner."@en ;
+    dcterms:relation <http://example.org/ie-solution/not-specified> .
+
+<http://example.org/analysis/description/7/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/7/action/role/addressee-member-states-developers> .
+
+<http://example.org/analysis/description/7/action/role/addressee-member-states-developers> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states-developers> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/interop/2> a cpsv:PublicService ;
+    rdfs:label "Cross-border data exchange capability"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/984/cod/doc/com/COM_2025_984/FINAL/eng/art_10/par_4> ;
+    dcterms:description "Provision to share related data between Member States in a seamless manner (where bracketed text remains in the draft)."@en ;
+    dcterms:identifier "interop/2" ;
+    dcterms:references <http://example.org/ie-solution/not-specified> ;
+    dcterms:title "Cross-border data exchange capability"@en .
+
+<http://example.org/dataset/cross-border-sharing-of-assessment-related-data-use-in-digitalisedautomated-procedures> a dcat:Dataset ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Cross-border sharing of assessment-related data; use in digitalised/automated procedures"@en ] ;
+    dcterms:title "Cross-border sharing of assessment-related data; use in digitalised/automated procedures"@en .
+
+<http://example.org/dataset/data-enabling-cross-border-exchange-and-fully-digitalised-procedures-data-used-by-automated-systems-where-applicable> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/984/cod/doc/com/COM_2025_984/FINAL/eng/art_10/par_4> ;
+    dcterms:conformsTo <http://example.org/standard/not-specified-in-the-proposal> ;
+    dcterms:title "Data enabling cross-border exchange and fully digitalised procedures; data used by automated systems where applicable"@en .
+
+<http://example.org/dataset/developer-submissions-documentsinformation-for-environmental-assessments-in-electronic-form> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/984/cod/doc/com/COM_2025_984/FINAL/eng/art_10/par_1> ;
+    dcterms:conformsTo <http://example.org/standard/not-specified-in-the-proposal> ;
+    dcterms:title "Developer submissions (documents/information for environmental assessments in electronic form)"@en .
+
+<http://example.org/dataset/developer-submissions-electronic> a dcat:Dataset ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Developer submissions (electronic)"@en ] ;
+    dcterms:title "Developer submissions (electronic)"@en .
+
+<http://example.org/dataset/information-on-single-points-of-contact-and-on-the-environmental-assessments-procedures-including-dispute-settlement-procedures> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/984/cod/doc/com/COM_2025_984/FINAL/eng/art_10/par_2> ;
+    dcterms:conformsTo <http://example.org/standard/not-specified-in-the-proposal> ;
+    dcterms:title "Information on single points of contact and on the environmental assessments procedures (including dispute settlement procedures)"@en .
+
+<http://example.org/dataset/online-information-on-spocs-and-ea-procedures-incl-dispute-settlement-info> a dcat:Dataset ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Online information on SPOCs and EA procedures (incl. dispute settlement info)"@en ] ;
+    dcterms:title "Online information on SPOCs and EA procedures (incl. dispute settlement info)"@en .
+
+<http://example.org/dataset/publicly-available-information-on-environmental-assessment-and-screening-procedures> a dcat:Dataset ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Publicly available information on environmental assessment and screening procedures"@en ] ;
+    dcterms:title "Publicly available information on environmental assessment and screening procedures"@en .
+
+<http://example.org/dataset/relevant-information-related-to-environmental-assessment-and-screening-procedures-made-publicly-available-via-an-online-portal> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/984/cod/doc/com/COM_2025_984/FINAL/eng/art_10/par_3> ;
+    dcterms:conformsTo <http://example.org/standard/protection-of-business-secrets-and-compliance-with-eunational-data-protection-are-required-no-specific-technical-standards-named> ;
+    dcterms:title "Relevant information related to environmental assessment and screening procedures made publicly available via an online portal"@en .
+
+<http://example.org/process/access-to-information-redress-pathways> skos:prefLabel "Access to information; Redress pathways"@en .
+
+<http://example.org/process/capacity-building-technology-readiness> skos:prefLabel "Capacity building; Technology readiness"@en .
+
+<http://example.org/process/electronic-submission-intake> skos:prefLabel "Electronic submission; Intake"@en .
+
+<http://example.org/process/online-information-provision-transparency> skos:prefLabel "Online information provision; Transparency"@en .
+
+<http://example.org/process/process-digitalisation-cross-border-exchange-automation-governance> skos:prefLabel "Process digitalisation; Cross-border exchange; Automation governance"@en .
+
+<http://example.org/process/publication-data-protection-compliance> skos:prefLabel "Publication; Data protection compliance"@en .
+
+<http://example.org/standard/protection-of-business-secrets-and-compliance-with-eunational-data-protection-are-required-no-specific-technical-standards-named> a dcterms:Standard ;
+    dcterms:title "Protection of business secrets and compliance with EU/national data protection are required; no specific technical standards named"@en .
+
+<http://publications.europa.eu/resource/authority/corporate-body/COM> a m8g:PublicOrganisation ;
+    dcterms:description "The European Commission, provider of the interoperability assessment."@en ;
+    skos:prefLabel "European Commission"@en .
+
+<http://example.org/agent/member-states-developers> rdfs:label "Member States; Developers"@en .
+
+<http://example.org/agent/member-states-public-developers> rdfs:label "Member States; Public; Developers"@en .
+
+<http://example.org/analysis/interop/1> a cpsv:PublicService ;
+    rdfs:label "Environmental assessments online portal"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/984/cod/doc/com/COM_2025_984/FINAL/eng/art_10/par_2>,
+        <https://data.europa.eu/eli/dl/proc/2025/984/cod/doc/com/COM_2025_984/FINAL/eng/art_3/par_3> ;
+    dcterms:description "Centralised online access to SPOC information and EA procedures information; publication of relevant information in digital format."@en ;
+    dcterms:identifier "interop/1" ;
+    dcterms:references <http://example.org/ie-solution/not-specified> ;
+    dcterms:title "Environmental assessments online portal"@en .
+
+<http://example.org/agent/member-states> rdfs:label "Member States"@en .
+
+<http://example.org/standard/not-specified-in-the-proposal> a dcterms:Standard ;
+    dcterms:title "Not specified in the proposal"@en .
+
+<http://example.org/agent/member-states-competent-authorities> rdfs:label "Member States; Competent authorities"@en .
+
+<http://example.org/ie-solution/not-specified> a adms:Asset ;
+    dcterms:description "Not specified"@en ;
+    dcterms:title "Not specified"@en .
+

@@ -1,0 +1,347 @@
+@prefix : <http://data.europa.eu/leg/deontic-modality/> .
+@prefix lomo: <http://data.europa.eu/leg/lomo#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+@base <http://data.europa.eu/leg/deontic-modality> .
+
+#################################################################
+#    Deontic Modality Scheme
+#################################################################
+
+:DeonticModalityScheme rdf:type skos:ConceptScheme ;
+    skos:notation "deontic_modality" ;
+    rdfs:label "Deontic Modality"@en ;
+    rdfs:comment "A controlled vocabulary of deontic modalities for classifying the normative character of prescriptive rules."@en ;
+    skos:prefLabel "Deontic Modality"@en ;
+    skos:prefLabel "Modalité déontique"@fr ;
+    dcterms:title "Deontic Modality Controlled Vocabulary"@en ;
+    dcterms:description "Defines the four deontic modalities that prescriptive rules can have: Obligation, Permission, Prohibition, and Right."@en;
+    dcterms:creator "European Commission"@en ;
+    dcterms:modified "2026-10-21"^^xsd:date ;
+    dcterms:license <http://publications.europa.eu/resource/authority/licence/CC_BY_4_0> ;
+    owl:versionInfo "1.1.0" ;
+    skos:scopeNote """Constitutive rules are NOT included as they are not deontic modalities - they constitute facts rather than prescribe actions. The deontic modality must be attributed to the rule or prescriptive segment, never to the article or paragraph; a single provision may host multiple rules with different modalities; the rule on "mixed provisions" applies only when segmentation is not possible."""@en ;
+    skos:hasTopConcept :Obligation ,
+                       :Permission ,
+                       :Prohibition ,
+                       :Right .
+
+:Obligation rdf:type owl:NamedIndividual , skos:Concept ;
+    skos:notation "obligation" ;
+    rdfs:label "Obligation"@en ;
+    skos:definition "The deontic modality of a prescriptive rule that mandates one or more actions, behaviours, or bringing about a state of affairs to which a party is legally bound, creating a duty whose non-performance constitutes a violation of the legal provision."@en ;
+    skos:prefLabel "Obligation"@en ;
+    skos:prefLabel "Obligation"@fr ;
+    skos:inScheme :DeonticModalityScheme ;
+    skos:topConceptOf :DeonticModalityScheme ;
+    skos:scopeNote """Use for provisions that impose a duty on an identified party to perform a specific action or behaviour. Obligations create legal duties whose breach results in non-compliance with the normative framework.
+
+The foundational pattern (Hohfeld, 1913; Lindahl, 1977) is: \"Party P has a duty to perform X in context C\"
+where P is the party legally bound, X is the required action, behaviours, or state of affairs, and C is the normative context conditioning the obligation.
+
+Common linguistic patterns:
+- Explicit duty markers: "shall", "must", "is required to", "is obliged to", "has a duty to"
+- Procedural duties: "shall provide", "must ensure", "is required to submit"
+- Temporal duties: "shall... within X days/months", "must... by [date]", "without undue delay"
+- Conditional duties: "where/if X, [party] shall Y"
+- Ensuring/guarantee formulations: "shall ensure that", "must guarantee that"
+
+Distinguishing obligations from other deontic modalities:
+The fundamental test is whether the provision imposes a duty whose non-performance constitutes a breach. Duties of non-performance are classified as :Prohibition.
+
+Obligation examples:
+- "Manufacturers shall indicate their name on the product" (positive duty)
+- "The controller must retain the data for six years" (temporal duty)
+- "Importers shall ensure that products are accompanied by instructions" (duty to ensure)
+
+Not obligation examples:
+- "The controller may process data based on consent" (permission)
+- "Processing of special categories shall be prohibited" (prohibition)
+- "Data subjects have the right to erasure" (right of the subject, not duty on that subject)
+
+Special cases:
+Duties expressed through ensuring/guaranteeing formulations represent obligations even when they require a party to bring about a state of affairs rather than perform a direct action. For example, "Manufacturers shall ensure that products bear identification numbers" creates an obligation to achieve that result, regardless of how achieved.
+
+Procedural obligations establish duties regarding administrative or procedural actions (notifications, submissions, provision of information). These are distinct from substantive obligations but remain obligations in their legal character.
+
+Obligations with alternative means of compliance remain obligations even when the addressed party has discretion about how to fulfil them. The duty exists; only the means are flexible.
+
+Mixed provisions may combine obligations with other deontic modalities. When a provision primarily creates a duty but includes subordinate permissions or rights for a party, and is not further segmentable, classify the provision as containing an obligation while noting the mixed character. On the contrary, the legal enunciate "The authority shall provide confirmation within 30 days and may extend this period by 30 days" contains a primary obligation with a subordinate permission that can be annotated separately."""@en ;
+
+    skos:example """Example 1: Obligation to identify - Product marking (Directive 2014/31/EU, Art. 6(6))
+\"Manufacturers shall indicate on the instrument their name, registered trade name or registered trade mark and the postal address at which they can be contacted. The address shall indicate a single point at which the manufacturer can be contacted. The contact details shall be in a language easily understood by end-users and market surveillance authorities.\"
+Note: Compound obligation requiring both affixing identification information and ensuring linguistic accessibility."""@en ;
+    skos:example """Obligation to identify - Alternative means (Directive 2014/33/EU, Art. 8(5))
+\"Manufacturers shall ensure that safety components for lifts which they have placed on the market bear a type, batch or serial number or other element allowing their identification, or, where the size or nature of the safety component for lifts does not allow it, that the required information is provided on the label referred to in Article 19(1).\"
+Note: Obligation with conditional alternative - primary duty is affixing directly; fallback duty is providing information on label when direct affixing impossible."""@en ;
+    skos:example """Obligation to document - Accompanying materials (Directive 2014/33/EU, Art. 8(7))
+\"Manufacturers shall ensure that the safety component for lifts is accompanied by the instructions referred to in point 6.1 of Annex I, in a language which can be easily understood by end-users, as determined by the Member State concerned. Such instructions, as well as any labelling, shall be clear, understandable and intelligible.\"
+Note: Duty to ensure both presence and quality of documentation, with linguistic and clarity requirements."""@en ;
+    skos:example """Traceability obligation - Installer Context (Directive 2014/33/EU, Art. 7(5))
+\"Installers shall ensure that lifts bear a type, batch or serial number or other element allowing their identification.\"
+Note: Obligation on different economic operator (installer vs. manufacturer) for same type of requirement - ensuring product traceability."""@en ;
+    skos:example """Obligation to indicate contact information - Physical Installation (Directive 2014/33/EU, Art. 7(6))
+\"Installers shall indicate, on the lift, their name, registered trade name or registered trade mark and the postal address at which they can be contacted. The address shall indicate a single point at which the installer can be contacted. The contact details shall be in a language easily understood by end-users and market surveillance authorities.\"
+Note: Multiple sub-duties within single obligation: affixing identification, designating single contact point, ensuring linguistic accessibility."""@en ;
+    skos:example """Obligation to document - End-User Instructions (Directive 2014/33/EU, Art. 7(7))
+\"Installers shall ensure that the lift is accompanied by the instructions referred to in point 6.2 of Annex I, in a language which can be easily understood by end-users, as determined by the Member State in which the lift is placed on the market. Such instructions, as well as any labelling, shall be clear, understandable and intelligible.\"
+Note: Obligation with territorial linguistic adaptation - language requirement varies by Member State of destination."""@en ;
+    skos:example """Obligation to identify the importer - Flexible Location (Directive 2014/33/EU, Art. 10(3))
+\"Importers shall indicate on the safety component for lifts their name, registered trade name or registered trademark and the postal address at which they can be contacted or, where that is not possible, on its packaging or in a document accompanying the safety component for lifts. The contact details shall be in a language easily understood by end-users and market surveillance authorities.\"
+Note: Three-tier obligation with decreasing preference: on product > on packaging > in accompanying document."""@en ;
+    skos:example """Obligation to document (Directive 2014/33/EU, Art. 10(4))
+\"Importers shall ensure that the safety component for lifts is accompanied by the instructions referred to in point 6.1 of Annex I in a language which can be easily understood by consumers and other end-users, as determined by the Member State concerned.\"
+Note: Obligation specific to importer role, ensuring linguistic accessibility of manufacturer's documentation."""@en ;
+    skos:example """Compound packaging obligation (Regulation (EU) 2019/1009, Art. 6(5))
+\"Manufacturers shall ensure that the packaging of the EU fertilising products which they have placed on the market bears a type number, batch number or other element allowing their identification or, where the EU fertilising products are supplied without packaging, that the required information is provided in a document accompanying each fertilising product.\"
+Note: Alternative obligation structure based on presence/absence of packaging."""@en ;
+    skos:example """Multi-requirement identification obligation (Regulation (EU) 2019/1009, Art. 6(6))
+\"Manufacturers shall indicate their name, registered trade name or registered trademark and the postal address at which they can be contacted on the packaging of the EU fertilising product or, where the EU fertilising product is supplied without packaging, in a document accompanying the EU fertilising product. The postal address shall indicate a single point at which the manufacturer can be contacted. Such information shall be in a language easily understood by end-users and market surveillance authorities and shall be clear, understandable and legible.\"
+Note: Cascading obligations combining location requirements, content requirements, and quality requirements."""@en ;
+    skos:example """Obligation to label products - Hierarchical Format (Regulation (EU) 2019/1009, Art. 6(7))
+\"Manufacturers shall ensure that EU fertilising products are accompanied by the information required under Annex III. Where an EU fertilising product is supplied in a package, the information shall appear on a label which is affixed to that package. Where the package is too small to contain all the information, the information that cannot be provided on the label shall be provided in a separate leaflet accompanying that package. Such a leaflet shall be regarded as part of the label. Where the EU fertilising product is supplied without packaging, all the information shall be provided in a leaflet. The label and the leaflet shall be accessible for inspection purposes when the EU fertilising product is made available on the market. The information shall be in a language which can be easily understood by end-users, as determined by the Member State concerned, and shall be clear, understandable and intelligible.\"
+Note: Complex obligation with conditional sub-requirements depending on packaging characteristics and size constraints, plus accessibility and quality requirements."""@en ;
+    skos:example """Obligation to label products (Regulation (EU) No 1007/2011, Art. 15(1))
+\"When placing a textile product on the market, the manufacturer shall ensure the supply of the label or marking and the accuracy of the information contained therein. If the manufacturer is not established in the Union, the importer shall ensure the supply of the label or marking and the accuracy of the information contained therein.\"
+Note: Conditional allocation of obligation between manufacturer and importer based on establishment criterion."""@en ;
+    skos:example """Obligation to verify labelling (Regulation (EU) No 1007/2011, Art. 15(3))
+\"When making a textile product available on the market, the distributor shall ensure that textile products bear the appropriate labelling or marking prescribed by this Regulation.\"
+Note: Obligation to verify compliance - duty to ensure rather than duty to create."""@en ;
+    skos:example """Obligation to provide information (Regulation (EU) No 1007/2011, Art. 15(4))
+\"The economic operators referred to in paragraphs 1, 2 and 3 shall ensure that any information supplied when textile products are made available on the market cannot be confused with the textile fibre names and the descriptions of fibre compositions, as laid down by this Regulation.\"
+Note: Obligation of result: duty to ensure a state of affairs, namely that the information supplied is not liable to confusion."""@en ;
+    rdfs:seeAlso "Athan, T., Governatori, G., Palmirani, M., Paschke, A., & Wyner, A. (2015). LegalRuleML: Design principles and foundations. In Reasoning Web International Summer School (pp. 151-188). Cham: Springer International Publishing."@en ;
+    rdfs:seeAlso "Hohfeld, W.N. (1913). 'Some Fundamental Legal Conceptions as Applied in Judicial Reasoning.' Yale Law Journal, 23(1), 16-59. doi:10.2307/785533"@en ;
+    rdfs:seeAlso "Kelsen, H. (1967). Pure Theory of Law (M. Knight, Trans.). University of California Press. (Original work published 1960)"@en ;
+    rdfs:seeAlso "Von Wright, G.H. (1963). Norm and Action: A Logical Enquiry. Routledge & Kegan Paul, London."@en ;
+    rdfs:seeAlso "Hart, H.L.A. (1961). The Concept of Law. Oxford University Press."@en ;
+    rdfs:seeAlso "Lindahl, L. (1977). Position and Change: A Study in Law and Logic. D. Reidel Publishing Company, Dordrecht."@en ;
+    rdfs:seeAlso "Raz, J. (1975). Practical Reason and Norms. Hutchinson, London."@en ;
+    rdfs:seeAlso "Ross, A. (1968). Directives and Norms. Routledge & Kegan Paul, London."@en ;
+    rdfs:seeAlso "Anderson, A.R. (1958). 'A Reduction of Deontic Logic to Alethic Modal Logic.' Mind, 67(265), 100-103."@en ;
+    rdfs:seeAlso "Makinson, D. (1999). 'On a Fundamental Problem of Deontic Logic.' In P. McNamara & H. Prakken (Eds.), Norms, Logics and Information Systems (pp. 29-54). IOS Press, Amsterdam."@en ;
+    rdfs:seeAlso "Sergot, M. (2013). 'Normative Positions.' In D. Gabbay, J. Horty, X. Parent, R. van der Meyden, & L. van der Torre (Eds.), Handbook of Deontic Logic and Normative Systems (pp. 353-406). College Publications, London."@en ;
+    rdfs:seeAlso "Governatori, G., & Rotolo, A. (2010). 'Changing Legal Systems: Legal Abrogations and Annulments in Defeasible Logic.' Logic Journal of the IGPL, 18(1), 157-194."@en ;
+    rdfs:seeAlso "Sartor, G. (2005). Legal Reasoning: A Cognitive Approach to the Law. Springer, Dordrecht."@en ;
+    rdfs:seeAlso "Prakken, H., & Sergot, M. (1996). 'Contrary-to-Duty Obligations.' Studia Logica, 57(1), 91-115."@en ;
+    rdfs:seeAlso "Boella, G., & van der Torre, L. (2006). 'A Game Theoretic Approach to Contracts in Multiagent Systems.' IEEE Transactions on Systems, Man, and Cybernetics, 36(1), 68-79."@en ;
+    rdfs:seeAlso "Palmirani, M., Martoni, M., Rossi, A., Bartolini, C., & Robaldo, L. (2018). 'Legal Ontology for Modelling GDPR Concepts and Norms.' In Proceedings of the 2nd Workshop on Technologies for Regulatory Compliance (TERECOM 2018) at JURIX 2018 (pp. 91-100)."@en .
+
+:Permission rdf:type owl:NamedIndividual , skos:Concept ;
+    skos:notation "permission" ;
+    rdfs:label "Permission"@en ;
+    skos:definition "The deontic modality of a prescriptive rule that grants a party the faculty to perform one or more actions, adopt behaviours, or bring about a state of affairs, where the party has neither an obligation nor a prohibition regarding that conduct."@en ;
+    skos:prefLabel "Permission"@en ;
+    skos:prefLabel "Permission"@fr ;
+    skos:inScheme :DeonticModalityScheme ;
+    skos:topConceptOf :DeonticModalityScheme ;
+    skos:scopeNote """Use for provisions granting a faculty to act where the exercise of that faculty is not matched by a duty on another determinate party to render the performance that the faculty is directed at obtaining. Where such a duty does follow — expressly, or by necessary implication from the annotated act or from an instrument to which it expressly cross-refers for that conduct — use :Right.
+
+Duties that merely accompany a faculty do not convert it into a :Right. In particular, disregard: duties to receive, examine, consider, respond to, give an opinion on, or decide upon a facultative submission; duties to state reasons; generic duties not to obstruct or interfere with the exercise; duties of loyal cooperation or general supervision; duties to avoid conflicts of interest or otherwise to safeguard the conditions of exercise; and any duty resting on the same party as the faculty. The correlate of a bare faculty is the absence of a claim in others, not a duty in others.
+
+The foundational pattern is: \"Party P is permitted to perform X in context C\"
+where P is the party legally entitled to act (the permission-holder), X is the permitted action, behaviour, or state of affairs, and C is the normative context conditioning the permission.
+
+Common linguistic patterns:
+- Explicit permission markers: \"may\", \"is permitted to\", \"is authorized to\", \"is allowed to\"
+- Facultative formulations: \"may choose to\", \"has the option to\", \"is free to\"
+- Discretionary grants: \"may decide to\", \"may determine\", \"may elect to\"
+- Conditional permissions: \"may... provided that\", \"may... where\", \"may... if\"
+- Negative permissions: \"need not\", \"is not required to\", \"is not obliged to\" (discretion not to act)
+
+Distinguishing permissions from other deontic modalities:
+The fundamental test is whether the provision grants discretionary authority to perform an action without creating a duty to perform or refrain from performing it. Where "may" is coupled with a duty on another determinate party to render the performance sought, see :Right.
+
+Permission examples:
+\"The controller may refuse to act on the request\"
+\"Associations may prepare codes of conduct\"
+\"The data protection officer may fulfil other tasks and duties\"
+
+Special cases:
+Permissions with conditions remain permissions in their primary normative character even when their exercise is subject to a specific requirement, unless the condition is marked as exclusive (only if, only where, only to, only on condition that, may … only), in which case the rule is annotated :Prohibition (see :Prohibition).
+
+Permissions vs. powers (constitutive rules) require clear distinction. Permissions grant authorization to perform actions. Powers, a sub-category of constitutive rules, authorize acts that create, modify, or extinguish legal relations and constitute the legal capacity itself.
+
+Power attribution confers fundamental competences (e.g., Regulation 2019/1020 Art. 11(1): \"Market surveillance authorities shall have the power to order the withdrawal of a product\"); regulation of power exercise prescribes conditions and procedures for exercising those powers (e.g., Art. 14(4): \"Where authorities establish that a product presents a risk, they shall require corrective action\"). The first constitutes the competence; the second regulates its exercise. Where provisions grant authority to alter legal positions of other parties, determine whether the provision constitutes the power itself (constitutive rule) or regulates its exercise (a prescriptive rule — typically an obligation
+or a permission, depending on the modality of the provision).
+
+Negative permissions (discretion not to act) establish that a party is not obliged to perform an action. For example, \"Member States need not notify the Commission\" grants permission to refrain from notifying."""@en ;
+
+    skos:example """Permission with conditions (GDPR, Art. 9(2))
+\"Paragraph 1 shall not apply if one of the following applies: (a) the data subject has given explicit consent to the processing of those personal data for one or more specified purposes, except where Union or Member State law provide that the prohibition referred to in paragraph 1 may not be lifted by the data subject.\"
+Note: Permission removing general prohibition, conditioned on explicit consent and absence of legal override."""@en ;
+    skos:example """Discretionary permission (GDPR, Art. 6(2))
+\"Member States may maintain or introduce more specific provisions to adapt the application of the rules of this Regulation with regard to processing for compliance with points (c) and (e) of paragraph 1 by determining more precisely specific requirements for the processing and other measures to ensure lawful and fair processing.\"
+Note: Explicit grant of regulatory discretion to Member States - permission to specify additional requirements."""@en ;
+    skos:example """Permission to extend timeframe (GDPR, Art. 12(3))
+\"[...]. That period may be extended by two further months where necessary, taking into account the complexity and number of the requests.\"
+Note: Conditional permission to extend compliance deadline, with substantive conditions (complexity, volume) governing exercise."""@en ;
+    skos:example """Permission to carry out a single interoperability assessment (Interoperable Europe Act, Art. 3(1))
+'Where, in relation to binding requirements, an interoperability assessment has already been carried out or where binding requirements are implemented by solutions provided by Union entities, the public sector body concerned shall not be required to carry out a further interoperability assessment in relation to those requirements. A single interoperability assessment may be carried out to address a set of binding requirements.'"""@en ;
+    skos:example """Permission to exclude liability (Interoperable Europe Act, Art. 4(2))
+'To enable the reusing entity to manage the interoperability solution autonomously, the sharing entity shall specify any conditions that apply to the reuse of the solution, including any guarantees provided to the reusing entity with regard to cooperation, support and maintenance. Such conditions may include the exclusion of liability of the sharing entity in the case of misuse of the interoperability solution by the reusing entity.'"""@en ;
+    skos:example """Permission to establish interoperability sandboxes (Interoperable Europe Act, Art. 9(4))
+'In order to reinforce the policy implementation support project, the Board may propose the establishment of an interoperability regulatory sandbox pursuant to Article 11.'"""@en ;
+    rdfs:seeAlso "Athan, T., Governatori, G., Palmirani, M., Paschke, A., & Wyner, A. (2015). LegalRuleML: Design principles and foundations. In Reasoning Web International Summer School (pp. 151-188). Cham: Springer International Publishing."@en ;
+    rdfs:seeAlso "Hohfeld, W.N. (1913). \"Some Fundamental Legal Conceptions as Applied in Judicial Reasoning.\" Yale Law Journal, 23(1), 16-59. doi:10.2307/785533"@en ;
+    rdfs:seeAlso "Kelsen, H. (1967). Pure Theory of Law (M. Knight, Trans.). University of California Press. (Original work published 1960)"@en ;
+    rdfs:seeAlso "Von Wright, G.H. (1963). Norm and Action: A Logical Enquiry. Routledge & Kegan Paul, London."@en ;
+    rdfs:seeAlso "Hart, H.L.A. (1961). The Concept of Law. Oxford University Press."@en ;
+    rdfs:seeAlso "Lindahl, L. (1977). Position and Change: A Study in Law and Logic. D. Reidel Publishing Company, Dordrecht."@en ;
+    rdfs:seeAlso "Raz, J. (1975). Practical Reason and Norms. Hutchinson, London."@en ;
+    rdfs:seeAlso "Ross, A. (1968). Directives and Norms. Routledge & Kegan Paul, London."@en ;
+    rdfs:seeAlso "Makinson, D. (1986). \"On the Formal Representation of Rights Relations.\" Journal of Philosophical Logic, 15(4), 403-425."@en ;
+    rdfs:seeAlso "Governatori, G., & Rotolo, A. (2010). \"Changing Legal Systems: Legal Abrogations and Annulments in Defeasible Logic.\" Logic Journal of the IGPL, 18(1), 157-194."@en ;
+    rdfs:seeAlso "Sartor, G. (2005). Legal Reasoning: A Cognitive Approach to the Law. Springer, Dordrecht."@en ;
+    rdfs:seeAlso "Palmirani, M., Martoni, M., Rossi, A., Bartolini, C., & Robaldo, L. (2018). \"Legal Ontology for Modelling GDPR Concepts and Norms.\" In Proceedings of the 2nd Workshop on Technologies for Regulatory Compliance (TERECOM 2018) at JURIX 2018 (pp. 91-100)."@en ;
+    rdfs:seeAlso "Von Wright, G.H. (1968). An Essay in Deontic Logic and the General Theory of Action. North-Holland Publishing Company, Amsterdam."@en ;
+    rdfs:seeAlso "Alchourrón, C.E., & Bulygin, E. (1971). Normative Systems. Springer-Verlag, Vienna and New York."@en ;
+    rdfs:seeAlso "Boella, G., & van der Torre, L. (2006). \"A Game Theoretic Approach to Contracts in Multiagent Systems.\" IEEE Transactions on Systems, Man, and Cybernetics, 36(1), 68-79."@en .
+
+:Prohibition rdf:type owl:NamedIndividual , skos:Concept ;
+    skos:notation "prohibition" ;
+    rdfs:label "Prohibition"@en ;
+    skos:definition "The deontic modality of a prescriptive rule that forbids one or more actions, behaviours, or bringing about a state of affairs to which a party is legally bound, creating a duty of non-performance whose violation results in a breach of the legal provision."@en ;
+    skos:prefLabel "Prohibition"@en ;
+    skos:prefLabel "Interdiction"@fr ;
+    skos:inScheme :DeonticModalityScheme ;
+    skos:topConceptOf :DeonticModalityScheme ;
+    skos:scopeNote """Use for provisions that impose a duty on an identified party to refrain from performing a specific action, behaviour, or bringing about a prohibited situation. Prohibitions create negative legal duties whose breach results in non-compliance with the normative framework.
+
+The foundational pattern is: \"Party P has a duty not to perform X in context C\"
+where P is the party legally bound to refrain, X is the forbidden action, behaviour, or state of affairs, and C is the normative context conditioning the prohibition.
+
+According to Von Wright (1963), prohibitions are \"norm-formulations of the ought-not-to-do type\" requiring agents \"to forbear from doing certain things\". Kelsen (1967) conceptualizes prohibitions as norms prescribing that \"a certain behaviour ought not to be\"
+
+Common linguistic patterns:
+- Explicit prohibition markers: \"shall not\", \"must not\", \"may not\" (when prescriptive), \"is prohibited\", \"is forbidden\"
+- Negative imperatives: \"shall refrain from\", \"shall be prohibited from\", \"must avoid\"
+- Impossibility formulations: \"no... shall\", \"shall not be permitted to\", \"shall be prevented from\"
+- Exclusion formulations: \"without..., shall not\", \"unless..., shall not\", \"except..., shall not\"
+- Passive prohibitory constructions: \"shall be prohibited\", \"shall not be allowed\", \"shall not be permitted\"
+- Absolute prohibition statements: \"is prohibited\", \"are forbidden\", \"shall not take place\"
+
+Distinguishing prohibitions from other deontic modalities:
+The fundamental test is whether the provision imposes a duty of non-performance whose violation constitutes a breach.
+
+Prohibition examples:
+- \"Processing of special categories of personal data shall be prohibited\"
+- \"Member States shall not impede the free movement of goods\"
+- \"Controllers must not transfer data to third countries without adequate safeguards\"
+
+Special cases:
+Where the exception is enacted in a separately segmentable provision, that provision is annotated as :Permission while the base provision remains :Prohibition. Only where the exception is not segmentable from the prohibitory clause does the provision retain a single :Prohibition annotation.
+
+Prohibitions expressed through negative obligations represent the same deontic modality. \"Member States shall not\" and \"Member States are prohibited from\" express identical normative content - a duty of non-performance.
+
+Implicit prohibitions through impossibility requirements function as prohibitions when they require that an action cannot occur. For example, \"Access shall not be possible without authentication\" prohibits unauthenticated access through an impossibility requirement.
+
+Prohibitions on making available or placing on market represent specialized prohibitions in product regulation, forbidding economic operators from introducing non-compliant products into commercial channels.
+
+Annotation guideline: When a provision creates a duty not to act, classify it as prohibition regardless of linguistic form. Only explicit or implicit duties of non-performance constitute prohibitions. Exclusive condition clauses ("only if", "only where", "only on condition that") are uniformly annotated as Prohibition. The exclusive condition entails a residual prohibition in every case, whereas the permissive facet is present only where the act lacks an antecedent prohibitive norm."""@en ;
+    skos:example """Absolute prohibition (GDPR, Art. 9(1))
+\"Processing of personal data revealing racial or ethnic origin, political opinions, religious or philosophical beliefs, or trade union membership, and the processing of genetic data, biometric data for the purpose of uniquely identifying a natural person, data concerning health or data concerning a natural person's sex life or sexual orientation shall be prohibited.\"
+Note: Categorical prohibition establishing general duty of non-performance, followed in Art. 9(2) by specific exceptions."""@en ;
+    skos:example """Prohibition on market impediment (Directive 2014/33/EU, Art. 3(1))
+\"Member States shall not prohibit, restrict or impede the placing on the market or putting into service of lifts or the making available on the market of safety components for lifts on their territory which comply with this Directive.\"
+Note: Prohibition on prohibitory action - meta-prohibition preventing Member States from creating market barriers for compliant products."""@en ;
+    skos:example """Conditional prohibition (GDPR, Art. 44)
+\"Any transfer of personal data which are undergoing processing or are intended for processing after transfer to a third country or to an international organisation shall take place only if... the conditions laid down in this Chapter are complied with by the controller and processor.\"
+Note: Prohibition implied through \"only if\" construction - transfers not meeting conditions are prohibited."""@en ;
+    skos:example """Prohibition on further processing (GDPR, Art. 5(1)(b))
+\"Personal data shall be collected for specified, explicit and legitimate purposes and not further processed in a manner that is incompatible with those purposes.\"
+Note: Compound provision combining obligation (collect for specified purposes) and prohibition (not process incompatibly)."""@en ;
+    skos:example """Prohibition through procedural requirement (Directive 2014/31/EU, Annex I, point 9)
+\"An auxiliary indicating device is permitted only to the right of the decimal mark. An extended indicating device may be used only temporarily, and printing shall be inhibited during its functioning.\"
+Note: \"Printing shall be inhibited\" constitutes prohibition on printing during specific operational phase."""@en ;
+    skos:example """Prohibition on unfair commercial practices (Directive 2005/29/EC, Art. 5(1))
+\"Unfair commercial practices shall be prohibited.\"
+Note: Absolute prohibition of categorically defined conduct, with subsequent provisions defining what counts as \"unfair\"."""@en ;
+    rdfs:seeAlso "Athan, T., Governatori, G., Palmirani, M., Paschke, A., & Wyner, A. (2015). LegalRuleML: Design principles and foundations. In Reasoning Web International Summer School (pp. 151-188). Cham: Springer International Publishing."@en ;
+    rdfs:seeAlso "Hohfeld, W.N. (1913). \"Some Fundamental Legal Conceptions as Applied in Judicial Reasoning.\" Yale Law Journal, 23(1), 16-59. doi:10.2307/785533"@en ;
+    rdfs:seeAlso "Kelsen, H. (1967). Pure Theory of Law (M. Knight, Trans.). University of California Press. (Original work published 1960)"@en ;
+    rdfs:seeAlso "Von Wright, G.H. (1963). Norm and Action: A Logical Enquiry. Routledge & Kegan Paul, London."@en ;
+    rdfs:seeAlso "Von Wright, G.H. (1968). An Essay in Deontic Logic and the General Theory of Action. North-Holland Publishing Company, Amsterdam."@en ;
+    rdfs:seeAlso "Hart, H.L.A. (1961). The Concept of Law. Oxford University Press."@en ;
+    rdfs:seeAlso "Lindahl, L. (1977). Position and Change: A Study in Law and Logic. D. Reidel Publishing Company, Dordrecht."@en ;
+    rdfs:seeAlso "Raz, J. (1975). Practical Reason and Norms. Hutchinson, London."@en ;
+    rdfs:seeAlso "Ross, A. (1968). Directives and Norms. Routledge & Kegan Paul, London."@en ;
+    rdfs:seeAlso "Anderson, A.R. (1958). 'A Reduction of Deontic Logic to Alethic Modal Logic.' Mind, 67(265), 100-103."@en ;
+    rdfs:seeAlso "Makinson, D. (1999). 'On a Fundamental Problem of Deontic Logic.' In P. McNamara & H. Prakken (Eds.), Norms, Logics and Information Systems (pp. 29-54). IOS Press, Amsterdam."@en ;
+    rdfs:seeAlso "Sergot, M. (2013). 'Normative Positions.' In D. Gabbay, J. Horty, X. Parent, R. van der Meyden, & L. van der Torre (Eds.), Handbook of Deontic Logic and Normative Systems (pp. 353-406). College Publications, London."@en ;
+    rdfs:seeAlso "Governatori, G., & Rotolo, A. (2010). 'Changing Legal Systems: Legal Abrogations and Annulments in Defeasible Logic.' Logic Journal of the IGPL, 18(1), 157-194."@en ;
+    rdfs:seeAlso "Sartor, G. (2005). Legal Reasoning: A Cognitive Approach to the Law. Springer, Dordrecht."@en ;
+    rdfs:seeAlso "Prakken, H., & Sergot, M. (1996). 'Contrary-to-Duty Obligations.' Studia Logica, 57(1), 91-115."@en ;
+    rdfs:seeAlso "Alchourron, C.E., & Bulygin, E. (1971). Normative Systems. Springer-Verlag, Vienna and New York."@en ;
+    rdfs:seeAlso "Boella, G., & van der Torre, L. (2006). 'A Game Theoretic Approach to Contracts in Multiagent Systems.' IEEE Transactions on Systems, Man, and Cybernetics, 36(1), 68-79."@en ;
+    rdfs:seeAlso "Palmirani, M., Martoni, M., Rossi, A., Bartolini, C., & Robaldo, L. (2018). 'Legal Ontology for Modelling GDPR Concepts and Norms.' In Proceedings of the 2nd Workshop on Technologies for Regulatory Compliance (TERECOM 2018) at JURIX 2018 (pp. 91-100)."@en ;
+    rdfs:seeAlso "Hansen, J. (2008). 'Prioritized Conditional Imperatives: Problems and a New Proposal.' Autonomous Agents and Multi-Agent Systems, 17(1), 11-35."@en .
+
+:Right rdf:type owl:NamedIndividual , skos:Concept ;
+    skos:notation "right" ;
+    rdfs:label "Right"@en ;
+    skos:definition "The deontic modality of a prescriptive rule that grants an entitlement to one or more actions, behaviours, or bringing about a state of affairs to a party, and implies obligations or prohibitions on one or more determinate — though not necessarily named — parties to render the performance to which the entitlement is directed."@en ;
+    skos:prefLabel "Right"@en ;
+    skos:prefLabel "Droit"@fr ;
+    skos:inScheme :DeonticModalityScheme ;
+    skos:topConceptOf :DeonticModalityScheme ;
+    skos:scopeNote """Use for provisions conferring an entitlement on a party where a determinate — though not necessarily named — other party bears a duty to render the performance that the entitlement is directed at obtaining. The duty may be established expressly or by necessary implication, and need not be located in the same provision, provided it arises from the annotated act or from an instrument to which that act expressly cross-refers for the conduct in question. Where no such duty follows, or where the only duties present are of the accompanying kind listed under :Permission, use
+:Permission.
+
+The foundational pattern is: \"Party P has a right to X against another party A in context C\"
+where P is the party entitled to claim the right (right-holder), X is the object of the right, A is the duty-bearing party bound by the correlative obligation or prohibition, and C is the normative context of the right.
+
+Key indicator: The presence of \"right to\" in a provision strongly indicates classification as a Right, provided a duty of the kind described above is established expressly or by necessary implication.
+
+Common linguistic patterns:
+- Explicit right markers: \"has the right to\", \"right to\", \"shall have the right\", \"is entitled to\"
+- Subject-oriented declarations: \"[Party] may request\", \"[Party] may obtain\", \"[Party] may access\" (exceptional and when coupled with duties on other parties)
+- Entitlement formulations: \"shall be entitled to\", \"has the entitlement to\"
+- Correlative duty structures: \"[Party] has the right to X. [Another party] shall/must Y\" (where Y enables or respects X)
+- Negative rights: \"right not to be [subjected to]\", \"right to refuse\" (when paired with prohibitions on others)
+- Access/information rights: \"right to access\", \"right to be informed\", \"right to obtain\" (when duties to provide are explicit)
+
+With the exception of the subject-oriented "may" formulations, such markers create a rebuttable presumption of :Right. The presumption is rebutted only where no such duty follows even by necessary implication (then :Permission), or where the provision constitutes a legal power to alter the legal positions of others (then a constitutive rule, not a prescriptive one).
+
+Distinguishing rights from other deontic modalities:
+Restating the criterion of the scope note for convenience — the provision must:
+1. Grant an entitlement to a party, and
+2. Establish correlative obligations or prohibitions on one or more determinate parties, of the kind described above.
+
+Right examples:
+- \"Data subjects have the right to obtain confirmation from the controller as to whether personal data concerning them are being processed.\" (Article 15(1) GDPR)
+  and
+  \"The controller shall provide information on action taken on a request under Articles 15 to 22 without undue delay and in any event within one month of receipt of the request. [...] (Article 12(3) GDPR)\"
+  and
+  \"The data subject shall have the right not to be subject to a decision based solely on automated processing, including profiling, which produces legal effects concerning him or her or similarly significantly affects him or her.\"
+Note: Right formulation creating corresponding prohibition on controller - controller prohibited from subjecting data subject to solely automated decisions with significant effects. (Article 22(1) GDPR)
+
+Not right example (Permission):
+- \"The controller may process data based on consent.\""""@en ;
+
+    skos:example """Example 1: Right to rectification (GDPR, Regulation (EU) 2016/679, Art. 16)
+\"The data subject shall have the right to obtain from the controller without undue delay the rectification of inaccurate personal data concerning him or her.\"
+Note: Right to rectification with explicit, legally binding duty on controller, including the correlative duty enshrined under Article 19 of the GDPR: \"The controller shall communicate any rectification or erasure of personal data or restriction of processing carried out in accordance with Article 16, Article 17(1) and Article 18 to each recipient […].\""""@en ;
+    skos:example """Example 2: Right to annex dissenting opinion (Interoperable Europe Act – Regulation (EU) 2024/903 -, Art. 15(4))
+\"[…] The members who have voted against a proposal or abstained shall have the right to have a document summarising the reasons for their position annexed to the opinions, recommendations or reports.\"
+Note: Right to have dissenting opinion annexed with a legally binding duty arising by necessary implication on the Interoperable Europe Board (as institutional body). The Board must actively facilitate the annexation process and ensure that dissenting documents are included in the final opinions."""@en ;
+    skos:example """Example 3: Right of access to electronic health data (Regulation (EU) 2025/327, Art. 3(1))
+\"Natural persons shall have the right to access at least personal electronic health data relating to them that belong to the priority categories referred to in Article 14 and are processed for the provision of healthcare through the electronic health data access services referred to in Article 4. Access shall be provided immediately after the personal electronic health data have been registered in an EHR system, while respecting the need for technological practicability, and shall be provided free of charge and in an easily readable, consolidated and accessible format.\"
+Note: Compound right with correlative duties: duty to provide immediate access, duty to provide data free of charge, duty to provide data in easily readable, consolidated and accessible format. The duty-bearing parties include healthcare providers and EHR system operators."""@en ;
+    skos:example """Example 4: Right to Transmit health data to third parties (Regulation (EU) 2025/327, Art. 3(3))
+\"Natural persons shall have the right to request a healthcare provider to transmit a part of their personal electronic health data to a clearly identified recipient in the social security or reimbursement services sector. Such transmission shall be carried out immediately, free of charge and without hindrance from the healthcare provider or from the manufacturers of the systems used by that healthcare provider, and shall be one-way only.\"
+Note: Compound right with correlative duties: duty to carry out transmission immediately, duty to transmit free of charge, duty not to hinder transmission (negative duty). Multiple other parties involved: healthcare provider, manufacturers of systems, receiving entity in social security/reimbursement sector."""@en ;
+    rdfs:seeAlso "Athan, T., Governatori, G., Palmirani, M., Paschke, A., & Wyner, A. (2015). LegalRuleML: Design principles and foundations. In Reasoning Web International Summer School (pp. 151-188). Cham: Springer International Publishing."@en ;
+    rdfs:seeAlso "Hohfeld, W.N. (1913, 1919). Fundamental Legal Conceptions as Applied in Judicial Reasoning. Yale Law Journal. Establishing the foundational correlativity between rights and duties in legal relations."@en ;
+    rdfs:seeAlso "Lindahl, L. (1977). Position and Change: A Study in Law and Logic. Reidel. Formalizing legal positions including rights and correlative duties."@en ;
+    rdfs:seeAlso "Wright, G.H. von (1963). Norm and Action: A Logical Inquiry. Routledge and Kegan Paul. Analyzing normative modalities including rights and obligations."@en ;
+    rdfs:seeAlso "Alchourrón, C.E., & Bulygin, E. (1984). Permission and permissive norms. In: Theorie der Normen, pp. 349–371. Duncker & Humblot, Berlin. Distinguishing between permissions and rights through correlative duty analysis."@en ;
+    rdfs:seeAlso "Raz, J. (2009). Between Authority and Interpretation: On the Theory of Law and Practical Reason. Oxford University Press. https://doi.org/10.1093/acprof:oso/9780199562688.001.0001"@en ;
+    rdfs:seeAlso "Hart, H.L.A. (1994). The Concept of Law, 2nd ed. Clarendon Press. Analyzing rights as combinations of liberties and claim-rights correlating with duties."@en ;
+    rdfs:seeAlso "Sartor, G. (2005). Legal Reasoning: A Cognitive Approach to the Law. Springer. Discussing the cognitive and logical structure of legal rights and correlative obligations."@en ;
+    rdfs:seeAlso "Governatori, G., Olivieri, F., Rotolo, A., & Scannapieco, S. (2013). Computing Strong and Weak Permissions in Defeasible Logic. Journal of Philosophical Logic, 42(6), 799–829. Distinguishing between strong permissions (rights with correlative prohibitions) and weak permissions."@en .

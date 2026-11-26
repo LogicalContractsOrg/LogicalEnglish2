@@ -1,0 +1,1548 @@
+@prefix : <http://data.europa.eu/leg/lomo/lfds-CSA2#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix lomo: <http://data.europa.eu/leg/lomo#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix eli: <http://data.europa.eu/eli/ontology#> .
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix cpsv: <http://purl.org/vocab/cpsv#> .
+@prefix cav: <http://data.europa.eu/2sa/cav#> .
+@prefix lfds: <http://data.europa.eu/2qy/lfds#> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix vann: <http://purl.org/vocab/vann/> .
+
+@base <http://data.europa.eu/leg/lomo/lfds-CSA2> .
+
+<http://data.europa.eu/leg/lomo/lfds/CSA2> rdf:type owl:Ontology ;
+    dcterms:title "LFDS Proposal Cybersecurity Act 2 - LOMO Instantiation"@en ;
+    dcterms:description "Instantiation of the Proposal for the Cybersecurity Act 2 Regulation (COM(2026) 11) using the Legal Obligation Metadata Ontology (LOMO)."@en ;
+    dcterms:creator "European Commission" ;
+    dcterms:created "2026-01-20"^^xsd:date ;
+    owl:imports <http://data.europa.eu/leg/lomo> .
+
+
+#################################################################
+#    AGENTS (Specific entities)
+#################################################################
+
+:Agent_ENISA rdf:type owl:NamedIndividual , lomo:Agent ;
+    rdfs:label "ENISA"@en ;
+    rdfs:comment "European Union Agency for Cybersecurity"@en .
+
+:Agent_Commission rdf:type owl:NamedIndividual , lomo:Agent ;
+    rdfs:label "European Commission"@en ;
+    rdfs:comment "The European Commission"@en .
+
+:Agent_EDPB rdf:type owl:NamedIndividual , lomo:Agent ;
+    rdfs:label "EDPB"@en ;
+    rdfs:comment "European Data Protection Board"@en .
+
+:Agent_ECCC rdf:type owl:NamedIndividual , lomo:Agent ;
+    rdfs:label "ECCC"@en ;
+    rdfs:comment "European Cybersecurity Competence Centre"@en .
+
+:Agent_EUCyCLONe rdf:type owl:NamedIndividual , lomo:Agent ;
+    rdfs:label "EU-CyCLONe (Article 16(2) of Directive (EU) 2022/2555)"@en ;
+    rdfs:comment "European Cyber Crises Liaison Organisation Network as defined in Article 16(2) of Directive (EU) 2022/2555"@en .
+
+:Agent_CERTEU rdf:type owl:NamedIndividual , lomo:Agent ;
+    rdfs:label "CERT-EU"@en ;
+    rdfs:comment "Computer Emergency Response Team for the EU institutions, bodies and agencies"@en .
+
+:Agent_EuropeanParliament rdf:type owl:NamedIndividual , lomo:Agent ;
+    rdfs:label "European Parliament"@en ;
+    rdfs:comment "European Parliament"@en .
+
+:Agent_Council rdf:type owl:NamedIndividual , lomo:Agent ;
+    rdfs:label "Council of the EU"@en ;
+    rdfs:comment "Council of the European Union"@en .
+
+:Agent_CourtOfAuditors rdf:type owl:NamedIndividual , lomo:Agent ;
+    rdfs:label "Court of Auditors"@en ;
+    rdfs:comment "European Court of Auditors"@en .
+
+:Agent_BoardOfAppeal rdf:type owl:NamedIndividual , lomo:Agent ;
+    rdfs:label "Board of Appeal in the sense of Article 36 of CSA2 proposal"@en ;
+    rdfs:comment "Board of Appeal as defined in Article 36 of the Cybersecurity Act 2 proposal"@en .
+
+:Agent_NISCooperationGroup rdf:type owl:NamedIndividual , lomo:Agent ;
+    rdfs:label "NIS Cooperation Group"@en ;
+    rdfs:comment "Cooperation Group established under the NIS2 Directive"@en .
+
+#################################################################
+#    AGENT TYPES (Categories of entities)
+#################################################################
+
+:Agent_MemberStates rdf:type owl:NamedIndividual , lomo:AgentType ;
+    rdfs:label "Member States"@en ;
+    rdfs:comment "EU Member States"@en .
+
+:Agent_StakeholdersImpacted rdf:type owl:NamedIndividual , lomo:AgentType ;
+    rdfs:label "Stakeholders impacted by Regulation (EU) 2024/2847"@en ;
+    rdfs:comment "Stakeholders affected by the Cybersecurity Regulation (EU) 2024/2847"@en .
+
+:Agent_GeneralPublic rdf:type owl:NamedIndividual , lomo:AgentType ;
+    rdfs:label "General Public"@en ;
+    rdfs:comment "General public"@en .
+
+:Agent_EUEntities rdf:type owl:NamedIndividual , lomo:AgentType ;
+    rdfs:label "EU entities"@en ;
+    rdfs:comment "Entities of the European Union"@en .
+
+:Agent_PublicPrivateStakeholders rdf:type owl:NamedIndividual , lomo:AgentType ;
+    rdfs:label "Public and private stakeholders"@en ;
+    rdfs:comment "Public and private stakeholders"@en .
+
+:Agent_MarketSurveillanceAuthorities rdf:type owl:NamedIndividual , lomo:AgentType ;
+    rdfs:label "Market surveillance authorities"@en ;
+    rdfs:comment "Market surveillance authorities"@en .
+
+:Agent_ECCGMembers rdf:type owl:NamedIndividual , lomo:AgentType ;
+    rdfs:label "ECCG members"@en ;
+    rdfs:comment "European Cybersecurity Certification Group members"@en .
+
+:Agent_CSIRTs rdf:type owl:NamedIndividual , lomo:AgentType ;
+    rdfs:label "CSIRTs (Article 15(1) of Directive (EU) 2022/2555)"@en ;
+    rdfs:comment "Computer Security Incident Response Teams as defined in Article 15(1) of Directive (EU) 2022/2555"@en .
+
+:Agent_EntitiesNIS2 rdf:type owl:NamedIndividual , lomo:AgentType ;
+    rdfs:label "Entities listed in Annexes I and II to Directive (EU) 2022/2555"@en ;
+    rdfs:comment "Essential and important entities as listed in Annexes I and II to Directive (EU) 2022/2555"@en .
+
+:Agent_Applicants rdf:type owl:NamedIndividual , lomo:AgentType ;
+    rdfs:label "Applicants"@en ;
+    rdfs:comment "Legal entities that wish to become authorised attestation providers, to maintain or to renew their authorisation"@en .
+
+:Agent_AttestationProviders rdf:type owl:NamedIndividual , lomo:AgentType ;
+    rdfs:label "Attestation providers"@en ;
+    rdfs:comment "Attestation providers"@en .
+
+:Agent_ConformityAssessmentBodies rdf:type owl:NamedIndividual , lomo:AgentType ;
+    rdfs:label "Conformity assessment bodies"@en ;
+    rdfs:comment "Conformity assessment bodies"@en .
+
+:Agent_ExpertStakeholders rdf:type owl:NamedIndividual , lomo:AgentType ;
+    rdfs:label "Expert stakeholders"@en ;
+    rdfs:comment "Expert stakeholders"@en .
+
+:Agent_CertificateHolders rdf:type owl:NamedIndividual , lomo:AgentType ;
+    rdfs:label "Certificate holders"@en ;
+    rdfs:comment "Certificate holders"@en .
+
+:Agent_Suppliers rdf:type owl:NamedIndividual , lomo:AgentType ;
+    rdfs:label "Suppliers"@en ;
+    rdfs:comment "Suppliers"@en .
+
+:Agent_ThirdCountryEntities rdf:type owl:NamedIndividual , lomo:AgentType ;
+    rdfs:label "Entities established in or controlled by entities from a designated third country posing cybersecurity concerns"@en ;
+    rdfs:comment "Entities established in or controlled by entities from a designated third country posing cybersecurity concerns"@en .
+
+:Agent_CompetentAuthorityDNA rdf:type owl:NamedIndividual , lomo:AgentType ;
+    rdfs:label "Competent authority in the sense of Article 9 or 20 of Regulation (EU) XX/XXXX [DNA Proposal]"@en ;
+    rdfs:comment "Competent authority as defined in Article 9 or 20 of the DNA Proposal Regulation"@en .
+
+:Agent_TelecomProviders rdf:type owl:NamedIndividual , lomo:AgentType ;
+    rdfs:label "Providers of mobile, fixed and satellite electronic communications networks"@en ;
+    rdfs:comment "Providers of mobile, fixed and satellite electronic communications networks"@en .
+
+:Agent_EssentialImportantEntities rdf:type owl:NamedIndividual , lomo:AgentType ;
+    rdfs:label "Essential and important entities"@en ;
+    rdfs:comment "Essential and important entities as referred to in Annexes I and II to Directive (EU) 2022/2555"@en .
+
+
+#################################################################
+#    HIGH-LEVEL PROCESSES (Classification, not Actions)
+#################################################################
+
+:HighLevelProcessScheme rdf:type owl:NamedIndividual , skos:ConceptScheme ;
+    skos:prefLabel "High-Level Processes"@en ;
+    skos:definition "Classification scheme for high-level data and operational processes in the cybersecurity certification and regulation domain."@en .
+
+:Process_DataAnalysis rdf:type owl:NamedIndividual , skos:Concept ;
+    skos:prefLabel "Data Analysis"@en ;
+    skos:definition "The process of analysing data to support decision-making, prepare reports, identify emerging threats, and conduct risk assessments."@en ;
+    skos:inScheme :HighLevelProcessScheme ;
+    skos:scopeNote "Includes analysis for reports, threat identification, risk assessments, and technical inquiries."@en .
+
+:Process_InformationSharing rdf:type owl:NamedIndividual , skos:Concept ;
+    skos:prefLabel "Information Sharing"@en ;
+    skos:definition "The process of exchanging information between Member States, EU institutions, competent authorities, and stakeholders."@en ;
+    skos:inScheme :HighLevelProcessScheme ;
+    skos:scopeNote "Includes bilateral and multilateral information exchange, notifications, and data flows between authorities."@en .
+
+:Process_ProvidingGuidance rdf:type owl:NamedIndividual , skos:Concept ;
+    skos:prefLabel "Providing Guidance and Best Practices"@en ;
+    skos:definition "The process of issuing technical guidance, guidelines, best practices, and advice on cybersecurity tools, procedures, standards, and regulatory compliance."@en ;
+    skos:inScheme :HighLevelProcessScheme ;
+    skos:scopeNote "Includes developing actionable tools, issuing guidelines, and facilitating exchange of best practices."@en .
+
+:Process_TechnicalSupport rdf:type owl:NamedIndividual , skos:Concept ;
+    skos:prefLabel "Technical Support and Assistance"@en ;
+    skos:definition "The process of providing technical advice, assistance, and support for implementation, incident handling, and vulnerability management."@en ;
+    skos:inScheme :HighLevelProcessScheme ;
+    skos:scopeNote "Includes assistance with incidents, vulnerability management services, and technical inquiries."@en .
+
+:Process_Consultation rdf:type owl:NamedIndividual , skos:Concept ;
+    skos:prefLabel "Consultation with Stakeholders"@en ;
+    skos:definition "The process of consulting relevant stakeholders, competent authorities, Member States, and suppliers on regulatory matters and certification schemes."@en ;
+    skos:inScheme :HighLevelProcessScheme .
+
+:Process_SchemeManagement rdf:type owl:NamedIndividual , skos:Concept ;
+    skos:prefLabel "Certification Scheme Management"@en ;
+    skos:definition "The process of developing, maintaining, and updating European cybersecurity certification schemes, including candidate scheme preparation."@en ;
+    skos:inScheme :HighLevelProcessScheme ;
+    skos:scopeNote "Includes scheme development, maintenance, and updates following consultation processes."@en .
+
+:Process_ApplicationProcessing rdf:type owl:NamedIndividual , skos:Concept ;
+    skos:prefLabel "Application Processing"@en ;
+    skos:definition "The process of receiving, processing, and issuing decisions on applications for authorisation, certification, or accreditation."@en ;
+    skos:inScheme :HighLevelProcessScheme .
+
+:Process_PublicDissemination rdf:type owl:NamedIndividual , skos:Concept ;
+    skos:prefLabel "Public Information Dissemination"@en ;
+    skos:definition "The process of making information publicly available through websites, electronic forms, and publicly accessible registers."@en ;
+    skos:inScheme :HighLevelProcessScheme ;
+    skos:scopeNote "Includes maintaining ENISA website, certification website, and Commission registers."@en .
+
+:Process_RepositoryMaintenance rdf:type owl:NamedIndividual , skos:Concept ;
+    skos:prefLabel "Repository Maintenance"@en ;
+    skos:definition "The process of developing and maintaining databases, repositories, and registers of certification information, authorities, and conformity assessment bodies."@en ;
+    skos:inScheme :HighLevelProcessScheme .
+
+:Process_Reporting rdf:type owl:NamedIndividual , skos:Concept ;
+    skos:prefLabel "Reporting"@en ;
+    skos:definition "The process of preparing, submitting, and publishing reports on activities, performance, budget, and compliance to EU institutions."@en ;
+    skos:inScheme :HighLevelProcessScheme ;
+    skos:scopeNote "Includes annual reports, performance reports, and specific reports upon request."@en .
+
+:Process_EarlyWarning rdf:type owl:NamedIndividual , skos:Concept ;
+    skos:prefLabel "Early Warning and Alerts"@en ;
+    skos:definition "The process of issuing early alerts and warnings about cybersecurity threats and incidents."@en ;
+    skos:inScheme :HighLevelProcessScheme .
+
+:Process_IncidentHandling rdf:type owl:NamedIndividual , skos:Concept ;
+    skos:prefLabel "Incident Handling"@en ;
+    skos:definition "The process of facilitating technical handling of cybersecurity incidents, supporting response activities, and providing analysis in response to technical inquiries."@en ;
+    skos:inScheme :HighLevelProcessScheme .
+
+:Process_RiskAssessment rdf:type owl:NamedIndividual , skos:Concept ;
+    skos:prefLabel "Risk Assessment"@en ;
+    skos:definition "The process of conducting coordinated risk assessments on ICT products, services, and processes, including consultation with Member States."@en ;
+    skos:inScheme :HighLevelProcessScheme .
+
+:Process_Designation rdf:type owl:NamedIndividual , skos:Concept ;
+    skos:prefLabel "Designation and Notification"@en ;
+    skos:definition "The process of designating and notifying competent authorities, liaison officers, and conformity assessment bodies."@en ;
+    skos:inScheme :HighLevelProcessScheme ;
+    skos:scopeNote "Includes notifications to the Commission and information flows related to designations."@en .
+
+:Process_SecretariatServices rdf:type owl:NamedIndividual , skos:Concept ;
+    skos:prefLabel "Secretariat Services"@en ;
+    skos:definition "The process of performing secretariat duties for networks, including facilitating meetings, gathering information, and coordinating activities."@en ;
+    skos:inScheme :HighLevelProcessScheme .
+
+:Process_ExerciseOrganisation rdf:type owl:NamedIndividual , skos:Concept ;
+    skos:prefLabel "Exercise Organisation"@en ;
+    skos:definition "The process of receiving requests for and organising or supporting cybersecurity exercises."@en ;
+    skos:inScheme :HighLevelProcessScheme .
+
+:Process_AppealHandling rdf:type owl:NamedIndividual , skos:Concept ;
+    skos:prefLabel "Appeal Handling"@en ;
+    skos:definition "The process of receiving, processing appeals, and issuing decisions on appeals, including preparing and publishing rules of procedures."@en ;
+    skos:inScheme :HighLevelProcessScheme .
+
+:Process_BudgetManagement rdf:type owl:NamedIndividual , skos:Concept ;
+    skos:prefLabel "Budget and Fee Management"@en ;
+    skos:definition "The process of processing and sharing information regarding budget, managing fee payments, and reporting on fees."@en ;
+    skos:inScheme :HighLevelProcessScheme .
+
+:Process_ProgrammingDocumentation rdf:type owl:NamedIndividual , skos:Concept ;
+    skos:prefLabel "Programming Documentation"@en ;
+    skos:definition "The process of drafting, adopting, and forwarding single programming documents and strategic planning documents."@en ;
+    skos:inScheme :HighLevelProcessScheme .
+
+:Process_GovernanceOversight rdf:type owl:NamedIndividual , skos:Concept ;
+    skos:prefLabel "Governance and Oversight"@en ;
+    skos:definition "The process of appointing members, assessing activities, following up findings, and informing European Parliament on governance matters."@en ;
+    skos:inScheme :HighLevelProcessScheme .
+
+:Process_ConflictOfInterest rdf:type owl:NamedIndividual , skos:Concept ;
+    skos:prefLabel "Conflict of Interest Management"@en ;
+    skos:definition "The process of processing and sharing data on declarations of interests to ensure transparency and avoid conflicts."@en ;
+    skos:inScheme :HighLevelProcessScheme .
+
+:Process_ClassifiedInformationHandling rdf:type owl:NamedIndividual , skos:Concept ;
+    skos:prefLabel "Classified Information Handling"@en ;
+    skos:definition "The process of handling classified information according to security protocols."@en ;
+    skos:inScheme :HighLevelProcessScheme .
+
+:Process_ComplaintManagement rdf:type owl:NamedIndividual , skos:Concept ;
+    skos:prefLabel "Complaint Management"@en ;
+    skos:definition "The process of managing information flows related to complaints between authorities, general public, and judicial proceedings."@en ;
+    skos:inScheme :HighLevelProcessScheme ;
+    skos:scopeNote "Includes challenges to competence of conformity assessment bodies."@en .
+
+:Process_SupplierAssessment rdf:type owl:NamedIndividual , skos:Concept ;
+    skos:prefLabel "Supplier Assessment"@en ;
+    skos:definition "The process of assessing suppliers, requesting information from suppliers, and sharing assessments with competent authorities."@en ;
+    skos:inScheme :HighLevelProcessScheme .
+
+:Process_AuthorisationManagement rdf:type owl:NamedIndividual , skos:Concept ;
+    skos:prefLabel "Authorisation Management"@en ;
+    skos:definition "The process of managing information flows related to authorisations between competent authorities and entities."@en ;
+    skos:inScheme :HighLevelProcessScheme .
+
+:Process_MutualAssistance rdf:type owl:NamedIndividual , skos:Concept ;
+    skos:prefLabel "Mutual Assistance in Supervision"@en ;
+    skos:definition "The process of providing mutual assistance between competent authorities in supervision actions."@en ;
+    skos:inScheme :HighLevelProcessScheme .
+
+:Process_CooperationFacilitation rdf:type owl:NamedIndividual , skos:Concept ;
+    skos:prefLabel "Cooperation Facilitation"@en ;
+    skos:definition "The process of assisting Member States and facilitating cooperation processes through analysis, guidelines, methodology, and reports."@en ;
+    skos:inScheme :HighLevelProcessScheme .
+
+
+#################################################################
+#    TEMPORAL SPECIFICATIONS
+#################################################################
+
+:TemporalSpec_AsNeeded rdf:type owl:NamedIndividual , lomo:TemporalSpecification ;
+    rdfs:label "As Needed Exchange"@en ;
+    lomo:temporalLabel "as needed"@en ;
+    lomo:hasFunction <http://data.europa.eu/leg/temporal-function/deadline> ;
+    rdfs:comment "Action performed on demand or when circumstances require."@en .
+
+
+#################################################################
+#    RESULT TYPES
+#################################################################
+
+:ResultType_GuidanceDocumentation rdf:type owl:NamedIndividual , lomo:ActionResultType ;
+    rdfs:label "Guidance and Documentation"@en ;
+    skos:definition "Technical guidance, best practices, guidelines, methodologies, and advisory documents issued to support implementation of cybersecurity policies, practices, and Union legislation. Includes technical guidance, best practices, guidelines, incident response playbooks, methodologies for vulnerability disclosure, and advisory materials."@en .
+
+:ResultType_ReportsAnalyses rdf:type owl:NamedIndividual , lomo:ActionResultType ;
+    rdfs:label "Reports and Analyses"@en ;
+    skos:definition "Formal reports, analyses, and assessments including annual reports, threat analyses, risk assessments, market analyses, technical situation reports, evaluation reports, and peer review reports. Covers all types of analytical outputs: annual activity reports, cyber threat analyses, coordinated risk assessments, market trend analyses, evaluation reports on certification schemes, peer review summaries, and technical assessments."@en .
+
+:ResultType_AdviceOpinions rdf:type owl:NamedIndividual , lomo:ActionResultType ;
+    rdfs:label "Advice and Opinions"@en ;
+    skos:definition "Technical advice, expert opinions, recommendations, and assessments provided to support decision-making on cybersecurity matters, policy implementation, and compliance issues. Includes technical advice on implementation, expert opinions from ECCG or Advisory Group, recommendations on standards alignment or lessons learned implementation, and specific assessments of incidents, threats, or suppliers."@en .
+
+:ResultType_AlertsNotifications rdf:type owl:NamedIndividual , lomo:ActionResultType ;
+    rdfs:label "Alerts and Notifications"@en ;
+    skos:definition "Early alerts, warnings, and formal notifications regarding cybersecurity threats, incidents, changes, decisions, or compliance matters communicated to authorities, entities, or stakeholders. Encompasses early warnings on cyber threats, incident notifications, notifications of decisions or authorisations, communications on changes to implementation, and public communications on incidents."@en .
+
+:ResultType_DigitalSolutionsDatabases rdf:type owl:NamedIndividual , lomo:ActionResultType ;
+    rdfs:label "Digital Solutions, Databases and Repositories"@en ;
+    skos:definition "Operational technical platforms, tools, digital solutions, databases, repositories, registries, and lists established, operated, maintained, and updated for cybersecurity purposes at Union level. Includes single reporting platforms for incident reporting, testing tools for conformity assessment, secure communications tools for CSIRTs network and EU-CyCLONe, cybersecurity maturity assessment tools, European Vulnerability Database, threat intelligence repositories, lessons learned repositories from exercises, registries of essential and important entities, lists of high-risk suppliers, public registers of Commission decisions, and repositories of certified products or services."@en .
+
+:ResultType_FrameworksSchemesChemes rdf:type owl:NamedIndividual , lomo:ActionResultType ;
+    rdfs:label "Frameworks, Schemes and Certificates"@en ;
+    skos:definition "European cybersecurity certification schemes, skills frameworks, attestation schemes, certificates, statements of conformity, and related technical specifications developed or issued under Union cybersecurity legislation. Includes European Cybersecurity Certification Schemes for ICT products/services/processes, European Cybersecurity Skills Framework (ECSF), individual skills attestation schemes, European cybersecurity certificates, EU statements of conformity, individual cybersecurity skills attestations, technical specifications, and model provisions for schemes."@en .
+
+:ResultType_PlanningRegulatoryDocuments rdf:type owl:NamedIndividual , lomo:ActionResultType ;
+    rdfs:label "Planning and Regulatory Documents"@en ;
+    skos:definition "Programming documents, work programmes, budget plans, implementing acts, delegated acts, decisions, rules of procedure, and other formal regulatory or planning instruments. Encompasses single programming documents, annual work programmes, rolling programmes of exercises, draft budget estimates, financial accounts, implementing acts defining key ICT assets or restrictions, delegated acts, formal decisions on authorisations or designations, rules of procedure for bodies, security rules for information handling, fee structures, and templates for standardised processes."@en .
+
+
+#################################################################
+#    ARTICLE 1 - SUBJECT MATTER AND SCOPE
+#################################################################
+
+:Requirement_Art1_Scope rdf:type owl:NamedIndividual , lomo:ConstitutiveRule ;
+    rdfs:label "Article 1 - Subject Matter and Scope"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/reg/2019/881/oj/eng/art_1> ;
+    lomo:legalText """This Regulation lays down: (a) the mission, objectives, tasks and organisational matters relating to the European Union Agency for Cybersecurity (ENISA); (b) a framework for establishing European cybersecurity certification schemes for the purpose of ensuring an adequate level of cybersecurity for ICT products, ICT services, ICT processes, managed security services or the cybersecurity posture of entities in the Union, as well as for the purpose of avoiding the fragmentation of the internal market with regard to cybersecurity certification schemes in the Union; and (c) a trusted ICT supply chain framework. The framework referred to in paragraph 1, point (b) applies without prejudice to specific provisions in other Union legal acts regarding voluntary or mandatory certification. The framework referred to in the first subparagraph point (c) shall apply to public or private entities of a type referred to in Annex I or II to Directive (EU) 2022/2555 which provide their services or carry out their activities within the Union. This Regulation is without prejudice to the Member States' essential State functions, including ensuring the territorial integrity of the State, maintaining law and order and safeguarding national security. In particular, national security remains the sole responsibility of each Member State."""@en ;
+    rdfs:comment "Constitutive rule establishing the scope of the Regulation - defines three main frameworks (ENISA governance, cybersecurity certification, and trusted ICT supply chain), their application conditions, and safeguards for national security."@en .
+
+
+
+#################################################################
+#    ARTICLE 2 - DEFINITIONS
+#################################################################
+
+### Definitions from Article 2 (in order of appearance)
+
+## Paragraph (1) - Cybersecurity
+:Def_Cybersecurity rdf:type owl:NamedIndividual , lomo:Definition ;
+    rdfs:label "Definition: Cybersecurity"@en ;
+    lomo:hasDefiniendum "cybersecurity"@en ;
+    lomo:hasDefiniens "the activities necessary to protect network and information systems, the users of such systems, and other persons affected by cyber threats"@en ;
+    lomo:isSemanticDefinition "true"^^xsd:boolean ;
+    lomo:establishedIn <https://data.europa.eu/eli/reg/2019/881/oj/eng/art_2/par_1> .
+
+## Paragraph (2) - Union Entities
+:Def_UnionEntities rdf:type owl:NamedIndividual , lomo:Definition ;
+    rdfs:label "Definition: Union Entities (by reference)"@en ;
+    lomo:hasDefiniendum "Union entities"@en ;
+    lomo:hasDefiniens "as defined in Article 3, point (1), of Regulation (EU, Euratom) 2023/2841"@en ;
+    lomo:isSemanticDefinition "false"^^xsd:boolean ;
+    lomo:establishedIn <https://data.europa.eu/eli/reg/2019/881/oj/eng/art_2/par_2> .
+
+## Paragraph (3) - Authorised Attestation Provider
+:Def_AuthorisedAttestationProvider rdf:type owl:NamedIndividual , lomo:Definition ;
+    rdfs:label "Definition: Authorised Attestation Provider"@en ;
+    lomo:hasDefiniendum "authorised attestation provider"@en ;
+    lomo:hasDefiniens "an entity, public or private, for which ENISA has adopted a decision authorising that entity to award European individual cybersecurity skills attestations as laid down in a European individual cybersecurity skills attestation scheme"@en ;
+    lomo:isSemanticDefinition "true"^^xsd:boolean ;
+    lomo:establishedIn <https://data.europa.eu/eli/reg/2019/881/oj/eng/art_2/par_3> .
+
+## Paragraph (4) - European Individual Cybersecurity Skills Attestation
+:Def_EuropeanIndividualCybersecuritySkillsAttestation rdf:type owl:NamedIndividual , lomo:Definition ;
+    rdfs:label "Definition: European Individual Cybersecurity Skills Attestation"@en ;
+    lomo:hasDefiniendum "European individual cybersecurity skills attestation"@en ;
+    lomo:hasDefiniens "a record, in digital or physical form, attesting that an individual knows, understands and is able to perform the tasks associated to a role profile or a subset of a role profile of the European Cybersecurity Skills Framework (ECSF), following an assessment as laid down in a European individual cybersecurity skills attestation scheme"@en ;
+    lomo:isSemanticDefinition "true"^^xsd:boolean ;
+    lomo:establishedIn <https://data.europa.eu/eli/reg/2019/881/oj/eng/art_2/par_4> .
+
+## Paragraph (5) - European Individual Cybersecurity Skills Attestation Scheme
+:Def_EuropeanIndividualCybersecuritySkillsAttestationScheme rdf:type owl:NamedIndividual , lomo:Definition ;
+    rdfs:label "Definition: European Individual Cybersecurity Skills Attestation Scheme"@en ;
+    lomo:hasDefiniendum "European individual cybersecurity skills attestation scheme"@en ;
+    lomo:hasDefiniens "a comprehensive set of rules, requirements, standards and procedures established by ENISA and associated to a role profile of the ECSF or a subset thereof, and that apply to and are applied by authorised attestation providers"@en ;
+    lomo:isSemanticDefinition "true"^^xsd:boolean ;
+    lomo:establishedIn <https://data.europa.eu/eli/reg/2019/881/oj/eng/art_2/par_5> .
+
+## Paragraph (6) - Network and Information System
+:Def_NetworkAndInformationSystem rdf:type owl:NamedIndividual , lomo:Definition ;
+    rdfs:label "Definition: Network and Information System (by reference)"@en ;
+    lomo:hasDefiniendum "network and information system"@en ;
+    lomo:hasDefiniens "as defined in Article 6, point (1), of Directive (EU) 2022/2555"@en ;
+    lomo:isSemanticDefinition "false"^^xsd:boolean ;
+    lomo:establishedIn <https://data.europa.eu/eli/reg/2019/881/oj/eng/art_2/par_6> .
+
+## Paragraph (7) - National Cybersecurity Strategy
+:Def_NationalCybersecurityStrategy rdf:type owl:NamedIndividual , lomo:Definition ;
+    rdfs:label "Definition: National Cybersecurity Strategy (by reference)"@en ;
+    lomo:hasDefiniendum "national cybersecurity strategy"@en ;
+    lomo:hasDefiniens "as defined in Article 6, point (4), of Directive (EU) 2022/2555"@en ;
+    lomo:isSemanticDefinition "false"^^xsd:boolean ;
+    lomo:establishedIn <https://data.europa.eu/eli/reg/2019/881/oj/eng/art_2/par_7> .
+
+## Paragraph (8) - Incident
+:Def_Incident rdf:type owl:NamedIndividual , lomo:Definition ;
+    rdfs:label "Definition: Incident (by reference)"@en ;
+    lomo:hasDefiniendum "incident"@en ;
+    lomo:hasDefiniens "as defined in Article 6, point (6), of Directive (EU) 2022/2555"@en ;
+    lomo:isSemanticDefinition "false"^^xsd:boolean ;
+    lomo:establishedIn <https://data.europa.eu/eli/reg/2019/881/oj/eng/art_2/par_8> .
+
+## Paragraph (9) - Large-Scale Cybersecurity Incident
+:Def_LargeScaleCybersecurityIncident rdf:type owl:NamedIndividual , lomo:Definition ;
+    rdfs:label "Definition: Large-Scale Cybersecurity Incident (by reference)"@en ;
+    lomo:hasDefiniendum "large-scale cybersecurity incident"@en ;
+    lomo:hasDefiniens "as defined in Article 6, point (7), of Directive (EU) 2022/2555"@en ;
+    lomo:isSemanticDefinition "false"^^xsd:boolean ;
+    lomo:establishedIn <https://data.europa.eu/eli/reg/2019/881/oj/eng/art_2/par_9> .
+
+## Paragraph (10) - Incident Handling
+:Def_IncidentHandling rdf:type owl:NamedIndividual , lomo:Definition ;
+    rdfs:label "Definition: Incident Handling (by reference)"@en ;
+    lomo:hasDefiniendum "incident handling"@en ;
+    lomo:hasDefiniens "as defined in Article 6, point (8), of Directive (EU) 2022/2555"@en ;
+    lomo:isSemanticDefinition "false"^^xsd:boolean ;
+    lomo:establishedIn <https://data.europa.eu/eli/reg/2019/881/oj/eng/art_2/par_10> .
+
+## Paragraph (11) - Cyber Threat
+:Def_CyberThreat rdf:type owl:NamedIndividual , lomo:Definition ;
+    rdfs:label "Definition: Cyber Threat"@en ;
+    lomo:hasDefiniendum "cyber threat"@en ;
+    lomo:hasDefiniens "any potential circumstance, event or action that could damage, disrupt or otherwise adversely impact network and information systems, the users of such systems and other persons"@en ;
+    lomo:isSemanticDefinition "true"^^xsd:boolean ;
+    lomo:establishedIn <https://data.europa.eu/eli/reg/2019/881/oj/eng/art_2/par_11> .
+
+## Paragraph (12) - European Cybersecurity Certification Scheme
+:Def_EuropeanCybersecurityCertificationScheme rdf:type owl:NamedIndividual , lomo:Definition ;
+    rdfs:label "Definition: European Cybersecurity Certification Scheme"@en ;
+    lomo:hasDefiniendum "European cybersecurity certification scheme"@en ;
+    lomo:hasDefiniens "a comprehensive set of rules, technical requirements, standards and procedures that are established at Union level and that apply to the certification or conformity assessment of specific ICT products, ICT services, ICT processes, managed security services or cyber posture of entities"@en ;
+    lomo:isSemanticDefinition "true"^^xsd:boolean ;
+    lomo:establishedIn <https://data.europa.eu/eli/reg/2019/881/oj/eng/art_2/par_12> .
+
+## Paragraph (13) - National Cybersecurity Certification Scheme
+:Def_NationalCybersecurityCertificationScheme rdf:type owl:NamedIndividual , lomo:Definition ;
+    rdfs:label "Definition: National Cybersecurity Certification Scheme"@en ;
+    lomo:hasDefiniendum "national cybersecurity certification scheme"@en ;
+    lomo:hasDefiniens "a comprehensive set of rules, technical requirements, standards and procedures developed and adopted by a national public authority and that apply to the certification or conformity assessment of ICT products, ICT services, ICT processes, managed security services or cyber posture of entities falling under the scope of the specific scheme"@en ;
+    lomo:isSemanticDefinition "true"^^xsd:boolean ;
+    lomo:establishedIn <https://data.europa.eu/eli/reg/2019/881/oj/eng/art_2/par_13> .
+
+## Paragraph (14) - European Cybersecurity Certificate
+:Def_EuropeanCybersecurityCertificate rdf:type owl:NamedIndividual , lomo:Definition ;
+    rdfs:label "Definition: European Cybersecurity Certificate"@en ;
+    lomo:hasDefiniendum "European cybersecurity certificate"@en ;
+    lomo:hasDefiniens "a document issued by a relevant body, attesting that a given ICT product, ICT service, ICT process or managed security services, or the cyber posture of an entity has been evaluated for compliance with specific security requirements laid down in a European cybersecurity certification scheme"@en ;
+    lomo:isSemanticDefinition "true"^^xsd:boolean ;
+    lomo:establishedIn <https://data.europa.eu/eli/reg/2019/881/oj/eng/art_2/par_14> .
+
+## Paragraph (15) - EU Statement of Conformity
+:Def_EUStatementOfConformity rdf:type owl:NamedIndividual , lomo:Definition ;
+    rdfs:label "Definition: EU Statement of Conformity"@en ;
+    lomo:hasDefiniendum "EU statement of conformity"@en ;
+    lomo:hasDefiniens "a document issued by a manufacturer or provider of ICT products, ICT services, ICT processes, managed security services or the entity the cyber posture of which is subject to certification, stating that the fulfilment of the requirements corresponding to assurance level basic, laid down in the European cybersecurity certification scheme, has been demonstrated through conformity self-assessment"@en ;
+    lomo:isSemanticDefinition "true"^^xsd:boolean ;
+    lomo:establishedIn <https://data.europa.eu/eli/reg/2019/881/oj/eng/art_2/par_15> .
+
+## Paragraph (16) - ICT Product
+:Def_ICTProduct rdf:type owl:NamedIndividual , lomo:Definition ;
+    rdfs:label "Definition: ICT Product"@en ;
+    lomo:hasDefiniendum "ICT product"@en ;
+    lomo:hasDefiniens "an element or a group of elements of a network or information system"@en ;
+    lomo:isSemanticDefinition "true"^^xsd:boolean ;
+    lomo:establishedIn <https://data.europa.eu/eli/reg/2019/881/oj/eng/art_2/par_16> .
+
+## Paragraph (17) - ICT Service
+:Def_ICTService rdf:type owl:NamedIndividual , lomo:Definition ;
+    rdfs:label "Definition: ICT Service"@en ;
+    lomo:hasDefiniendum "ICT service"@en ;
+    lomo:hasDefiniens "a service consisting fully or mainly in the transmission, storing, retrieving or processing of information by means of network and information systems"@en ;
+    lomo:isSemanticDefinition "true"^^xsd:boolean ;
+    lomo:establishedIn <https://data.europa.eu/eli/reg/2019/881/oj/eng/art_2/par_17> .
+
+## Paragraph (18) - ICT Process
+:Def_ICTProcess rdf:type owl:NamedIndividual , lomo:Definition ;
+    rdfs:label "Definition: ICT Process"@en ;
+    lomo:hasDefiniendum "ICT process"@en ;
+    lomo:hasDefiniens "a set of activities performed to design, develop, deliver or maintain an ICT product or ICT service"@en ;
+    lomo:isSemanticDefinition "true"^^xsd:boolean ;
+    lomo:establishedIn <https://data.europa.eu/eli/reg/2019/881/oj/eng/art_2/par_18> .
+
+## Paragraph (19) - Managed Security Service
+:Def_ManagedSecurityService rdf:type owl:NamedIndividual , lomo:Definition ;
+    rdfs:label "Definition: Managed Security Service"@en ;
+    lomo:hasDefiniendum "managed security service"@en ;
+    lomo:hasDefiniens "a service provided to a third party consisting of carrying out, or providing assistance for, activities relating to cybersecurity risk management, such as incident handling, penetration testing, security audits and consulting, including expert advice related to technical support"@en ;
+    lomo:isSemanticDefinition "true"^^xsd:boolean ;
+    lomo:establishedIn <https://data.europa.eu/eli/reg/2019/881/oj/eng/art_2/par_19> .
+
+## Paragraph (20) - Accreditation
+:Def_Accreditation rdf:type owl:NamedIndividual , lomo:Definition ;
+    rdfs:label "Definition: Accreditation (by reference)"@en ;
+    lomo:hasDefiniendum "accreditation"@en ;
+    lomo:hasDefiniens "as defined in Article 2, point (10), of Regulation (EC) No 765/2008"@en ;
+    lomo:isSemanticDefinition "false"^^xsd:boolean ;
+    lomo:establishedIn <https://data.europa.eu/eli/reg/2019/881/oj/eng/art_2/par_20> .
+
+## Paragraph (21) - National Accreditation Body
+:Def_NationalAccreditationBody rdf:type owl:NamedIndividual , lomo:Definition ;
+    rdfs:label "Definition: National Accreditation Body (by reference)"@en ;
+    lomo:hasDefiniendum "national accreditation body"@en ;
+    lomo:hasDefiniens "as defined in Article 2, point (11), of Regulation (EC) No 765/2008"@en ;
+    lomo:isSemanticDefinition "false"^^xsd:boolean ;
+    lomo:establishedIn <https://data.europa.eu/eli/reg/2019/881/oj/eng/art_2/par_21> .
+
+## Paragraph (22) - Conformity Assessment
+:Def_ConformityAssessment rdf:type owl:NamedIndividual , lomo:Definition ;
+    rdfs:label "Definition: Conformity Assessment (by reference)"@en ;
+    lomo:hasDefiniendum "conformity assessment"@en ;
+    lomo:hasDefiniens "as defined in Article 2, point (12), of Regulation (EC) No 765/2008"@en ;
+    lomo:isSemanticDefinition "false"^^xsd:boolean ;
+    lomo:establishedIn <https://data.europa.eu/eli/reg/2019/881/oj/eng/art_2/par_22> .
+
+## Paragraph (23) - Conformity Assessment Body
+:Def_ConformityAssessmentBody rdf:type owl:NamedIndividual , lomo:Definition ;
+    rdfs:label "Definition: Conformity Assessment Body (by reference)"@en ;
+    lomo:hasDefiniendum "conformity assessment body"@en ;
+    lomo:hasDefiniens "as defined in Article 2, point (13), of Regulation (EC) No 765/2008"@en ;
+    lomo:isSemanticDefinition "false"^^xsd:boolean ;
+    lomo:establishedIn <https://data.europa.eu/eli/reg/2019/881/oj/eng/art_2/par_23> .
+
+## Paragraph (24) - Standard
+:Def_Standard rdf:type owl:NamedIndividual , lomo:Definition ;
+    rdfs:label "Definition: Standard (by reference)"@en ;
+    lomo:hasDefiniendum "standard"@en ;
+    lomo:hasDefiniens "as defined in Article 2, point (1), of Regulation (EU) No 1025/2012"@en ;
+    lomo:isSemanticDefinition "false"^^xsd:boolean ;
+    lomo:establishedIn <https://data.europa.eu/eli/reg/2019/881/oj/eng/art_2/par_24> .
+
+## Paragraph (25) - Technical Specification
+:Def_TechnicalSpecification rdf:type owl:NamedIndividual , lomo:Definition ;
+    rdfs:label "Definition: Technical Specification (by reference)"@en ;
+    lomo:hasDefiniendum "technical specification"@en ;
+    lomo:hasDefiniens "as defined in Article 2, point (4), of Regulation (EU) No 1025/2012"@en ;
+    lomo:isSemanticDefinition "false"^^xsd:boolean ;
+    lomo:establishedIn <https://data.europa.eu/eli/reg/2019/881/oj/eng/art_2/par_25> .
+
+## Paragraph (26) - Harmonised Standard
+:Def_HarmonisedStandard rdf:type owl:NamedIndividual , lomo:Definition ;
+    rdfs:label "Definition: Harmonised Standard (by reference)"@en ;
+    lomo:hasDefiniendum "harmonised standard"@en ;
+    lomo:hasDefiniens "as defined in Article 2, point (1)(c), of Regulation (EU) No 1025/2012"@en ;
+    lomo:isSemanticDefinition "false"^^xsd:boolean ;
+    lomo:establishedIn <https://data.europa.eu/eli/reg/2019/881/oj/eng/art_2/par_26> .
+
+## Paragraph (27) - Assurance Level
+:Def_AssuranceLevel rdf:type owl:NamedIndividual , lomo:Definition ;
+    rdfs:label "Definition: Assurance Level"@en ;
+    lomo:hasDefiniendum "assurance level"@en ;
+    lomo:hasDefiniens "a basis for confidence that an ICT product, ICT service, ICT process, managed security service or the cyber posture of an entity meets the security requirements of a specific European cybersecurity certification scheme, and indicates the level at which an ICT product, ICT service, ICT process, managed security service or cyber posture of entity has been evaluated but as such does not measure the security of the ICT product, ICT service, ICT process, managed security service or cyber posture of entity concerned"@en ;
+    lomo:isSemanticDefinition "true"^^xsd:boolean ;
+    lomo:establishedIn <https://data.europa.eu/eli/reg/2019/881/oj/eng/art_2/par_27> .
+
+## Paragraph (28) - Conformity Self-Assessment
+:Def_ConformitySelfAssessment rdf:type owl:NamedIndividual , lomo:Definition ;
+    rdfs:label "Definition: Conformity Self-Assessment"@en ;
+    lomo:hasDefiniendum "conformity self-assessment"@en ;
+    lomo:hasDefiniens "an action carried out by a manufacturer or provider of ICT products, ICT services, ICT processes, managed security services or the entity the cyber posture of which is subject to certification, which evaluates whether those ICT products, ICT services, ICT processes, managed security services or cyber posture of entities meet the requirements of a specific European cybersecurity certification scheme"@en ;
+    lomo:isSemanticDefinition "true"^^xsd:boolean ;
+    lomo:establishedIn <https://data.europa.eu/eli/reg/2019/881/oj/eng/art_2/par_28> .
+
+## Paragraph (29) - Cyber Posture of Entities
+:Def_CyberPostureOfEntities rdf:type owl:NamedIndividual , lomo:Definition ;
+    rdfs:label "Definition: Cyber Posture of Entities"@en ;
+    lomo:hasDefiniendum "cyber posture of entities"@en ;
+    lomo:hasDefiniens "entities' level of cybersecurity with respect to the specific security requirements"@en ;
+    lomo:isSemanticDefinition "true"^^xsd:boolean ;
+    lomo:establishedIn <https://data.europa.eu/eli/reg/2019/881/oj/eng/art_2/par_29> .
+
+## Paragraph (30) - Prior Approval Model
+:Def_PriorApprovalModel rdf:type owl:NamedIndividual , lomo:Definition ;
+    rdfs:label "Definition: Prior Approval Model"@en ;
+    lomo:hasDefiniendum "prior approval model"@en ;
+    lomo:hasDefiniens "a model whereby a conformity assessment body may issue a European cybersecurity certificate based on the assessment by a national cybersecurity certification authority in the context of a specific certification process under a relevant scheme"@en ;
+    lomo:isSemanticDefinition "true"^^xsd:boolean ;
+    lomo:establishedIn <https://data.europa.eu/eli/reg/2019/881/oj/eng/art_2/par_30> .
+
+## Paragraph (31) - General Delegation Model
+:Def_GeneralDelegationModel rdf:type owl:NamedIndividual , lomo:Definition ;
+    rdfs:label "Definition: General Delegation Model"@en ;
+    lomo:hasDefiniendum "general delegation model"@en ;
+    lomo:hasDefiniens "a model whereby a conformity assessment body may issue a European cybersecurity certificate based on a delegation of certification activities by a national cybersecurity certification authority"@en ;
+    lomo:isSemanticDefinition "true"^^xsd:boolean ;
+    lomo:establishedIn <https://data.europa.eu/eli/reg/2019/881/oj/eng/art_2/par_31> .
+
+## Paragraph (32) - CSIRT
+:Def_CSIRT rdf:type owl:NamedIndividual , lomo:Definition ;
+    rdfs:label "Definition: Computer Security Incident Response Team (by reference)"@en ;
+    lomo:hasDefiniendum "computer security incident response team"@en ;
+    lomo:hasDefiniens "a CSIRT designated or established pursuant to Article 10 of Directive (EU) 2022/2555"@en ;
+    lomo:isSemanticDefinition "false"^^xsd:boolean ;
+    lomo:establishedIn <https://data.europa.eu/eli/reg/2019/881/oj/eng/art_2/par_32> .
+
+## Paragraph (33) - ICT Components
+:Def_ICTComponents rdf:type owl:NamedIndividual , lomo:Definition ;
+    rdfs:label "Definition: ICT Components"@en ;
+    lomo:hasDefiniendum "ICT components"@en ;
+    lomo:hasDefiniens "ICT products, ICT services or ICT processes that may be used in the operation of ICT assets"@en ;
+    lomo:isSemanticDefinition "true"^^xsd:boolean ;
+    lomo:establishedIn <https://data.europa.eu/eli/reg/2019/881/oj/eng/art_2/par_33> .
+
+## Paragraph (34) - ICT Assets
+:Def_ICTAssets rdf:type owl:NamedIndividual , lomo:Definition ;
+    rdfs:label "Definition: ICT Assets"@en ;
+    lomo:hasDefiniendum "ICT assets"@en ;
+    lomo:hasDefiniens "software or hardware assets in the network and information systems used by an entity of the type referred to in Annexes I and II to Directive (EU) 2022/2555"@en ;
+    lomo:isSemanticDefinition "true"^^xsd:boolean ;
+    lomo:establishedIn <https://data.europa.eu/eli/reg/2019/881/oj/eng/art_2/par_34> .
+
+## Paragraph (35) - Key ICT Assets
+:Def_KeyICTAssets rdf:type owl:NamedIndividual , lomo:Definition ;
+    rdfs:label "Definition: Key ICT Assets"@en ;
+    lomo:hasDefiniendum "key ICT assets"@en ;
+    lomo:hasDefiniens "ICT assets identified in accordance with Article 102"@en ;
+    lomo:isSemanticDefinition "false"^^xsd:boolean ;
+    lomo:establishedIn <https://data.europa.eu/eli/reg/2019/881/oj/eng/art_2/par_35> .
+
+## Paragraph (36) - Electronic Communications Network
+:Def_ElectronicCommunicationsNetwork rdf:type owl:NamedIndividual , lomo:Definition ;
+    rdfs:label "Definition: Electronic Communications Network (by reference)"@en ;
+    lomo:hasDefiniendum "electronic communications network"@en ;
+    lomo:hasDefiniens "as defined in Article 2, point (1), of Regulation (EU) XX/XXXX [DNA proposal]"@en ;
+    lomo:isSemanticDefinition "false"^^xsd:boolean ;
+    lomo:establishedIn <https://data.europa.eu/eli/reg/2019/881/oj/eng/art_2/par_36> .
+
+## Paragraph (37) - Control
+:Def_Control rdf:type owl:NamedIndividual , lomo:Definition ;
+    rdfs:label "Definition: Control"@en ;
+    lomo:hasDefiniendum "control"@en ;
+    lomo:hasDefiniens "the ability to exercise a decisive influence on a legal entity directly, or indirectly through one or more intermediate legal entities"@en ;
+    lomo:isSemanticDefinition "true"^^xsd:boolean ;
+    lomo:establishedIn <https://data.europa.eu/eli/reg/2019/881/oj/eng/art_2/par_37> .
+
+## Paragraph (38) - Establishment
+:Def_Establishment rdf:type owl:NamedIndividual , lomo:Definition ;
+    rdfs:label "Definition: Establishment"@en ;
+    lomo:hasDefiniendum "establishment"@en ;
+    lomo:hasDefiniens "the effective exercise of activity through stable arrangements in the country where the entity has its central administration or its principal place of business"@en ;
+    lomo:isSemanticDefinition "true"^^xsd:boolean ;
+    lomo:establishedIn <https://data.europa.eu/eli/reg/2019/881/oj/eng/art_2/par_38> .
+
+## Paragraph (39) - High-Risk Supplier
+:Def_HighRiskSupplier rdf:type owl:NamedIndividual , lomo:Definition ;
+    rdfs:label "Definition: High-Risk Supplier"@en ;
+    lomo:hasDefiniendum "high-risk supplier"@en ;
+    lomo:hasDefiniens "either of the following: (a) an entity established in a third country posing cybersecurity concerns designated in accordance with Article 100, or controlled by such third country, by an entity established in such third country, or by a national of such third country; (b) an entity designated in accordance with Article 103(7) and entities controlled by that entity"@en ;
+    lomo:isSemanticDefinition "true"^^xsd:boolean ;
+    lomo:establishedIn <https://data.europa.eu/eli/reg/2019/881/oj/eng/art_2/par_39> .
+
+## Paragraph (40) - ICT Supply Chain
+:Def_ICTSupplyChain rdf:type owl:NamedIndividual , lomo:Definition ;
+    rdfs:label "Definition: ICT Supply Chain"@en ;
+    lomo:hasDefiniendum "ICT supply chain"@en ;
+    lomo:hasDefiniens "a sum of ICT services, ICT products and ICT processes that encompass activities and actors involved at all stages upstream of a product being made available or a service being delivered on the market"@en ;
+    lomo:isSemanticDefinition "true"^^xsd:boolean ;
+    lomo:establishedIn <https://data.europa.eu/eli/reg/2019/881/oj/eng/art_2/par_40> .
+
+## Paragraph (41) - Third Country
+:Def_ThirdCountry rdf:type owl:NamedIndividual , lomo:Definition ;
+    rdfs:label "Definition: Third Country (by reference)"@en ;
+    lomo:hasDefiniendum "third country"@en ;
+    lomo:hasDefiniens "as defined in Article 3(4) of Regulation (EU) 2023/2675"@en ;
+    lomo:isSemanticDefinition "false"^^xsd:boolean ;
+    lomo:establishedIn <https://data.europa.eu/eli/reg/2019/881/oj/eng/art_2/par_41> .
+
+## Paragraph (42) - Non-Technical Risk
+:Def_NonTechnicalRisk rdf:type owl:NamedIndividual , lomo:Definition ;
+    rdfs:label "Definition: Non-Technical Risk"@en ;
+    lomo:hasDefiniendum "non-technical risk"@en ;
+    lomo:hasDefiniens "the likelihood of the supplier being subject to influence by a third country with the potential to cause loss or disruption of the service provided or to compromise the product manufactured by an entity or to lead to exfiltration of data, including for the purposes of espionage or revenue generation"@en ;
+    lomo:isSemanticDefinition "true"^^xsd:boolean ;
+    lomo:establishedIn <https://data.europa.eu/eli/reg/2019/881/oj/eng/art_2/par_42> .
+
+## Paragraph (43) - Significant Non-Technical Cybersecurity Risk
+:Def_SignificantNonTechnicalCybersecurityRisk rdf:type owl:NamedIndividual , lomo:Definition ;
+    rdfs:label "Definition: Significant Non-Technical Cybersecurity Risk"@en ;
+    lomo:hasDefiniendum "significant non-technical cybersecurity risk"@en ;
+    lomo:hasDefiniens "a non-technical cybersecurity risk which can be assumed to have a high likelihood to cause an incident that could lead to a severe negative impact, including by causing considerable material or non-material loss or disruption"@en ;
+    lomo:isSemanticDefinition "true"^^xsd:boolean ;
+    lomo:establishedIn <https://data.europa.eu/eli/reg/2019/881/oj/eng/art_2/par_43> .
+
+## Paragraph (44) - Core Network Functions of Mobile Electronic Communications Networks
+:Def_CoreNetworkFunctionsMobile rdf:type owl:NamedIndividual , lomo:Definition ;
+    rdfs:label "Definition: Core Network Functions of Mobile Electronic Communications Networks"@en ;
+    lomo:hasDefiniendum "core network functions of mobile electronic communications networks"@en ;
+    lomo:hasDefiniens "the central architectural element of the mobile electronic communications networks connecting major network nodes to the Internet and managing essential system functions that includes user equipment authentication, lawful interception (LI) functions, security gateways (SeGW) at the network edge, signalling security functions, roaming and session management, user and control plane data transport, access policy management, registration and authorisation of network services, storage of end-user and network data, critical network services including domain name system (DNS), interconnection with third-party mobile networks, exposure of core network functions to external applications, and the selection and management of network slices"@en ;
+    lomo:isSemanticDefinition "true"^^xsd:boolean ;
+    lomo:establishedIn <https://data.europa.eu/eli/reg/2019/881/oj/eng/art_2/par_44> .
+
+## Paragraph (45) - Network Function Virtualisation and MANO of Mobile Networks
+:Def_NFVAndMANOMobile rdf:type owl:NamedIndividual , lomo:Definition ;
+    rdfs:label "Definition: Network Function Virtualisation and MANO of Mobile Networks"@en ;
+    lomo:hasDefiniendum "network function virtualisation (NFV) and management and network orchestration (MANO) of mobile electronic communications networks"@en ;
+    lomo:hasDefiniens "the software and architectural framework ensuring the lifecycle management, orchestration, and automation of virtualised network functions (VNFs), cloud-native network functions (CNFs) and the selection and management of network slices within mobile electronic communications networks"@en ;
+    lomo:isSemanticDefinition "true"^^xsd:boolean ;
+    lomo:establishedIn <https://data.europa.eu/eli/reg/2019/881/oj/eng/art_2/par_45> .
+
+## Paragraph (46) - Radio Access Network (RAN) of Mobile Networks
+:Def_RANMobile rdf:type owl:NamedIndividual , lomo:Definition ;
+    rdfs:label "Definition: Radio Access Network of Mobile Networks"@en ;
+    lomo:hasDefiniendum "radio access network (RAN) of mobile electronic communications networks"@en ;
+    lomo:hasDefiniens "the network connecting the mobile user equipment to the core network, including base stations (eNodeB for 4G, gNodeB for 5G), remote radio heads (RRH) and baseband units (BBU), active antenna systems (AAS), and where applicable, disaggregated RAN components such as centralised units (CU) and distributed units (DU), and the RAN intelligent controller (RIC)"@en ;
+    lomo:isSemanticDefinition "true"^^xsd:boolean ;
+    lomo:establishedIn <https://data.europa.eu/eli/reg/2019/881/oj/eng/art_2/par_46> .
+
+## Paragraph (47) - Core Network Functions of Fixed Networks
+:Def_CoreNetworkFunctionsFixed rdf:type owl:NamedIndividual , lomo:Definition ;
+    rdfs:label "Definition: Core Network Functions of Fixed Networks"@en ;
+    lomo:hasDefiniendum "core network functions of fixed electronic communications networks"@en ;
+    lomo:hasDefiniens "the backbone intelligence of the network, connecting the major nodes and handling a range of essential functions, including user authentication and authorisation (AAA), lawful interception (LI) functions, domain name system (DNS) and IP addressing services (DHCP), access policy management, storage of end-user and network data, IP switching and routing, and international internet gateways (IIG)"@en ;
+    lomo:isSemanticDefinition "true"^^xsd:boolean ;
+    lomo:establishedIn <https://data.europa.eu/eli/reg/2019/881/oj/eng/art_2/par_47> .
+
+## Paragraph (48) - Network Management System of Fixed Networks
+:Def_NetworkManagementSystemFixed rdf:type owl:NamedIndividual , lomo:Definition ;
+    rdfs:label "Definition: Network Management System of Fixed Networks"@en ;
+    lomo:hasDefiniendum "network management system of fixed electronic communications networks"@en ;
+    lomo:hasDefiniens "all centralised platforms and software components necessary for the operation, administration, maintenance and provisioning (OAM&P) of the network and the monitoring of network-related information"@en ;
+    lomo:isSemanticDefinition "true"^^xsd:boolean ;
+    lomo:establishedIn <https://data.europa.eu/eli/reg/2019/881/oj/eng/art_2/par_48> .
+
+## Paragraph (49) - Transport and Transmission Functions of Fixed Networks
+:Def_TransportTransmissionFixed rdf:type owl:NamedIndividual , lomo:Definition ;
+    rdfs:label "Definition: Transport and Transmission Functions of Fixed Networks"@en ;
+    lomo:hasDefiniendum "transport and transmission functions of fixed electronic communications networks"@en ;
+    lomo:hasDefiniens "all components necessary for the backhaul and aggregation of traffic across the network, including optical transport equipment, microwave links and submarine cable systems that include the underwater equipment as well as the submarine line terminal equipment (SLTE) and the physical landing station facilities"@en ;
+    lomo:isSemanticDefinition "true"^^xsd:boolean ;
+    lomo:establishedIn <https://data.europa.eu/eli/reg/2019/881/oj/eng/art_2/par_49> .
+
+## Paragraph (50) - Access Network of Fixed Networks
+:Def_AccessNetworkFixed rdf:type owl:NamedIndividual , lomo:Definition ;
+    rdfs:label "Definition: Access Network of Fixed Networks"@en ;
+    lomo:hasDefiniendum "access network of fixed electronic communications networks"@en ;
+    lomo:hasDefiniens "the network connecting the end-user premises to the aggregation or core network, including the optical line termination (OLT) and the optical network termination (ONT) for fibre networks; coaxial cable modem termination system (CMTS) and cable modems for coaxial cable networks, and fixed wireless access components where used as a fixed line substitute"@en ;
+    lomo:isSemanticDefinition "true"^^xsd:boolean ;
+    lomo:establishedIn <https://data.europa.eu/eli/reg/2019/881/oj/eng/art_2/par_50> .
+
+#########################################
+# ARTICLE 3 - MISSION OF ENISA
+#########################################
+
+:ConstitutiveRule_Art3_Par1 rdf:type owl:NamedIndividual , lomo:ConstitutiveRule ;
+    rdfs:label "Article 3(1) - ENISA Primary Mission"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/reg/2019/881/oj/eng/art_3/par_1> ;
+    lomo:legalText "The mission of ENISA is to support Member States and Union entities in achieving a high level of cybersecurity, cyber resilience and trust within the Union."@en ;
+    rdfs:comment "Constitutes ENISA's primary institutional mission."@en .
+
+:ConstitutiveRule_Art3_Par2 rdf:type owl:NamedIndividual , lomo:ConstitutiveRule ;
+    rdfs:label "Article 3(2) - ENISA as Reference Point"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/reg/2019/881/oj/eng/art_3/par_2> ;
+    lomo:legalText "ENISA shall act as a reference point for advice and expertise on cybersecurity for Member States, as well as for other stakeholders in the Union."@en ;
+    rdfs:comment "Constitutes ENISA's institutional role as reference point for cybersecurity expertise."@en .
+
+:ConstitutiveRule_Art3_Par3 rdf:type owl:NamedIndividual , lomo:ConstitutiveRule ;
+    rdfs:label "Article 3(3) - Internal Market Contribution"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/reg/2019/881/oj/eng/art_3/par_3> ;
+    lomo:legalText "ENISA shall contribute to reducing the fragmentation of the internal market by carrying out the tasks assigned to it under this Regulation."@en ;
+    rdfs:comment "Constitutes ENISA's role in internal market integration."@en .
+
+:ConstitutiveRule_Art3_Par4 rdf:type owl:NamedIndividual , lomo:ConstitutiveRule ;
+    rdfs:label "Article 3(4) - Legal Acts Mandate"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/reg/2019/881/oj/eng/art_3/par_4> ;
+    lomo:legalText "ENISA shall carry out the tasks assigned to it by Union legal acts."@en ;
+    rdfs:comment "Constitutes ENISA's mandate to execute tasks from Union legal acts."@en .
+
+:ConstitutiveRule_Art3_Par5 rdf:type owl:NamedIndividual , lomo:ConstitutiveRule ;
+    rdfs:label "Article 3(5) - Capability Development"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/reg/2019/881/oj/eng/art_3/par_5> ;
+    lomo:legalText "ENISA shall develop its own capabilities, including technical and human capabilities and skills, necessary to perform the tasks assigned to it under this Regulation."@en ;
+    rdfs:comment "Constitutes ENISA's responsibility for capability development."@en .
+
+#################################################################
+#    ARTICLE 15 - PROVISION OF TOOLS AND PLATFORMS
+#################################################################
+
+:Requirement_Art15_Par1 rdf:type owl:NamedIndividual , lomo:PrescriptiveRule ;
+    rdfs:label "Article 15(1) - Establishment and Operation of Technical Tools"@en ;
+    lomo:hasDeonticModality <http://data.europa.eu/leg/deontic-modality/Obligation> ;
+    lomo:produces :Action_Art15_Par1_ProvideToolsAndPlatforms ;
+    lomo:hasCategory <http://data.europa.eu/leg/digital-dimensions/DigitalPublicService> ;
+    lomo:involvesProcess :Process_ToolProvision , :Process_PlatformOperation ;
+    lomo:references :Platform_SingleReportingPlatform , :Platform_SingleEntryPoint , :Tool_TestingTools ;
+    lomo:establishedIn <https://data.europa.eu/eli/reg/2019/881/oj/eng/art_15/par_1> ;
+    lomo:legalText """ENISA shall establish, provide, operate, maintain and update as necessary, operational technical tools, including platforms related to cybersecurity at Union level, in particular the single reporting platform established pursuant to Article 16(1) of Regulation (EU) 2024/2847 [and the single-entry point for incident reporting established pursuant to Article 23a of Directive (EU) 2022/2555], and testing tools to support the implementation of conformity assessment procedures in accordance with the relevant Union legislation."""@en ;
+    rdfs:comment "Obligation for ENISA to establish and maintain operational technical tools and platforms for cybersecurity."@en .
+
+:Requirement_Art15_Par2 rdf:type owl:NamedIndividual , lomo:PrescriptiveRule ;
+    rdfs:label "Article 15(2) - Cooperation with CSIRTs and Market Surveillance Authorities"@en ;
+    lomo:hasDeonticModality <http://data.europa.eu/leg/deontic-modality/Obligation> ;
+    lomo:produces :Action_Art15_Par2_CooperateAndExchange ;
+    lomo:hasCategory <http://data.europa.eu/leg/digital-dimensions/DataFlow> ;
+    lomo:involvesProcess :Process_InformationExchange , :Process_Coordination ;
+    lomo:establishedIn <https://data.europa.eu/eli/reg/2019/881/oj/eng/art_15/par_2> ;
+    lomo:legalText """Where appropriate for the purposes of paragraph 1, ENISA shall cooperate and exchange information with the CSIRTs network and, where applicable, market surveillance authorities."""@en ;
+    rdfs:comment "Conditional obligation for ENISA to cooperate with CSIRTs network and market surveillance authorities."@en .
+
+:Action_Art15_Par1_ProvideToolsAndPlatforms rdf:type owl:NamedIndividual , lomo:Action ;
+    rdfs:label "Establish, Provide, Operate, Maintain and Update Technical Tools"@en ;
+    lomo:hasAgentRole :AgentRole_Art15_Par1_ENISA_ToolProvider ;
+    rdfs:comment "Comprehensive action covering establishment, provision, operation, maintenance and updating of cybersecurity platforms and testing tools."@en .
+
+:Action_Art15_Par2_CooperateAndExchange rdf:type owl:NamedIndividual , lomo:Action ;
+    rdfs:label "Cooperate and Exchange Information with CSIRTs and Authorities"@en ;
+    lomo:hasAgentRole :AgentRole_Art15_Par2_ENISA_Cooperator , :AgentRole_Art15_Par2_CSIRTs_Partner , :AgentRole_Art15_Par2_MarketAuthorities_Partner ;
+    rdfs:comment "Cooperation and information exchange with CSIRTs network and market surveillance authorities."@en .
+
+:AgentRole_Art15_Par1_ENISA_ToolProvider rdf:type owl:NamedIndividual , lomo:AgentRole ;
+    lomo:forAgent :Agent_ENISA ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+:AgentRole_Art15_Par2_ENISA_Cooperator rdf:type owl:NamedIndividual , lomo:AgentRole ;
+    lomo:forAgent :Agent_ENISA ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+:AgentRole_Art15_Par2_CSIRTs_Partner rdf:type owl:NamedIndividual , lomo:AgentRole ;
+    lomo:forAgent :Agent_CSIRTsNetwork ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+:AgentRole_Art15_Par2_MarketAuthorities_Partner rdf:type owl:NamedIndividual , lomo:AgentRole ;
+    lomo:forAgent :Agent_MarketSurveillanceAuthorities ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+#################################################################
+#    DATA TYPES (DATASETS)
+#################################################################
+
+:Dataset_CybersecurityAnalysisReports rdf:type owl:NamedIndividual , dcat:Dataset ;
+    dcterms:title "Cybersecurity Analysis and Reports Data"@en ;
+    dcterms:description "Data connected to analysis and reports of relevance to cybersecurity resilience and society"@en ;
+    dcterms:conformsTo :Standard_EuropeanVulnerabilityDatabase , :Standard_InteroperabilityGuidelines ;
+    dcterms:subject "Cybersecurity Resilience"@en ;
+    rdfs:comment "Referenced by Article 5(1)(a), (b), (c), (e), (f), (h); Article 5(2), (3), (4); Articles 6, 7, 8, 9, 10, 11(2)(b), (c), 12(4), 15; Article 1, point 7, Directive"@en .
+
+:Dataset_OperationalCooperationSituationalAwareness rdf:type owl:NamedIndividual , dcat:Dataset ;
+    dcterms:title "Operational Cooperation and Situational Awareness Data"@en ;
+    dcterms:description "Data of relevance to operational cooperation and situational awareness in cybersecurity"@en ;
+    dcterms:conformsTo :Standard_EuropeanVulnerabilityDatabase , :Standard_ConfidentialityHandling ;
+    dcterms:subject "Operational Cooperation"@en ;
+    rdfs:comment "Referenced by Article 10(4)(a)-(g), Article 10(6), Article 11(1)(a)-(g), Article 11(2)(a), (b), (c), Article 11(3), (4), Article 13(2), Article 15, Article 16(2)(e)"@en .
+
+:Dataset_SkillsAttestationSchemes rdf:type owl:NamedIndividual , dcat:Dataset ;
+    dcterms:title "European Individual Cybersecurity Skills Attestation Data"@en ;
+    dcterms:description "Data with relevance to European individual cybersecurity skills attestation schemes and authorisation of providers"@en ;
+    dcterms:conformsTo :Standard_DigitalIdentityWallets ;
+    dcterms:subject "Skills Attestation"@en ;
+    rdfs:comment "Referenced by Articles 17, 18, 19-23"@en .
+
+:Dataset_CybersecurityCertificationSchemes rdf:type owl:NamedIndividual , dcat:Dataset ;
+    dcterms:title "European Cybersecurity Certification Schemes Data"@en ;
+    dcterms:description "Data with relevance to objectives, purpose and content of European cybersecurity certification schemes"@en ;
+    dcterms:conformsTo :Standard_InternationalConformityAssessment ;
+    dcterms:subject "Certification Schemes"@en ;
+    rdfs:comment "Referenced by Articles 72, 73, 74, 75, 76, 77, 79, 81, 83, 84"@en .
+
+:Dataset_CertificationFrameworkGovernance rdf:type owl:NamedIndividual , dcat:Dataset ;
+    dcterms:title "Cybersecurity Certification Framework Governance Data"@en ;
+    dcterms:description "Data related to governance of the European cybersecurity certification framework"@en ;
+    dcterms:conformsTo :Standard_InternationalConformityAssessment ;
+    dcterms:subject "Framework Governance"@en ;
+    rdfs:comment "Referenced by Articles 85, 86, 88, 89, 90, 92, 93, 94, 95, 96, 97"@en .
+
+:Dataset_ENISAInternalFunctions rdf:type owl:NamedIndividual , dcat:Dataset ;
+    dcterms:title "ENISA Internal Functions Data"@en ;
+    dcterms:description "Data with relevance to internal ENISA functions including budget, strategic planning documents and internal strategies"@en ;
+    dcterms:conformsTo :Standard_FinancialRegulationGuidelines ;
+    dcterms:subject "Internal Administration"@en ;
+    rdfs:comment "Referenced by Article 25, Article 28(1), Articles 30, 31(8), 32(3), (5), 35(5), (6), 36-43, 44, 45, 47(10), 48-49, 52, 58"@en .
+
+:Dataset_PersonalData rdf:type owl:NamedIndividual , dcat:Dataset ;
+    dcterms:title "Personal Data"@en ;
+    dcterms:description "Personal data processed in ENISA activities including Board of Appeal and certification processes"@en ;
+    dcterms:conformsTo :Standard_GDPR , :Standard_DataProtectionEUInstitutions ;
+    dcterms:subject "Data Protection"@en ;
+    rdfs:comment "Referenced by Article 22, Title II Chapter III Section 6 (Board of Appeal), Articles 66, 80(1)(c), (x), 81(2), 88(6)(h), 95, 96"@en .
+
+:Dataset_CoordinatedRiskAssessments rdf:type owl:NamedIndividual , dcat:Dataset ;
+    dcterms:title "Coordinated Risk Assessments Data"@en ;
+    dcterms:description "Data gathered and analysed in the context of conducting coordinated risk assessments, developing risk scenarios and identification of key ICT assets"@en ;
+    dcterms:conformsTo :Standard_NIS2Directive_Art21 , :Standard_DORA_Art13 ;
+    dcterms:subject "Risk Assessment"@en ;
+    rdfs:comment "Referenced by Articles 98, 99, 102, 103, 105. Without prejudice to Article 13 of Regulation (EU) 2024/2847 and Article 21 of Directive (EU) 2022/2555"@en .
+
+:Dataset_ThirdCountryData rdf:type owl:NamedIndividual , dcat:Dataset ;
+    dcterms:title "Third Countries and Entities Data"@en ;
+    dcterms:description "Data regarding third countries and entities of third countries"@en ;
+    dcterms:subject "International Cooperation"@en ;
+    rdfs:comment "Referenced by Article 100(1), (3), (4), Articles 104, 105, 107, 113. No specific standard applicable"@en .
+
+:Dataset_NationalAuthoritiesData rdf:type owl:NamedIndividual , dcat:Dataset ;
+    dcterms:title "National Authorities Data"@en ;
+    dcterms:description "Data concerning national competent authorities and coordination mechanisms"@en ;
+    dcterms:subject "National Coordination"@en ;
+    rdfs:comment "Referenced by Articles 112, 114, 116. No specific standard applicable"@en .
+
+:Dataset_RiskAssessments rdf:type owl:NamedIndividual , dcat:Dataset ;
+    dcterms:title "Risk Assessments Data"@en ;
+    dcterms:description "Data with relevance to risk assessments conducted by ENISA"@en ;
+    dcterms:conformsTo :Standard_ConfidentialityHandling ;
+    dcterms:subject "Risk Assessment"@en ;
+    rdfs:comment "Referenced by Article 5(2)"@en .
+
+:Dataset_MutualAssistance rdf:type owl:NamedIndividual , dcat:Dataset ;
+    dcterms:title "Mutual Assistance Between Member States Data"@en ;
+    dcterms:description "Data related to mutual assistance mechanisms between Member States"@en ;
+    dcterms:subject "Mutual Assistance"@en ;
+    rdfs:comment "Referenced by Article 5(1)(g) regulation and Article 1, point 12 Directive"@en .
+
+#################################################################
+#    STANDARDS AND SPECIFICATIONS
+#################################################################
+
+:Standard_EuropeanVulnerabilityDatabase rdf:type owl:NamedIndividual , dcterms:Standard ;
+    dcterms:title "European Vulnerability Database"@en ;
+    dcterms:description "Database established pursuant to Article 12(2) of Directive (EU) 2022/2555 containing publicly known vulnerabilities in ICT products and services"@en ;
+    dcterms:references <https://data.europa.eu/eli/dir/2022/2555/oj/eng/art_12/par_2> ;
+    rdfs:comment "Applicable to: Data connected to analysis/reports; Data of relevance to operational cooperation"@en .
+
+:Standard_ConfidentialityHandling rdf:type owl:NamedIndividual , dcterms:Standard ;
+    dcterms:title "Standards for Confidentiality and Handling Sensitive Information"@en ;
+    dcterms:description "Standards and procedures for ensuring confidentiality and proper handling of sensitive cybersecurity information"@en ;
+    rdfs:comment "Applicable to: Data of relevance to operational cooperation and situational awareness; Data with relevance to risk assessments. To be developed by ENISA and Member States"@en .
+
+:Standard_InteroperabilityGuidelines rdf:type owl:NamedIndividual , dcterms:Standard ;
+    dcterms:title "Interoperability Guidelines for Network Information Systems"@en ;
+    dcterms:description "Guidelines for interoperability of network information systems used for information-sharing, including with regard to Cross-Border Cyber Hubs as referred to in Article 6(3) of Regulation (EU) 2025/38"@en ;
+    dcterms:references <https://data.europa.eu/eli/reg/2025/38/oj/eng/art_6/par_3> ;
+    rdfs:comment "Applicable to: Data connected to analysis/reports. To be issued by ENISA"@en .
+
+:Standard_DigitalIdentityWallets rdf:type owl:NamedIndividual , dcterms:Standard ;
+    dcterms:title "Electronic Attestations Format for European Digital Identity Wallets"@en ;
+    dcterms:description "Format specifications for electronic attestations compatible with European Digital Identity Wallets set out in Regulation (EU) No 910/2014"@en ;
+    dcterms:references <https://data.europa.eu/eli/reg/2014/910/oj> ;
+    rdfs:comment "Applicable to: Data with relevance to European individual cybersecurity skills attestation schemes. Attestations must be issuable in wallet-compatible format"@en .
+
+:Standard_InternationalConformityAssessment rdf:type owl:NamedIndividual , dcterms:Standard ;
+    dcterms:title "International Standards for Conformity Assessment Bodies"@en ;
+    dcterms:description "International standards specifying requirements for conformity assessment bodies and national cybersecurity certification authorities"@en ;
+    rdfs:comment "Applicable to: Data related to governance of European cybersecurity certification framework; Data with relevance to certification schemes. ENISA and conformity assessment bodies must follow relevant international standards"@en .
+
+:Standard_FinancialRegulationGuidelines rdf:type owl:NamedIndividual , dcterms:Standard ;
+    dcterms:title "Financial Regulation Templates and Internal Guidelines"@en ;
+    dcterms:description "Templates and guidelines based on financial regulation applicable to EU agencies"@en ;
+    rdfs:comment "Applicable to: Data with relevance to internal ENISA functions (budget, SPD, internal strategies)"@en .
+
+:Standard_GDPR rdf:type owl:NamedIndividual , dcterms:Standard ;
+    dcterms:title "General Data Protection Regulation (GDPR)"@en ;
+    dcterms:description "Regulation (EU) 2016/679 on the protection of natural persons with regard to the processing of personal data"@en ;
+    dcterms:references <https://data.europa.eu/eli/reg/2016/679/oj> ;
+    rdfs:comment "Applicable to: Personal data. All processing of personal data must comply with GDPR requirements"@en .
+
+:Standard_DataProtectionEUInstitutions rdf:type owl:NamedIndividual , dcterms:Standard ;
+    dcterms:title "Data Protection Regulation for EU Institutions - Regulation (EU) 2018/1725"@en ;
+    dcterms:description "Regulation on the protection of natural persons with regard to the processing of personal data by Union institutions, bodies, offices and agencies"@en ;
+    dcterms:references <https://data.europa.eu/eli/reg/2018/1725/oj> ;
+    rdfs:comment "Applicable to: Personal data processed by ENISA and other EU institutions"@en .
+
+:Standard_NIS2Directive_Art21 rdf:type owl:NamedIndividual , dcterms:Standard ;
+    dcterms:title "NIS2 Directive - Article 21 (Coordinated Risk Assessments)"@en ;
+    dcterms:description "Provisions for coordinated security risk assessments of critical supply chains under Directive (EU) 2022/2555"@en ;
+    dcterms:references <https://data.europa.eu/eli/dir/2022/2555/oj/eng/art_21> ;
+    rdfs:comment "Applicable to: Data gathered in coordinated risk assessments context. Activities must be conducted without prejudice to this provision"@en .
+
+:Standard_DORA_Art13 rdf:type owl:NamedIndividual , dcterms:Standard ;
+    dcterms:title "DORA - Article 13 (Threat-led Penetration Testing)"@en ;
+    dcterms:description "Provisions for threat-led penetration testing in the financial sector under Regulation (EU) 2024/2847"@en ;
+    dcterms:references <https://data.europa.eu/eli/reg/2024/2847/oj/eng/art_13> ;
+    rdfs:comment "Applicable to: Data gathered in coordinated risk assessments context. Activities must be conducted without prejudice to this provision"@en .
+
+#################################################################
+#    DIGITAL SOLUTIONS
+#################################################################
+
+### CSIRTs Network Secure Communications Tools
+:Software_CSIRTsSecureCommunications rdf:type owl:NamedIndividual , dcterms:Software ;
+    dcterms:title "Secure Communications Tools for CSIRTs Network and EU-CyCLONe"@en ;
+    dcterms:description "Secure communication infrastructure deployed within the CSIRTs network and EU-CyCLONe, provided by legal entities not established in or controlled by third countries"@en ;
+    dcterms:publisher :Agent_ENISA ;
+    dcterms:creator :Agent_ENISA ;
+    dcterms:isReferencedBy <https://data.europa.eu/eli/reg/2025/XXXX/oj/eng/art_10/par_2> ,
+                           <https://data.europa.eu/eli/reg/2025/XXXX/oj/eng/art_10/par_3> ,
+                           <https://data.europa.eu/eli/reg/2025/XXXX/oj/eng/art_10/par_5> ;
+    lomo:hasCapability "Provide secure communication channels for CSIRTs network"@en ;
+    lomo:hasCapability "Serve as secretariat infrastructure for EU-CyCLONe"@en ;
+    rdfs:comment "Referenced by Article 10(2), (3), (5). Security requirements mandate providers not controlled by third countries. Accessibility and reusability details are not public information."@en .
+
+### Cyber Threat Intelligence Repository
+:Software_CyberThreatIntelligenceRepository rdf:type owl:NamedIndividual , dcterms:Software ;
+    dcterms:title "Repository of Verified Cyber Threat Intelligence"@en ;
+    dcterms:description "Repository containing verified, reliable cyber threat intelligence, including trends in incidents, tactics, techniques and procedures"@en ;
+    dcterms:publisher :Agent_ENISA ;
+    dcterms:creator :Agent_ENISA ,
+                     :Agent_EUCyCLONe ,
+                     :Agent_CSIRTsNetwork ,
+                     :Agent_Commission ,
+                     :Agent_Europol ,
+                     :Agent_CERTEU ;
+    dcterms:isReferencedBy <https://data.europa.eu/eli/reg/2025/XXXX/oj/eng/art_11/par_1/point_a> ;
+    lomo:hasCapability "Store verified cyber threat intelligence"@en ;
+    lomo:hasCapability "Track trends in cybersecurity incidents"@en ;
+    lomo:hasCapability "Document tactics, techniques and procedures (TTPs)"@en ;
+    rdfs:comment "Referenced by Article 11(1)(a). Developed in cooperation with multiple Union entities."@en .
+
+### Lessons Learned Repository
+:Software_LessonsLearnedRepository rdf:type owl:NamedIndividual , dcterms:Software ;
+    dcterms:title "Repository of Cybersecurity Exercise Lessons Learned"@en ;
+    dcterms:description "Repository maintained by ENISA containing lessons learned from cybersecurity exercises"@en ;
+    dcterms:publisher :Agent_ENISA ;
+    dcterms:creator :Agent_ENISA ;
+    dcterms:isReferencedBy <https://data.europa.eu/eli/reg/2025/XXXX/oj/eng/art_14/par_2> ;
+    lomo:hasCapability "Maintain lessons learned from exercises"@en ;
+    lomo:hasCapability "Provide recommendations for effective implementation"@en ;
+    rdfs:comment "Referenced by Article 14(2). ENISA recommends to Member States and Union entities how lessons learned may be implemented."@en .
+
+### Single Reporting Platform (DORA)
+:Software_SingleReportingPlatform rdf:type owl:NamedIndividual , dcterms:Software ;
+    dcterms:title "Single Reporting Platform for Cybersecurity Incidents"@en ;
+    dcterms:description "Operational platform for unified incident reporting in the financial sector established pursuant to Article 16(1) of Regulation (EU) 2024/2847 (DORA)"@en ;
+    dcterms:publisher :Agent_ENISA ;
+    dcterms:creator :Agent_ENISA ;
+    dcterms:isReferencedBy <https://data.europa.eu/eli/reg/2025/XXXX/oj/eng/art_15> ,
+                           <https://data.europa.eu/eli/reg/2024/2847/oj/eng/art_16/par_1> ;
+    dcterms:conformsTo :Standard_DORA_Art13 ;
+    lomo:hasCapability "Centralize cybersecurity incident reporting"@en ;
+    lomo:hasCapability "Provide single-entry point for incident reporting"@en ;
+    lomo:hasCapability "Support conformity assessment testing tools"@en ;
+    rdfs:comment "Referenced by Article 15. Established, provided, operated, maintained and updated by ENISA. Integrates with NIS2 single-entry point (Article 23a of Directive (EU) 2022/2555)."@en .
+
+### European Vulnerability Database
+:Software_EuropeanVulnerabilityDatabase rdf:type owl:NamedIndividual , dcterms:Software ;
+    dcterms:title "European Vulnerability Database"@en ;
+    dcterms:description "Database of publicly known vulnerabilities in ICT products and services established pursuant to Article 12(2) of Directive (EU) 2022/2555 (NIS2)"@en ;
+    dcterms:publisher :Agent_ENISA ;
+    dcterms:creator :Agent_ENISA ;
+    dcterms:isReferencedBy <https://data.europa.eu/eli/reg/2025/XXXX/oj/eng/art_16/par_2> ,
+                           <https://data.europa.eu/eli/dir/2022/2555/oj/eng/art_12/par_2> ;
+    dcterms:conformsTo :Standard_EuropeanVulnerabilityDatabase ;
+    lomo:hasCapability "Maintain vulnerability database"@en ;
+    lomo:hasCapability "Provide vulnerability management services"@en ;
+    rdfs:comment "Referenced by Article 16(2). Maintained and operated by ENISA as mandated by NIS2 Directive."@en .
+
+### ECSF Public Information Website
+:Software_ECSFPublicWebsite rdf:type owl:NamedIndividual , dcterms:Software ;
+    dcterms:title "European Cybersecurity Skills Framework (ECSF) Public Website"@en ;
+    dcterms:description "Dedicated website providing public information on the ECSF, individual cybersecurity skills attestation schemes, and authorised attestation providers"@en ;
+    dcterms:publisher :Agent_ENISA ;
+    dcterms:creator :Agent_ENISA ;
+    dcterms:isReferencedBy <https://data.europa.eu/eli/reg/2025/XXXX/oj/eng/art_19> ,
+                           <https://data.europa.eu/eli/reg/2025/XXXX/oj/eng/art_20> ,
+                           <https://data.europa.eu/eli/reg/2025/XXXX/oj/eng/art_21> ,
+                           <https://data.europa.eu/eli/reg/2025/XXXX/oj/eng/art_22> ,
+                           <https://data.europa.eu/eli/reg/2025/XXXX/oj/eng/art_23> ;
+    dcterms:conformsTo :Standard_DigitalIdentityWallets ;
+    lomo:hasCapability "Publish ECSF framework and timeline"@en ;
+    lomo:hasCapability "List European individual cybersecurity skills attestation schemes"@en ;
+    lomo:hasCapability "Display fees and costs for attestations"@en ;
+    lomo:hasCapability "Maintain list of authorised attestation providers"@en ;
+    rdfs:comment "Referenced by Articles 19-23. ENISA maintains and regularly updates this public-facing website. Attestations must be compatible with European Digital Identity Wallets."@en .
+
+### Commission Certification Website (Strategic Priorities)
+:Software_CommissionCertificationWebsite rdf:type owl:NamedIndividual , dcterms:Software ;
+    dcterms:title "Commission Website for European Cybersecurity Certification Schemes"@en ;
+    dcterms:description "Public website maintained by the European Commission displaying requested certification schemes and strategic priorities"@en ;
+    dcterms:publisher :Agent_Commission ;
+    dcterms:creator :Agent_Commission ;
+    dcterms:isReferencedBy <https://data.europa.eu/eli/reg/2025/XXXX/oj/eng/art_72> ;
+    lomo:hasCapability "List requested European cybersecurity certification schemes"@en ;
+    lomo:hasCapability "Publish strategic priorities for harmonisation"@en ;
+    lomo:hasCapability "Identify potential areas for new certification schemes"@en ;
+    rdfs:comment "Referenced by Article 72. Maintained by Commission. Compliance with accessibility and reusability guidelines applicable."@en .
+
+### ENISA Certification Website
+:Software_ENISACertificationWebsite rdf:type owl:NamedIndividual , dcterms:Software ;
+    dcterms:title "ENISA Dedicated Certification Website"@en ;
+    dcterms:description "Comprehensive certification information portal maintained by ENISA covering schemes, certificates, technical specifications, and peer review summaries"@en ;
+    dcterms:publisher :Agent_ENISA ;
+    dcterms:creator :Agent_ENISA ;
+    dcterms:isReferencedBy <https://data.europa.eu/eli/reg/2025/XXXX/oj/eng/art_79> ;
+    dcterms:conformsTo :Standard_InternationalConformityAssessment ;
+    lomo:hasCapability "Display European cybersecurity certification schemes"@en ;
+    lomo:hasCapability "Publish fees for scheme maintenance"@en ;
+    lomo:hasCapability "Provide ENISA technical specifications"@en ;
+    lomo:hasCapability "Track certificate validity status (active, suspended, withdrawn, expired)"@en ;
+    lomo:hasCapability "Publish supplementary cybersecurity information"@en ;
+    lomo:hasCapability "Display peer review summaries"@en ;
+    lomo:hasCapability "Reference technical specifications from certification schemes"@en ;
+    rdfs:comment "Referenced by Article 79. Compliance with accessibility and reusability guidelines applicable as per Article 84(2), 89(7), 74(10)."@en .
+
+### Third Country Exemptions Register
+:Software_ThirdCountryExemptionsRegister rdf:type owl:NamedIndividual , dcterms:Software ;
+    dcterms:title "Register of Third Country Exemptions"@en ;
+    dcterms:description "Publicly accessible register of Commission decisions regarding exemptions for entities established in or controlled by third countries posing cybersecurity concerns"@en ;
+    dcterms:publisher :Agent_Commission ;
+    dcterms:creator :Agent_Commission ;
+    dcterms:isReferencedBy <https://data.europa.eu/eli/reg/2025/XXXX/oj/eng/art_107> ,
+                           <https://data.europa.eu/eli/reg/2025/XXXX/oj/eng/art_105/par_4> ;
+    lomo:hasCapability "Maintain public register of exemption decisions"@en ;
+    lomo:hasCapability "Display names of entities subject to decisions"@en ;
+    lomo:hasCapability "Ensure regular updates"@en ;
+    rdfs:comment "Referenced by Article 107. Commission maintains publicly accessible register stating entity names. Regular updates required."@en .
+
+### Competent Authorities Cooperation Platform
+:Software_CompetentAuthoritiesNetwork rdf:type owl:NamedIndividual , dcterms:Software ;
+    dcterms:title "Network Platform for Competent Authorities Cooperation"@en ;
+    dcterms:description "Platform for cooperation and exchange of information between the Commission and competent authorities of Member States"@en ;
+    dcterms:publisher :Agent_Commission ;
+    dcterms:creator :Agent_Commission ;
+    dcterms:isReferencedBy <https://data.europa.eu/eli/reg/2025/XXXX/oj/eng/art_113> ;
+    lomo:hasCapability "Facilitate cooperation between competent authorities"@en ;
+    lomo:hasCapability "Enable secure information exchange"@en ;
+    rdfs:comment "Referenced by Article 113. Commission provides administrative support. Not publicly accessible - restricted to competent authorities only."@en .
+
+### Registry of Essential and Important Entities (NIS2)
+:Software_NIS2EntitiesRegistry rdf:type owl:NamedIndividual , dcterms:Software ;
+    dcterms:title "Registry of Essential and Important Entities under NIS2"@en ;
+    dcterms:description "Registry maintained by ENISA containing essential and important entities as well as entities providing domain name registration services as per NIS2 Directive"@en ;
+    dcterms:publisher :Agent_ENISA ;
+    dcterms:creator :Agent_ENISA ;
+    dcterms:isReferencedBy <https://data.europa.eu/eli/dir/2022/2555/oj/eng/art_27> ;
+    dcterms:conformsTo :Standard_NIS2Directive_Art21 ;
+    lomo:hasCapability "Maintain registry of essential entities"@en ;
+    lomo:hasCapability "Maintain registry of important entities"@en ;
+    lomo:hasCapability "Track domain name registration service providers"@en ;
+    rdfs:comment "Referenced by Article 1, point 11 (amendment to NIS2 Directive). Based on information received from single points of contact according to Article 27 NIS2. Enables reusability of entity information across compliance processes."@en .
+
+#################################################################
+# Assessment 1: Repositories/platforms/early alerts/secretariat/operational cooperation/CVD database
+#################################################################
+
+:Assessment_RepositoriesPlatforms_AlignmentPolicies a cav:Assessment ;
+    dct:type :AssessmentTypeAlignmentPolicies ;
+    dct:description "Assessment of alignment with existing digital and sectorial policies for repositories, platforms, early alerts, secretariat, operational cooperation and CVD database."@en ;
+    cav:assesses :Requirement_Art11_Secretariat ,
+                 :Requirement_Art11_Art12_EarlyAlerts ,
+                 :Requirement_Art10_IncidentSupport ,
+                 :Requirement_Art10_CrisisManagement ,
+                 :Requirement_Art11_ThreatIntelligenceRepositories ,
+                 :Requirement_Art14_LessonsLearned ,
+                 :Requirement_Art15_OperationalPlatforms ,
+                 :Requirement_Art16_VulnerabilityDatabase ;
+    cav:resultsIn :Statement_RepositoriesPlatforms_Alignment_Cybersecurity .
+
+:Statement_RepositoriesPlatforms_Alignment_Cybersecurity a cav:Statement ;
+    cav:type :StatementTypeAlignmentMeasure ;
+    cav:interpretation :InterpretationPositive ;
+    cav:judgement "The repositories, platforms, early alerts, secretariat, operational cooperation and CVD database infrastructure aligns with Cybersecurity policies."@en .
+
+:Assessment_RepositoriesPlatforms_OrganisationalMeasures a cav:Assessment ;
+    dct:type :AssessmentTypeOrganisationalMeasures ;
+    dct:description "Assessment of organisational measures for smooth cross-border delivery of repositories, platforms, early alerts, secretariat, operational cooperation and CVD database services."@en ;
+    cav:assesses :Requirement_Art11_Secretariat ,
+                 :Requirement_Art11_Art12_EarlyAlerts ,
+                 :Requirement_Art10_IncidentSupport ,
+                 :Requirement_Art10_CrisisManagement ,
+                 :Requirement_Art11_ThreatIntelligenceRepositories ,
+                 :Requirement_Art14_LessonsLearned ,
+                 :Requirement_Art15_OperationalPlatforms ,
+                 :Requirement_Art16_VulnerabilityDatabase ;
+    cav:resultsIn :Statement_RepositoriesPlatforms_Org_ManagementBoard ,
+                  :Statement_RepositoriesPlatforms_Org_CSIRTsNetwork ,
+                  :Statement_RepositoriesPlatforms_Org_EUCyCLONe ,
+                  :Statement_RepositoriesPlatforms_Org_NISCoopGroup .
+
+:Statement_RepositoriesPlatforms_Org_ManagementBoard a cav:Statement ;
+    cav:type :StatementTypeOrganisationMeasure ;
+    cav:interpretation :InterpretationPositive ;
+    cav:judgement "ENISA Management Board serves as a forum where operational cooperation issues can be raised."@en .
+
+:Statement_RepositoriesPlatforms_Org_CSIRTsNetwork a cav:Statement ;
+    cav:type :StatementTypeOrganisationMeasure ;
+    cav:interpretation :InterpretationPositive ;
+    cav:judgement "CSIRTs Network serves as a forum where operational cooperation issues can be raised."@en .
+
+:Statement_RepositoriesPlatforms_Org_EUCyCLONe a cav:Statement ;
+    cav:type :StatementTypeOrganisationMeasure ;
+    cav:interpretation :InterpretationPositive ;
+    cav:judgement "EU-CyCLONe serves as a forum where operational cooperation issues can be raised."@en .
+
+:Statement_RepositoriesPlatforms_Org_NISCoopGroup a cav:Statement ;
+    cav:type :StatementTypeOrganisationMeasure ;
+    cav:interpretation :InterpretationPositive ;
+    cav:judgement "NIS Cooperation Group serves as a forum where operational cooperation issues can be raised."@en .
+
+:Assessment_RepositoriesPlatforms_SharedDataUnderstanding a cav:Assessment ;
+    dct:type :AssessmentTypeSharedDataUnderstanding ;
+    dct:description "Assessment of measures taken to ensure a shared understanding of the data for repositories, platforms, early alerts, secretariat, operational cooperation and CVD database."@en ;
+    cav:assesses :Requirement_Art11_Secretariat ,
+                 :Requirement_Art11_Art12_EarlyAlerts ,
+                 :Requirement_Art10_IncidentSupport ,
+                 :Requirement_Art10_CrisisManagement ,
+                 :Requirement_Art11_ThreatIntelligenceRepositories ,
+                 :Requirement_Art14_LessonsLearned ,
+                 :Requirement_Art15_OperationalPlatforms ,
+                 :Requirement_Art16_VulnerabilityDatabase ;
+    cav:resultsIn :Statement_RepositoriesPlatforms_Shared_NotApplicable .
+
+:Statement_RepositoriesPlatforms_Shared_NotApplicable a cav:Statement ;
+    cav:type :StatementTypeSharedMeasure ;
+    cav:interpretation :InterpretationNeutral ;
+    cav:judgement "No specific measures identified for ensuring shared understanding of data in this service category."@en .
+
+:Assessment_RepositoriesPlatforms_StandardsSpecifications a cav:Assessment ;
+    dct:type :AssessmentTypeStandardsSpecifications ;
+    dct:description "Assessment of the use of commonly agreed open technical specifications and standards for repositories, platforms, early alerts, secretariat, operational cooperation and CVD database."@en ;
+    cav:assesses :Requirement_Art11_Secretariat ,
+                 :Requirement_Art11_Art12_EarlyAlerts ,
+                 :Requirement_Art10_IncidentSupport ,
+                 :Requirement_Art10_CrisisManagement ,
+                 :Requirement_Art11_ThreatIntelligenceRepositories ,
+                 :Requirement_Art14_LessonsLearned ,
+                 :Requirement_Art15_OperationalPlatforms ,
+                 :Requirement_Art16_VulnerabilityDatabase ;
+    cav:resultsIn :Statement_RepositoriesPlatforms_Standards_NotApplicable .
+
+:Statement_RepositoriesPlatforms_Standards_NotApplicable a cav:Statement ;
+    cav:type :StatementTypeStandardsMeasure ;
+    cav:interpretation :InterpretationNeutral ;
+    cav:judgement "No specific standards or technical specifications identified for this service category."@en .
+
+#################################################################
+# Assessment 2: European individual cybersecurity skills attestation schemes
+#################################################################
+
+:Assessment_SkillsAttestation_AlignmentPolicies a cav:Assessment ;
+    dct:type :AssessmentTypeAlignmentPolicies ;
+    dct:description "Assessment of alignment with existing digital and sectorial policies for European individual cybersecurity skills attestation schemes."@en ;
+    cav:assesses :Requirement_Art20_21_22_SkillsAttestationSchemes ,
+                 :Requirement_Art23_SkillsWebsite ;
+    cav:resultsIn :Statement_SkillsAttestation_Alignment_CybersecuritySkillsAcademy ,
+                  :Statement_SkillsAttestation_Alignment_EUDIWallet ,
+                  :Statement_SkillsAttestation_Alignment_Cybersecurity ,
+                  :Statement_SkillsAttestation_Alignment_GDPR .
+
+:Statement_SkillsAttestation_Alignment_CybersecuritySkillsAcademy a cav:Statement ;
+    cav:type :StatementTypeAlignmentMeasure ;
+    cav:interpretation :InterpretationPositive ;
+    cav:judgement "The proposal builds on COM(2023)207 final (Cybersecurity Skills Academy) which states that ENISA will develop a pilot project, exploring the set-up of a European attestation scheme for cybersecurity skills."@en .
+
+:Statement_SkillsAttestation_Alignment_EUDIWallet a cav:Statement ;
+    cav:type :StatementTypeAlignmentMeasure ;
+    cav:interpretation :InterpretationPositive ;
+    cav:judgement "The proposal makes use of Regulation (EU) 2024/1183 (EUDI wallet) by establishing that ENISA and authorised attestation providers shall ensure that the electronic attestations of the European individual cybersecurity skills attestation are issued to the European Digital Identity Wallets."@en .
+
+:Statement_SkillsAttestation_Alignment_Cybersecurity a cav:Statement ;
+    cav:type :StatementTypeAlignmentMeasure ;
+    cav:interpretation :InterpretationPositive ;
+    cav:judgement "The European individual cybersecurity skills attestation schemes align with Cybersecurity policies."@en .
+
+:Statement_SkillsAttestation_Alignment_GDPR a cav:Statement ;
+    cav:type :StatementTypeAlignmentMeasure ;
+    cav:interpretation :InterpretationPositive ;
+    cav:judgement "The schemes comply with GDPR requirements regarding retention of records by providers."@en .
+
+:Assessment_SkillsAttestation_OrganisationalMeasures a cav:Assessment ;
+    dct:type :AssessmentTypeOrganisationalMeasures ;
+    dct:description "Assessment of organisational measures for smooth cross-border delivery of European individual cybersecurity skills attestation schemes."@en ;
+    cav:assesses :Requirement_Art20_21_22_SkillsAttestationSchemes ,
+                 :Requirement_Art23_SkillsWebsite ;
+    cav:resultsIn :Statement_SkillsAttestation_Org_StakeholderConsultation ,
+                  :Statement_SkillsAttestation_Org_SeparationActivities ,
+                  :Statement_SkillsAttestation_Org_BoardAppeal ,
+                  :Statement_SkillsAttestation_Barrier_VoluntaryUse .
+
+:Statement_SkillsAttestation_Org_StakeholderConsultation a cav:Statement ;
+    cav:type :StatementTypeOrganisationMeasure ;
+    cav:interpretation :InterpretationPositive ;
+    cav:judgement "Consultation of stakeholders when preparing a European individual cybersecurity skills attestation scheme."@en .
+
+:Statement_SkillsAttestation_Org_SeparationActivities a cav:Statement ;
+    cav:type :StatementTypeOrganisationMeasure ;
+    cav:interpretation :InterpretationPositive ;
+    cav:judgement "Separation of activities within ENISA to ensure independent performance thereof."@en .
+
+:Statement_SkillsAttestation_Org_BoardAppeal a cav:Statement ;
+    cav:type :StatementTypeOrganisationMeasure ;
+    cav:interpretation :InterpretationPositive ;
+    cav:judgement "Board of Appeal established for governance of attestation schemes."@en .
+
+:Statement_SkillsAttestation_Barrier_VoluntaryUse a cav:Statement ;
+    cav:type :StatementTypeOrganisationBarrier ;
+    cav:interpretation :InterpretationNeutral ;
+    cav:judgement "The use and recognition of European individual cybersecurity skills attestation schemes shall remain voluntary for public and private entities."@en .
+
+:Assessment_SkillsAttestation_SharedDataUnderstanding a cav:Assessment ;
+    dct:type :AssessmentTypeSharedDataUnderstanding ;
+    dct:description "Assessment of measures taken to ensure a shared understanding of the data for European individual cybersecurity skills attestation schemes."@en ;
+    cav:assesses :Requirement_Art20_21_22_SkillsAttestationSchemes ,
+                 :Requirement_Art23_SkillsWebsite ;
+    cav:resultsIn :Statement_SkillsAttestation_Shared_DetailedSchemes ,
+                  :Statement_SkillsAttestation_Shared_EUDIWalletFormat ,
+                  :Statement_SkillsAttestation_Shared_GuidanceTraining ,
+                  :Statement_SkillsAttestation_Shared_PublicWebsite ,
+                  :Statement_SkillsAttestation_Shared_ImplementingActsFees ,
+                  :Statement_SkillsAttestation_Barrier_UnforeseenDimensions .
+
+:Statement_SkillsAttestation_Shared_DetailedSchemes a cav:Statement ;
+    cav:type :StatementTypeSharedMeasure ;
+    cav:interpretation :InterpretationPositive ;
+    cav:judgement "Developing schemes that detail inter alia rules concerning the content and format of the attestations."@en .
+
+:Statement_SkillsAttestation_Shared_EUDIWalletFormat a cav:Statement ;
+    cav:type :StatementTypeSharedMeasure ;
+    cav:interpretation :InterpretationPositive ;
+    cav:judgement "Authorised providers shall ensure that, at the request of the individual, electronic attestations of European individual cybersecurity skills attestations are issued as electronic attestations of attributes in a format that can be stored in the European Digital Identity Wallets."@en .
+
+:Statement_SkillsAttestation_Shared_GuidanceTraining a cav:Statement ;
+    cav:type :StatementTypeSharedMeasure ;
+    cav:interpretation :InterpretationPositive ;
+    cav:judgement "ENISA to provide guidance to and conduct obligatory training of assessors regarding the requirements and assessment methods included in the European individual cybersecurity skills attestation scheme."@en .
+
+:Statement_SkillsAttestation_Shared_PublicWebsite a cav:Statement ;
+    cav:type :StatementTypeSharedMeasure ;
+    cav:interpretation :InterpretationPositive ;
+    cav:judgement "Providing public information on a website regarding attestation schemes."@en .
+
+:Statement_SkillsAttestation_Shared_ImplementingActsFees a cav:Statement ;
+    cav:type :StatementTypeSharedMeasure ;
+    cav:interpretation :InterpretationPositive ;
+    cav:judgement "Implementing acts on fees to ensure transparency and common understanding."@en .
+
+:Statement_SkillsAttestation_Barrier_UnforeseenDimensions a cav:Statement ;
+    cav:type :StatementTypeSharedBarrier ;
+    cav:interpretation :InterpretationNeutral ;
+    cav:judgement "Although the schemes should be as detailed as to ensure common understanding and ease implementation, and although ENISA will provide guidance to and conduct obligatory training of assessors to ensure consistent implementation of the schemes, unforeseen dimensions could arise where authorised attestation providers need to interact with ENISA, other providers or assessors."@en .
+
+:Assessment_SkillsAttestation_StandardsSpecifications a cav:Assessment ;
+    dct:type :AssessmentTypeStandardsSpecifications ;
+    dct:description "Assessment of the use of commonly agreed open technical specifications and standards for European individual cybersecurity skills attestation schemes."@en ;
+    cav:assesses :Requirement_Art20_21_22_SkillsAttestationSchemes ,
+                 :Requirement_Art23_SkillsWebsite ;
+    cav:resultsIn :Statement_SkillsAttestation_Standards_StakeholderDevelopment .
+
+:Statement_SkillsAttestation_Standards_StakeholderDevelopment a cav:Statement ;
+    cav:type :StatementTypeStandardsMeasure ;
+    cav:interpretation :InterpretationPositive ;
+    cav:judgement "European individual cybersecurity skills attestation schemes are developed with the support of relevant stakeholders."@en .
+
+#################################################################
+# Assessment 3: Preparing candidate European cybersecurity certification schemes 'candidate schemes'/assigning numbers to CABs
+#################################################################
+
+:Assessment_CertificationSchemes_AlignmentPolicies a cav:Assessment ;
+    dct:type :AssessmentTypeAlignmentPolicies ;
+    dct:description "Assessment of alignment with existing digital and sectorial policies for preparing candidate European cybersecurity certification schemes and assigning numbers to CABs."@en ;
+    cav:assesses :Requirement_Art17_CertificationSchemes ,
+                 :Requirement_Art94_Investigations ;
+    cav:resultsIn :Statement_CertificationSchemes_Alignment_NewLegislativeFramework ,
+                  :Statement_CertificationSchemes_Alignment_SectoralLegislation .
+
+:Statement_CertificationSchemes_Alignment_NewLegislativeFramework a cav:Statement ;
+    cav:type :StatementTypeAlignmentMeasure ;
+    cav:interpretation :InterpretationPositive ;
+    cav:judgement "The proposal seeks alignment on governance with the New legislative framework, in particular for what pertains Regulation (EC) 765/2008."@en .
+
+:Statement_CertificationSchemes_Alignment_SectoralLegislation a cav:Statement ;
+    cav:type :StatementTypeAlignmentMeasure ;
+    cav:interpretation :InterpretationPositive ;
+    cav:judgement "The proposal aims to facilitate compliance with relevant cybersecurity sectoral legislation through development of dedicated European cybersecurity certification schemes."@en .
+
+:Assessment_CertificationSchemes_OrganisationalMeasures a cav:Assessment ;
+    dct:type :AssessmentTypeOrganisationalMeasures ;
+    dct:description "Assessment of organisational measures for smooth cross-border delivery of European cybersecurity certification schemes."@en ;
+    cav:assesses :Requirement_Art17_CertificationSchemes ,
+                 :Requirement_Art94_Investigations ;
+    cav:resultsIn :Statement_CertificationSchemes_Org_CertificationGroup ,
+                  :Statement_CertificationSchemes_Org_ENISA ,
+                  :Statement_CertificationSchemes_Org_WorkingGroups ,
+                  :Statement_CertificationSchemes_Org_Assembly ,
+                  :Statement_CertificationSchemes_Org_StakeholderConsultation ,
+                  :Statement_CertificationSchemes_Org_Comitology ,
+                  :Statement_CertificationSchemes_Barrier_VoluntaryUse .
+
+:Statement_CertificationSchemes_Org_CertificationGroup a cav:Statement ;
+    cav:type :StatementTypeOrganisationMeasure ;
+    cav:interpretation :InterpretationPositive ;
+    cav:judgement "European Cybersecurity Certification Group established as governance measure."@en .
+
+:Statement_CertificationSchemes_Org_ENISA a cav:Statement ;
+    cav:type :StatementTypeOrganisationMeasure ;
+    cav:interpretation :InterpretationPositive ;
+    cav:judgement "ENISA plays a central role in preparing and maintaining certification schemes."@en .
+
+:Statement_CertificationSchemes_Org_WorkingGroups a cav:Statement ;
+    cav:type :StatementTypeOrganisationMeasure ;
+    cav:interpretation :InterpretationPositive ;
+    cav:judgement "Ad hoc working groups established for specific certification scheme development."@en .
+
+:Statement_CertificationSchemes_Org_Assembly a cav:Statement ;
+    cav:type :StatementTypeOrganisationMeasure ;
+    cav:interpretation :InterpretationPositive ;
+    cav:judgement "European Cybersecurity Certification Assembly established for stakeholder involvement."@en .
+
+:Statement_CertificationSchemes_Org_StakeholderConsultation a cav:Statement ;
+    cav:type :StatementTypeOrganisationMeasure ;
+    cav:interpretation :InterpretationPositive ;
+    cav:judgement "Consultation of stakeholders when requesting, developing and adopting European cybersecurity certification schemes."@en .
+
+:Statement_CertificationSchemes_Org_Comitology a cav:Statement ;
+    cav:type :StatementTypeOrganisationMeasure ;
+    cav:interpretation :InterpretationPositive ;
+    cav:judgement "Comitology procedures for envisaged implementing acts related to European cybersecurity certification schemes."@en .
+
+:Statement_CertificationSchemes_Barrier_VoluntaryUse a cav:Statement ;
+    cav:type :StatementTypeOrganisationBarrier ;
+    cav:interpretation :InterpretationNeutral ;
+    cav:judgement "The use of European cybersecurity certification shall be voluntary unless otherwise specified in European legislation."@en .
+
+:Assessment_CertificationSchemes_SharedDataUnderstanding a cav:Assessment ;
+    dct:type :AssessmentTypeSharedDataUnderstanding ;
+    dct:description "Assessment of measures taken to ensure a shared understanding of the data for European cybersecurity certification schemes."@en ;
+    cav:assesses :Requirement_Art17_CertificationSchemes ,
+                 :Requirement_Art94_Investigations ;
+    cav:resultsIn :Statement_CertificationSchemes_Shared_ImplementingActs ,
+                  :Statement_CertificationSchemes_Barrier_VoluntaryUseMeasure .
+
+:Statement_CertificationSchemes_Shared_ImplementingActs a cav:Statement ;
+    cav:type :StatementTypeSharedMeasure ;
+    cav:interpretation :InterpretationPositive ;
+    cav:judgement "Implementing acts listed in section 4.5 ensure shared understanding of certification requirements and procedures."@en .
+
+:Statement_CertificationSchemes_Barrier_VoluntaryUseMeasure a cav:Statement ;
+    cav:type :StatementTypeSharedBarrier ;
+    cav:interpretation :InterpretationNeutral ;
+    cav:judgement "The use of European cybersecurity certification shall be voluntary unless otherwise specified in European legislation."@en .
+
+:Assessment_CertificationSchemes_StandardsSpecifications a cav:Assessment ;
+    dct:type :AssessmentTypeStandardsSpecifications ;
+    dct:description "Assessment of the use of commonly agreed open technical specifications and standards for European cybersecurity certification schemes."@en ;
+    cav:assesses :Requirement_Art17_CertificationSchemes ,
+                 :Requirement_Art94_Investigations ;
+    cav:resultsIn :Statement_CertificationSchemes_Standards_ImplementingActs ,
+                  :Statement_CertificationSchemes_Standards_ConsistencyUnionLegislation ,
+                  :Statement_CertificationSchemes_Standards_InternationalStandards .
+
+:Statement_CertificationSchemes_Standards_ImplementingActs a cav:Statement ;
+    cav:type :StatementTypeStandardsMeasure ;
+    cav:interpretation :InterpretationPositive ;
+    cav:judgement "Implementing acts listed in section 4.5 define technical specifications and standards."@en .
+
+:Statement_CertificationSchemes_Standards_ConsistencyUnionLegislation a cav:Statement ;
+    cav:type :StatementTypeStandardsMeasure ;
+    cav:interpretation :InterpretationPositive ;
+    cav:judgement "The specified requirements of the European cybersecurity certification scheme shall be consistent requirements of Union legislation."@en .
+
+:Statement_CertificationSchemes_Standards_InternationalStandards a cav:Statement ;
+    cav:type :StatementTypeStandardsMeasure ;
+    cav:interpretation :InterpretationPositive ;
+    cav:judgement "European cybersecurity certification schemes shall leverage and reference the international, European or national standards applied in the evaluation or, where such standards are not available or appropriate, to technical specifications drawn by ENISA."@en .
+
+#################################################################
+# Assessment 4: Publicly accessible websites
+#################################################################
+
+:Assessment_PublicWebsites_AlignmentPolicies a cav:Assessment ;
+    dct:type :AssessmentTypeAlignmentPolicies ;
+    dct:description "Assessment of alignment with existing digital and sectorial policies for publicly accessible websites."@en ;
+    cav:assesses :Requirement_Art79_CertificationWebsite ,
+                 :Requirement_Art72_CommissionWebsite ,
+                 :Requirement_Art1Point11_RegistryEntities ;
+    cav:resultsIn :Statement_PublicWebsites_Alignment_AccessibilityAct ,
+                  :Statement_PublicWebsites_Alignment_WebAccessibility ,
+                  :Statement_PublicWebsites_Alignment_Cybersecurity .
+
+:Statement_PublicWebsites_Alignment_AccessibilityAct a cav:Statement ;
+    cav:type :StatementTypeAlignmentMeasure ;
+    cav:interpretation :InterpretationPositive ;
+    cav:judgement "The publicly accessible websites align with EU Accessibility Act requirements."@en .
+
+:Statement_PublicWebsites_Alignment_WebAccessibility a cav:Statement ;
+    cav:type :StatementTypeAlignmentMeasure ;
+    cav:interpretation :InterpretationPositive ;
+    cav:judgement "The publicly accessible websites comply with Web Accessibility Directive requirements."@en .
+
+:Statement_PublicWebsites_Alignment_Cybersecurity a cav:Statement ;
+    cav:type :StatementTypeAlignmentMeasure ;
+    cav:interpretation :InterpretationPositive ;
+    cav:judgement "The publicly accessible websites align with Cybersecurity policies."@en .
+
+:Assessment_PublicWebsites_OrganisationalMeasures a cav:Assessment ;
+    dct:type :AssessmentTypeOrganisationalMeasures ;
+    dct:description "Assessment of organisational measures for smooth cross-border delivery of publicly accessible websites."@en ;
+    cav:assesses :Requirement_Art79_CertificationWebsite ,
+                 :Requirement_Art72_CommissionWebsite ,
+                 :Requirement_Art1Point11_RegistryEntities ;
+    cav:resultsIn :Statement_PublicWebsites_Org_NotApplicable .
+
+:Statement_PublicWebsites_Org_NotApplicable a cav:Statement ;
+    cav:type :StatementTypeOrganisationMeasure ;
+    cav:interpretation :InterpretationNeutral ;
+    cav:judgement "No specific organisational measures identified beyond standard website governance."@en .
+
+:Assessment_PublicWebsites_SharedDataUnderstanding a cav:Assessment ;
+    dct:type :AssessmentTypeSharedDataUnderstanding ;
+    dct:description "Assessment of measures taken to ensure a shared understanding of the data for publicly accessible websites."@en ;
+    cav:assesses :Requirement_Art79_CertificationWebsite ,
+                 :Requirement_Art72_CommissionWebsite ,
+                 :Requirement_Art1Point11_RegistryEntities ;
+    cav:resultsIn :Statement_PublicWebsites_Shared_NotApplicable .
+
+:Statement_PublicWebsites_Shared_NotApplicable a cav:Statement ;
+    cav:type :StatementTypeSharedMeasure ;
+    cav:interpretation :InterpretationNeutral ;
+    cav:judgement "No specific measures identified for ensuring shared understanding of data beyond standard web content accessibility."@en .
+
+:Assessment_PublicWebsites_StandardsSpecifications a cav:Assessment ;
+    dct:type :AssessmentTypeStandardsSpecifications ;
+    dct:description "Assessment of the use of commonly agreed open technical specifications and standards for publicly accessible websites."@en ;
+    cav:assesses :Requirement_Art79_CertificationWebsite ,
+                 :Requirement_Art72_CommissionWebsite ,
+                 :Requirement_Art1Point11_RegistryEntities ;
+    cav:resultsIn :Statement_PublicWebsites_Standards_NotApplicable .
+
+:Statement_PublicWebsites_Standards_NotApplicable a cav:Statement ;
+    cav:type :StatementTypeStandardsMeasure ;
+    cav:interpretation :InterpretationNeutral ;
+    cav:judgement "No specific standards or technical specifications identified beyond web accessibility standards."@en .

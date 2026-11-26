@@ -1,0 +1,1942 @@
+% The register of a LOMO description: the Logical English twin of
+% financial-reporting-lomo-instances.ttl (kept in sources/), written by the LOMO translator.
+% One fact for each statement of the description, in the words of lomo.le.
+% LOMO describes rules; it has no conditions and no cases. A question
+% about a case gets its answer only from the parts of the description that
+% have values (deadlines, agents, derogations).
+%
+% LOMO and its data: (c) European Union, Creative Commons Attribution 4.0
+% (https://creativecommons.org/licenses/by/4.0/); source: the LOMO
+% repository, https://code.europa.eu/drpm/lomo. The description was changed
+% into Logical English by the LOMO translator of Logical English.
+%
+% DISCLAIMER. This program was written by a translator from a program of another
+% system. It is provided "as is", without warranty of any kind, express or
+% implied, including any warranty that it is accurate, complete or fit for a
+% particular purpose. The translation may be wrong: check it against its source
+% before relying on it. It is not legal, tax, insurance, financial or other
+% professional advice. Its authors accept no liability for any loss or damage
+% arising from its use.
+
+the target language is: prolog.
+
+the knowledge base financial_reporting_lomo_instances includes these resources:
+    lomo.
+
+the knowledge base financial_reporting_lomo_instances includes:
+
+the text of the source description is at "sources/financial-reporting-lomo-instances.ttl".
+
+% Who bears a duty: the agent of this role of the action (lomo.le).
+the bearer role is addresser.
+
+the texts of "lomo:frequencyUnit" have no language.
+
+
+financial reporting is identified by "http://data.europa.eu/leg/lomo/financial-reporting".
+
+financial reporting has the type "owl:Ontology".
+
+financial reporting has the title "Financial Reporting Directive 2013/34/EU - LOMO Instantiation".
+
+financial reporting has the description "Partial instantiation of Directive 2013/34/EU on annual financial statements, consolidated financial statements and related reports using the Legal Requirements Metadata Ontology (LOMO).".
+
+financial reporting has for "dcterms:created" the value 2025-12-01.
+
+financial reporting has for "dcterms:source" the value "Directive 2013/34/EU of the European Parliament and of the Council on annual financial statements".
+
+financial reporting has for "owl:imports" the resource "http://data.europa.eu/leg/lomo".
+
+financial reporting has for "owl:imports" the resource "http://data.europa.eu/leg/lomo/ontology/0.6.6".
+
+
+agent commission is identified by "http://data.europa.eu/leg/lomo/financial-reporting#Agent_Commission".
+
+agent commission has the type "owl:NamedIndividual".
+
+agent commission is an agent.
+
+agent commission has the label "European Commission".
+
+agent commission has the comment "The European Commission with delegated powers to amend thresholds.".
+
+
+agent type member states is identified by "http://data.europa.eu/leg/lomo/financial-reporting#AgentType_MemberStates".
+
+agent type member states has the type "owl:NamedIndividual".
+
+agent type member states is an agent type.
+
+agent type member states has the label "Member States".
+
+agent type member states has the comment "EU Member States responsible for transposing and implementing the Directive.".
+
+
+agent type statutory auditor is identified by "http://data.europa.eu/leg/lomo/financial-reporting#AgentType_StatutoryAuditor".
+
+agent type statutory auditor has the type "owl:NamedIndividual".
+
+agent type statutory auditor is an agent type.
+
+agent type statutory auditor has the label "Statutory Auditor or Audit Firm".
+
+agent type statutory auditor has the comment "Auditors responsible for providing opinions on financial statements.".
+
+
+agent type micro undertaking is identified by "http://data.europa.eu/leg/lomo/financial-reporting#AgentType_MicroUndertaking".
+
+agent type micro undertaking has the type "owl:NamedIndividual".
+
+agent type micro undertaking is an agent type.
+
+agent type micro undertaking has the label "Micro-undertakings".
+
+agent type micro undertaking has the comment "Undertakings not exceeding limits of at least 2 of 3 criteria: balance sheet €350k, net turnover €700k, 10 employees.".
+
+agent type micro undertaking uses the definition def micro undertaking.
+
+
+agent type small undertaking is identified by "http://data.europa.eu/leg/lomo/financial-reporting#AgentType_SmallUndertaking".
+
+agent type small undertaking has the type "owl:NamedIndividual".
+
+agent type small undertaking is an agent type.
+
+agent type small undertaking has the label "Small Undertakings".
+
+agent type small undertaking has the comment "Undertakings not exceeding limits of at least 2 of 3 criteria: balance sheet €4M, net turnover €8M, 50 employees.".
+
+agent type small undertaking uses the definition def small undertaking.
+
+
+agent type medium sized undertaking is identified by "http://data.europa.eu/leg/lomo/financial-reporting#AgentType_MediumSizedUndertaking".
+
+agent type medium sized undertaking has the type "owl:NamedIndividual".
+
+agent type medium sized undertaking is an agent type.
+
+agent type medium sized undertaking has the label "Medium-sized Undertakings".
+
+agent type medium sized undertaking has the comment "Undertakings not exceeding limits of at least 2 of 3 criteria: balance sheet €20M, net turnover €40M, 250 employees.".
+
+agent type medium sized undertaking uses the definition def medium sized undertaking.
+
+
+agent type large undertaking is identified by "http://data.europa.eu/leg/lomo/financial-reporting#AgentType_LargeUndertaking".
+
+agent type large undertaking has the type "owl:NamedIndividual".
+
+agent type large undertaking is an agent type.
+
+agent type large undertaking has the label "Large Undertakings".
+
+agent type large undertaking has the comment "Undertakings exceeding at least 2 of 3 criteria: balance sheet €20M, net turnover €40M, 250 employees.".
+
+agent type large undertaking uses the definition def large undertaking.
+
+
+agent type public interest entity is identified by "http://data.europa.eu/leg/lomo/financial-reporting#AgentType_PublicInterestEntity".
+
+agent type public interest entity has the type "owl:NamedIndividual".
+
+agent type public interest entity is an agent type.
+
+agent type public interest entity has the label "Public-Interest Entities".
+
+agent type public interest entity has the comment "Undertakings including those with securities on regulated markets, credit institutions, insurance undertakings, or designated by Member States.".
+
+agent type public interest entity uses the definition def public interest entity.
+
+
+agent type undertaking is identified by "http://data.europa.eu/leg/lomo/financial-reporting#AgentType_Undertaking".
+
+agent type undertaking has the type "owl:NamedIndividual".
+
+agent type undertaking is an agent type.
+
+agent type undertaking has the label "Undertakings".
+
+agent type undertaking has the comment "Undertakings of any size within the scope of Article 1, i.e. the addressees of the general reporting and publication duties regardless of size category.".
+
+
+agent type parent undertaking is identified by "http://data.europa.eu/leg/lomo/financial-reporting#AgentType_ParentUndertaking".
+
+agent type parent undertaking has the type "owl:NamedIndividual".
+
+agent type parent undertaking is an agent type.
+
+agent type parent undertaking has the label "Parent Undertakings".
+
+agent type parent undertaking has the comment "Undertakings which control one or more subsidiary undertakings and draw up consolidated financial statements.".
+
+agent type parent undertaking uses the definition def parent undertaking.
+
+
+agent type small group is identified by "http://data.europa.eu/leg/lomo/financial-reporting#AgentType_SmallGroup".
+
+agent type small group has the type "owl:NamedIndividual".
+
+agent type small group is an agent type.
+
+agent type small group has the label "Small Groups".
+
+agent type small group has the comment "Groups not exceeding on consolidated basis at least 2 of 3 criteria.".
+
+agent type small group uses the definition def small group.
+
+
+agent type medium group is identified by "http://data.europa.eu/leg/lomo/financial-reporting#AgentType_MediumGroup".
+
+agent type medium group has the type "owl:NamedIndividual".
+
+agent type medium group is an agent type.
+
+agent type medium group has the label "Medium-sized Groups".
+
+agent type medium group has the comment "Groups not exceeding on consolidated basis at least 2 of 3 criteria.".
+
+agent type medium group uses the definition def medium sized group.
+
+
+agent type large group is identified by "http://data.europa.eu/leg/lomo/financial-reporting#AgentType_LargeGroup".
+
+agent type large group has the type "owl:NamedIndividual".
+
+agent type large group is an agent type.
+
+agent type large group has the label "Large Groups".
+
+agent type large group has the comment "Groups exceeding on consolidated basis at least 2 of 3 criteria.".
+
+agent type large group uses the definition def large group.
+
+
+agent role ms option holder is identified by "http://data.europa.eu/leg/lomo/financial-reporting#AgentRole_MS_OptionHolder".
+
+agent role ms option holder has the type "owl:NamedIndividual".
+
+agent role ms option holder is an agent role.
+
+agent role ms option holder is for the agent agent type member states.
+
+agent role ms option holder has the role addressee.
+
+agent role ms option holder has the comment "Member States as holders of a Member State option, i.e. the addressees of the permissions ('Member States may ...') granted by this Directive.".
+
+
+result type financial statements is identified by "http://data.europa.eu/leg/lomo/financial-reporting#ResultType_FinancialStatements".
+
+result type financial statements has the type "owl:NamedIndividual".
+
+result type financial statements is an action result type.
+
+result type financial statements has the label "Annual Financial Statements".
+
+result type financial statements has the explanation "Duly approved annual financial statements.".
+
+
+result type management report is identified by "http://data.europa.eu/leg/lomo/financial-reporting#ResultType_ManagementReport".
+
+result type management report has the type "owl:NamedIndividual".
+
+result type management report is an action result type.
+
+result type management report has the label "Management Report".
+
+result type management report has the explanation "Management report including fair review and key performance indicators.".
+
+
+result type auditor opinion is identified by "http://data.europa.eu/leg/lomo/financial-reporting#ResultType_AuditorOpinion".
+
+result type auditor opinion has the type "owl:NamedIndividual".
+
+result type auditor opinion is an action result type.
+
+result type auditor opinion has the label "Auditor Opinion".
+
+result type auditor opinion has the explanation "Opinion submitted by statutory auditor or audit firm.".
+
+
+result type consolidated statements is identified by "http://data.europa.eu/leg/lomo/financial-reporting#ResultType_ConsolidatedStatements".
+
+result type consolidated statements has the type "owl:NamedIndividual".
+
+result type consolidated statements is an action result type.
+
+result type consolidated statements has the label "Consolidated Financial Statements".
+
+result type consolidated statements has the explanation "Consolidated financial statements for groups.".
+
+
+result type consolidated financial statements is identified by "http://data.europa.eu/leg/lomo/financial-reporting#ResultType_ConsolidatedFinancialStatements".
+
+result type consolidated financial statements has the type "owl:NamedIndividual".
+
+result type consolidated financial statements is an action result type.
+
+result type consolidated financial statements has the label "Consolidated Financial Statements".
+
+result type consolidated financial statements has the explanation "Consolidated financial statements for parent and subsidiary undertakings.".
+
+
+result type consolidated management report is identified by "http://data.europa.eu/leg/lomo/financial-reporting#ResultType_ConsolidatedManagementReport".
+
+result type consolidated management report has the type "owl:NamedIndividual".
+
+result type consolidated management report is an action result type.
+
+result type consolidated management report has the label "Consolidated Management Report".
+
+result type consolidated management report has the explanation "Consolidated management report for groups.".
+
+
+frequency annual is identified by "http://data.europa.eu/leg/lomo/financial-reporting#Frequency_Annual".
+
+frequency annual has the type "owl:NamedIndividual".
+
+frequency annual has the type "lomo:Frequency".
+
+frequency annual has the label "Annually".
+
+frequency annual has the comment "Action must be performed once per year.".
+
+frequency annual has for "lomo:frequencyValue" the value 1.
+
+frequency annual has for "lomo:frequencyUnit" the value "year".
+
+
+frequency five years is identified by "http://data.europa.eu/leg/lomo/financial-reporting#Frequency_FiveYears".
+
+frequency five years has the type "owl:NamedIndividual".
+
+frequency five years has the type "lomo:Frequency".
+
+frequency five years has the label "At Least Every Five Years".
+
+frequency five years has the comment "Action must be performed at least once every five years.".
+
+frequency five years has for "lomo:frequencyValue" the value 5.
+
+frequency five years has for "lomo:frequencyUnit" the value "year".
+
+
+trigger instant balance sheet date is identified by "http://data.europa.eu/leg/lomo/financial-reporting#TriggerInstant_BalanceSheetDate".
+
+trigger instant balance sheet date has the type "owl:NamedIndividual".
+
+trigger instant balance sheet date is a temporal specification.
+
+trigger instant balance sheet date has the label "Balance Sheet Date".
+
+trigger instant balance sheet date has the temporal label "balance sheet date".
+
+trigger instant balance sheet date has for "lomo:triggerDescription" the value "balance sheet date of the reporting undertaking".
+
+trigger instant balance sheet date has the comment "The date of the balance sheet, triggering various obligations.".
+
+
+temporal spec 12 months after balance sheet is identified by "http://data.europa.eu/leg/lomo/financial-reporting#TemporalSpec_12MonthsAfterBalanceSheet".
+
+temporal spec 12 months after balance sheet has the type "owl:NamedIndividual".
+
+temporal spec 12 months after balance sheet has the type "lomo:IntervalSpec".
+
+temporal spec 12 months after balance sheet has the label "Within 12 Months After Balance Sheet Date".
+
+temporal spec 12 months after balance sheet has for "lomo:hasStart" the resource trigger instant balance sheet date.
+
+temporal spec 12 months after balance sheet has for "lomo:hasDuration" the value "P12M".
+
+temporal spec 12 months after balance sheet has the function deadline.
+
+temporal spec 12 months after balance sheet has the comment "Deadline for publication: not exceeding 12 months after balance sheet date.".
+
+
+temporal spec transposition deadline is identified by "http://data.europa.eu/leg/lomo/financial-reporting#TemporalSpec_TranspositionDeadline".
+
+temporal spec transposition deadline has the type "owl:NamedIndividual".
+
+temporal spec transposition deadline is a temporal specification.
+
+temporal spec transposition deadline has the label "Transposition Deadline".
+
+temporal spec transposition deadline has the instant 2015-07-20.
+
+temporal spec transposition deadline has the temporal label "transposition deadline".
+
+temporal spec transposition deadline has for "lomo:triggerDescription" the value "deadline for transposition into national law".
+
+temporal spec transposition deadline has the comment "Deadline for Member States to transpose the Directive.".
+
+
+def public interest entity is identified by "http://data.europa.eu/leg/lomo/financial-reporting#Def_PublicInterestEntity".
+
+def public interest entity has the type "owl:NamedIndividual".
+
+def public interest entity is a definition.
+
+def public interest entity has the label "Definition: Public-Interest Entities".
+
+def public interest entity has the definiendum "public-interest entities".
+
+def public interest entity has the definiens "undertakings within the scope of Article 1 which are: (a) governed by the law of a Member State and whose transferable securities are admitted to trading on a regulated market of any Member State within the meaning of point (14) of Article 4(1) of Directive 2004/39/EC of the European Parliament and of the Council of 21 April 2004 on markets in financial instruments; (b) credit institutions as defined in point (1) of Article 4 of Directive 2006/48/EC of the European Parliament and of the Council of 14 June 2006 relating to the taking up and pursuit of the business of credit institutions, other than those referred to in Article 2 of that Directive; (c) insurance undertakings within the meaning of Article 2(1) of Council Directive 91/674/EEC of 19 December 1991 on the annual accounts of insurance undertakings; or (d) designated by Member States as public-interest entities, for instance undertakings that are of significant public relevance because of the nature of their business, their size or the number of their employees".
+
+def public interest entity is established in "http://data.europa.eu/eli/dir/2013/34/oj/art_2/pnt_1".
+
+
+def participating interest is identified by "http://data.europa.eu/leg/lomo/financial-reporting#Def_ParticipatingInterest".
+
+def participating interest has the type "owl:NamedIndividual".
+
+def participating interest is a definition.
+
+def participating interest has the label "Definition: Participating Interest".
+
+def participating interest has the definiendum "participating interest".
+
+def participating interest has the definiens "rights in the capital of other undertakings, whether or not represented by certificates, which, by creating a durable link with those undertakings, are intended to contribute to the activities of the undertaking which holds those rights. The holding of part of the capital of another undertaking is presumed to constitute a participating interest where it exceeds a percentage threshold fixed by the Member States which is lower than or equal to 20 %".
+
+def participating interest has the semantic flag true.
+
+def participating interest is established in "http://data.europa.eu/eli/dir/2013/34/oj/art_2/pnt_2".
+
+
+def related party is identified by "http://data.europa.eu/leg/lomo/financial-reporting#Def_RelatedParty".
+
+def related party has the type "owl:NamedIndividual".
+
+def related party is a definition.
+
+def related party has the label "Definition: Related Party (by reference)".
+
+def related party has the definiendum "related party".
+
+def related party has the definiens "as defined in the international accounting standards adopted in accordance with Regulation (EC) No 1606/2002".
+
+def related party has the semantic flag false.
+
+def related party is established in "http://data.europa.eu/eli/dir/2013/34/oj/art_2/pnt_3".
+
+
+def fixed assets is identified by "http://data.europa.eu/leg/lomo/financial-reporting#Def_FixedAssets".
+
+def fixed assets has the type "owl:NamedIndividual".
+
+def fixed assets is a definition.
+
+def fixed assets has the label "Definition: Fixed Assets".
+
+def fixed assets has the definiendum "fixed assets".
+
+def fixed assets has the definiens "those assets which are intended for use on a continuing basis for the undertaking's activities".
+
+def fixed assets has the semantic flag true.
+
+def fixed assets is established in "http://data.europa.eu/eli/dir/2013/34/oj/art_2/pnt_4".
+
+
+def net turnover is identified by "http://data.europa.eu/leg/lomo/financial-reporting#Def_NetTurnover".
+
+def net turnover has the type "owl:NamedIndividual".
+
+def net turnover is a definition.
+
+def net turnover has the label "Definition: Net Turnover".
+
+def net turnover has the definiendum "net turnover".
+
+def net turnover has the definiens "the amounts derived from the sale of products and the provision of services after deducting sales rebates and value added tax and other taxes directly linked to turnover".
+
+def net turnover has the semantic flag true.
+
+def net turnover is established in "http://data.europa.eu/eli/dir/2013/34/oj/art_2/pnt_5".
+
+def net turnover has the type "owl:NamedIndividual".
+
+def net turnover is a definition.
+
+def net turnover has the label "Definition: Net Turnover".
+
+def net turnover has the definiendum "net turnover".
+
+def net turnover has the definiens "the amounts derived from the sale of products and the provision of services falling within the undertaking's ordinary activities, after deducting sales rebates and value added tax and other taxes directly linked to turnover.".
+
+def net turnover has the semantic flag true.
+
+def net turnover is established in "http://data.europa.eu/eli/dir/2013/34/oj/art_3/par_12".
+
+
+def purchase price is identified by "http://data.europa.eu/leg/lomo/financial-reporting#Def_PurchasePrice".
+
+def purchase price has the type "owl:NamedIndividual".
+
+def purchase price is a definition.
+
+def purchase price has the label "Definition: Purchase Price".
+
+def purchase price has the definiendum "purchase price".
+
+def purchase price has the definiens "the price payable and any incidental expenses minus any incidental reductions in the cost of acquisition".
+
+def purchase price has the semantic flag true.
+
+def purchase price is established in "http://data.europa.eu/eli/dir/2013/34/oj/art_2/pnt_6".
+
+
+def production cost is identified by "http://data.europa.eu/leg/lomo/financial-reporting#Def_ProductionCost".
+
+def production cost has the type "owl:NamedIndividual".
+
+def production cost is a definition.
+
+def production cost has the label "Definition: Production Cost".
+
+def production cost has the definiendum "production cost".
+
+def production cost has the definiens "the purchase price of raw materials, consumables and other costs directly attributable to the item in question. Member States shall permit or require the inclusion of a reasonable proportion of fixed or variable overhead costs indirectly attributable to the item in question, to the extent that they relate to the period of production. Distribution costs shall not be included".
+
+def production cost has the semantic flag true.
+
+def production cost is established in "http://data.europa.eu/eli/dir/2013/34/oj/art_2/pnt_7".
+
+
+def value adjustment is identified by "http://data.europa.eu/leg/lomo/financial-reporting#Def_ValueAdjustment".
+
+def value adjustment has the type "owl:NamedIndividual".
+
+def value adjustment is a definition.
+
+def value adjustment has the label "Definition: Value Adjustment".
+
+def value adjustment has the definiendum "value adjustment".
+
+def value adjustment has the definiens "the adjustments intended to take account of changes in the values of individual assets established at the balance sheet date, whether the change is final or not".
+
+def value adjustment has the semantic flag true.
+
+def value adjustment is established in "http://data.europa.eu/eli/dir/2013/34/oj/art_2/pnt_8".
+
+
+def parent undertaking is identified by "http://data.europa.eu/leg/lomo/financial-reporting#Def_ParentUndertaking".
+
+def parent undertaking has the type "owl:NamedIndividual".
+
+def parent undertaking is a definition.
+
+def parent undertaking has the label "Definition: Parent Undertaking".
+
+def parent undertaking has the definiendum "parent undertaking".
+
+def parent undertaking has the definiens "an undertaking which controls one or more subsidiary undertakings".
+
+def parent undertaking has the semantic flag true.
+
+def parent undertaking is established in "http://data.europa.eu/eli/dir/2013/34/oj/art_2/pnt_9".
+
+
+def subsidiary undertaking is identified by "http://data.europa.eu/leg/lomo/financial-reporting#Def_SubsidiaryUndertaking".
+
+def subsidiary undertaking has the type "owl:NamedIndividual".
+
+def subsidiary undertaking is a definition.
+
+def subsidiary undertaking has the label "Definition: Subsidiary Undertaking".
+
+def subsidiary undertaking has the definiendum "subsidiary undertaking".
+
+def subsidiary undertaking has the definiens "an undertaking controlled by a parent undertaking, including any subsidiary undertaking of an ultimate parent undertaking".
+
+def subsidiary undertaking has the semantic flag true.
+
+def subsidiary undertaking is established in "http://data.europa.eu/eli/dir/2013/34/oj/art_2/pnt_10".
+
+
+def group is identified by "http://data.europa.eu/leg/lomo/financial-reporting#Def_Group".
+
+def group has the type "owl:NamedIndividual".
+
+def group is a definition.
+
+def group has the label "Definition: Group".
+
+def group has the definiendum "group".
+
+def group has the definiens "a parent undertaking and all its subsidiary undertakings".
+
+def group has the semantic flag true.
+
+def group is established in "http://data.europa.eu/eli/dir/2013/34/oj/art_2/pnt_11".
+
+
+def affiliated undertakings is identified by "http://data.europa.eu/leg/lomo/financial-reporting#Def_AffiliatedUndertakings".
+
+def affiliated undertakings has the type "owl:NamedIndividual".
+
+def affiliated undertakings is a definition.
+
+def affiliated undertakings has the label "Definition: Affiliated Undertakings".
+
+def affiliated undertakings has the definiendum "affiliated undertakings".
+
+def affiliated undertakings has the definiens "any two or more undertakings within a group".
+
+def affiliated undertakings has the semantic flag true.
+
+def affiliated undertakings is established in "http://data.europa.eu/eli/dir/2013/34/oj/art_2/pnt_12".
+
+
+def associated undertaking is identified by "http://data.europa.eu/leg/lomo/financial-reporting#Def_AssociatedUndertaking".
+
+def associated undertaking has the type "owl:NamedIndividual".
+
+def associated undertaking is a definition.
+
+def associated undertaking has the label "Definition: Associated Undertaking".
+
+def associated undertaking has the definiendum "associated undertaking".
+
+def associated undertaking has the definiens "an undertaking in which another undertaking has a participating interest, and over whose operating and financial policies that other undertaking exercises significant influence. An undertaking is presumed to exercise a significant influence over another undertaking where it has 20 % or more of the shareholders' or members' voting rights in that other undertaking".
+
+def associated undertaking has the semantic flag true.
+
+def associated undertaking is established in "http://data.europa.eu/eli/dir/2013/34/oj/art_2/pnt_13".
+
+
+def investment undertakings is identified by "http://data.europa.eu/leg/lomo/financial-reporting#Def_InvestmentUndertakings".
+
+def investment undertakings has the type "owl:NamedIndividual".
+
+def investment undertakings is a definition.
+
+def investment undertakings has the label "Definition: Investment Undertakings".
+
+def investment undertakings has the definiendum "investment undertakings".
+
+def investment undertakings has the definiens "undertakings the sole object of which is to invest their funds in various securities, real property and other assets, with the sole aim of spreading investment risks and giving their shareholders the benefit of the results of the management of their assets; and undertakings associated with investment undertakings with fixed capital, if the sole object of those associated undertakings is to acquire fully paid shares issued by those investment undertakings without prejudice to point (h) of Article 22(1) of Directive 2012/30/EU".
+
+def investment undertakings has the semantic flag true.
+
+def investment undertakings is established in "http://data.europa.eu/eli/dir/2013/34/oj/art_2/pnt_14".
+
+
+def financial holding undertakings is identified by "http://data.europa.eu/leg/lomo/financial-reporting#Def_FinancialHoldingUndertakings".
+
+def financial holding undertakings has the type "owl:NamedIndividual".
+
+def financial holding undertakings is a definition.
+
+def financial holding undertakings has the label "Definition: Financial Holding Undertakings".
+
+def financial holding undertakings has the definiendum "financial holding undertakings".
+
+def financial holding undertakings has the definiens "undertakings the sole object of which is to acquire holdings in other undertakings and to manage such holdings and turn them to profit, without involving themselves directly or indirectly in the management of those undertakings, without prejudice to their rights as shareholders".
+
+def financial holding undertakings has the semantic flag true.
+
+def financial holding undertakings is established in "http://data.europa.eu/eli/dir/2013/34/oj/art_2/pnt_15".
+
+
+def material is identified by "http://data.europa.eu/leg/lomo/financial-reporting#Def_Material".
+
+def material has the type "owl:NamedIndividual".
+
+def material is a definition.
+
+def material has the label "Definition: Material".
+
+def material has the definiendum "material".
+
+def material has the definiens "the status of information where its omission or misstatement could reasonably be expected to influence decisions that users make on the basis of the financial statements".
+
+def material has the semantic flag true.
+
+def material is established in "http://data.europa.eu/eli/dir/2013/34/oj/art_2/pnt_16".
+
+
+def micro undertaking is identified by "http://data.europa.eu/leg/lomo/financial-reporting#Def_MicroUndertaking".
+
+def micro undertaking has the type "owl:NamedIndividual".
+
+def micro undertaking is a definition.
+
+def micro undertaking has the label "Definition: Micro-undertaking".
+
+def micro undertaking has the definiendum "micro-undertaking".
+
+def micro undertaking has the definiens "undertakings which on their balance sheet dates do not exceed the limits of at least two of the three following criteria: (a) balance sheet total: EUR 350 000; (b) net turnover: EUR 700 000; (c) average number of employees during the financial year: 10. In applying one or more of the options in Article 36, Member States may define thresholds exceeding the thresholds in points (a) and (b) of the first subparagraph. However, the thresholds shall not exceed EUR 450 000 for the balance sheet total and EUR 900 000 for the net turnover.".
+
+def micro undertaking has the semantic flag true.
+
+def micro undertaking is established in "http://data.europa.eu/eli/dir/2013/34/oj/art_3/par_1".
+
+
+def small undertaking is identified by "http://data.europa.eu/leg/lomo/financial-reporting#Def_SmallUndertaking".
+
+def small undertaking has the type "owl:NamedIndividual".
+
+def small undertaking is a definition.
+
+def small undertaking has the label "Definition: Small Undertaking".
+
+def small undertaking has the definiendum "small undertaking".
+
+def small undertaking has the definiens "undertakings which are not micro-undertakings and which on their balance sheet dates do not exceed the limits of at least two of the three following criteria: (a) balance sheet total: EUR 4 000 000; (b) net turnover: EUR 8 000 000; (c) average number of employees during the financial year: 50. Member States may define thresholds exceeding the thresholds in points (a) and (b) of the first subparagraph. However, the thresholds shall not exceed EUR 6 000 000 for the balance sheet total and EUR 12 000 000 for the net turnover.".
+
+def small undertaking has the semantic flag true.
+
+def small undertaking is established in "http://data.europa.eu/eli/dir/2013/34/oj/art_3/par_2".
+
+
+def medium sized undertaking is identified by "http://data.europa.eu/leg/lomo/financial-reporting#Def_MediumSizedUndertaking".
+
+def medium sized undertaking has the type "owl:NamedIndividual".
+
+def medium sized undertaking is a definition.
+
+def medium sized undertaking has the label "Definition: Medium-sized Undertaking".
+
+def medium sized undertaking has the definiendum "medium-sized undertaking".
+
+def medium sized undertaking has the definiens "undertakings which are not micro-undertakings or small undertakings and which on their balance sheet dates do not exceed the limits of at least two of the three following criteria: (a) balance sheet total: EUR 20 000 000; (b) net turnover: EUR 40 000 000; (c) average number of employees during the financial year: 250.".
+
+def medium sized undertaking has the semantic flag true.
+
+def medium sized undertaking is established in "http://data.europa.eu/eli/dir/2013/34/oj/art_3/par_3".
+
+
+def large undertaking is identified by "http://data.europa.eu/leg/lomo/financial-reporting#Def_LargeUndertaking".
+
+def large undertaking has the type "owl:NamedIndividual".
+
+def large undertaking is a definition.
+
+def large undertaking has the label "Definition: Large Undertaking".
+
+def large undertaking has the definiendum "large undertaking".
+
+def large undertaking has the definiens "undertakings which on their balance sheet dates exceed at least two of the three following criteria: (a) balance sheet total: EUR 20 000 000; (b) net turnover: EUR 40 000 000; (c) average number of employees during the financial year: 250.".
+
+def large undertaking has the semantic flag true.
+
+def large undertaking is established in "http://data.europa.eu/eli/dir/2013/34/oj/art_3/par_4".
+
+
+def small group is identified by "http://data.europa.eu/leg/lomo/financial-reporting#Def_SmallGroup".
+
+def small group has the type "owl:NamedIndividual".
+
+def small group is a definition.
+
+def small group has the label "Definition: Small Group".
+
+def small group has the definiendum "small group".
+
+def small group has the definiens "groups consisting of parent and subsidiary undertakings to be included in a consolidation and which, on a consolidated basis, do not exceed the limits of at least two of the three following criteria on the balance sheet date of the parent undertaking: (a) balance sheet total: EUR 4 000 000; (b) net turnover: EUR 8 000 000; (c) average number of employees during the financial year: 50. Member States may define thresholds exceeding the thresholds in points (a) and (b) of the first subparagraph. However, the thresholds shall not exceed EUR 6 000 000 for the balance sheet total and EUR 12 000 000 for the net turnover.".
+
+def small group has the semantic flag true.
+
+def small group is established in "http://data.europa.eu/eli/dir/2013/34/oj/art_3/par_5".
+
+
+def medium sized group is identified by "http://data.europa.eu/leg/lomo/financial-reporting#Def_MediumSizedGroup".
+
+def medium sized group has the type "owl:NamedIndividual".
+
+def medium sized group is a definition.
+
+def medium sized group has the label "Definition: Medium-sized Group".
+
+def medium sized group has the definiendum "medium-sized group".
+
+def medium sized group has the definiens "groups which are not small groups, which consist of parent and subsidiary undertakings to be included in a consolidation and which, on a consolidated basis, do not exceed the limits of at least two of the three following criteria on the balance sheet date of the parent undertaking: (a) balance sheet total: EUR 20 000 000; (b) net turnover: EUR 40 000 000; (c) average number of employees during the financial year: 250.".
+
+def medium sized group has the semantic flag true.
+
+def medium sized group is established in "http://data.europa.eu/eli/dir/2013/34/oj/art_3/par_6".
+
+
+def large group is identified by "http://data.europa.eu/leg/lomo/financial-reporting#Def_LargeGroup".
+
+def large group has the type "owl:NamedIndividual".
+
+def large group is a definition.
+
+def large group has the label "Definition: Large Group".
+
+def large group has the definiendum "large group".
+
+def large group has the definiens "groups consisting of parent and subsidiary undertakings to be included in a consolidation and which, on a consolidated basis, exceed the limits of at least two of the three following criteria on the balance sheet date of the parent undertaking: (a) balance sheet total: EUR 20 000 000; (b) net turnover: EUR 40 000 000; (c) average number of employees during the financial year: 250.".
+
+def large group has the semantic flag true.
+
+def large group is established in "http://data.europa.eu/eli/dir/2013/34/oj/art_3/par_7".
+
+
+def balance sheet total is identified by "http://data.europa.eu/leg/lomo/financial-reporting#Def_BalanceSheetTotal".
+
+def balance sheet total has the type "owl:NamedIndividual".
+
+def balance sheet total is a definition.
+
+def balance sheet total has the label "Definition: Balance Sheet Total".
+
+def balance sheet total has the definiendum "balance sheet total".
+
+def balance sheet total has the definiens "those assets that are to be shown in accordance with point (A) of the general provisions of Articles 9 and 10.".
+
+def balance sheet total has the semantic flag true.
+
+def balance sheet total is established in "http://data.europa.eu/eli/dir/2013/34/oj/art_3/par_11".
+
+
+requirement art 3 micro undertaking definition is identified by "http://data.europa.eu/leg/lomo/financial-reporting#Requirement_Art3_MicroUndertakingDefinition".
+
+requirement art 3 micro undertaking definition has the type "owl:NamedIndividual".
+
+requirement art 3 micro undertaking definition is a constitutive rule.
+
+requirement art 3 micro undertaking definition has the label "Article 3(1) - Micro-undertakings Definition".
+
+requirement art 3 micro undertaking definition has the digital dimension observation.
+
+requirement art 3 micro undertaking definition defines def micro undertaking.
+
+requirement art 3 micro undertaking definition is established in "http://data.europa.eu/eli/dir/2013/34/oj/art_3/par_1".
+
+requirement art 3 micro undertaking definition has the legal text "In applying one or more of the options in Article 36, Member States shall define micro-undertakings as undertakings which on their balance sheet dates do not exceed the limits of at least two of the three following criteria:
+(a) balance sheet total: EUR 350 000;
+(b) net turnover: EUR 700 000;
+(c) average number of employees during the financial year: 10.".
+
+requirement art 3 micro undertaking definition has the comment "Constitutive rule defining micro-undertakings by size thresholds (€350k balance sheet, €700k turnover, 10 employees).".
+
+
+requirement art 3 small undertaking definition is identified by "http://data.europa.eu/leg/lomo/financial-reporting#Requirement_Art3_SmallUndertakingDefinition".
+
+requirement art 3 small undertaking definition has the type "owl:NamedIndividual".
+
+requirement art 3 small undertaking definition is a constitutive rule.
+
+requirement art 3 small undertaking definition has the label "Article 3(2) - Small Undertakings Definition".
+
+requirement art 3 small undertaking definition has the digital dimension observation.
+
+requirement art 3 small undertaking definition defines def small undertaking.
+
+requirement art 3 small undertaking definition is established in "http://data.europa.eu/eli/dir/2013/34/oj/art_3/par_2".
+
+requirement art 3 small undertaking definition has the legal text "Small undertakings shall be undertakings which on their balance sheet dates do not exceed the limits of at least two of the three following criteria:
+(a) balance sheet total: EUR 4 000 000;
+(b) net turnover: EUR 8 000 000;
+(c) average number of employees during the financial year: 50.
+Member States may define thresholds exceeding the thresholds in points (a) and (b) of the first subparagraph. However, the thresholds shall not exceed EUR 6 000 000 for the balance sheet total and EUR 12 000 000 for the net turnover.".
+
+requirement art 3 small undertaking definition has the comment "Constitutive rule defining small undertakings by size thresholds (€4M/€6M balance sheet, €8M/€12M turnover, 50 employees).".
+
+
+requirement art 3 medium sized undertaking definition is identified by "http://data.europa.eu/leg/lomo/financial-reporting#Requirement_Art3_MediumSizedUndertakingDefinition".
+
+requirement art 3 medium sized undertaking definition has the type "owl:NamedIndividual".
+
+requirement art 3 medium sized undertaking definition is a constitutive rule.
+
+requirement art 3 medium sized undertaking definition has the label "Article 3(3) - Medium-sized Undertakings Definition".
+
+requirement art 3 medium sized undertaking definition has the digital dimension observation.
+
+requirement art 3 medium sized undertaking definition defines def medium sized undertaking.
+
+requirement art 3 medium sized undertaking definition is established in "http://data.europa.eu/eli/dir/2013/34/oj/art_3/par_3".
+
+requirement art 3 medium sized undertaking definition has the legal text "Medium-sized undertakings shall be undertakings which are not micro-undertakings or small undertakings and which on their balance sheet dates do not exceed the limits of at least two of the three following criteria:
+(a) balance sheet total: EUR 20 000 000;
+(b) net turnover: EUR 40 000 000;
+(c) average number of employees during the financial year: 250.".
+
+requirement art 3 medium sized undertaking definition has the comment "Constitutive rule defining medium-sized undertakings by size thresholds (€20M balance sheet, €40M turnover, 250 employees).".
+
+
+requirement art 3 large undertaking definition is identified by "http://data.europa.eu/leg/lomo/financial-reporting#Requirement_Art3_LargeUndertakingDefinition".
+
+requirement art 3 large undertaking definition has the type "owl:NamedIndividual".
+
+requirement art 3 large undertaking definition is a constitutive rule.
+
+requirement art 3 large undertaking definition has the label "Article 3(4) - Large Undertakings Definition".
+
+requirement art 3 large undertaking definition has the digital dimension observation.
+
+requirement art 3 large undertaking definition defines def large undertaking.
+
+requirement art 3 large undertaking definition is established in "http://data.europa.eu/eli/dir/2013/34/oj/art_3/par_4".
+
+requirement art 3 large undertaking definition has the legal text "Large undertakings shall be undertakings which on their balance sheet dates exceed at least two of the three following criteria:
+(a) balance sheet total: EUR 20 000 000;
+(b) net turnover: EUR 40 000 000;
+(c) average number of employees during the financial year: 250.".
+
+requirement art 3 large undertaking definition has the comment "Constitutive rule defining large undertakings by size thresholds (€20M balance sheet, €40M turnover, 250 employees).".
+
+
+requirement art 3 par 5 small group definition is identified by "http://data.europa.eu/leg/lomo/financial-reporting#Requirement_Art3_Par5_SmallGroupDefinition".
+
+requirement art 3 par 5 small group definition has the type "owl:NamedIndividual".
+
+requirement art 3 par 5 small group definition is a constitutive rule.
+
+requirement art 3 par 5 small group definition has the label "Article 3(5) - Small Groups Definition".
+
+requirement art 3 par 5 small group definition has the digital dimension observation.
+
+requirement art 3 par 5 small group definition defines def small group.
+
+requirement art 3 par 5 small group definition is established in "http://data.europa.eu/eli/dir/2013/34/oj/art_3/par_5".
+
+requirement art 3 par 5 small group definition has the legal text "Small groups shall be groups consisting of parent and subsidiary undertakings to be included in a consolidation and which, on a consolidated basis, do not exceed the limits of at least two of the three following criteria on the balance sheet date of the parent undertaking:
+(a) balance sheet total: EUR 4 000 000;
+(b) net turnover: EUR 8 000 000;
+(c) average number of employees during the financial year: 50.
+Member States may define thresholds exceeding the thresholds in points (a) and (b) of the first subparagraph. However, the thresholds shall not exceed EUR 6 000 000 for the balance sheet total and EUR 12 000 000 for the net turnover.".
+
+requirement art 3 par 5 small group definition has the comment "Constitutive rule defining small groups by consolidated size thresholds (€4M/€8M/50, with Member State flexibility up to €6M/€12M).".
+
+
+requirement art 3 par 6 medium group definition is identified by "http://data.europa.eu/leg/lomo/financial-reporting#Requirement_Art3_Par6_MediumGroupDefinition".
+
+requirement art 3 par 6 medium group definition has the type "owl:NamedIndividual".
+
+requirement art 3 par 6 medium group definition is a constitutive rule.
+
+requirement art 3 par 6 medium group definition has the label "Article 3(6) - Medium-sized Groups Definition".
+
+requirement art 3 par 6 medium group definition has the digital dimension observation.
+
+requirement art 3 par 6 medium group definition defines def medium sized group.
+
+requirement art 3 par 6 medium group definition is established in "http://data.europa.eu/eli/dir/2013/34/oj/art_3/par_6".
+
+requirement art 3 par 6 medium group definition has the legal text "Medium-sized groups shall be groups which are not small groups, which consist of parent and subsidiary undertakings to be included in a consolidation and which, on a consolidated basis, do not exceed the limits of at least two of the three following criteria on the balance sheet date of the parent undertaking:
+(a) balance sheet total: EUR 20 000 000;
+(b) net turnover: EUR 40 000 000;
+(c) average number of employees during the financial year: 250.".
+
+requirement art 3 par 6 medium group definition has the comment "Constitutive rule defining medium-sized groups by consolidated size thresholds (€20M balance sheet, €40M turnover, 250 employees).".
+
+
+requirement art 3 par 7 large group definition is identified by "http://data.europa.eu/leg/lomo/financial-reporting#Requirement_Art3_Par7_LargeGroupDefinition".
+
+requirement art 3 par 7 large group definition has the type "owl:NamedIndividual".
+
+requirement art 3 par 7 large group definition is a constitutive rule.
+
+requirement art 3 par 7 large group definition has the label "Article 3(7) - Large Groups Definition".
+
+requirement art 3 par 7 large group definition has the digital dimension observation.
+
+requirement art 3 par 7 large group definition defines def large group.
+
+requirement art 3 par 7 large group definition is established in "http://data.europa.eu/eli/dir/2013/34/oj/art_3/par_7".
+
+requirement art 3 par 7 large group definition has the legal text "Large groups shall be groups consisting of parent and subsidiary undertakings to be included in a consolidation and which, on a consolidated basis, exceed the limits of at least two of the three following criteria on the balance sheet date of the parent undertaking:
+(a) balance sheet total: EUR 20 000 000;
+(b) net turnover: EUR 40 000 000;
+(c) average number of employees during the financial year: 250.".
+
+requirement art 3 par 7 large group definition has the comment "Constitutive rule defining large groups by consolidated size thresholds (€20M balance sheet, €40M turnover, 250 employees).".
+
+
+requirement art 3 par 8 set off provision is identified by "http://data.europa.eu/leg/lomo/financial-reporting#Requirement_Art3_Par8_SetOffProvision".
+
+requirement art 3 par 8 set off provision has the type "owl:NamedIndividual".
+
+requirement art 3 par 8 set off provision is a constitutive rule.
+
+requirement art 3 par 8 set off provision has the label "Article 3(8) - Set-off Provision in Consolidation".
+
+requirement art 3 par 8 set off provision is established in "http://data.europa.eu/eli/dir/2013/34/oj/art_3/par_8".
+
+requirement art 3 par 8 set off provision has the legal text "In the case of a group consisting of parent and subsidiary undertakings to be included in a consolidation, the balance sheet total, net turnover and average number of employees as well as the limits of paragraphs 5, 6 and 7 of this Article shall be calculated on a consolidated basis, in accordance with Articles 22 to 29 and points (b) and (h) of Article 30(8), but disregarding Article 30(1) to (7). In the case of a consolidated balance sheet and a consolidated profit and loss account, the figures relating to the parent undertaking's balance sheet or profit and loss account, as the case may be, shall be left out, but without prejudice to the set-off referred to in Article 30(1)(g).".
+
+requirement art 3 par 8 set off provision has the comment "Constitutive rule specifying how to calculate group size thresholds for consolidation purposes.".
+
+
+requirement art 3 par 9 currency conversion is identified by "http://data.europa.eu/leg/lomo/financial-reporting#Requirement_Art3_Par9_CurrencyConversion".
+
+requirement art 3 par 9 currency conversion has the type "owl:NamedIndividual".
+
+requirement art 3 par 9 currency conversion is a constitutive rule.
+
+requirement art 3 par 9 currency conversion has the label "Article 3(9) - Currency Conversion Rules".
+
+requirement art 3 par 9 currency conversion is established in "http://data.europa.eu/eli/dir/2013/34/oj/art_3/par_9".
+
+requirement art 3 par 9 currency conversion has the legal text "For the purposes of paragraphs 1 to 7, the balance sheet total, net turnover and average number of employees of an undertaking or a group which does not have the euro as its currency shall be determined by applying the exchange rates at the balance sheet date applicable to the translation of the balance sheet into euros. Where on the balance sheet date there is no exchange rate applicable to such translation, the most recent exchange rate applicable to the translation of the balance sheet shall apply.".
+
+requirement art 3 par 9 currency conversion has the comment "Constitutive rule specifying how to convert non-euro amounts for threshold calculations.".
+
+
+requirement art 3 par 10 consecutive years rule is identified by "http://data.europa.eu/leg/lomo/financial-reporting#Requirement_Art3_Par10_ConsecutiveYearsRule".
+
+requirement art 3 par 10 consecutive years rule has the type "owl:NamedIndividual".
+
+requirement art 3 par 10 consecutive years rule is a constitutive rule.
+
+requirement art 3 par 10 consecutive years rule has the label "Article 3(10) - Two Consecutive Years Rule".
+
+requirement art 3 par 10 consecutive years rule is established in "http://data.europa.eu/eli/dir/2013/34/oj/art_3/par_10".
+
+requirement art 3 par 10 consecutive years rule has the legal text "Undertakings and groups shall qualify as small, medium-sized or large, where, on their balance sheet dates, they exceed or cease to exceed the limits of two of the three criteria specified in paragraphs 1 to 7 of this Article. This shall apply to undertakings and groups in respect of two consecutive financial years.".
+
+requirement art 3 par 10 consecutive years rule has the comment "Constitutive rule specifying that threshold changes apply only after two consecutive years.".
+
+
+requirement art 3 par 11 balance sheet total definition is identified by "http://data.europa.eu/leg/lomo/financial-reporting#Requirement_Art3_Par11_BalanceSheetTotalDefinition".
+
+requirement art 3 par 11 balance sheet total definition has the type "owl:NamedIndividual".
+
+requirement art 3 par 11 balance sheet total definition is a constitutive rule.
+
+requirement art 3 par 11 balance sheet total definition has the label "Article 3(11) - Balance Sheet Total Definition".
+
+requirement art 3 par 11 balance sheet total definition defines def balance sheet total.
+
+requirement art 3 par 11 balance sheet total definition is established in "http://data.europa.eu/eli/dir/2013/34/oj/art_3/par_11".
+
+requirement art 3 par 11 balance sheet total definition has the legal text "For the purpose of this Directive 'balance sheet total' shall comprise those assets that are to be shown in accordance with point (A) of the general provisions of Articles 9 and 10.".
+
+requirement art 3 par 11 balance sheet total definition has the comment "Constitutive rule defining what is included in balance sheet total.".
+
+
+requirement art 3 par 12 annual threshold calculation is identified by "http://data.europa.eu/leg/lomo/financial-reporting#Requirement_Art3_Par12_AnnualThresholdCalculation".
+
+requirement art 3 par 12 annual threshold calculation has the type "owl:NamedIndividual".
+
+requirement art 3 par 12 annual threshold calculation is a constitutive rule.
+
+requirement art 3 par 12 annual threshold calculation has the label "Article 3(12) - Annual Threshold Calculation".
+
+requirement art 3 par 12 annual threshold calculation defines def net turnover.
+
+requirement art 3 par 12 annual threshold calculation is established in "http://data.europa.eu/eli/dir/2013/34/oj/art_3/par_12".
+
+requirement art 3 par 12 annual threshold calculation has the legal text "Where, on its balance sheet date, an undertaking or a group exceeds or ceases to exceed the limits of two of the three criteria specified in paragraphs 1 to 7 of this Article, that fact shall affect the application of those paragraphs only if it occurs for two consecutive financial years. Net turnover shall comprise the amounts derived from the sale of products and the provision of services falling within the undertaking's ordinary activities, after deducting sales rebates and value added tax and other taxes directly linked to turnover.".
+
+requirement art 3 par 12 annual threshold calculation has the comment "Constitutive rule specifying annual threshold calculation with net turnover definition.".
+
+
+requirement art 3 par 13 commission review thresholds is identified by "http://data.europa.eu/leg/lomo/financial-reporting#Requirement_Art3_Par13_CommissionReviewThresholds".
+
+requirement art 3 par 13 commission review thresholds has the type "owl:NamedIndividual".
+
+requirement art 3 par 13 commission review thresholds is a prescriptive rule.
+
+requirement art 3 par 13 commission review thresholds has the label "Article 3(13) - Commission Review of Thresholds".
+
+requirement art 3 par 13 commission review thresholds has the modality obligation.
+
+requirement art 3 par 13 commission review thresholds has the requirement type "http://publications.europa.eu/resource/dataset/administrative-obligation/c_80214a02".
+
+requirement art 3 par 13 commission review thresholds produces action art 3 review thresholds.
+
+requirement art 3 par 13 commission review thresholds is established in "http://data.europa.eu/eli/dir/2013/34/oj/art_3/par_13".
+
+requirement art 3 par 13 commission review thresholds has the legal text "In order to adjust for the effects of inflation, the Commission shall at least every five years review and, where appropriate, amend, by means of delegated acts in accordance with Article 49, the thresholds referred to in paragraphs 1 to 7 of this Article.".
+
+requirement art 3 par 13 commission review thresholds has the comment "Obligation for Commission to review and potentially amend thresholds every 5 years.".
+
+
+action art 3 review thresholds is identified by "http://data.europa.eu/leg/lomo/financial-reporting#Action_Art3_ReviewThresholds".
+
+action art 3 review thresholds has the type "owl:NamedIndividual".
+
+action art 3 review thresholds is an action.
+
+action art 3 review thresholds has the label "Review and Amend Thresholds".
+
+action art 3 review thresholds has the agent role agent role art 3 commission reviewer.
+
+action art 3 review thresholds has the time specification temporal spec art 3 five year review.
+
+
+temporal spec art 3 five year review is identified by "http://data.europa.eu/leg/lomo/financial-reporting#TemporalSpec_Art3_FiveYearReview".
+
+temporal spec art 3 five year review has the type "owl:NamedIndividual".
+
+temporal spec art 3 five year review has the type "lomo:IntervalSpec".
+
+temporal spec art 3 five year review has the label "Five-Year Review Cycle".
+
+temporal spec art 3 five year review has for "lomo:hasFrequency" the resource frequency five years.
+
+temporal spec art 3 five year review has the function deadline.
+
+
+agent role art 3 commission reviewer is identified by "http://data.europa.eu/leg/lomo/financial-reporting#AgentRole_Art3_Commission_Reviewer".
+
+agent role art 3 commission reviewer has the type "owl:NamedIndividual".
+
+agent role art 3 commission reviewer is an agent role.
+
+agent role art 3 commission reviewer is for the agent agent commission.
+
+agent role art 3 commission reviewer has the role addresser.
+
+
+def management report is identified by "http://data.europa.eu/leg/lomo/financial-reporting#Def_ManagementReport".
+
+def management report has the type "owl:NamedIndividual".
+
+def management report is a definition.
+
+def management report has the label "Definition: Management Report".
+
+def management report has the definiendum "management report".
+
+def management report has the definiens "a report that includes a fair review of the development and performance of the undertaking's business and of its position, together with a description of the principal risks and uncertainties that it faces, providing a balanced and comprehensive analysis consistent with the size and complexity of the business".
+
+def management report is established in "http://data.europa.eu/eli/dir/2013/34/oj/art_19/par_1".
+
+def management report has the semantic flag true.
+
+
+def key performance indicators is identified by "http://data.europa.eu/leg/lomo/financial-reporting#Def_KeyPerformanceIndicators".
+
+def key performance indicators has the type "owl:NamedIndividual".
+
+def key performance indicators is a definition.
+
+def key performance indicators has the label "Definition: Key Performance Indicators".
+
+def key performance indicators has the definiendum "key performance indicators".
+
+def key performance indicators has the definiens "both financial and, where appropriate, non-financial indicators relevant to the particular business, including information relating to environmental and employee matters, necessary for an understanding of the undertaking's development, performance or position".
+
+def key performance indicators is established in "http://data.europa.eu/eli/dir/2013/34/oj/art_19/par_1".
+
+def key performance indicators has the semantic flag true.
+
+
+requirement art 19 par 1 management report content is identified by "http://data.europa.eu/leg/lomo/financial-reporting#Requirement_Art19_Par1_ManagementReportContent".
+
+requirement art 19 par 1 management report content has the type "owl:NamedIndividual".
+
+requirement art 19 par 1 management report content is a prescriptive rule.
+
+requirement art 19 par 1 management report content has the label "Article 19(1) - Management Report Content".
+
+requirement art 19 par 1 management report content has the modality obligation.
+
+requirement art 19 par 1 management report content has the requirement type "http://publications.europa.eu/resource/dataset/administrative-obligation/c_d98a69b9".
+
+requirement art 19 par 1 management report content has the digital dimension data.
+
+requirement art 19 par 1 management report content defines def management report.
+
+requirement art 19 par 1 management report content defines def key performance indicators.
+
+requirement art 19 par 1 management report content produces action art 19 prepare management report.
+
+requirement art 19 par 1 management report content is established in "http://data.europa.eu/eli/dir/2013/34/oj/art_19/par_1".
+
+requirement art 19 par 1 management report content has the legal text "The management report shall include a fair review of the development and performance of the undertaking's business and of its position, together with a description of the principal risks and uncertainties that it faces.
+
+The review shall be a balanced and comprehensive analysis of the development and performance of the undertaking's business and of its position, consistent with the size and complexity of the business.
+
+To the extent necessary for an understanding of the undertaking's development, performance or position, the analysis shall include both financial and, where appropriate, non-financial key performance indicators relevant to the particular business, including information relating to environmental and employee matters. In providing the analysis, the management report shall, where appropriate, include references to, and additional explanations of, amounts reported in the annual financial statements.".
+
+requirement art 19 par 1 management report content has the comment "Obligation to include fair review, balanced analysis, and key performance indicators in management report.".
+
+
+requirement art 19 par 2 additional info is identified by "http://data.europa.eu/leg/lomo/financial-reporting#Requirement_Art19_Par2_AdditionalInfo".
+
+requirement art 19 par 2 additional info has the type "owl:NamedIndividual".
+
+requirement art 19 par 2 additional info is a prescriptive rule.
+
+requirement art 19 par 2 additional info has the label "Article 19(2) - Additional Information in Management Report".
+
+requirement art 19 par 2 additional info has the modality obligation.
+
+requirement art 19 par 2 additional info has the requirement type "http://publications.europa.eu/resource/dataset/administrative-obligation/c_d98a69b9".
+
+requirement art 19 par 2 additional info has the digital dimension data.
+
+requirement art 19 par 2 additional info produces action art 19 include additional info.
+
+requirement art 19 par 2 additional info is established in "http://data.europa.eu/eli/dir/2013/34/oj/art_19/par_2".
+
+requirement art 19 par 2 additional info has the legal text "The management report shall also give an indication of:
+
+(a) the undertaking's likely future development;
+
+(b) activities in the field of research and development;
+
+(c) the information concerning acquisitions of own shares prescribed by Article 24(2) of Directive 2012/30/EU;
+
+(d) the existence of branches of the undertaking; and
+
+(e) in relation to the undertaking's use of financial instruments and where material for the assessment of its assets, liabilities, financial position and profit or loss:
+
+(i) the undertaking's financial risk management objectives and policies, including its policy for hedging each major type of forecasted transaction for which hedge accounting is used; and
+
+(ii) the undertaking's exposure to price risk, credit risk, liquidity risk and cash flow risk.".
+
+requirement art 19 par 2 additional info has the comment "Additional information requirements for management report: future development, R&D, own shares, branches, financial instruments and risk exposure.".
+
+
+requirement art 19 par 3 exempt small undertakings is identified by "http://data.europa.eu/leg/lomo/financial-reporting#Requirement_Art19_Par3_ExemptSmallUndertakings".
+
+requirement art 19 par 3 exempt small undertakings has the type "owl:NamedIndividual".
+
+requirement art 19 par 3 exempt small undertakings is a prescriptive rule.
+
+requirement art 19 par 3 exempt small undertakings has the label "Article 19(3) - Exemption for Small Undertakings".
+
+requirement art 19 par 3 exempt small undertakings has the modality permission.
+
+requirement art 19 par 3 exempt small undertakings uses the definition def small undertaking.
+
+requirement art 19 par 3 exempt small undertakings produces action art 19 exempt small from management report.
+
+requirement art 19 par 3 exempt small undertakings is established in "http://data.europa.eu/eli/dir/2013/34/oj/art_19/par_3".
+
+requirement art 19 par 3 exempt small undertakings has the legal text "Member States may exempt small undertakings from the obligation to prepare management reports, provided that they require the information referred to in Article 24(2) of Directive 2012/30/EU concerning the acquisition by an undertaking of its own shares to be given in the notes to the financial statements.".
+
+requirement art 19 par 3 exempt small undertakings has the comment "Permission for Member States to exempt small undertakings from preparing management reports, with condition on own shares disclosure.".
+
+
+requirement art 19 par 4 exempt small medium non is identified by "http://data.europa.eu/leg/lomo/financial-reporting#Requirement_Art19_Par4_ExemptSmallMediumNonFinancial".
+
+requirement art 19 par 4 exempt small medium non has the type "owl:NamedIndividual".
+
+requirement art 19 par 4 exempt small medium non is a prescriptive rule.
+
+requirement art 19 par 4 exempt small medium non has the label "Article 19(4) - Exemption for Small and Medium-sized from Non-financial Info".
+
+requirement art 19 par 4 exempt small medium non has the modality permission.
+
+requirement art 19 par 4 exempt small medium non uses the definition def small undertaking.
+
+requirement art 19 par 4 exempt small medium non uses the definition def medium sized undertaking.
+
+requirement art 19 par 4 exempt small medium non produces action art 19 exempt small medium from non financial.
+
+requirement art 19 par 4 exempt small medium non is established in "http://data.europa.eu/eli/dir/2013/34/oj/art_19/par_4".
+
+requirement art 19 par 4 exempt small medium non has the legal text "Member States may exempt small and medium-sized undertakings from the obligation set out in the third subparagraph of paragraph 1 in so far as it relates to non-financial information.".
+
+requirement art 19 par 4 exempt small medium non has the comment "Permission for Member States to exempt small and medium-sized undertakings from non-financial KPI requirements.".
+
+
+action art 19 prepare management report is identified by "http://data.europa.eu/leg/lomo/financial-reporting#Action_Art19_PrepareManagementReport".
+
+action art 19 prepare management report has the type "owl:NamedIndividual".
+
+action art 19 prepare management report is an action.
+
+action art 19 prepare management report has the label "Prepare Management Report with Fair Review and KPIs".
+
+action art 19 prepare management report has the agent role agent role art 19 undertaking preparer.
+
+action art 19 prepare management report has the result result management report.
+
+action art 19 prepare management report has the time specification temporal spec art 19 annual reporting.
+
+
+temporal spec art 19 annual reporting is identified by "http://data.europa.eu/leg/lomo/financial-reporting#TemporalSpec_Art19_AnnualReporting".
+
+temporal spec art 19 annual reporting has the type "owl:NamedIndividual".
+
+temporal spec art 19 annual reporting has the type "lomo:IntervalSpec".
+
+temporal spec art 19 annual reporting has the label "Annual Management Report Cycle".
+
+temporal spec art 19 annual reporting has for "lomo:hasFrequency" the resource frequency annual.
+
+temporal spec art 19 annual reporting has the function deadline.
+
+
+action art 19 include additional info is identified by "http://data.europa.eu/leg/lomo/financial-reporting#Action_Art19_IncludeAdditionalInfo".
+
+action art 19 include additional info has the type "owl:NamedIndividual".
+
+action art 19 include additional info is an action.
+
+action art 19 include additional info has the label "Include Additional Information in Management Report".
+
+action art 19 include additional info has the agent role agent role art 19 undertaking preparer.
+
+action art 19 include additional info has the comment "Include future development, R&D, own shares, branches, financial instruments.".
+
+
+agent role art 19 undertaking preparer is identified by "http://data.europa.eu/leg/lomo/financial-reporting#AgentRole_Art19_Undertaking_Preparer".
+
+agent role art 19 undertaking preparer has the type "owl:NamedIndividual".
+
+agent role art 19 undertaking preparer is an agent role.
+
+agent role art 19 undertaking preparer is for the agent agent type undertaking.
+
+agent role art 19 undertaking preparer has the role addresser.
+
+agent role art 19 undertaking preparer has the comment "Undertakings of any size category preparing the management report; the size-specific exemptions are modelled by the Article 19(3) and 19(4) rules.".
+
+
+result management report is identified by "http://data.europa.eu/leg/lomo/financial-reporting#Result_ManagementReport".
+
+result management report has the type "owl:NamedIndividual".
+
+result management report is an action result.
+
+result management report has the label "Management Report".
+
+result management report has for "lomo:hasResultType" the resource result type management report.
+
+
+action art 19 exempt small from management report is identified by "http://data.europa.eu/leg/lomo/financial-reporting#Action_Art19_ExemptSmallFromManagementReport".
+
+action art 19 exempt small from management report has the type "owl:NamedIndividual".
+
+action art 19 exempt small from management report is an action.
+
+action art 19 exempt small from management report has the label "Exempt Small Undertakings from Preparing a Management Report".
+
+action art 19 exempt small from management report has the agent role agent role ms option holder.
+
+action art 19 exempt small from management report has the comment "Action Member States may take under the Article 19(3) option, conditional on requiring the Article 24(2) information on own shares in the notes to the financial statements.".
+
+
+action art 19 exempt small medium from non financial is identified by "http://data.europa.eu/leg/lomo/financial-reporting#Action_Art19_ExemptSmallMediumFromNonFinancialInfo".
+
+action art 19 exempt small medium from non financial has the type "owl:NamedIndividual".
+
+action art 19 exempt small medium from non financial is an action.
+
+action art 19 exempt small medium from non financial has the label "Exempt Small and Medium-sized Undertakings from Non-financial Information".
+
+action art 19 exempt small medium from non financial has the agent role agent role ms option holder.
+
+action art 19 exempt small medium from non financial has the comment "Action Member States may take under the Article 19(4) option, limited to the non-financial information part of the management report.".
+
+
+requirement art 30 par 1 publication obligation is identified by "http://data.europa.eu/leg/lomo/financial-reporting#Requirement_Art30_Par1_PublicationObligation".
+
+requirement art 30 par 1 publication obligation has the type "owl:NamedIndividual".
+
+requirement art 30 par 1 publication obligation is a prescriptive rule.
+
+requirement art 30 par 1 publication obligation has the label "Article 30(1) - General Publication Obligation".
+
+requirement art 30 par 1 publication obligation has the modality obligation.
+
+requirement art 30 par 1 publication obligation has the requirement type "http://publications.europa.eu/resource/dataset/administrative-obligation/c_d98a69b9".
+
+requirement art 30 par 1 publication obligation has the digital dimension digital public service.
+
+requirement art 30 par 1 publication obligation produces action art 30 publish.
+
+requirement art 30 par 1 publication obligation is established in "http://data.europa.eu/eli/dir/2013/34/oj/art_30/par_1".
+
+requirement art 30 par 1 publication obligation has the legal text "Member States shall ensure that undertakings publish within a reasonable period of time, which shall not exceed 12 months after the balance sheet date, the duly approved annual financial statements and the management report, together with the opinion submitted by the statutory auditor or audit firm referred to in Article 34 of this Directive, as laid down by the laws of each Member State in accordance with Chapter 2 of Directive 2009/101/EC.
+
+Member States may, however, exempt undertakings from the obligation to publish the management report where a copy of all or part of any such report can be easily obtained upon request at a price not exceeding its administrative cost.".
+
+requirement art 30 par 1 publication obligation has the comment "Obligation for Member States to ensure undertakings publish financial statements, management report, and auditor opinion within 12 months, with optional exemption for management report.".
+
+
+requirement art 30 par 2 exempt annex ii is identified by "http://data.europa.eu/leg/lomo/financial-reporting#Requirement_Art30_Par2_ExemptAnnexII".
+
+requirement art 30 par 2 exempt annex ii has the type "owl:NamedIndividual".
+
+requirement art 30 par 2 exempt annex ii is a prescriptive rule.
+
+requirement art 30 par 2 exempt annex ii has the label "Article 30(2) - Exemption for Annex II Undertakings".
+
+requirement art 30 par 2 exempt annex ii has the modality permission.
+
+requirement art 30 par 2 exempt annex ii produces action art 30 exempt annex ii from publication.
+
+requirement art 30 par 2 exempt annex ii is established in "http://data.europa.eu/eli/dir/2013/34/oj/art_30/par_2".
+
+requirement art 30 par 2 exempt annex ii has the legal text "Member States may exempt an undertaking referred to in Annex II to which the coordination measures prescribed by this Directive apply by virtue of point (b) of Article 1(1) from publishing its financial statements in accordance with Article 3 of Directive 2009/101/EC, provided that those financial statements are available to the public at its head office, in the following cases:
+
+(a) all the members of the undertaking concerned that have unlimited liability are undertakings referred to in Annex I governed by the laws of Member States other than the Member State whose law governs that undertaking, and none of those undertakings publishes the financial statements of the undertaking concerned with its own financial statements;
+
+(b) all the members of the undertaking concerned that have unlimited liability are undertakings which are not governed by the laws of a Member State but which have a legal form comparable to those referred to in Directive 2009/101/EC.
+
+Copies of the financial statements shall be obtainable upon request. The price of such a copy may not exceed its administrative cost.".
+
+requirement art 30 par 2 exempt annex ii has the comment "Permission for Member States to exempt Annex II undertakings from publication requirements under specific conditions regarding unlimited liability members.".
+
+
+requirement art 30 par 3 consolidated statements is identified by "http://data.europa.eu/leg/lomo/financial-reporting#Requirement_Art30_Par3_ConsolidatedStatements".
+
+requirement art 30 par 3 consolidated statements has the type "owl:NamedIndividual".
+
+requirement art 30 par 3 consolidated statements is a prescriptive rule.
+
+requirement art 30 par 3 consolidated statements has the label "Article 30(3) - Publication of Consolidated Statements".
+
+requirement art 30 par 3 consolidated statements has the modality obligation.
+
+requirement art 30 par 3 consolidated statements has the requirement type "http://publications.europa.eu/resource/dataset/administrative-obligation/c_d98a69b9".
+
+requirement art 30 par 3 consolidated statements has the digital dimension digital public service.
+
+requirement art 30 par 3 consolidated statements produces action art 30 publish consolidated.
+
+requirement art 30 par 3 consolidated statements is established in "http://data.europa.eu/eli/dir/2013/34/oj/art_30/par_3".
+
+requirement art 30 par 3 consolidated statements has the legal text "Paragraph 1 shall apply with respect to consolidated financial statements and consolidated management reports.
+
+Where the undertaking drawing up the consolidated financial statements is established as one of the types of undertaking listed in Annex II and is not required by the national law of its Member State to publish the documents referred to in paragraph 1 in the same manner as prescribed in Article 3 of Directive 2009/101/EC, it shall, as a minimum, make those documents available to the public at its head office and a copy shall be provided upon request, the price of which shall not exceed its administrative cost.".
+
+requirement art 30 par 3 consolidated statements has the comment "Obligation to publish consolidated financial statements and reports, with alternative availability requirements for Annex II undertakings.".
+
+
+action art 30 publish is identified by "http://data.europa.eu/leg/lomo/financial-reporting#Action_Art30_Publish".
+
+action art 30 publish has the type "owl:NamedIndividual".
+
+action art 30 publish is an action.
+
+action art 30 publish has the label "Publish Annual Financial Statements, Management Report, and Auditor Opinion".
+
+action art 30 publish has the agent role agent role art 30 undertaking publisher.
+
+action art 30 publish has the time specification temporal spec 12 months after balance sheet.
+
+action art 30 publish has the result result published statements.
+
+
+agent role art 30 undertaking publisher is identified by "http://data.europa.eu/leg/lomo/financial-reporting#AgentRole_Art30_Undertaking_Publisher".
+
+agent role art 30 undertaking publisher has the type "owl:NamedIndividual".
+
+agent role art 30 undertaking publisher is an agent role.
+
+agent role art 30 undertaking publisher is for the agent agent type undertaking.
+
+agent role art 30 undertaking publisher has the role addresser.
+
+agent role art 30 undertaking publisher has the comment "Undertakings of any size category publishing the documents listed in Article 30(1).".
+
+
+result published statements is identified by "http://data.europa.eu/leg/lomo/financial-reporting#Result_PublishedStatements".
+
+result published statements has the type "owl:NamedIndividual".
+
+result published statements is an action result.
+
+result published statements has the label "Published Financial Statements and Reports".
+
+result published statements has for "lomo:hasResultType" the resource result type financial statements.
+
+result published statements has for "lomo:hasResultType" the resource result type management report.
+
+result published statements has for "lomo:hasResultType" the resource result type auditor opinion.
+
+
+action art 30 publish consolidated is identified by "http://data.europa.eu/leg/lomo/financial-reporting#Action_Art30_PublishConsolidated".
+
+action art 30 publish consolidated has the type "owl:NamedIndividual".
+
+action art 30 publish consolidated is an action.
+
+action art 30 publish consolidated has the label "Publish Consolidated Financial Statements and Management Reports".
+
+action art 30 publish consolidated has the agent role agent role art 30 parent undertaking publisher.
+
+action art 30 publish consolidated has the time specification temporal spec 12 months after balance sheet.
+
+action art 30 publish consolidated has the result result published consolidated statements.
+
+
+agent role art 30 parent undertaking publisher is identified by "http://data.europa.eu/leg/lomo/financial-reporting#AgentRole_Art30_ParentUndertaking_Publisher".
+
+agent role art 30 parent undertaking publisher has the type "owl:NamedIndividual".
+
+agent role art 30 parent undertaking publisher is an agent role.
+
+agent role art 30 parent undertaking publisher is for the agent agent type parent undertaking.
+
+agent role art 30 parent undertaking publisher has the role addresser.
+
+agent role art 30 parent undertaking publisher has the comment "Parent undertakings drawing up consolidated statements.".
+
+
+result published consolidated statements is identified by "http://data.europa.eu/leg/lomo/financial-reporting#Result_PublishedConsolidatedStatements".
+
+result published consolidated statements has the type "owl:NamedIndividual".
+
+result published consolidated statements is an action result.
+
+result published consolidated statements has the label "Published Consolidated Financial Statements and Reports".
+
+result published consolidated statements has for "lomo:hasResultType" the resource result type consolidated financial statements.
+
+result published consolidated statements has for "lomo:hasResultType" the resource result type consolidated management report.
+
+
+action art 30 exempt annex ii from publication is identified by "http://data.europa.eu/leg/lomo/financial-reporting#Action_Art30_ExemptAnnexIIFromPublication".
+
+action art 30 exempt annex ii from publication has the type "owl:NamedIndividual".
+
+action art 30 exempt annex ii from publication is an action.
+
+action art 30 exempt annex ii from publication has the label "Exempt Annex II Undertakings from Publishing Financial Statements".
+
+action art 30 exempt annex ii from publication has the agent role agent role ms option holder.
+
+action art 30 exempt annex ii from publication has the comment "Action Member States may take under the Article 30(2) option, conditional on the statements being available to the public at the undertaking's head office.".
+
+
+requirement art 31 par 1 exempt small from publication is identified by "http://data.europa.eu/leg/lomo/financial-reporting#Requirement_Art31_Par1_ExemptSmallFromPublication".
+
+requirement art 31 par 1 exempt small from publication has the type "owl:NamedIndividual".
+
+requirement art 31 par 1 exempt small from publication is a prescriptive rule.
+
+requirement art 31 par 1 exempt small from publication has the label "Article 31(1) - Exemption for Small Undertakings from Publication".
+
+requirement art 31 par 1 exempt small from publication has the modality permission.
+
+requirement art 31 par 1 exempt small from publication uses the definition def small undertaking.
+
+requirement art 31 par 1 exempt small from publication produces action art 31 exempt small from publication.
+
+requirement art 31 par 1 exempt small from publication is established in "http://data.europa.eu/eli/dir/2013/34/oj/art_31/par_1".
+
+requirement art 31 par 1 exempt small from publication has the legal text "Member States may exempt small undertakings from the obligation to publish their profit and loss accounts and management reports.".
+
+requirement art 31 par 1 exempt small from publication has the comment "Permission for Member States to exempt small undertakings from publishing P&L accounts and management reports.".
+
+
+requirement art 31 par 2 permit medium sized abridged is identified by "http://data.europa.eu/leg/lomo/financial-reporting#Requirement_Art31_Par2_PermitMediumSizedAbridged".
+
+requirement art 31 par 2 permit medium sized abridged has the type "owl:NamedIndividual".
+
+requirement art 31 par 2 permit medium sized abridged is a prescriptive rule.
+
+requirement art 31 par 2 permit medium sized abridged has the label "Article 31(2) - Permit Medium-sized Undertakings Abridged Statements".
+
+requirement art 31 par 2 permit medium sized abridged has the modality permission.
+
+requirement art 31 par 2 permit medium sized abridged uses the definition def medium sized undertaking.
+
+requirement art 31 par 2 permit medium sized abridged produces action art 31 permit medium sized abridged publication.
+
+requirement art 31 par 2 permit medium sized abridged is established in "http://data.europa.eu/eli/dir/2013/34/oj/art_31/par_2".
+
+requirement art 31 par 2 permit medium sized abridged has the legal text "Member States may permit medium-sized undertakings to publish:
+
+(a) abridged balance sheets showing only those items preceded by letters and roman numerals in Annexes III and IV and disclosing separately, either in the balance sheet or in the notes to the financial statements:
+
+(i) C (I) (3), C (II) (1), (2), (3) and (4), C (III) (1), (2), (3) and (4), D (II) (2), (3) and (6) and D (III) (1) and (2) under 'Assets' and C, (1), (2), (6), (7) and (9) under 'Capital, reserves and liabilities' in Annex III,
+
+(ii) C (I) (3), C (II) (1), (2), (3) and (4), C (III) (1), (2), (3) and (4), D (II) (2), (3) and (6), D (III) (1) and (2), F (1), (2), (6), (7) and (9) and (I) (1), (2), (6), (7) and (9) in Annex IV,
+
+(iii) the information required as indicated in brackets in D (II) under 'Assets' and C under 'Capital, reserves and liabilities' in Annex III, in total for all the items concerned and separately for D (II) (2) and (3) under 'Assets' and C (1), (2), (6), (7) and (9) under 'Capital, reserves and liabilities',
+
+(iv) the information required as indicated in brackets in D (II) in Annex IV, in total for all the items concerned, and separately for D (II) (2) and (3);
+
+(b) abridged notes to their financial statements without the information required in points (f) and (j) of Article 17(1).
+
+This paragraph shall be without prejudice to Article 30(1), in so far as that Article relates to the profit and loss account, the management report and the opinion of the statutory auditor or audit firm.".
+
+requirement art 31 par 2 permit medium sized abridged has the comment "Permission for Member States to allow medium-sized undertakings to publish abridged balance sheets and notes, without affecting P&L, management report, and auditor opinion publication requirements.".
+
+
+action art 31 exempt small from publication is identified by "http://data.europa.eu/leg/lomo/financial-reporting#Action_Art31_ExemptSmallFromPublication".
+
+action art 31 exempt small from publication has the type "owl:NamedIndividual".
+
+action art 31 exempt small from publication is an action.
+
+action art 31 exempt small from publication has the label "Exempt Small Undertakings from Publishing Profit and Loss Accounts and Management Reports".
+
+action art 31 exempt small from publication has the agent role agent role ms option holder.
+
+action art 31 exempt small from publication has the comment "Action Member States may take under the Article 31(1) option.".
+
+
+action art 31 permit medium sized abridged publication is identified by "http://data.europa.eu/leg/lomo/financial-reporting#Action_Art31_PermitMediumSizedAbridgedPublication".
+
+action art 31 permit medium sized abridged publication has the type "owl:NamedIndividual".
+
+action art 31 permit medium sized abridged publication is an action.
+
+action art 31 permit medium sized abridged publication has the label "Permit Medium-sized Undertakings to Publish Abridged Balance Sheets and Notes".
+
+action art 31 permit medium sized abridged publication has the agent role agent role ms option holder.
+
+action art 31 permit medium sized abridged publication has the comment "Action Member States may take under the Article 31(2) option, without prejudice to Article 30(1).".
+
+
+def transposition is identified by "http://data.europa.eu/leg/lomo/financial-reporting#Def_Transposition".
+
+def transposition has the type "owl:NamedIndividual".
+
+def transposition is a definition.
+
+def transposition has the label "Definition: Transposition".
+
+def transposition has the definiendum "transposition".
+
+def transposition has the definiens "bringing into force the laws, regulations and administrative provisions necessary to comply with this Directive by 20 July 2015, with provisions containing a reference to this Directive or accompanied by such reference on official publication".
+
+def transposition has the semantic flag true.
+
+def transposition is established in "http://data.europa.eu/eli/dir/2013/34/oj/art_53/par_1".
+
+
+requirement art 53 par 1 transposition obligation is identified by "http://data.europa.eu/leg/lomo/financial-reporting#Requirement_Art53_Par1_TranspositionObligation".
+
+requirement art 53 par 1 transposition obligation has the type "owl:NamedIndividual".
+
+requirement art 53 par 1 transposition obligation is a prescriptive rule.
+
+requirement art 53 par 1 transposition obligation has the label "Article 53(1) - Transposition Obligation".
+
+requirement art 53 par 1 transposition obligation has the modality obligation.
+
+requirement art 53 par 1 transposition obligation has the requirement type "http://publications.europa.eu/resource/dataset/administrative-obligation/c_80214a02".
+
+requirement art 53 par 1 transposition obligation defines def transposition.
+
+requirement art 53 par 1 transposition obligation produces action art 53 bring into force.
+
+requirement art 53 par 1 transposition obligation produces action art 53 inform commission.
+
+requirement art 53 par 1 transposition obligation is established in "http://data.europa.eu/eli/dir/2013/34/oj/art_53/par_1".
+
+requirement art 53 par 1 transposition obligation has the legal text "Member States shall bring into force the laws, regulations and administrative provisions necessary to comply with this Directive by 20 July 2015. They shall immediately inform the Commission thereof.
+
+Member States may provide that the provisions referred to in the first subparagraph are first to apply to financial statements for financial years beginning on 1 January 2016 or during the calendar year 2016.
+
+When Member States adopt those provisions, they shall contain a reference to this Directive or be accompanied by such a reference on the occasion of their official publication. The methods of making such reference shall be laid down by Member States.".
+
+requirement art 53 par 1 transposition obligation has the comment "Obligation for Member States to transpose Directive by 20 July 2015, with optional delayed application to 2016 financial statements and requirement for references.".
+
+
+requirement art 53 par 1 sub 2 delayed application is identified by "http://data.europa.eu/leg/lomo/financial-reporting#Requirement_Art53_Par1_Sub2_DelayedApplication".
+
+requirement art 53 par 1 sub 2 delayed application has the type "owl:NamedIndividual".
+
+requirement art 53 par 1 sub 2 delayed application is a prescriptive rule.
+
+requirement art 53 par 1 sub 2 delayed application has the label "Article 53(1) sub-para 2 - Optional Delayed Application".
+
+requirement art 53 par 1 sub 2 delayed application has the modality permission.
+
+requirement art 53 par 1 sub 2 delayed application has the requirement type "http://publications.europa.eu/resource/dataset/administrative-obligation/c_80214a02".
+
+requirement art 53 par 1 sub 2 delayed application produces action art 53 defer application to 2016.
+
+requirement art 53 par 1 sub 2 delayed application is established in "http://data.europa.eu/eli/dir/2013/34/oj/art_53/par_1".
+
+requirement art 53 par 1 sub 2 delayed application has the legal text "Member States may provide that the provisions referred to in the first subparagraph are first to apply to financial statements for financial years beginning on 1 January 2016 or during the calendar year 2016.".
+
+requirement art 53 par 1 sub 2 delayed application has the comment "Permission for Member States to delay application of transposed provisions to financial years beginning in 2016.".
+
+
+requirement art 53 par 1 sub 3 reference obligation is identified by "http://data.europa.eu/leg/lomo/financial-reporting#Requirement_Art53_Par1_Sub3_ReferenceObligation".
+
+requirement art 53 par 1 sub 3 reference obligation has the type "owl:NamedIndividual".
+
+requirement art 53 par 1 sub 3 reference obligation is a prescriptive rule.
+
+requirement art 53 par 1 sub 3 reference obligation has the label "Article 53(1) sub-para 3 - Reference to Directive Obligation".
+
+requirement art 53 par 1 sub 3 reference obligation has the modality obligation.
+
+requirement art 53 par 1 sub 3 reference obligation has the requirement type "http://publications.europa.eu/resource/dataset/administrative-obligation/c_80214a02".
+
+requirement art 53 par 1 sub 3 reference obligation produces action art 53 include reference to directive.
+
+requirement art 53 par 1 sub 3 reference obligation is established in "http://data.europa.eu/eli/dir/2013/34/oj/art_53/par_1".
+
+requirement art 53 par 1 sub 3 reference obligation has the legal text "When Member States adopt those provisions, they shall contain a reference to this Directive or be accompanied by such a reference on the occasion of their official publication. The methods of making such reference shall be laid down by Member States.".
+
+requirement art 53 par 1 sub 3 reference obligation has the comment "Obligation for national provisions to contain or be accompanied by reference to this Directive upon official publication.".
+
+
+requirement art 53 par 2 communicate text is identified by "http://data.europa.eu/leg/lomo/financial-reporting#Requirement_Art53_Par2_CommunicateText".
+
+requirement art 53 par 2 communicate text has the type "owl:NamedIndividual".
+
+requirement art 53 par 2 communicate text is a prescriptive rule.
+
+requirement art 53 par 2 communicate text has the label "Article 53(2) - Communicate National Law Provisions".
+
+requirement art 53 par 2 communicate text has the modality obligation.
+
+requirement art 53 par 2 communicate text has the requirement type "http://publications.europa.eu/resource/dataset/administrative-obligation/c_80214a02".
+
+requirement art 53 par 2 communicate text produces action art 53 communicate text.
+
+requirement art 53 par 2 communicate text is established in "http://data.europa.eu/eli/dir/2013/34/oj/art_53/par_2".
+
+requirement art 53 par 2 communicate text has the legal text "Member States shall communicate to the Commission the text of the main provisions of national law which they adopt in the field covered by this Directive.".
+
+requirement art 53 par 2 communicate text has the comment "Obligation to communicate text of national law provisions to Commission.".
+
+
+action art 53 bring into force is identified by "http://data.europa.eu/leg/lomo/financial-reporting#Action_Art53_BringIntoForce".
+
+action art 53 bring into force has the type "owl:NamedIndividual".
+
+action art 53 bring into force is an action.
+
+action art 53 bring into force has the label "Bring into Force Laws, Regulations and Administrative Provisions".
+
+action art 53 bring into force has the agent role agent role art 53 ms transposer.
+
+action art 53 bring into force has the time specification temporal spec transposition deadline.
+
+
+action art 53 inform commission is identified by "http://data.europa.eu/leg/lomo/financial-reporting#Action_Art53_InformCommission".
+
+action art 53 inform commission has the type "owl:NamedIndividual".
+
+action art 53 inform commission is an action.
+
+action art 53 inform commission has the label "Inform Commission of Transposition".
+
+action art 53 inform commission has the agent role agent role art 53 ms informer.
+
+action art 53 inform commission has the agent role agent role art 53 commission informed.
+
+action art 53 inform commission has the comment "Immediately inform Commission after transposition.".
+
+
+action art 53 communicate text is identified by "http://data.europa.eu/leg/lomo/financial-reporting#Action_Art53_CommunicateText".
+
+action art 53 communicate text has the type "owl:NamedIndividual".
+
+action art 53 communicate text is an action.
+
+action art 53 communicate text has the label "Communicate Text of National Law Provisions".
+
+action art 53 communicate text has the agent role agent role art 53 ms communicator.
+
+action art 53 communicate text has the agent role agent role art 53 commission recipient.
+
+
+action art 53 defer application to 2016 is identified by "http://data.europa.eu/leg/lomo/financial-reporting#Action_Art53_DeferApplicationTo2016".
+
+action art 53 defer application to 2016 has the type "owl:NamedIndividual".
+
+action art 53 defer application to 2016 is an action.
+
+action art 53 defer application to 2016 has the label "Defer First Application to Financial Years Beginning in 2016".
+
+action art 53 defer application to 2016 has the agent role agent role ms option holder.
+
+action art 53 defer application to 2016 has the comment "Action Member States may take under the second subparagraph of Article 53(1).".
+
+
+action art 53 include reference to directive is identified by "http://data.europa.eu/leg/lomo/financial-reporting#Action_Art53_IncludeReferenceToDirective".
+
+action art 53 include reference to directive has the type "owl:NamedIndividual".
+
+action art 53 include reference to directive is an action.
+
+action art 53 include reference to directive has the label "Include a Reference to this Directive in the Adopted Provisions".
+
+action art 53 include reference to directive has the agent role agent role art 53 ms transposer.
+
+action art 53 include reference to directive has the comment "Reference to be contained in, or accompany, the national provisions on official publication; the method of reference is left to Member States.".
+
+
+agent role art 53 ms transposer is identified by "http://data.europa.eu/leg/lomo/financial-reporting#AgentRole_Art53_MS_Transposer".
+
+agent role art 53 ms transposer has the type "owl:NamedIndividual".
+
+agent role art 53 ms transposer is an agent role.
+
+agent role art 53 ms transposer is for the agent agent type member states.
+
+agent role art 53 ms transposer has the role addressee.
+
+
+agent role art 53 ms informer is identified by "http://data.europa.eu/leg/lomo/financial-reporting#AgentRole_Art53_MS_Informer".
+
+agent role art 53 ms informer has the type "owl:NamedIndividual".
+
+agent role art 53 ms informer is an agent role.
+
+agent role art 53 ms informer is for the agent agent type member states.
+
+agent role art 53 ms informer has the role addressee.
+
+
+agent role art 53 commission informed is identified by "http://data.europa.eu/leg/lomo/financial-reporting#AgentRole_Art53_Commission_Informed".
+
+agent role art 53 commission informed has the type "owl:NamedIndividual".
+
+agent role art 53 commission informed is an agent role.
+
+agent role art 53 commission informed is for the agent agent commission.
+
+agent role art 53 commission informed has the role beneficiary.
+
+
+agent role art 53 ms communicator is identified by "http://data.europa.eu/leg/lomo/financial-reporting#AgentRole_Art53_MS_Communicator".
+
+agent role art 53 ms communicator has the type "owl:NamedIndividual".
+
+agent role art 53 ms communicator is an agent role.
+
+agent role art 53 ms communicator is for the agent agent type member states.
+
+agent role art 53 ms communicator has the role addressee.
+
+
+agent role art 53 commission recipient is identified by "http://data.europa.eu/leg/lomo/financial-reporting#AgentRole_Art53_Commission_Recipient".
+
+agent role art 53 commission recipient has the type "owl:NamedIndividual".
+
+agent role art 53 commission recipient is an agent role.
+
+agent role art 53 commission recipient is for the agent agent commission.
+
+agent role art 53 commission recipient has the role beneficiary.
+
+
+% The questions of LOMO's requirements document (its competency questions),
+% as far as a description can answer them.
+scenario description is, as stated in the source description:
+    modalities expects answers ["requirement art 19 par 1 management report content has the modality obligation", "requirement art 19 par 2 additional info has the modality obligation", "requirement art 19 par 3 exempt small undertakings has the modality permission", "requirement art 19 par 4 exempt small medium non has the modality permission", "requirement art 3 par 13 commission review thresholds has the modality obligation", "requirement art 30 par 1 publication obligation has the modality obligation", "requirement art 30 par 2 exempt annex ii has the modality permission", "requirement art 30 par 3 consolidated statements has the modality obligation", "requirement art 31 par 1 exempt small from publication has the modality permission", "requirement art 31 par 2 permit medium sized abridged has the modality permission", "requirement art 53 par 1 sub 2 delayed application has the modality permission", "requirement art 53 par 1 sub 3 reference obligation has the modality obligation", "requirement art 53 par 1 transposition obligation has the modality obligation", "requirement art 53 par 2 communicate text has the modality obligation"].
+    actions_of_rules expects answers ["requirement art 19 par 1 management report content produces action art 19 prepare management report", "requirement art 19 par 2 additional info produces action art 19 include additional info", "requirement art 19 par 3 exempt small undertakings produces action art 19 exempt small from management report", "requirement art 19 par 4 exempt small medium non produces action art 19 exempt small medium from non financial", "requirement art 3 par 13 commission review thresholds produces action art 3 review thresholds", "requirement art 30 par 1 publication obligation produces action art 30 publish", "requirement art 30 par 2 exempt annex ii produces action art 30 exempt annex ii from publication", "requirement art 30 par 3 consolidated statements produces action art 30 publish consolidated", "requirement art 31 par 1 exempt small from publication produces action art 31 exempt small from publication", "requirement art 31 par 2 permit medium sized abridged produces action art 31 permit medium sized abridged publication", "requirement art 53 par 1 sub 2 delayed application produces action art 53 defer application to 2016", "requirement art 53 par 1 sub 3 reference obligation produces action art 53 include reference to directive", "requirement art 53 par 1 transposition obligation produces action art 53 bring into force", "requirement art 53 par 1 transposition obligation produces action art 53 inform commission", "requirement art 53 par 2 communicate text produces action art 53 communicate text"].
+    actions_of_agents expects answers ["agent commission acts as addresser in action art 3 review thresholds", "agent commission acts as beneficiary in action art 53 communicate text", "agent commission acts as beneficiary in action art 53 inform commission", "agent type member states acts as addressee in action art 19 exempt small from management report", "agent type member states acts as addressee in action art 19 exempt small medium from non financial", "agent type member states acts as addressee in action art 30 exempt annex ii from publication", "agent type member states acts as addressee in action art 31 exempt small from publication", "agent type member states acts as addressee in action art 31 permit medium sized abridged publication", "agent type member states acts as addressee in action art 53 bring into force", "agent type member states acts as addressee in action art 53 communicate text", "agent type member states acts as addressee in action art 53 defer application to 2016", "agent type member states acts as addressee in action art 53 include reference to directive", "agent type member states acts as addressee in action art 53 inform commission", "agent type parent undertaking acts as addresser in action art 30 publish consolidated", "agent type undertaking acts as addresser in action art 19 include additional info", "agent type undertaking acts as addresser in action art 19 prepare management report", "agent type undertaking acts as addresser in action art 30 publish"].
+
+query kinds is:
+    which thing is of the kind which kind.
+
+query bearer is:
+    the bearer role is which role.
+
+query rules_of_act is:
+    which rule is established by the act which act.
+
+query provisions is:
+    which thing is established in which provision.
+
+query places is:
+    which rule is laid down in which place.
+
+query legal_texts is:
+    which thing has the legal text which text.
+
+query joint_rules is:
+    which rule is established in more than one provision.
+
+query prescriptive is:
+    which thing is a prescriptive rule.
+
+query constitutive is:
+    which thing is a constitutive rule.
+
+query modalities is:
+    which rule has the modality which modality.
+
+query obligations is:
+    which rule has the modality obligation for which agent as which role.
+
+query prohibitions is:
+    which rule has the modality prohibition for which agent as which role.
+
+query permissions is:
+    which rule has the modality permission for which agent as which role.
+
+query rights is:
+    which rule has the modality right for which agent as which role.
+
+query requirement_types is:
+    which rule has the requirement type which requirement type.
+
+query triggers is:
+    which thing is triggered by which event.
+
+query definitions is:
+    which thing is a definition.
+
+query definienda is:
+    which definition has the definiendum which text.
+
+query definientia is:
+    which definition has the definiens which text.
+
+query semantic_definitions is:
+    which definition has the semantic flag which truth value.
+
+query definitions_used is:
+    which rule uses the definition which definition.
+
+query defined_things is:
+    which definition gives the meaning of which thing.
+
+query actions_of_rules is:
+    which rule produces which action.
+
+query addressers is:
+    which agent acts as addresser in which action.
+
+query addressees is:
+    which agent acts as addressee in which action.
+
+query beneficiaries is:
+    which agent acts as beneficiary in which action.
+
+query identified_agents is:
+    which thing is an agent.
+
+query agent_types is:
+    which thing is an agent type.
+
+query actions_of_agents is:
+    which agent acts as which role in which action.
+
+query concerned_agents is:
+    which rule concerns which agent.
+
+query deadlines is:
+    which thing has which temporal specification as deadline.
+
+query starting_points is:
+    which thing has which temporal specification as starting point.
+
+query validity is:
+    which thing has which temporal specification as validity.
+
+query instants is:
+    which temporal specification has the instant which date.
+
+query results is:
+    which action has the result which result.
+
+query digital_dimensions is:
+    which rule has the digital dimension which dimension.
+
+query texts is:
+    which thing is described by the text which text.
+
+query other_values is:
+    which thing has for which property the value which value.
+
+query other_resources is:
+    which thing has for which property the resource which resource.
+
+query other_types is:
+    which thing has the type which class.
+
+query addresses is:
+    which thing is identified by which address.
+
+query definition_flags is:
+    which definition has the semantic flag which truth value.
+
+query plain_texts is:
+    the texts of which property have no language.
+

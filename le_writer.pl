@@ -2522,10 +2522,19 @@ wv_text(Ctx, St, X, T) :- var(X), !, arg_text(Ctx, St, X, T).
 wv_text(Ctx, St, X, T) :- \+ atomic(X), !, arg_text(Ctx, St, X, T).
 wv_text(_, _, W, T) :- ( string(W) -> render_string(W, T) ; format(atom(T), '~w', [W]) ).
 
-%   "a place , a date" -> "a place, a date"
+%   "a place , a date" -> "a place, a date"; never inside a quoted text,
+%   which keeps its own spaces ("at national level, , for").
 tidy_punctuation(T0, T) :-
-    atomic_list_concat(Parts, ' ,', T0), atomic_list_concat(Parts, ',', T1),
-    T = T1.
+    (   sub_atom(T0, _, _, _, '"')
+    ->  atom_codes(T0, Cs), tidy_codes(Cs, out, Ds), atom_codes(T, Ds)
+    ;   atomic_list_concat(Parts, ' ,', T0), atomic_list_concat(Parts, ',', T)
+    ).
+
+tidy_codes([], _, []).
+tidy_codes([0'\\, 0'"|Cs], in, [0'\\, 0'"|Ds]) :- !, tidy_codes(Cs, in, Ds).
+tidy_codes([0'"|Cs], S, [0'"|Ds]) :- !, ( S == out -> S1 = in ; S1 = out ), tidy_codes(Cs, S1, Ds).
+tidy_codes([0' , 0',|Cs], out, Ds) :- !, tidy_codes([0',|Cs], out, Ds).
+tidy_codes([C|Cs], S, [C|Ds]) :- tidy_codes(Cs, S, Ds).
 
 %   A template argument: a variable, a constant, or an embedded sentence (the
 %   argument of a meta template such as `*a person* says that *a sentence*`).
@@ -2667,10 +2676,13 @@ drop_zeros([0'0|T], R) :- !, drop_zeros(T, R).
 drop_zeros([0'.|T], [0'0, 0'.|T]) :- !.
 drop_zeros(L, L).
 
+%   A quotation mark inside the text is written \" (the tokenizer reads it
+%   back as the mark itself). Before 26 November 2026 the writer wrote ” in
+%   its place, so a legal text with a quotation came back changed.
 render_string(S, T) :-
     format(atom(A), '~w', [S]),
     (   sub_atom(A, _, _, _, '"')
-    ->  atomic_list_concat(Parts, '"', A), atomic_list_concat(Parts, '”', A1),
+    ->  atomic_list_concat(Parts, '"', A), atomic_list_concat(Parts, '\\"', A1),
         format(atom(T), '"~w"', [A1])
     ;   format(atom(T), '"~w"', [A])
     ).

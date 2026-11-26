@@ -1,0 +1,152 @@
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix dctype: <http://purl.org/dc/dcmitype/> .
+@prefix dd: <http://data.europa.eu/leg/digital-dimensions/> .
+@prefix lomo: <http://data.europa.eu/leg/lomo#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix tf: <http://data.europa.eu/leg/temporal-function/> .
+
+<http://example.org/analysis/description/1> a lomo:LegalRule ;
+    rdfs:label "Article 4"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ;
+            lomo:temporalLabel "Regulation (EU) XXX [Performance Regulation]: Article XXX (monitoring) and Article XXX (implementation report and retrospective evaluations)."@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/463/cod/doc/com/COM_2025_463/FINAL/eng/art_4> ;
+    lomo:hasCategory dd:DigitalSolutions ;
+    lomo:involvesProcess <http://example.org/process/programme-implementation-through-direct-grant-management> ;
+    lomo:produces <http://example.org/analysis/action/1>,
+        <http://example.org/analysis/description/1/action> ;
+    lomo:references <http://example.org/dataset/countries-organisations-budget-participants-and-priorities-per-project> ;
+    dcterms:description "[…] Technical and administrative assistance for the implementation of the Programme such as preparatory, monitoring, control, audit and evaluation activities, corporate information technology systems and platforms…"@en .
+
+<http://example.org/analysis/description/2> a lomo:LegalRule ;
+    rdfs:label "Article 3, par. 1"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ;
+            lomo:temporalLabel "Regulation (EU) XXX [Performance Regulation]: Article XXX (monitoring) and Article XXX (implementation report and retrospective evaluations)."@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/463/cod/doc/com/COM_2025_463/FINAL/eng/art_1>,
+        <https://data.europa.eu/eli/dl/proc/2025/463/cod/doc/com/COM_2025_463/FINAL/eng/art_3> ;
+    lomo:hasCategory dd:Data,
+        dd:DigitalSolutions ;
+    lomo:involvesProcess <http://example.org/process/programme-implementation-monitoring-and-evaluation> ;
+    lomo:produces <http://example.org/analysis/action/1>,
+        <http://example.org/analysis/description/2/action> ;
+    lomo:references <http://example.org/dataset/countries-organisations-budget-participants-and-priorities-per-project> ;
+    dcterms:description "[…] as well as to the digitalisation of justice at EU level."@en .
+
+<http://example.org/analysis/description/3> a lomo:LegalRule ;
+    rdfs:label "Article 3, par. 2 (b)"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/463/cod/doc/com/COM_2025_463/FINAL/eng/art_2>,
+        <https://data.europa.eu/eli/dl/proc/2025/463/cod/doc/com/COM_2025_463/FINAL/eng/art_3> ;
+    lomo:hasCategory dd:DigitalSolutions ;
+    lomo:involvesProcess <http://example.org/process/dissemination-support-to-the-programme> ;
+    lomo:produces <http://example.org/analysis/description/3/action> ;
+    dcterms:description "[…] promoting the rule of law, fundamental rights and democracy. […] Technical and administrative assistance for the implementation of the Programme such as… information and communication activities, including corporate communication on the political priorities of the Union."@en .
+
+<http://example.org/analysis/description/4> a lomo:LegalRule ;
+    rdfs:label "Article 3, par. 2 (c)"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ;
+            lomo:temporalLabel "Regulation (EU) XXX [Performance Regulation]: Article XXX (monitoring) and Article XXX (implementation report and retrospective evaluations)."@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/463/cod/doc/com/COM_2025_463/FINAL/eng/art_2>,
+        <https://data.europa.eu/eli/dl/proc/2025/463/cod/doc/com/COM_2025_463/FINAL/eng/art_3> ;
+    lomo:hasCategory dd:DigitalSolutions ;
+    lomo:involvesProcess <http://example.org/process/dissemination-support-to-the-programme> ;
+    lomo:produces <http://example.org/analysis/action/1>,
+        <http://example.org/analysis/description/4/action> ;
+    lomo:references <http://example.org/dataset/countries-organisations-budget-participants-and-priorities-per-project> ;
+    dcterms:description "[…] promoting efficient civil and criminal procedures and… promoting… the rights of all victims of crime and the procedural rights of suspects and accused persons in criminal proceedings as well as of requested persons in EAW proceedings. […] Technical and administrative assistance for the implementation of the Programme such as… information and communication activities, including corporate communication on the political priorities of the Union."@en .
+
+<http://example.org/analysis/solution/1> a dctype:Software ;
+    rdfs:label "Digital solution #1 – Direct Grant Management platform"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/463/cod/doc/com/COM_2025_463/FINAL/eng/art_4> ;
+    lomo:hasCapability "Direct Grant Management" ;
+    dcterms:publisher <http://example.org/agent/european-commission> ;
+    dcterms:title "Digital solution #1 – Direct Grant Management platform"@en .
+
+<http://example.org/analysis/solution/2> a dctype:Software ;
+    rdfs:label "Digital solution #2 – Platform(s) to support the Programme"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/463/cod/doc/com/COM_2025_463/FINAL/eng/art_1>,
+        <https://data.europa.eu/eli/dl/proc/2025/463/cod/doc/com/COM_2025_463/FINAL/eng/art_3> ;
+    lomo:hasCapability "Disseminate Programme’s results" ;
+    dcterms:publisher <http://example.org/agent/european-commission> ;
+    dcterms:title "Digital solution #2 – Platform(s) to support the Programme"@en .
+
+<http://example.org/agent/beneficiaries> rdfs:label "Beneficiaries"@en .
+
+<http://example.org/agent/general-public-commission-european-parliament-council-of-the-european-union> rdfs:label "General public Commission European Parliament Council of the European Union"@en .
+
+<http://example.org/analysis/action/1/role/addressee-general-public-commission-european-parliament-council-of-the-european-union> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/general-public-commission-european-parliament-council-of-the-european-union> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/1/role/addresser-beneficiaries> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/beneficiaries> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/description/1/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/1/action/role/addressee-european-commission-beneficiaries> .
+
+<http://example.org/analysis/description/1/action/role/addressee-european-commission-beneficiaries> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/european-commission-beneficiaries> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/2/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/2/action/role/addressee-european-commission-beneficiaries> .
+
+<http://example.org/analysis/description/2/action/role/addressee-european-commission-beneficiaries> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/european-commission-beneficiaries> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/3/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/3/action/role/addressee-european-commission-beneficiaries> .
+
+<http://example.org/analysis/description/3/action/role/addressee-european-commission-beneficiaries> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/european-commission-beneficiaries> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/4/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/4/action/role/addressee-european-commission-beneficiaries> .
+
+<http://example.org/analysis/description/4/action/role/addressee-european-commission-beneficiaries> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/european-commission-beneficiaries> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/process/programme-implementation-monitoring-and-evaluation> skos:prefLabel "Programme implementation, monitoring and evaluation"@en .
+
+<http://example.org/process/programme-implementation-through-direct-grant-management> skos:prefLabel "Programme implementation through direct grant management"@en .
+
+<http://example.org/standard/commission-monitoring-and-reporting-tools-and-databases-including-egrants> a dcterms:Standard ;
+    dcterms:title "Commission monitoring and reporting tools and databases, including eGrants."@en .
+
+<http://example.org/process/dissemination-support-to-the-programme> skos:prefLabel "Dissemination, support to the Programme"@en .
+
+<http://example.org/analysis/action/1> a lomo:Action ;
+    rdfs:label "Countries, organisations, budget, participants and priorities per project"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Regulation (EU) XXX [Performance Regulation]: Article XXX (monitoring) and Article XXX (implementation report and retrospective evaluations).Regular programme reporting"@en ],
+        [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:deadline ;
+            lomo:temporalLabel "Regulation (EU) XXX [Performance Regulation]: Article XXX (monitoring) and Article XXX (implementation report and retrospective evaluations)."@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/463/cod/doc/com/COM_2025_463/FINAL/eng/art_1>,
+        <https://data.europa.eu/eli/dl/proc/2025/463/cod/doc/com/COM_2025_463/FINAL/eng/art_3>,
+        <https://data.europa.eu/eli/dl/proc/2025/463/cod/doc/com/COM_2025_463/FINAL/eng/art_4> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/1/role/addressee-general-public-commission-european-parliament-council-of-the-european-union>,
+        <http://example.org/analysis/action/1/role/addresser-beneficiaries> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Countries, organisations, budget, participants and priorities per project"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/countries-organisations-budget-participants-and-priorities-per-project> ] .
+
+<http://example.org/agent/european-commission-beneficiaries> rdfs:label "European Commission; Beneficiaries"@en .
+
+<http://example.org/dataset/countries-organisations-budget-participants-and-priorities-per-project> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/463/cod/doc/com/COM_2025_463/FINAL/eng/art_1>,
+        <https://data.europa.eu/eli/dl/proc/2025/463/cod/doc/com/COM_2025_463/FINAL/eng/art_3>,
+        <https://data.europa.eu/eli/dl/proc/2025/463/cod/doc/com/COM_2025_463/FINAL/eng/art_4> ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Countries, organisations, budget, participants and priorities per project"@en ] ;
+    dcterms:conformsTo <http://example.org/standard/commission-monitoring-and-reporting-tools-and-databases-including-egrants> ;
+    dcterms:title "Countries, organisations, budget, participants and priorities per project"@en .
+

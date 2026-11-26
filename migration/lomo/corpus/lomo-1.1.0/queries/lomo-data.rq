@@ -1,0 +1,26 @@
+PREFIX lomo:    <http://data.europa.eu/leg/lomo#>
+PREFIX dcat:    <http://www.w3.org/ns/dcat#>
+PREFIX dcterms: <http://purl.org/dc/terms/>
+PREFIX rdf:     <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs:    <http://www.w3.org/2000/01/rdf-schema#>
+
+# Reverse of process_data_table -> data.html
+# One row per data-table dataset: type of data | reference(s) | standard(s)
+# References and standards are both attached to the dataset itself
+# (lomo:establishedIn / dcterms:conformsTo). Requiring establishedIn also excludes
+# data_flow-only datasets, which belong to the data_flow table, not this one.
+SELECT ?dataset ?datasetLabel
+       (GROUP_CONCAT(DISTINCT COALESCE(STR(?eli), "");      SEPARATOR="||") AS ?elis)
+       (GROUP_CONCAT(DISTINCT COALESCE(?standardLabel, ""); SEPARATOR="||") AS ?standards)
+WHERE {
+  ?dataset rdf:type dcat:Dataset ;
+           dcterms:title ?datasetLabel ;
+           lomo:establishedIn ?eli .
+
+  OPTIONAL {
+    ?dataset dcterms:conformsTo ?standard .
+    ?standard dcterms:title ?standardLabel .
+  }
+}
+GROUP BY ?dataset ?datasetLabel
+ORDER BY ?datasetLabel

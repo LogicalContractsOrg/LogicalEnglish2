@@ -122,6 +122,7 @@ twins_home(policyengine, private).  % AGPL-3.0, as OpenFisca's
 twins_home(catala, le2).          % Apache-2.0 (catala-examples), with attribution
 twins_home(dmn, le2).              % DMN: the TCK (Apache-2.0), RONL (EUPL-1.2), BDT (MIT); the bruidsschat is private (dmn/corpus.pl)
 twins_home(ruml, le2).             % RUML: the specification's examples and the tests' fixtures (Apache-2.0, Rulemapping Group GmbH)
+twins_home(lomo, le2).             % LOMO: the data of the LOMO repository (CC BY 4.0, European Union), with attribution
 
 sibling(Names, D) :-
     migration_dir(M), file_directory_name(M, Root),

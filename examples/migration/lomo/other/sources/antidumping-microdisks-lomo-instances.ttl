@@ -1,0 +1,378 @@
+@prefix : <http://data.europa.eu/leg/lomo/antidumping-microdisks#> .
+@prefix lomo: <http://data.europa.eu/leg/lomo#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix eli: <http://data.europa.eu/eli/ontology#> .
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix cpsv: <http://purl.org/vocab/cpsv#> .
+
+@base <http://data.europa.eu/leg/lomo/antidumping-microdisks> .
+
+<http://data.europa.eu/leg/lomo/antidumping-microdisks> rdf:type owl:Ontology ;
+    dcterms:title "Anti-Dumping Duty on 3.5\" Microdisks - LOMO Instantiation"@en ;
+    dcterms:description "Instantiation of the European Council Regulation imposing definitive anti-dumping duty on imports of 3.5\" microdisks originating in Japan, Taiwan and the People's Republic of China, using the Legal Obligation Metadata Ontology (LOMO)."@en ;
+    dcterms:created "2025-12-02"^^xsd:date ;
+    dcterms:modified "2026-02-10"^^xsd:date ;
+    dcterms:source "Council Regulation (EEC) No 2861/93"@en ;
+    owl:imports <http://data.europa.eu/leg/lomo> .
+
+#################################################################
+#    AGENT TYPES (Categories of Entities)
+#################################################################
+
+:AgentType_CustomsAuthorities rdf:type owl:NamedIndividual , lomo:AgentType ;
+    rdfs:label "Customs Authorities"@en ;
+    skos:definition "National customs authorities responsible for collecting anti-dumping duties."@en ;
+    rdfs:comment "Agent type representing the authorities implementing duty collection and enforcement."@en .
+
+:AgentType_Importers rdf:type owl:NamedIndividual , lomo:AgentType ;
+    rdfs:label "Importers"@en ;
+    skos:definition "Persons or entities importing 3.5\" microdisks into the Community."@en ;
+    rdfs:comment "Agent type representing economic operators subject to anti-dumping duties."@en .
+
+:AgentType_MemberStates rdf:type owl:NamedIndividual , lomo:AgentType ;
+    rdfs:label "Member States"@en ;
+    skos:definition "EU Member States where the Regulation is directly applicable."@en ;
+    rdfs:comment "Agent type representing national jurisdictions where this Regulation applies."@en .
+
+#################################################################
+#    AGENTS (Specific Exporters with Reduced Duty Rates)
+#################################################################
+
+### Japanese Companies
+:Agent_MemorexTelexJapan rdf:type owl:NamedIndividual , lomo:Agent ;
+    rdfs:label "Memorex Telex Japan Ltd"@en ;
+    rdfs:comment "Japanese manufacturer with reduced duty rate of 6.1%. TARIC additional code: 8705."@en ;
+    :taricAdditionalCode "8705" .
+
+:Agent_HitachiMaxell rdf:type owl:NamedIndividual , lomo:Agent ;
+    rdfs:label "Hitachi-Maxell"@en ;
+    rdfs:comment "Japanese manufacturer with reduced duty rate of 20.6%. TARIC additional code: 8706."@en ;
+    :taricAdditionalCode "8706" .
+
+:Agent_TDK rdf:type owl:NamedIndividual , lomo:Agent ;
+    rdfs:label "TDK"@en ;
+    rdfs:comment "Japanese manufacturer with reduced duty rate of 26.7%. TARIC additional code: 8707."@en ;
+    :taricAdditionalCode "8707" .
+
+### Taiwanese Company
+:Agent_CISTechnology rdf:type owl:NamedIndividual , lomo:Agent ;
+    rdfs:label "CIS Technology"@en ;
+    rdfs:comment "Taiwanese manufacturer with reduced duty rate of 19.8%. TARIC additional code: 8709."@en ;
+    :taricAdditionalCode "8709" .
+
+### Chinese Company
+:Agent_HannyMagnetics rdf:type owl:NamedIndividual , lomo:Agent ;
+    rdfs:label "Hanny Magnetics"@en ;
+    rdfs:comment "Chinese manufacturer with reduced duty rate of 35.6%. TARIC additional code: 8711."@en ;
+    :taricAdditionalCode "8711" .
+
+#################################################################
+#    PRODUCT DEFINITIONS
+#################################################################
+
+:Def_Microdisks rdf:type owl:NamedIndividual , lomo:Definition ;
+    rdfs:label "Definition: 3.5\" Microdisks"@en ;
+    lomo:hasDefiniendum "3.5\" microdisks"@en ;
+    lomo:hasDefiniens "3.5 inch microdisks used to record and store encoded digital computer information falling within CN code ex852320 90 (TARIC code 85232090*40)"@en ;
+    lomo:isSemanticDefinition "true"^^xsd:boolean ;
+    lomo:establishedIn <http://data.europa.eu/eli/reg/1993/2861/art_1/par_1/oj> ;
+    rdfs:comment "Semantic definition establishing the scope of products subject to anti-dumping duty through technical and classification criteria."@en .
+
+:Def_ExcludedMicrodisks rdf:type owl:NamedIndividual , lomo:Definition ;
+    rdfs:label "Definition: Excluded Microdisks"@en ;
+    lomo:hasDefiniendum "excluded microdisks"@en ;
+    lomo:hasDefiniens "3.5\" microdisks based on optically continuous servo tracking technology or magnetic sector servo tracking technology with a storage capacity of 120 MB or more"@en ;
+    lomo:isSemanticDefinition "true"^^xsd:boolean ;
+    lomo:establishedIn <http://data.europa.eu/eli/reg/1993/2861/art_1/par_1/oj> ;
+    rdfs:comment "These high-capacity microdisks are excluded from the anti-dumping duty."@en .
+
+:Def_NetFreeAtCommunityFrontierPrice rdf:type owl:NamedIndividual , lomo:Definition ;
+    rdfs:label "Definition: Net Free-at-Community-Frontier Price"@en ;
+    lomo:hasDefiniendum "net free-at-Community-frontier price"@en ;
+    lomo:hasDefiniens "the price at which goods are valued at the Community frontier, before customs clearance"@en ;
+    lomo:isSemanticDefinition "true"^^xsd:boolean ;
+    lomo:establishedIn <http://data.europa.eu/eli/reg/1993/2861/art_1/par_2/oj> .
+
+#################################################################
+#    DUTY RATE SPECIFICATIONS
+#################################################################
+
+:DutyRate_Japan_General rdf:type owl:NamedIndividual , lomo:ActionResult ;
+    rdfs:label "Japan General Duty Rate: 40.9%"@en ;
+    skos:notation "40.9%"@en ;
+    rdfs:comment "General anti-dumping duty rate for products originating in Japan, applicable unless a specific company rate applies."@en ;
+    :dutyPercentage "40.9"^^xsd:decimal ;
+    :countryOfOrigin "Japan"@en .
+
+:DutyRate_MemorexTelexJapan rdf:type owl:NamedIndividual , lomo:ActionResult ;
+    rdfs:label "Memorex Telex Japan Ltd Duty Rate: 6.1%"@en ;
+    skos:notation "6.1%"@en ;
+    rdfs:comment "Reduced duty rate for products manufactured and sold by Memorex Telex Japan Ltd (TARIC code 8705)."@en ;
+    :dutyPercentage "6.1"^^xsd:decimal ;
+    :companyExporter :Agent_MemorexTelexJapan .
+
+:DutyRate_HitachiMaxell rdf:type owl:NamedIndividual , lomo:ActionResult ;
+    rdfs:label "Hitachi-Maxell Duty Rate: 20.6%"@en ;
+    skos:notation "20.6%"@en ;
+    rdfs:comment "Reduced duty rate for products manufactured and sold by Hitachi-Maxell (TARIC code 8706)."@en ;
+    :dutyPercentage "20.6"^^xsd:decimal ;
+    :companyExporter :Agent_HitachiMaxell .
+
+:DutyRate_TDK rdf:type owl:NamedIndividual , lomo:ActionResult ;
+    rdfs:label "TDK Duty Rate: 26.7%"@en ;
+    skos:notation "26.7%"@en ;
+    rdfs:comment "Reduced duty rate for products manufactured and sold by TDK (TARIC code 8707)."@en ;
+    :dutyPercentage "26.7"^^xsd:decimal ;
+    :companyExporter :Agent_TDK .
+
+:DutyRate_Taiwan_General rdf:type owl:NamedIndividual , lomo:ActionResult ;
+    rdfs:label "Taiwan General Duty Rate: 32.7%"@en ;
+    skos:notation "32.7%"@en ;
+    rdfs:comment "General anti-dumping duty rate for products originating in Taiwan, applicable unless a specific company rate applies."@en ;
+    :dutyPercentage "32.7"^^xsd:decimal ;
+    :countryOfOrigin "Taiwan"@en .
+
+:DutyRate_CISTechnology rdf:type owl:NamedIndividual , lomo:ActionResult ;
+    rdfs:label "CIS Technology Duty Rate: 19.8%"@en ;
+    skos:notation "19.8%"@en ;
+    rdfs:comment "Reduced duty rate for products manufactured and sold by CIS Technology (TARIC code 8709)."@en ;
+    :dutyPercentage "19.8"^^xsd:decimal ;
+    :companyExporter :Agent_CISTechnology .
+
+:DutyRate_China_General rdf:type owl:NamedIndividual , lomo:ActionResult ;
+    rdfs:label "China General Duty Rate: 39.4%"@en ;
+    skos:notation "39.4%"@en ;
+    rdfs:comment "General anti-dumping duty rate for products originating in the People's Republic of China, applicable unless a specific company rate applies."@en ;
+    :dutyPercentage "39.4"^^xsd:decimal ;
+    :countryOfOrigin "People's Republic of China"@en .
+
+:DutyRate_HannyMagnetics rdf:type owl:NamedIndividual , lomo:ActionResult ;
+    rdfs:label "Hanny Magnetics Duty Rate: 35.6%"@en ;
+    skos:notation "35.6%"@en ;
+    rdfs:comment "Reduced duty rate for products manufactured and sold by Hanny Magnetics (TARIC code 8711)."@en ;
+    :dutyPercentage "35.6"^^xsd:decimal ;
+    :companyExporter :Agent_HannyMagnetics .
+
+#################################################################
+#    TEMPORAL SPECIFICATIONS
+#################################################################
+
+:TriggerInstant_PublicationOJ rdf:type owl:NamedIndividual , lomo:TemporalSpecification ;
+    rdfs:label "Day Following Publication in Official Journal"@en ;
+    lomo:temporalLabel "publication in the Official Journal of the European Communities"@en ;
+    lomo:triggerDescription "the day following its publication in the Official Journal of the European Communities"@en ;
+    lomo:hasFunction <http://data.europa.eu/leg/temporal-function/startingPoint> ;
+    rdfs:comment "Entry into force trigger for the Regulation, occurring the day after OJ publication."@en .
+
+:TriggerInstant_ProvisionalDuty rdf:type owl:NamedIndividual , lomo:TemporalSpecification ;
+    rdfs:label "Provisional Duty Under Regulation (EEC) No 920/93"@en ;
+    lomo:temporalLabel "provisional duty under Regulation (EEC) No 920/93"@en ;
+    lomo:triggerDescription "amounts secured by way of the provisional anti-dumping duty under Regulation (EEC) No 920/93"@en ;
+    rdfs:comment "Reference to the provisional duty that preceded this definitive duty."@en .
+
+#################################################################
+#    CONDITIONS
+#################################################################
+
+:Condition_ProductsFromJapan rdf:type owl:NamedIndividual , lomo:LegalCondition ;
+    rdfs:label "Products Originating in Japan"@en ;
+    lomo:legalText "products specified in paragraph 1 originating in Japan"@en .
+
+:Condition_ProductsFromTaiwan rdf:type owl:NamedIndividual , lomo:LegalCondition ;
+    rdfs:label "Products Originating in Taiwan"@en ;
+    lomo:legalText "products specified in paragraph 1 originating in Taiwan"@en .
+
+:Condition_ProductsFromChina rdf:type owl:NamedIndividual , lomo:LegalCondition ;
+    rdfs:label "Products Originating in People's Republic of China"@en ;
+    lomo:legalText "products specified in paragraph 1 originating in the People's Republic of China"@en .
+
+:Condition_ManufacturedBySoldBy rdf:type owl:NamedIndividual , lomo:LegalCondition ;
+    rdfs:label "Manufactured and Sold for Export to Community"@en ;
+    lomo:legalText "imports which are manufactured and sold for export to the Community by the following companies"@en ;
+    rdfs:comment "Qualifying condition establishing that reduced duty rates apply only to specific manufacturers/exporters."@en .
+
+:Condition_ProvisionalDutyExceedsDefinitive rdf:type owl:NamedIndividual , lomo:LegalCondition ;
+    rdfs:label "Provisional Duty Exceeds Definitive Duty"@en ;
+    lomo:legalText "Where the provisional duty exceeds the duty rate definitively imposed"@en .
+
+:Condition_AmountsSecuredInExcess rdf:type owl:NamedIndividual , lomo:LegalCondition ;
+    rdfs:label "Amounts Secured in Excess"@en ;
+    lomo:legalText "Amounts secured in excess of the definitive rate of duty"@en .
+
+#################################################################
+#    ARTICLE 1 - IMPOSITION OF ANTI-DUMPING DUTY
+#################################################################
+
+:Requirement_Art1_Par1_ImposeDuty rdf:type owl:NamedIndividual , lomo:ConstitutiveRule ;
+    rdfs:label "Article 1(1) - Imposition of Definitive Anti-Dumping Duty"@en ;
+    lomo:usesDefinition :Def_Microdisks , :Def_ExcludedMicrodisks ;
+    lomo:establishedIn <http://data.europa.eu/eli/reg/1993/2861/art_1/par_1/oj> ;
+    lomo:legalText """A definitive anti-dumping duty is hereby imposed on imports of 3,5″ microdisks used to record and store encoded digital computer information falling within CN code ex852320 90 (Taric code 85232090*40) and originating in Japan, Taiwan and the People's Republic of China, with the exception of 3,5″ microdisks based on optically continuous servo tracking technology or magnetic sector servo tracking technology with a storage capacity of 120 MB or more."""@en ;
+    rdfs:comment "Constitutive rule imposing a definitive anti-dumping duty on 3.5\" microdisks from Japan, Taiwan and China, with technical exclusions for high-capacity disks."@en .
+
+:Requirement_Art1_Par2_DutyRates rdf:type owl:NamedIndividual , lomo:PrescriptiveRule ;
+    rdfs:label "Article 1(2) - Duty Rate Application"@en ;
+    lomo:hasDeonticModality <http://data.europa.eu/leg/deontic-modality/Obligation> ;
+    lomo:hasRequirementType <http://publications.europa.eu/resource/dataset/administrative-obligation/c_d98a69b9> ;
+    lomo:hasCategory <http://data.europa.eu/leg/digital-dimensions/Observation> ;
+    lomo:produces :Action_ApplyDutyRate ;
+    lomo:usesDefinition :Def_NetFreeAtCommunityFrontierPrice ;
+    lomo:establishedIn <http://data.europa.eu/eli/reg/1993/2861/art_1/par_2/oj> ;
+    lomo:legalText """The rate of duty applicable to the net free-at-Community-frontier price, not cleared through customs, shall be as follows..."""@en ;
+    rdfs:comment "Establishes the methodology for applying duty rates to the net free-at-Community-frontier price."@en .
+
+:Requirement_Art1_Par2_a_Japan rdf:type owl:NamedIndividual , lomo:PrescriptiveRule ;
+    rdfs:label "Article 1(2)(a) - Japan Duty Rates"@en ;
+    lomo:hasDeonticModality <http://data.europa.eu/leg/deontic-modality/Obligation> ;
+    lomo:hasRequirementType <http://publications.europa.eu/resource/dataset/administrative-obligation/c_d98a69b9> ;
+    lomo:hasCategory <http://data.europa.eu/leg/digital-dimensions/Observation> ;
+    lomo:produces :Action_ApplyDutyRate ;
+    lomo:hasCondition :Condition_ProductsFromJapan ;
+    lomo:references :DutyRate_Japan_General , :DutyRate_MemorexTelexJapan , :DutyRate_HitachiMaxell , :DutyRate_TDK ;
+    lomo:establishedIn <http://data.europa.eu/eli/reg/1993/2861/art_1/par_2/pnt_a/oj> ;
+    lomo:legalText """40,9 % in respect of the products specified in paragraph 1 originating in Japan (Taric additional code: 8708), with the exception of imports which are manufactured and sold for export to the Community by the following companies, which shall be subject to the rates of duty mentioned hereunder:
+— Memorex Telex Japan Ltd: (Taric additional code: 8705), 6,1 %
+— Hitachi-Maxell: (Taric additional code: 8706), 20,6 %
+— TDK: (Taric additional code: 8707); 26,7 %"""@en ;
+    rdfs:comment "Duty rates for products from Japan: 40.9% general rate, with reduced rates for specific companies."@en .
+
+:Requirement_Art1_Par2_b_Taiwan rdf:type owl:NamedIndividual , lomo:PrescriptiveRule ;
+    rdfs:label "Article 1(2)(b) - Taiwan Duty Rates"@en ;
+    lomo:hasDeonticModality <http://data.europa.eu/leg/deontic-modality/Obligation> ;
+    lomo:hasRequirementType <http://publications.europa.eu/resource/dataset/administrative-obligation/c_d98a69b9> ;
+    lomo:hasCategory <http://data.europa.eu/leg/digital-dimensions/Observation> ;
+    lomo:produces :Action_ApplyDutyRate ;
+    lomo:hasCondition :Condition_ProductsFromTaiwan ;
+    lomo:references :DutyRate_Taiwan_General , :DutyRate_CISTechnology ;
+    lomo:establishedIn <http://data.europa.eu/eli/reg/1993/2861/art_1/par_2/pnt_b/oj> ;
+    lomo:legalText """32,7 % in respect of the products specified in paragraph 1 originating in Taiwan (Taric additional code: 8710), with the exception of imports which are manufactured and sold for export to the Community by the following company, which shall be subject to the rate of duty mentioned hereunder:
+— CIS Technology: (Taric additional code: 8709); 19,8 %"""@en ;
+    rdfs:comment "Duty rates for products from Taiwan: 32.7% general rate, with reduced rate for CIS Technology."@en .
+
+:Requirement_Art1_Par2_c_China rdf:type owl:NamedIndividual , lomo:PrescriptiveRule ;
+    rdfs:label "Article 1(2)(c) - China Duty Rates"@en ;
+    lomo:hasDeonticModality <http://data.europa.eu/leg/deontic-modality/Obligation> ;
+    lomo:hasRequirementType <http://publications.europa.eu/resource/dataset/administrative-obligation/c_d98a69b9> ;
+    lomo:hasCategory <http://data.europa.eu/leg/digital-dimensions/Observation> ;
+    lomo:produces :Action_ApplyDutyRate ;
+    lomo:hasCondition :Condition_ProductsFromChina ;
+    lomo:references :DutyRate_China_General , :DutyRate_HannyMagnetics ;
+    lomo:establishedIn <http://data.europa.eu/eli/reg/1993/2861/art_1/par_2/pnt_c/oj> ;
+    lomo:legalText """39,4 % in respect of the products specified in paragraph 1 originating in the People's Republic of China (Taric additional code: 8712), with the exception of imports which are manufactured and sold for export by the following company, which shall be subject to the rate of duty mentioned hereunder:
+— Hanny Magnetics: (Taric additional code: 8711). 35,6 %"""@en ;
+    rdfs:comment "Duty rates for products from China: 39.4% general rate, with reduced rate for Hanny Magnetics."@en .
+
+:Requirement_Art1_Par3_CustomsProvisions rdf:type owl:NamedIndividual , lomo:PrescriptiveRule ;
+    rdfs:label "Article 1(3) - Application of Customs Provisions"@en ;
+    lomo:hasDeonticModality <http://data.europa.eu/leg/deontic-modality/Obligation> ;
+    lomo:hasRequirementType <http://publications.europa.eu/resource/dataset/administrative-obligation/c_2d4db9eb> ;
+    lomo:produces :Action_ApplyDutyRate ;
+    lomo:establishedIn <http://data.europa.eu/eli/reg/1993/2861/art_1/par_3/oj> ;
+    lomo:legalText """The provisions in force concerning customs duties shall apply to the said duty."""@en ;
+    rdfs:comment "Cross-reference to existing customs law provisions for the application of the anti-dumping duty."@en .
+
+:Action_ApplyDutyRate rdf:type owl:NamedIndividual , lomo:Action ;
+    rdfs:label "Apply Anti-Dumping Duty Rate"@en ;
+    lomo:hasAgentRole :AgentRole_CustomsAuthorities_Applier ;
+    rdfs:comment "Action of applying the appropriate duty rate to imports of 3.5\" microdisks."@en .
+
+:AgentRole_CustomsAuthorities_Applier rdf:type owl:NamedIndividual , lomo:AgentRole ;
+    lomo:forAgent :AgentType_CustomsAuthorities ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> ;
+    rdfs:comment "Customs authorities act as addressees obligated to apply the duty rates."@en .
+
+#################################################################
+#    ARTICLE 2 - COLLECTION OF PROVISIONAL DUTIES
+#################################################################
+
+:Requirement_Art2_Par1_DefinitiveCollection rdf:type owl:NamedIndividual , lomo:PrescriptiveRule ;
+    rdfs:label "Article 2(1) - Definitive Collection of Provisional Duties"@en ;
+    lomo:hasDeonticModality <http://data.europa.eu/leg/deontic-modality/Obligation> ;
+    lomo:hasRequirementType <http://publications.europa.eu/resource/dataset/administrative-obligation/c_d98a69b9> ;
+    lomo:produces :Action_CollectProvisionalDuty ;
+    lomo:hasCondition :Condition_ProvisionalDutyExceedsDefinitive ;
+    lomo:establishedIn <http://data.europa.eu/eli/reg/1993/2861/art_2/par_1/oj> ;
+    lomo:legalText """The amounts secured by way of the provisional anti-dumping duty under Regulation (EEC) No 920/93 in respect of 3,5″ microdisks shall be definitively collected. Where the provisional duty exceeds the duty rate definitively imposed, the amount collected should not exceed that of the definitive duty."""@en ;
+    rdfs:comment "Transitional provision for definitive collection of amounts secured under the provisional duty, with a cap where provisional exceeded definitive."@en .
+
+:Requirement_Art2_Par2_ReleaseExcess rdf:type owl:NamedIndividual , lomo:PrescriptiveRule ;
+    rdfs:label "Article 2(2) - Release of Excess Amounts"@en ;
+    lomo:hasDeonticModality <http://data.europa.eu/leg/deontic-modality/Obligation> ;
+    lomo:hasRequirementType <http://publications.europa.eu/resource/dataset/administrative-obligation/c_d98a69b9> ;
+    lomo:produces :Action_ReleaseExcessAmounts ;
+    lomo:hasCondition :Condition_AmountsSecuredInExcess ;
+    lomo:establishedIn <http://data.europa.eu/eli/reg/1993/2861/art_2/par_2/oj> ;
+    lomo:legalText """Amounts secured in excess of the definitive rate of duty shall be released."""@en ;
+    rdfs:comment "Obligation to release any amounts secured that exceed the definitive duty rate."@en .
+
+:Action_CollectProvisionalDuty rdf:type owl:NamedIndividual , lomo:Action ;
+    rdfs:label "Definitively Collect Provisional Duty Amounts"@en ;
+    lomo:hasAgentRole :AgentRole_CustomsAuthorities_Collector ;
+    rdfs:comment "Action of definitively collecting the amounts secured under provisional Regulation (EEC) No 920/93."@en .
+
+:Action_ReleaseExcessAmounts rdf:type owl:NamedIndividual , lomo:Action ;
+    rdfs:label "Release Excess Secured Amounts"@en ;
+    lomo:hasAgentRole :AgentRole_CustomsAuthorities_Releaser ;
+    rdfs:comment "Action of releasing amounts secured in excess of the definitive duty rate."@en .
+
+:AgentRole_CustomsAuthorities_Collector rdf:type owl:NamedIndividual , lomo:AgentRole ;
+    lomo:forAgent :AgentType_CustomsAuthorities ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> ;
+    rdfs:comment "Customs authorities are obligated to definitively collect secured provisional duty amounts."@en .
+
+:AgentRole_CustomsAuthorities_Releaser rdf:type owl:NamedIndividual , lomo:AgentRole ;
+    lomo:forAgent :AgentType_CustomsAuthorities ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> ;
+    rdfs:comment "Customs authorities are obligated to release amounts secured in excess."@en .
+
+#################################################################
+#    ARTICLE 3 - ENTRY INTO FORCE
+#################################################################
+
+:Requirement_Art3_EntryIntoForce rdf:type owl:NamedIndividual , lomo:ConstitutiveRule ;
+    rdfs:label "Article 3 - Entry into Force"@en ;
+    lomo:atTime :TriggerInstant_PublicationOJ ;
+    lomo:establishedIn <http://data.europa.eu/eli/reg/1993/2861/art_3/oj> ;
+    lomo:legalText """This Regulation shall enter into force on the day following its publication in the Official Journal of the European Communities."""@en ;
+    rdfs:comment "Constitutive rule establishing when the Regulation enters into force."@en .
+
+:Requirement_Art3_DirectApplicability rdf:type owl:NamedIndividual , lomo:ConstitutiveRule ;
+    rdfs:label "Article 3 - Direct Applicability"@en ;
+    lomo:establishedIn <http://data.europa.eu/eli/reg/1993/2861/art_3/oj> ;
+    lomo:legalText """This Regulation shall be binding in its entirety and directly applicable in all Member States."""@en ;
+    rdfs:comment "Constitutive rule establishing the binding nature and direct applicability of the Regulation in all Member States."@en .
+
+#################################################################
+#    CUSTOM PROPERTIES (Domain-Specific)
+#################################################################
+
+:taricAdditionalCode rdf:type owl:DatatypeProperty ;
+    rdfs:label "TARIC Additional Code"@en ;
+    rdfs:comment "The TARIC additional code used to identify specific exporters or country groups."@en ;
+    rdfs:domain owl:Thing ;
+    rdfs:range xsd:string .
+
+:dutyPercentage rdf:type owl:DatatypeProperty ;
+    rdfs:label "Duty Percentage"@en ;
+    rdfs:comment "The percentage rate of anti-dumping duty applicable."@en ;
+    rdfs:domain lomo:ActionResult ;
+    rdfs:range xsd:decimal .
+
+:countryOfOrigin rdf:type owl:DatatypeProperty ;
+    rdfs:label "Country of Origin"@en ;
+    rdfs:comment "The country from which the products originate."@en ;
+    rdfs:domain lomo:ActionResult ;
+    rdfs:range xsd:string .
+
+:companyExporter rdf:type owl:ObjectProperty ;
+    rdfs:label "Company Exporter"@en ;
+    rdfs:comment "Links a duty rate to the specific company exporter to which it applies."@en ;
+    rdfs:domain lomo:ActionResult ;
+    rdfs:range lomo:Agent .
+

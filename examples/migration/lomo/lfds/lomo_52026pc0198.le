@@ -1,0 +1,209 @@
+% The register of a LOMO description: the Logical English twin of
+% 52026PC0198.ttl (kept in sources/), written by the LOMO translator.
+% One fact for each statement of the description, in the words of lomo.le.
+% LOMO describes rules; it has no conditions and no cases. A question
+% about a case gets its answer only from the parts of the description that
+% have values (deadlines, agents, derogations).
+%
+% LOMO and its data: (c) European Union, Creative Commons Attribution 4.0
+% (https://creativecommons.org/licenses/by/4.0/); source: the LOMO
+% repository, https://code.europa.eu/drpm/lomo. The description was changed
+% into Logical English by the LOMO translator of Logical English.
+%
+% DISCLAIMER. This program was written by a translator from a program of another
+% system. It is provided "as is", without warranty of any kind, express or
+% implied, including any warranty that it is accurate, complete or fit for a
+% particular purpose. The translation may be wrong: check it against its source
+% before relying on it. It is not legal, tax, insurance, financial or other
+% professional advice. Its authors accept no liability for any loss or damage
+% arising from its use.
+
+the target language is: prolog.
+
+the knowledge base lomo_52026pc0198 includes these resources:
+    lomo.
+
+the knowledge base lomo_52026pc0198 includes:
+
+the text of the source description is at "sources/52026PC0198.ttl".
+
+% Who bears a duty: the agent of this role of the action (lomo.le).
+the bearer role is addresser.
+
+
+description 1 is identified by "http://example.org/analysis/description/1".
+
+description 1 is a legal rule.
+
+description 1 has the label "Article 1(2)".
+
+description 1 is established in "https://data.europa.eu/eli/dl/proc/2026/198/cod/doc/com/COM_2026_198/FINAL/eng/art_1/par_2".
+
+description 1 has the digital dimension data.
+
+description 1 produces item 1 action.
+
+description 1 has the description "reporting obligations".
+
+
+description 2 is identified by "http://example.org/analysis/description/2".
+
+description 2 is a legal rule.
+
+description 2 has the label "Article 3(7)".
+
+description 2 is established in "https://data.europa.eu/eli/dl/proc/2026/198/cod/doc/com/COM_2026_198/FINAL/eng/art_3/par_7".
+
+description 2 has the digital dimension data.
+
+description 2 produces item 2 action.
+
+description 2 has the description "electronic monitoring system".
+
+
+description 3 is identified by "http://example.org/analysis/description/3".
+
+description 3 is a legal rule.
+
+description 3 has the label "Article 3(5)(g-i)".
+
+description 3 is established in "https://data.europa.eu/eli/dl/proc/2026/198/cod/doc/com/COM_2026_198/FINAL/eng/art_3/par_5".
+
+description 3 has the digital dimension data.
+
+description 3 produces item 3 action.
+
+description 3 has the description "reporting obligations".
+
+
+description 4 is identified by "http://example.org/analysis/description/4".
+
+description 4 is a legal rule.
+
+description 4 has the label "Article 5".
+
+description 4 is established in "https://data.europa.eu/eli/dl/proc/2026/198/cod/doc/com/COM_2026_198/FINAL/eng/art_5".
+
+description 4 has the description "satellite buoy".
+
+
+commission efca flag member state fishing vessel is identified by "http://example.org/agent/commission-efca-flag-member-state-fishing-vessel".
+
+commission efca flag member state fishing vessel has the label "Commission, EFCA, flag Member State, fishing vessel".
+
+
+member states is identified by "http://example.org/agent/member-states".
+
+member states has the label "Member States".
+
+
+member states fishing vessels is identified by "http://example.org/agent/member-states-fishing-vessels".
+
+member states fishing vessels has the label "Member States, fishing vessels".
+
+
+item 1 action is identified by "http://example.org/analysis/description/1/action".
+
+item 1 action is an action.
+
+item 1 action has the agent role addressee member states.
+
+
+addressee member states is identified by "http://example.org/analysis/description/1/action/role/addressee-member-states".
+
+addressee member states is an agent role.
+
+addressee member states is for the agent member states.
+
+addressee member states has the role addressee.
+
+
+item 2 action is identified by "http://example.org/analysis/description/2/action".
+
+item 2 action is an action.
+
+item 2 action has the agent role addressee member states fishing vessels.
+
+
+addressee member states fishing vessels is identified by "http://example.org/analysis/description/2/action/role/addressee-member-states-fishing-vessels".
+
+addressee member states fishing vessels is an agent role.
+
+addressee member states fishing vessels is for the agent member states fishing vessels.
+
+addressee member states fishing vessels has the role addressee.
+
+
+item 3 action is identified by "http://example.org/analysis/description/3/action".
+
+item 3 action is an action.
+
+item 3 action has the agent role addressee commission efca flag member state fishing vessel.
+
+
+addressee commission efca flag member state fishing vessel is identified by "http://example.org/analysis/description/3/action/role/addressee-commission-efca-flag-member-state-fishing-vessel".
+
+addressee commission efca flag member state fishing vessel is an agent role.
+
+addressee commission efca flag member state fishing vessel is for the agent commission efca flag member state fishing vessel.
+
+addressee commission efca flag member state fishing vessel has the role addressee.
+
+
+% The questions of LOMO's requirements document (its competency questions),
+% as far as a description can answer them.
+scenario description is, as stated in the source description:
+    actions_of_rules expects answers ["description 1 produces item 1 action", "description 2 produces item 2 action", "description 3 produces item 3 action"].
+    actions_of_agents expects answers ["commission efca flag member state fishing vessel acts as addressee in item 3 action", "member states acts as addressee in item 1 action", "member states fishing vessels acts as addressee in item 2 action"].
+
+query kinds is:
+    which thing is of the kind which kind.
+
+query bearer is:
+    the bearer role is which role.
+
+query rules_of_act is:
+    which rule is established by the act which act.
+
+query provisions is:
+    which thing is established in which provision.
+
+query places is:
+    which rule is laid down in which place.
+
+query joint_rules is:
+    which rule is established in more than one provision.
+
+query prescriptive is:
+    which thing is a prescriptive rule.
+
+query constitutive is:
+    which thing is a constitutive rule.
+
+query actions_of_rules is:
+    which rule produces which action.
+
+query addressers is:
+    which agent acts as addresser in which action.
+
+query addressees is:
+    which agent acts as addressee in which action.
+
+query beneficiaries is:
+    which agent acts as beneficiary in which action.
+
+query actions_of_agents is:
+    which agent acts as which role in which action.
+
+query concerned_agents is:
+    which rule concerns which agent.
+
+query digital_dimensions is:
+    which rule has the digital dimension which dimension.
+
+query texts is:
+    which thing is described by the text which text.
+
+query addresses is:
+    which thing is identified by which address.
+

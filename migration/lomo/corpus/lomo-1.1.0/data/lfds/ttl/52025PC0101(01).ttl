@@ -1,0 +1,290 @@
+@prefix adms: <http://www.w3.org/ns/adms#> .
+@prefix cav: <http://data.europa.eu/2sa/cav#> .
+@prefix cpsv: <http://purl.org/vocab/cpsv#> .
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix dctype: <http://purl.org/dc/dcmitype/> .
+@prefix dd: <http://data.europa.eu/leg/digital-dimensions/> .
+@prefix iac: <http://data.europa.eu/leg/interop-assessment#> .
+@prefix iopa: <http://data.europa.eu/2qy/iopa#> .
+@prefix lomo: <http://data.europa.eu/leg/lomo#> .
+@prefix m8g: <http://data.europa.eu/m8g/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix tf: <http://data.europa.eu/leg/temporal-function/> .
+
+<http://example.org/analysis/assessment/1> a cav:Assessment ;
+    cav:assesses <http://example.org/analysis/description/1>,
+        <http://example.org/analysis/description/2>,
+        <http://example.org/analysis/description/3>,
+        <http://example.org/analysis/description/4> ;
+    cav:resultsIn <http://example.org/analysis/assessment/1/1/barrier>,
+        <http://example.org/analysis/assessment/1/2/barrier>,
+        <http://example.org/analysis/assessment/1/3/barrier>,
+        <http://example.org/analysis/assessment/1/4/barrier> ;
+    m8g:isProvidedBy <http://publications.europa.eu/resource/authority/corporate-body/COM> .
+
+<http://example.org/analysis/solution/1> a dctype:Software ;
+    rdfs:label "Digital systems for managing return, readmission and reintegration of third-country nationals."@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/art_42/par_1> ;
+    lomo:hasCapability "Such systems should manage return, readmission and reintegration of third-country nationals." ;
+    dcterms:publisher <http://example.org/agent/member-states> ;
+    dcterms:title "Digital systems for managing return, readmission and reintegration of third-country nationals."@en .
+
+<http://example.org/agent/third-country-nationals> rdfs:label "Third-country nationals"@en .
+
+<http://example.org/analysis/action/1> a lomo:Action ;
+    rdfs:label "Data necessary for the application of the present initiative aiming to establish a common Union system for returns of third-country nationals staying illegally in the EU."@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Obligation to comply with procedural requirements"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/art_42/par_1> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/1/role/addressee-member-states>,
+        <http://example.org/analysis/action/1/role/addresser-member-states> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Data necessary for the application of the present initiative aiming to establish a common Union system for returns of third-country nationals staying illegally in the EU."@en ;
+            lomo:isManifestedIn <http://example.org/dataset/data-necessary-for-the-application-of-the-present-initiative-aiming-to-establish-a-common-union-system-for-returns-of-third-country-nationals-staying-illegally-in-the-eu> ] .
+
+<http://example.org/analysis/action/1/role/addressee-member-states> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/1/role/addresser-member-states> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/2> a lomo:Action ;
+    rdfs:label "Common form for return containing the main elements of the return decision (European Return Order)."@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Obligation to comply with procedural requirements"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/art_7/par_7> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/2/role/addressee-member-states-through-the-schengen-information-system>,
+        <http://example.org/analysis/action/2/role/addresser-member-states-through-the-schengen-information-system> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Common form for return containing the main elements of the return decision (European Return Order)."@en ;
+            lomo:isManifestedIn <http://example.org/dataset/common-form-for-return-containing-the-main-elements-of-the-return-decision-european-return-order> ] .
+
+<http://example.org/analysis/action/2/role/addressee-member-states-through-the-schengen-information-system> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states-through-the-schengen-information-system> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/2/role/addresser-member-states-through-the-schengen-information-system> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states-through-the-schengen-information-system> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/3> a lomo:Action ;
+    rdfs:label "Data communicated between competent authorities and third-country nationals."@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Need to communicate with third-country nationals"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/art_21/par_5> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/3/role/addressee-third-country-nationals>,
+        <http://example.org/analysis/action/3/role/addresser-member-states> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Data communicated between competent authorities and third-country nationals."@en ;
+            lomo:isManifestedIn <http://example.org/dataset/data-communicated-between-competent-authorities-and-third-country-nationals> ] .
+
+<http://example.org/analysis/action/3/role/addressee-third-country-nationals> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/third-country-nationals> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/3/role/addresser-member-states> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/4> a lomo:Action ;
+    rdfs:label "Information about the outcome of the request for confirmation of nationality and the travel document."@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Obligation to comply with procedural requirements"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/art_36/par_4> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/4/role/addressee-member-states-through-the-schengen-information-system>,
+        <http://example.org/analysis/action/4/role/addresser-member-states-through-the-schengen-information-system> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Information about the outcome of the request for confirmation of nationality and the travel document."@en ;
+            lomo:isManifestedIn <http://example.org/dataset/information-about-the-outcome-of-the-request-for-confirmation-of-nationality-and-the-travel-document> ] .
+
+<http://example.org/analysis/action/4/role/addressee-member-states-through-the-schengen-information-system> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states-through-the-schengen-information-system> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/4/role/addresser-member-states-through-the-schengen-information-system> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states-through-the-schengen-information-system> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/assessment/1/1/barrier> a cav:Statement ;
+    cav:interpretation iac:InterpretationPositive ;
+    cav:judgement "No remaining barriers."@en ;
+    cav:type iac:StatementTypeAlignmentBarrier ;
+    dcterms:description "Alignment with existing digital and sectorial policies.The interoperability of the digital case management system referred to in the present initiative will be addressed in a separate initiative on digitalisation in the area of return, readmission and reintegration."@en ;
+    dcterms:title "Digital systems for managing return, readmission and reintegration of third-country nationals."@en .
+
+<http://example.org/analysis/assessment/1/2/barrier> a cav:Statement ;
+    cav:interpretation iac:InterpretationPositive ;
+    cav:judgement "No remaining barriers."@en ;
+    cav:type iac:StatementTypeOrganisationBarrier ;
+    dcterms:description "Organisational measures for a smooth cross-border digital public services delivery.The governance of the digital case management system referred to in the present initiative will be addressed in a separate initiative on digitalisation in the area of return, readmission and reintegration."@en ;
+    dcterms:title "Digital systems for managing return, readmission and reintegration of third-country nationals."@en .
+
+<http://example.org/analysis/assessment/1/3/barrier> a cav:Statement ;
+    cav:interpretation iac:InterpretationPositive ;
+    cav:judgement "No remaining barriers."@en ;
+    cav:type iac:StatementTypeSharedBarrier ;
+    dcterms:description "Measures taken to ensure a shared understanding of the data.The sharing and reuse of data processed in the digital case management system referred to in the present initiative will be addressed in a separate initiative on digitalisation in the area of return, readmission and reintegration."@en ;
+    dcterms:title "Digital systems for managing return, readmission and reintegration of third-country nationals."@en .
+
+<http://example.org/analysis/assessment/1/4/barrier> a cav:Statement ;
+    cav:interpretation iac:InterpretationPositive ;
+    cav:judgement "No remaining barriers."@en ;
+    cav:type iac:StatementTypeStandardsBarrier ;
+    dcterms:description "Use of commonly agreed open technical specifications and standards."@en ;
+    dcterms:title "Digital systems for managing return, readmission and reintegration of third-country nationals."@en .
+
+<http://example.org/analysis/description/1> a iopa:BindingRequirement,
+        lomo:LegalRule ;
+    rdfs:label "Article 42(1)(d)"@en ;
+    iopa:affects <http://example.org/analysis/interop/1> ;
+    cav:valueDescription "The common Union system for returns must include digital systems for managing return, readmission and reintegration of third-country nationals."@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/art_42/par_1> ;
+    lomo:involvesProcess <http://example.org/process/establishment-of-digital-systems> ;
+    lomo:produces <http://example.org/analysis/action/1>,
+        <http://example.org/analysis/description/1/action> ;
+    lomo:references <http://example.org/dataset/data-necessary-for-the-application-of-the-present-initiative-aiming-to-establish-a-common-eu-system-for-the-return-of-third-country-nationals-staying-illegally-in-the-eu> ;
+    dcterms:description "The common Union system for returns must include digital systems for managing return, readmission and reintegration of third-country nationals."@en ;
+    dcterms:relation <http://example.org/ie-solution/the-interoperability-of-the-digital-case-management-system-referred-to-in-the-present-initiative-will-be-detailed-in-a-separate-initiative-on-digitalisation-of-case-management-in-the-area-of-return-readmission-and-reintegration> .
+
+<http://example.org/analysis/description/1/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/1/action/role/addressee-member-states> .
+
+<http://example.org/analysis/description/1/action/role/addressee-member-states> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/2> a iopa:BindingRequirement,
+        lomo:LegalRule ;
+    rdfs:label "Article 7(7)"@en ;
+    iopa:affects <http://example.org/analysis/interop/1> ;
+    cav:valueDescription "Obligation to make available in the Schengen Information System the European Return Order containing the main elements of the return decision."@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/art_7/par_7> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/recording-of-data> ;
+    lomo:produces <http://example.org/analysis/action/2>,
+        <http://example.org/analysis/description/2/action> ;
+    lomo:references <http://example.org/dataset/common-form-for-return-containing-the-main-elements-of-the-return-decision-european-return-order> ;
+    dcterms:description "Obligation to make available in the Schengen Information System the European Return Order containing the main elements of the return decision."@en ;
+    dcterms:relation <http://example.org/ie-solution/the-interoperability-of-the-digital-case-management-system-referred-to-in-the-present-initiative-will-be-detailed-in-a-separate-initiative-on-digitalisation-of-case-management-in-the-area-of-return-readmission-and-reintegration> .
+
+<http://example.org/analysis/description/2/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/2/action/role/addressee-member-states> .
+
+<http://example.org/analysis/description/2/action/role/addressee-member-states> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/3> a iopa:BindingRequirement,
+        lomo:LegalRule ;
+    rdfs:label "Article 21(5)"@en ;
+    iopa:affects <http://example.org/analysis/interop/1> ;
+    cav:valueDescription "Member States must either establish in national law the method of communication with the third-country nationals and the point in time at which the communication is considered received by and notified to the third-country national or make use of digital system developed and/or supported by the EU for the purpose of such communication."@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/art_21/par_5> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/notification> ;
+    lomo:produces <http://example.org/analysis/action/3>,
+        <http://example.org/analysis/description/3/action> ;
+    lomo:references <http://example.org/dataset/data-communicated-between-competent-authorities-and-third-country-nationals> ;
+    dcterms:description "Member States must either establish in national law the method of communication with the third-country nationals and the point in time at which the communication is considered received by and notified to the third-country national or make use of digital system developed and/or supported by the EU for the purpose of such communication."@en ;
+    dcterms:relation <http://example.org/ie-solution/the-interoperability-of-the-digital-case-management-system-referred-to-in-the-present-initiative-will-be-detailed-in-a-separate-initiative-on-digitalisation-of-case-management-in-the-area-of-return-readmission-and-reintegration> .
+
+<http://example.org/analysis/description/3/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/3/action/role/addressee-member-states> .
+
+<http://example.org/analysis/description/3/action/role/addressee-member-states> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/4> a iopa:BindingRequirement,
+        lomo:LegalRule ;
+    rdfs:label "Article 36(4)"@en ;
+    iopa:affects <http://example.org/analysis/interop/1> ;
+    cav:valueDescription "Information about the outcome of the request for confirmation of nationality and the travel document obtained must be uploaded in the Schengen Information System by the competent authority concerned. Such information and travel document must be made available to the competent authorities of other Member States upon request."@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/art_36/par_4> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/recording-of-data> ;
+    lomo:produces <http://example.org/analysis/action/4>,
+        <http://example.org/analysis/description/4/action> ;
+    lomo:references <http://example.org/dataset/information-about-the-outcome-of-the-request-for-confirmation-of-nationality-and-the-travel-document> ;
+    dcterms:description "Information about the outcome of the request for confirmation of nationality and the travel document obtained must be uploaded in the Schengen Information System by the competent authority concerned. Such information and travel document must be made available to the competent authorities of other Member States upon request."@en ;
+    dcterms:relation <http://example.org/ie-solution/the-interoperability-of-the-digital-case-management-system-referred-to-in-the-present-initiative-will-be-detailed-in-a-separate-initiative-on-digitalisation-of-case-management-in-the-area-of-return-readmission-and-reintegration> .
+
+<http://example.org/analysis/description/4/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/4/action/role/addressee-member-states> .
+
+<http://example.org/analysis/description/4/action/role/addressee-member-states> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/dataset/data-necessary-for-the-application-of-the-present-initiative-aiming-to-establish-a-common-eu-system-for-the-return-of-third-country-nationals-staying-illegally-in-the-eu> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/art_42/par_1> ;
+    dcterms:title "Data necessary for the application of the present initiative aiming to establish a common EU system for the return of third-country nationals staying illegally in the EU."@en .
+
+<http://example.org/dataset/data-necessary-for-the-application-of-the-present-initiative-aiming-to-establish-a-common-union-system-for-returns-of-third-country-nationals-staying-illegally-in-the-eu> a dcat:Dataset ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Data necessary for the application of the present initiative aiming to establish a common Union system for returns of third-country nationals staying illegally in the EU."@en ] ;
+    dcterms:title "Data necessary for the application of the present initiative aiming to establish a common Union system for returns of third-country nationals staying illegally in the EU."@en .
+
+<http://example.org/process/establishment-of-digital-systems> skos:prefLabel "Establishment of digital systems"@en .
+
+<http://example.org/process/notification> skos:prefLabel "Notification"@en .
+
+<http://publications.europa.eu/resource/authority/corporate-body/COM> a m8g:PublicOrganisation ;
+    dcterms:description "The European Commission, provider of the interoperability assessment."@en ;
+    skos:prefLabel "European Commission"@en .
+
+<http://example.org/dataset/common-form-for-return-containing-the-main-elements-of-the-return-decision-european-return-order> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/art_7/par_7> ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Common form for return containing the main elements of the return decision (European Return Order)."@en ] ;
+    dcterms:title "Common form for return containing the main elements of the return decision (European Return Order)"@en .
+
+<http://example.org/dataset/data-communicated-between-competent-authorities-and-third-country-nationals> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/art_21/par_5> ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Data communicated between competent authorities and third-country nationals."@en ] ;
+    dcterms:title "Data communicated between competent authorities and third-country nationals."@en .
+
+<http://example.org/dataset/information-about-the-outcome-of-the-request-for-confirmation-of-nationality-and-the-travel-document> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/art_36/par_4> ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Information about the outcome of the request for confirmation of nationality and the travel document."@en ] ;
+    dcterms:title "Information about the outcome of the request for confirmation of nationality and the travel document."@en .
+
+<http://example.org/process/recording-of-data> skos:prefLabel "Recording of data"@en .
+
+<http://example.org/agent/member-states-through-the-schengen-information-system> rdfs:label "Member States through the Schengen Information System."@en .
+
+<http://example.org/analysis/interop/1> a cpsv:PublicService ;
+    rdfs:label "Immigration services"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/art_21/par_5>,
+        <https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/art_36/par_4>,
+        <https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/art_42/par_1>,
+        <https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/art_7/par_7> ;
+    dcterms:description "Competent authorities in charge of enforcing the rules on return."@en ;
+    dcterms:identifier "interop/1" ;
+    dcterms:references <http://example.org/ie-solution/the-interoperability-of-the-digital-case-management-system-referred-to-in-the-present-initiative-will-be-detailed-in-a-separate-initiative-on-digitalisation-of-case-management-in-the-area-of-return-readmission-and-reintegration> ;
+    dcterms:title "Immigration services"@en .
+
+<http://example.org/ie-solution/the-interoperability-of-the-digital-case-management-system-referred-to-in-the-present-initiative-will-be-detailed-in-a-separate-initiative-on-digitalisation-of-case-management-in-the-area-of-return-readmission-and-reintegration> a adms:Asset ;
+    dcterms:description "The interoperability of the digital case management system referred to in the present initiative will be detailed in a separate initiative on digitalisation of case management in the area of return, readmission and reintegration."@en ;
+    dcterms:title "The interoperability of the digital case management system referred to in the present initiative will be detailed in a separate initiative on digitalisation of case management in the area of return, readmission and reintegration."@en .
+
+<http://example.org/agent/member-states> rdfs:label "Member States"@en .
+

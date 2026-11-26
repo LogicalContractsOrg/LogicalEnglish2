@@ -1,0 +1,67 @@
+@prefix : <http://data.europa.eu/leg/temporal-function/> .
+@prefix lomo: <http://data.europa.eu/leg/lomo#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+@base <http://data.europa.eu/leg/temporal-function> .
+
+#################################################################
+#    Temporal Function Scheme
+#################################################################
+
+:TemporalFunctionScheme rdf:type skos:ConceptScheme ;
+    skos:notation "temporal_function" ;
+    rdfs:label "Temporal Function"@en ;
+    rdfs:comment "A controlled vocabulary of temporal functions for classifying the role of temporal specifications."@en ;
+    skos:prefLabel "Temporal Function"@en ;
+    skos:prefLabel "Fonction temporelle"@fr ;
+    dcterms:title "Temporal Function Controlled Vocabulary"@en ;
+    dcterms:description "Defines the types of temporal functions: Deadline (latest completion time), Validity (effective period), Starting Point (commencement time), and Trigger (a conditional event that activates a rule or action)."@en ;
+    dcterms:creator "European Commission"@en ;
+    dcterms:modified "2026-10-21"^^xsd:date ;
+    dcterms:license <http://publications.europa.eu/resource/authority/licence/CC_BY_4_0> ;
+    owl:versionInfo "1.1.0" ;
+    skos:hasTopConcept :deadline ,
+                       :validity ,
+                       :startingPoint ,
+                       :trigger .
+
+:deadline rdf:type owl:NamedIndividual , skos:Concept ;
+    skos:notation "deadline" ;
+    rdfs:label "Deadline"@en ;
+    skos:definition "A temporal function indicating the latest time by which an action must be completed."@en ;
+    skos:prefLabel "Deadline"@en ;
+    skos:prefLabel "Échéance"@fr ;
+    skos:inScheme :TemporalFunctionScheme ;
+    skos:topConceptOf :TemporalFunctionScheme .
+
+:validity rdf:type owl:NamedIndividual , skos:Concept ;
+    skos:notation "validity" ;
+    rdfs:label "Validity"@en ;
+    skos:definition "A temporal function indicating the period during which a requirement is effective."@en ;
+    skos:prefLabel "Validity"@en ;
+    skos:prefLabel "Validité"@fr ;
+    skos:inScheme :TemporalFunctionScheme ;
+    skos:topConceptOf :TemporalFunctionScheme .
+
+:startingPoint rdf:type owl:NamedIndividual , skos:Concept ;
+    skos:notation "starting_point" ;
+    rdfs:label "Starting Point"@en ;
+    skos:definition "A temporal function indicating when an action may or must begin."@en ;
+    skos:prefLabel "Starting Point"@en ;
+    skos:prefLabel "Point de départ"@fr ;
+    skos:inScheme :TemporalFunctionScheme ;
+    skos:topConceptOf :TemporalFunctionScheme .
+
+:trigger rdf:type owl:NamedIndividual , skos:Concept ;
+    skos:notation "trigger" ;
+    rdfs:label "Trigger"@en ;
+    skos:definition "A temporal function indicating that an event starts/triggers the application of a rule or an action."@en ;
+    skos:prefLabel "Trigger"@en ;
+    skos:prefLabel "Élément déclencheur"@fr ;
+    skos:inScheme :TemporalFunctionScheme ;
+    skos:topConceptOf :TemporalFunctionScheme .

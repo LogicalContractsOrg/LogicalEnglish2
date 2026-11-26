@@ -1,0 +1,38 @@
+PREFIX lomo:    <http://data.europa.eu/leg/lomo#>
+PREFIX dcterms: <http://purl.org/dc/terms/>
+PREFIX rdf:     <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs:    <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX skos:    <http://www.w3.org/2004/02/skos/core#>
+
+# Reverse of process_description_table -> description.html
+# One row per legal rule: reference | description | actors | processes | categories
+SELECT ?rule ?ref ?description
+       (GROUP_CONCAT(DISTINCT COALESCE(STR(?eli), ""); SEPARATOR="||") AS ?elis)
+       (GROUP_CONCAT(DISTINCT COALESCE(?agentLbl, ""); SEPARATOR="||") AS ?actors)
+       (GROUP_CONCAT(DISTINCT COALESCE(?process,  ""); SEPARATOR="||") AS ?processes)
+       (GROUP_CONCAT(DISTINCT COALESCE(?category, ""); SEPARATOR="||") AS ?categories)
+WHERE {
+  ?rule rdf:type ?ruleClass .
+  ?ruleClass rdfs:subClassOf* lomo:LegalRule .
+
+  OPTIONAL { ?rule rdfs:label ?ref . }
+  OPTIONAL { ?rule dcterms:description ?description . }
+  OPTIONAL { ?rule lomo:establishedIn ?eli . }
+
+  OPTIONAL { ?rule lomo:involvesProcess ?processURI . ?processURI skos:prefLabel ?process . FILTER(LANG(?process) IN ("en", "")) }
+  OPTIONAL { ?rule lomo:hasCategory   ?categoryURI . ?categoryURI skos:prefLabel ?category . FILTER(LANG(?category) IN ("en", "")) }
+
+  # Actors: agents on the rule's description-action only. A rule may also produce
+  # data-flow actions (which carry an ActionResult); their provider/receiver agents
+  # belong to the data_flow table, not the description "Actors" column — so exclude
+  # any produced action that has a result.
+  OPTIONAL {
+    ?rule   lomo:produces     ?action .
+    FILTER NOT EXISTS { ?action lomo:hasResult ?anyResult . }
+    ?action lomo:hasAgentRole ?agentRole .
+    ?agentRole lomo:forAgent  ?agent .
+    OPTIONAL { ?agent rdfs:label ?agentLbl . }
+  }
+}
+GROUP BY ?rule ?ref ?description
+ORDER BY ?rule

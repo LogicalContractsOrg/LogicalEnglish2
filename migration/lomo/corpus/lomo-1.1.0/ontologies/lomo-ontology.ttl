@@ -1,0 +1,1924 @@
+@prefix : <http://data.europa.eu/leg/lomo#> .
+@prefix lomo: <http://data.europa.eu/leg/lomo#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix cpsv: <http://purl.org/vocab/cpsv#> .
+@prefix vann: <http://purl.org/vocab/vann/> .
+@prefix dctype: <http://purl.org/dc/dcmitype/> .
+
+@base <http://data.europa.eu/leg/lomo> .
+
+<http://data.europa.eu/leg/lomo> rdf:type owl:Ontology ;
+    dcterms:title "Legal Obligation Metadata Ontology (LOMO)"@en ;
+    dcterms:description "An OWL ontology for modeling the interpretation of prescriptive and constitutive rules extracted from legal sources, covering obligations, permissions, prohibitions, rights, definitions, and scope provisions. The ontology can be applied at any level of legislation : national, regional, european legislation, as well as for regulations from administrative bodies."@en ;
+    rdfs:seeAlso <https://doi.org/10.1145/3769126.3769255> ,
+                 <https://doi.org/10.1007/978-3-032-02225-7_2> ;
+    skos:scopeNote """Intended use cases:
+
+1. Annotate prescriptive rules: systematically annotate prescriptive legal provisions with their deontic modality, prescribed actions, agent roles, temporal constraints, and conditions.
+2. Model reporting obligations: represent reporting requirements including what is reported, by whom, to whom, when, and in what form.
+3. Distinguish constitutive from prescriptive provisions: separate definitions, scope delimitations, and institutional establishments from action-prescribing norms.
+4. Trace temporal validity and conditions: identify deadlines, validity periods, starting points, frequencies, and conditional triggers governing when requirements apply.
+5. Map agent roles: identify agents and their functional roles (addressee, addresser, beneficiary) in legally prescribed actions.
+6. Link provisions to legal sources: maintain traceability to authoritative sources via ELI URIs at article, paragraph, and point level.
+7. Classify digital dimensions: annotate obligations by their digital relevance (data, digital public services, digital solutions, process automation) to support digitalization analysis."""@en ;
+    skos:note """LOMO (Legal Obligation Metadata Ontology) is an interpretation layer over legal sources: it models the normative content practitioners read out of provisions. Legal rules can be identified, described with their characteristics, linked together, and are related to their source authoritative text through its [ELI](https://data.europa.eu/eli) (European Legislation Identifier) URI.
+
+### The core distinction: Prescriptive vs. Constitutive
+
+LOMO is structured around the base notion of [**Legal Rules**](#LegalRule). Following the Searlean tradition, LOMO sorts legal rules into two mutually exclusive kinds. [**Prescriptive rules**](#PrescriptiveRule) regulate behaviour - they mandate, permit, or prohibit actions, and therefore carry a [deontic modality](#hasDeonticModality) (obligation, permission, prohibition, right). [**Constitutive rules**](#ConstitutiveRule) instead bring facts into being - they define terms, establish institutions, or delimit the scope of a text, without prescribing any action. The two are disjoint: a rule whose normative function is not yet classified can remain a plain [`LegalRule`](#LegalRule), but wherever that function is clear one of the two specialisations applies.
+
+The legal rule class hierarchy is deliberately shallow: LOMO is meant to be applied consistently by annotators, manually and semi-automatically, so it favours a small set of classes plus controlled vocabularies for the fine-grained distinctions.
+
+### Substantive rules vs. Implementation and oversight rules
+
+The [prescriptive rules](#PrescriptiveRule) can themselves be divided into two subsets : the [**Substantive rules**](#SubstantiveRule) and the [**Implementation and oversight rules**](#ImplementationAndOversightRule). A Substantive rule sets the primary rights, duties and obligations of the regulated subjects (individuals, businesses, public administrations), prescribing their conduct. An implementation and oversight rule requires Member States, institutions or bodies to transpose, operationalise, monitor, support or enforce substantive rules, establishing the administrative and institutional machinery that makes them effective. If the exact nature of the rule cannot or does not need to be determined, the base type [Prescriptive rule](#PrescriptiveRule) can still be used.
+
+### Definitions, scope rules and institutional rules
+
+[Constitutive rules](#ConstitutiveRule) can be further refined into [**Definitions**](#Definition), [**Scope rules**](#ScopeRule) or [**Institutional rules**](#InstitutionalRule). A definition _"establishes the meaning of terms within a legal context"_, and is composed of a [**definiendum**](#hasDefiniendum) (the term being defined) and a [**definiens**](#hasDefiniens) (the definition of this term). An institutional rule establishes institutional entities, confers legal status or personality, defines the composition of organs, attributes powers or competences, or attaches legal effects to facts. Scope rules delimits the material, actor-related or territorial reach of an act or provision, whether positively (_"This regulation applies to…"_) or negatively (_"does not apply to…"_). If the exact nature of the rule cannot or does not need to be determined, the base type [Constitutive rule](#ConstitutiveRule) can still be used.
+
+### Anatomy of a prescriptive rule
+
+A [prescriptive rule](#PrescriptiveRule) is characterised by its [deontic modality](#hasDeonticModality) (obligation, permission, prohibition, right), its [requirement type](#hasRequirementType) taken from controlled vocabularies and its [verbatim legal text](#legalText). A [reference to the source provision](#establishedIn), using an ELI, ensures traceability. Each rule is [linked](#produces) to the [actions](#Action) it prescribes. An action is characterised by the [agents or types of agents](#forAgent), involved in it and the [role](#withRole) each one plays, the [expected output](#hasResult) resulting of the action such as a report. Actions might also carry [temporal specifications](#atTime), such as the event that triggers it, its frequency or the deadline for performing it.
+
+### Temporal aspects
+
+In LOMO, [**Temporal specifications**](#TemporalSpecification) encode time-related characteristics of the expected actions of legal rules, such as a deadline before which an action must be conducted, the starting point after which something becomes valid, or the trigger for some action. This is captured using the [function](#hasFunction) of the temporal specification. Given the variability of how time-related characteristics may be specified, LOMO proposes a flexible model to encode these, by allowing to capture [instants](#instant), [durations](#duration), [repetitions](#repetitions), [frequencies](#frequency) or simply [name of events](#temporalLabel). Temporal specifications can further be linked together to compose more elaborate constructs : a temporal specification can for example come [(immediately) after](#immediatelyAfter) or [(immediately) before](#immediatelyBefore) another one, or can [start](#starts)/[be started by](#startedBy) another one.
+
+### Reuse & alignment
+
+LOMO composes with established standards:
+  - [**ELI**](https://op.europa.eu/en/web/eu-vocabularies/dataset/-/resource?uri=http://publications.europa.eu/resource/dataset/eli) identifies the legal resources each rule is established in;
+  - [**SKOS**](https://www.w3.org/TR/skos-reference/) is used to encode the controlled vocabularies (deontic modalities, temporal functions, result categories, digital dimensions);
+  - [**DCAT**](https://www.w3.org/TR/vocab-dcat-3/) connects rules to the digital resources they reference and links action results to the datasets that manifest them;
+  - [**CPSV**](https://semiceu.github.io/CPSV-AP/releases/3.2.0/) connects obligations to the public services that discharge them;"""@en ;
+    dcterms:created "2025-11-20"^^xsd:date ;
+    dcterms:modified "2026-10-21"^^xsd:date ;
+    dcterms:creator "European Commission"@en ;
+    dcterms:contributor "European Commission"@en ;
+    owl:versionInfo "1.1.0" ;
+    owl:versionIRI <http://data.europa.eu/leg/lomo/ontology/1.1.0> ;
+    owl:priorVersion <http://data.europa.eu/leg/lomo/ontology/1.0.0> ;
+    dcterms:license <http://publications.europa.eu/resource/authority/licence/CC_BY_4_0> ;
+    owl:imports <http://www.w3.org/2004/02/skos/core> ;
+    owl:imports <http://www.w3.org/ns/dcat> ,
+                <http://purl.org/vocab/cpsv> .
+
+#################################################################
+#    Core Classes
+#################################################################
+
+:LegalRule rdf:type owl:Class ;
+    rdfs:label "Legal Rule"@en ;
+    rdfs:comment "The intellectual content of a legal rule."@en ;
+    rdfs:subClassOf owl:Thing ;
+    skos:scopeNote """Use LegalRule as the base class for any legal norm extracted from a legal source. 
+
+The intellectual content of a rule is its legal interpretation: the juridical meaning attributed to a provision through legal analysis, distinct from its literal textual expression. This allows the same legal concept to be represented even when expressed differently across multiple legal instruments.
+
+A LegalRule is applicable at any level of legislation : national, regional, european legislation, as well as for regulations from administrative bodies.
+
+Every LegalRule must be linked to its legal source(s) via lomo:establishedIn, which points to ELI URIs identifying legal resources (eli:LegalResource or cdm:fragment_resource_legal). A single LegalRule instance may have multiple lomo:establishedIn properties pointing to different legal sources when the rule is derived from multiple provisions that together establish its meaning.
+
+For rules with clear normative function, prefer the specialized subclasses: PrescriptiveRule or ConstitutiveRule."""@en ;
+    skos:example "GDPR Article 1 on Subject-matter and objectives (<http://data.europa.eu/eli/reg/2016/679/art_1>): a scope provision that establishes the purpose and scope of the regulation"@en ;
+    skos:example "eIDAS Regulation Article 3 on Definitions (<http://data.europa.eu/eli/reg/2014/910/art_3>): a provision containing foundational definitions that structure the legal framework"@en ;
+    skos:example "Directive (EU) 2019/1024 Article 5 (<http://data.europa.eu/eli/dir/2019/1024/art_5>): a complex provision combining both definitional and procedural elements"@en ;
+    skos:example "A rule replicated across Regulation (EU) 2018/1148 and its amendment Regulation (EU) 2023/1234, requiring multiple lomo:establishedIn links"@en ;
+    vann:usageExample """# Example 1: GDPR Article 1 as a LegalRule
+ex:Rule_GDPR_Art1 rdf:type lomo:LegalRule ;
+    rdfs:label "GDPR Subject-matter and objectives"@en ;
+    rdfs:comment "Scope provision establishing the purpose and scope of the General Data Protection Regulation"@en ;
+    lomo:establishedIn <http://data.europa.eu/eli/reg/2016/679/art_1> .
+
+# Example 2: Rule with multiple legal sources
+ex:Rule_Replicated rdf:type lomo:LegalRule ;
+    rdfs:label "Replicated compliance rule"@en ;
+    lomo:legalText "The operator shall ensure compliance with the requirements..."@en ;
+    lomo:establishedIn <http://data.europa.eu/eli/reg/2018/1148/art_10> ,
+                       <http://data.europa.eu/eli/reg/2023/1234/art_8> .
+
+# Example 3: Open Data Directive Article 5
+ex:Rule_OpenData_Art5 rdf:type lomo:LegalRule ;
+    rdfs:label "Open Data Directive Article 5"@en ;
+    rdfs:comment "Complex provision combining definitional and procedural elements"@en ;
+    lomo:establishedIn <http://data.europa.eu/eli/dir/2019/1024/art_5> .
+
+# Example 4: eIDAS Definitions
+ex:Rule_eIDAS_Art3 rdf:type lomo:LegalRule ;
+    rdfs:label "eIDAS Definitions"@en ;
+    rdfs:comment "Foundational definitions structuring the eIDAS legal framework"@en ;
+    lomo:establishedIn <http://data.europa.eu/eli/reg/2014/910/art_3> .
+"""@en .
+
+### Prescriptive Rule
+:PrescriptiveRule rdf:type owl:Class ;
+    rdfs:label "Prescriptive Rule"@en ;
+    rdfs:comment "A legal rule extracted from a legal source that mandates, permits, or prohibits actions. PrescriptiveRule is restricted to norms with deontic modalities (obligation, permission, prohibition, right) that prescribe behaviour. For legal rules that establish facts, definitions, or institutional realities without prescribing actions, use ConstitutiveRule instead."@en ;
+    rdfs:subClassOf :LegalRule ;
+    # A Prescriptive rule MUST produce at least one Action
+    rdfs:subClassOf [
+        a owl:Restriction ;
+        owl:onProperty :produces ;
+        owl:minCardinality "1"^^xsd:nonNegativeInteger
+    ] ;
+    # A Prescriptive rule MUST have at least one deontic modality (#161)
+    rdfs:subClassOf [
+        a owl:Restriction ;
+        owl:onProperty :hasDeonticModality ;
+        owl:minCardinality "1"^^xsd:nonNegativeInteger
+    ] ; 
+    skos:scopeNote """PrescriptiveRule is the core class for modeling rules that mandate, permit, or prohibit actions.
+
+Each :PrescriptiveRule should specify:
+1. hasDeonticModality: The type of normative effect (Obligation, Permission, Prohibition, Right)
+2. hasRequirementType: The functional category, taken from the applicable authority table (Administrative obligation for SubstantiveRule, Implementation and oversight for ImplementationAndOversightRule)
+3. legalText: The verbatim text from the legal source
+4. produces: The action(s) mandated, permitted, or prohibited by the rule
+
+For provisions that establish facts, definitions, or institutional realities without prescribing behaviour, use ConstitutiveRule."""@en ;
+    skos:example """Fisheries regulation - data requirements (Article 4(1)): A requirement specifying detailed topics, transmission frequencies, and other data collection parameters."""@en ;
+    skos:example """Financial reporting - publication obligation (Article 30(1)): A requirement for undertakings to publish annual financial statements within 12 months after the balance sheet date."""@en ;
+    skos:example """Vehicle registration - temporary submission requirement (Article 10(2)): A requirement for submission of registration certificates when re-registering vehicles from another Member State."""@en ;
+    vann:usageExample """# 1) Fisheries regulation - data requirements (Article 4(1))
+ex:Requirement_Art4_Par1 rdf:type lomo:PrescriptiveRule ;
+    lomo:hasDeonticModality <http://data.europa.eu/leg/deontic-modality/Obligation> ;
+    lomo:hasRequirementType <http://publications.europa.eu/resource/dataset/administrative-obligation/c_80214a02> ;
+    lomo:produces ex:Action_Art4_DataCollection , ex:Action_Art4_DataTransmission ;
+    lomo:legalText "The detailed topics, transmission frequencies, reference periods and the dimensions related to sensitive species, organic production and regional breakdown on fisheries and aquaculture statistics referred to in Article 1, shall be as set out in the Annex."@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/96/cod/doc/com/COM_2025_425/FINAL/eng/art_4/par_1> .
+
+# 2) Financial reporting - publication obligation (Article 30(1))
+ex:Requirement_Art30_Par1_PublicationObligation rdf:type lomo:PrescriptiveRule ;
+    lomo:hasDeonticModality <http://data.europa.eu/leg/deontic-modality/Obligation> ;
+    lomo:hasRequirementType <http://publications.europa.eu/resource/dataset/administrative-obligation/c_80214a02> ;
+    lomo:produces ex:Action_Art30_Publish ;
+    lomo:legalText "Member States shall ensure that undertakings publish within a reasonable period of time, which shall not exceed 12 months after the balance sheet date, the duly approved annual financial statements and the management report, together with the opinion submitted by the statutory auditor or audit firm."@en ;
+    lomo:establishedIn <http://data.europa.eu/eli/dir/2013/34/oj/art_30/par_1> .
+
+# 3) Vehicle registration - temporary submission requirement (Article 10(2))
+ex:Requirement_Art10_Par2 rdf:type lomo:PrescriptiveRule ;
+    lomo:hasDeonticModality <http://data.europa.eu/leg/deontic-modality/Obligation> ;
+    lomo:hasRequirementType <http://publications.europa.eu/resource/dataset/administrative-obligation/c_39b9f824> ;
+    lomo:legalText "Until [date of entry into force + 4 years] the competent authorities shall require the submission of only Part I of the physical registration certificate when re-registering a vehicle previously registered in another Member State. Until that date, they may also accept the presentation of a mobile registration certificate, if any."@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/96/cod/doc/com/COM_2025_179/FINAL/art_10/par_2> ."""@en .
+
+### Prescriptive Rule: functional subclasses
+:SubstantiveRule rdf:type owl:Class ;
+    rdfs:label "Substantive Rule"@en ;
+    vann:usageExample """ex:Rule_Dir2013_34_Art30_Publication a lomo:SubstantiveRule ;
+    rdfs:label "Directive 2013/34/EU Article 30: Publication of financial statements"@en ;
+    lomo:hasDeonticModality <http://data.europa.eu/leg/deontic-modality/Obligation> ;
+    lomo:hasRequirementType <http://publications.europa.eu/resource/dataset/administrative-obligation/c_80214a02> ;
+    lomo:legalText "Member States shall ensure that undertakings publish, within a period not exceeding 12 months after the balance sheet date, the duly approved annual financial statements and the management report."@en ;
+    lomo:produces ex:Action_PublishFinancialStatements ;
+    lomo:establishedIn <http://data.europa.eu/eli/dir/2013/34/oj/art_30/par_1> ."""@en ;
+    rdfs:comment """Legal provisions that define the primary rights, duties, and obligations of the regulated subjects, such as individuals, businesses and public administrations, by establishing mandatory standards of conduct or essential requirements."""@en ;
+    skos:scopeNote """This class refers to the core prescriptive content of an act. It focuses on the mandatory actions that parties must perform to achieve policy objectives, governing the direct relationship between the state and the businesses/individuals or between private parties.
+    """@en ;
+    skos:example """Where environmental damage has occurred the operator shall, without delay, inform the competent authority of all relevant aspects of the situation and take: (a) all practicable steps to immediately control (...) the relevant contaminants (...) and (b) the necessary remedial measures, in accordance with Article 7. (Directive 2004/35/EC, Art. 6 on remedial actions)"""@en ;
+    skos:example """In the case of a personal data breach, the controller shall without undue delay and, where feasible, not later than 72 hours after having become aware of it, notify the personal data breach to the supervisory authority competent in accordance with Article 55, unless (...) (Regulation (EU) 2016/679 (GDPR) Art. 33 on Notification of a personal data breach)"""@en ;
+    skos:example """Member States shall ensure that undertakings publish within a reasonable period of time, which shall not exceed 12 months after the balance sheet date, the duly approved annual financial statements and the management report, together with the opinion submitted by the statutory auditor or audit firm (...) (Directive 2013/34/EU Art. 30 on General publication requirements of financial statements)"""@en;    
+    rdfs:subClassOf :PrescriptiveRule .
+
+:ImplementationAndOversightRule rdf:type owl:Class ;
+    rdfs:label "Implementation and Oversight Rule"@en ;
+    vann:usageExample """ex:Rule_Dir2013_34_Art32_PublicOversight a lomo:ImplementationAndOversightRule ;
+    rdfs:label "Directive 2013/34/EU Article 32: Public oversight of statutory auditors"@en ;
+    lomo:hasDeonticModality <http://data.europa.eu/leg/deontic-modality/Obligation> ;
+    lomo:legalText "Member States shall provide for effective systems of public oversight for statutory auditors and audit entities."@en ;
+    lomo:produces ex:Action_EstablishPublicOversightSystem ;
+    lomo:establishedIn <http://data.europa.eu/eli/dir/2013/34/oj/art_32> ."""@en ;
+    rdfs:comment """Legal provisions that establish the administrative, procedural, and institutional framework required for Member States, public institutions or bodies to transpose, operationalize, monitor, support or enforce substantive rules."""@en ;
+    skos:scopeNote """This class refers to the mechanics of governance and the policing of the law. It focuses on the obligations of authorities to establish supervisory bodies, define powers of inspection, and implement sanctioning regimes rather than the conduct of the regulated subjects.
+    """@en ;
+    skos:example """Member States shall provide for effective systems of public oversight for statutory auditors and audit entities (Accounting Directive 2013/34/EU, Art. 32 on the oversight of auditing requirements)."""@en ;
+    skos:example """Member States shall bring into force the laws, regulations and administrative provisions necessary to comply with this Directive by 20 July 2015. They shall immediately inform the Commission thereof (Accounting Directive 2013/34/EU, Art. 53 on the transposition)."""@en ;
+    skos:example """The power to adopt delegated acts referred to in Article XX, YY shall be conferred on the Commission for a period of five years from 17 July 2012. The Commission shall draw up a report in respect of the delegation of power not later than nine months before the end of the five-year period. (Regulation (EU) No 528/2012, Art. 83 on the exercice of the delegation)"""@en ;
+    rdfs:subClassOf :PrescriptiveRule .
+
+### Constitutive Rule
+:ConstitutiveRule rdf:type owl:Class ;
+    rdfs:label "Constitutive Rule"@en ;
+    vann:usageExample """ex:Rule_Dir93_13_Art6_UnfairTermsNotBinding a lomo:ConstitutiveRule ;
+    rdfs:label "Directive 93/13/EEC Article 6(1): Unfair terms not binding"@en ;
+    lomo:legalText "Member States shall lay down that unfair terms used in a contract concluded with a consumer by a seller or supplier shall, as provided for under their national law, not be binding on the consumer."@en ;
+    lomo:establishedIn <http://data.europa.eu/eli/dir/1993/13/art_6> ."""@en ;
+    rdfs:comment "A legal provision that creates, defines, or constitutes institutional facts, including legal concepts, statuses, powers, or relationships within a normative system. Constitutive rules establish 'what counts as' something in a legal context, creating the very possibility of certain institutional realities. Unlike prescriptive rules (PrescriptiveRule), constitutive rules do NOT impose obligations, permissions, or prohibitions - they describe what IS rather than what OUGHT TO BE."@en ;
+    rdfs:subClassOf :LegalRule ;
+    owl:disjointWith :PrescriptiveRule ;
+    rdfs:seeAlso <https://doi.org/10.2307/2182230> ;
+    rdfs:seeAlso <https://doi.org/10.1093/acprof:oso/9780198245537.001.0001> ;
+    rdfs:seeAlso <https://doi.org/10.1017/CBO9781139173438> ;
+    rdfs:seeAlso <https://doi.org/10.1017/CBO9780511609213> ;
+    rdfs:seeAlso "Conte, A.G. (1995). 'Regola costitutiva in Wittgenstein.' In Filosofia del linguaggio normativo. I (pp. 237-254). Torino. (1st ed. 1981)"@en ;
+    rdfs:seeAlso "Guastini, R. (1986). 'Six Concepts of Constitutive Rule.' In T. Eckhoff, L.M. Friedman, & J. Uusitalo (Eds.), Vernunft und Erfahrung im Rechtsdenken der Gegenwart (Proceedings of the 11th World Congress of IVR, Helsinki 1983) (pp. 261-269). Rechtstheorie Beiheft 10."@en ;
+    rdfs:seeAlso "Roversi, C. (2012). Costituire: Uno Studio di Ontologia Giuridica. Giappichelli, Turin."@en ;
+    rdfs:seeAlso <https://doi.org/10.1007/978-3-030-00178-0_7> ;
+    rdfs:seeAlso "Biagioli, C., & Sartor, G. (1993). 'Regole e atti linguistici nel discorso normativo: Studi per un modello informatico-giuridico.' In Nuovi modelli formali del diritto. Il ragionamento giuridico nell'informatica e nell'intelligenza artificiale. CLUESP."@en ;
+    rdfs:seeAlso "Boella, G., & van der Torre, L. (2004). 'Regulative and Constitutive Norms in Normative Multiagent Systems.' KR, 4, 255-265."@en ;
+    rdfs:seeAlso <https://doi.org/10.1093/logcom/exl027> ;
+    rdfs:seeAlso "Grossi, D., & Jones, A.J.I. (2013). 'Constitutive Norms and Counts-As Conditionals.' In D. Gabbay, J. Horty, X. Parent, R. van der Meyden, & L. van der Torre (Eds.), Handbook of Deontic Logic and Normative Systems. College Publications, Milton Keynes."@en ;
+    rdfs:seeAlso <https://doi.org/10.2307/785533> ;
+    rdfs:seeAlso <https://doi.org/10.3233/FAIA251593> ;
+    rdfs:seeAlso <https://doi.org/10.1145/3769126.3769257> ;    
+    skos:scopeNote """Use for provisions that constitute institutional facts rather than regulate behaviour. Constitutive rules do not create obligations, permissions, or prohibitions - they establish the conditions under which something counts as a legal concept, status, or institutional entity. According to Searle (1979), 'Constitutive rules do not merely regulate, they create or define new forms of behaviour. The rules of football or chess, for example, create the very possibility of playing such games' (p. 33).
+The foundational pattern (Searle, 1969; Grossi & Jones, 2013) is: 
+X counts as Y in context C 
+where X is a brute fact or antecedent condition, Y is the institutional fact or legal concept created, and C is the institutional/legal context.
+Common linguistic patterns
+Constitutive rules typically appear through:
+- Explicit definitions: 'X means Y' or 'For the purposes of this Regulation, X means Y'
+- Scope provisions: 'This Regulation applies to...' or 'This Directive shall not apply to...'
+- Category constitutions: 'X shall be classified as Y' or 'The following count as Y: [enumeration]'
+- Status constitutions: 'X is hereby established as Y' or 'X shall have the status of Y'
+- Power attributions: 'X shall have the power to Y' or 'X has jurisdiction over Y'
+- Legal effect provisions: 'X shall have the effect of Y' or 'Compliance with X satisfies requirement Y'
+Distinguishing constitutive from prescriptive rules
+The fundamental test is whether the provision creates an institutional reality or regulates behaviour.
+Special cases
+Provisions related to institutional organs represent an appropriate example to clarify the norms’ distinction. Provisions are constitutive when they establish the organ, define its composition, grant legal personality, or attribute institutional competences abstractly. They are prescriptive when they impose specific procedural obligations, require concrete actions, establish operational deadlines, or regulate specific procedures. The key question is: does the provision define what the organ institutionally IS or CAN DO (constitutive), or how it MUST/MAY ACT in specific situations (prescriptive)?
+Mixed provisions may combine both constitutive and prescriptive elements. For example, GDPR Art. 9(1) states: ‘Processing of personal data revealing racial or ethnic origin, political opinions, religious or philosophical beliefs... shall be prohibited.’ This provision implicitly constitutes the category of ‘special categories of personal data’ through enumeration, but its operative effect is prescriptive, as it prohibits processing.
+Annotation guideline: As a general rule, annotators should first segment the provision into the smallest legally justified rule units and model the constitutive and prescriptive components separately. Only in the exceptional and residual case where further segmentation is not possible without introducing unsupported interpretive boundaries or losing the legal meaning of the text, a mixed provision may be classified as prescriptive. Only provisions that exclusively define, constitute, or establish institutional facts without prescribing behaviour should be classified as constitutive.
+"""@en ;
+    skos:example """Explicit Definition - Legal Concept (GDPR Art. 4(1))
+'personal data' means any information relating to an identified or  identifiable natural person ('data subject'); an identifiable natural person is one who can be identified, directly or indirectly, in particular by reference to an identifier such as a name, an identification number,  location data, an online identifier or to one or more factors specific to  the physical, physiological, genetic, mental, economic, cultural or social identity of that natural person"""@en ;
+    skos:example """Explicit Definition - Category with criteria (Directive 2013/34/EU on the annual financial statements, consolidated financial statements and related reports of certain types of undertakings, Art. 2(2))
+
+'“participating interest” means rights in the capital of other undertakings, whether or not represented by certificates, which, by creating a durable link with those undertakings, are intended to contribute to the activities of the undertaking which holds those rights. The holding of part of the capital of another undertaking is presumed to constitute a participating interest where it exceeds a percentage threshold fixed by the Member States which is lower than or equal to 20 %'"""@en ;
+    skos:example """Scope Provision - Positive Applicability Directive 2014/65/EU on markets in financial instruments (consolidated version), Art. 1(1)
+
+'This Directive shall apply to investment firms, market operators, and third-country firms providing investment services or performing investment activities through the establishment of a branch in the Union'"""@en ;
+    skos:example """Scope Provision - Negative Exclusion (GDPR Art. 2(2)(a))
+'This Regulation does not apply to the processing of personal data in  the course of an activity which falls outside the scope of Union law'"""@en ;
+    skos:example """Status Constitution - Legal Personality
+(Regulation 2016/794/EU on the European Union Agency for Law Enforcement Cooperation (Europol) (consolidated), Art.62)
+
+'Europol shall be an agency of the Union. It shall have legal personality'"""@en ;
+    skos:example """Organ Establishment (GDPR Art.68(1))
+
+'The European Data Protection Board (the ‘Board’) is hereby established as a body of the Union and shall have legal personality'"""@en ;
+    skos:example """Composition Definition (Regulation (EU) No 910/2014 - eIDAS (consolidated version), Art.46e(2))
+
+'The Cooperation Group shall be composed of representatives appointed by the Member States and of the Commission. The Cooperation Group shall be chaired by the Commission.'"""@en ;
+    skos:example """Legal Effect Constitution (Directive 93/13/EEC - Unfair Contract Terms, Art. 6(1))
+'Member States shall lay down that unfair terms used in a contract concluded with a consumer by a seller or supplier shall, as provided for under their national law, not be binding on the consumer and that the contract shall continue to bind the parties upon those terms if it is capable of continuing in existence without the unfair terms'"""@en ;
+    skos:example """Qualification/Classification (Regulation (EC) No 178/2002 - General Food Law (consolidated), Art. 3(1))
+
+'‘food law’ means the laws, regulations and administrative provisions governing food in general, and food safety in particular, whether at Community or national level; it covers any stage of production, processing and distribution of food, and also of feed produced for, or fed to, food-producing animals;'"""@en ;
+    skos:example """Territorial Applicability (Rome I Regulation (EC) No 593/2008, Art. 2)
+'Any law specified by this Regulation shall be applied whether or not it is the law of a Member State'"""@en ;
+    skos:example """Temporal Constitution - Entry into Force (GDPR Art. 99(2))
+'It shall apply from 25 May 2018'"""@en .
+
+
+### Constitutive Rule: functional subclasses
+
+:InstitutionalRule rdf:type owl:Class ;
+    rdfs:label "Institutional Rule"@en ;
+    vann:usageExample """ex:Rule_Europol_Art1_Establishment a lomo:InstitutionalRule ;
+    rdfs:label "Regulation (EU) 2016/794 Article 1: Establishment of Europol"@en ;
+    lomo:legalText "A European Union Agency for Law Enforcement Cooperation (Europol) is hereby established with a view to supporting cooperation among law enforcement authorities in the Union."@en ;
+    lomo:establishedIn <http://data.europa.eu/eli/reg/2016/794/art_1> ."""@en ;
+    rdfs:comment "A constitutive rule that establishes institutional entities, constitutes legal statuses, attributes powers or competences, or defines the composition of organs within a normative system."@en ;
+    rdfs:subClassOf :ConstitutiveRule ;
+    skos:scopeNote """Use for provisions whose primary function is to bring into existence an institutional entity, endow it with legal personality or status, define its composition, attribute powers or competences, or constitute the legal consequences attaching to certain facts or acts.
+
+Institutional rules create the legal-institutional structures of the legal system. They establish bodies, roles, and capacities that exist only by virtue of legal norms, without prescribing how actors must or may behave.
+
+Institutional rules encompass organ establishment ("is hereby established"), status constitution (legal personality), composition provisions, power attribution, and legal effect constitution.
+
+Power attribution provisions vest entities with institutional capacity to perform legal acts - they constitute the power itself, not regulate its exercise.
+
+Legal effect provisions attach specific institutional consequences to facts or acts - for example, a provision stating that unfair terms are not binding creates the legal consequence of invalidity.
+
+The distinction from prescriptive rules requires careful consideration regarding competences. A provision is institutional when it constitutes what an organ is, what legal qualities it has, or what it can do as institutional capacity. It becomes prescriptive when it regulates how the organ must or may act in specific circumstances. 
+
+Example: 'X shall have the power to impose fines' is institutional; 'X shall impose a fine not exceeding 20,000,000 EUR' upon certain violations is prescriptive.
+
+Common linguistic patterns:
+- Establishment formulas: 'X is hereby established as Y'
+- Status attributions: 'X shall have legal personality' or 'X shall be a body of the Union'
+- Composition provisions: 'X shall be composed of'
+- Power/competence attributions: 'X shall have the power to Y' or 'X may [institutional action]' (institutional capacity, not behavioural permission)
+- Legal effect constitutions: 'X shall not be binding on Y' or 'X shall have the effect of Y'"""@en ;
+    skos:example """Legal personality - Regulation (EU) 2016/794 (Europol Regulation), Art. 1
+A European Union Agency for Law Enforcement Cooperation (Europol) is hereby established with a view to supporting cooperation among law enforcement authorities in the Union."""@en ;
+    skos:example """Role definition - Regulation (EU) No 910/2014 (eIDAS), Art. 17(3)
+The role of the supervisory body shall be the following: [...]"""@en ;
+    skos:example """Mixed institutional content - Regulation (EU) 2024/903 (Interoperable Europe Act), Art. 15
+Article 15 establishes the Board (para. 1), defines its composition (para. 2), attributes the Chair and observer-status powers (para. 4), constitutes the decision-making mechanism (para. 4), and lists the Board's tasks and competences (para. 5)."""@en ;
+    rdfs:seeAlso <https://doi.org/10.1017/CBO9781139173438> ;
+    rdfs:seeAlso "Grossi, D., & Jones, A.J.I. (2013). 'Constitutive Norms and Counts-As Conditionals.' In D. Gabbay, J. Horty, X. Parent, R. van der Meyden, & L. van der Torre (Eds.), Handbook of Deontic Logic and Normative Systems. College Publications, Milton Keynes."@en ;
+    rdfs:seeAlso <https://doi.org/10.2307/785533> ;
+    rdfs:seeAlso "Roversi, C. (2012). Costituire: Uno Studio di Ontologia Giuridica. Giappichelli, Turin."@en ;
+    rdfs:seeAlso "Boella, G., & van der Torre, L. (2004). 'Regulative and Constitutive Norms in Normative Multiagent Systems.' KR, 4, 255-265."@en ;
+    rdfs:seeAlso <https://doi.org/10.1007/978-3-030-00178-0_7> .
+
+:ScopeRule rdf:type owl:Class ;
+    rdfs:label "Scope Rule"@en ;
+    vann:usageExample """ex:Rule_eIDAS_Art2_1_Scope a lomo:ScopeRule ;
+    rdfs:label "Regulation (EU) No 910/2014 (eIDAS) Article 2(1): Scope"@en ;
+    lomo:legalText "This Regulation applies to electronic identification schemes that have been notified by a Member State, and to trust service providers that are established in the Union."@en ;
+    lomo:establishedIn <http://data.europa.eu/eli/reg/2014/910/art_2/par_1> ."""@en ;
+    rdfs:comment "A constitutive rule that determines the material, actor-related, or territorial scope of application of a legal act or of one of its provisions, specifying what subject-matters, activities, entities, or territories fall within, or are excluded from, its regulatory reach. Scope rules constitute the boundaries of the normative space within which the substantive provisions operate, without themselves prescribing conduct."@en ;
+    rdfs:subClassOf :ConstitutiveRule ;
+    skos:scopeNote """Use for provisions or act-level clauses whose primary function is to delimit the scope of application of a legal instrument along its material dimension (what activities or situations are covered), actor-related dimension (which actors or entities are addressed), or territorial dimension (where the instrument applies).
+
+These provisions are typically located in the opening articles of EU legislative acts (commonly Articles 1-3), often under headings such as 'Subject matter and scope' or 'Scope'.
+
+Scope rules are not definitions. While a definition establishes what a term means ('X means Y'), a scope rule determines to what or whom the instrument applies ('This Regulation applies to X').
+
+Scope rules may be formulated positively (specifying what the instrument covers) or negatively (excluding certain areas, activities, or entities). Together, positive and negative scope provisions jointly constitute the regulatory perimeter of the instrument. Territorial scope provisions - including EU provisions extending regulatory effects beyond Member State borders - likewise constitute boundaries of the normative space rather than prescribing behaviour.
+
+Scope provisions employing 'shall apply to' may resemble prescriptive language, but they do not regulate behaviour: they constitute the domain within which prescriptive and other constitutive rules operate. 'This Regulation does not apply to' does not prohibit anything - it constitutes a boundary.
+
+Distinguishing scope rules from other constitutive rules: The central test is whether the provision determines the reach of the instrument - to what, to whom, or where it applies. Defining the concept of 'investment firm' constitutes a Definition; specifying that 'this Directive applies to investment firms' is a scope rule. If the provision determines when the instrument applies, it is a temporal applicability provision (modelled using TemporalSpecification).
+
+Common linguistic patterns:
+- Positive material scope: 'This Regulation/Directive applies to' or 'This Regulation covers'
+- Negative exclusions: 'This Regulation does not apply to' or 'This Directive shall not apply to'
+- Actor-related scope: 'This Regulation applies to providers' or 'The addressees of this Directive are'
+- Territorial scope: 'shall be applied whether or not it is the law of a Member State'"""@en ;
+    skos:example """Subject matter - Regulation (EU) No 910/2014 (eIDAS), Art. 1
+This Regulation: (a) lays down the conditions under which Member States recognize electronic identification means of natural and legal persons falling under a notified electronic identification scheme of another Member State; (b) lays down rules for trust services, in particular for electronic transactions; and (c) establishes a legal framework for electronic signatures, electronic seals, electronic time stamps, electronic documents, electronic registered delivery services and certificate services for website authentication."""@en ;
+    skos:example """Positive material and actor-related scope - eIDAS, Art. 2(1)
+This Regulation applies to electronic identification schemes that have been notified by a Member State, and to trust service providers that are established in the Union."""@en ;
+    skos:example """Negative exclusion - eIDAS, Art. 2(2)
+This Regulation does not apply to the provision of trust services that are used exclusively within closed systems resulting from national law or from agreements between a defined set of participants."""@en ;
+    skos:example """Territorial scope - Regulation (EC) No 593/2008 (Rome I), Art. 2
+Any law specified by this Regulation shall be applied whether or not it is the law of a Member State."""@en ;
+    rdfs:seeAlso <https://doi.org/10.2307/2182230> ;
+    rdfs:seeAlso "Grossi, D., & Jones, A.J.I. (2013). 'Constitutive Norms and Counts-As Conditionals.' In D. Gabbay, J. Horty, X. Parent, R. van der Meyden, & L. van der Torre (Eds.), Handbook of Deontic Logic and Normative Systems. College Publications, Milton Keynes."@en ;
+    rdfs:seeAlso "Guastini, R. (1986). 'Six Concepts of Constitutive Rule.' In T. Eckhoff, L.M. Friedman, & J. Uusitalo (Eds.), Vernunft und Erfahrung im Rechtsdenken der Gegenwart (Proceedings of the 11th World Congress of IVR, Helsinki 1983) (pp. 261-269). Rechtstheorie Beiheft 10."@en .
+
+
+### Action
+:Action rdf:type owl:Class ;
+    rdfs:label "Action"@en ;
+    rdfs:comment "An event that must, may, or may not be performed by one or more agents, as prescribed by a prescriptive rule."@en ;
+    rdfs:subClassOf owl:Thing ;
+    # Every Action MUST have at least one AgentRole
+    rdfs:subClassOf [
+        a owl:Restriction ;
+        owl:onProperty :hasAgentRole ;
+        owl:minCardinality "1"^^xsd:nonNegativeInteger
+    ] ;
+    skos:scopeNote """An Action is the event prescribed by a PrescriptiveRule: what an agent must, may, or may not do. Prescriptive rules link to their actions via lomo:produces.
+
+Every Action MUST have at least one lomo:hasAgentRole, identifying who performs it and in what role (addresser, addressee, or beneficiary).
+
+Optional links: lomo:atTime connects the action to a TemporalSpecification (e.g. a deadline, or a triggering event via hasFunction); lomo:hasResult links it to the ActionResult or ActionResultType it produces.
+
+Distinguish an Action (the prescribed event) from an ActionResult (the output that performing the action produces)."""@en ;
+    skos:example "Notify the supervisory authority of a personal data breach (GDPR Art. 33)."@en ;
+    skos:example "Publish the annual report on interoperability in the Union."@en ;
+    vann:usageExample """ex:Action_PublishReport a lomo:Action ;
+    rdfs:comment "The Commission publishes the annual interoperability report"@en ;
+    lomo:hasAgentRole ex:AgentRole_Commission_Publisher ;
+    lomo:hasResult ex:Result_AnnualReport2025_Interoperability .
+
+ex:AgentRole_Commission_Publisher a lomo:AgentRole ;
+    lomo:forAgent ex:Commission ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> ."""@en ;
+.
+
+### Agent
+:Agent rdf:type owl:Class ;
+    rdfs:label "Agent"@en ;
+    rdfs:comment "A specific, identifiable legal subject (natural person, legal person, or organization)."@en ;
+    rdfs:subClassOf :AgentOrType ;
+    skos:scopeNote "Use Agent for specific, named entities such as 'European Commission', 'Eurostat', 'Memorex Telex Japan Ltd'. For categories or types of entities, use AgentType instead. Both Agent and AgentType can be linked to actions via AgentRole."@en ;
+    skos:example "Specific, named entities: European Commission (an EU institution), Hitachi-Maxell (a specific Japanese company)"@en ;
+    vann:usageExample """ex:Commission rdf:type lomo:Agent ;
+    rdfs:label \"European Commission\"@en ;
+    rdfs:comment \"The European Commission - a specific institution\"@en .
+
+ex:HitachiMaxell rdf:type lomo:Agent ;
+    rdfs:label \"Hitachi-Maxell\"@en ;
+    rdfs:comment \"A specific Japanese company\"@en ."""@en .
+
+### Agent Type
+:AgentType rdf:type owl:Class ;    
+    rdfs:label "Agent Type"@en ;
+    rdfs:comment "A category or type of legal subjects (e.g., Member States, Undertakings, Importers) rather than a specific identified entity."@en ;
+    rdfs:subClassOf :AgentOrType ;
+    skos:scopeNote "Use AgentType for categories of entities that share common characteristics, such as 'Member States', 'Small Undertakings', 'Customs Authorities', 'Importers'. For specific, named entities, use Agent instead."@en ;
+    skos:example "Categories of entities: Member States (EU Member States as a category), Small Undertakings (category of undertakings meeting size criteria)"@en ;
+    vann:usageExample """ex:MemberStates rdf:type lomo:AgentType ;
+    rdfs:label \"Member States\"@en ;
+    rdfs:comment \"EU Member States as a category - any Member State may bear this obligation\"@en .
+
+ex:SmallUndertakings rdf:type lomo:AgentType ;
+    rdfs:label \"Small Undertakings\"@en ;
+    rdfs:comment \"Category of undertakings meeting size criteria\"@en ."""@en .
+
+### Agent Or AgentType (Union Superclass)
+:AgentOrType rdf:type owl:Class ;
+    rdfs:label "Agent or Agent Type"@en ;
+    rdfs:comment "Abstract superclass for Agent (specific entities), AgentType (categories of entities). Used as the range for forAgent property in AgentRole."@en ;
+    rdfs:subClassOf owl:Thing ;
+    owl:unionOf ( :Agent :AgentType ) ;
+    skos:scopeNote "Do not type individuals as AgentOrType: use Agent for a specific, named entity and AgentType for a category of entities. AgentOrType exists so that an AgentRole can point, through forAgent, at either kind — a provision may bind 'the Commission' or 'Member States' in the same way."@en ;
+    skos:example "In 'Member States shall report to the Commission', the addresser role is held by an AgentType (Member States) and the addressee role by an Agent (the European Commission); both are values of forAgent, hence AgentOrType."@en ;
+    vann:usageExample """# \"Member States shall report to the Commission ...\"
+ex:Report a lomo:Action ;
+    lomo:hasAgentRole [
+        a lomo:AgentRole ;
+        lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> ;
+        lomo:forAgent ex:MemberStates      # an AgentType
+    ] , [
+        a lomo:AgentRole ;
+        lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> ;
+        lomo:forAgent ex:Commission        # an Agent
+    ] .
+
+ex:MemberStates a lomo:AgentType ; rdfs:label \"Member States\"@en .
+ex:Commission a lomo:Agent ; rdfs:label \"European Commission\"@en ."""@en .
+
+### Agent Role
+:AgentRole rdf:type owl:Class ;
+    rdfs:label "Agent Role"@en ;
+    rdfs:comment "The relationship between an agent (or agent type) and an action, specifying the function the agent plays in that action."@en ;
+    rdfs:subClassOf owl:Thing ;
+    # The value of withRole MUST be one of the three permitted AT Role concepts
+    rdfs:subClassOf [
+        a owl:Restriction ;
+        owl:onProperty :withRole ;
+        owl:allValuesFrom [
+            a owl:Class ;
+            owl:oneOf (
+                <http://publications.europa.eu/resource/authority/role/ADDRESSER>
+                <http://publications.europa.eu/resource/authority/role/ADDRESSEE>
+                <http://publications.europa.eu/resource/authority/role/BENEF>
+            )
+        ]
+    ] ;
+    skos:scopeNote "AgentRole connects Agents or AgentTypes to Actions with a specific function (RoleType). Each AgentRole instance specifies: forAgent (which agent or agent type) and withRole (what role type: addressee, addresser, beneficiary). An action may have multiple agent roles. Use Agent for specific entities and AgentType for categories."@en ;
+    skos:example "Member States acting as addresser (sender) in a notification action"@en ;
+    vann:usageExample """# Using an AgentType (category)
+ex:AgentRole_MS_Addresser rdf:type lomo:AgentRole ;
+    lomo:forAgent ex:MemberStates ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> ;
+    rdfs:comment \"Member States (as a category) send notification\"@en ."""@en .
+
+### Temporal Specification
+:TemporalSpecification rdf:type owl:Class ;
+    rdfs:label "Temporal Specification"@en ;
+    skos:example "A 72-hour deadline running from a personal data breach (GDPR Art. 33): a TemporalSpecification carrying a duration, a temporal label, and a deadline function."@en ;
+    skos:example "The master of a Union fishing vessel or a representative of the master shall submit by electronic means the information referred to in Article 23(2) to the competent authority of their flag Member State within 24 hours after completion of the landing. (https://eur-lex.europa.eu/eli/reg/2009/1224/art_24)"@en ;
+    vann:usageExample """# Example 1
+ex:Deadline_BreachNotification a lomo:TemporalSpecification ;
+    lomo:duration "PT72H"^^xsd:duration ;
+    lomo:immediatelyAfter ex:BreachEvent ;
+    lomo:hasFunction <http://data.europa.eu/leg/temporal-function/deadline> .
+
+ex:BreachEvent a lomo:TemporalSpecification ;
+    lomo:temporalLabel "personal data breach"@en .
+
+# Example 2
+ex:Deadline_Submission a lomo:TemporalSpecification ;
+    lomo:duration "P24H"^^xsd:duration ;
+    lomo:immediatelyAfter ex:CompletionOfLanding ;
+    lomo:hasFunction <http://data.europa.eu/leg/temporal-function/deadline> .
+
+ex:CompletionOfLanding a lomo:TemporalSpecification ;
+    lomo:temporalLabel "completion of the landing"@en ."""@en ;
+    rdfs:comment "A specification of temporal information, including points in time, periods, durations, and temporal relationships."@en ;
+    rdfs:subClassOf owl:Thing ;
+    skos:scopeNote "Use temporal characteristics (instant, duration, frequency, repetitions, temporalLabel) as direct properties. Link temporal specifications via temporal relations (before, after, etc.). Specify function via hasFunction (deadline, validity, startingPoint, trigger) when used in prescriptive rules or actions."@en .
+
+### Action Result
+:ActionResult rdf:type owl:Class ;
+    rdfs:label "Action Result"@en ;
+    rdfs:comment "A specific, identifiable output, product, or outcome produced by performing an action."@en ;
+    rdfs:subClassOf :ActionResultOrType ;
+    skos:scopeNote """Use ActionResult for specific result instances such as 'First annual report on interoperability in the Union'. For types or categories of results, use ActionResultType instead. 
+    """@en ;
+    skos:example "First annual report on interoperability in the Union - 2025 - https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=COM:2025:860:FIN (a specific report instance published in 2025)"@en ;
+    skos:example "Report on the application of Regulation (EU) 2024/1350 due by 12 June 2028 - https://eur-lex.europa.eu/eli/reg/2024/1350/oj/eng#art_15 (a specific time-bound report mandated by Article 15)"@en ;
+    vann:usageExample """ex:Result_AnnualReport2025_Interoperability rdf:type lomo:ActionResult ;
+    rdfs:label \"First annual report on interoperability in the Union - 2025\"@en ;
+    rdfs:comment \"https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=COM:2025:860:FIN\"@en .
+
+# Example from Regulation (EU) 2024/1350, Article 15
+ex:Result_Report_2028_ApplicationOfRegulation rdf:type lomo:ActionResult ;
+    rdfs:label \"Report on the application of the Regulation (EU) 2024/1350 due by 12 June 2028\"@en ;
+    rdfs:comment \"Report submitted by the Commission to the European Parliament and the Council on the application of the Regulation, including Article 9(2)(b), Member State contributions, and resettlement and humanitarian admission efforts.\"@en .
+    """@en .
+
+### Action Result Type
+:ActionResultType rdf:type owl:Class ;
+    rdfs:label "Action Result Type"@en ;
+    rdfs:comment "A category or type of action results, representing a set of related ActionResults."@en ;
+    rdfs:subClassOf :ActionResultOrType ;
+    skos:scopeNote """Use ActionResultType to represent classes or categories of action results, such as recurring reports or standardized outputs."""@en ;
+    skos:example "Annual report on interoperability in the Union (a type of recurring report produced annually)"@en ;
+    skos:example "Certificate of activity (http://data.europa.eu/eli/reg/2018/848/oj/eng#art_35): a certificate provided by competent authorities to operators who have notified their activity and comply with the regulation"@en ;
+    skos:example "Label of Identification (http://data.europa.eu/eli/dir/2009/48/oj/eng#art_4): a label affixed on a toy containing identification information such as type, batch, serial or model number"@en ;
+    skos:example "Formal Expert Group (http://data.europa.eu/eli/reg/2019/516/oj/art_4): a formal expert group composed of Member State representatives and chaired by the Commission to provide advice"@en ;
+    vann:usageExample """# Example 1: Annual interoperability report
+ex:ResultType_AnnualInteroperabilityReport rdf:type lomo:ActionResultType ;
+    rdfs:label \"Annual report on interoperability in the Union\"@en ;
+    rdfs:comment \"A recurring report produced annually to assess interoperability progress in the European Union\"@en .
+
+# Example 2: Certificate from Regulation (EU) 2018/848 Article 35(1)
+ex:ResultType_Certificate rdf:type lomo:ActionResultType ;
+    rdfs:label \"Certificate of activity\"@en ;
+    rdfs:comment \"A certificate provided by the competent authorities to any operator or group of operators that has notified its activity in accordance with Article 34(1) and complies with the Regulation (EU) 2018/848.\"@en ;
+    lomo:establishedIn <http://data.europa.eu/eli/reg/2018/848/oj/eng#art_35> .
+
+# Example 3: Label from Directive 2009/48 Article 4(5)
+ex:ResultType_LabelOfIdentification rdf:type lomo:ActionResultType ;
+    rdfs:label \"Label of Identification\"@en ;
+    rdfs:comment \"A label affixed on a toy containing a type, batch, serial or model number or other element allowing their identification\"@en ;
+    lomo:establishedIn <http://data.europa.eu/eli/dir/2009/48/oj/eng#art_4> .
+
+# Example 4: Formal Expert Group from Regulation (EU) 2019/516 Article 4
+ex:ResultType_FormalExpertGroup rdf:type lomo:ActionResultType ;
+    rdfs:label \"Formal Expert Group\"@en ;
+    rdfs:comment \"A formal expert group, composed of representatives of all the Member States and chaired by a representative of the Commission, to advise the Commission.\"@en ;
+    lomo:establishedIn <http://data.europa.eu/eli/reg/2019/516/oj/art_4> .
+"""@en .
+
+### Action Result Or Action Result Type (Union Superclass)
+:ActionResultOrType rdf:type owl:Class ;
+    rdfs:label "Action Result or Action Result Type"@en ;
+    rdfs:comment "Abstract superclass for ActionResult (specific result instances), ActionResultType (categories of results). Used as a flexible range for properties linking to results."@en ;
+    rdfs:subClassOf owl:Thing ;
+    owl:unionOf ( :ActionResult :ActionResultType ) ;
+    skos:scopeNote "Do not type individuals as ActionResultOrType: use ActionResult for a specific result (this year's report) and ActionResultType for a category of results (the annual report). ActionResultOrType is the range of hasResult and isComposedOf and the domain of hasResultCategory and isManifestedIn, so these properties accept either kind; most provisions describe a type of result."@en ;
+    skos:example "'The Commission shall publish an annual report on interoperability' produces an ActionResultType (the annual report); the 2025 edition, once published, is an ActionResult. Both can be the value of hasResult."@en ;
+    vann:usageExample """# \"The Commission shall publish an annual report on interoperability ...\"
+ex:Publish a lomo:Action ;
+    lomo:hasResult ex:AnnualInteroperabilityReport .    # an ActionResultType
+
+ex:AnnualInteroperabilityReport a lomo:ActionResultType ;
+    rdfs:label \"Annual report on interoperability in the Union\"@en ;
+    lomo:hasResultCategory <http://data.europa.eu/leg/result-category/report> ."""@en .
+
+### Definition
+:Definition rdf:type owl:Class ;
+    rdfs:label "Definition"@en ;
+    skos:example "'public-interest entities' means undertakings governed by the law of a Member State whose transferable securities are admitted to trading on a regulated market (Directive 2013/34/EU Art. 2(1)): a semantic definition, with a definiendum and a definiens."@en ;
+    rdfs:comment "A legal definition of a term, concept, or agent role used within a legal source. Definition is a specialized kind of ConstitutiveRule that establishes the meaning of terms within a legal context. Like all constitutive rules, definitions do not prescribe actions - they constitute the semantic foundation upon which prescriptive rules operate."@en ;
+    rdfs:subClassOf :ConstitutiveRule ;
+    skos:scopeNote """Definitions in legal texts can be classified as semantic (triadic) or syntactic (dyadic):
+Semantic definitions establish meaning through three components:
+1. Definiendum (hasDefiniendum): The term being defined
+2. Definiens (hasDefiniens): The defining phrase or description  
+3. Referent: The real-world entities to which the term refers
+Example: 'public-interest entities' means undertakings whose securities are traded on regulated markets...
+- Definiendum: 'public-interest entities'
+- Definiens: the enumerated categories
+- Referent: actual undertakings meeting those criteria
+Syntactic definitions only relate symbols without explicit referent:
+Example: 'related party' has the same meaning as in IAS/IFRS
+- Definiendum: 'related party'
+- No definiens
+- No explicit referent (inherited from the referenced standard)
+Use equivalentDefinition to link a syntactic definition to an equivalent semantic definition.
+"""@en ;
+    rdfs:seeAlso <https://doi.org/10.3233/FAIA251593> ;
+    vann:usageExample """ex:Def_PublicInterestEntity rdf:type lomo:Definition ;
+    lomo:hasDefiniendum "public-interest entities"@en ;
+    lomo:hasDefiniens "undertakings within the scope of Article 1 which are..."@en ;    
+    lomo:establishedIn <https://eur-lex.europa.eu/eli/dir/2013/34/oj/art_2/point_1> .
+
+ex:Def_RelatedParty rdf:type lomo:Definition ;
+    lomo:hasDefiniendum "related party"@en ;
+    # "has the same meaning as in IAS 24 (Related Party Disclosures)"
+    lomo:equivalentDefinition [
+        a lomo:Definition ;
+        rdfs:seeAlso <https://www.ifrs.org/issued-standards/ias-24-related-party-disclosures/>
+    ] .
+
+ex:Def_SmallUndertakings rdf:type lomo:Definition ;
+    lomo:hasDefiniendum "small undertakings"@en ;
+    lomo:hasDefiniens "undertakings which on their balance sheet dates do not exceed the limits of at least two of the three following criteria:..."@en ;
+    lomo:establishedIn <https://eur-lex.europa.eu/eli/dir/2013/34/oj/art_2/point_2> ."""@en .
+
+
+#################################################################
+#    Object Properties
+#################################################################
+
+### Requirement Properties
+:hasDeonticModality rdf:type owl:ObjectProperty ;
+    rdfs:label "has deontic modality"@en ;
+    rdfs:comment "Relates a prescriptive rule to its deontic character (obligation, permission, prohibition, or right). MUST use values from DeonticModalityScheme."@en ;
+    rdfs:domain :PrescriptiveRule ;
+    rdfs:range skos:Concept ;
+    skos:scopeNote "Links a PrescriptiveRule to its deontic character. Values MUST come from the DeonticModalityScheme (Obligation, Permission, Prohibition, Right)."@en ;
+    skos:example "A publication requirement has the deontic modality Obligation."@en ;
+    vann:usageExample """ex:Rule_Art30_Publication a lomo:PrescriptiveRule ;
+    lomo:hasDeonticModality <http://data.europa.eu/leg/deontic-modality/Obligation> ."""@en ;
+    rdfs:seeAlso <http://data.europa.eu/leg/deontic-modality/DeonticModalityScheme> .
+
+:hasRequirementType rdf:type owl:ObjectProperty ;
+        rdfs:label "has requirement type"@en ;
+        rdfs:comment "Relates a prescriptive rule to its functional or substantive category. MUST use values from the appropriate authority tables."@en ;
+        rdfs:domain :PrescriptiveRule ;
+        rdfs:range skos:Concept ;
+        skos:scopeNote """This property links the specific PrescriptiveRule to the SKOS concept describing the functional or substantive category.
+
+        In the case of the class lomo:ImplementationAndOversightRule, values in the range of this property should be taken from the Implementation and oversight authority table.
+
+        In the case of the class lomo:SubstantiveRule, values in the range of this property should be taken from the Administrative obligation authority table."""@en ;
+        skos:example "A publication obligation carries a requirement type drawn from the Administrative obligation authority table."@en ;
+        vann:usageExample """ex:Rule_Art30_Publication a lomo:SubstantiveRule ;
+    lomo:hasRequirementType <http://publications.europa.eu/resource/dataset/administrative-obligation/c_80214a02> ."""@en ;
+        rdfs:seeAlso <https://op.europa.eu/en/web/eu-vocabularies/dataset/-/resource?uri=http://publications.europa.eu/resource/dataset/law-implementation-and-oversight>, <https://op.europa.eu/en/web/eu-vocabularies/dataset/-/resource?uri=http://publications.europa.eu/resource/dataset/administrative-obligation> .        
+
+:produces rdf:type owl:ObjectProperty ;
+    rdfs:label "produces"@en ;
+    rdfs:comment "Relates a prescriptive rule to the action(s) it prescribes."@en ;
+    rdfs:domain :PrescriptiveRule ;
+    rdfs:range :Action ;
+    skos:scopeNote "Links a PrescriptiveRule to the Action(s) that must/may/must-not be performed. A requirement may produce multiple actions. NOTE: This property applies only to PrescriptiveRule (prescriptive rules). ConstitutiveRule instances do NOT produce actions - they constitute facts or define terms."@en ;
+    skos:example "A requirement to inform the Commission produces an action to inform the Commission of changes."@en ;
+    vann:usageExample "ex:Requirement_Art1_Par2_InformCommission lomo:produces ex:Action_InformCommissionOfChanges ."@en .
+
+:establishedIn rdf:type owl:ObjectProperty ;
+    rdfs:label "established in"@en ;
+    rdfs:comment """Links an entity to the source of legal information used as reference"""@en ;
+    rdfs:range [ a rdfs:Class ;
+                 owl:unionOf ( <http://data.europa.eu/eli/ontology#LegalResource> <http://publications.europa.eu/ontology/cdm#fragment_resource_legal> ) ] ;
+    skos:scopeNote """This property can be used to link any entity to the resource, or the subdivision of a legal resource containing the information used as reference for the interpretation of the legal sources in LOMO"""@en ;
+    skos:example "The 'General safety requirement' in EU legislation is established in Article 5 of Regulation 2023/988 (http://data.europa.eu/eli/reg/2023/988/art_5/oj)"@en ;
+    vann:usageExample """ex:GeneralSafetyRule a lomo:LegalRule ;
+    lomo:establishedIn <http://data.europa.eu/eli/reg/2023/988/art_5/oj> .""".
+
+
+### Action Properties
+
+:hasAgentRole rdf:type owl:ObjectProperty ;
+    rdfs:label "has agent role"@en ;
+    rdfs:comment "Relates an action to an agent role specifying an agent's participation."@en ;
+    rdfs:domain :Action ;
+    rdfs:range :AgentRole ;
+    skos:scopeNote "Every Action should have at least one AgentRole specifying who participates. Common role types: addressee (recipient of communication), addresser (sender), beneficiary (who benefits). An action may have multiple agent roles for different participants."@en ;
+    skos:example "Member States informing the Commission about a change in national legislation."@en ;
+    vann:usageExample """
+# Example 1: Action with multiple agent roles
+ex:Action_InformCommission lomo:hasAgentRole ex:AgentRole_MS_Informer , ex:AgentRole_Commission_Informed .
+
+ex:AgentRole_MS_Informer rdf:type lomo:AgentRole ;
+    lomo:forAgent ex:MemberStates ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+ex:AgentRole_Commission_Informed rdf:type lomo:AgentRole ;
+    lomo:forAgent ex:Commission ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+# Example 2: Action with a single agent role
+ex:Action_PublishReport rdf:type lomo:Action ;
+    lomo:hasAgentRole ex:AgentRole_Commission_Publisher .
+
+ex:AgentRole_Commission_Publisher rdf:type lomo:AgentRole ;
+    lomo:forAgent ex:Commission ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+"""@en .
+
+:atTime rdf:type owl:ObjectProperty ;
+    rdfs:label "at time"@en ;
+    rdfs:comment "A generic property linking any entity to a temporal specification, indicating when an event occurs, a rule applies, or an action must be performed."@en ;
+    rdfs:range :TemporalSpecification ;
+    skos:scopeNote """The atTime property serves as a generic property linking any kind of entity to a temporal specification. It can be used for Rules (to specify when a requirement is applicable or triggers), Actions (to specify when an action must/may occur), Results, and other classes in need of temporal modeling. The domain is intentionally unspecified to allow flexibility across different entity types.
+
+The actual role played by the TemporalSpecification (whether it is a deadline, a trigger, a starting point, etc.) is indicated by the hasFunction property on the TemporalSpecification itself. This allows for precise modeling of temporal constraints and events.
+
+Example patterns:
+1. Linking a PrescriptiveRule to a triggering event:
+   PrescriptiveRule :atTime TemporalSpecification .
+   TemporalSpecification :temporalLabel \"label of the event\"@en .
+   TemporalSpecification :hasFunction <http://data.europa.eu/leg/temporal-function/trigger> .
+
+2. Linking an Action to a deadline:
+   Action :atTime TemporalSpecification .
+   TemporalSpecification :instant \"2026-04-12\"^^xsd:date .
+   TemporalSpecification :hasFunction <http://data.europa.eu/leg/temporal-function/deadline> .
+    """@en ;
+
+
+    skos:example """
+- In the case of a personal data breach, the controller shall without undue delay and, where feasible, not later than 72 hours after having become aware of it, notify the personal data breach to the supervisory authority competent in accordance with Article 55, unless the personal data breach is unlikely to result in a risk to the rights and freedoms of natural persons. Where the notification to the supervisory authority is not made within 72 hours, it shall be accompanied by reasons for the delay. - http://data.europa.eu/eli/reg/2016/679/art_33/par_1/2016-05-04"""@en ;    
+    vann:usageExample """
+# "In case of a personal data breach, the controller shall..."
+ex:NotifySupervisoryAuthority a lomo:Action ;
+    lomo:atTime [
+        a lomo:TemporalSpecification ;
+        lomo:temporalLabel "personal data breach"@en ;
+        lomo:hasFunction <http://data.europa.eu/leg/temporal-function/trigger> ;
+    ] .
+ """ ;
+.
+
+:hasResult rdf:type owl:ObjectProperty ;
+    rdfs:label "has result"@en ;
+    rdfs:comment "Links an action to the result(s) it produces."@en ;
+    rdfs:domain :Action ;
+    rdfs:range :ActionResultOrType ;
+    skos:scopeNote "Connects actions to their outputs. An action may produce multiple results. Use ActionResult for specific result instances (e.g., 'Annual Report 2024') or ActionResultType for result categories (e.g., 'Financial Statements' as a type)."@en ;
+    skos:example "An action to prepare financial statements produces the 2024 financial statements. An audit action produces an audit report."@en ;
+    vann:usageExample """
+# Example 1: Linking an action to a specific result instance
+ex:Action_PrepareFinancialStatements rdf:type lomo:Action ;
+    lomo:hasResult ex:Result_FinancialStatements_2024 .
+
+ex:Result_FinancialStatements_2024 rdf:type lomo:ActionResult ;
+    rdfs:label "Financial Statements 2024"@en .
+
+# Example 2: Linking an action to a result type
+ex:Action_Audit rdf:type lomo:Action ;
+    lomo:hasResult ex:AuditReportType .
+
+ex:AuditReportType rdf:type lomo:ActionResultType ;
+    rdfs:label "Audit Report"@en .
+
+# Example 3: Action producing multiple results
+ex:Action_AnnualReview rdf:type lomo:Action ;
+    lomo:hasResult ex:Result_AnnualReport_2024 , ex:Result_FinancialSummary_2024 .
+
+ex:Result_AnnualReport_2024 rdf:type lomo:ActionResult ;
+    rdfs:label "Annual Report 2024"@en .
+
+ex:Result_FinancialSummary_2024 rdf:type lomo:ActionResult ;
+    rdfs:label "Financial Summary 2024"@en .
+"""@en .
+
+:hasNext rdf:type owl:ObjectProperty ;
+    rdfs:label "has next"@en ;
+    rdfs:comment "Indicates that one action is followed by another action in a sequence."@en ;
+    skos:scopeNote "Orders two Action instances in a sequence: the object action follows the subject action. Inverse of hasPrevious."@en ;
+    skos:example "An action to submit a draft is followed by an action to publish the final version."@en ;
+    vann:usageExample "ex:Action_SubmitDraft lomo:hasNext ex:Action_PublishFinal ."@en ;
+    owl:inverseOf :hasPrevious;
+    rdfs:domain :Action ;
+    rdfs:range :Action .
+
+:hasPrevious rdf:type owl:ObjectProperty ;
+    rdfs:label "has previous"@en ;
+    rdfs:comment "Indicates that one action is preceded by another action in a sequence."@en ;
+    skos:scopeNote "Orders two Action instances in a sequence: the object action precedes the subject action. Inverse of hasNext."@en ;
+    skos:example "An action to communicate a national transposition of a Directive to the Commission is preceded by the entry into force of the corresponding national legislation."@en ;
+    vann:usageExample "ex:Action_CommunicateTransposition lomo:hasPrevious ex:Action_TransposesDirective ."@en ;
+    owl:inverseOf :hasNext;
+    rdfs:domain :Action ;
+    rdfs:range :Action .
+
+### Agent Role Properties
+:forAgent rdf:type owl:ObjectProperty ;
+    rdfs:label "for agent"@en ;
+    rdfs:comment "Links an AgentRole to the specific Agent or AgentType performing that role."@en ;
+    rdfs:domain :AgentRole ;
+    rdfs:range :AgentOrType ;
+    owl:cardinality "1"^^xsd:nonNegativeInteger ;
+    skos:scopeNote "Use this property to specify the agent or agent type associated with a particular role in an action. It can reference either a specific Agent (e.g., European Commission) or an AgentType (e.g., Member States)."@en ;
+    skos:example "An AgentRole for a specific Agent (e.g., European Commission) or an AgentType (e.g., Member States)."@en ;
+    vann:usageExample """
+# Example 1: Linking an AgentRole to a specific Agent
+ex:AgentRole_Commission_Addresser rdf:type lomo:AgentRole ;
+    lomo:forAgent ex:Commission ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+ex:Commission rdf:type lomo:Agent ;
+    rdfs:label "European Commission"@en .
+
+# Example 2: Linking an AgentRole to an AgentType
+ex:AgentRole_MS_Addresser rdf:type lomo:AgentRole ;
+    lomo:forAgent ex:MemberStates ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+ex:MemberStates rdf:type lomo:AgentType ;
+    rdfs:label "Member States"@en .
+"""@en .
+
+:withRole rdf:type owl:ObjectProperty ;
+    rdfs:label "with role"@en ;
+    rdfs:comment "Specifies the type of role performed by an agent. MUST use values from the OP AT Role Table."@en ;
+    rdfs:domain :AgentRole ;
+    rdfs:range skos:Concept ;
+    owl:cardinality "1"^^xsd:nonNegativeInteger ;
+    rdfs:seeAlso <https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/role> ;
+    skos:scopeNote """Only the following three concepts from the OP AT Role authority table are permitted as values of lomo:withRole:
+
+- <http://publications.europa.eu/resource/authority/role/ADDRESSER> (Addresser): the agent who sends a request or communication
+- <http://publications.europa.eu/resource/authority/role/ADDRESSEE> (Addressee): the agent to whom something is addressed
+- <http://publications.europa.eu/resource/authority/role/BENEF> (Beneficiary): the agent who benefits from an action
+
+These three concepts are grouped in the skos:Collection :LomoPermittedRoles defined in this ontology. This restriction is also enforced by a sh:in constraint in the LOMO SHACL shapes (shapes/lomo-shapes.ttl).
+
+The AT Role authority table contains many additional concepts whose definitions do not fit the scope of LOMO. This restriction is intended to prevent the annotation of data with role values that may become incompatible with future versions of LOMO. The restriction will be reviewed and may be extended in LOMO 2.0.0."""@en ;
+    skos:example "An AgentRole with the role Addresser (the sending party)."@en ;
+    vann:usageExample """ex:AgentRole_Commission_Addresser a lomo:AgentRole ;
+    lomo:forAgent ex:Commission ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> ."""@en .
+
+#################################################################
+#    Permitted Role Collection
+#################################################################
+
+:LomoPermittedRoles rdf:type skos:Collection ;
+    rdfs:label "LOMO Permitted Roles"@en ;
+    rdfs:comment "The set of OP AT Role concepts permitted as values of lomo:withRole in LOMO 1.0.0."@en ;
+    skos:member <http://publications.europa.eu/resource/authority/role/ADDRESSER> ,
+                <http://publications.europa.eu/resource/authority/role/ADDRESSEE> ,
+                <http://publications.europa.eu/resource/authority/role/BENEF> .
+
+### Temporal Properties
+:hasFunction rdf:type owl:ObjectProperty ;
+    rdfs:label "has function"@en ;
+    rdfs:comment "Specifies the function of a temporal specification."@en ;
+    rdfs:domain :TemporalSpecification ;
+    rdfs:range skos:Concept ;
+    rdfs:seeAlso <http://data.europa.eu/leg/temporal-function/TemporalFunctionScheme> ;
+    skos:scopeNote "Use this property to indicate the role of a temporal specification. Common functions include deadline, validity period, starting point, and trigger."@en ;
+    skos:example "Member States shall submit their national implementation reports by 31 December 2025."@en ;
+    vann:usageExample """
+# Example 1: Deadline for an action
+ex:Action_SubmitReport a lomo:Action ;
+    lomo:atTime [
+        a lomo:TemporalSpecification ;
+        lomo:instant "2025-12-31"^^xsd:date ;
+        lomo:hasFunction <http://data.europa.eu/leg/temporal-function/deadline> ;
+    ] .
+
+# Example 2: Validity period for a rule
+ex:Rule_TemporaryMeasure a lomo:PrescriptiveRule ;
+    lomo:atTime [
+        a lomo:TemporalSpecification ;
+        lomo:duration "P6M"^^xsd:duration ;
+        lomo:hasFunction <http://data.europa.eu/leg/temporal-function/validity> ;
+    ] .
+
+# Example 3: Trigger for a rule
+ex:Rule_DataBreachNotification a lomo:PrescriptiveRule ;
+    lomo:atTime [
+        a lomo:TemporalSpecification ;
+        lomo:temporalLabel "personal data breach"@en ;
+        lomo:hasFunction <http://data.europa.eu/leg/temporal-function/trigger> ;
+    ] .
+"""@en .
+
+### Temporal Relation Properties
+:after rdf:type owl:ObjectProperty ;
+    rdfs:domain :TemporalSpecification ;
+    rdfs:range :TemporalSpecification ;
+    rdfs:label "after"@en ;
+    rdfs:comment "Indicates that one temporal specification occurs subsequent to the end of another temporal specification."@en ;
+    skos:scopeNote "Allen-style relation between two TemporalSpecification instances: the subject occurs entirely after the end of the object. Use immediatelyAfter when no gap separates them."@en ;
+    skos:example "The appeal period runs after the notification period ends."@en ;
+    vann:usageExample """ex:AppealPeriod a lomo:TemporalSpecification ;
+    lomo:after ex:NotificationPeriod ."""@en .
+
+:before rdf:type owl:ObjectProperty ;
+    rdfs:domain :TemporalSpecification ;
+    rdfs:range :TemporalSpecification ;
+    rdfs:label "before"@en ;
+    rdfs:comment "Indicates that one temporal specification occurs prior to the start of another temporal specification."@en ;
+    skos:scopeNote "Allen-style relation between two TemporalSpecification instances: the subject occurs entirely before the start of the object. Use immediatelyBefore when no gap separates them."@en ;
+    skos:example "The consultation period runs before the decision deadline."@en ;
+    vann:usageExample """ex:ConsultationPeriod a lomo:TemporalSpecification ;
+    lomo:before ex:DecisionDeadline ."""@en .
+
+:immediatelyAfter rdf:type owl:ObjectProperty ;
+    rdfs:domain :TemporalSpecification ;
+    rdfs:range :TemporalSpecification ;
+    rdfs:label "immediately after"@en ;
+    rdfs:comment "Indicates that one temporal specification follows directly the end of another."@en ;
+    skos:scopeNote "Stronger form of after: the subject begins exactly when the object ends, with no gap between them."@en ;
+    skos:example "The enforcement phase starts immediately after the transposition deadline."@en ;
+    vann:usageExample """ex:EnforcementPhase a lomo:TemporalSpecification ;
+    lomo:immediatelyAfter ex:TranspositionDeadline ."""@en ;
+    rdfs:subPropertyOf :after .
+
+:immediatelyBefore rdf:type owl:ObjectProperty ;
+    rdfs:domain :TemporalSpecification ;
+    rdfs:range :TemporalSpecification ;
+    rdfs:label "immediately before"@en ;
+    rdfs:comment "Indicates that one temporal specification directly precedes the end of another."@en ;
+    skos:scopeNote "Stronger form of before: the subject ends exactly when the object begins, with no gap between them."@en ;
+    skos:example "The notice period ends immediately before the contract takes effect."@en ;
+    vann:usageExample """ex:NoticePeriod a lomo:TemporalSpecification ;
+    lomo:immediatelyBefore ex:ContractEffectiveDate ."""@en ;
+    rdfs:subPropertyOf :before .
+
+:starts rdf:type owl:ObjectProperty ;
+    rdfs:domain :TemporalSpecification ;
+    rdfs:range :TemporalSpecification ;
+    rdfs:label "starts"@en ;
+    rdfs:comment "Indicates that one temporal specification begins at the same moment as another."@en ;
+    owl:inverseOf :startedBy ;
+    skos:scopeNote "Use this property to indicate that one temporal specification begins at the same moment as another. This property is context-independent and can be used to model temporal relationships in legal rules, actions, and other entities."@en ;
+    skos:example "A fiscal year starts at the same moment as a new reporting period begins."@en ;
+    vann:usageExample """
+# Example 1: Fiscal year starts at the same moment as a reporting period
+ex:FiscalYear2025 a lomo:TemporalSpecification ;
+    lomo:instant "2025-01-01"^^xsd:date ;
+    rdfs:label "Start of Fiscal Year 2025"@en ;
+    lomo:starts ex:ReportingPeriod2025 .
+
+ex:ReportingPeriod2025 a lomo:TemporalSpecification ;
+    lomo:instant "2025-01-01"^^xsd:date ;
+    rdfs:label "Start of Reporting Period 2025"@en .
+
+# Example 2: One action starts at the same moment as another action
+ex:Action_ReviewReport a lomo:Action ;
+    lomo:atTime [
+        a lomo:TemporalSpecification ;
+        lomo:starts ex:Action_SubmitReport ;
+    ] .
+
+ex:Action_SubmitReport a lomo:Action ;
+    lomo:atTime [
+        a lomo:TemporalSpecification ;
+        lomo:instant "2025-12-31"^^xsd:date ;
+    ] .
+"""@en .
+
+:finishes rdf:type owl:ObjectProperty ;
+    rdfs:domain :TemporalSpecification ;
+    rdfs:range :TemporalSpecification ;
+    rdfs:label "finishes"@en ;
+    rdfs:comment "Indicates that one temporal specification ends at the same moment as another."@en ;
+    skos:scopeNote "This property is context-independent and can be used to model temporal relationships in legal rules, actions, and other entities."@en;
+    owl:inverseOf :finishedBy ;
+    skos:example "A fiscal year finishes at the same moment as the deadline for submitting a report."@en ;
+    vann:usageExample """
+# Example 1: Fiscal year finishes at the same moment as a deadline
+ex:FiscalYear2025 a lomo:TemporalSpecification ;
+    lomo:instant "2025-12-31"^^xsd:date ;
+    rdfs:label "End of Fiscal Year 2025"@en ;
+    lomo:finishes ex:Deadline_SubmitReport .
+
+ex:Deadline_SubmitReport a lomo:TemporalSpecification ;
+    lomo:instant "2025-12-31"^^xsd:date ;
+    lomo:hasFunction <http://data.europa.eu/leg/temporal-function/deadline> .
+
+# Example 2: One action finishes at the same moment as another action starts
+ex:Action_ReviewReport a lomo:Action ;
+    lomo:atTime [
+        a lomo:TemporalSpecification ;
+        lomo:finishes ex:Action_SubmitReport ;
+    ] .
+
+ex:Action_SubmitReport a lomo:Action ;
+    lomo:atTime [
+        a lomo:TemporalSpecification ;
+        lomo:instant "2025-12-31"^^xsd:date ;
+    ] .
+"""@en .
+
+:startedBy rdf:type owl:ObjectProperty ;
+    rdfs:domain :TemporalSpecification ;
+    rdfs:range :TemporalSpecification ;
+    rdfs:label "started by"@en ;
+    rdfs:comment "Indicates that one temporal specification has its beginning point at the same moment as another (inverse of starts)."@en ;
+    owl:inverseOf :starts ;
+    skos:scopeNote "Use this property to indicate that one temporal specification has its beginning point at the same moment as another. This property is the inverse of :starts and is context-independent, suitable for modeling temporal relationships in legal rules, actions, and other entities."@en ;
+    skos:example "A reporting period is started by the beginning of a fiscal year."@en ;
+    vann:usageExample """
+# Example 1: Reporting period started by the beginning of a fiscal year
+ex:ReportingPeriod2025 a lomo:TemporalSpecification ;
+    lomo:instant "2025-01-01"^^xsd:date ;
+    rdfs:label "Start of Reporting Period 2025"@en ;
+    lomo:startedBy ex:FiscalYear2025 .
+
+ex:FiscalYear2025 a lomo:TemporalSpecification ;
+    lomo:instant "2025-01-01"^^xsd:date ;
+    rdfs:label "Start of Fiscal Year 2025"@en .
+
+# Example 2: One action started by the beginning of another action
+ex:Action_SubmitReport a lomo:Action ;
+    lomo:atTime [
+        a lomo:TemporalSpecification ;
+        lomo:startedBy ex:Action_ReviewReport ;
+    ] .
+
+ex:Action_ReviewReport a lomo:Action ;
+    lomo:atTime [
+        a lomo:TemporalSpecification ;
+        lomo:instant "2025-12-31"^^xsd:date ;
+    ] .
+"""@en .
+
+:finishedBy rdf:type owl:ObjectProperty ;
+    rdfs:domain :TemporalSpecification ;
+    rdfs:range :TemporalSpecification ;
+    rdfs:label "finished by"@en ;
+    rdfs:comment "Indicates that one temporal specification has its end point at the same moment as another (inverse of finishes)."@en ;
+    skos:scopeNote "This property is context-independent and can be used to model temporal relationships in legal rules, actions, and other entities."@en ;
+    owl:inverseOf :finishes ;
+    skos:example "A deadline for submitting a report finishes by the end of the fiscal year."@en ;
+    vann:usageExample """
+# Example 1: Deadline finishes by the end of a period
+ex:Deadline_SubmitReport a lomo:TemporalSpecification ;
+    lomo:instant "2025-12-31"^^xsd:date ;
+    lomo:hasFunction <http://data.europa.eu/leg/temporal-function/deadline> ;
+    lomo:finishedBy ex:FiscalYear2025 .
+
+ex:FiscalYear2025 a lomo:TemporalSpecification ;
+    lomo:instant "2025-12-31"^^xsd:date ;
+    rdfs:label "End of Fiscal Year 2025"@en .
+
+# Example 2: Action finishes by the end of another action
+ex:Action_SubmitReport a lomo:Action ;
+    lomo:atTime [
+        a lomo:TemporalSpecification ;
+        lomo:finishedBy ex:Action_ReviewReport ;
+    ] .
+
+ex:Action_ReviewReport a lomo:Action ;
+    lomo:atTime [
+        a lomo:TemporalSpecification ;
+        lomo:instant "2025-12-31"^^xsd:date ;
+    ] .
+"""@en .
+
+:overlaps rdf:type owl:ObjectProperty ;
+    rdfs:domain :TemporalSpecification ;
+    rdfs:range :TemporalSpecification ;
+    rdfs:label "overlaps"@en ;
+    rdfs:comment "Indicates that two temporal specifications share a common portion of time without either completely containing the other."@en ;
+    skos:scopeNote "Use this property to indicate temporal overlap between two temporal specifications. This property exclusively refers to temporal overlap and does not imply any other form of overlap or relationship."@en ;
+    skos:example "Two temporal specifications overlap if they share a common period of time, such as two projects running concurrently for a period."@en ;
+    vann:usageExample """
+# Example 1: Two actions with overlapping temporal specifications
+ex:Action_ProjectA a lomo:Action ;
+    lomo:atTime [
+        a lomo:TemporalSpecification ;
+        lomo:instant "2025-01-01"^^xsd:date ;
+        lomo:duration "P6M"^^xsd:duration ;
+    ] .
+
+ex:Action_ProjectB a lomo:Action ;
+    lomo:atTime [
+        a lomo:TemporalSpecification ;
+        lomo:instant "2025-03-01"^^xsd:date ;
+        lomo:duration "P6M"^^xsd:duration ;
+    ] .
+
+ex:TemporalSpec_ProjectA lomo:overlaps ex:TemporalSpec_ProjectB .
+
+# Example 2: Two temporal specifications with partial overlap
+ex:TemporalSpec_EventA a lomo:TemporalSpecification ;
+    lomo:instant "2025-01-01"^^xsd:date ;
+    lomo:duration "P3M"^^xsd:duration .
+
+ex:TemporalSpec_EventB a lomo:TemporalSpecification ;
+    lomo:instant "2025-02-01"^^xsd:date ;
+    lomo:duration "P3M"^^xsd:duration .
+
+ex:TemporalSpec_EventA lomo:overlaps ex:TemporalSpec_EventB .
+"""@en .
+
+:in rdf:type owl:ObjectProperty ;
+    rdfs:domain :TemporalSpecification ;
+    rdfs:range :TemporalSpecification ;
+    rdfs:label "in"@en ;
+    rdfs:comment "Indicates that one temporal specification occurs entirely within the boundaries of another."@en ;
+    skos:scopeNote "Containment relation between two TemporalSpecification instances: the subject falls entirely within the boundaries of the object."@en ;
+    skos:example "The reporting event occurs within the financial year."@en ;
+    vann:usageExample """ex:ReportingEvent a lomo:TemporalSpecification ;
+    lomo:in ex:FinancialYear2025 ."""@en .
+
+### Result Properties
+:hasResultCategory rdf:type owl:ObjectProperty ;
+    rdfs:label "has result category"@en ;
+    rdfs:comment "Specifies the category of a result."@en ;
+    rdfs:domain :ActionResultOrType ;
+    rdfs:range skos:Concept ;
+    skos:scopeNote "Classifies an ActionResult or ActionResultType using a concept from the ResultCategoryScheme (e.g. Report, Certificate)."@en ;
+    skos:example "An annual interoperability report has the result category Report."@en ;
+    vann:usageExample """ex:Result_AnnualReport a lomo:ActionResult ;
+    lomo:hasResultCategory <http://data.europa.eu/leg/result-category/report> ."""@en ;
+    rdfs:seeAlso <http://data.europa.eu/leg/result-category/ResultCategoryScheme> .
+
+:isComposedOf rdf:type owl:ObjectProperty ;
+    rdfs:label "is composed of"@en ;
+    rdfs:comment "Indicates that a result is composed of other results or components."@en ;
+    rdfs:domain :ActionResultOrType ;
+    rdfs:range :ActionResultOrType ;
+    skos:scopeNote """Models hierarchical result structures. For example, Annual Financial Statements type can be composed of Balance Sheet, Profit and Loss Account, and Notes types. Specific result instances can also be composed of other specific results."""@en ;
+    skos:example "Annual Financial Statements consist of three components: Balance Sheet, Profit and Loss Account, and Notes."@en ;
+    vann:usageExample """ex:FinancialStatementsType lomo:isComposedOf 
+    ex:BalanceSheetType , 
+    ex:ProfitLossAccountType , 
+    ex:NotesType ."""@en .
+
+### Definition Properties
+:defines rdf:type owl:ObjectProperty ;
+    rdfs:label "defines"@en ;
+    rdfs:comment "Links a definition to the concept, term, or agent it defines."@en ;
+    owl:inverseOf :isDefinedBy ;
+    rdfs:domain :Definition ;
+    skos:scopeNote "Links a Definition to the term, concept, or entity it defines. Inverse of isDefinedBy."@en ;
+    skos:example "The 'small undertakings' definition defines the AgentType of small undertakings."@en ;
+    vann:usageExample """ex:Def_SmallUndertakings a lomo:Definition ;
+    lomo:defines ex:SmallUndertakings ."""@en .
+
+:isDefinedBy rdf:type owl:ObjectProperty ;
+    rdfs:label "is defined by"@en ;
+    rdfs:comment "Indicates that an agent type, temporal specification, result, or digital resource has been defined in a particular definition."@en ;
+    rdfs:range :Definition ;
+    owl:inverseOf :defines ;
+    skos:scopeNote """Use this property to link entities that were defined in a definition. Definitions themselves are modeled as instances of :Definition (a subclass of :ConstitutiveRule). When a constitutive construct establishes definitions, applications may model that containment using dataset- or project-specific patterns; :isDefinedBy should be used to reference existing Definition instances.
+
+Key notes:
+- Definitions are modeled as :Definition instances (subclass of :ConstitutiveRule).
+- :isDefinedBy → Any entity can BE DEFINED BY an existing Definition.
+
+Applicable domains (intentionally unspecified for flexibility):
+1. Agent/AgentType: Links agents to definitions that define their category or status
+2. ActionResult: Links results to definitions that specify output characteristics or formats
+3. dcat:Dataset: Links datasets to definitions that specify data content or scope
+4. TemporalSpecification: Link a specific event to its definition (e.g. "personal data breach")
+
+A single entity can be defined by ONLY ONE definition."""@en ;
+    skos:example "The AgentType 'small undertakings' is defined by the Small Undertakings definition."@en ;
+    vann:usageExample """# AgentType linked to its definition
+ex:SmallUndertakings a lomo:AgentType ;
+    lomo:isDefinedBy ex:Def_SmallUndertakings ;
+    rdfs:comment \"This agent type is defined by the criteria in the Small Undertakings definition.\"@en .
+
+ex:Def_SmallUndertakings a lomo:Definition ;
+    lomo:hasDefiniendum "small undertakings"@en ;
+    lomo:hasDefiniens "undertakings which meet 2 of 3 following criterias: ..."@en ;
+.
+
+# TemporalSpecification linked to its definition
+ex:TemporalDataBreach a lomo:TemporalSpecification ;
+    lomo:isDefinedBy ex:Def_PersonalDataBreach ;
+    rdfs:comment \"This temporal event is defined by the GDPR personal data breach definition.\"@en .
+
+ex:Def_PersonalDataBreach a lomo:Definition ;
+    lomo:hasDefiniendum "personal data breach"@en ;
+    lomo:hasDefiniens "a breach of security leading to the accidental or unlawful destruction, loss, alteration, unauthorised disclosure of, or access to, personal data transmitted, stored or otherwise processed"@en ;
+.
+
+"""@en .
+
+
+# Specialized definitional relation properties
+:hasDefiniendum rdf:type owl:DatatypeProperty ;
+    rdfs:label "has definiendum"@en ;
+    rdfs:comment "The symbol being defined (the term or phrase whose meaning is being established). In a definitional relation, the definiendum is the symbol on the left-hand side of the definition."@en ;
+    rdfs:domain :Definition ;
+    rdfs:range rdf:langString ;
+    skos:scopeNote "The term or phrase being defined - the left-hand side of a definitional relation."@en ;
+    skos:example "In the definition of 'small undertakings', the definiendum is the phrase 'small undertakings'."@en ;
+    vann:usageExample """ex:Def_SmallUndertakings a lomo:Definition ;
+    lomo:hasDefiniendum "small undertakings"@en ."""@en ;
+    rdfs:subPropertyOf :termLabel .
+
+:hasDefiniens rdf:type owl:DatatypeProperty ;
+    rdfs:label "has definiens"@en ;
+    rdfs:comment "The defining symbol or phrase that establishes the meaning of the definiendum. In syntactic definitions, this is simply the symbol that is equated with the definiendum. In semantic definitions, this includes descriptive terms that reference a class of referents."@en ;
+    rdfs:domain :Definition ;
+    rdfs:range rdf:langString ;
+    skos:scopeNote "The defining phrase that establishes the meaning of the definiendum - the right-hand side of a definitional relation."@en ;
+    skos:example "The definiens of 'small undertakings' is the enumerated set of size criteria (total assets, net turnover, employee count)."@en ;
+    vann:usageExample """ex:Def_SmallUndertakings a lomo:Definition ;
+    lomo:hasDefiniens "undertakings which do not exceed the limits of at least two of three size criteria"@en ."""@en ;
+    rdfs:subPropertyOf :legalText .
+
+:equivalentDefinition rdf:type owl:ObjectProperty ;
+    rdfs:label "equivalent definition"@en ;
+    rdfs:comment "A link between two definitions, to indicate that the subject definition is declared equivalent to the object definition."@en ;
+    rdfs:domain :Definition ;
+    rdfs:range :Definition ;
+    skos:scopeNote "Links a definition to another definition declared to have the same meaning - typically a syntactic (dyadic) definition pointing to an equivalent semantic definition, e.g. a term that 'has the same meaning as' a definition in another instrument."@en ;
+    skos:example "The Directive's 'related party' definition is equivalent to the 'related party' definition in IAS 24."@en ;
+    vann:usageExample """ex:Def_RelatedParty rdf:type lomo:Definition ;
+    lomo:hasDefiniendum "related party"@en ;
+    # "has the same meaning as in IAS 24 (Related Party Disclosures)"
+    lomo:equivalentDefinition [
+        a lomo:Definition ;
+        rdfs:seeAlso <https://www.ifrs.org/issued-standards/ias-24-related-party-disclosures/>
+    ] .
+    """;
+.
+
+#################################################################
+#    Data Properties
+#################################################################
+
+:legalText rdf:type owl:DatatypeProperty ;
+    rdfs:label "legal text"@en ;
+    rdfs:comment "The verbatim text from the legal source."@en ;
+    rdfs:range rdf:langString ;
+    skos:scopeNote "Applicable to all classes under Legal Rule (PrescriptiveRule, ConstitutiveRule, Definition) as well as Action. Captures the exact wording from the legal instrument."@en ;
+    skos:example "'Member States shall bring into force the laws, regulations and administrative provisions necessary to comply with this Directive by 20 July 2015.' - Directive 2013/34/EU Art. 53."@en ;
+    vann:usageExample """ex:Rule_Dir2013_34_Art53 a lomo:PrescriptiveRule ;
+    lomo:legalText "Member States shall bring into force the laws, regulations and administrative provisions necessary to comply with this Directive by 20 July 2015."@en ."""@en .
+
+:termLabel rdf:type owl:DatatypeProperty ;
+    rdfs:label "term label"@en ;
+    rdfs:comment "The exact label of a defined term as it appears in the legal text."@en ;
+    rdfs:domain :Definition ;
+    rdfs:range rdf:langString ;
+    skos:scopeNote "The exact surface label of a defined term as it appears in the legal text. Superproperty of hasDefiniendum."@en ;
+    skos:example "The term 'personal data' as defined in Art 4(1) of Regulation (EU) 2016/679 (GDPR)."@en ;
+    vann:usageExample """
+# Example: Definition of 'personal data' from GDPR Art 4(1)
+ex:Def_PersonalData rdf:type lomo:Definition ;
+    lomo:termLabel "personal data"@en ;
+    lomo:hasDefiniendum "personal data"@en ;
+    lomo:hasDefiniens "any information relating to an identified or identifiable natural person ('data subject'); an identifiable natural person is one who can be identified, directly or indirectly, in particular by reference to an identifier such as a name, an identification number, location data, an online identifier or to one or more factors specific to the physical, physiological, genetic, mental, economic, cultural or social identity of that natural person"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/reg/2016/679/art_4/par_1> .
+"""@en .
+
+### Temporal Characteristic Properties
+:instant rdf:type owl:DatatypeProperty ;
+    rdfs:label "instant"@en ;
+    rdfs:comment "A specific date or datetime value for a point in time."@en ;
+    rdfs:domain :TemporalSpecification ;
+    rdfs:range [ rdf:type rdfs:Datatype ;
+                owl:unionOf ( xsd:date
+                              xsd:dateTime
+                              xsd:gDay
+                              xsd:gMonth
+                              xsd:gMonthDay
+                              xsd:gYear
+                              xsd:gYearMonth
+                              xsd:time
+                            )
+              ] ;
+    skos:scopeNote """Use this property to specify a point in time as a datatype value. This property is a datatype property, not a subcategory of TemporalSpecification. It can represent specific dates, times, or parts of dates/times (e.g., 'on 12/04/2026', '14:00', 'the 30th september', 'january').
+
+Supported datatype values:
+- xsd:date: Full date (e.g., '2026-04-12')
+- xsd:dateTime: Date and time (e.g., '2026-04-12T14:00:00')
+- xsd:gDay: Day of the month (e.g., '---30')
+- xsd:gMonth: Month (e.g., '--09')
+- xsd:gMonthDay: Month and day (e.g., '--09-30')
+- xsd:gYear: Year (e.g., '2026')
+- xsd:gYearMonth: Year and month (e.g., '2026-04')
+- xsd:time: Time (e.g., '14:00:00')"""@en ;
+    skos:example "Member States shall transpose this directive before the 12/04/2026"@en ;
+    vann:usageExample """
+# Example 1: Using xsd:date
+ex:R1 a lomo:PrescriptiveRule ;
+    lomo:produces [
+        a lomo:Action ;
+        rdfs:label "transposition of the directive"@en ;
+        lomo:atTime [
+            a lomo:TemporalSpecification ;
+            lomo:instant "2026-04-12"^^xsd:date ;
+            lomo:hasFunction <http://data.europa.eu/leg/temporal-function/deadline> ; 
+        ]
+    ] .
+
+# Example 2: Using xsd:dateTime
+ex:Action_Meeting a lomo:Action ;
+    lomo:atTime [
+        a lomo:TemporalSpecification ;
+        lomo:instant "2026-04-12T14:00:00"^^xsd:dateTime ;
+    ] .
+
+# Example 3: Using xsd:gMonth
+ex:Action_SeasonalReport a lomo:Action ;
+    lomo:atTime [
+        a lomo:TemporalSpecification ;
+        lomo:instant "--09"^^xsd:gMonth ;
+    ] .
+"""@en .
+
+:duration rdf:type owl:DatatypeProperty ;
+    rdfs:label "duration"@en ;
+    rdfs:comment "A duration value expressed using xsd:duration."@en ;
+    rdfs:domain :TemporalSpecification ;
+    rdfs:range xsd:duration ;
+    skos:scopeNote "Use for durations in months, years, etc. Examples: 'P6M' (6 months), 'P3Y' (3 years), 'P30D' (30 days)."@en ;
+    skos:example "Before 3 years after the approval date"@en ;
+    vann:usageExample """
+# "Before 3 years after the approval date"
+ex:A1 a lomo:Action ;
+    lomo:atTime [
+        a lomo:TemporalSpecification ;
+        lomo:duration "P3Y"^^xsd:duration ;
+        lomo:hasFunction <http://data.europa.eu/leg/temporal-function/deadline> ;
+        lomo:immediatelyAfter [
+            a lomo:TemporalSpecification ;
+            lomo:temporalLabel "the approval date"@en ;
+        ]
+    ] .
+ """ ;
+.
+
+:repetitions rdf:type owl:DatatypeProperty ;
+    rdfs:label "repetitions"@en ;
+    rdfs:comment "A fixed number of repetitions for a recurring temporal specification."@en ;
+    rdfs:domain :TemporalSpecification ;
+    rdfs:range xsd:integer ;
+    skos:scopeNote "Use for expressions like '3 times', '(every year) during 5 years'. Complements frequency to specify total repetitions."@en ;
+    skos:example "Every year during 5 years"@en ;
+    vann:usageExample """
+# "Every year during 5 years"
+ex:A1 a lomo:Action ;
+    lomo:atTime [
+        a lomo:TemporalSpecification ;
+        lomo:repetitions "5"^^xsd:integer ;
+        lomo:frequency "P1Y"^^xsd:duration ;
+    ] .
+ """ ;
+.
+
+:temporalLabel rdf:type owl:DatatypeProperty ;
+    rdfs:label "temporal label"@en ;
+    rdfs:comment "The name or label of an event or period referenced in the temporal specification."@en ;
+    rdfs:domain :TemporalSpecification ;
+    rdfs:range rdf:langString ;
+    skos:scopeNote "Use for named events or periods such as 'personal data breach', 'warranty period', 'date of entry into force of the directive', 'closing of the year', 'approval date', 'submission date'."@en ;
+    skos:example "In case of a personal data breach, the controller shall..."@en ;
+    vann:usageExample """
+# "In case of a personal data breach, the controller shall..."
+ex:A1 a lomo:Action ;
+    lomo:atTime [
+        a lomo:TemporalSpecification ;
+        lomo:temporalLabel "personal data breach"@en ;
+        lomo:hasFunction <http://data.europa.eu/leg/temporal-function/trigger> ;
+    ] .
+ """ ;
+.
+
+:frequency rdf:type owl:DatatypeProperty ;
+    rdfs:label "frequency"@en ;
+    rdfs:comment "A frequency indication as an xsd:duration expressing the elapsed time between occurrences."@en ;
+    rdfs:domain :TemporalSpecification ;
+    rdfs:range xsd:duration ;
+    skos:scopeNote "Use for recurring patterns like 'every year' (P1Y), 'daily' (P1D)."@en ;
+    skos:example "Every year until 2035"@en ;
+    vann:usageExample """
+# "Every year until 2035"
+ex:A1 a lomo:Action ;
+    lomo:atTime [
+        a lomo:TemporalSpecification ;
+        lomo:frequency "P1Y"^^xsd:duration ;
+        lomo:finishedBy [
+            a lomo:TemporalSpecification ;
+            lomo:instant "2035"^^xsd:gYear ;
+        ]
+    ] .
+ """ ;
+.
+
+
+#################################################################
+#    Category (for domain classification)
+#################################################################
+
+:hasCategory rdf:type owl:ObjectProperty ;
+    rdfs:label "has category"@en ;
+    rdfs:comment "Links a requirement or action to a digital dimension category from the Digital Dimensions scheme."@en ;
+    rdfs:domain :LegalRule ;
+    rdfs:range skos:Concept ;
+    rdfs:seeAlso <http://data.europa.eu/leg/digital-dimensions/DigitalDimensionsScheme> ;
+    skos:scopeNote "Used to classify requirements by digital dimensions categories - the top-level concepts (Data, Digital Public Service, Digital Solution, Process Automation) and their narrower concepts (Observation and Data Flow, both narrower concepts of Data). Multiple categories can be assigned. Categories are defined in the DigitalDimensionsScheme."@en ;
+    skos:example "A requirement for data collection and transmission can be classified under both Data and Digital Public Service categories."@en ;
+    vann:usageExample """ex:Requirement_Art4_DataRequirements lomo:hasCategory <http://data.europa.eu/leg/digital-dimensions/Data> , <http://data.europa.eu/leg/digital-dimensions/DigitalPublicService> .
+ex:Requirement_Art5_ObservationData lomo:hasCategory <http://data.europa.eu/leg/digital-dimensions/Observation> ."""@en .
+
+:involvesProcess rdf:type owl:ObjectProperty ;
+    rdfs:label "involves process"@en ;
+    rdfs:comment "Links a requirement or action to the high-level process(es) it involves or contributes to. MUST use values from the Business Capabilities or Technical Capabilities concept schemes."@en ;
+    rdfs:domain :LegalRule ;
+    rdfs:range skos:Concept ;
+    skos:scopeNote "Used to classify requirements by the high-level processes they relate to. The concept schemes concerning business and technical capabilities should be used."@en ;
+    skos:example """'The Union entity or public sector body concerned shall publish, in a machine-readable format facilitating automated translation, a report presenting the outcome of the interoperability assessment, including the items listed in the Annex, on an official website.'
+http://data.europa.eu/eli/reg/2024/903/art_3/par_1/oj
+This LegalRule requires Union entities or public sector bodies concerned to have the capability to publish information.
+"""@en ;
+    rdfs:seeAlso <https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://data.europa.eu/y6k/0001>, <https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://data.europa.eu/9bx/0001> ;
+    vann:usageExample """ex:Requirement_Art4 a lomo:LegalRule ;
+    lomo:establishedIn <http://data.europa.eu/eli/reg/2024/903/art_3/par_1/oj> ;
+    lomo:involvesProcess <http://data.europa.eu/9bx/1> ."""@en .
+
+
+#################################################################
+#    Digital Resources (DCAT Integration)
+#    Support for modeling data, standards, software, and services
+#    referenced by prescriptive rules
+#################################################################
+
+### References Property (from LFDS-AP)
+:references rdf:type owl:ObjectProperty ;
+    rdfs:subPropertyOf dcterms:references ;
+    rdfs:label "references"@en ;
+    rdfs:comment "Relates a legal rule to a digital resource (dataset, standard, software, service) that is referenced, cited, or pointed to by the rule."@en ;
+    rdfs:domain :LegalRule ;
+    rdfs:range dcat:Resource ;
+    skos:scopeNote """Use this property to link legal rules to the digital resources they mention, cite, or relate to. 
+
+Common patterns:
+1. Requirements reference DATASETS they mandate (e.g., Article 4 references fisheries statistics datasets)
+2. Requirements reference STANDARDS they invoke (e.g., Article 11 references quality standards)
+3. Requirements reference SOFTWARE/SYSTEMS they utilize (e.g., Article 7 references EUROBASE)
+4. Requirements reference SERVICES they provide (e.g., requirements that reference data collection activities for statistical dissemination)
+
+The referenced resources are typically modeled as:
+- dcat:Dataset for data types
+- dcterms:Standard for standards and specifications
+- dctype:Software for digital solutions and systems
+- cpsv:PublicService for digital public services"""@en ;
+    skos:example "A fisheries data requirement references the fisheries statistics dataset, the Annex quality standard, and the data-collection service it relies on."@en ;
+    vann:usageExample """# Requirement references multiple digital resources
+ex:Requirement_Art4_Par1 lomo:references 
+    ex:Dataset_FisheriesStatistics ,
+    ex:Dataset_AquacultureStatistics ,
+    ex:Standard_AnnexRequirements ,
+    ex:Service_DataCollection .
+
+# The referenced resources
+ex:Dataset_FisheriesStatistics rdf:type dcat:Dataset .
+ex:Standard_AnnexRequirements rdf:type dcterms:Standard .
+ex:Service_DataCollection rdf:type cpsv:PublicService ."""@en .
+
+### Capability Property (for Software)
+:hasCapability rdf:type owl:DatatypeProperty ;
+    rdfs:label "has capability"@en ;
+    rdfs:comment "Describes a technical function or capability that a digital solution (software) provides."@en ;
+    rdfs:domain dctype:Software ;
+    rdfs:range rdf:langString ;
+    skos:scopeNote """Use this property to describe what a digital solution CAN DO from a technical perspective. Capabilities represent the functional features or technical abilities of software systems. Multiple capabilities can be specified for a single software instance.
+
+Key characteristics of capabilities:
+- TECHNICAL FOCUS: What the software is able to perform (functions, operations)
+- IMPLEMENTATION-ORIENTED: How the system delivers its functionality
+- REUSABLE: The same capability may be provided by different software systems
+
+For the PURPOSE or OBJECTIVE of a public service (policy goals, societal outcomes), use :hasPurpose instead.
+
+Examples of software capabilities:
+- 'Collect structured data from web forms'
+- 'Validate data against SHACL constraints'
+- 'Transform XML to RDF format'
+- 'Disseminate statistics via REST API'
+- 'Generate PDF reports from templates'
+- 'Authenticate users via eIDAS'"""@en ;
+    skos:example "Software systems can have multiple capabilities: EUROBASE stores and retrieves statistical datasets, provides public web access, and exports data in various formats."@en ;
+    vann:usageExample """ex:Software_EUROBASE rdf:type dctype:Software ;
+    dcterms:title \"EUROBASE Statistical Database\"@en ;
+    lomo:hasCapability \"Store and retrieve statistical datasets\"@en ;
+    lomo:hasCapability \"Provide public access via web interface\"@en ;
+    lomo:hasCapability \"Export data in multiple formats (CSV, SDMX, JSON)\"@en ;
+    dcterms:publisher ex:Agent_Eurostat .
+
+ex:Software_DataValidation rdf:type dctype:Software ;
+    dcterms:title \"Statistical Data Validation System\"@en ;
+    lomo:hasCapability \"Validate incoming data against predefined rules\"@en ;
+    lomo:hasCapability \"Generate validation reports\"@en ;
+    lomo:hasCapability \"Flag anomalies for manual review\"@en ."""@en .
+
+### Purpose Property (for Public Services)
+:hasPurpose rdf:type owl:DatatypeProperty ;
+    rdfs:label "has purpose"@en ;
+    rdfs:comment "Describes the objective, mission, or intended outcome of a public service or public action."@en ;
+    rdfs:domain cpsv:PublicService ;
+    rdfs:range rdf:langString ;
+    skos:scopeNote """Use this property to describe WHY a public service exists and WHAT OUTCOMES it aims to achieve. Purpose statements express policy goals, societal benefits, or the mission of public actions. Multiple purposes can be specified for a single service.
+
+Key characteristics of purposes:
+- OUTCOME-ORIENTED: What the service aims to achieve for citizens, businesses, or society
+- POLICY-ALIGNED: Connected to legal mandates, policy objectives, or public interest goals
+- MISSION-DRIVEN: Expresses the 'why' rather than the 'how'
+
+For technical CAPABILITIES of software systems (what they can do), use :hasCapability instead.
+
+Distinction from capabilities:
+- Capability: 'Collect data from Member States' (technical function)
+- Purpose: 'Ensure availability of harmonized European fisheries statistics for policy-making' (policy goal)
+
+Examples of public service purposes:
+- 'Provide transparent access to European statistical data for citizens and researchers'
+- 'Enable evidence-based policy-making through reliable fisheries statistics'
+- 'Ensure compliance with EU statistical quality standards across Member States'
+- 'Support sustainable fisheries management through timely data availability'
+- 'Facilitate cross-border data sharing between national statistical institutes'"""@en ;
+    skos:example "A public service can have multiple purposes: the European Statistical Dissemination Service aims to provide transparent access to data and support evidence-based policy-making."@en ;
+    vann:usageExample """ex:Service_StatisticalDissemination rdf:type cpsv:PublicService ;
+    dcterms:title \"European Statistical Dissemination Service\"@en ;
+    lomo:hasPurpose \"Provide transparent access to European statistical data for citizens, researchers, and policy-makers\"@en ;
+    lomo:hasPurpose \"Support evidence-based policy-making at EU and national levels\"@en ;
+    cpsv:hasCompetentAuthority ex:Agent_Eurostat .
+
+ex:Service_DataQualityAssurance rdf:type cpsv:PublicService ;
+    dcterms:title \"Statistical Data Quality Assurance Service\"@en ;
+    lomo:hasPurpose \"Ensure reliability and comparability of European statistics\"@en ;
+    lomo:hasPurpose \"Build public trust in official statistics through quality verification\"@en ;
+    cpsv:hasCompetentAuthority ex:Agent_Eurostat .
+
+ex:Service_MemberStateDataCollection rdf:type cpsv:PublicService ;
+    dcterms:title \"Member State Data Collection Service\"@en ;
+    lomo:hasPurpose \"Gather harmonized fisheries data from all EU Member States\"@en ;
+    lomo:hasPurpose \"Enable production of comparable European statistics\"@en ;
+    cpsv:hasCompetentAuthority ex:Agent_Eurostat ."""@en .
+
+### Rule-to-Rule Defeasibility and Relation Properties
+
+:specifies rdf:type owl:ObjectProperty ;
+    rdfs:label "specifies"@en ;
+    rdfs:comment "Relates a more specific legal rule to a more general rule whose underdetermined content it further determines, without producing conflicting normative qualifications. The specifying rule articulates, defines, or concretises elements that the general rule leaves open - such as concepts, procedures, thresholds, addressees, or scope - so that both rules remain jointly applicable and their conclusions compose without contradiction."@en ;
+    rdfs:domain :LegalRule ;
+    rdfs:range :LegalRule ;
+    rdfs:subPropertyOf :relatesTo ;
+    owl:inverseOf :isSpecifiedBy ;
+    skos:scopeNote """Use specifies when a rule elaborates the content of another rule in a way that is compatible with it: the two rules, applied together to the same case, do not yield conflicting normative qualifications. The specifying rule fills a gap of determination rather than overriding the general rule.
+
+Key characteristics:
+- The specifying rule is more specific, detailed, or particular
+- Both rules remain jointly applicable without contradiction
+- The specifying rule clarifies, defines, or concretises elements left open by the general rule
+- No deontic conflict between the two rules
+
+Example: GDPR Article 5 establishes principles for personal data processing. Article 4(7) defines what counts as a 'controller' for these principles. Article 4(7) specifies Article 5 by determining one of the concepts it operates on."""@en ;
+    skos:example "GDPR Article 4(7) defines 'controller' as 'the natural or legal person, public authority, agency or any other body which, alone or jointly with others, determines the purposes and means of the processing of personal data.' This specifies GDPR Article 5 (principles for processing) by determining a key concept the principles operate on."@en ;
+    skos:example "Directive 2013/34/EU Article 2(3) defines 'small undertakings' with specific size criteria (total assets, net turnover, employees). This specifies Article 4 (requirements for financial reporting) by determining which entities are subject to simplified reporting procedures."@en ;
+    skos:example "eIDAS Regulation Article 4(27) defines 'electronic identification' as 'the process of using identification data in electronic form which uniquely represents either a natural or legal person.' This specifies the general identity requirements in Article 6 by clarifying what forms of identification satisfy the regulation."@en ;
+    vann:usageExample """# Note: the rule instances below are abbreviated - the mandatory lomo:produces on PrescriptiveRule instances is omitted to keep the focus on the specifies relationship.
+# Example 1: GDPR - Concept definition specifying principles
+ex:Rule_GDPR_Art4_7_Controller a lomo:Definition ;
+    rdfs:label "GDPR Article 4(7): Definition of Controller"@en ;
+    lomo:hasDefiniendum "controller"@en ;
+    lomo:hasDefiniens "the natural or legal person, public authority, agency or any other body which, alone or jointly with others, determines the purposes and means of the processing of personal data"@en ;
+    lomo:establishedIn <http://data.europa.eu/eli/reg/2016/679/art_4/par_7> ;
+    lomo:specifies ex:Rule_GDPR_Art5_Principles .
+
+ex:Rule_GDPR_Art5_Principles a lomo:ConstitutiveRule ;
+    rdfs:label "GDPR Article 5: Principles relating to processing of personal data"@en ;
+    lomo:establishedIn <http://data.europa.eu/eli/reg/2016/679/art_5> .
+
+# Example 2: Directive 2013/34/EU - Size criteria specifying reporting obligations
+ex:Rule_Dir2013_34_Art2_3_SmallUndertakings a lomo:Definition ;
+    rdfs:label "Directive 2013/34/EU Article 2(3): Definition of small undertakings"@en ;
+    lomo:hasDefiniendum "small undertakings"@en ;
+    lomo:hasDefiniens "undertakings which on their balance sheet dates do not exceed the limits of at least two of the three following criteria: (1) total assets: EUR 4,000,000; (2) net turnover: EUR 8,000,000; (3) average number of employees during the financial year: 50"@en ;
+    lomo:establishedIn <http://data.europa.eu/eli/dir/2013/34/oj/art_2/par_3> ;
+    lomo:specifies ex:Rule_Dir2013_34_Art4_ReportingObligations .
+
+ex:Rule_Dir2013_34_Art4_ReportingObligations a lomo:PrescriptiveRule ;
+    rdfs:label "Directive 2013/34/EU Article 4: General requirements"@en ;
+    lomo:establishedIn <http://data.europa.eu/eli/dir/2013/34/oj/art_4> .
+
+# Example 3: Organic Farming Regulation - Detailed practices specifying general obligation
+ex:Rule_OrgFarm_Art3_GeneralObligation a lomo:PrescriptiveRule ;
+    rdfs:label "Regulation (EU) 2018/848 Article 3: General Obligation"@en ;
+    lomo:hasDeonticModality <http://data.europa.eu/leg/deontic-modality/Obligation> ;
+    lomo:legalText "Operators producing, preparing or distributing organic products shall ensure and maintain the measures necessary to comply with this Regulation."@en ;
+    lomo:establishedIn <http://data.europa.eu/eli/reg/2018/848/art_3> .
+
+ex:Rule_OrgFarm_Art10_CropProduction a lomo:SubstantiveRule ;
+    rdfs:label "Regulation (EU) 2018/848 Article 10: Crop Production Requirements"@en ;
+    lomo:hasDeonticModality <http://data.europa.eu/leg/deontic-modality/Obligation> ;
+    lomo:specifies ex:Rule_OrgFarm_Art3_GeneralObligation ;
+    lomo:legalText "For crop production, operators shall use crop and soil management practices adapted to local conditions, including where appropriate conservation of natural resources and maintenance or improvement of soil fertility, through [...] appropriate crop rotations; [...]"@en ;
+    lomo:establishedIn <http://data.europa.eu/eli/reg/2018/848/art_10> ;
+    rdfs:comment "Article 10 specifies the general obligation in Article 3 by establishing concrete practices required for organic crop production" .
+
+# Example 4: eIDAS - Electronic identification specifying identity requirements
+ex:Rule_eIDAS_Art4_27_eID a lomo:Definition ;
+    rdfs:label "eIDAS Regulation Article 4(27): Definition of electronic identification"@en ;
+    lomo:hasDefiniendum "electronic identification"@en ;
+    lomo:hasDefiniens "the process of using identification data in electronic form which uniquely represents either a natural or legal person"@en ;
+    lomo:establishedIn <http://data.europa.eu/eli/reg/2014/910/art_4/par_27> ;
+    lomo:specifies ex:Rule_eIDAS_Art6_IdentityRequirements .
+
+ex:Rule_eIDAS_Art6_IdentityRequirements a lomo:ConstitutiveRule ;
+    rdfs:label "eIDAS Regulation Article 6: General requirements for electronic identification"@en ;
+    lomo:establishedIn <http://data.europa.eu/eli/reg/2014/910/art_6> ."""@en .
+
+:isSpecifiedBy rdf:type owl:ObjectProperty ;
+    rdfs:label "is specified by"@en ;
+    rdfs:comment "Inverse of specifies: indicates that a more general legal rule is specified by a more specific rule that determines its underdetermined content without creating conflicting normative qualifications."@en ;
+    rdfs:domain :LegalRule ;
+    rdfs:range :LegalRule ;
+    rdfs:subPropertyOf :relatesTo ;
+    owl:inverseOf :specifies ;
+    skos:scopeNote "Use isSpecifiedBy to express the same relationship from the perspective of the general rule being specified by the more specific rule."@en ;
+    skos:example "GDPR Article 5 (Principles relating to processing of personal data) is specified by Article 4(7) which defines 'controller' - a key concept upon which the principles depend."@en ;
+    skos:example "Directive 2013/34/EU Article 4 (General requirements) is specified by Article 2(3) which defines the size thresholds for 'small undertakings' - determining which entities are subject to simplified requirements."@en ;
+    skos:example "Regulation (EU) 2018/848 Article 3 (General obligation for organic farming) is specified by Articles 10 and 11, which detail the specific practices operators must follow for crop production and livestock production respectively."@en ;
+    vann:usageExample """# Note: the rule instances below are abbreviated - the mandatory lomo:produces on PrescriptiveRule instances is omitted to keep the focus on the isSpecifiedBy relationship.
+# Example 1: GDPR principle specified by definition
+ex:Rule_GDPR_Art5_Principles a lomo:ConstitutiveRule ;
+    rdfs:label "GDPR Article 5: Principles relating to processing"@en ;
+    lomo:isSpecifiedBy ex:Rule_GDPR_Art4_7_Controller .
+
+ex:Rule_GDPR_Art4_7_Controller a lomo:Definition ;
+    rdfs:label "GDPR Article 4(7): Definition of Controller"@en ;
+    lomo:establishedIn <http://data.europa.eu/eli/reg/2016/679/art_4/par_7> .
+
+# Example 2: General obligation specified by detailed practices
+ex:Rule_OrgFarm_Art3_GeneralObligation a lomo:PrescriptiveRule ;
+    rdfs:label "Regulation (EU) 2018/848 Article 3: General Obligation"@en ;
+    lomo:isSpecifiedBy ex:Rule_OrgFarm_Art10_CropProduction ;
+    lomo:isSpecifiedBy ex:Rule_OrgFarm_Art11_LivestockProduction .
+
+ex:Rule_OrgFarm_Art10_CropProduction a lomo:SubstantiveRule ;
+    rdfs:label "Regulation (EU) 2018/848 Article 10: Crop Production Requirements"@en ;
+    lomo:establishedIn <http://data.europa.eu/eli/reg/2018/848/art_10> .
+
+ex:Rule_OrgFarm_Art11_LivestockProduction a lomo:SubstantiveRule ;
+    rdfs:label "Regulation (EU) 2018/848 Article 11: Livestock Production Requirements"@en ;
+    lomo:establishedIn <http://data.europa.eu/eli/reg/2018/848/art_11> .
+
+ex:Rule_Dir2013_34_Art4_ReportingObligations a lomo:PrescriptiveRule ;
+    rdfs:label "Directive 2013/34/EU Article 4: General requirements"@en ;
+    lomo:isSpecifiedBy ex:Rule_Dir2013_34_Art2_3_SmallUndertakings .
+
+ex:Rule_Dir2013_34_Art2_3_SmallUndertakings a lomo:Definition ;
+    rdfs:label "Directive 2013/34/EU Article 2(3): Definition of small undertakings"@en ;
+    lomo:establishedIn <http://data.europa.eu/eli/dir/2013/34/oj/art_2/par_3> ."""@en .
+
+:derogatesFrom rdf:type owl:ObjectProperty ;
+    rdfs:label "derogates from"@en ;
+    rdfs:comment "Relates a legal rule to another rule from which it departs, by establishing an incompatible normative qualification with that of the latter for a defined range of cases. The derogating rule either substitutes the normative qualification of the derogated rule (substitutive derogation) or suspends its application without producing a new qualification (blocking derogation), and may do so on a mandatory or discretionary basis."@en ;
+    rdfs:domain :LegalRule ;
+    rdfs:range :LegalRule ;
+    rdfs:subPropertyOf :relatesTo ;
+    owl:inverseOf :isDerogatedBy ;
+    skos:scopeNote """Use derogates when two rules, applied jointly to the same case, would yield conflicting normative qualifications, and the legal system resolves the conflict in favour of the derogating rule. Unlike specifies, derogation involves genuine deontic conflict between the two rules in at least some cases falling within their joint scope.
+
+Key characteristics:
+- The derogating rule overrides or suspends the application of the derogated rule
+- There is a deontic conflict between the two rules for some cases
+- The derogating rule may be more specific (substitutive derogation) or merely blocking
+- The relationship is typically defined by law to indicate which rule takes precedence
+
+Two types of derogation:
+1. Substitutive derogation: The derogating rule replaces the normative qualification
+2. Blocking derogation: The derogating rule suspends application without providing a new qualification
+
+Example: A national law requires all companies to submit annual financial reports. However, micro-enterprises are exempt from this obligation. The exemption rule derogates from the general reporting requirement."""@en ;
+    skos:example "Directive 2013/34/EU Article 1(2)(a) requires all undertakings to prepare financial statements, but Article 1a provides a derogation for micro-entities. The micro-entity derogation rule derogates from the general financial reporting requirement by suspending it (blocking derogation)."@en ;
+    skos:example "GDPR Article 6(1) establishes consent as a lawful basis for processing personal data. However, Article 6(1)(b) establishes performance of a contract as an alternative lawful basis that can substitute for consent in specific circumstances - a substitutive derogation."@en ;
+    skos:example "Regulation (EU) 2019/1242 Article 4 requires CO₂ monitoring for heavy-duty vehicles, but Article 5(4) provides a derogation for vehicles of certain categories or with specific characteristics from the general monitoring obligation."@en ;
+    vann:usageExample """# Note: the rule instances below are abbreviated - the mandatory lomo:produces on PrescriptiveRule instances is omitted to keep the focus on the derogatesFrom relationship.
+# Example 1: Directive 2013/34/EU - Micro-entity exemption from financial reporting
+ex:Rule_Dir2013_34_Art1_GeneralObligation a lomo:PrescriptiveRule ;
+    rdfs:label "Directive 2013/34/EU Article 1(2)(a): General requirement for financial statements"@en ;
+    rdfs:comment "All undertakings shall prepare annual financial statements"@en ;
+    lomo:hasDeonticModality <http://data.europa.eu/leg/deontic-modality/Obligation> ;
+    lomo:establishedIn <http://data.europa.eu/eli/dir/2013/34/oj/art_1> .
+
+ex:Rule_Dir2013_34_Art1a_MicroEntityDerogation a lomo:PrescriptiveRule ;
+    rdfs:label "Directive 2013/34/EU Article 1a: Derogation for micro-entities"@en ;
+    rdfs:comment "Micro-entities are exempt from the requirements of Articles 4 to 8 and 19a"@en ;
+    lomo:hasDeonticModality <http://data.europa.eu/leg/deontic-modality/Permission> ;
+    lomo:derogatesFrom ex:Rule_Dir2013_34_Art1_GeneralObligation ;
+    lomo:establishedIn <http://data.europa.eu/eli/dir/2013/34/oj/art_1a> .
+
+# Example 2: GDPR - Alternative lawful basis derogating from consent requirement
+ex:Rule_GDPR_Art6_1_a_Consent a lomo:PrescriptiveRule ;
+    rdfs:label "GDPR Article 6(1)(a): Lawful basis - Consent"@en ;
+    rdfs:comment "Processing shall be lawful only if and to the extent that consent has been given"@en ;
+    lomo:hasDeonticModality <http://data.europa.eu/leg/deontic-modality/Permission> ;
+    lomo:establishedIn <http://data.europa.eu/eli/reg/2016/679/art_6/par_1/point_a> .
+
+ex:Rule_GDPR_Art6_1_b_ContractPerformance a lomo:PrescriptiveRule ;
+    rdfs:label "GDPR Article 6(1)(b): Lawful basis - Contract performance"@en ;
+    rdfs:comment "Processing is necessary for the performance of a contract to which the data subject is party"@en ;
+    lomo:hasDeonticModality <http://data.europa.eu/leg/deontic-modality/Permission> ;
+    lomo:derogatesFrom ex:Rule_GDPR_Art6_1_a_Consent ;
+    lomo:establishedIn <http://data.europa.eu/eli/reg/2016/679/art_6/par_1/point_b> ;
+    skos:note "Article 6(1)(b) provides an alternative lawful basis that substitutes consent when contract performance is necessary (substitutive derogation)" .
+
+# Example 3: CO₂ Regulation - Category-based derogation
+ex:Rule_EU2019_1242_Art4_CO2Monitoring a lomo:SubstantiveRule ;
+    rdfs:label "Regulation (EU) 2019/1242 Article 4: CO₂ monitoring"@en ;
+    rdfs:comment "Manufacturers shall monitor CO₂ emissions and fuel consumption"@en ;
+    lomo:hasDeonticModality <http://data.europa.eu/leg/deontic-modality/Obligation> ;
+    lomo:establishedIn <http://data.europa.eu/eli/reg/2019/1242/art_4> .
+
+ex:Rule_EU2019_1242_Art5_4_VehicleDerogation a lomo:PrescriptiveRule ;
+    rdfs:label "Regulation (EU) 2019/1242 Article 5(4): Derogation from monitoring for certain vehicles"@en ;
+    rdfs:comment "The monitoring requirements of Article 4 shall not apply to vehicles of certain categories or with specific characteristics"@en ;
+    lomo:hasDeonticModality <http://data.europa.eu/leg/deontic-modality/Permission> ;
+    lomo:derogatesFrom ex:Rule_EU2019_1242_Art4_CO2Monitoring ;
+    lomo:establishedIn <http://data.europa.eu/eli/reg/2019/1242/art_5/par_4> ;
+    skos:note "Article 5(4) provides a blocking derogation that suspends the general monitoring obligation for specified vehicle categories" ."""@en .
+
+:isDerogatedBy rdf:type owl:ObjectProperty ;
+    rdfs:label "is derogated by"@en ;
+    rdfs:comment "Inverse of derogatesFrom: indicates that a legal rule is derogated by another rule that establishes an incompatible normative qualification for a defined range of cases."@en ;
+    rdfs:domain :LegalRule ;
+    rdfs:range :LegalRule ;
+    rdfs:subPropertyOf :relatesTo ;
+    owl:inverseOf :derogatesFrom ;
+    skos:scopeNote "Use isDerogatedBy to express the same relationship from the perspective of the rule being derogated."@en ;
+    skos:example "Directive 2013/34/EU Article 1 (General requirements for financial statements) is derogated by Article 1a which exempts micro-entities from the general financial reporting obligations."@en ;
+    skos:example "GDPR Article 6(1)(a) (Consent as lawful basis) is derogated by Article 6(1)(b) which provides an alternative lawful basis through contract performance that can substitute for consent."@en ;
+    skos:example "Regulation (EU) 2019/1242 Article 4 (CO₂ monitoring for heavy-duty vehicles) is derogated by Article 5(4) which exempts certain vehicle categories from the general monitoring obligation."@en ;
+    vann:usageExample """# Note: the rule instances below are abbreviated - the mandatory lomo:produces on PrescriptiveRule instances is omitted to keep the focus on the isDerogatedBy relationship.
+# Example 1: Financial reporting obligation derogated by micro-entity exemption
+ex:Rule_Dir2013_34_Art1_GeneralObligation a lomo:PrescriptiveRule ;
+    rdfs:label "Directive 2013/34/EU Article 1(2)(a): General requirements for financial statements"@en ;
+    lomo:hasDeonticModality <http://data.europa.eu/leg/deontic-modality/Obligation> ;
+    lomo:isDerogatedBy ex:Rule_Dir2013_34_Art1a_MicroEntityDerogation ;
+    lomo:establishedIn <http://data.europa.eu/eli/dir/2013/34/oj/art_1> .
+
+ex:Rule_Dir2013_34_Art1a_MicroEntityDerogation a lomo:PrescriptiveRule ;
+    rdfs:label "Directive 2013/34/EU Article 1a: Derogation for micro-entities"@en ;
+    lomo:hasDeonticModality <http://data.europa.eu/leg/deontic-modality/Permission> ;
+    lomo:establishedIn <http://data.europa.eu/eli/dir/2013/34/oj/art_1a> .
+
+# Example 2: Consent requirement derogated by alternative contract-based lawful basis
+ex:Rule_GDPR_Art6_1_a_Consent a lomo:PrescriptiveRule ;
+    rdfs:label "GDPR Article 6(1)(a): Lawful basis - Consent"@en ;
+    lomo:hasDeonticModality <http://data.europa.eu/leg/deontic-modality/Permission> ;
+    lomo:isDerogatedBy ex:Rule_GDPR_Art6_1_b_ContractPerformance ;
+    lomo:establishedIn <http://data.europa.eu/eli/reg/2016/679/art_6/par_1/point_a> .
+
+ex:Rule_GDPR_Art6_1_b_ContractPerformance a lomo:PrescriptiveRule ;
+    rdfs:label "GDPR Article 6(1)(b): Lawful basis - Contract performance"@en ;
+    lomo:hasDeonticModality <http://data.europa.eu/leg/deontic-modality/Permission> ;
+    lomo:establishedIn <http://data.europa.eu/eli/reg/2016/679/art_6/par_1/point_b> ;
+    rdfs:comment "Article 6(1)(b) substitutes consent as a lawful basis when contract performance is necessary" .
+
+# Example 3: CO₂ monitoring obligation derogated by category exemptions
+ex:Rule_EU2019_1242_Art4_CO2Monitoring a lomo:SubstantiveRule ;
+    rdfs:label "Regulation (EU) 2019/1242 Article 4: CO₂ monitoring"@en ;
+    lomo:hasDeonticModality <http://data.europa.eu/leg/deontic-modality/Obligation> ;
+    lomo:isDerogatedBy ex:Rule_EU2019_1242_Art5_4_VehicleDerogation ;
+    lomo:establishedIn <http://data.europa.eu/eli/reg/2019/1242/art_4> .
+
+ex:Rule_EU2019_1242_Art5_4_VehicleDerogation a lomo:PrescriptiveRule ;
+    rdfs:label "Regulation (EU) 2019/1242 Article 5(4): Derogation from monitoring for certain vehicles"@en ;
+    lomo:hasDeonticModality <http://data.europa.eu/leg/deontic-modality/Permission> ;
+    lomo:establishedIn <http://data.europa.eu/eli/reg/2019/1242/art_5/par_4> ;
+    rdfs:comment "Article 5(4) provides a blocking derogation that suspends the general monitoring obligation for specified vehicle categories" ."""@en .
+
+:relatesTo rdf:type owl:ObjectProperty ;
+    rdfs:label "relates to"@en ;
+    rdfs:comment "Establishes a generic, non-hierarchical relationship between two legal rules that are semantically connected but where no stronger relationship (such as derogation or specificity) applies. This is a catch-all property for rule-to-rule relationships. This is a super-property of both lomo:derogatesFrom and lomo:specifies, enabling generic querying across all rule relationships."@en ;
+    rdfs:domain :LegalRule ;
+    rdfs:range :LegalRule ;
+    skos:scopeNote """Use relatesTo when two rules share context, subject matter, or are part of the same regulatory framework, but neither derogates, specializes, nor overrides the other. 
+
+Key characteristics:
+- The relationship is generic and non-directional (unless specialized by derogatesFrom or specifies)
+- The two rules are semantically connected but without hierarchy (at the base level)
+- May be specialized into more specific relationships: derogatesFrom or specifies
+- Should be accompanied by a rdfs:comment or skos:note explaining the nature of the relationship
+
+Guidance:
+- Prefer more precise sub-properties (lomo:specifies, lomo:derogatesFrom) when applicable
+- Use lomo:relatesTo as a catch-all for rules that are contextually connected but lack a specific hierarchical or defeasibility relationship
+- Use lomo:relatesTo for generic querying across all rule-to-rule relationships (including specificity and derogation)
+- Consider documenting the nature of the relationship in comments
+
+Property hierarchy:
+- lomo:relatesTo (super-property, encompasses all rule relationships)
+  - lomo:derogatesFrom (sub-property: deontic conflict)
+  - lomo:specifies (sub-property: determines underdetermined content)"""@en ;
+    skos:example "GDPR Article 5 (principles) relates to Article 6 (lawful basis): complementary rules in the same framework, neither specifying nor derogating from the other."@en ;
+    vann:usageExample """# Note: the rule instances below are abbreviated - the mandatory lomo:produces on PrescriptiveRule instances is omitted to keep the focus on the relatesTo relationship.
+# Example 1: Complementary rules from the same regulatory framework (generic relation)
+ex:Rule_GDPR_Art5_Principles a lomo:ConstitutiveRule ;
+    rdfs:label "GDPR Article 5: Principles relating to processing of personal data"@en ;
+    lomo:relatesTo ex:Rule_GDPR_Art6_LawfulBasis ;
+    skos:note "Both articles are foundational to the GDPR but neither specifies nor derogates from the other - they establish complementary requirements" ;
+    lomo:establishedIn <http://data.europa.eu/eli/reg/2016/679/art_5> .
+
+ex:Rule_GDPR_Art6_LawfulBasis a lomo:ConstitutiveRule ;
+    rdfs:label "GDPR Article 6: Lawfulness of processing"@en ;
+    lomo:establishedIn <http://data.europa.eu/eli/reg/2016/679/art_6> .
+
+# Example 2: Data reporting and verification obligations from same legislative instrument
+ex:Rule_FinRep_Art4_DataRequirements a lomo:PrescriptiveRule ;
+    rdfs:label "Financial Reporting Regulation Article 4: Data reporting requirements"@en ;
+    lomo:relatesTo ex:Rule_FinRep_Art5_DataVerification ;
+    skos:note "Both rules govern financial data quality in the same regulatory framework: Article 4 specifies what to report, Article 5 specifies how to verify; they are complementary but independent requirements" ;
+    lomo:establishedIn <http://data.europa.eu/eli/reg/2019/815/art_4> .
+
+ex:Rule_FinRep_Art5_DataVerification a lomo:PrescriptiveRule ;
+    rdfs:label "Financial Reporting Regulation Article 5: Data verification requirements"@en ;
+    lomo:establishedIn <http://data.europa.eu/eli/reg/2019/815/art_5> .
+
+# Example 3: Cross-cutting obligations from environmental legislation
+ex:Rule_EIA_Art5_PublicConsultation a lomo:PrescriptiveRule ;
+    rdfs:label "Environmental Impact Assessment Directive Article 5: Public consultation on environmental effects"@en ;
+    lomo:relatesTo ex:Rule_EIA_Art6_ScreeningRequirements ;
+    skos:note "Both articles are procedural requirements for environmental assessment but neither determines nor overrides the other - they work together in sequence" ;
+    lomo:establishedIn <http://data.europa.eu/eli/dir/2014/52/art_5> .
+
+ex:Rule_EIA_Art6_ScreeningRequirements a lomo:PrescriptiveRule ;
+    rdfs:label "Environmental Impact Assessment Directive Article 6: Screening for environmental effects"@en ;
+    lomo:establishedIn <http://data.europa.eu/eli/dir/2014/52/art_6> .
+
+# Example 4: Using relatesTo for generic querying across all rule types
+# Query: ?rule1 lomo:relatesTo ?rule2
+# Returns results for generic relations (Examples 1-3) plus all specifies and derogatesFrom relationships"""@en .
+
+:isManifestedIn rdf:type owl:ObjectProperty ;
+    rdfs:label "is manifested in"@en ;
+    rdfs:comment "Relates an ActionResult (or ActionResultType) to the dcat:Dataset that manifests or contains the realized output."@en ;
+    rdfs:domain :ActionResultOrType ;
+    rdfs:range dcat:Dataset ;
+    skos:scopeNote """Use this property to link an ActionResult or ActionResultType to the dcat:Dataset that contains or represents its real-world manifestation. This property bridges the legal definition of an ActionResult (or ActionResultType) with its concrete representation in a dataset.
+
+Key points:
+- ActionResult: Represents the legal definition or conceptual output of an action (e.g., 'Annual Report 2025 on Interoperability').
+- dcat:Dataset: Represents the concrete dataset that contains or manifests the ActionResult (e.g., the actual dataset containing the report).
+- Purpose: To link the legal or conceptual definition of a result to its real-world manifestation in a dataset.
+
+This property is particularly useful when an ActionResult or ActionResultType has a corresponding dataset that represents its realization or publication."""@en ;
+    skos:example "A result (Annual Report 2025 on Interoperability) is manifested in a specific dataset containing the report."@en ;
+    vann:usageExample """
+# Example 1: Linking an ActionResult to a dataset
+ex:Result_AnnualReport2025_Interoperability rdf:type lomo:ActionResult ;
+    rdfs:label "Annual Report 2025 on Interoperability"@en ;
+    lomo:isManifestedIn ex:Dataset_InteroperabilityReport2025 .
+
+ex:Dataset_InteroperabilityReport2025 rdf:type dcat:Dataset ;
+    dcterms:title "Interoperability Report 2025 Dataset"@en .
+
+# Example 2: Linking an ActionResultType to a dataset
+ex:ResultType_AnnualInteroperabilityReport rdf:type lomo:ActionResultType ;
+    rdfs:label "Annual Report on Interoperability"@en ;
+    lomo:isManifestedIn ex:Dataset_InteroperabilityReports .
+
+ex:Dataset_InteroperabilityReports rdf:type dcat:Dataset ;
+    dcterms:title "Interoperability Reports Dataset"@en .
+"""@en .
+
+:manifests rdf:type owl:ObjectProperty ;
+    rdfs:label "manifests"@en ;
+    rdfs:comment "Inverse of :isManifestedIn; relates a dcat:Dataset to the ActionResult(s) it manifests."@en ;
+    rdfs:domain dcat:Dataset ;
+    rdfs:range :ActionResultOrType ;
+    owl:inverseOf :isManifestedIn ;
+    skos:scopeNote """Use this property to link a dcat:Dataset to the ActionResult or ActionResultType that it manifests. This property is the inverse of :isManifestedIn and serves the same purpose but from the perspective of the dataset.
+
+Key points:
+- dcat:Dataset: Represents the concrete dataset that contains or manifests the ActionResult (e.g., the actual dataset containing the report).
+- ActionResult: Represents the legal definition or conceptual output of an action (e.g., 'Annual Report 2025 on Interoperability').
+- Purpose: To link the concrete dataset to the legal or conceptual definition of the result it manifests.
+
+This property is particularly useful when a dataset represents the realization or publication of an ActionResult or ActionResultType."""@en ;
+    skos:example "A dataset containing the 2025 Interoperability Report manifests the annual report result."@en ;
+    vann:usageExample """
+# Example 1: Linking a dataset to an ActionResult
+ex:Dataset_InteroperabilityReport2025 rdf:type dcat:Dataset ;
+    dcterms:title "Interoperability Report 2025 Dataset"@en ;
+    lomo:manifests ex:Result_AnnualReport2025_Interoperability .
+
+ex:Result_AnnualReport2025_Interoperability rdf:type lomo:ActionResult ;
+    rdfs:label "Annual Report 2025 on Interoperability"@en .
+
+# Example 2: Linking a dataset to an ActionResultType
+ex:Dataset_InteroperabilityReports rdf:type dcat:Dataset ;
+    dcterms:title "Interoperability Reports Dataset"@en ;
+    lomo:manifests ex:ResultType_AnnualInteroperabilityReport .
+
+ex:ResultType_AnnualInteroperabilityReport rdf:type lomo:ActionResultType ;
+    rdfs:label "Annual Report on Interoperability"@en .
+"""@en .
+
+#################################################################
+#    Bibliographic References (rdfs:label for DOI-identified resources)
+#################################################################
+
+<https://doi.org/10.2307/2182230> rdfs:label "Rawls, J. (1955). 'Two Concepts of Rules.' The Philosophical Review, 64(1), 3-32."@en .
+
+<https://doi.org/10.1017/CBO9781139173438> rdfs:label "Searle, J.R. (1969). Speech Acts: An Essay in the Philosophy of Language. Cambridge University Press."@en .
+
+<https://doi.org/10.1007/978-3-030-00178-0_7> rdfs:label "Ceci, M., et al. (2018). 'Legal Patterns for Different Constitutive Rules.' In AI Approaches to the Complexity of Legal Systems (pp. 105–123). Springer International Publishing, Cham."@en .
+
+<https://doi.org/10.1145/3769126.3769255> rdfs:label "Corazza, M., Palmirani, M., Sapienza, S., & Longo, G. (2026). 'Reporting Requests Modelling in European Legislation with a Hybrid AI Approach.' In Proceedings of the Twentieth International Conference on Artificial Intelligence and Law (ICAIL '25), pp. 93-102. ACM."@en .
+
+<https://doi.org/10.3233/FAIA251593> rdfs:label "Zilli, L., Corazza, M., Palmirani, M., & Sapienza, S. (2025). 'Multilingual Legislative Definitions Retrieval and Generation Using LLM and Agentic AI.' In Legal Knowledge and Information Systems, Frontiers in Artificial Intelligence and Applications, Vol. 416, pp. 251-262. IOS Press."@en .
+
+<https://doi.org/10.1145/3769126.3769257> rdfs:label "Governatori, G., & Palmirani, M. (2026). 'Legal Explanation in Defeasible Deontic Logic via LegalRuleML.' In Proceedings of the Twentieth International Conference on Artificial Intelligence and Law (ICAIL '25), pp. 500-501. ACM."@en .
+
+<https://doi.org/10.2307/785533> rdfs:label "Hohfeld, W.N. (1913). 'Some Fundamental Legal Conceptions as Applied in Judicial Reasoning.' Yale Law Journal, 23(1), 16-59."@en .
+
+<https://doi.org/10.1093/acprof:oso/9780198245537.001.0001> rdfs:label "Austin, J.L. (1962). How to Do Things with Words (2nd ed.). Oxford University Press."@en .
+
+<https://doi.org/10.1007/978-3-032-02225-7_2> rdfs:label "Palmirani, M., Nuzzolese, A.G., & Longo, G. (2025). 'Reporting Requirements Ontology for European Legislation.' In Electronic Government and the Information Systems Perspective (EGOVIS 2025), Lecture Notes in Computer Science, vol. 16049, pp. 18-32. Springer, Cham."@en .
+
+<https://doi.org/10.1017/CBO9780511609213> rdfs:label "Searle, J.R. (1979). 'A Taxonomy of Illocutionary Acts.' In Expression and Meaning: Studies in the Theory of Speech Acts (pp. 1-29). Cambridge University Press."@en .
+
+<https://doi.org/10.1093/logcom/exl027> rdfs:label "Grossi, D., Meyer, J.J.C., & Dignum, F. (2006). 'Classificatory Aspects of Counts-As: An Analysis in Modal Logic.' Journal of Logic and Computation, 16(5), 613-643."@en .
+
+#################################################################
+#    Linked resources (rdfs:label so See also shows a title, not the URL)
+#################################################################
+
+<https://op.europa.eu/en/web/eu-vocabularies/dataset/-/resource?uri=http://publications.europa.eu/resource/dataset/law-implementation-and-oversight> rdfs:label "Law implementation and oversight (EU Vocabularies)"@en .
+
+<https://op.europa.eu/en/web/eu-vocabularies/dataset/-/resource?uri=http://publications.europa.eu/resource/dataset/administrative-obligation> rdfs:label "Administrative obligation (EU Vocabularies)"@en .
+
+<https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/role> rdfs:label "Role (EU Vocabularies)"@en .
+
+<https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://data.europa.eu/y6k/0001> rdfs:label "EC business capability model (EU Vocabularies)"@en .
+
+<https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://data.europa.eu/9bx/0001> rdfs:label "EC technical capability model (EU Vocabularies)"@en .

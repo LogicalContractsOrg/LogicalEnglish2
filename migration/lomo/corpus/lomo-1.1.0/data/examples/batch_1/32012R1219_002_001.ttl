@@ -1,0 +1,112 @@
+# Article 2 - Notification to the Commission
+# By 8 February 2013 or within 30 days of the date of their accession to the Union, the Member States shall notify the Commission of all bilateral investment agreements with third countries signed before 1 December 2009 or before the date of their accession, whichever is later, that they either wish to maintain in force or permit to enter into force under this Chapter. The notification shall include a copy of those bilateral investment agreements. Member States shall also notify the Commission of any subsequent changes to the status of those agreements.
+#
+# Note: For this exercise, we have intentionally kept the temporal modelling at a general level to reflect the wording of the legal provision without introducing unnecessary technical granularity. In addition, LOMO does not provide mechanisms to model external factual events (such as an accession date), and therefore such events cannot be represented explicitly within a TemporalSpecification. Only the textual expression of the temporal condition is captured.
+
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix eli: <http://data.europa.eu/eli/ontology#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix example: <https://system.org/example#> .
+@prefix lomo: <http://data.europa.eu/leg/lomo#> .
+
+# Agent Role instances
+example:REG20121219ART2PAR1_AgentRole1
+    a lomo:AgentRole ;
+    lomo:forAgent example:MemberStates ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+example:REG20121219ART2PAR1_AgentRole2
+    a lomo:AgentRole ;
+    lomo:forAgent example:TheCommission ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+example:REG20121219ART2PAR1_AgentRole3
+    a lomo:AgentRole ;
+    lomo:forAgent example:MemberStates ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+example:REG20121219ART2PAR1_AgentRole4
+    a lomo:AgentRole ;
+    lomo:forAgent example:TheCommission ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+example:REG20121219ART2PAR1_AgentRole5
+    a lomo:AgentRole ;
+    lomo:forAgent example:MemberStates ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+example:REG20121219ART2PAR1_AgentRole6
+    a lomo:AgentRole ;
+    lomo:forAgent example:TheCommission ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+# Legal Rule
+example:REG20121219ART2PAR1
+    a lomo:PrescriptiveRule ;
+    rdfs:label "Notification obligation concerning bilateral investment agreements with third countries"@en ;
+    lomo:hasDeonticModality <http://data.europa.eu/leg/deontic-modality/Obligation> ;
+    lomo:hasRequirementType <http://publications.europa.eu/resource/dataset/administrative-obligation/c_80214a02> ;
+    lomo:establishedIn <http://data.europa.eu/eli/reg/2012/1219/art_2/par_1/oj> ;
+    lomo:produces
+        example:REG20121219ART2PAR1_Action1,
+        example:REG20121219ART2PAR1_Action2,
+        example:REG20121219ART2PAR1_Action3 ;
+    lomo:legalText
+        "By 8 February 2013 or within 30 days of the date of their accession to the Union, the Member States shall notify the Commission of all bilateral investment agreements with third countries signed before 1 December 2009 or before the date of their accession, whichever is later, that they either wish to maintain in force or permit to enter into force under this Chapter. The notification shall include a copy of those bilateral investment agreements. Member States shall also notify the Commission of any subsequent changes to the status of those agreements."@en .
+
+# Temporal Specification
+example:TemporalSpecification1
+    a lomo:TemporalSpecification ;
+    lomo:legalText "By 8 February 2013 or within 30 days of accession to the Union"@en ;
+    lomo:hasFunction <http://data.europa.eu/leg/temporal-function/deadline> ;
+    time:inXSDDate "2013-02-08"^^xsd:date .
+
+# Actions
+example:REG20121219ART2PAR1_Action1
+    a lomo:Action ;
+    lomo:atTime example:TemporalSpecification1 ;
+    lomo:hasAgentRole example:REG20121219ART2PAR1_AgentRole1,
+                  example:REG20121219ART2PAR1_AgentRole2 ;
+    lomo:hasNext example:REG20121219ART2PAR1_Action2 ;
+    lomo:hasResult example:REG20121219ART2PAR1_ActionResult1 ;
+    lomo:legalText
+        "Member States shall notify the Commission of all bilateral investment agreements they wish to maintain or permit to enter into force."@en .
+
+example:REG20121219ART2PAR1_Action2
+    a lomo:Action ;
+    lomo:hasAgentRole example:REG20121219ART2PAR1_AgentRole3,
+                  example:REG20121219ART2PAR1_AgentRole4 ;
+    lomo:hasNext example:REG20121219ART2PAR1_Action3 ;
+    lomo:hasResult example:REG20121219ART2PAR1_ActionResult2 ;
+    lomo:legalText
+        "The notification shall include a copy of those bilateral investment agreements."@en .
+
+example:REG20121219ART2PAR1_Action3
+    a lomo:Action ;
+    lomo:hasAgentRole example:REG20121219ART2PAR1_AgentRole5,
+                  example:REG20121219ART2PAR1_AgentRole6 ;
+    lomo:hasResult example:REG20121219ART2PAR1_ActionResult3 ;
+    lomo:legalText
+        "Member States shall notify the Commission of any subsequent changes to the status of those agreements."@en .
+
+# Action Results
+example:REG20121219ART2PAR1_ActionResult1
+    a lomo:ActionResult ;
+    rdfs:label "Notification of bilateral investment agreements signed before 1 December 2009"@en ;
+    lomo:legalText
+        "Notification of bilateral investment agreements signed before 1 December 2009 or before accession."@en .
+
+example:REG20121219ART2PAR1_ActionResult2
+    a lomo:ActionResult ;
+    rdfs:label "Requirement to include a copy of the notified bilateral investment agreements"@en ;
+    lomo:legalText
+        "Requirement to include a copy of the notified bilateral investment agreements."@en .
+
+example:REG20121219ART2PAR1_ActionResult3
+    a lomo:ActionResult ;
+    rdfs:label "Communication of subsequent changes to the status of notified bilateral"@en ;
+    lomo:legalText
+        "Communication of subsequent changes to the status of notified bilateral investment agreements."@en .

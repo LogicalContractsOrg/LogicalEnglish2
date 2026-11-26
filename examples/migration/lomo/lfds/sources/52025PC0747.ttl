@@ -1,0 +1,620 @@
+@prefix adms: <http://www.w3.org/ns/adms#> .
+@prefix cav: <http://data.europa.eu/2sa/cav#> .
+@prefix cpsv: <http://purl.org/vocab/cpsv#> .
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix dctype: <http://purl.org/dc/dcmitype/> .
+@prefix dd: <http://data.europa.eu/leg/digital-dimensions/> .
+@prefix iac: <http://data.europa.eu/leg/interop-assessment#> .
+@prefix iopa: <http://data.europa.eu/2qy/iopa#> .
+@prefix lomo: <http://data.europa.eu/leg/lomo#> .
+@prefix m8g: <http://data.europa.eu/m8g/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix tf: <http://data.europa.eu/leg/temporal-function/> .
+@prefix y6k: <http://data.europa.eu/y6k/> .
+
+<http://example.org/analysis/action/1> a lomo:Action ;
+    rdfs:label "Personal data of responsible officers in charge of licenses, self-registration or prior notification"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:deadline ;
+            lomo:temporalLabel "24/7"@en ],
+        [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Once the IT system is operational"@en ] ;
+    lomo:hasAgentRole <http://example.org/analysis/action/1/role/addressee-competent-authorities-commission>,
+        <http://example.org/analysis/action/1/role/addresser-competent-authorities-economic-operators> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Personal data of responsible officers in charge of licenses, self-registration or prior notification"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/personal-data-of-responsible-officers-in-charge-of-licenses-self-registration-or-prior-notification> ] .
+
+<http://example.org/analysis/action/2> a lomo:Action ;
+    rdfs:label "Data relevant for licenses, registrations and prior notifications of operators"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:deadline ;
+            lomo:temporalLabel "24/7"@en ],
+        [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Request of operator"@en ] ;
+    lomo:hasAgentRole <http://example.org/analysis/action/2/role/addressee-competent-authorities-economic-operators>,
+        <http://example.org/analysis/action/2/role/addresser-economic-operators> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Data relevant for licenses, registrations and prior notifications of operators"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/data-relevant-for-licenses-registrations-and-prior-notifications-of-operators> ] .
+
+<http://example.org/analysis/action/3> a lomo:Action ;
+    rdfs:label "Data on suspicious transactions"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:deadline ;
+            lomo:temporalLabel "24/7"@en ],
+        [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Request of operator"@en ] ;
+    lomo:hasAgentRole <http://example.org/analysis/action/3/role/addressee-competent-authorities>,
+        <http://example.org/analysis/action/3/role/addresser-economic-operators> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Data on suspicious transactions"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/data-on-suspicious-transactions> ] .
+
+<http://example.org/analysis/action/4> a lomo:Action ;
+    rdfs:label "Data on seizures"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Request of operator"@en ],
+        [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:deadline ;
+            lomo:temporalLabel "24/7"@en ] ;
+    lomo:hasAgentRole <http://example.org/analysis/action/4/role/addressee-commission-competent-authorities>,
+        <http://example.org/analysis/action/4/role/addresser-comptetent-authorities> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Data on seizures"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/data-on-seizures> ] .
+
+<http://example.org/analysis/action/5> a lomo:Action ;
+    rdfs:label "Data on precursor substances"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:deadline ;
+            lomo:temporalLabel "24/7"@en ],
+        [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Once uploaded"@en ] ;
+    lomo:hasAgentRole <http://example.org/analysis/action/5/role/addressee-competent-authorities-eonomic-operators-general-public-commission>,
+        <http://example.org/analysis/action/5/role/addresser-euda> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Data on precursor substances"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/data-on-precursor-substances> ] .
+
+<http://example.org/analysis/action/6> a lomo:Action ;
+    rdfs:label "Data on drug precursor, quantity and time."@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Request of competent authorities, Commission"@en ] ;
+    lomo:hasAgentRole <http://example.org/analysis/action/6/role/addressee-competent-authorities-customs-commission> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Data on drug precursor, quantity and time."@en ;
+            lomo:isManifestedIn <http://example.org/dataset/data-on-drug-precursor-quantity-and-time> ] .
+
+<http://example.org/analysis/assessment/1> a cav:Assessment ;
+    cav:assesses <http://example.org/analysis/description/13>,
+        <http://example.org/analysis/description/15> ;
+    cav:resultsIn <http://example.org/analysis/assessment/1/1/measure>,
+        <http://example.org/analysis/assessment/1/2/measure>,
+        <http://example.org/analysis/assessment/1/3/barrier>,
+        <http://example.org/analysis/assessment/1/3/measure>,
+        <http://example.org/analysis/assessment/1/4/measure>,
+        <http://example.org/analysis/assessment/1/5/measure>,
+        <http://example.org/analysis/assessment/1/6/measure>,
+        <http://example.org/analysis/assessment/1/7/measure>,
+        <http://example.org/analysis/assessment/1/8/measure> ;
+    m8g:isProvidedBy <http://publications.europa.eu/resource/authority/corporate-body/COM> .
+
+<http://example.org/analysis/description/1> a lomo:LegalRule ;
+    rdfs:label "R1: Article 35(2), point (a)(i)"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/747/cod/doc/com/COM_2025_747/FINAL/eng/art_35/par_2> ;
+    lomo:hasCategory dd:Data,
+        dd:DigitalPublicService,
+        dd:DigitalSolutions ;
+    lomo:involvesProcess y6k:c_a8f0f068971d ;
+    lomo:produces <http://example.org/analysis/description/1/action> ;
+    dcterms:description "Access to the digital solution for operators (legal entities) legally trading with DP and public authorities"@en .
+
+<http://example.org/analysis/description/10> a lomo:LegalRule ;
+    rdfs:label "R10: Article 35(5)"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/747/cod/doc/com/COM_2025_747/FINAL/eng/art_35/par_5> ;
+    lomo:involvesProcess y6k:c_422e961c ;
+    lomo:produces <http://example.org/analysis/description/10/action> ;
+    dcterms:description "Interoperability with UN system for Pre-export notification"@en .
+
+<http://example.org/analysis/description/11> a lomo:LegalRule ;
+    rdfs:label "R11: Article 35(2), point (c)(iii)"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/747/cod/doc/com/COM_2025_747/FINAL/eng/art_35/par_2> ;
+    lomo:hasCategory dd:ProcessAutomation ;
+    lomo:involvesProcess y6k:c_422e961c ;
+    lomo:produces <http://example.org/analysis/description/11/action> ;
+    dcterms:description "Reporting of seizures by competent authorities"@en .
+
+<http://example.org/analysis/description/12> a lomo:LegalRule ;
+    rdfs:label "R12: Article 35(2), point (d)"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/747/cod/doc/com/COM_2025_747/FINAL/eng/art_35/par_2> ;
+    lomo:hasCategory dd:ProcessAutomation ;
+    lomo:involvesProcess y6k:c_422e961c ;
+    lomo:produces <http://example.org/analysis/description/12/action> ;
+    dcterms:description "Reporting to the International Narcotic Control Board"@en .
+
+<http://example.org/analysis/description/14> a lomo:LegalRule ;
+    rdfs:label "R14: Article 35(5)"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/747/cod/doc/com/COM_2025_747/FINAL/eng/art_35/par_5> ;
+    lomo:involvesProcess <http://example.org/process/the-commission-could-interconnect-the-central-electronic-system-with-the-electronic-system-of-the-united-nations> ;
+    lomo:produces <http://example.org/analysis/description/14/action> ;
+    dcterms:description "Interoperability with UN system for seizure reporting"@en .
+
+<http://example.org/analysis/description/2> a lomo:LegalRule ;
+    rdfs:label "R2: Article 35(2), points (a)(ii), (iii) and (iv)"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/747/cod/doc/com/COM_2025_747/FINAL/eng/art_35/par_2> ;
+    lomo:hasCategory dd:Data,
+        dd:DigitalPublicService ;
+    lomo:involvesProcess <http://example.org/process/filing-an-application-or-notification> ;
+    lomo:produces <http://example.org/analysis/description/2/action> ;
+    dcterms:description "Submission of licence application, registration or prior-notification by economic operators"@en .
+
+<http://example.org/analysis/description/3> a lomo:LegalRule ;
+    rdfs:label "R3:Article 35(2), point (a)(v)"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/747/cod/doc/com/COM_2025_747/FINAL/eng/art_35/par_2> ;
+    lomo:hasCategory dd:DigitalPublicService,
+        dd:ProcessAutomation ;
+    lomo:involvesProcess <http://example.org/process/identification-fraud-prevention> ;
+    lomo:produces <http://example.org/analysis/description/3/action> ;
+    dcterms:description "Verification of operators"@en .
+
+<http://example.org/analysis/description/4> a lomo:LegalRule ;
+    rdfs:label "R4: Article 35(2), point (b)"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/747/cod/doc/com/COM_2025_747/FINAL/eng/art_35/par_2> ;
+    lomo:hasCategory dd:Data,
+        dd:DigitalPublicService ;
+    lomo:involvesProcess <http://example.org/process/fraud-prevention> ;
+    lomo:produces <http://example.org/analysis/description/4/action> ;
+    dcterms:description "Provision of information on suspicious transactions"@en .
+
+<http://example.org/analysis/description/5> a lomo:LegalRule ;
+    rdfs:label "R5: Article 25"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/747/cod/doc/com/COM_2025_747/FINAL/eng/art_25> ;
+    lomo:hasCategory dd:Data,
+        dd:DigitalSolutions ;
+    lomo:involvesProcess y6k:c_a8f0f068971d ;
+    lomo:produces <http://example.org/analysis/description/5/action> ;
+    dcterms:description "Drug Precursors Information Repository"@en .
+
+<http://example.org/analysis/description/6> a lomo:LegalRule ;
+    rdfs:label "R6: Article 25(3)"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/747/cod/doc/com/COM_2025_747/FINAL/eng/art_25/par_3> ;
+    lomo:involvesProcess <http://example.org/process/information-and-guidance> ;
+    lomo:produces <http://example.org/analysis/description/6/action> ;
+    dcterms:description "Tool of the repository to check if a specific substance is part of group scheduling"@en .
+
+<http://example.org/analysis/description/7> a lomo:LegalRule ;
+    rdfs:label "R7: Article 35(2), points (c)(i) and (ii)"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/747/cod/doc/com/COM_2025_747/FINAL/eng/art_35/par_2> ;
+    lomo:hasCategory dd:DigitalPublicService,
+        dd:ProcessAutomation ;
+    lomo:involvesProcess <http://example.org/process/fraud-prevention> ;
+    lomo:produces <http://example.org/analysis/description/7/action> ;
+    dcterms:description "Validity check of registration and prior notification, and issuing licences or rejecting prior notifications, registrations or licenses"@en .
+
+<http://example.org/analysis/description/8> a lomo:LegalRule ;
+    rdfs:label "R8: Article 35(2), point (a)(vi)"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/747/cod/doc/com/COM_2025_747/FINAL/eng/art_35/par_2> ;
+    lomo:hasCategory dd:Data,
+        dd:DigitalPublicService ;
+    lomo:involvesProcess y6k:c_422e961c ;
+    lomo:produces <http://example.org/analysis/description/8/action> ;
+    dcterms:description "Information obligations regarding import / exports, and intermediary activities"@en .
+
+<http://example.org/analysis/description/9> a lomo:LegalRule ;
+    rdfs:label "R9: Article 23(2) and (6)"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/747/cod/doc/com/COM_2025_747/FINAL/eng/art_23/par_2> ;
+    lomo:hasCategory dd:DigitalPublicService,
+        dd:ProcessAutomation ;
+    lomo:involvesProcess <http://example.org/process/fraud-prevention> ;
+    lomo:produces <http://example.org/analysis/description/9/action> ;
+    dcterms:description "Validity check of registration/prior notification/license in course of import and export transactions"@en .
+
+<http://example.org/analysis/solution/1> a dctype:Software ;
+    rdfs:label "Licensing, registration and prior notification platform"@en ;
+    lomo:hasCapability "Submission of licence application, registration or prior notification by economic operators, Verification of operators, validity checks of licences, registrations and prior notifications, possibility to grant/revoke/suspend licenses, order operators to suspend or cease an activity covered by prior notifications and registrations, sending ad hoc information requests" ;
+    dcterms:publisher <http://example.org/agent/grow> ;
+    dcterms:title "Licensing, registration and prior notification platform"@en .
+
+<http://example.org/analysis/solution/2> a dctype:Software ;
+    rdfs:label "Interconnection with customs"@en ;
+    lomo:hasCapability "Information provision, validity checks for import and export," ;
+    dcterms:publisher <http://example.org/agent/taxud> ;
+    dcterms:title "Interconnection with customs"@en .
+
+<http://example.org/analysis/solution/3> a dctype:Software ;
+    rdfs:label "Drug Precursors Information Repository"@en ;
+    lomo:hasCapability "(List of precursor substances to be filled in by EUDA, translation tool for extended scheduling" ;
+    dcterms:publisher <http://example.org/agent/euda> ;
+    dcterms:title "Drug Precursors Information Repository"@en .
+
+<http://example.org/analysis/solution/4> a dctype:Software ;
+    rdfs:label "Interface with INCB"@en ;
+    lomo:hasCapability "Drafting and completion of Annual reporting and statistics based on the information in Licensing platform, seizures reported and QM calculator",
+        "Opening, reviewing, processing and responding (if necessary) to the pre-export notifications sent by third countries’ authorities to customs authorities",
+        "Sending and receiving of pre-export notifications with third countries to/from UN/INCB solution via machine-to-machine interface to be built" ;
+    dcterms:publisher <http://example.org/agent/the-concrete-materialisation-of-the-solution-will-be-assessed-during-the-upcoming-business-analysis-taxud-responsibility> ;
+    dcterms:title "Interface with INCB"@en .
+
+<http://example.org/analysis/solution/5> a dctype:Software ;
+    rdfs:label "Administrative cooperation"@en ;
+    lomo:hasCapability "Provide a platform for competent authorities and economic operators to report seizures and suspicious transactions. Request ad hoc information to operators" ;
+    dcterms:publisher <http://example.org/agent/grow> ;
+    dcterms:title "Administrative cooperation"@en .
+
+<http://example.org/dataset/r1-article-352-point-ai> a dcat:Dataset ;
+    dcterms:title "R1: Article 35(2), point (a)(i)"@en .
+
+<http://example.org/dataset/r2-article-352-points-aii-iii-and-iv> a dcat:Dataset ;
+    dcterms:title "R2: Article 35(2), points (a)(ii), (iii) and (iv)"@en .
+
+<http://example.org/dataset/r4-article-352-point-b> a dcat:Dataset ;
+    dcterms:title "R4: Article 35(2), point (b)"@en .
+
+<http://example.org/dataset/r5-article-25> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/747/cod/doc/com/COM_2025_747/FINAL/eng/anx_1> ;
+    dcterms:title "R5: Article 25"@en .
+
+<http://example.org/dataset/r8-article-352-point-avi> a dcat:Dataset ;
+    dcterms:title "R8: Article 35(2), point (a)(vi)"@en .
+
+<http://example.org/agent/commission> rdfs:label "Commission"@en .
+
+<http://example.org/agent/competent-authorities-commission> rdfs:label "Competent authorities, Commission"@en .
+
+<http://example.org/agent/competent-authorities-customs-commission> rdfs:label "Competent authorities, Customs, Commission"@en .
+
+<http://example.org/agent/competent-authorities-eonomic-operators-general-public-commission> rdfs:label "Competent authorities, eonomic operators, General Public, Commission"@en .
+
+<http://example.org/agent/comptetent-authorities> rdfs:label "Comptetent authorities"@en .
+
+<http://example.org/agent/customs-authorities-commission> rdfs:label "Customs authorities, Commission"@en .
+
+<http://example.org/agent/economic-operators-competent-authorities> rdfs:label "Economic operators, competent authorities"@en .
+
+<http://example.org/agent/economic-operators-competent-authorities-and-customs> rdfs:label "Economic operators, Competent authorities and Customs"@en .
+
+<http://example.org/agent/economic-operators-online-market-places-competent-authorities-commission> rdfs:label "Economic operators, online market places, competent authorities, Commission"@en .
+
+<http://example.org/agent/economic-operators-online-market-places-competent-national-authorities> rdfs:label "Economic operators, online market places, competent national authorities"@en .
+
+<http://example.org/agent/general-public-economic-operators-competent-authorities-commission-euda> rdfs:label "General Public, Economic operators, competent authorities, Commission, EUDA"@en .
+
+<http://example.org/analysis/action/1/role/addressee-competent-authorities-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/competent-authorities-commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/1/role/addresser-competent-authorities-economic-operators> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/competent-authorities-economic-operators> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/2/role/addressee-competent-authorities-economic-operators> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/competent-authorities-economic-operators> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/2/role/addresser-economic-operators> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/economic-operators> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/3/role/addressee-competent-authorities> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/competent-authorities> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/3/role/addresser-economic-operators> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/economic-operators> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/4/role/addressee-commission-competent-authorities> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/commission-competent-authorities> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/4/role/addresser-comptetent-authorities> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/comptetent-authorities> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/5/role/addressee-competent-authorities-eonomic-operators-general-public-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/competent-authorities-eonomic-operators-general-public-commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/5/role/addresser-euda> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/euda> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/6/role/addressee-competent-authorities-customs-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/competent-authorities-customs-commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/assessment/1/1/measure> a cav:Statement ;
+    cav:interpretation iac:InterpretationPositive ;
+    cav:judgement """-EU DP database of DG GROW or eLicencings system from DG SANTE, or DG TRADE (to be confirmed by ITCB based on future Business Case)
+-Customer verification will leverage the European Business Wallets to authenticate and identify economic operators and public sector bodies across borders, while ensuring interoperability. In addition, the use of the European Business Wallets can be extended to the exchange of credentials (e.g., eLicences and eCertificates) and to the streamlining of reporting obligations."""@en ;
+    cav:type iac:StatementTypeAlignmentMeasure ;
+    dcterms:description "Alignment with existing digital and sectorial policies"@en ;
+    dcterms:title "Licensing, registration prior notification platform, customer verification and administrative cooperation platform"@en .
+
+<http://example.org/analysis/assessment/1/2/measure> a cav:Statement ;
+    cav:interpretation iac:InterpretationPositive ;
+    cav:judgement """-Art. 4 Free Movement
+-Chapter 2, in particular obligations of operators
+-Chapter 4, cooperation with and tasks of national authorities"""@en ;
+    cav:type iac:StatementTypeOrganisationMeasure ;
+    dcterms:description "Organisational measures for a smooth cross-border digital public services delivery"@en ;
+    dcterms:title "Licensing, registration prior notification platform, customer verification and administrative cooperation platform"@en .
+
+<http://example.org/analysis/assessment/1/3/barrier> a cav:Statement ;
+    cav:interpretation iac:InterpretationNegative ;
+    cav:judgement "-Interoperability with customs systems will not be immediately available."@en ;
+    cav:type iac:StatementTypeSharedBarrier ;
+    dcterms:description "Measures taken to ensure a shared understanding of the data"@en ;
+    dcterms:title "Licensing, registration prior notification platform, customer verification and administrative cooperation platform"@en .
+
+<http://example.org/analysis/assessment/1/3/measure> a cav:Statement ;
+    cav:interpretation iac:InterpretationPositive ;
+    cav:judgement "-A single centralised system willprovide the interface for all drug precursor formalities"@en ;
+    cav:type iac:StatementTypeSharedMeasure ;
+    dcterms:description "Measures taken to ensure a shared understanding of the data"@en ;
+    dcterms:title "Licensing, registration prior notification platform, customer verification and administrative cooperation platform"@en .
+
+<http://example.org/analysis/assessment/1/4/measure> a cav:Statement ;
+    cav:interpretation iac:InterpretationPositive ;
+    cav:judgement "-Art. 6 communication is to happen in a machine-readable open standard."@en ;
+    cav:type iac:StatementTypeStandardsMeasure ;
+    dcterms:description "Use of commonly agreed open technical specifications and standards"@en ;
+    dcterms:title "Licensing, registration prior notification platform, customer verification and administrative cooperation platform"@en .
+
+<http://example.org/analysis/assessment/1/5/measure> a cav:Statement ;
+    cav:interpretation iac:InterpretationPositive ;
+    cav:judgement "Regulation (EU) 2022/2399"@en ;
+    cav:type iac:StatementTypeAlignmentMeasure ;
+    m8g:hasRelatedService <http://example.org/analysis/interop/2> ;
+    dcterms:description "Alignment with existing digital and sectorial policiesPlease list the applicable digital and sectorial policies identified"@en .
+
+<http://example.org/analysis/assessment/1/6/measure> a cav:Statement ;
+    cav:interpretation iac:InterpretationPositive ;
+    cav:judgement """The solution will alter the way actors interact with one another; paper documents will be replaced by electronic documents or messages, happening at a faster pace.
+The solution will have a significant impact on the following stakeholders:
+Economic operators involved inexternal trade in drug precursors, who apply for licences electronically via the new system.
+EU Member Statescompetent authoritieswhoreceive applications for and issue licences
+EUcountries’customsofficeswhocontrolcustoms declarationsofdrug precursorsandverifythe relevantlicences electronically.
+The European Commission, which is responsible for the development and maintenance of the system, ensuring its functionality and compliance. The EU countries are responsible for connecting their national customs systems to the EU CSW-CERTEX, which in turn ensures connection to the central solution."""@en ;
+    cav:type iac:StatementTypeOrganisationMeasure ;
+    m8g:hasRelatedService <http://example.org/analysis/interop/2> ;
+    dcterms:description "Organisational measures for a smooth cross-border digital public services deliveryPlease list the governance measures foreseen"@en .
+
+<http://example.org/analysis/assessment/1/7/measure> a cav:Statement ;
+    cav:interpretation iac:InterpretationPositive ;
+    cav:judgement """Data management will prioritise usability, reliability, and security, and support agile updates to meet evolving legal and operational requirements.
+The system will be aligned with the EU Customs Data Model (EUCDM) to ensure full interoperability with customs IT systems and compliance with EU customs legislation. Data elements required for import and export procedures will be harmonised and incorporated into future amendments to implementing and delegated regulations related to external trade in drug precursors."""@en ;
+    cav:type iac:StatementTypeSharedMeasure ;
+    m8g:hasRelatedService <http://example.org/analysis/interop/2> ;
+    dcterms:description "Measures taken to ensure a shared understanding of the dataPlease list such measures"@en .
+
+<http://example.org/analysis/assessment/1/8/measure> a cav:Statement ;
+    cav:interpretation iac:InterpretationPositive ;
+    cav:judgement "Interoperability with customs systems such as EU CSW-CERTEX and TARIC is foreseen."@en ;
+    cav:type iac:StatementTypeStandardsMeasure ;
+    m8g:hasRelatedService <http://example.org/analysis/interop/2> ;
+    dcterms:description "Use of commonly agreed open technical specifications and standardsPlease list such measures"@en .
+
+<http://example.org/analysis/description/1/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/1/action/role/addressee-economic-operators-online-market-places-competent-authorities-commission> .
+
+<http://example.org/analysis/description/1/action/role/addressee-economic-operators-online-market-places-competent-authorities-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/economic-operators-online-market-places-competent-authorities-commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/10/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/10/action/role/addressee-third-countries-economic-operators-competent-authorities> .
+
+<http://example.org/analysis/description/10/action/role/addressee-third-countries-economic-operators-competent-authorities> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/third-countries-economic-operators-competent-authorities> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/11/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/11/action/role/addressee-competent-authorities> .
+
+<http://example.org/analysis/description/11/action/role/addressee-competent-authorities> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/competent-authorities> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/12/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/12/action/role/addressee-commission-competent-authorities> .
+
+<http://example.org/analysis/description/12/action/role/addressee-commission-competent-authorities> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/commission-competent-authorities> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/13> a iopa:BindingRequirement,
+        lomo:LegalRule ;
+    rdfs:label "R13: Article 35(4)"@en ;
+    iopa:affects <http://example.org/analysis/interop/2> ;
+    cav:valueDescription "Interconnection to the EU Single Window Environment for Customs"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/747/cod/doc/com/COM_2025_747/FINAL/eng/art_35/par_4> ;
+    lomo:hasCategory dd:DigitalPublicService,
+        dd:DigitalSolutions ;
+    lomo:involvesProcess <http://example.org/process/the-commission-shall-interconnect-the-central-electronic-system-with-the-eu-single-window-environment-for-customs-established-by-regulation-eu-20222399> ;
+    lomo:produces <http://example.org/analysis/description/13/action> ;
+    dcterms:description "Interconnection to the EU Single Window Environment for Customs"@en ;
+    dcterms:relation <http://example.org/ie-solution/interconnection-to-the-eu-single-window-environment-for-customs> .
+
+<http://example.org/analysis/description/13/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/13/action/role/addressee-customs-authorities-commission> .
+
+<http://example.org/analysis/description/13/action/role/addressee-customs-authorities-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/customs-authorities-commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/14/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/14/action/role/addressee-commission> .
+
+<http://example.org/analysis/description/14/action/role/addressee-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/15> a iopa:BindingRequirement,
+        lomo:LegalRule ;
+    rdfs:label "R15: 35(2)c"@en ;
+    iopa:affects <http://example.org/analysis/interop/1> ;
+    cav:valueDescription "Reporting to demonstrate fulfilment of obligations upon a reasoned request of competent authority with an \"ad hoc\" frequency."@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/747/cod/doc/com/COM_2025_747/FINAL/eng/art_35/par_2> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/fraud-prevention-reporting> ;
+    lomo:produces <http://example.org/analysis/description/15/action> ;
+    dcterms:description "Reporting to demonstrate fulfilment of obligations upon a reasoned request of competent authority with an \"ad hoc\" frequency."@en .
+
+<http://example.org/analysis/description/15/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/15/action/role/addressee-economic-operators-competent-authorities-and-customs> .
+
+<http://example.org/analysis/description/15/action/role/addressee-economic-operators-competent-authorities-and-customs> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/economic-operators-competent-authorities-and-customs> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/2/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/2/action/role/addressee-economic-operators-competent-authorities-commission> .
+
+<http://example.org/analysis/description/2/action/role/addressee-economic-operators-competent-authorities-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/economic-operators-competent-authorities-commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/3/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/3/action/role/addressee-economic-operators> .
+
+<http://example.org/analysis/description/3/action/role/addressee-economic-operators> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/economic-operators> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/4/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/4/action/role/addressee-economic-operators-online-market-places-competent-national-authorities> .
+
+<http://example.org/analysis/description/4/action/role/addressee-economic-operators-online-market-places-competent-national-authorities> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/economic-operators-online-market-places-competent-national-authorities> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/5/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/5/action/role/addressee-general-public-economic-operators-competent-authorities-commission-euda> .
+
+<http://example.org/analysis/description/5/action/role/addressee-general-public-economic-operators-competent-authorities-commission-euda> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/general-public-economic-operators-competent-authorities-commission-euda> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/6/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/6/action/role/addressee-economic-operators-competent-authorities-commission> .
+
+<http://example.org/analysis/description/6/action/role/addressee-economic-operators-competent-authorities-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/economic-operators-competent-authorities-commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/7/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/7/action/role/addressee-economic-operators-competent-authorities> .
+
+<http://example.org/analysis/description/7/action/role/addressee-economic-operators-competent-authorities> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/economic-operators-competent-authorities> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/8/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/8/action/role/addressee-third-countries-economic-operators-competent-authorities> .
+
+<http://example.org/analysis/description/8/action/role/addressee-third-countries-economic-operators-competent-authorities> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/third-countries-economic-operators-competent-authorities> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/9/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/9/action/role/addressee-third-countries-economic-operators-competent-authorities> .
+
+<http://example.org/analysis/description/9/action/role/addressee-third-countries-economic-operators-competent-authorities> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/third-countries-economic-operators-competent-authorities> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/interop/1> a cpsv:PublicService ;
+    rdfs:label "EU licensing, registration and prior notification platform, Verification of operators, administrative cooperation platform"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/747/cod/doc/com/COM_2025_747/FINAL/eng/art_35/par_2> ;
+    dcterms:description "Economic operators submit applications and competent authorities process them, operators holding a licence and those who submitted a prior notification are to check that the operators to which they are planning to supply the relevant substances have a licence or submitted a prior notification.Notification of suspicious transactions, seizures, request information from operators"@en ;
+    dcterms:identifier "interop/1" ;
+    dcterms:title "EU licensing, registration and prior notification platform, Verification of operators, administrative cooperation platform"@en .
+
+<http://example.org/dataset/data-on-drug-precursor-quantity-and-time> a dcat:Dataset ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Data on drug precursor, quantity and time."@en ] ;
+    dcterms:title "Data on drug precursor, quantity and time."@en .
+
+<http://example.org/dataset/data-on-precursor-substances> a dcat:Dataset ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Data on precursor substances"@en ] ;
+    dcterms:title "Data on precursor substances"@en .
+
+<http://example.org/dataset/data-on-seizures> a dcat:Dataset ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Data on seizures"@en ] ;
+    dcterms:title "Data on seizures"@en .
+
+<http://example.org/dataset/data-on-suspicious-transactions> a dcat:Dataset ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Data on suspicious transactions"@en ] ;
+    dcterms:title "Data on suspicious transactions"@en .
+
+<http://example.org/dataset/data-relevant-for-licenses-registrations-and-prior-notifications-of-operators> a dcat:Dataset ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Data relevant for licenses, registrations and prior notifications of operators"@en ] ;
+    dcterms:title "Data relevant for licenses, registrations and prior notifications of operators"@en .
+
+<http://example.org/dataset/personal-data-of-responsible-officers-in-charge-of-licenses-self-registration-or-prior-notification> a dcat:Dataset ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Personal data of responsible officers in charge of licenses, self-registration or prior notification"@en ] ;
+    dcterms:title "Personal data of responsible officers in charge of licenses, self-registration or prior notification"@en .
+
+<http://example.org/process/filing-an-application-or-notification> skos:prefLabel "Filing an application or notification"@en .
+
+<http://example.org/process/fraud-prevention-reporting> skos:prefLabel "Fraud prevention, reporting"@en .
+
+<http://example.org/process/identification-fraud-prevention> skos:prefLabel "Identification, fraud prevention"@en .
+
+<http://example.org/process/information-and-guidance> skos:prefLabel "Information and guidance"@en .
+
+<http://example.org/process/the-commission-could-interconnect-the-central-electronic-system-with-the-electronic-system-of-the-united-nations> skos:prefLabel "The Commission could interconnect the central electronic system with the electronic system of the United Nations"@en .
+
+<http://example.org/process/the-commission-shall-interconnect-the-central-electronic-system-with-the-eu-single-window-environment-for-customs-established-by-regulation-eu-20222399> skos:prefLabel "The Commission shall interconnect the central electronic system with the EU Single Window Environment for Customs established by Regulation (EU) 2022/2399"@en .
+
+<http://publications.europa.eu/resource/authority/corporate-body/COM> a m8g:PublicOrganisation ;
+    dcterms:description "The European Commission, provider of the interoperability assessment."@en ;
+    skos:prefLabel "European Commission"@en .
+
+y6k:c_a8f0f068971d skos:prefLabel "Management of registries"@en .
+
+<http://example.org/agent/commission-competent-authorities> rdfs:label "Commission, competent authorities"@en .
+
+<http://example.org/agent/competent-authorities> rdfs:label "competent authorities"@en .
+
+<http://example.org/agent/competent-authorities-economic-operators> rdfs:label "Competent authorities, economic operators"@en .
+
+<http://example.org/agent/economic-operators-competent-authorities-commission> rdfs:label "Economic operators, competent authorities, Commission"@en .
+
+<http://example.org/agent/euda> rdfs:label "EUDA"@en .
+
+<http://example.org/ie-solution/interconnection-to-the-eu-single-window-environment-for-customs> a adms:Asset ;
+    dcterms:description "Interconnection to the EU Single Window Environment for Customs"@en ;
+    dcterms:title "Interconnection to the EU Single Window Environment for Customs"@en .
+
+<http://example.org/agent/economic-operators> rdfs:label "Economic operators"@en .
+
+<http://example.org/agent/third-countries-economic-operators-competent-authorities> rdfs:label "Third countries, economic operators, competent authorities"@en .
+
+<http://example.org/process/fraud-prevention> skos:prefLabel "Fraud prevention"@en .
+
+y6k:c_422e961c skos:prefLabel "Reporting"@en .
+
+<http://example.org/analysis/interop/2> a cpsv:PublicService ;
+    rdfs:label "Connection to Customs systems"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/747/cod/doc/com/COM_2025_747/FINAL/eng/art_35/par_4> ;
+    dcterms:description "Quantity management,"@en ;
+    dcterms:identifier "interop/2" ;
+    dcterms:references <http://example.org/ie-solution/interconnection-to-the-eu-single-window-environment-for-customs> ;
+    dcterms:title "Connection to Customs systems"@en .
+

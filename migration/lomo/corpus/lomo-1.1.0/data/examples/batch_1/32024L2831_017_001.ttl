@@ -1,0 +1,58 @@
+# Article 17, Paragraph 1 - Access to relevant information on platform work
+# Member States shall ensure that digital labour platforms make the following information available to competent authorities and to representatives of persons performing platform work:
+# (a) the number of persons performing platform work through the digital labour platform concerned, disaggregated by level of activity, and their contractual or employment status;
+# (b) the general terms and conditions determined by the digital labour platform and applicable to those contractual relationships;
+# (c) the average duration of activity, the average weekly number of hours worked per person and the average income from activity of persons performing platform work on a regular basis through the digital labour platform concerned;
+# (d) the intermediaries with which the digital labour platform has a contractual relationship.
+#
+# Note: In this provision, the primary addressees are the Member States; however, following transposition, the corresponding obligations are expected to apply to digital labour platforms. Any temporal aspect in this provision is linked to the occurrence of an external event and has therefore not been modelled, as such event-triggered temporality cannot be explicitly represented in this version of LOMO.
+
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix eli: <http://data.europa.eu/eli/ontology#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix example: <https://system.org/example#> .
+@prefix lomo: <http://data.europa.eu/leg/lomo#> .
+
+# Agent Role instances
+example:DIR20242831ART17PAR1_AgentRole1
+    a lomo:AgentRole ;
+    lomo:forAgent example:MemberStates ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+example:DIR20242831ART17PAR1_AgentRole2
+    a lomo:AgentRole ;
+    lomo:forAgent example:CompetentAuthorities ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+example:DIR20242831ART17PAR1_AgentRole3
+    a lomo:AgentRole ;
+    lomo:forAgent example:RepresentativesOfPlatformWorkers ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+# Legal Rule
+example:DIR20242831ART17PAR1
+    a lomo:PrescriptiveRule ;
+    rdfs:label "Reporting obligation concerning digital labor platforms"@en ;
+    lomo:hasDeonticModality <http://data.europa.eu/leg/deontic-modality/Obligation> ;
+    lomo:hasRequirementType <http://publications.europa.eu/resource/dataset/administrative-obligation/c_80214a02> ;
+    lomo:establishedIn <http://data.europa.eu/eli/dir/2024/2831/art_17/par_1/2024-11-11> ;
+    lomo:produces example:DIR20242831ART17PAR1_Action1 ;
+    lomo:legalText "Member States shall ensure that digital labour platforms make the following information available to competent authorities and to representatives of persons performing platform work."@en .
+
+# Actions
+example:DIR20242831ART17PAR1_Action1
+    a lomo:Action ;
+    lomo:hasAgentRole example:DIR20242831ART17PAR1_AgentRole1,
+                  example:DIR20242831ART17PAR1_AgentRole2,
+                  example:DIR20242831ART17PAR1_AgentRole3 ;
+    lomo:hasResult example:DIR20242831ART17PAR1_ActionResult1 ;
+    lomo:legalText "shall ensure that digital labour platforms make the information available"@en .
+
+# Action Results
+example:DIR20242831ART17PAR1_ActionResult1
+    a lomo:ActionResult ;
+    rdfs:label "Availability of information from digital labour platforms to competent"@en ;
+    lomo:legalText "Availability of information from digital labour platforms to competent authorities and representatives of platform workers."@en .

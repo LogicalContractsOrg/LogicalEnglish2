@@ -1,0 +1,95 @@
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix lomo: <http://data.europa.eu/leg/lomo#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+<http://example.org/analysis/description/1> a lomo:LegalRule ;
+    rdfs:label "Vessel position data (Article 12, Chapter IV and Appendix 4 of the Annex to the Protocol)"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/193/cod/doc/com/COM_2026_193/FINAL/eng/chp_4/art_12> ;
+    lomo:produces <http://example.org/analysis/description/1/action> ;
+    dcterms:description "The vessel must be equipped with a vessel monitoring device and provide information identifying the vessel, its position, course and speed at regular intervals (VMS data)."@en .
+
+<http://example.org/analysis/description/2> a lomo:LegalRule ;
+    rdfs:label "Electronic fishing logbooks (Chapter IV and Appendix 4 of the Annex to the Protocol)"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/193/cod/doc/com/COM_2026_193/FINAL/eng/chp_4> ;
+    lomo:produces <http://example.org/analysis/description/2/action> ;
+    dcterms:description "The master must record catch data on a daily basis in an electronic fishing logbook integrated into an electronic recording and reporting system (ERS)."@en .
+
+<http://example.org/analysis/description/3> a lomo:LegalRule ;
+    rdfs:label "Requests for authorisation of vessels (Chapter I of the Annex to the Protocol)"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/193/cod/doc/com/COM_2026_193/FINAL/eng/chp_1> ;
+    lomo:produces <http://example.org/analysis/description/3/action> ;
+    dcterms:description "A database of authorisations is used to apply for the fishing authorisation from the partner country"@en .
+
+<http://example.org/analysis/description/4> a lomo:LegalRule ;
+    rdfs:label "Daily data transmission (Chapter IV and Appendix 4 of the Annex to the Protocol)"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/193/cod/doc/com/COM_2026_193/FINAL/eng/chp_4> ;
+    lomo:produces <http://example.org/analysis/description/4/action> ;
+    dcterms:description "Electronic logbook data shall be transmitted automatically and on a daily basis to the Fisheries Monitoring Centre (FMC) of the flag State."@en .
+
+<http://example.org/analysis/description/5> a lomo:LegalRule ;
+    rdfs:label "Entries into and exits from the fishing zone, prior notifications and landing and transhipment declarations (Chapter IV, and Appendix 4 of the Annex to the Protocol)"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/193/cod/doc/com/COM_2026_193/FINAL/eng/chp_4> ;
+    lomo:produces <http://example.org/analysis/description/5/action> ;
+    dcterms:description "Recording and transmission of each entry into and exit from the fishing zone via the ERS or other electronic means of communication."@en .
+
+<http://example.org/analysis/description/6> a lomo:LegalRule ;
+    rdfs:label "Quarterly aggregated data (Chapter III of the Annex to the Protocol)"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/193/cod/doc/com/COM_2026_193/FINAL/eng/chp_3> ;
+    lomo:produces <http://example.org/analysis/description/6/action> ;
+    dcterms:description "The flag State shall provide the European Commission with the aggregated quantities of catches and discards on a quarterly basis."@en .
+
+<http://example.org/analysis/description/7> a lomo:LegalRule ;
+    rdfs:label "Data protection (Article 11 and Appendix 7 of the Annex to the Protocol)"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/193/cod/doc/com/COM_2026_193/FINAL/eng/art_11> ;
+    dcterms:description "Data on fishing activities shall be treated in a confidential and secure manner."@en .
+
+<http://example.org/agent/ecr> rdfs:label "ECR"@en .
+
+<http://example.org/agent/license> rdfs:label "LICENSE"@en .
+
+<http://example.org/agent/vms> rdfs:label "VMS"@en .
+
+<http://example.org/analysis/description/1/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/1/action/role/addressee-vms> .
+
+<http://example.org/analysis/description/1/action/role/addressee-vms> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/vms> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/2/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/2/action/role/addressee-ers> .
+
+<http://example.org/analysis/description/2/action/role/addressee-ers> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/ers> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/3/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/3/action/role/addressee-license> .
+
+<http://example.org/analysis/description/3/action/role/addressee-license> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/license> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/4/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/4/action/role/addressee-ers> .
+
+<http://example.org/analysis/description/4/action/role/addressee-ers> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/ers> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/5/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/5/action/role/addressee-ers> .
+
+<http://example.org/analysis/description/5/action/role/addressee-ers> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/ers> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/6/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/6/action/role/addressee-ecr> .
+
+<http://example.org/analysis/description/6/action/role/addressee-ecr> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/ecr> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/agent/ers> rdfs:label "ERS"@en .
+

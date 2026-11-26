@@ -1,0 +1,1542 @@
+@prefix cav: <http://data.europa.eu/2sa/cav#> .
+@prefix cpsv: <http://purl.org/vocab/cpsv#> .
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix dd: <http://data.europa.eu/leg/digital-dimensions/> .
+@prefix iac: <http://data.europa.eu/leg/interop-assessment#> .
+@prefix iopa: <http://data.europa.eu/2qy/iopa#> .
+@prefix lomo: <http://data.europa.eu/leg/lomo#> .
+@prefix m8g: <http://data.europa.eu/m8g/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix tc: <http://data.europa.eu/9bx/> .
+@prefix tf: <http://data.europa.eu/leg/temporal-function/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix y6k: <http://data.europa.eu/y6k/> .
+
+<http://example.org/analysis/assessment/1> a cav:Assessment ;
+    cav:assesses <http://example.org/analysis/description/19> ;
+    cav:resultsIn <http://example.org/analysis/assessment/1/1/measure>,
+        <http://example.org/analysis/assessment/1/2/barrier>,
+        <http://example.org/analysis/assessment/1/2/measure>,
+        <http://example.org/analysis/assessment/1/3/measure>,
+        <http://example.org/analysis/assessment/1/4/measure>,
+        <http://example.org/analysis/assessment/1/5/measure>,
+        <http://example.org/analysis/assessment/1/6/measure>,
+        <http://example.org/analysis/assessment/1/7/measure>,
+        <http://example.org/analysis/assessment/1/8/measure> ;
+    m8g:isProvidedBy <http://publications.europa.eu/resource/authority/corporate-body/COM> .
+
+<http://example.org/analysis/description/1> a lomo:LegalRule ;
+    rdfs:label "TITLE II RESEARCH, DEVELOPMENT AND DEPLOYMENT ACTIVITIES FOR THE CLOUD AND AI ECOSYSTEM"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ;
+            lomo:temporalLabel "Per adoption/ revision"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/502/cod/doc/com/COM_2026_502/FINAL/eng/tit_2> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/notification> ;
+    lomo:produces <http://example.org/analysis/action/1>,
+        <http://example.org/analysis/description/1/action> ;
+    lomo:references <http://example.org/dataset/member-state-national-strategies> ;
+    dcterms:description "Member States shallnotify the Commission of their national strategies."@en .
+
+<http://example.org/analysis/description/10> a lomo:LegalRule ;
+    rdfs:label "TITLE IVAUTONOMY"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/502/cod/doc/com/COM_2026_502/FINAL/eng/tit_4> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/notification> ;
+    lomo:produces <http://example.org/analysis/description/10/action> ;
+    dcterms:description "Member States shall notify, as soon as possible, notify to the Commission the rules on penalties and compensation and any subsequent amendment affecting them."@en .
+
+<http://example.org/analysis/description/11> a lomo:LegalRule ;
+    rdfs:label "TITLE IVAUTONOMY"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/502/cod/doc/com/COM_2026_502/FINAL/eng/tit_4> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/designation-of-competent-authorities> ;
+    lomo:produces <http://example.org/analysis/description/11/action> ;
+    dcterms:description "Each Member States shalldesignate one or more national competent authorities. Members States shallnotify the list of authoritiesto the Commission. The Commission shallmaintain a publicregisterof the authorities."@en .
+
+<http://example.org/analysis/description/12> a lomo:LegalRule ;
+    rdfs:label "TITLE IVAUTONOMY"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/502/cod/doc/com/COM_2026_502/FINAL/eng/tit_4> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/data-exchange> ;
+    lomo:produces <http://example.org/analysis/description/12/action> ;
+    dcterms:description "Data flowsin the context ofcooperation between national competent authorities."@en .
+
+<http://example.org/analysis/description/13> a lomo:LegalRule ;
+    rdfs:label "TITLE IVAUTONOMY"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/502/cod/doc/com/COM_2026_502/FINAL/eng/tit_4> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/data-exchange> ;
+    lomo:produces <http://example.org/analysis/description/13/action> ;
+    dcterms:description "Data flowsin the context ofcross-border cooperation."@en .
+
+<http://example.org/analysis/description/14> a lomo:LegalRule ;
+    rdfs:label "TITLE IVAUTONOMY"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/502/cod/doc/com/COM_2026_502/FINAL/eng/tit_4> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/risk-assessment> ;
+    lomo:produces <http://example.org/analysis/description/14/action> ;
+    dcterms:description "Member States mustperform a risk assessment or assessments,taking utmost account of the guidance issued by the Commission.Member States shall communicate the risk assessment results to the Commission. For the purpose of the guidance, theCommissionis entitled torequest information from cloud service providers."@en .
+
+<http://example.org/analysis/description/15> a lomo:LegalRule ;
+    rdfs:label "TITLE IVAUTONOMY"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/502/cod/doc/com/COM_2026_502/FINAL/eng/tit_4> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess y6k:c_422e961c ;
+    lomo:produces <http://example.org/analysis/description/15/action> ;
+    dcterms:description "Member States shallcommunicate annually to the Commission certain information pertaining to the monitoring of procurement of innovativecloud computing services and AI systems."@en .
+
+<http://example.org/analysis/description/16> a lomo:LegalRule ;
+    rdfs:label "TITLE IVAUTONOMY"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/502/cod/doc/com/COM_2026_502/FINAL/eng/tit_4> ;
+    lomo:involvesProcess <http://example.org/process/requirements-for-a-digital-solution> ;
+    lomo:produces <http://example.org/analysis/description/16/action> ;
+    dcterms:description "The Commission shallestablish a platform for the EuroCloud Federation."@en .
+
+<http://example.org/analysis/description/17> a lomo:LegalRule ;
+    rdfs:label "TITLE IV AUTONOMY"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/502/cod/doc/com/COM_2026_502/FINAL/eng/tit_4> ;
+    lomo:involvesProcess <http://example.org/process/requirements-for-a-digital-solution> ;
+    lomo:produces <http://example.org/analysis/description/17/action> ;
+    dcterms:description "The Commission may establish and manage acommon procurement platformincluding services which may be used for facilitating the performance of the procurement activities under this Chapter."@en .
+
+<http://example.org/analysis/description/18> a lomo:LegalRule ;
+    rdfs:label "TITLE IVAUTONOMY"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/502/cod/doc/com/COM_2026_502/FINAL/eng/tit_4> ;
+    lomo:involvesProcess <http://example.org/process/catalogue> ;
+    lomo:produces <http://example.org/analysis/description/18/action> ;
+    dcterms:description "When making available for reuse under an open-source licence software on which they hold intellectual property rights, a Union entity or public sector body shallmake the software available for reuse on a catalogue or repository that is connected to the EU OSS Catalogue."@en .
+
+<http://example.org/analysis/description/2> a lomo:LegalRule ;
+    rdfs:label "TITLE III DATA CENTRE CAPACITIES"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/502/cod/doc/com/COM_2026_502/FINAL/eng/tit_3> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess tc:86 ;
+    lomo:produces <http://example.org/analysis/description/2/action> ;
+    dcterms:description "Applications for designation of data centre strategic project shall provide all the necessary and relevant informationto demonstrate that the project fulfils the relevant criteria."@en .
+
+<http://example.org/analysis/description/3> a lomo:LegalRule ;
+    rdfs:label "TITLE III DATA CENTRE CAPACITIES"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/502/cod/doc/com/COM_2026_502/FINAL/eng/tit_3> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/data-collection> ;
+    lomo:produces <http://example.org/analysis/action/2>,
+        <http://example.org/analysis/description/3/action> ;
+    lomo:references <http://example.org/dataset/data-related-to-applications-for-recognition-as-a-strategic-project>,
+        <http://example.org/dataset/statistics-and-data-required-for-the-monitoring-of-the-capacity-gap> ;
+    dcterms:description "The Commission shallmonitorthecompute capacity available in the Union, including edge computing capacity; the volume of demand for data centre capacity; the size of the capacity gap."@en .
+
+<http://example.org/analysis/description/4> a lomo:LegalRule ;
+    rdfs:label "TITLE IVAUTONOMY"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/502/cod/doc/com/COM_2026_502/FINAL/eng/tit_4> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/oversight-mechanism> ;
+    lomo:produces <http://example.org/analysis/description/4/action> ;
+    dcterms:description "A cloud computing service provider that aims to be recognised as offering a Union assurance level, shallsubmit an applicationfor recognition to the national competent authority of establishment."@en .
+
+<http://example.org/analysis/description/5> a lomo:LegalRule ;
+    rdfs:label "TITLE IVAUTONOMY"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/502/cod/doc/com/COM_2026_502/FINAL/eng/tit_4> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/oversight-mechanism> ;
+    lomo:produces <http://example.org/analysis/description/5/action> ;
+    dcterms:description "The cloud computing service providermay issue a conformity self-assessmentto demonstrate compliance with Union assurance level 1. These are to be made publicly available."@en .
+
+<http://example.org/analysis/description/6> a lomo:LegalRule ;
+    rdfs:label "TITLE IVAUTONOMY"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/502/cod/doc/com/COM_2026_502/FINAL/eng/tit_4> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/oversight-mechanism> ;
+    lomo:produces <http://example.org/analysis/description/6/action> ;
+    dcterms:description "Establishes the possibility ofindependent auditsfor Union assurance levels 2, 3, and 4. Provisions related todata aspects in the context of such audits."@en .
+
+<http://example.org/analysis/description/7> a lomo:LegalRule ;
+    rdfs:label "TITLE IVAUTONOMY"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/502/cod/doc/com/COM_2026_502/FINAL/eng/tit_4> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/data-quality> ;
+    lomo:produces <http://example.org/analysis/description/7/action> ;
+    dcterms:description "Auditsto be based on Annexes II (Criteria for Union Assurance Levels) and III (Audit evidence for the audit procedure). To besufficiently complete and reliable."@en .
+
+<http://example.org/analysis/description/8> a lomo:LegalRule ;
+    rdfs:label "TITLE IVAUTONOMY"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/502/cod/doc/com/COM_2026_502/FINAL/eng/tit_4> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/repository> ;
+    lomo:produces <http://example.org/analysis/description/8/action> ;
+    dcterms:description "The Commission shallestablish and maintain a dedicated repository of cloud computing services that have received recognition against a Union assurance level. Theverifying national competent authority of establishment shall register the audited services in the central repository. Anyrevocation of a recognition shall be published, and remain published, in the central register for 5 years. Thecentral repository shall be made publicly available by the Commission and regularly updated by the Commission and the national competent authorities of establishment on a dedicated and easily accessible website."@en .
+
+<http://example.org/analysis/description/9> a lomo:LegalRule ;
+    rdfs:label "TITLE IVAUTONOMY"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/502/cod/doc/com/COM_2026_502/FINAL/eng/tit_4> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/notification> ;
+    lomo:produces <http://example.org/analysis/description/9/action> ;
+    dcterms:description "On becoming aware of information or material change in circumstances concerning the cloud computing services that may affect the audit report / opinion, the service provider shall without undue delaynotify the auditing organisation andthe national competent authority of establishment. If the results of the audit report and opinion need to be amended or cancelled, the auditing organisation shall without undue delaynotify the national competent authorityand the Commission. If the results of the recognition need to be amended or cancelled, the national competent authority of establishment shall without undue delaynotify the national competent authorities of the other Member Statesand the Commission."@en .
+
+tc:86 skos:prefLabel "Application insights monitoring"@en .
+
+y6k:c_422e961c skos:prefLabel "Reporting"@en .
+
+<http://example.org/agent/applicant-for-designation-of-a-strategic-project> rdfs:label "Applicant for designation of a strategic project"@en .
+
+<http://example.org/agent/auditing-organisation-and-national-competent-authorities> rdfs:label "Auditing organisation and national competent authorities"@en .
+
+<http://example.org/agent/auditing-organisation-national-competent-authorityeuropean-commission> rdfs:label "Auditing organisation National competent authorityEuropean Commission"@en .
+
+<http://example.org/agent/central-repository-of-cloud-computing-services-european-commission> rdfs:label "Central repository of cloud computing services (European Commission)"@en .
+
+<http://example.org/agent/competent-authorities-of-origin> rdfs:label "Competent authorities of origin"@en .
+
+<http://example.org/agent/european-commissionnational-competent-authorities> rdfs:label "European CommissionNational competent authorities"@en .
+
+<http://example.org/agent/european-commissionnational-competent-authority-of-establishment> rdfs:label "European CommissionNational competent authority of establishment"@en .
+
+<http://example.org/agent/national-competent-authorities-of-the-establishment-and-of-other-member-stateseuropean-commission> rdfs:label "National competent authorities (of the establishment and of other Member States)European Commission"@en .
+
+<http://example.org/agent/national-competent-authority-of-their-establishment> rdfs:label "National competent authority of their establishment"@en .
+
+<http://example.org/agent/project-operators> rdfs:label "Project operators"@en .
+
+<http://example.org/agent/requestorseuropean-commission> rdfs:label "RequestorsEuropean Commission"@en .
+
+<http://example.org/agent/verifying-national-competent-authority> rdfs:label "Verifying national competent authority"@en .
+
+<http://example.org/analysis/action/1> a lomo:Action ;
+    rdfs:label "Member State National Strategies"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Within three months of the adoption of a national strategy"@en ],
+        [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:deadline ;
+            lomo:temporalLabel "Per adoption/ revision"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/502/cod/doc/com/COM_2026_502/FINAL/eng/art_7>,
+        <https://data.europa.eu/eli/dl/proc/2026/502/cod/doc/com/COM_2026_502/FINAL/eng/tit_2> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/1/role/addressee-european-commission>,
+        <http://example.org/analysis/action/1/role/addresser-member-states> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Member State National Strategies"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/member-state-national-strategies> ] .
+
+<http://example.org/analysis/action/1/role/addressee-european-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/european-commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/1/role/addresser-member-states> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/10> a lomo:Action ;
+    rdfs:label "Data in the context of the submissions of requests by cloud computing services wishing to provide services to Union entities and public sector bodies:Reply to an information request"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Information request from national competent authorities received"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/502/cod/doc/com/COM_2026_502/FINAL/eng/art_17>,
+        <https://data.europa.eu/eli/dl/proc/2026/502/cod/doc/com/COM_2026_502/FINAL/eng/tit_4> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/10/role/addressee-national-competent-authorities>,
+        <http://example.org/analysis/action/10/role/addresser-european-commission> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Data in the context of the submissions of requests by cloud computing services wishing to provide services to Union entities and public sector bodies:Reply to an information request"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/data-in-the-context-of-the-submissions-of-requests-by-cloud-computing-services-wishing-to-provide-services-to-union-entities-and-public-sector-bodiesreply-to-an-information-request> ] .
+
+<http://example.org/analysis/action/10/role/addressee-national-competent-authorities> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/national-competent-authorities> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/10/role/addresser-european-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/european-commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/11> a lomo:Action ;
+    rdfs:label "EU statement of conformity"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Self-assessment used"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/502/cod/doc/com/COM_2026_502/FINAL/eng/art_19>,
+        <https://data.europa.eu/eli/dl/proc/2026/502/cod/doc/com/COM_2026_502/FINAL/eng/tit_4> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/11/role/addressee-public>,
+        <http://example.org/analysis/action/11/role/addresser-cloud-computing-service-providers> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "EU statement of conformity"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/eu-statement-of-conformity> ] .
+
+<http://example.org/analysis/action/11/role/addressee-public> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/public> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/11/role/addresser-cloud-computing-service-providers> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/cloud-computing-service-providers> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/12> a lomo:Action ;
+    rdfs:label "Audit report submitted for validation and related exchanges:information required for the audit"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Audit being performed"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/502/cod/doc/com/COM_2026_502/FINAL/eng/art_20>,
+        <https://data.europa.eu/eli/dl/proc/2026/502/cod/doc/com/COM_2026_502/FINAL/eng/art_21>,
+        <https://data.europa.eu/eli/dl/proc/2026/502/cod/doc/com/COM_2026_502/FINAL/eng/tit_4> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/12/role/addressee-auditing-organisation>,
+        <http://example.org/analysis/action/12/role/addresser-cloud-computing-service-providers> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Audit report submitted for validation and related exchanges:information required for the audit"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/audit-report-submitted-for-validation-and-related-exchangesinformation-required-for-the-audit> ] .
+
+<http://example.org/analysis/action/12/role/addressee-auditing-organisation> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/auditing-organisation> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/12/role/addresser-cloud-computing-service-providers> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/cloud-computing-service-providers> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/13> a lomo:Action ;
+    rdfs:label "Audit report submitted for validation and related exchanges:audit reports"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Audit finished"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/502/cod/doc/com/COM_2026_502/FINAL/eng/art_20>,
+        <https://data.europa.eu/eli/dl/proc/2026/502/cod/doc/com/COM_2026_502/FINAL/eng/art_21>,
+        <https://data.europa.eu/eli/dl/proc/2026/502/cod/doc/com/COM_2026_502/FINAL/eng/tit_4> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/13/role/addressee-auditing-organisation-and-national-competent-authorities>,
+        <http://example.org/analysis/action/13/role/addresser-cloud-computing-service-providers> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Audit report submitted for validation and related exchanges:audit reports"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/audit-report-submitted-for-validation-and-related-exchangesaudit-reports> ] .
+
+<http://example.org/analysis/action/13/role/addressee-auditing-organisation-and-national-competent-authorities> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/auditing-organisation-and-national-competent-authorities> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/13/role/addresser-cloud-computing-service-providers> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/cloud-computing-service-providers> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/14> a lomo:Action ;
+    rdfs:label "Data on services that receive a recognition:Central repository of cloud computing services"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Recognition granted"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/502/cod/doc/com/COM_2026_502/FINAL/eng/art_22>,
+        <https://data.europa.eu/eli/dl/proc/2026/502/cod/doc/com/COM_2026_502/FINAL/eng/tit_4> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/14/role/addressee-central-repository-of-cloud-computing-services-european-commission>,
+        <http://example.org/analysis/action/14/role/addresser-verifying-national-competent-authority> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Data on services that receive a recognition:Central repository of cloud computing services"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/data-on-services-that-receive-a-recognitioncentral-repository-of-cloud-computing-services> ] .
+
+<http://example.org/analysis/action/14/role/addressee-central-repository-of-cloud-computing-services-european-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/central-repository-of-cloud-computing-services-european-commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/14/role/addresser-verifying-national-competent-authority> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/verifying-national-competent-authority> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/15> a lomo:Action ;
+    rdfs:label "Data on services that receive a recognition:Publicly available website provided by the European Commission"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Recognition granted"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/502/cod/doc/com/COM_2026_502/FINAL/eng/art_22>,
+        <https://data.europa.eu/eli/dl/proc/2026/502/cod/doc/com/COM_2026_502/FINAL/eng/tit_4> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/15/role/addressee-public>,
+        <http://example.org/analysis/action/15/role/addresser-european-commissionnational-competent-authority-of-establishment> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Data on services that receive a recognition:Publicly available website provided by the European Commission"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/data-on-services-that-receive-a-recognitionpublicly-available-website-provided-by-the-european-commission> ] .
+
+<http://example.org/analysis/action/15/role/addressee-public> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/public> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/15/role/addresser-european-commissionnational-competent-authority-of-establishment> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/european-commissionnational-competent-authority-of-establishment> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/16> a lomo:Action ;
+    rdfs:label "Notification of becoming aware ofinformation or material change in circumstances concerning the cloud computing services that may affect the audit report / opinion and related data flows:Initial notification"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Material conditions change on the side of the provider"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/502/cod/doc/com/COM_2026_502/FINAL/eng/art_23>,
+        <https://data.europa.eu/eli/dl/proc/2026/502/cod/doc/com/COM_2026_502/FINAL/eng/tit_4> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/16/role/addressee-auditing-organisation-national-competent-authorityeuropean-commission>,
+        <http://example.org/analysis/action/16/role/addresser-cloud-computing-service-providers> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Notification of becoming aware ofinformation or material change in circumstances concerning the cloud computing services that may affect the audit report / opinion and related data flows:Initial notification"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/notification-of-becoming-aware-ofinformation-or-material-change-in-circumstances-concerning-the-cloud-computing-services-that-may-affect-the-audit-report-opinion-and-related-data-flowsinitial-notification> ] .
+
+<http://example.org/analysis/action/16/role/addressee-auditing-organisation-national-competent-authorityeuropean-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/auditing-organisation-national-competent-authorityeuropean-commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/16/role/addresser-cloud-computing-service-providers> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/cloud-computing-service-providers> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/17> a lomo:Action ;
+    rdfs:label "Notification of becoming aware ofinformation or material change in circumstances concerning the cloud computing services that may affect the audit report / opinion and related data flows:Notification of the audit outcome changing"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Outcome of audit changing"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/502/cod/doc/com/COM_2026_502/FINAL/eng/art_23>,
+        <https://data.europa.eu/eli/dl/proc/2026/502/cod/doc/com/COM_2026_502/FINAL/eng/tit_4> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/17/role/addressee-national-competent-authorities-of-the-establishment-and-of-other-member-stateseuropean-commission>,
+        <http://example.org/analysis/action/17/role/addresser-auditing-organisation> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Notification of becoming aware ofinformation or material change in circumstances concerning the cloud computing services that may affect the audit report / opinion and related data flows:Notification of the audit outcome changing"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/notification-of-becoming-aware-ofinformation-or-material-change-in-circumstances-concerning-the-cloud-computing-services-that-may-affect-the-audit-report-opinion-and-related-data-flowsnotification-of-the-audit-outcome-changing> ] .
+
+<http://example.org/analysis/action/17/role/addressee-national-competent-authorities-of-the-establishment-and-of-other-member-stateseuropean-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/national-competent-authorities-of-the-establishment-and-of-other-member-stateseuropean-commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/17/role/addresser-auditing-organisation> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/auditing-organisation> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/18> a lomo:Action ;
+    rdfs:label "Notification of rules and measures on penalties"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Member States set/amend the framework for imposing penalties"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/502/cod/doc/com/COM_2026_502/FINAL/eng/art_24>,
+        <https://data.europa.eu/eli/dl/proc/2026/502/cod/doc/com/COM_2026_502/FINAL/eng/tit_4> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/18/role/addressee-european-commission>,
+        <http://example.org/analysis/action/18/role/addresser-member-states> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Notification of rules and measures on penalties"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/notification-of-rules-and-measures-on-penalties> ] .
+
+<http://example.org/analysis/action/18/role/addressee-european-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/european-commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/18/role/addresser-member-states> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/19> a lomo:Action ;
+    rdfs:label "Data on the designated national competent authorities:Notification by Member States"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "National competent authorities designated (within a year of date of entry into force)"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/502/cod/doc/com/COM_2026_502/FINAL/eng/art_25>,
+        <https://data.europa.eu/eli/dl/proc/2026/502/cod/doc/com/COM_2026_502/FINAL/eng/tit_4> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/19/role/addressee-european-commission>,
+        <http://example.org/analysis/action/19/role/addresser-member-states> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Data on the designated national competent authorities:Notification by Member States"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/data-on-the-designated-national-competent-authoritiesnotification-by-member-states> ] .
+
+<http://example.org/analysis/action/19/role/addressee-european-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/european-commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/19/role/addresser-member-states> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/2> a lomo:Action ;
+    rdfs:label "Data related to applications for recognition as a strategic project"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Application during open calls for expression of interest"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/502/cod/doc/com/COM_2026_502/FINAL/eng/art_14>,
+        <https://data.europa.eu/eli/dl/proc/2026/502/cod/doc/com/COM_2026_502/FINAL/eng/tit_3> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/2/role/addressee-european-commission>,
+        <http://example.org/analysis/action/2/role/addresser-applicant-for-designation-of-a-strategic-project> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Data related to applications for recognition as a strategic project"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/data-related-to-applications-for-recognition-as-a-strategic-project> ] .
+
+<http://example.org/analysis/action/2/role/addressee-european-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/european-commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/2/role/addresser-applicant-for-designation-of-a-strategic-project> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/applicant-for-designation-of-a-strategic-project> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/20> a lomo:Action ;
+    rdfs:label "Data on the designated national competent authorities:Data in the public register of authorities"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "National competent authorities designated and Commission notified"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/502/cod/doc/com/COM_2026_502/FINAL/eng/art_25>,
+        <https://data.europa.eu/eli/dl/proc/2026/502/cod/doc/com/COM_2026_502/FINAL/eng/tit_4> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/20/role/addressee-public>,
+        <http://example.org/analysis/action/20/role/addresser-european-commission> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Data on the designated national competent authorities:Data in the public register of authorities"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/data-on-the-designated-national-competent-authoritiesdata-in-the-public-register-of-authorities> ] .
+
+<http://example.org/analysis/action/20/role/addressee-public> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/public> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/20/role/addresser-european-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/european-commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/21> a lomo:Action ;
+    rdfs:label "Data used in the context of cooperation between national competent authorities:Information Exchange"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Cooperation (exchange of information) between national competent authorities needed"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/502/cod/doc/com/COM_2026_502/FINAL/eng/art_27>,
+        <https://data.europa.eu/eli/dl/proc/2026/502/cod/doc/com/COM_2026_502/FINAL/eng/tit_4> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/21/role/addressee-national-competent-authorities>,
+        <http://example.org/analysis/action/21/role/addresser-national-competent-authorities> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Data used in the context of cooperation between national competent authorities:Information Exchange"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/data-used-in-the-context-of-cooperation-between-national-competent-authoritiesinformation-exchange> ] .
+
+<http://example.org/analysis/action/21/role/addressee-national-competent-authorities> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/national-competent-authorities> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/21/role/addresser-national-competent-authorities> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/national-competent-authorities> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/22> a lomo:Action ;
+    rdfs:label "Data used in the context of cooperation between national competent authorities:Requests for assistance (and replies to such requests)"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Assistance deemed necessary"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/502/cod/doc/com/COM_2026_502/FINAL/eng/art_27>,
+        <https://data.europa.eu/eli/dl/proc/2026/502/cod/doc/com/COM_2026_502/FINAL/eng/tit_4> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/22/role/addressee-national-competent-authorities>,
+        <http://example.org/analysis/action/22/role/addresser-national-competent-authorities> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Data used in the context of cooperation between national competent authorities:Requests for assistance (and replies to such requests)"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/data-used-in-the-context-of-cooperation-between-national-competent-authoritiesrequests-for-assistance-and-replies-to-such-requests> ] .
+
+<http://example.org/analysis/action/22/role/addressee-national-competent-authorities> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/national-competent-authorities> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/22/role/addresser-national-competent-authorities> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/national-competent-authorities> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/23> a lomo:Action ;
+    rdfs:label "Data used in the context of cross-border cooperation:Request for assessment – suspicion of non-compliance"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Suspicions of non-compliance giving rise to a request for assistance"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/502/cod/doc/com/COM_2026_502/FINAL/eng/art_28>,
+        <https://data.europa.eu/eli/dl/proc/2026/502/cod/doc/com/COM_2026_502/FINAL/eng/tit_4> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/23/role/addressee-national-competent-authorities-of-a-services-origin>,
+        <http://example.org/analysis/action/23/role/addresser-national-competent-authorities-of-a-services-destination> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Data used in the context of cross-border cooperation:Request for assessment – suspicion of non-compliance"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/data-used-in-the-context-of-cross-border-cooperationrequest-for-assessment-suspicion-of-non-compliance> ] .
+
+<http://example.org/analysis/action/23/role/addressee-national-competent-authorities-of-a-services-origin> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/national-competent-authorities-of-a-services-origin> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/23/role/addresser-national-competent-authorities-of-a-services-destination> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/national-competent-authorities-of-a-services-destination> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/24> a lomo:Action ;
+    rdfs:label "Data used in the context of cross-border cooperation:Commission informed of suspicions of non-compliance"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "A competent authority decide to ask the competent authority of establishment for information to assess suspicions of non-compliance"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/502/cod/doc/com/COM_2026_502/FINAL/eng/art_28>,
+        <https://data.europa.eu/eli/dl/proc/2026/502/cod/doc/com/COM_2026_502/FINAL/eng/tit_4> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/24/role/addressee-european-commission>,
+        <http://example.org/analysis/action/24/role/addresser-national-competent-authorities-of-a-services-destination> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Data used in the context of cross-border cooperation:Commission informed of suspicions of non-compliance"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/data-used-in-the-context-of-cross-border-cooperationcommission-informed-of-suspicions-of-non-compliance> ] .
+
+<http://example.org/analysis/action/24/role/addressee-european-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/european-commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/24/role/addresser-national-competent-authorities-of-a-services-destination> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/national-competent-authorities-of-a-services-destination> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/25> a lomo:Action ;
+    rdfs:label "Data used in the context of cross-border cooperation:Request for assessment – suspicion of non-compliance (Commission)"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Suspicion of noncompliance by other competent authorities or the Commission"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/502/cod/doc/com/COM_2026_502/FINAL/eng/art_28>,
+        <https://data.europa.eu/eli/dl/proc/2026/502/cod/doc/com/COM_2026_502/FINAL/eng/tit_4> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/25/role/addressee-european-commissionnational-competent-authorities>,
+        <http://example.org/analysis/action/25/role/addresser-national-competent-authorities-of-a-services-origin> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Data used in the context of cross-border cooperation:Request for assessment – suspicion of non-compliance (Commission)"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/data-used-in-the-context-of-cross-border-cooperationrequest-for-assessment-suspicion-of-non-compliance-commission> ] .
+
+<http://example.org/analysis/action/25/role/addressee-european-commissionnational-competent-authorities> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/european-commissionnational-competent-authorities> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/25/role/addresser-national-competent-authorities-of-a-services-origin> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/national-competent-authorities-of-a-services-origin> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/26> a lomo:Action ;
+    rdfs:label "Data used in the context of cross-border cooperation:Outcome of a request for assessment – suspicion of non-compliance"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Within two months of a request being made"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/502/cod/doc/com/COM_2026_502/FINAL/eng/art_28>,
+        <https://data.europa.eu/eli/dl/proc/2026/502/cod/doc/com/COM_2026_502/FINAL/eng/tit_4> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/26/role/addressee-requestorseuropean-commission>,
+        <http://example.org/analysis/action/26/role/addresser-competent-authorities-of-origin> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Data used in the context of cross-border cooperation:Outcome of a request for assessment – suspicion of non-compliance"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/data-used-in-the-context-of-cross-border-cooperationoutcome-of-a-request-for-assessment-suspicion-of-non-compliance> ] .
+
+<http://example.org/analysis/action/26/role/addressee-requestorseuropean-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/requestorseuropean-commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/26/role/addresser-competent-authorities-of-origin> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/competent-authorities-of-origin> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/27> a lomo:Action ;
+    rdfs:label "Risk assessments performed by Member States"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Risk assessment occurring within one year of entry into force"@en ],
+        [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:deadline ;
+            lomo:temporalLabel "Bi-annually"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/502/cod/doc/com/COM_2026_502/FINAL/eng/art_29>,
+        <https://data.europa.eu/eli/dl/proc/2026/502/cod/doc/com/COM_2026_502/FINAL/eng/tit_4> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/27/role/addressee-european-commission>,
+        <http://example.org/analysis/action/27/role/addresser-member-states> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Risk assessments performed by Member States"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/risk-assessments-performed-by-member-states> ] .
+
+<http://example.org/analysis/action/27/role/addressee-european-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/european-commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/27/role/addresser-member-states> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/28> a lomo:Action ;
+    rdfs:label "Information provided to the Commission for guidance"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/502/cod/doc/com/COM_2026_502/FINAL/eng/art_29>,
+        <https://data.europa.eu/eli/dl/proc/2026/502/cod/doc/com/COM_2026_502/FINAL/eng/tit_4> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/28/role/addressee-european-commission>,
+        <http://example.org/analysis/action/28/role/addresser-cloud-service-providers> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Information provided to the Commission for guidance"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/information-provided-to-the-commission-for-guidance> ] .
+
+<http://example.org/analysis/action/28/role/addressee-european-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/european-commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/28/role/addresser-cloud-service-providers> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/cloud-service-providers> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/29> a lomo:Action ;
+    rdfs:label "Data pertaining to the monitoring of the procurement of innovative cloud services and AI systems"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:frequency "P1Y"^^xsd:duration ;
+            lomo:hasFunction tf:deadline ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/502/cod/doc/com/COM_2026_502/FINAL/eng/art_33>,
+        <https://data.europa.eu/eli/dl/proc/2026/502/cod/doc/com/COM_2026_502/FINAL/eng/tit_4> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/29/role/addressee-european-commission>,
+        <http://example.org/analysis/action/29/role/addresser-member-states> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Data pertaining to the monitoring of the procurement of innovative cloud services and AI systems"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/data-pertaining-to-the-monitoring-of-the-procurement-of-innovative-cloud-services-and-ai-systems> ] .
+
+<http://example.org/analysis/action/29/role/addressee-european-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/european-commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/29/role/addresser-member-states> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/3> a lomo:Action ;
+    rdfs:label "Data in the context of the submissions of requests by cloud computing services wishing to provide services to Union entities and public sector bodies"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Request being made to provide services to Union entities and public sector bodies"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/502/cod/doc/com/COM_2026_502/FINAL/eng/art_17>,
+        <https://data.europa.eu/eli/dl/proc/2026/502/cod/doc/com/COM_2026_502/FINAL/eng/tit_4> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/3/role/addressee-national-competent-authority-of-their-establishment>,
+        <http://example.org/analysis/action/3/role/addresser-requesting-cloud-computing-service-provider> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Data in the context of the submissions of requests by cloud computing services wishing to provide services to Union entities and public sector bodies"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/data-in-the-context-of-the-submissions-of-requests-by-cloud-computing-services-wishing-to-provide-services-to-union-entities-and-public-sector-bodies> ] .
+
+<http://example.org/analysis/action/3/role/addressee-national-competent-authority-of-their-establishment> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/national-competent-authority-of-their-establishment> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/3/role/addresser-requesting-cloud-computing-service-provider> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/requesting-cloud-computing-service-provider> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/4> a lomo:Action ;
+    rdfs:label "Data in the context of the submissions of requests by cloud computing services wishing to provide services to Union entities and public sector bodies:Outcome of request (reject, ask for additional evidence, recognise the provider’s service)"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Conclusion reached on initial recognition"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/502/cod/doc/com/COM_2026_502/FINAL/eng/art_17>,
+        <https://data.europa.eu/eli/dl/proc/2026/502/cod/doc/com/COM_2026_502/FINAL/eng/tit_4> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/4/role/addressee-requesting-cloud-computing-service-provider>,
+        <http://example.org/analysis/action/4/role/addresser-national-competent-authority> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Data in the context of the submissions of requests by cloud computing services wishing to provide services to Union entities and public sector bodies:Outcome of request (reject, ask for additional evidence, recognise the provider’s service)"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/data-in-the-context-of-the-submissions-of-requests-by-cloud-computing-services-wishing-to-provide-services-to-union-entities-and-public-sector-bodiesoutcome-of-request-reject-ask-for-additional-evidence-recognise-the-providers-service> ] .
+
+<http://example.org/analysis/action/4/role/addressee-requesting-cloud-computing-service-provider> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/requesting-cloud-computing-service-provider> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/4/role/addresser-national-competent-authority> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/national-competent-authority> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/5> a lomo:Action ;
+    rdfs:label "Data in the context of the submissions of requests by cloud computing services wishing to provide services to Union entities and public sector bodies:Distribution of conclusion for review"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Cloud computing service provider notified of a recognition"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/502/cod/doc/com/COM_2026_502/FINAL/eng/art_17>,
+        <https://data.europa.eu/eli/dl/proc/2026/502/cod/doc/com/COM_2026_502/FINAL/eng/tit_4> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/5/role/addressee-all-national-competent-authorities>,
+        <http://example.org/analysis/action/5/role/addresser-national-competent-authority> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Data in the context of the submissions of requests by cloud computing services wishing to provide services to Union entities and public sector bodies:Distribution of conclusion for review"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/data-in-the-context-of-the-submissions-of-requests-by-cloud-computing-services-wishing-to-provide-services-to-union-entities-and-public-sector-bodiesdistribution-of-conclusion-for-review> ] .
+
+<http://example.org/analysis/action/5/role/addressee-all-national-competent-authorities> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/all-national-competent-authorities> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/5/role/addresser-national-competent-authority> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/national-competent-authority> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/6> a lomo:Action ;
+    rdfs:label "Data in the context of the submissions of requests by cloud computing services wishing to provide services to Union entities and public sector bodies:Objections"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "National competent authority has objections to a conclusion made by a national competent authority of establishment"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/502/cod/doc/com/COM_2026_502/FINAL/eng/art_17>,
+        <https://data.europa.eu/eli/dl/proc/2026/502/cod/doc/com/COM_2026_502/FINAL/eng/tit_4> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/6/role/addressee-national-competent-authority>,
+        <http://example.org/analysis/action/6/role/addresser-all-national-competent-authorities> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Data in the context of the submissions of requests by cloud computing services wishing to provide services to Union entities and public sector bodies:Objections"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/data-in-the-context-of-the-submissions-of-requests-by-cloud-computing-services-wishing-to-provide-services-to-union-entities-and-public-sector-bodiesobjections> ] .
+
+<http://example.org/analysis/action/6/role/addressee-national-competent-authority> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/national-competent-authority> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/6/role/addresser-all-national-competent-authorities> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/all-national-competent-authorities> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/7> a lomo:Action ;
+    rdfs:label "Data in the context of the submissions of requests by cloud computing services wishing to provide services to Union entities and public sector bodies:Cases referred to the Commission"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "National competent authorities cannot reach an agreement"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/502/cod/doc/com/COM_2026_502/FINAL/eng/art_17>,
+        <https://data.europa.eu/eli/dl/proc/2026/502/cod/doc/com/COM_2026_502/FINAL/eng/tit_4> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/7/role/addressee-european-commission>,
+        <http://example.org/analysis/action/7/role/addresser-national-competent-authorities> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Data in the context of the submissions of requests by cloud computing services wishing to provide services to Union entities and public sector bodies:Cases referred to the Commission"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/data-in-the-context-of-the-submissions-of-requests-by-cloud-computing-services-wishing-to-provide-services-to-union-entities-and-public-sector-bodiescases-referred-to-the-commission> ] .
+
+<http://example.org/analysis/action/7/role/addressee-european-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/european-commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/7/role/addresser-national-competent-authorities> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/national-competent-authorities> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/8> a lomo:Action ;
+    rdfs:label "Data in the context of the submissions of requests by cloud computing services wishing to provide services to Union entities and public sector bodies:Commission decision on a referred case"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Commission reaches a decision on a case where national competent authorities were in disagreement"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/502/cod/doc/com/COM_2026_502/FINAL/eng/art_17>,
+        <https://data.europa.eu/eli/dl/proc/2026/502/cod/doc/com/COM_2026_502/FINAL/eng/tit_4> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/8/role/addressee-national-competent-authorities>,
+        <http://example.org/analysis/action/8/role/addresser-european-commission> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Data in the context of the submissions of requests by cloud computing services wishing to provide services to Union entities and public sector bodies:Commission decision on a referred case"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/data-in-the-context-of-the-submissions-of-requests-by-cloud-computing-services-wishing-to-provide-services-to-union-entities-and-public-sector-bodiescommission-decision-on-a-referred-case> ] .
+
+<http://example.org/analysis/action/8/role/addressee-national-competent-authorities> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/national-competent-authorities> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/8/role/addresser-european-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/european-commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/9> a lomo:Action ;
+    rdfs:label "Data in the context of the submissions of requests by cloud computing services wishing to provide services to Union entities and public sector bodies:Information request"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "National competent authorities decide to use their right to an information request"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/502/cod/doc/com/COM_2026_502/FINAL/eng/art_17>,
+        <https://data.europa.eu/eli/dl/proc/2026/502/cod/doc/com/COM_2026_502/FINAL/eng/tit_4> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/9/role/addressee-european-commission>,
+        <http://example.org/analysis/action/9/role/addresser-national-competent-authorities> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Data in the context of the submissions of requests by cloud computing services wishing to provide services to Union entities and public sector bodies:Information request"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/data-in-the-context-of-the-submissions-of-requests-by-cloud-computing-services-wishing-to-provide-services-to-union-entities-and-public-sector-bodiesinformation-request> ] .
+
+<http://example.org/analysis/action/9/role/addressee-european-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/european-commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/9/role/addresser-national-competent-authorities> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/national-competent-authorities> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/assessment/1/1/measure> a cav:Statement ;
+    cav:interpretation iac:InterpretationPositive ;
+    cav:judgement "The implementation of the Union repository of recognised sovereign services will take utmost account of existing policies and the building blocks stemming from them."@en ;
+    cav:type iac:StatementTypeAlignmentMeasure ;
+    m8g:hasRelatedService <http://example.org/analysis/interop/1> ;
+    dcterms:description "Alignment with existing digital and sectorial policiesPlease list the applicable digital and sectorial policies identified"@en .
+
+<http://example.org/analysis/assessment/1/2/barrier> a cav:Statement ;
+    cav:interpretation iac:InterpretationNegative ;
+    cav:judgement "The organisational measures will need to be detailed by the Commission, at a later stage."@en ;
+    cav:type iac:StatementTypeOrganisationBarrier ;
+    m8g:hasRelatedService <http://example.org/analysis/interop/1> ;
+    dcterms:description "Organisational measures for a smooth cross-border digital public services deliveryPlease list the governance measures foreseen"@en .
+
+<http://example.org/analysis/assessment/1/2/measure> a cav:Statement ;
+    cav:interpretation iac:InterpretationPositive ;
+    cav:judgement """The European Commission is tasked with establishing and maintaining the repository.
+The verifying national authority is responsible for uploading the relevant data into the repository."""@en ;
+    cav:type iac:StatementTypeOrganisationMeasure ;
+    m8g:hasRelatedService <http://example.org/analysis/interop/1> ;
+    dcterms:description "Organisational measures for a smooth cross-border digital public services deliveryPlease list the governance measures foreseen"@en .
+
+<http://example.org/analysis/assessment/1/3/measure> a cav:Statement ;
+    cav:interpretation iac:InterpretationPositive ;
+    cav:judgement "Semantic measures will be specified by the Commission at a later stage."@en ;
+    cav:type iac:StatementTypeSharedMeasure ;
+    m8g:hasRelatedService <http://example.org/analysis/interop/1> ;
+    dcterms:description "Measures taken to ensure a shared understanding of the dataPlease list such measures"@en .
+
+<http://example.org/analysis/assessment/1/4/measure> a cav:Statement ;
+    cav:interpretation iac:InterpretationPositive ;
+    cav:judgement "Technical measures will be specified by the Commission at a later stage."@en ;
+    cav:type iac:StatementTypeStandardsMeasure ;
+    m8g:hasRelatedService <http://example.org/analysis/interop/1> ;
+    dcterms:description "Use of commonly agreed open technical specifications and standardsPlease list such measures"@en .
+
+<http://example.org/analysis/assessment/1/5/measure> a cav:Statement ;
+    cav:interpretation iac:InterpretationPositive ;
+    cav:judgement "The implementation of EuroCloud federation will take utmost account of existing policies and the building blocks stemming from them. In particular: NIS2 for cybersecurity, Simpl, Data Spaces."@en ;
+    cav:type iac:StatementTypeAlignmentMeasure ;
+    m8g:hasRelatedService <http://example.org/analysis/interop/2> ;
+    dcterms:description "Alignment with existing digital and sectorial policiesPlease list the applicable digital and sectorial policies identified"@en .
+
+<http://example.org/analysis/assessment/1/6/measure> a cav:Statement ;
+    cav:interpretation iac:InterpretationPositive ;
+    cav:judgement "The detailed governance of the Eurocloud platform will be dealt with through secondary legislation."@en ;
+    cav:type iac:StatementTypeOrganisationMeasure ;
+    m8g:hasRelatedService <http://example.org/analysis/interop/2> ;
+    dcterms:description "Organisational measures for a smooth cross-border digital public services deliveryPlease list the governance measures foreseen"@en .
+
+<http://example.org/analysis/assessment/1/7/measure> a cav:Statement ;
+    cav:interpretation iac:InterpretationPositive ;
+    cav:judgement "Semantic measures will be specified by the Commission at a later stage."@en ;
+    cav:type iac:StatementTypeSharedMeasure ;
+    m8g:hasRelatedService <http://example.org/analysis/interop/2> ;
+    dcterms:description "Measures taken to ensure a shared understanding of the dataPlease list such measures"@en .
+
+<http://example.org/analysis/assessment/1/8/measure> a cav:Statement ;
+    cav:interpretation iac:InterpretationPositive ;
+    cav:judgement "Technical measures will be specified by the Commission at a later stage."@en ;
+    cav:type iac:StatementTypeStandardsMeasure ;
+    m8g:hasRelatedService <http://example.org/analysis/interop/2> ;
+    dcterms:description "Use of commonly agreed open technical specifications and standardsPlease list such measures"@en .
+
+<http://example.org/analysis/description/1/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/1/action/role/addressee-european-commission>,
+        <http://example.org/analysis/description/1/action/role/addressee-national-competent-authorities> .
+
+<http://example.org/analysis/description/1/action/role/addressee-european-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/european-commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/1/action/role/addressee-national-competent-authorities> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/national-competent-authorities> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/10/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/10/action/role/addressee-european-commission>,
+        <http://example.org/analysis/description/10/action/role/addressee-national-competent-authorities> .
+
+<http://example.org/analysis/description/10/action/role/addressee-european-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/european-commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/10/action/role/addressee-national-competent-authorities> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/national-competent-authorities> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/11/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/11/action/role/addressee-european-commission>,
+        <http://example.org/analysis/description/11/action/role/addressee-national-competent-authorities> .
+
+<http://example.org/analysis/description/11/action/role/addressee-european-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/european-commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/11/action/role/addressee-national-competent-authorities> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/national-competent-authorities> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/12/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/12/action/role/addressee-european-commission>,
+        <http://example.org/analysis/description/12/action/role/addressee-national-competent-authorities> .
+
+<http://example.org/analysis/description/12/action/role/addressee-european-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/european-commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/12/action/role/addressee-national-competent-authorities> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/national-competent-authorities> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/13/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/13/action/role/addressee-european-commission>,
+        <http://example.org/analysis/description/13/action/role/addressee-national-competent-authorities> .
+
+<http://example.org/analysis/description/13/action/role/addressee-european-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/european-commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/13/action/role/addressee-national-competent-authorities> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/national-competent-authorities> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/14/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/14/action/role/addressee-cloud-service-providers>,
+        <http://example.org/analysis/description/14/action/role/addressee-european-commission>,
+        <http://example.org/analysis/description/14/action/role/addressee-member-states> .
+
+<http://example.org/analysis/description/14/action/role/addressee-cloud-service-providers> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/cloud-service-providers> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/14/action/role/addressee-european-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/european-commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/14/action/role/addressee-member-states> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/15/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/15/action/role/addressee-european-commission>,
+        <http://example.org/analysis/description/15/action/role/addressee-member-states> .
+
+<http://example.org/analysis/description/15/action/role/addressee-european-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/european-commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/15/action/role/addressee-member-states> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/16/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/16/action/role/addressee-european-commission>,
+        <http://example.org/analysis/description/16/action/role/addressee-public-sector-bodies>,
+        <http://example.org/analysis/description/16/action/role/addressee-union-entities> .
+
+<http://example.org/analysis/description/16/action/role/addressee-european-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/european-commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/16/action/role/addressee-public-sector-bodies> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/public-sector-bodies> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/16/action/role/addressee-union-entities> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/union-entities> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/17/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/17/action/role/addressee-european-commission> .
+
+<http://example.org/analysis/description/17/action/role/addressee-european-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/european-commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/18/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/18/action/role/addressee-european-commission>,
+        <http://example.org/analysis/description/18/action/role/addressee-public-sector-bodies>,
+        <http://example.org/analysis/description/18/action/role/addressee-union-entities> .
+
+<http://example.org/analysis/description/18/action/role/addressee-european-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/european-commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/18/action/role/addressee-public-sector-bodies> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/public-sector-bodies> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/18/action/role/addressee-union-entities> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/union-entities> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/19> a iopa:BindingRequirement,
+        lomo:LegalRule ;
+    rdfs:label "TITLE IVAUTONOMY"@en ;
+    iopa:affects <http://example.org/analysis/interop/1>,
+        <http://example.org/analysis/interop/2> ;
+    cav:valueDescription "TheCommission shall provide and maintain an EU Open Source Solutions Catalogueas acentralised catalogue to access software made available for reuse by Union entities and public sector bodies The EU OSS Catalogueshall be hosted on the Interoperable Europe portal. The Commission shalldecide on the request of any Union entity or public sector body owning or maintaining a catalogue or repository to connect to and be made accessible through the EU OSS Catalogue."@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ],
+        [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ],
+        [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ],
+        [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ],
+        [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ],
+        [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ],
+        [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ],
+        [ a lomo:TemporalSpecification ;
+            lomo:frequency "P1Y"^^xsd:duration ;
+            lomo:hasFunction tf:validity ],
+        [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ;
+            lomo:temporalLabel "Bi-annually"@en ],
+        [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ],
+        [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ],
+        [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ],
+        [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ],
+        [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ],
+        [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ],
+        [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ],
+        [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ],
+        [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ],
+        [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ],
+        [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ],
+        [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ],
+        [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ],
+        [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ],
+        [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ],
+        [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ],
+        [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ],
+        [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/502/cod/doc/com/COM_2026_502/FINAL/eng/tit_4> ;
+    lomo:involvesProcess <http://example.org/process/catalogue> ;
+    lomo:produces <http://example.org/analysis/action/10>,
+        <http://example.org/analysis/action/11>,
+        <http://example.org/analysis/action/12>,
+        <http://example.org/analysis/action/13>,
+        <http://example.org/analysis/action/14>,
+        <http://example.org/analysis/action/15>,
+        <http://example.org/analysis/action/16>,
+        <http://example.org/analysis/action/17>,
+        <http://example.org/analysis/action/18>,
+        <http://example.org/analysis/action/19>,
+        <http://example.org/analysis/action/20>,
+        <http://example.org/analysis/action/21>,
+        <http://example.org/analysis/action/22>,
+        <http://example.org/analysis/action/23>,
+        <http://example.org/analysis/action/24>,
+        <http://example.org/analysis/action/25>,
+        <http://example.org/analysis/action/26>,
+        <http://example.org/analysis/action/27>,
+        <http://example.org/analysis/action/28>,
+        <http://example.org/analysis/action/29>,
+        <http://example.org/analysis/action/3>,
+        <http://example.org/analysis/action/4>,
+        <http://example.org/analysis/action/5>,
+        <http://example.org/analysis/action/6>,
+        <http://example.org/analysis/action/7>,
+        <http://example.org/analysis/action/8>,
+        <http://example.org/analysis/action/9>,
+        <http://example.org/analysis/description/19/action> ;
+    lomo:references <http://example.org/dataset/audit-report-submitted-for-recognition-and-related-exchanges>,
+        <http://example.org/dataset/data-in-the-context-of-the-submissions-of-applications-by-service-providers-that-aim-to-be-recognised-as-offering-a-union-assurance-level>,
+        <http://example.org/dataset/data-on-services-that-receive-a-recognition>,
+        <http://example.org/dataset/data-on-the-designated-national-competent-authorities>,
+        <http://example.org/dataset/data-pertaining-to-the-monitoring-of-procurement-of-innovative-cloud-services-and-ai-systems>,
+        <http://example.org/dataset/data-used-in-the-context-of-cooperation-between-national-competent-authorities>,
+        <http://example.org/dataset/data-used-in-the-context-of-cross-border-cooperation>,
+        <http://example.org/dataset/eu-statement-of-conformity>,
+        <http://example.org/dataset/information-provided-to-the-commission-by-providers-for-guidance>,
+        <http://example.org/dataset/notification-of-becoming-aware-ofinformation-or-material-change-in-circumstances-concerning-the-cloud-computing-services-that-may-affect-the-audit-report-opinion-recognition-and-related-data-flows>,
+        <http://example.org/dataset/notification-of-rules-and-measures-on-penalties>,
+        <http://example.org/dataset/risk-assessments-performed-by-member-states> ;
+    dcterms:description "TheCommission shall provide and maintain an EU Open Source Solutions Catalogueas acentralised catalogue to access software made available for reuse by Union entities and public sector bodies The EU OSS Catalogueshall be hosted on the Interoperable Europe portal. The Commission shalldecide on the request of any Union entity or public sector body owning or maintaining a catalogue or repository to connect to and be made accessible through the EU OSS Catalogue."@en .
+
+<http://example.org/analysis/description/19/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/19/action/role/addressee-european-commission> .
+
+<http://example.org/analysis/description/19/action/role/addressee-european-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/european-commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/2/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/2/action/role/addressee-european-commission>,
+        <http://example.org/analysis/description/2/action/role/addressee-project-operators> .
+
+<http://example.org/analysis/description/2/action/role/addressee-european-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/european-commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/2/action/role/addressee-project-operators> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/project-operators> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/3/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/3/action/role/addressee-european-commission>,
+        <http://example.org/analysis/description/3/action/role/addressee-national-competent-authorities> .
+
+<http://example.org/analysis/description/3/action/role/addressee-european-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/european-commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/3/action/role/addressee-national-competent-authorities> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/national-competent-authorities> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/4/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/4/action/role/addressee-cloud-computing-service-providers>,
+        <http://example.org/analysis/description/4/action/role/addressee-national-competent-authorities> .
+
+<http://example.org/analysis/description/4/action/role/addressee-cloud-computing-service-providers> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/cloud-computing-service-providers> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/4/action/role/addressee-national-competent-authorities> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/national-competent-authorities> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/5/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/5/action/role/addressee-cloud-computing-service-providers>,
+        <http://example.org/analysis/description/5/action/role/addressee-european-commission>,
+        <http://example.org/analysis/description/5/action/role/addressee-national-competent-authorities> .
+
+<http://example.org/analysis/description/5/action/role/addressee-cloud-computing-service-providers> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/cloud-computing-service-providers> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/5/action/role/addressee-european-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/european-commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/5/action/role/addressee-national-competent-authorities> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/national-competent-authorities> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/6/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/6/action/role/addressee-auditing-organisations>,
+        <http://example.org/analysis/description/6/action/role/addressee-cloud-computing-service-providers>,
+        <http://example.org/analysis/description/6/action/role/addressee-european-commission> .
+
+<http://example.org/analysis/description/6/action/role/addressee-auditing-organisations> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/auditing-organisations> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/6/action/role/addressee-cloud-computing-service-providers> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/cloud-computing-service-providers> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/6/action/role/addressee-european-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/european-commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/7/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/7/action/role/addressee-auditing-organisations>,
+        <http://example.org/analysis/description/7/action/role/addressee-cloud-computing-service-providers>,
+        <http://example.org/analysis/description/7/action/role/addressee-european-commission> .
+
+<http://example.org/analysis/description/7/action/role/addressee-auditing-organisations> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/auditing-organisations> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/7/action/role/addressee-cloud-computing-service-providers> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/cloud-computing-service-providers> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/7/action/role/addressee-european-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/european-commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/8/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/8/action/role/addressee-european-commission>,
+        <http://example.org/analysis/description/8/action/role/addressee-national-competent-authorities> .
+
+<http://example.org/analysis/description/8/action/role/addressee-european-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/european-commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/8/action/role/addressee-national-competent-authorities> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/national-competent-authorities> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/9/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/9/action/role/addressee-auditing-organisations>,
+        <http://example.org/analysis/description/9/action/role/addressee-cloud-computing-service-providers>,
+        <http://example.org/analysis/description/9/action/role/addressee-european-commission>,
+        <http://example.org/analysis/description/9/action/role/addressee-national-competent-authorities> .
+
+<http://example.org/analysis/description/9/action/role/addressee-auditing-organisations> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/auditing-organisations> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/9/action/role/addressee-cloud-computing-service-providers> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/cloud-computing-service-providers> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/9/action/role/addressee-european-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/european-commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/9/action/role/addressee-national-competent-authorities> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/national-competent-authorities> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/dataset/audit-report-submitted-for-recognition-and-related-exchanges> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/502/cod/doc/com/COM_2026_502/FINAL/eng/art_20>,
+        <https://data.europa.eu/eli/dl/proc/2026/502/cod/doc/com/COM_2026_502/FINAL/eng/art_21>,
+        <https://data.europa.eu/eli/dl/proc/2026/502/cod/doc/com/COM_2026_502/FINAL/eng/tit_4> ;
+    dcterms:conformsTo <http://example.org/standard/data-quality-sufficiently-complete-and-reliable-minimum-content-for-audits> ;
+    dcterms:title "Audit report submitted for recognition and related exchanges"@en .
+
+<http://example.org/dataset/audit-report-submitted-for-validation-and-related-exchangesaudit-reports> a dcat:Dataset ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Audit report submitted for validation and related exchanges:audit reports"@en ] ;
+    dcterms:title "Audit report submitted for validation and related exchanges:audit reports"@en .
+
+<http://example.org/dataset/audit-report-submitted-for-validation-and-related-exchangesinformation-required-for-the-audit> a dcat:Dataset ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Audit report submitted for validation and related exchanges:information required for the audit"@en ] ;
+    dcterms:title "Audit report submitted for validation and related exchanges:information required for the audit"@en .
+
+<http://example.org/dataset/data-in-the-context-of-the-submissions-of-applications-by-service-providers-that-aim-to-be-recognised-as-offering-a-union-assurance-level> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/502/cod/doc/com/COM_2026_502/FINAL/eng/art_17>,
+        <https://data.europa.eu/eli/dl/proc/2026/502/cod/doc/com/COM_2026_502/FINAL/eng/tit_4> ;
+    dcterms:title "Data in the context of the submissions of applications by service providers that aim to be recognised as offering a Union assurance level"@en .
+
+<http://example.org/dataset/data-in-the-context-of-the-submissions-of-requests-by-cloud-computing-services-wishing-to-provide-services-to-union-entities-and-public-sector-bodies> a dcat:Dataset ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Data in the context of the submissions of requests by cloud computing services wishing to provide services to Union entities and public sector bodies"@en ] ;
+    dcterms:title "Data in the context of the submissions of requests by cloud computing services wishing to provide services to Union entities and public sector bodies"@en .
+
+<http://example.org/dataset/data-in-the-context-of-the-submissions-of-requests-by-cloud-computing-services-wishing-to-provide-services-to-union-entities-and-public-sector-bodiescases-referred-to-the-commission> a dcat:Dataset ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Data in the context of the submissions of requests by cloud computing services wishing to provide services to Union entities and public sector bodies:Cases referred to the Commission"@en ] ;
+    dcterms:title "Data in the context of the submissions of requests by cloud computing services wishing to provide services to Union entities and public sector bodies:Cases referred to the Commission"@en .
+
+<http://example.org/dataset/data-in-the-context-of-the-submissions-of-requests-by-cloud-computing-services-wishing-to-provide-services-to-union-entities-and-public-sector-bodiescommission-decision-on-a-referred-case> a dcat:Dataset ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Data in the context of the submissions of requests by cloud computing services wishing to provide services to Union entities and public sector bodies:Commission decision on a referred case"@en ] ;
+    dcterms:title "Data in the context of the submissions of requests by cloud computing services wishing to provide services to Union entities and public sector bodies:Commission decision on a referred case"@en .
+
+<http://example.org/dataset/data-in-the-context-of-the-submissions-of-requests-by-cloud-computing-services-wishing-to-provide-services-to-union-entities-and-public-sector-bodiesdistribution-of-conclusion-for-review> a dcat:Dataset ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Data in the context of the submissions of requests by cloud computing services wishing to provide services to Union entities and public sector bodies:Distribution of conclusion for review"@en ] ;
+    dcterms:title "Data in the context of the submissions of requests by cloud computing services wishing to provide services to Union entities and public sector bodies:Distribution of conclusion for review"@en .
+
+<http://example.org/dataset/data-in-the-context-of-the-submissions-of-requests-by-cloud-computing-services-wishing-to-provide-services-to-union-entities-and-public-sector-bodiesinformation-request> a dcat:Dataset ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Data in the context of the submissions of requests by cloud computing services wishing to provide services to Union entities and public sector bodies:Information request"@en ] ;
+    dcterms:title "Data in the context of the submissions of requests by cloud computing services wishing to provide services to Union entities and public sector bodies:Information request"@en .
+
+<http://example.org/dataset/data-in-the-context-of-the-submissions-of-requests-by-cloud-computing-services-wishing-to-provide-services-to-union-entities-and-public-sector-bodiesobjections> a dcat:Dataset ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Data in the context of the submissions of requests by cloud computing services wishing to provide services to Union entities and public sector bodies:Objections"@en ] ;
+    dcterms:title "Data in the context of the submissions of requests by cloud computing services wishing to provide services to Union entities and public sector bodies:Objections"@en .
+
+<http://example.org/dataset/data-in-the-context-of-the-submissions-of-requests-by-cloud-computing-services-wishing-to-provide-services-to-union-entities-and-public-sector-bodiesoutcome-of-request-reject-ask-for-additional-evidence-recognise-the-providers-service> a dcat:Dataset ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Data in the context of the submissions of requests by cloud computing services wishing to provide services to Union entities and public sector bodies:Outcome of request (reject, ask for additional evidence, recognise the provider’s service)"@en ] ;
+    dcterms:title "Data in the context of the submissions of requests by cloud computing services wishing to provide services to Union entities and public sector bodies:Outcome of request (reject, ask for additional evidence, recognise the provider’s service)"@en .
+
+<http://example.org/dataset/data-in-the-context-of-the-submissions-of-requests-by-cloud-computing-services-wishing-to-provide-services-to-union-entities-and-public-sector-bodiesreply-to-an-information-request> a dcat:Dataset ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Data in the context of the submissions of requests by cloud computing services wishing to provide services to Union entities and public sector bodies:Reply to an information request"@en ] ;
+    dcterms:title "Data in the context of the submissions of requests by cloud computing services wishing to provide services to Union entities and public sector bodies:Reply to an information request"@en .
+
+<http://example.org/dataset/data-on-services-that-receive-a-recognition> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/502/cod/doc/com/COM_2026_502/FINAL/eng/art_22>,
+        <https://data.europa.eu/eli/dl/proc/2026/502/cod/doc/com/COM_2026_502/FINAL/eng/tit_4> ;
+    dcterms:conformsTo <http://example.org/standard/the-central-repository-shall-contain-information-of-cloud-computing-services-that-have-been-recognised-under-a-specific-union-assurance-levels> ;
+    dcterms:title "Data on services that receive a recognition"@en .
+
+<http://example.org/dataset/data-on-services-that-receive-a-recognitioncentral-repository-of-cloud-computing-services> a dcat:Dataset ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Data on services that receive a recognition:Central repository of cloud computing services"@en ] ;
+    dcterms:title "Data on services that receive a recognition:Central repository of cloud computing services"@en .
+
+<http://example.org/dataset/data-on-services-that-receive-a-recognitionpublicly-available-website-provided-by-the-european-commission> a dcat:Dataset ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Data on services that receive a recognition:Publicly available website provided by the European Commission"@en ] ;
+    dcterms:title "Data on services that receive a recognition:Publicly available website provided by the European Commission"@en .
+
+<http://example.org/dataset/data-on-the-designated-national-competent-authorities> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/502/cod/doc/com/COM_2026_502/FINAL/eng/art_25>,
+        <https://data.europa.eu/eli/dl/proc/2026/502/cod/doc/com/COM_2026_502/FINAL/eng/tit_4> ;
+    dcterms:title "Data on the designated national competent authorities"@en .
+
+<http://example.org/dataset/data-on-the-designated-national-competent-authoritiesdata-in-the-public-register-of-authorities> a dcat:Dataset ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Data on the designated national competent authorities:Data in the public register of authorities"@en ] ;
+    dcterms:title "Data on the designated national competent authorities:Data in the public register of authorities"@en .
+
+<http://example.org/dataset/data-on-the-designated-national-competent-authoritiesnotification-by-member-states> a dcat:Dataset ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Data on the designated national competent authorities:Notification by Member States"@en ] ;
+    dcterms:title "Data on the designated national competent authorities:Notification by Member States"@en .
+
+<http://example.org/dataset/data-pertaining-to-the-monitoring-of-procurement-of-innovative-cloud-services-and-ai-systems> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/502/cod/doc/com/COM_2026_502/FINAL/eng/art_33>,
+        <https://data.europa.eu/eli/dl/proc/2026/502/cod/doc/com/COM_2026_502/FINAL/eng/tit_4> ;
+    dcterms:title "Data pertaining to the monitoring of procurement of innovative cloud services and AI systems"@en .
+
+<http://example.org/dataset/data-pertaining-to-the-monitoring-of-the-procurement-of-innovative-cloud-services-and-ai-systems> a dcat:Dataset ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Data pertaining to the monitoring of the procurement of innovative cloud services and AI systems"@en ] ;
+    dcterms:title "Data pertaining to the monitoring of the procurement of innovative cloud services and AI systems"@en .
+
+<http://example.org/dataset/data-used-in-the-context-of-cooperation-between-national-competent-authorities> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/502/cod/doc/com/COM_2026_502/FINAL/eng/art_27>,
+        <https://data.europa.eu/eli/dl/proc/2026/502/cod/doc/com/COM_2026_502/FINAL/eng/tit_4> ;
+    dcterms:title "Data used in the context of cooperation between national competent authorities"@en .
+
+<http://example.org/dataset/data-used-in-the-context-of-cooperation-between-national-competent-authoritiesinformation-exchange> a dcat:Dataset ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Data used in the context of cooperation between national competent authorities:Information Exchange"@en ] ;
+    dcterms:title "Data used in the context of cooperation between national competent authorities:Information Exchange"@en .
+
+<http://example.org/dataset/data-used-in-the-context-of-cooperation-between-national-competent-authoritiesrequests-for-assistance-and-replies-to-such-requests> a dcat:Dataset ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Data used in the context of cooperation between national competent authorities:Requests for assistance (and replies to such requests)"@en ] ;
+    dcterms:title "Data used in the context of cooperation between national competent authorities:Requests for assistance (and replies to such requests)"@en .
+
+<http://example.org/dataset/data-used-in-the-context-of-cross-border-cooperation> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/502/cod/doc/com/COM_2026_502/FINAL/eng/art_28>,
+        <https://data.europa.eu/eli/dl/proc/2026/502/cod/doc/com/COM_2026_502/FINAL/eng/tit_4> ;
+    dcterms:title "Data used in the context of cross-border cooperation"@en .
+
+<http://example.org/dataset/data-used-in-the-context-of-cross-border-cooperationcommission-informed-of-suspicions-of-non-compliance> a dcat:Dataset ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Data used in the context of cross-border cooperation:Commission informed of suspicions of non-compliance"@en ] ;
+    dcterms:title "Data used in the context of cross-border cooperation:Commission informed of suspicions of non-compliance"@en .
+
+<http://example.org/dataset/data-used-in-the-context-of-cross-border-cooperationoutcome-of-a-request-for-assessment-suspicion-of-non-compliance> a dcat:Dataset ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Data used in the context of cross-border cooperation:Outcome of a request for assessment – suspicion of non-compliance"@en ] ;
+    dcterms:title "Data used in the context of cross-border cooperation:Outcome of a request for assessment – suspicion of non-compliance"@en .
+
+<http://example.org/dataset/data-used-in-the-context-of-cross-border-cooperationrequest-for-assessment-suspicion-of-non-compliance> a dcat:Dataset ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Data used in the context of cross-border cooperation:Request for assessment – suspicion of non-compliance"@en ] ;
+    dcterms:title "Data used in the context of cross-border cooperation:Request for assessment – suspicion of non-compliance"@en .
+
+<http://example.org/dataset/data-used-in-the-context-of-cross-border-cooperationrequest-for-assessment-suspicion-of-non-compliance-commission> a dcat:Dataset ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Data used in the context of cross-border cooperation:Request for assessment – suspicion of non-compliance (Commission)"@en ] ;
+    dcterms:title "Data used in the context of cross-border cooperation:Request for assessment – suspicion of non-compliance (Commission)"@en .
+
+<http://example.org/dataset/information-provided-to-the-commission-by-providers-for-guidance> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/502/cod/doc/com/COM_2026_502/FINAL/eng/art_29>,
+        <https://data.europa.eu/eli/dl/proc/2026/502/cod/doc/com/COM_2026_502/FINAL/eng/tit_4> ;
+    dcterms:title "Information provided to the Commission by providers for guidance"@en .
+
+<http://example.org/dataset/information-provided-to-the-commission-for-guidance> a dcat:Dataset ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Information provided to the Commission for guidance"@en ] ;
+    dcterms:title "Information provided to the Commission for guidance"@en .
+
+<http://example.org/dataset/notification-of-becoming-aware-ofinformation-or-material-change-in-circumstances-concerning-the-cloud-computing-services-that-may-affect-the-audit-report-opinion-and-related-data-flowsinitial-notification> a dcat:Dataset ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Notification of becoming aware ofinformation or material change in circumstances concerning the cloud computing services that may affect the audit report / opinion and related data flows:Initial notification"@en ] ;
+    dcterms:title "Notification of becoming aware ofinformation or material change in circumstances concerning the cloud computing services that may affect the audit report / opinion and related data flows:Initial notification"@en .
+
+<http://example.org/dataset/notification-of-becoming-aware-ofinformation-or-material-change-in-circumstances-concerning-the-cloud-computing-services-that-may-affect-the-audit-report-opinion-and-related-data-flowsnotification-of-the-audit-outcome-changing> a dcat:Dataset ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Notification of becoming aware ofinformation or material change in circumstances concerning the cloud computing services that may affect the audit report / opinion and related data flows:Notification of the audit outcome changing"@en ] ;
+    dcterms:title "Notification of becoming aware ofinformation or material change in circumstances concerning the cloud computing services that may affect the audit report / opinion and related data flows:Notification of the audit outcome changing"@en .
+
+<http://example.org/dataset/notification-of-becoming-aware-ofinformation-or-material-change-in-circumstances-concerning-the-cloud-computing-services-that-may-affect-the-audit-report-opinion-recognition-and-related-data-flows> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/502/cod/doc/com/COM_2026_502/FINAL/eng/art_23>,
+        <https://data.europa.eu/eli/dl/proc/2026/502/cod/doc/com/COM_2026_502/FINAL/eng/tit_4> ;
+    dcterms:title "Notification of becoming aware ofinformation or material change in circumstances concerning the cloud computing services that may affect the audit report / opinion / recognition and related data flows"@en .
+
+<http://example.org/dataset/statistics-and-data-required-for-the-monitoring-of-the-capacity-gap> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/502/cod/doc/com/COM_2026_502/FINAL/eng/art_15>,
+        <https://data.europa.eu/eli/dl/proc/2026/502/cod/doc/com/COM_2026_502/FINAL/eng/tit_3> ;
+    dcterms:title "Statistics and data required for the monitoring of the capacity gap"@en .
+
+<http://example.org/process/data-collection> skos:prefLabel "Data collection"@en .
+
+<http://example.org/process/data-quality> skos:prefLabel "Data quality"@en .
+
+<http://example.org/process/designation-of-competent-authorities> skos:prefLabel "Designation of competent authorities"@en .
+
+<http://example.org/process/repository> skos:prefLabel "Repository"@en .
+
+<http://example.org/process/risk-assessment> skos:prefLabel "Risk assessment"@en .
+
+<http://example.org/standard/data-quality-sufficiently-complete-and-reliable-minimum-content-for-audits> a dcterms:Standard ;
+    dcterms:title "Data quality: sufficiently complete and reliable; minimum content for audits."@en .
+
+<http://example.org/standard/minimum-content-requirements-for-the-national-strategies> a dcterms:Standard ;
+    dcterms:title "Minimum content requirements for the national strategies."@en .
+
+<http://example.org/standard/provide-all-the-necessary-and-relevant-information-to-demonstrate-that-the-project-fulfils-the-relevant-criteria> a dcterms:Standard ;
+    dcterms:title "Provide all the necessary and relevant information to demonstrate that the project fulfils the relevant criteria."@en .
+
+<http://example.org/standard/the-central-repository-shall-contain-information-of-cloud-computing-services-that-have-been-recognised-under-a-specific-union-assurance-levels> a dcterms:Standard ;
+    dcterms:title "The central repository shall contain information of cloud computing services that have been recognised under a specific Union assurance levels"@en .
+
+<http://publications.europa.eu/resource/authority/corporate-body/COM> a m8g:PublicOrganisation ;
+    dcterms:description "The European Commission, provider of the interoperability assessment."@en ;
+    skos:prefLabel "European Commission"@en .
+
+<http://example.org/agent/all-national-competent-authorities> rdfs:label "All national competent authorities"@en .
+
+<http://example.org/agent/auditing-organisation> rdfs:label "Auditing organisation"@en .
+
+<http://example.org/agent/cloud-service-providers> rdfs:label "Cloud service providers"@en .
+
+<http://example.org/agent/national-competent-authorities-of-a-services-destination> rdfs:label "National competent authorities of a service’s destination"@en .
+
+<http://example.org/agent/national-competent-authorities-of-a-services-origin> rdfs:label "National competent authorities of a service’s origin"@en .
+
+<http://example.org/agent/public-sector-bodies> rdfs:label "Public sector bodies"@en .
+
+<http://example.org/agent/requesting-cloud-computing-service-provider> rdfs:label "Requesting cloud computing service provider"@en .
+
+<http://example.org/agent/union-entities> rdfs:label "Union entities"@en .
+
+<http://example.org/dataset/data-related-to-applications-for-recognition-as-a-strategic-project> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/502/cod/doc/com/COM_2026_502/FINAL/eng/art_14>,
+        <https://data.europa.eu/eli/dl/proc/2026/502/cod/doc/com/COM_2026_502/FINAL/eng/tit_3> ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Data related to applications for recognition as a strategic project"@en ] ;
+    dcterms:conformsTo <http://example.org/standard/provide-all-the-necessary-and-relevant-information-to-demonstrate-that-the-project-fulfils-the-relevant-criteria> ;
+    dcterms:title "Data related to applications for recognition as a strategic project"@en .
+
+<http://example.org/dataset/eu-statement-of-conformity> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/502/cod/doc/com/COM_2026_502/FINAL/eng/art_19>,
+        <https://data.europa.eu/eli/dl/proc/2026/502/cod/doc/com/COM_2026_502/FINAL/eng/tit_4> ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "EU statement of conformity"@en ] ;
+    dcterms:title "EU statement of conformity"@en .
+
+<http://example.org/dataset/member-state-national-strategies> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/502/cod/doc/com/COM_2026_502/FINAL/eng/art_7>,
+        <https://data.europa.eu/eli/dl/proc/2026/502/cod/doc/com/COM_2026_502/FINAL/eng/tit_2> ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Member State National Strategies"@en ] ;
+    dcterms:conformsTo <http://example.org/standard/minimum-content-requirements-for-the-national-strategies> ;
+    dcterms:title "Member State National Strategies"@en .
+
+<http://example.org/dataset/notification-of-rules-and-measures-on-penalties> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/502/cod/doc/com/COM_2026_502/FINAL/eng/art_24>,
+        <https://data.europa.eu/eli/dl/proc/2026/502/cod/doc/com/COM_2026_502/FINAL/eng/tit_4> ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Notification of rules and measures on penalties"@en ] ;
+    dcterms:title "Notification of rules and measures on penalties"@en .
+
+<http://example.org/dataset/risk-assessments-performed-by-member-states> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/502/cod/doc/com/COM_2026_502/FINAL/eng/art_29>,
+        <https://data.europa.eu/eli/dl/proc/2026/502/cod/doc/com/COM_2026_502/FINAL/eng/tit_4> ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Risk assessments performed by Member States"@en ] ;
+    dcterms:title "Risk assessments performed by Member States"@en .
+
+<http://example.org/process/catalogue> skos:prefLabel "Catalogue"@en .
+
+<http://example.org/process/data-exchange> skos:prefLabel "Data exchange"@en .
+
+<http://example.org/process/requirements-for-a-digital-solution> skos:prefLabel "Requirements for a digital solution"@en .
+
+<http://example.org/agent/auditing-organisations> rdfs:label "Auditing organisations"@en .
+
+<http://example.org/agent/national-competent-authority> rdfs:label "National competent authority"@en .
+
+<http://example.org/agent/public> rdfs:label "Public"@en .
+
+<http://example.org/process/notification> skos:prefLabel "Notification"@en .
+
+<http://example.org/process/oversight-mechanism> skos:prefLabel "Oversight mechanism"@en .
+
+<http://example.org/analysis/interop/2> a cpsv:PublicService ;
+    rdfs:label "EuroCloud Federation"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/502/cod/doc/com/COM_2026_502/FINAL/eng/art_34>,
+        <https://data.europa.eu/eli/dl/proc/2026/502/cod/doc/com/COM_2026_502/FINAL/eng/tit_4> ;
+    dcterms:description "Article 34 establishes the European public sector cloud federation (EuroCloud Federation). The EuroCloud Federation should bring together national cloud initiatives providing highly trusted and secure public sector cloud capabilities and facilitate the sharing of such capabilities between Union entities and public sector bodies. This should be done via a platform accessible to all Federation Members – the EuroCloud Platform."@en ;
+    dcterms:identifier "interop/2" ;
+    dcterms:title "EuroCloud Federation"@en .
+
+<http://example.org/analysis/interop/1> a cpsv:PublicService ;
+    rdfs:label "Union repository of recognised sovereign services"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/502/cod/doc/com/COM_2026_502/FINAL/eng/art_22>,
+        <https://data.europa.eu/eli/dl/proc/2026/502/cod/doc/com/COM_2026_502/FINAL/eng/tit_4> ;
+    dcterms:description "A dedicated Union repository of cloud computing services that have received recognition. To be established and maintained by the Commission. National competent authorities shall register the relevant services in this repository."@en ;
+    dcterms:identifier "interop/1" ;
+    dcterms:title "Union repository of recognised sovereign services"@en .
+
+<http://example.org/agent/member-states> rdfs:label "Member States"@en .
+
+<http://example.org/agent/cloud-computing-service-providers> rdfs:label "Cloud computing service providers"@en .
+
+<http://example.org/agent/national-competent-authorities> rdfs:label "National competent authorities"@en .
+
+<http://example.org/agent/european-commission> rdfs:label "European Commission"@en .
+

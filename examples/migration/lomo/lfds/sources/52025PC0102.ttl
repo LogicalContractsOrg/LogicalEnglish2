@@ -1,0 +1,328 @@
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix lomo: <http://data.europa.eu/leg/lomo#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix tf: <http://data.europa.eu/leg/temporal-function/> .
+
+<http://example.org/analysis/action/1> a lomo:Action ;
+    rdfs:label "List of MS Authorities designated for assessing and confirming Strategic Projects"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Not defined"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/102/cod/doc/com/COM_2025_102/FINAL/eng/art_6> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/1/role/addressee-commission>,
+        <http://example.org/analysis/action/1/role/addresser-member-states> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "List of MS Authorities designated for assessing and confirming Strategic Projects"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/list-of-ms-authorities-designated-for-assessing-and-confirming-strategic-projects> ] .
+
+<http://example.org/analysis/action/10> a lomo:Action ;
+    rdfs:label "Assessment of addressing vulnerability by Strategic Projects"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "If Strategic project addresses an existing vulnerability in the supply chain.No deadline set"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/102/cod/doc/com/COM_2025_102/FINAL/eng/art_16> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/10/role/addressee-the-commission>,
+        <http://example.org/analysis/action/10/role/addresser-designated-authority> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Assessment of addressing vulnerability by Strategic Projects"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/assessment-of-addressing-vulnerability-by-strategic-projects> ] .
+
+<http://example.org/analysis/action/11> a lomo:Action ;
+    rdfs:label "National programmes"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "By 6 months after entry into force of this Regulation"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/102/cod/doc/com/COM_2025_102/FINAL/eng/art_19> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/11/role/addressee-commission>,
+        <http://example.org/analysis/action/11/role/addresser-member-states> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "National programmes"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/national-programmes> ] .
+
+<http://example.org/analysis/action/2> a lomo:Action ;
+    rdfs:label "Project"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "at the initiative of the project promoter"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/102/cod/doc/com/COM_2025_102/FINAL/eng/art_6> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/2/role/addressee-designated-authority>,
+        <http://example.org/analysis/action/2/role/addresser-project-promoter> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Project"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/project> ] .
+
+<http://example.org/analysis/action/3> a lomo:Action ;
+    rdfs:label "Strategic Project"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:deadline ;
+            lomo:temporalLabel "No deadline set"@en ],
+        [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "At Project promoter request"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/102/cod/doc/com/COM_2025_102/FINAL/eng/art_6> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/3/role/addressee-project-promoter>,
+        <http://example.org/analysis/action/3/role/addresser-designated-authority> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Strategic Project"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/strategic-project> ] .
+
+<http://example.org/analysis/action/4> a lomo:Action ;
+    rdfs:label "Status of the highest national significance for Strategic Projects"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "No deadline set"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/102/cod/doc/com/COM_2025_102/FINAL/eng/art_9> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/4/role/addressee-strategic-project-promoter>,
+        <http://example.org/analysis/action/4/role/addresser-national-authorities> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Status of the highest national significance for Strategic Projects"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/status-of-the-highest-national-significance-for-strategic-projects> ] .
+
+<http://example.org/analysis/action/5> a lomo:Action ;
+    rdfs:label "Combined environmental assessment"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Within 45 days after receiving all necessary information and subject to exceptions"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/102/cod/doc/com/COM_2025_102/FINAL/eng/art_12> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/5/role/addressee-strategic-project-promoter>,
+        <http://example.org/analysis/action/5/role/addresser-competent-authority> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Combined environmental assessment"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/combined-environmental-assessment> ] .
+
+<http://example.org/analysis/action/6> a lomo:Action ;
+    rdfs:label "Spatial planning data"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/102/cod/doc/com/COM_2025_102/FINAL/eng/art_13> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/6/role/addressee-general-public>,
+        <http://example.org/analysis/action/6/role/addresser-member-states> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Spatial planning data"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/spatial-planning-data> ] .
+
+<http://example.org/analysis/action/7> a lomo:Action ;
+    rdfs:label "Combined urbanistic assessments"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "No deadline set"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/102/cod/doc/com/COM_2025_102/FINAL/eng/art_13> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/7/role/addressee-strategic-project-promoter>,
+        <http://example.org/analysis/action/7/role/addresser-member-states-competent-authorities> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Combined urbanistic assessments"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/combined-urbanistic-assessments> ] .
+
+<http://example.org/analysis/action/8> a lomo:Action ;
+    rdfs:label "Request for assessment of addressing vulnerability by Strategic Projects"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "At the initiative of the project promoter"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/102/cod/doc/com/COM_2025_102/FINAL/eng/art_16> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/8/role/addressee-designated-authority>,
+        <http://example.org/analysis/action/8/role/addresser-strategic-project-promoter> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Request for assessment of addressing vulnerability by Strategic Projects"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/request-for-assessment-of-addressing-vulnerability-by-strategic-projects> ] .
+
+<http://example.org/analysis/action/9> a lomo:Action ;
+    rdfs:label "Assessment of addressing vulnerability by Strategic Projects"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Within 15 working days"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/102/cod/doc/com/COM_2025_102/FINAL/eng/art_16> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/9/role/addressee-strategic-project-promoter>,
+        <http://example.org/analysis/action/9/role/addresser-designated-authority> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Assessment of addressing vulnerability by Strategic Projects"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/assessment-of-addressing-vulnerability-by-strategic-projects> ] .
+
+<http://example.org/dataset/assessment-whether-strategic-projects-address-a-supply-chain-vulnerability> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/102/cod/doc/com/COM_2025_102/FINAL/eng/art_16> ;
+    dcterms:conformsTo <http://example.org/standard/not-defined> ;
+    dcterms:title "Assessment whether strategic projects address a supply chain vulnerability"@en .
+
+<http://example.org/agent/competent-authority> rdfs:label "Competent authority"@en .
+
+<http://example.org/agent/general-public> rdfs:label "General public"@en .
+
+<http://example.org/agent/member-states-competent-authorities> rdfs:label "Member States competent authorities"@en .
+
+<http://example.org/agent/national-authorities> rdfs:label "National authorities"@en .
+
+<http://example.org/agent/the-commission> rdfs:label "The Commission"@en .
+
+<http://example.org/analysis/action/1/role/addressee-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/1/role/addresser-member-states> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/10/role/addressee-the-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/the-commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/10/role/addresser-designated-authority> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/designated-authority> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/11/role/addressee-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/11/role/addresser-member-states> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/2/role/addressee-designated-authority> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/designated-authority> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/2/role/addresser-project-promoter> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/project-promoter> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/3/role/addressee-project-promoter> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/project-promoter> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/3/role/addresser-designated-authority> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/designated-authority> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/4/role/addressee-strategic-project-promoter> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/strategic-project-promoter> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/4/role/addresser-national-authorities> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/national-authorities> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/5/role/addressee-strategic-project-promoter> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/strategic-project-promoter> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/5/role/addresser-competent-authority> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/competent-authority> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/6/role/addressee-general-public> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/general-public> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/6/role/addresser-member-states> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/7/role/addressee-strategic-project-promoter> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/strategic-project-promoter> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/7/role/addresser-member-states-competent-authorities> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states-competent-authorities> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/8/role/addressee-designated-authority> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/designated-authority> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/8/role/addresser-strategic-project-promoter> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/strategic-project-promoter> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/9/role/addressee-strategic-project-promoter> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/strategic-project-promoter> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/9/role/addresser-designated-authority> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/designated-authority> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/dataset/combined-environmental-assessment> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/102/cod/doc/com/COM_2025_102/FINAL/eng/art_12> ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Combined environmental assessment"@en ] ;
+    dcterms:conformsTo <http://example.org/standard/defined-under-other-legal-bases> ;
+    dcterms:title "Combined environmental assessment"@en .
+
+<http://example.org/dataset/combined-urbanistic-assessments> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/102/cod/doc/com/COM_2025_102/FINAL/eng/art_13>,
+        <https://data.europa.eu/eli/dl/proc/2025/102/cod/doc/com/COM_2025_102/FINAL/eng/art_2> ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Combined urbanistic assessments"@en ] ;
+    dcterms:conformsTo <http://example.org/standard/not-defined> ;
+    dcterms:title "Combined urbanistic assessments"@en .
+
+<http://example.org/dataset/list-of-ms-authorities-designated-for-assessing-and-confirming-strategic-projects> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/102/cod/doc/com/COM_2025_102/FINAL/eng/art_6> ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "List of MS Authorities designated for assessing and confirming Strategic Projects"@en ] ;
+    dcterms:conformsTo <http://example.org/standard/standard-list-of-ms> ;
+    dcterms:title "List of MS Authorities designated for assessing and confirming Strategic Projects;"@en .
+
+<http://example.org/dataset/national-programmes> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/102/cod/doc/com/COM_2025_102/FINAL/eng/art_19> ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "National programmes"@en ] ;
+    dcterms:conformsTo <http://example.org/standard/not-defined> ;
+    dcterms:title "National programmes"@en .
+
+<http://example.org/dataset/project> a dcat:Dataset ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Project"@en ] ;
+    dcterms:title "Project"@en .
+
+<http://example.org/dataset/request-for-assessment-of-addressing-vulnerability-by-strategic-projects> a dcat:Dataset ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Request for assessment of addressing vulnerability by Strategic Projects"@en ] ;
+    dcterms:title "Request for assessment of addressing vulnerability by Strategic Projects"@en .
+
+<http://example.org/dataset/spatial-planning-data> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/102/cod/doc/com/COM_2025_102/FINAL/eng/art_1>,
+        <https://data.europa.eu/eli/dl/proc/2025/102/cod/doc/com/COM_2025_102/FINAL/eng/art_13> ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Spatial planning data"@en ] ;
+    dcterms:conformsTo <http://example.org/standard/not-defined> ;
+    dcterms:title "Spatial planning data"@en .
+
+<http://example.org/dataset/status-of-the-highest-national-significance-for-strategic-projects> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/102/cod/doc/com/COM_2025_102/FINAL/eng/art_9> ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Status of the highest national significance for Strategic Projects"@en ] ;
+    dcterms:conformsTo <http://example.org/standard/not-defined> ;
+    dcterms:title "Status of the highest national significance for Strategic Projects"@en .
+
+<http://example.org/dataset/strategic-project> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/102/cod/doc/com/COM_2025_102/FINAL/eng/art_6> ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Strategic Project"@en ] ;
+    dcterms:conformsTo <http://example.org/standard/not-defined> ;
+    dcterms:title "Strategic Project"@en .
+
+<http://example.org/standard/defined-under-other-legal-bases> a dcterms:Standard ;
+    dcterms:title "Defined under other legal bases"@en .
+
+<http://example.org/standard/standard-list-of-ms> a dcterms:Standard ;
+    dcterms:title "Standard list of MS"@en .
+
+<http://example.org/agent/commission> rdfs:label "Commission"@en .
+
+<http://example.org/agent/project-promoter> rdfs:label "Project promoter"@en .
+
+<http://example.org/dataset/assessment-of-addressing-vulnerability-by-strategic-projects> a dcat:Dataset ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Assessment of addressing vulnerability by Strategic Projects"@en ],
+        [ a lomo:ActionResult ;
+            rdfs:label "Assessment of addressing vulnerability by Strategic Projects"@en ] ;
+    dcterms:title "Assessment of addressing vulnerability by Strategic Projects"@en .
+
+<http://example.org/agent/member-states> rdfs:label "Member States"@en .
+
+<http://example.org/agent/designated-authority> rdfs:label "Designated authority"@en .
+
+<http://example.org/agent/strategic-project-promoter> rdfs:label "Strategic Project promoter"@en .
+
+<http://example.org/standard/not-defined> a dcterms:Standard ;
+    dcterms:title "Not defined"@en .
+

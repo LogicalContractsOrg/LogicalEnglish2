@@ -1,0 +1,469 @@
+@prefix : <http://data.europa.eu/leg/lomo/vehicle-registration#> .
+@prefix lomo: <http://data.europa.eu/leg/lomo#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix eli: <http://data.europa.eu/eli/ontology#> .
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix cpsv: <http://purl.org/vocab/cpsv#> .
+
+@base <http://data.europa.eu/leg/lomo/vehicle-registration> .
+
+<http://data.europa.eu/leg/lomo/vehicle-registration> rdf:type owl:Ontology ;
+    dcterms:title "Vehicle Registration Directive - LOMO Instantiation"@en ;
+    dcterms:description "Instantiation of the Vehicle Registration Directive provisions (Articles 10 and 16) using the Legal Requirements Modeling Ontology (LOMO). Covers certificate acceptance requirements and triennial reporting obligations."@en ;
+    dcterms:created "2025-12-02"^^xsd:date ;
+    dcterms:modified "2026-02-10"^^xsd:date ;
+    dcterms:source "Proposal for a Directive on registration documents for vehicles (COM/2025/179)"@en ;
+    owl:imports <http://data.europa.eu/leg/lomo> .
+
+#################################################################
+#    Vehicle Registration Directive - LOMO Instantiation
+#    Articles 10 and 16
+#################################################################
+
+#################################################################
+#    AGENTS (Specific EU Institutions)
+#################################################################
+
+:Agent_EuropeanCommission rdf:type owl:NamedIndividual , lomo:Agent ;
+    rdfs:label "European Commission"@en ;
+    rdfs:comment "The executive branch of the European Union"@en .
+
+:Agent_EuropeanParliament rdf:type owl:NamedIndividual , lomo:Agent ;
+    rdfs:label "European Parliament"@en ;
+    rdfs:comment "The directly elected legislative body of the European Union"@en .
+
+:Agent_EuropeanCouncil rdf:type owl:NamedIndividual , lomo:Agent ;
+    rdfs:label "Council of the European Union"@en ;
+    rdfs:comment "The institution comprising representatives of EU member state governments"@en .
+
+#################################################################
+#    AGENT TYPES (Categories of Entities)
+#################################################################
+
+:AgentType_MemberStates rdf:type owl:NamedIndividual , lomo:AgentType ;
+    rdfs:label "Member States"@en ;
+    rdfs:comment "The Member States of the European Union"@en .
+
+:AgentType_CompetentAuthorities rdf:type owl:NamedIndividual , lomo:AgentType ;
+    rdfs:label "Competent Authorities"@en ;
+    rdfs:comment "National authorities responsible for vehicle registration"@en .
+
+:AgentType_VehicleOwner rdf:type owl:NamedIndividual , lomo:AgentType ;
+    rdfs:label "Vehicle Owner"@en ;
+    rdfs:comment "The holder of a registration certificate"@en ;
+    lomo:usesDefinition :Def_HolderOfRegistrationCertificate .
+
+:AgentType_ReregisteringMemberState rdf:type owl:NamedIndividual , lomo:AgentType ;
+    rdfs:label "Re-registering Member State"@en ;
+    rdfs:comment "The Member State where a vehicle is being re-registered"@en ;
+    lomo:usesDefinition :Def_Registration .
+
+:AgentType_MemberStateOfRegistration rdf:type owl:NamedIndividual , lomo:AgentType ;
+    rdfs:label "Member State of Registration"@en ;
+    rdfs:comment "The Member State where a vehicle was previously registered"@en ;
+    lomo:usesDefinition :Def_Registration .
+
+#################################################################
+#    DEFINITIONS
+#################################################################
+
+:Def_PhysicalRegistrationCertificate rdf:type owl:NamedIndividual , lomo:Definition ;
+    rdfs:label "Definition: Physical Registration Certificate"@en ;
+    lomo:hasDefiniendum "physical registration certificate"@en ;
+    lomo:hasDefiniens "'physical registration certificate' means a registration certificate in its paper or smart card format"@en ;
+    lomo:isSemanticDefinition "true"^^xsd:boolean ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/96/cod/doc/com/COM_2025_179/FINAL/eng/art_2> .
+
+:Def_MobileRegistrationCertificate rdf:type owl:NamedIndividual , lomo:Definition ;
+    rdfs:label "Definition: Mobile Registration Certificate"@en ;
+    lomo:hasDefiniendum "mobile registration certificate"@en ;
+    lomo:hasDefiniens "'mobile registration certificate' means a registration certificate in its digital format"@en ;
+    lomo:isSemanticDefinition "true"^^xsd:boolean ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/96/cod/doc/com/COM_2025_179/FINAL/eng/art_2> .
+
+:Def_Vehicle rdf:type owl:NamedIndividual , lomo:Definition ;
+    rdfs:label "Definition: Vehicle"@en ;
+    lomo:hasDefiniendum "vehicle"@en ;
+    lomo:hasDefiniens "'vehicle' means any vehicle as defined in Article 3, point 15 of Regulation (EU) 2018/858 or in Article 3, point 11 of Regulation (EU) No 167/2013 of the European Parliament and of the Council, and any vehicle referred to in Article 4 of Regulation (EU) No 168/2013 of the European Parliament and of the Council"@en ;
+    lomo:isSemanticDefinition "true"^^xsd:boolean ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/96/cod/doc/com/COM_2025_179/FINAL/eng/art_2> .
+
+:Def_Registration rdf:type owl:NamedIndividual , lomo:Definition ;
+    rdfs:label "Definition: Registration"@en ;
+    lomo:hasDefiniendum "registration"@en ;
+    lomo:hasDefiniens "'registration' means the administrative authorisation for the entry into service in road traffic of a vehicle, involving the identification of the latter and the issuing to it of a serial number, to be known as the registration number"@en ;
+    lomo:isSemanticDefinition "true"^^xsd:boolean ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/96/cod/doc/com/COM_2025_179/FINAL/eng/art_2> .
+
+:Def_RegistrationCertificate rdf:type owl:NamedIndividual , lomo:Definition ;
+    rdfs:label "Definition: Registration Certificate"@en ;
+    lomo:hasDefiniendum "registration certificate"@en ;
+    lomo:hasDefiniens "'registration certificate' means the document which certifies that the vehicle is registered in a Member State, whether in a physical format, a digital format, or both"@en ;
+    lomo:isSemanticDefinition "true"^^xsd:boolean ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/96/cod/doc/com/COM_2025_179/FINAL/eng/art_2> .
+
+:Def_HolderOfRegistrationCertificate rdf:type owl:NamedIndividual , lomo:Definition ;
+    rdfs:label "Definition: Holder of Registration Certificate"@en ;
+    lomo:hasDefiniendum "holder of the registration certificate"@en ;
+    lomo:hasDefiniens "'holder of the registration certificate' means the legal or natural person in whose name a vehicle is registered"@en ;
+    lomo:isSemanticDefinition "true"^^xsd:boolean ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/96/cod/doc/com/COM_2025_179/FINAL/eng/art_2> .
+
+:Def_Suspension rdf:type owl:NamedIndividual , lomo:Definition ;
+    rdfs:label "Definition: Suspension"@en ;
+    lomo:hasDefiniendum "suspension"@en ;
+    lomo:hasDefiniens "'suspension' means a limited period of time in which a vehicle is not authorised by a Member State to be used in road traffic following which – provided the reasons for suspension have ceased to apply – it may be authorised to be used again without involving a new process of registration"@en ;
+    lomo:isSemanticDefinition "true"^^xsd:boolean ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/96/cod/doc/com/COM_2025_179/FINAL/eng/art_2> .
+
+
+#################################################################
+#    ACTION RESULT TYPES
+#################################################################
+
+:ResultType_PhysicalCertificatePartI rdf:type owl:NamedIndividual , lomo:ActionResultType ;
+    rdfs:label "Part I of Physical Registration Certificate"@en ;
+    rdfs:comment "The first part of the physical registration certificate document"@en .
+
+:ResultType_MobileCertificatePresentation rdf:type owl:NamedIndividual , lomo:ActionResultType ;
+    rdfs:label "Mobile Registration Certificate Presentation"@en ;
+    rdfs:comment "The presentation of a mobile (digital) registration certificate"@en .
+
+:ResultType_AcceptanceDecision rdf:type owl:NamedIndividual , lomo:ActionResultType ;
+    rdfs:label "Acceptance Decision"@en ;
+    rdfs:comment "A decision to accept a certificate or document"@en .
+
+:ResultType_VerificationReport rdf:type owl:NamedIndividual , lomo:ActionResultType ;
+    rdfs:label "Verification Report"@en ;
+    rdfs:comment "A report containing verification results"@en .
+
+:ResultType_VehicleRegistrationReport rdf:type owl:NamedIndividual , lomo:ActionResultType ;
+    rdfs:label "Vehicle Registration Report"@en ;
+    rdfs:comment "A triennial report containing vehicle registration data"@en .
+
+:ResultType_DataTransmission rdf:type owl:NamedIndividual , lomo:ActionResultType ;
+    rdfs:label "Data Transmission"@en ;
+    rdfs:comment "The transmission of collected data to another entity"@en .
+
+#################################################################
+#    TEMPORAL SPECIFICATIONS
+#################################################################
+
+# Entry into force date (external event reference)
+:TemporalSpec_DateOfEntryIntoForce rdf:type owl:NamedIndividual , lomo:TemporalSpecification ;
+    rdfs:label "Date of Entry into Force"@en ;
+    lomo:legalText "date of entry into force"@en ;
+    lomo:temporalLabel "date of entry into force"@en .
+
+# 4 years after entry into force
+:TemporalSpec_FourYearsAfterEntry rdf:type owl:NamedIndividual , lomo:TemporalSpecification ;
+    rdfs:label "4 Years After Entry Into Force"@en ;
+    lomo:duration "P4Y"^^xsd:duration ;
+    lomo:after :TemporalSpec_DateOfEntryIntoForce ;
+    lomo:hasFunction <http://data.europa.eu/leg/temporal-function/deadline> .
+
+# 4 years + 1 day after entry into force
+:TemporalSpec_FourYearsOneDayAfterEntry rdf:type owl:NamedIndividual , lomo:TemporalSpecification ;
+    rdfs:label "4 Years and 1 Day After Entry Into Force"@en ;
+    lomo:duration "P4Y1D"^^xsd:duration ;
+    lomo:after :TemporalSpec_DateOfEntryIntoForce ;
+    lomo:hasFunction <http://data.europa.eu/leg/temporal-function/startingPoint> .
+
+# Fixed date: 31 March 2030
+:TemporalSpec_March31_2030 rdf:type owl:NamedIndividual , lomo:TemporalSpecification ;
+    rdfs:label "31 March 2030"@en ;
+    lomo:instant "2030-03-31"^^xsd:date ;
+    lomo:hasFunction <http://data.europa.eu/leg/temporal-function/deadline> ;
+    lomo:temporalLabel "31 March 2030"@en .
+
+# Recurring deadline: every 3 years after 31 March 2030
+:TemporalSpec_TriennialDeadline rdf:type owl:NamedIndividual , lomo:TemporalSpecification ;
+    rdfs:label "Every 3 Years After 31 March 2030"@en ;
+    lomo:frequency "P3Y"^^xsd:duration ;
+    lomo:immediatelyAfter :TemporalSpec_March31_2030 ;
+    lomo:hasFunction <http://data.europa.eu/leg/temporal-function/deadline> .
+
+#################################################################
+#    ARTICLE 10, PARAGRAPH 2
+#    Temporary Obligation to Submit Part I for Re-registration
+#################################################################
+
+:Requirement_Art10_Par2 rdf:type owl:NamedIndividual , lomo:PrescriptiveRule ;
+    rdfs:label "Temporary Submission Requirement (Art. 10(2))"@en ;
+    lomo:legalText "Until [date of entry into force + 4 years] the competent authorities shall require the submission of only Part I of the physical registration certificate when re-registering a vehicle previously registered in another Member State. Until that date, they may also accept the presentation of a mobile registration certificate, if any."@en ;
+    lomo:hasDeonticModality <http://data.europa.eu/leg/deontic-modality/Obligation> ;
+    lomo:hasRequirementType <http://publications.europa.eu/resource/dataset/administrative-obligation/c_d98a69b9> ;
+    lomo:hasCategory <http://data.europa.eu/leg/digital-dimensions/DigitalPublicService> ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/96/cod/doc/com/COM_2025_179/art_10/par_2/FINAL/eng> ;
+    lomo:produces :Action_RequirePhysicalCert , :Action_AcceptMobileCert ;
+    lomo:usesDefinition :Def_PhysicalRegistrationCertificate , :Def_MobileRegistrationCertificate , :Def_Vehicle .
+
+# Action 1: Require submission of Part I
+:Action_RequirePhysicalCert rdf:type owl:NamedIndividual , lomo:Action ;
+    rdfs:label "Require Submission of Part I"@en ;
+    lomo:legalText "the competent authorities shall require the submission of only Part I of the physical registration certificate when re-registering a vehicle previously registered in another Member State."@en ;
+    lomo:atTime :TemporalSpec_FourYearsAfterEntry ;
+    lomo:hasAgentRole :AgentRole_CompAuth_RequirePhysical , :AgentRole_Owner_SubmitPhysical ;
+    lomo:hasResult :Result_PhysicalCertSubmission .
+
+:AgentRole_CompAuth_RequirePhysical rdf:type owl:NamedIndividual , lomo:AgentRole ;
+    lomo:forAgent :AgentType_CompetentAuthorities ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+:AgentRole_Owner_SubmitPhysical rdf:type owl:NamedIndividual , lomo:AgentRole ;
+    lomo:forAgent :AgentType_VehicleOwner ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+:Result_PhysicalCertSubmission rdf:type owl:NamedIndividual , lomo:ActionResult ;
+    rdfs:label "Physical Certificate Part I Submission"@en ;
+    lomo:hasAnnotation "the submission of only Part I of the physical registration certificate"@en ;
+    lomo:hasResultType :ResultType_PhysicalCertificatePartI .
+
+# Action 2: Accept mobile certificate (Permission)
+:Action_AcceptMobileCert rdf:type owl:NamedIndividual , lomo:Action ;
+    rdfs:label "Accept Mobile Certificate Presentation"@en ;
+    lomo:legalText "they may also accept the presentation of a mobile registration certificate, if any."@en ;
+    lomo:atTime :TemporalSpec_FourYearsAfterEntry ;
+    lomo:hasAgentRole :AgentRole_CompAuth_AcceptMobile , :AgentRole_Owner_PresentMobile ;
+    lomo:hasResult :Result_MobileCertPresentation .
+
+:AgentRole_CompAuth_AcceptMobile rdf:type owl:NamedIndividual , lomo:AgentRole ;
+    lomo:forAgent :AgentType_CompetentAuthorities ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+:AgentRole_Owner_PresentMobile rdf:type owl:NamedIndividual , lomo:AgentRole ;
+    lomo:forAgent :AgentType_VehicleOwner ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+:Result_MobileCertPresentation rdf:type owl:NamedIndividual , lomo:ActionResult ;
+    rdfs:label "Mobile Certificate Presentation"@en ;
+    lomo:hasAnnotation "a mobile registration certificate"@en ;
+    lomo:hasResultType :ResultType_MobileCertificatePresentation .
+
+#################################################################
+#    ARTICLE 10, PARAGRAPH 3
+#    Permanent Obligation to Accept Both Certificates
+#################################################################
+
+:Requirement_Art10_Par3 rdf:type owl:NamedIndividual , lomo:PrescriptiveRule ;
+    rdfs:label "Accept Both Certificates for Re-registration (Art. 10(3))"@en ;
+    lomo:legalText "From [entry into force + 4 years +1 day], Member States shall accept both Part I of the physical registration certificate and the presentation of the mobile registration certificate for the purposes of re-registering a vehicle previously registered in another Member State. The re-registering Member State shall verify with the Member State of registration which format(s) of the registration certificates have been issued."@en ;
+    lomo:hasDeonticModality <http://data.europa.eu/leg/deontic-modality/Obligation> ;
+    lomo:hasRequirementType <http://publications.europa.eu/resource/dataset/administrative-obligation/c_d98a69b9> ;
+    lomo:hasCategory <http://data.europa.eu/leg/digital-dimensions/DigitalPublicService> ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/96/cod/doc/com/COM_2025_179/art_10/par_3/FINAL/eng> ;
+    lomo:produces :Action_AcceptBothCerts , :Action_VerifyFormats ;
+    lomo:usesDefinition :Def_PhysicalRegistrationCertificate , :Def_MobileRegistrationCertificate , :Def_Vehicle .
+
+# Action 1: Accept both certificate formats
+:Action_AcceptBothCerts rdf:type owl:NamedIndividual , lomo:Action ;
+    rdfs:label "Accept Both Certificate Formats"@en ;
+    lomo:legalText "Member States shall accept both Part I of the physical registration certificate and the presentation of the mobile registration certificate for the purposes of re-registering a vehicle previously registered in another Member State."@en ;
+    lomo:atTime :TemporalSpec_FourYearsOneDayAfterEntry ;
+    lomo:hasAgentRole :AgentRole_MS_AcceptBoth ;
+    lomo:hasResult :Result_AcceptanceBothFormats ;
+    lomo:hasNext :Action_VerifyFormats .
+
+:AgentRole_MS_AcceptBoth rdf:type owl:NamedIndividual , lomo:AgentRole ;
+    lomo:forAgent :AgentType_ReregisteringMemberState ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> ;
+    rdfs:comment "Re-registering Member State is obligated to accept both formats"@en .
+
+:Result_AcceptanceBothFormats rdf:type owl:NamedIndividual , lomo:ActionResult ;
+    rdfs:label "Acceptance of Both Certificate Formats"@en ;
+    lomo:hasAnnotation "acceptance of both Part I of the physical registration certificate and the presentation of the mobile registration certificate"@en ;
+    lomo:hasResultType :ResultType_AcceptanceDecision .
+
+# Action 2: Verify certificate formats with other MS
+:Action_VerifyFormats rdf:type owl:NamedIndividual , lomo:Action ;
+    rdfs:label "Verify Certificate Formats Issued"@en ;
+    lomo:legalText "The re-registering Member State shall verify with the Member State of registration which format(s) of the registration certificates have been issued."@en ;
+    lomo:atTime :TemporalSpec_FourYearsOneDayAfterEntry ;
+    lomo:hasAgentRole :AgentRole_ReregMS_Verify , :AgentRole_OrigMS_Respond ;
+    lomo:hasResult :Result_VerificationInfo ;
+    lomo:precedes :Action_AcceptBothCerts .
+
+:AgentRole_ReregMS_Verify rdf:type owl:NamedIndividual , lomo:AgentRole ;
+    lomo:forAgent :AgentType_ReregisteringMemberState ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+:AgentRole_OrigMS_Respond rdf:type owl:NamedIndividual , lomo:AgentRole ;
+    lomo:forAgent :AgentType_MemberStateOfRegistration ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+:Result_VerificationInfo rdf:type owl:NamedIndividual , lomo:ActionResult ;
+    rdfs:label "Certificate Format Verification Information"@en ;
+    lomo:hasAnnotation "verification of which format(s) of the registration certificates have been issued"@en ;
+    lomo:hasResultType :ResultType_VerificationReport .
+
+#################################################################
+#    ARTICLE 16, PARAGRAPH 1
+#    Triennial Reporting Obligation
+#################################################################
+
+:Requirement_Art16_Par1 rdf:type owl:NamedIndividual , lomo:PrescriptiveRule ;
+    rdfs:label "Triennial Reporting Obligation (Art. 16(1))"@en ;
+    lomo:legalText """By 31 March 2030, and by 31 March of each third year thereafter, Member States shall communicate to the Commission through the online reporting platform referred to in Article 28 of Regulation (EU) 2018/1999 of the European Parliament and of the Council ('e-platform'), the data relating to the vehicles registered in their territory during each of the previous three calendar years. The data shall comprise (per calendar year):
+(a) the number of physical registration certificates issued, per vehicle category;
+(b) the number of mobile registration certificates issued, per vehicle category;
+(c) the number of re-registrations of vehicles previously registered in another Member State, per vehicle category;
+(d) the number of vehicle registrations suspended, per vehicle category;
+The first report shall cover the years 2027, 2028, and 2029, separately.
+The Commission shall transmit the data collected to the European Parliament and to the Council."""@en ;
+    lomo:hasDeonticModality <http://data.europa.eu/leg/deontic-modality/Obligation> ;
+    lomo:hasRequirementType <http://publications.europa.eu/resource/dataset/administrative-obligation/c_80214a02> ;
+    lomo:hasCategory <http://data.europa.eu/leg/digital-dimensions/Data> , <http://data.europa.eu/leg/digital-dimensions/DigitalPublicService> ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/96/cod/doc/com/COM_2025_179/art_16/par_1/FINAL/eng> ;
+    lomo:produces :Action_CommunicateDataToCommission , :Action_TransmitDataToParliamentCouncil ;
+    lomo:usesDefinition :Def_PhysicalRegistrationCertificate , :Def_MobileRegistrationCertificate , :Def_Vehicle .
+
+# Action 1: Member States communicate data to Commission
+:Action_CommunicateDataToCommission rdf:type owl:NamedIndividual , lomo:Action ;
+    rdfs:label "Communicate Vehicle Registration Data to Commission"@en ;
+    lomo:legalText "By 31 March 2030, and by 31 March of each third year thereafter, Member States shall communicate to the Commission through the online reporting platform referred to in Article 28 of Regulation (EU) 2018/1999 of the European Parliament and of the Council (e-platform), the data relating to the vehicles registered in their territory during each of the previous three calendar years."@en ;
+    lomo:atTime :TemporalSpec_March31_2030 , :TemporalSpec_TriennialDeadline ;
+    lomo:hasAgentRole :AgentRole_MS_Communicate , :AgentRole_Commission_Receive ;
+    lomo:hasResult :Result_TriennialReport ;
+    lomo:hasNext :Action_TransmitDataToParliamentCouncil .
+
+:AgentRole_MS_Communicate rdf:type owl:NamedIndividual , lomo:AgentRole ;
+    lomo:forAgent :AgentType_MemberStates ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+:AgentRole_Commission_Receive rdf:type owl:NamedIndividual , lomo:AgentRole ;
+    lomo:forAgent :Agent_EuropeanCommission ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+:Result_TriennialReport rdf:type owl:NamedIndividual , lomo:ActionResult ;
+    rdfs:label "Triennial Vehicle Registration Report"@en ;
+    lomo:hasAnnotation "report containing the data relating to the vehicles registered in their territory during each of the previous three calendar years, including: (a) number of physical registration certificates issued, per vehicle category; (b) number of mobile registration certificates issued, per vehicle category; (c) number of re-registrations of vehicles previously registered in another Member State, per vehicle category; (d) number of vehicle registrations suspended, per vehicle category"@en ;
+    lomo:hasResultType :ResultType_VehicleRegistrationReport ;
+    lomo:isComposedOf :Result_PhysicalCertData , :Result_MobileCertData , :Result_ReregistrationData , :Result_SuspensionData .
+
+# Sub-results (data components - statistical observations)
+:Result_PhysicalCertData rdf:type owl:NamedIndividual , lomo:ActionResult ;
+    rdfs:label "Physical Registration Certificates Data"@en ;
+    lomo:hasAnnotation "number of physical registration certificates issued, per vehicle category"@en ;
+    lomo:hasCategory <http://data.europa.eu/leg/digital-dimensions/Observation> .
+
+:Result_MobileCertData rdf:type owl:NamedIndividual , lomo:ActionResult ;
+    rdfs:label "Mobile Registration Certificates Data"@en ;
+    lomo:hasAnnotation "number of mobile registration certificates issued, per vehicle category"@en ;
+    lomo:hasCategory <http://data.europa.eu/leg/digital-dimensions/Observation> .
+
+:Result_ReregistrationData rdf:type owl:NamedIndividual , lomo:ActionResult ;
+    rdfs:label "Re-registrations Data"@en ;
+    lomo:hasAnnotation "number of re-registrations of vehicles previously registered in another Member State, per vehicle category"@en ;
+    lomo:hasCategory <http://data.europa.eu/leg/digital-dimensions/Observation> .
+
+:Result_SuspensionData rdf:type owl:NamedIndividual , lomo:ActionResult ;
+    rdfs:label "Suspensions Data"@en ;
+    lomo:hasAnnotation "number of vehicle registrations suspended, per vehicle category"@en ;
+    lomo:hasCategory <http://data.europa.eu/leg/digital-dimensions/Observation> .
+
+# Action 2: Commission transmits data to Parliament and Council
+:Action_TransmitDataToParliamentCouncil rdf:type owl:NamedIndividual , lomo:Action ;
+    rdfs:label "Transmit Data to Parliament and Council"@en ;
+    lomo:legalText "The Commission shall transmit the data collected to the European Parliament and to the Council."@en ;
+    lomo:hasAgentRole :AgentRole_Commission_Transmit , :AgentRole_Parliament_Receive , :AgentRole_Council_Receive ;
+    lomo:hasResult :Result_DataTransmissionToInstitutions .
+
+:AgentRole_Commission_Transmit rdf:type owl:NamedIndividual , lomo:AgentRole ;
+    lomo:forAgent :Agent_EuropeanCommission ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+:AgentRole_Parliament_Receive rdf:type owl:NamedIndividual , lomo:AgentRole ;
+    lomo:forAgent :Agent_EuropeanParliament ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+:AgentRole_Council_Receive rdf:type owl:NamedIndividual , lomo:AgentRole ;
+    lomo:forAgent :Agent_EuropeanCouncil ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+:Result_DataTransmissionToInstitutions rdf:type owl:NamedIndividual , lomo:ActionResult ;
+    rdfs:label "Data Transmission to EU Institutions"@en ;
+    lomo:hasAnnotation "the data collected transmitted to Parliament and Council"@en ;
+    lomo:hasResultType :ResultType_DataTransmission .
+
+#################################################################
+#    ARTICLE 10, PARAGRAPH 1
+#    Dual Representation: Obligation (State) + Right (Citizen)
+#################################################################
+
+# OBLIGATION PERSPECTIVE (from Member State viewpoint)
+:Requirement_Art10_Par1_Obligation rdf:type owl:NamedIndividual , lomo:PrescriptiveRule ;
+    rdfs:label "Obligation to Accept Both Certificates for Vehicle Identification (Art. 10(1))"@en ;
+    lomo:legalText "After that date, Member States shall accept both physical and mobile registration certificates for that purpose."@en ;
+    lomo:hasDeonticModality <http://data.europa.eu/leg/deontic-modality/Obligation> ;
+    lomo:hasRequirementType <http://publications.europa.eu/resource/dataset/administrative-obligation/c_d98a69b9> ;
+    lomo:hasCategory <http://data.europa.eu/leg/digital-dimensions/DigitalPublicService> ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/96/cod/doc/com/COM_2025_179/art_10/par_1/FINAL/eng> ;
+    lomo:produces :Action_MS_AcceptBothFormsForID ;
+    lomo:usesDefinition :Def_PhysicalRegistrationCertificate , :Def_MobileRegistrationCertificate , :Def_Vehicle ;
+    rdfs:comment "This obligation on Member States creates a correlative right for drivers/vehicle owners."@en .
+
+# Action from Member State perspective
+:Action_MS_AcceptBothFormsForID rdf:type owl:NamedIndividual , lomo:Action ;
+    rdfs:label "Member State Accepts Both Certificate Formats"@en ;
+    lomo:legalText "Member States shall accept both physical and mobile registration certificates for that purpose."@en ;
+    lomo:atTime :TemporalSpec_FourYearsAfterEntry ;
+    lomo:hasAgentRole :AgentRole_MS_AcceptBothID_Bearer , :AgentRole_Driver_BenefitsFromAcceptance ;
+    lomo:hasResult :Result_AcceptanceBothForID .
+
+:AgentRole_MS_AcceptBothID_Bearer rdf:type owl:NamedIndividual , lomo:AgentRole ;
+    lomo:forAgent :AgentType_MemberStates ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> ;
+    rdfs:comment "Member States are required to accept both formats"@en .
+
+:AgentRole_Driver_BenefitsFromAcceptance rdf:type owl:NamedIndividual , lomo:AgentRole ;
+    lomo:forAgent :AgentType_VehicleOwner ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/BENEF> ;
+    rdfs:comment "Drivers/vehicle owners benefit from this obligation"@en .
+
+:Result_AcceptanceBothForID rdf:type owl:NamedIndividual , lomo:ActionResult ;
+    rdfs:label "Acceptance of Both Formats for Vehicle Identification"@en ;
+    lomo:hasAnnotation "acceptance of both physical and mobile registration certificates for identifying vehicles in road traffic"@en ;
+    lomo:hasResultType :ResultType_AcceptanceDecision .
+
+# RIGHT PERSPECTIVE (from Driver/Vehicle Owner viewpoint - correlative to the obligation above)
+:Requirement_Art10_Par1_Right rdf:type owl:NamedIndividual , lomo:PrescriptiveRule ;
+    rdfs:label "Right to Use Either Certificate Format for Vehicle Identification (Art. 10(1))"@en ;
+    lomo:legalText "After that date, Member States shall accept both physical and mobile registration certificates for that purpose."@en ;
+    lomo:hasDeonticModality <http://data.europa.eu/leg/deontic-modality/Right> ;
+    lomo:hasRequirementType <http://publications.europa.eu/resource/dataset/administrative-obligation/c_d98a69b9> ;
+    lomo:hasCategory <http://data.europa.eu/leg/digital-dimensions/DigitalPublicService> ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/96/cod/doc/com/COM_2025_179/art_10/par_1/FINAL/eng> ;
+    lomo:produces :Action_Driver_UseEitherFormat ;
+    lomo:usesDefinition :Def_PhysicalRegistrationCertificate , :Def_MobileRegistrationCertificate , :Def_Vehicle ;
+    rdfs:comment "This right for drivers/vehicle owners is the correlative of the obligation on Member States. Same legal provision, different perspectives."@en .
+
+# Action from Driver perspective (exercising the right)
+:Action_Driver_UseEitherFormat rdf:type owl:NamedIndividual , lomo:Action ;
+    rdfs:label "Driver Uses Either Certificate Format"@en ;
+    lomo:legalText "Member States shall accept both physical and mobile registration certificates"@en ;
+    lomo:atTime :TemporalSpec_FourYearsAfterEntry ;
+    lomo:hasAgentRole :AgentRole_Driver_RightHolder , :AgentRole_MS_DutyBearer ;
+    lomo:hasResult :Result_CertificatePresentation .
+
+:AgentRole_Driver_RightHolder rdf:type owl:NamedIndividual , lomo:AgentRole ;
+    lomo:forAgent :AgentType_VehicleOwner ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/BENEF> ;
+    rdfs:comment "Driver/vehicle owner is the right-holder, entitled to use either format"@en .
+
+:AgentRole_MS_DutyBearer rdf:type owl:NamedIndividual , lomo:AgentRole ;
+    lomo:forAgent :AgentType_MemberStates ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> ;
+    rdfs:comment "Member States have the correlative duty to accept the certificate"@en .
+
+:Result_CertificatePresentation rdf:type owl:NamedIndividual , lomo:ActionResult ;
+    rdfs:label "Presentation of Either Certificate Format"@en ;
+    lomo:hasAnnotation "driver presents either physical or mobile registration certificate for vehicle identification"@en ;
+    lomo:hasResultType :ResultType_PhysicalCertificatePartI , :ResultType_MobileCertificatePresentation .
+
+#################################################################

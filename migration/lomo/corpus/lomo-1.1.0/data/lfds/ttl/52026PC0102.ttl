@@ -1,0 +1,346 @@
+@prefix adms: <http://www.w3.org/ns/adms#> .
+@prefix cav: <http://data.europa.eu/2sa/cav#> .
+@prefix cpsv: <http://purl.org/vocab/cpsv#> .
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix dctype: <http://purl.org/dc/dcmitype/> .
+@prefix iac: <http://data.europa.eu/leg/interop-assessment#> .
+@prefix iopa: <http://data.europa.eu/2qy/iopa#> .
+@prefix lomo: <http://data.europa.eu/leg/lomo#> .
+@prefix m8g: <http://data.europa.eu/m8g/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix tf: <http://data.europa.eu/leg/temporal-function/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<http://example.org/analysis/action/2> a lomo:Action ;
+    rdfs:label "Statistical data on seized firearms"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:frequency "P1M"^^xsd:duration ;
+            lomo:hasFunction tf:deadline ],
+        [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "at least monthly"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/102/cod/doc/com/COM_2026_102/FINAL/eng/art_17> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/2/role/addressee-europol>,
+        <http://example.org/analysis/action/2/role/addresser-member-states> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Statistical data on seized firearms"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/statistical-data-on-seized-firearms> ] .
+
+<http://example.org/analysis/assessment/1> a cav:Assessment ;
+    cav:assesses <http://example.org/analysis/description/2>,
+        <http://example.org/analysis/description/3> ;
+    cav:resultsIn <http://example.org/analysis/assessment/1/1/measure>,
+        <http://example.org/analysis/assessment/1/2/barrier>,
+        <http://example.org/analysis/assessment/1/2/measure>,
+        <http://example.org/analysis/assessment/1/3/measure>,
+        <http://example.org/analysis/assessment/1/4/measure> ;
+    m8g:isProvidedBy <http://publications.europa.eu/resource/authority/corporate-body/COM> .
+
+<http://example.org/analysis/description/1> a lomo:LegalRule ;
+    rdfs:label "Article 15(1)"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ;
+            lomo:temporalLabel "constant"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/102/cod/doc/com/COM_2026_102/FINAL/eng/art_15/par_1> ;
+    lomo:hasCategory <http://data.europa.eu/leg/digital-dimensions/Data> ;
+    lomo:involvesProcess <http://example.org/process/management-of-registries-and-gathering-of-information> ;
+    lomo:produces <http://example.org/analysis/action/1>,
+        <http://example.org/analysis/description/1/action> ;
+    lomo:references <http://example.org/dataset/information-on-firearms-gathered-by-the-national-firearms-focal-points> ;
+    dcterms:description "The National Firearms Focal Point shall gather, analyse, and exchange relevant information and ensure the collection and recording of all information regarding seizures of firearms linked to criminal offences."@en .
+
+<http://example.org/analysis/description/4> a lomo:LegalRule ;
+    rdfs:label "Article 21"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/102/cod/doc/com/COM_2026_102/FINAL/eng/art_21> ;
+    lomo:hasCategory <http://data.europa.eu/leg/digital-dimensions/Data> ;
+    lomo:involvesProcess <http://example.org/process/gathering-of-data-on-implementation-reporting-about-the-data> ;
+    lomo:produces <http://example.org/analysis/action/4>,
+        <http://example.org/analysis/description/4/action> ;
+    lomo:references <http://example.org/dataset/commission-report-assessing-the-added-value-of-the-directive-with-regard-to-combating-firearms-trafficking-and-other-firearms-related-criminal-offences> ;
+    dcterms:description "Reporting obligations for the Commission towards the European parliament and the Council based on data received from the Member States"@en .
+
+<http://example.org/analysis/solution/1> a dctype:Software ;
+    rdfs:label "Digital system for the collection, development, productions, and dissemination of anonymised statistical data"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/102/cod/doc/com/COM_2026_102/FINAL/eng/art_18> ;
+    lomo:hasCapability "Member States can decide which digital solution is used to gather these statistics and how they are published." ;
+    dcterms:publisher <http://example.org/agent/member-states-mainly-judicial-authorities> ;
+    dcterms:title "Digital system for the collection, development, productions, and dissemination of anonymised statistical data"@en .
+
+<http://example.org/analysis/solution/2> a dctype:Software ;
+    rdfs:label "Digital solution for the registration of seized firearms"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/102/cod/doc/com/COM_2026_102/FINAL/eng/art_17> ;
+    lomo:hasCapability "Member States can decide which digital solution is used to register data on seized firearms." ;
+    dcterms:publisher <http://example.org/agent/member-states-mainly-law-enforcement> ;
+    dcterms:title "Digital solution for the registration of seized firearms"@en .
+
+<http://example.org/agent/different-national-stakeholders-such-as-justice-police-customs-etc> rdfs:label "Different national stakeholders such as justice, police, customs etc."@en .
+
+<http://example.org/agent/european-parliament-and-council> rdfs:label "European Parliament and Council"@en .
+
+<http://example.org/agent/europol> rdfs:label "Europol"@en .
+
+<http://example.org/agent/member-states-and-european-commission> rdfs:label "Member States and European Commission"@en .
+
+<http://example.org/agent/national-firearms-focal-point> rdfs:label "National Firearms Focal Point"@en .
+
+<http://example.org/analysis/action/1> a lomo:Action ;
+    rdfs:label "Information on firearms gathered by the National Firearms Focal Point"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "National Firearms Focal Points need to ensure that they have the complete picture of the firearms threat it the Member States"@en ],
+        [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:deadline ;
+            lomo:temporalLabel "constant"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/102/cod/doc/com/COM_2026_102/FINAL/eng/art_15/par_1> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/1/role/addressee-national-firearms-focal-point>,
+        <http://example.org/analysis/action/1/role/addresser-different-national-stakeholders-such-as-justice-police-customs-etc> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Information on firearms gathered by the National Firearms Focal Point"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/information-on-firearms-gathered-by-the-national-firearms-focal-point> ] .
+
+<http://example.org/analysis/action/1/role/addressee-national-firearms-focal-point> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/national-firearms-focal-point> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/1/role/addresser-different-national-stakeholders-such-as-justice-police-customs-etc> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/different-national-stakeholders-such-as-justice-police-customs-etc> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/2/role/addressee-europol> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/europol> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/2/role/addresser-member-states> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/3> a lomo:Action ;
+    rdfs:label "Statistical data (of the five preceding years on the criminal offences referred to in Articles 3 and 4"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "By every 31 July of the 6th year following transposition"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/102/cod/doc/com/COM_2026_102/FINAL/eng/art_18> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/3/role/addressee-european-commission>,
+        <http://example.org/analysis/action/3/role/addresser-member-states> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Statistical data (of the five preceding years on the criminal offences referred to in Articles 3 and 4"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/statistical-data-of-the-five-preceding-years-on-the-criminal-offences-referred-to-in-articles-3-and-4> ] .
+
+<http://example.org/analysis/action/3/role/addressee-european-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/european-commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/3/role/addresser-member-states> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/4> a lomo:Action ;
+    rdfs:label "Commission report"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "By 31 October of every six years following transposition"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/102/cod/doc/com/COM_2026_102/FINAL/eng/art_21> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/4/role/addressee-european-parliament-and-council>,
+        <http://example.org/analysis/action/4/role/addresser-european-commission> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Commission report"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/commission-report> ] .
+
+<http://example.org/analysis/action/4/role/addressee-european-parliament-and-council> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/european-parliament-and-council> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/4/role/addresser-european-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/european-commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/assessment/1/1/measure> a cav:Statement ;
+    cav:interpretation iac:InterpretationPositive ;
+    cav:judgement """-GDPR
+-Europol Regulation
+-Cybersecurity"""@en ;
+    cav:type iac:StatementTypeAlignmentMeasure ;
+    dcterms:description "Assess the alignment with existing digital and sectorial policiesPlease list the applicable digital and sectorial policies identified."@en ;
+    dcterms:title "Exchange of seizure data"@en .
+
+<http://example.org/analysis/assessment/1/2/barrier> a cav:Statement ;
+    cav:interpretation iac:InterpretationNegative ;
+    cav:judgement "However, some Member States already have their own national seizure databases. Europol will have to facilitate some kind of interconnection or bulk uploading of data coming from the national databases towards TRAFIC"@en ;
+    cav:type iac:StatementTypeOrganisationBarrier ;
+    dcterms:description "Assess the organisational measures for a smooth cross-border digital public services deliveryPlease list the governance measures foreseen"@en ;
+    dcterms:title "Exchange of seizure data"@en .
+
+<http://example.org/analysis/assessment/1/2/measure> a cav:Statement ;
+    cav:interpretation iac:InterpretationPositive ;
+    cav:judgement "Europol has already acquired a database called TRAFIC and has offered the direct use of this database to all Member States."@en ;
+    cav:type iac:StatementTypeOrganisationMeasure ;
+    dcterms:description "Assess the organisational measures for a smooth cross-border digital public services deliveryPlease list the governance measures foreseen"@en ;
+    dcterms:title "Exchange of seizure data"@en .
+
+<http://example.org/analysis/assessment/1/3/measure> a cav:Statement ;
+    cav:interpretation iac:InterpretationPositive ;
+    cav:judgement "Annex I establishes a detailed minimum dataset which includes definitions of the terms."@en ;
+    cav:type iac:StatementTypeSharedMeasure ;
+    dcterms:description "Assess the measures taken to ensure a shared understanding of dataPlease list such measures"@en ;
+    dcterms:title "Exchange of seizure data"@en .
+
+<http://example.org/analysis/assessment/1/4/measure> a cav:Statement ;
+    cav:interpretation iac:InterpretationPositive ;
+    cav:judgement """Annex I establishes a detailed minimum dataset which includes definitions of the terms.
+The Digital Justice 2030 initiative announced the creation of a toolbox of IT tools for use in justice systems."""@en ;
+    cav:type iac:StatementTypeStandardsMeasure ;
+    dcterms:description "Assess the use of commonly agreed open technical specifications and standardsPlease list such measures"@en ;
+    dcterms:title "Exchange of seizure data"@en .
+
+<http://example.org/analysis/description/1/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/1/action/role/addressee-member-states> .
+
+<http://example.org/analysis/description/1/action/role/addressee-member-states> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/2> a iopa:BindingRequirement,
+        lomo:LegalRule ;
+    rdfs:label "Article 17(1)"@en ;
+    iopa:affects <http://example.org/analysis/interop/2> ;
+    cav:valueDescription "Article 17 establishes that Member States shall register seized firearms according to a minimum dataset. This minimum dataset is described in the annex of the proposal."@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/102/cod/doc/com/COM_2026_102/FINAL/eng/art_17/par_1> ;
+    lomo:hasCategory <http://data.europa.eu/leg/digital-dimensions/Data> ;
+    lomo:involvesProcess <http://example.org/process/management-of-registries> ;
+    lomo:produces <http://example.org/analysis/description/2/action> ;
+    lomo:references <http://example.org/dataset/registration-of-seized-firearms> ;
+    dcterms:description "Article 17 establishes that Member States shall register seized firearms according to a minimum dataset. This minimum dataset is described in the annex of the proposal."@en ;
+    dcterms:relation <http://example.org/ie-solution/the-gathering-of-seizure-data-will-require-coordination-within-a-member-state-but-not-cross-border-member-states-do-need-to-ensure-that-the-data-can-be-extracted-from-their-system-and-send-to-europol-every-month> .
+
+<http://example.org/analysis/description/2/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/2/action/role/addressee-member-states> .
+
+<http://example.org/analysis/description/2/action/role/addressee-member-states> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/3> a iopa:BindingRequirement,
+        lomo:LegalRule ;
+    rdfs:label "Article 18"@en ;
+    iopa:affects <http://example.org/analysis/interop/1> ;
+    cav:valueDescription "Article 18 requires Member States to gather, in a digital manner, statistical data on the offences referred to in Articles 3 and 4. The data that Member States have to gather is established by Article 18(2). Member States shall ensure that a digital system is in place for the collection, development, production and dissemination of anonymised statistical data on the criminal offences."@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/102/cod/doc/com/COM_2026_102/FINAL/eng/art_18> ;
+    lomo:hasCategory <http://data.europa.eu/leg/digital-dimensions/Data>,
+        <http://data.europa.eu/leg/digital-dimensions/DigitalSolutions> ;
+    lomo:involvesProcess <http://example.org/process/management-of-registries> ;
+    lomo:produces <http://example.org/analysis/action/3>,
+        <http://example.org/analysis/description/3/action> ;
+    lomo:references <http://example.org/dataset/statistical-data> ;
+    dcterms:description "Article 18 requires Member States to gather, in a digital manner, statistical data on the offences referred to in Articles 3 and 4. The data that Member States have to gather is established by Article 18(2). Member States shall ensure that a digital system is in place for the collection, development, production and dissemination of anonymised statistical data on the criminal offences."@en ;
+    dcterms:relation <http://example.org/ie-solution/in-order-to-gather-the-required-data-there-is-no-clear-need-for-interactions-between-member-states-or-across-eu-entities-however-there-will-be-a-need-to-establish-interactions-within-a-member-state-in-order-to-gather-all-necessary-data> .
+
+<http://example.org/analysis/description/3/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/3/action/role/addressee-member-states> .
+
+<http://example.org/analysis/description/3/action/role/addressee-member-states> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/4/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/4/action/role/addressee-member-states-and-european-commission> .
+
+<http://example.org/analysis/description/4/action/role/addressee-member-states-and-european-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states-and-european-commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/interop/1> a cpsv:PublicService ;
+    rdfs:label "Member States - law courts"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/102/cod/doc/com/COM_2026_102/FINAL/eng/art_18> ;
+    dcterms:description "gathering statistics on all offences included in the initiative"@en ;
+    dcterms:identifier "interop/1" ;
+    dcterms:references <http://example.org/ie-solution/in-order-to-gather-the-required-data-there-is-no-clear-need-for-interactions-between-member-states-or-across-eu-entities-however-there-will-be-a-need-to-establish-interactions-within-a-member-state-in-order-to-gather-all-necessary-data> ;
+    dcterms:title "Member States - law courts"@en .
+
+<http://example.org/analysis/interop/2> a cpsv:PublicService ;
+    rdfs:label "Member States - police services"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/102/cod/doc/com/COM_2026_102/FINAL/eng/art_17> ;
+    dcterms:description "registering all seized firearms according to the minimum dataset"@en ;
+    dcterms:identifier "interop/2" ;
+    dcterms:references <http://example.org/ie-solution/the-gathering-of-seizure-data-will-require-coordination-within-a-member-state-but-not-cross-border-member-states-do-need-to-ensure-that-the-data-can-be-extracted-from-their-system-and-send-to-europol-every-month> ;
+    dcterms:title "Member States - police services"@en .
+
+<http://example.org/dataset/commission-report> a dcat:Dataset ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Commission report"@en ] ;
+    dcterms:title "Commission report"@en .
+
+<http://example.org/dataset/commission-report-assessing-the-added-value-of-the-directive-with-regard-to-combating-firearms-trafficking-and-other-firearms-related-criminal-offences> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/102/cod/doc/com/COM_2026_102/FINAL/eng/art_21> ;
+    dcterms:conformsTo <http://example.org/standard/the-commission-has-to-adopt-a-report-which-contains-data-on-the-implementation-of-the-directive-specifically-it-has-to-contain-data-on-resources-used-by-member-states-training-organised-by-member-states-coordination-and-cooperation-done-internally-by-member-states-cooperation-done-between-member-states-and-the-commission-union-bodies-offices-or-agencies-and-on-statistical-data-gathered-according-to-article-18> ;
+    dcterms:title "Commission report (assessing the added value of the Directive with regard to combating firearms trafficking and other firearms-related criminal offences)"@en .
+
+<http://example.org/dataset/information-on-firearms-gathered-by-the-national-firearms-focal-point> a dcat:Dataset ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Information on firearms gathered by the National Firearms Focal Point"@en ] ;
+    dcterms:title "Information on firearms gathered by the National Firearms Focal Point"@en .
+
+<http://example.org/dataset/information-on-firearms-gathered-by-the-national-firearms-focal-points> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/102/cod/doc/com/COM_2026_102/FINAL/eng/art_15/par_1> ;
+    dcterms:conformsTo <http://example.org/standard/in-order-for-these-entities-to-be-the-focal-points-they-have-to-gather-analyse-and-exchange-information-on-firearms-their-essential-components-ammunition-and-blueprints-furthermore-they-should-ensure-the-collection-and-recording-of-all-information-regarding-seizures-of-firearms> ;
+    dcterms:title "Information on firearms gathered by the National Firearms Focal Points"@en .
+
+<http://example.org/dataset/registration-of-seized-firearms> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/102/cod/doc/com/COM_2026_102/FINAL/eng/art_17/par_1> ;
+    dcterms:conformsTo <http://example.org/standard/the-description-of-data-on-seized-firearms-is-established-in-annex-i-this-minimum-dataset-will-harmonise-the-collection-of-seizure-data-in-the-member-states-this-minimum-dataset-was-extensively-discussed-with-the-member-states-in-the-expert-group-on-firearms-trafficking-and-the-implementation-of-the-firearms-directive-for-some-member-states-this-will-not-mean-a-change-in-their-national-databases-however-for-others-this-will-require-amending-or-creating-a-national-database> ;
+    dcterms:title "Registration of seized firearms"@en .
+
+<http://example.org/dataset/statistical-data> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/102/cod/doc/com/COM_2026_102/FINAL/eng/art_18/par_2> ;
+    dcterms:conformsTo <http://example.org/standard/article-182-establishes-the-specific-list-of-data-that-needs-to-be-gathered-as-a-minimum-by-member-states> ;
+    dcterms:title "Statistical data"@en .
+
+<http://example.org/dataset/statistical-data-of-the-five-preceding-years-on-the-criminal-offences-referred-to-in-articles-3-and-4> a dcat:Dataset ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Statistical data (of the five preceding years on the criminal offences referred to in Articles 3 and 4"@en ] ;
+    dcterms:title "Statistical data (of the five preceding years on the criminal offences referred to in Articles 3 and 4"@en .
+
+<http://example.org/dataset/statistical-data-on-seized-firearms> a dcat:Dataset ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Statistical data on seized firearms"@en ] ;
+    dcterms:title "Statistical data on seized firearms"@en .
+
+<http://example.org/process/gathering-of-data-on-implementation-reporting-about-the-data> skos:prefLabel "gathering of data on implementation + reporting about the data"@en .
+
+<http://example.org/process/management-of-registries-and-gathering-of-information> skos:prefLabel "Management of registries and gathering of information"@en .
+
+<http://example.org/standard/article-182-establishes-the-specific-list-of-data-that-needs-to-be-gathered-as-a-minimum-by-member-states> a dcterms:Standard ;
+    dcterms:title "Article 18(2) establishes the specific list of data that needs to be gathered, as a minimum, by Member States"@en .
+
+<http://example.org/standard/in-order-for-these-entities-to-be-the-focal-points-they-have-to-gather-analyse-and-exchange-information-on-firearms-their-essential-components-ammunition-and-blueprints-furthermore-they-should-ensure-the-collection-and-recording-of-all-information-regarding-seizures-of-firearms> a dcterms:Standard ;
+    dcterms:title "In order for these entities to be the focal points they have to gather, analyse and exchange information on firearms, their essential components, ammunition, and blueprints. Furthermore, they should ensure the collection and recording of all information regarding seizures of firearms."@en .
+
+<http://example.org/standard/the-commission-has-to-adopt-a-report-which-contains-data-on-the-implementation-of-the-directive-specifically-it-has-to-contain-data-on-resources-used-by-member-states-training-organised-by-member-states-coordination-and-cooperation-done-internally-by-member-states-cooperation-done-between-member-states-and-the-commission-union-bodies-offices-or-agencies-and-on-statistical-data-gathered-according-to-article-18> a dcterms:Standard ;
+    dcterms:title "The Commission has to adopt a report which contains data on the implementation of the Directive. Specifically, it has to contain data on resources used by Member States, training organised by Member States, coordination and cooperation done internally by Member States, cooperation done between Member States and the Commission, union bodies, offices or agencies, and on statistical data gathered according to Article 18."@en .
+
+<http://example.org/standard/the-description-of-data-on-seized-firearms-is-established-in-annex-i-this-minimum-dataset-will-harmonise-the-collection-of-seizure-data-in-the-member-states-this-minimum-dataset-was-extensively-discussed-with-the-member-states-in-the-expert-group-on-firearms-trafficking-and-the-implementation-of-the-firearms-directive-for-some-member-states-this-will-not-mean-a-change-in-their-national-databases-however-for-others-this-will-require-amending-or-creating-a-national-database> a dcterms:Standard ;
+    dcterms:title "The description of data on seized firearms is established in Annex I. This minimum dataset will harmonise the collection of seizure data in the Member States. This minimum dataset was extensively discussed with the Member States in the expert group on firearms trafficking and the implementation of the firearms Directive. For some Member States this will not mean a change in their national databases, however, for others this will require amending or creating a national database."@en .
+
+<http://publications.europa.eu/resource/authority/corporate-body/COM> a m8g:PublicOrganisation ;
+    dcterms:description "The European Commission, provider of the interoperability assessment."@en ;
+    skos:prefLabel "European Commission"@en .
+
+<http://example.org/agent/european-commission> rdfs:label "European Commission"@en .
+
+<http://example.org/ie-solution/in-order-to-gather-the-required-data-there-is-no-clear-need-for-interactions-between-member-states-or-across-eu-entities-however-there-will-be-a-need-to-establish-interactions-within-a-member-state-in-order-to-gather-all-necessary-data> a adms:Asset ;
+    dcterms:description "In order to gather the required data, there is no clear need for interactions between Member States or across EU entities. However, there will be a need to establish interactions within a Member State, in order to gather all necessary data."@en ;
+    dcterms:title "In order to gather the required data, there is no clear need for interactions between Member States or across EU entities. However, there will be a need to establish interactions within a Member State, in order to gather all necessary data."@en .
+
+<http://example.org/ie-solution/the-gathering-of-seizure-data-will-require-coordination-within-a-member-state-but-not-cross-border-member-states-do-need-to-ensure-that-the-data-can-be-extracted-from-their-system-and-send-to-europol-every-month> a adms:Asset ;
+    dcterms:description "the gathering of seizure data will require coordination within a Member State but not cross-border. Member States do need to ensure that the data can be extracted from their system and send to Europol, every month"@en ;
+    dcterms:title "the gathering of seizure data will require coordination within a Member State but not cross-border. Member States do need to ensure that the data can be extracted from their system and send to Europol, every month"@en .
+
+<http://example.org/process/management-of-registries> skos:prefLabel "management of registries"@en .
+
+<http://example.org/agent/member-states> rdfs:label "Member States"@en .
+

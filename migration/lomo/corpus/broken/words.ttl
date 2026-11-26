@@ -1,0 +1,10 @@
+# Broken on purpose: a time with two functions, one outside the list; a category and a result category outside their word lists.
+@prefix ex: <http://example.org/broken#> .
+@prefix lomo: <http://data.europa.eu/leg/lomo#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+ex:T a lomo:TemporalSpecification ; lomo:hasFunction <http://data.europa.eu/leg/temporal-function/deadline>, <http://example.org/soon> .
+ex:L a lomo:LegalRule ; rdfs:label "with a category"@en ; lomo:establishedIn <http://data.europa.eu/eli/reg/2016/679/art_5> ; lomo:hasCategory <http://data.europa.eu/leg/digital-dimensions/Data>, <http://example.org/Paper> .
+ex:Res a lomo:ActionResult ; rdfs:label 42 ; lomo:hasResultCategory <http://example.org/Letter> .
+ex:Typ a lomo:ActionResultType .

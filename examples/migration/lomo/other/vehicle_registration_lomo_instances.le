@@ -1,0 +1,1213 @@
+% The register of a LOMO description: the Logical English twin of
+% vehicle-registration-lomo-instances.ttl (kept in sources/), written by the LOMO translator.
+% One fact for each statement of the description, in the words of lomo.le.
+% LOMO describes rules; it has no conditions and no cases. A question
+% about a case gets its answer only from the parts of the description that
+% have values (deadlines, agents, derogations).
+%
+% LOMO and its data: (c) European Union, Creative Commons Attribution 4.0
+% (https://creativecommons.org/licenses/by/4.0/); source: the LOMO
+% repository, https://code.europa.eu/drpm/lomo. The description was changed
+% into Logical English by the LOMO translator of Logical English.
+%
+% DISCLAIMER. This program was written by a translator from a program of another
+% system. It is provided "as is", without warranty of any kind, express or
+% implied, including any warranty that it is accurate, complete or fit for a
+% particular purpose. The translation may be wrong: check it against its source
+% before relying on it. It is not legal, tax, insurance, financial or other
+% professional advice. Its authors accept no liability for any loss or damage
+% arising from its use.
+
+the target language is: prolog.
+
+the knowledge base vehicle_registration_lomo_instances includes these resources:
+    lomo.
+
+the knowledge base vehicle_registration_lomo_instances includes:
+
+the text of the source description is at "sources/vehicle-registration-lomo-instances.ttl".
+
+% Who bears a duty: the agent of this role of the action (lomo.le).
+the bearer role is addresser.
+
+
+vehicle registration is identified by "http://data.europa.eu/leg/lomo/vehicle-registration".
+
+vehicle registration has the type "owl:Ontology".
+
+vehicle registration has the title "Vehicle Registration Directive - LOMO Instantiation".
+
+vehicle registration has the description "Instantiation of the Vehicle Registration Directive provisions (Articles 10 and 16) using the Legal Requirements Modeling Ontology (LOMO). Covers certificate acceptance requirements and triennial reporting obligations.".
+
+vehicle registration has for "dcterms:created" the value 2025-12-02.
+
+vehicle registration has for "dcterms:modified" the value 2026-02-10.
+
+vehicle registration has for "dcterms:source" the value "Proposal for a Directive on registration documents for vehicles (COM/2025/179)".
+
+vehicle registration has for "owl:imports" the resource "http://data.europa.eu/leg/lomo".
+
+
+agent european commission is identified by "http://data.europa.eu/leg/lomo/vehicle-registration#Agent_EuropeanCommission".
+
+agent european commission has the type "owl:NamedIndividual".
+
+agent european commission is an agent.
+
+agent european commission has the label "European Commission".
+
+agent european commission has the comment "The executive branch of the European Union".
+
+
+agent european parliament is identified by "http://data.europa.eu/leg/lomo/vehicle-registration#Agent_EuropeanParliament".
+
+agent european parliament has the type "owl:NamedIndividual".
+
+agent european parliament is an agent.
+
+agent european parliament has the label "European Parliament".
+
+agent european parliament has the comment "The directly elected legislative body of the European Union".
+
+
+agent european council is identified by "http://data.europa.eu/leg/lomo/vehicle-registration#Agent_EuropeanCouncil".
+
+agent european council has the type "owl:NamedIndividual".
+
+agent european council is an agent.
+
+agent european council has the label "Council of the European Union".
+
+agent european council has the comment "The institution comprising representatives of EU member state governments".
+
+
+agent type member states is identified by "http://data.europa.eu/leg/lomo/vehicle-registration#AgentType_MemberStates".
+
+agent type member states has the type "owl:NamedIndividual".
+
+agent type member states is an agent type.
+
+agent type member states has the label "Member States".
+
+agent type member states has the comment "The Member States of the European Union".
+
+
+agent type competent authorities is identified by "http://data.europa.eu/leg/lomo/vehicle-registration#AgentType_CompetentAuthorities".
+
+agent type competent authorities has the type "owl:NamedIndividual".
+
+agent type competent authorities is an agent type.
+
+agent type competent authorities has the label "Competent Authorities".
+
+agent type competent authorities has the comment "National authorities responsible for vehicle registration".
+
+
+agent type vehicle owner is identified by "http://data.europa.eu/leg/lomo/vehicle-registration#AgentType_VehicleOwner".
+
+agent type vehicle owner has the type "owl:NamedIndividual".
+
+agent type vehicle owner is an agent type.
+
+agent type vehicle owner has the label "Vehicle Owner".
+
+agent type vehicle owner has the comment "The holder of a registration certificate".
+
+agent type vehicle owner uses the definition def holder of registration certificate.
+
+
+agent type reregistering member state is identified by "http://data.europa.eu/leg/lomo/vehicle-registration#AgentType_ReregisteringMemberState".
+
+agent type reregistering member state has the type "owl:NamedIndividual".
+
+agent type reregistering member state is an agent type.
+
+agent type reregistering member state has the label "Re-registering Member State".
+
+agent type reregistering member state has the comment "The Member State where a vehicle is being re-registered".
+
+agent type reregistering member state uses the definition def registration.
+
+
+agent type member state of registration is identified by "http://data.europa.eu/leg/lomo/vehicle-registration#AgentType_MemberStateOfRegistration".
+
+agent type member state of registration has the type "owl:NamedIndividual".
+
+agent type member state of registration is an agent type.
+
+agent type member state of registration has the label "Member State of Registration".
+
+agent type member state of registration has the comment "The Member State where a vehicle was previously registered".
+
+agent type member state of registration uses the definition def registration.
+
+
+def physical registration certificate is identified by "http://data.europa.eu/leg/lomo/vehicle-registration#Def_PhysicalRegistrationCertificate".
+
+def physical registration certificate has the type "owl:NamedIndividual".
+
+def physical registration certificate is a definition.
+
+def physical registration certificate has the label "Definition: Physical Registration Certificate".
+
+def physical registration certificate has the definiendum "physical registration certificate".
+
+def physical registration certificate has the definiens "'physical registration certificate' means a registration certificate in its paper or smart card format".
+
+def physical registration certificate has the semantic flag true.
+
+def physical registration certificate is established in "https://data.europa.eu/eli/dl/proc/2025/96/cod/doc/com/COM_2025_179/FINAL/eng/art_2".
+
+
+def mobile registration certificate is identified by "http://data.europa.eu/leg/lomo/vehicle-registration#Def_MobileRegistrationCertificate".
+
+def mobile registration certificate has the type "owl:NamedIndividual".
+
+def mobile registration certificate is a definition.
+
+def mobile registration certificate has the label "Definition: Mobile Registration Certificate".
+
+def mobile registration certificate has the definiendum "mobile registration certificate".
+
+def mobile registration certificate has the definiens "'mobile registration certificate' means a registration certificate in its digital format".
+
+def mobile registration certificate has the semantic flag true.
+
+def mobile registration certificate is established in "https://data.europa.eu/eli/dl/proc/2025/96/cod/doc/com/COM_2025_179/FINAL/eng/art_2".
+
+
+def vehicle is identified by "http://data.europa.eu/leg/lomo/vehicle-registration#Def_Vehicle".
+
+def vehicle has the type "owl:NamedIndividual".
+
+def vehicle is a definition.
+
+def vehicle has the label "Definition: Vehicle".
+
+def vehicle has the definiendum "vehicle".
+
+def vehicle has the definiens "'vehicle' means any vehicle as defined in Article 3, point 15 of Regulation (EU) 2018/858 or in Article 3, point 11 of Regulation (EU) No 167/2013 of the European Parliament and of the Council, and any vehicle referred to in Article 4 of Regulation (EU) No 168/2013 of the European Parliament and of the Council".
+
+def vehicle has the semantic flag true.
+
+def vehicle is established in "https://data.europa.eu/eli/dl/proc/2025/96/cod/doc/com/COM_2025_179/FINAL/eng/art_2".
+
+
+def registration is identified by "http://data.europa.eu/leg/lomo/vehicle-registration#Def_Registration".
+
+def registration has the type "owl:NamedIndividual".
+
+def registration is a definition.
+
+def registration has the label "Definition: Registration".
+
+def registration has the definiendum "registration".
+
+def registration has the definiens "'registration' means the administrative authorisation for the entry into service in road traffic of a vehicle, involving the identification of the latter and the issuing to it of a serial number, to be known as the registration number".
+
+def registration has the semantic flag true.
+
+def registration is established in "https://data.europa.eu/eli/dl/proc/2025/96/cod/doc/com/COM_2025_179/FINAL/eng/art_2".
+
+
+def registration certificate is identified by "http://data.europa.eu/leg/lomo/vehicle-registration#Def_RegistrationCertificate".
+
+def registration certificate has the type "owl:NamedIndividual".
+
+def registration certificate is a definition.
+
+def registration certificate has the label "Definition: Registration Certificate".
+
+def registration certificate has the definiendum "registration certificate".
+
+def registration certificate has the definiens "'registration certificate' means the document which certifies that the vehicle is registered in a Member State, whether in a physical format, a digital format, or both".
+
+def registration certificate has the semantic flag true.
+
+def registration certificate is established in "https://data.europa.eu/eli/dl/proc/2025/96/cod/doc/com/COM_2025_179/FINAL/eng/art_2".
+
+
+def holder of registration certificate is identified by "http://data.europa.eu/leg/lomo/vehicle-registration#Def_HolderOfRegistrationCertificate".
+
+def holder of registration certificate has the type "owl:NamedIndividual".
+
+def holder of registration certificate is a definition.
+
+def holder of registration certificate has the label "Definition: Holder of Registration Certificate".
+
+def holder of registration certificate has the definiendum "holder of the registration certificate".
+
+def holder of registration certificate has the definiens "'holder of the registration certificate' means the legal or natural person in whose name a vehicle is registered".
+
+def holder of registration certificate has the semantic flag true.
+
+def holder of registration certificate is established in "https://data.europa.eu/eli/dl/proc/2025/96/cod/doc/com/COM_2025_179/FINAL/eng/art_2".
+
+
+def suspension is identified by "http://data.europa.eu/leg/lomo/vehicle-registration#Def_Suspension".
+
+def suspension has the type "owl:NamedIndividual".
+
+def suspension is a definition.
+
+def suspension has the label "Definition: Suspension".
+
+def suspension has the definiendum "suspension".
+
+def suspension has the definiens "'suspension' means a limited period of time in which a vehicle is not authorised by a Member State to be used in road traffic following which – provided the reasons for suspension have ceased to apply – it may be authorised to be used again without involving a new process of registration".
+
+def suspension has the semantic flag true.
+
+def suspension is established in "https://data.europa.eu/eli/dl/proc/2025/96/cod/doc/com/COM_2025_179/FINAL/eng/art_2".
+
+
+result type physical certificate part i is identified by "http://data.europa.eu/leg/lomo/vehicle-registration#ResultType_PhysicalCertificatePartI".
+
+result type physical certificate part i has the type "owl:NamedIndividual".
+
+result type physical certificate part i is an action result type.
+
+result type physical certificate part i has the label "Part I of Physical Registration Certificate".
+
+result type physical certificate part i has the comment "The first part of the physical registration certificate document".
+
+
+result type mobile certificate presentation is identified by "http://data.europa.eu/leg/lomo/vehicle-registration#ResultType_MobileCertificatePresentation".
+
+result type mobile certificate presentation has the type "owl:NamedIndividual".
+
+result type mobile certificate presentation is an action result type.
+
+result type mobile certificate presentation has the label "Mobile Registration Certificate Presentation".
+
+result type mobile certificate presentation has the comment "The presentation of a mobile (digital) registration certificate".
+
+
+result type acceptance decision is identified by "http://data.europa.eu/leg/lomo/vehicle-registration#ResultType_AcceptanceDecision".
+
+result type acceptance decision has the type "owl:NamedIndividual".
+
+result type acceptance decision is an action result type.
+
+result type acceptance decision has the label "Acceptance Decision".
+
+result type acceptance decision has the comment "A decision to accept a certificate or document".
+
+
+result type verification report is identified by "http://data.europa.eu/leg/lomo/vehicle-registration#ResultType_VerificationReport".
+
+result type verification report has the type "owl:NamedIndividual".
+
+result type verification report is an action result type.
+
+result type verification report has the label "Verification Report".
+
+result type verification report has the comment "A report containing verification results".
+
+
+result type vehicle registration report is identified by "http://data.europa.eu/leg/lomo/vehicle-registration#ResultType_VehicleRegistrationReport".
+
+result type vehicle registration report has the type "owl:NamedIndividual".
+
+result type vehicle registration report is an action result type.
+
+result type vehicle registration report has the label "Vehicle Registration Report".
+
+result type vehicle registration report has the comment "A triennial report containing vehicle registration data".
+
+
+result type data transmission is identified by "http://data.europa.eu/leg/lomo/vehicle-registration#ResultType_DataTransmission".
+
+result type data transmission has the type "owl:NamedIndividual".
+
+result type data transmission is an action result type.
+
+result type data transmission has the label "Data Transmission".
+
+result type data transmission has the comment "The transmission of collected data to another entity".
+
+
+temporal spec date of entry into force is identified by "http://data.europa.eu/leg/lomo/vehicle-registration#TemporalSpec_DateOfEntryIntoForce".
+
+temporal spec date of entry into force has the type "owl:NamedIndividual".
+
+temporal spec date of entry into force is a temporal specification.
+
+temporal spec date of entry into force has the label "Date of Entry into Force".
+
+temporal spec date of entry into force has the legal text "date of entry into force".
+
+temporal spec date of entry into force has the temporal label "date of entry into force".
+
+
+temporal spec four years after entry is identified by "http://data.europa.eu/leg/lomo/vehicle-registration#TemporalSpec_FourYearsAfterEntry".
+
+temporal spec four years after entry has the type "owl:NamedIndividual".
+
+temporal spec four years after entry is a temporal specification.
+
+temporal spec four years after entry has the label "4 Years After Entry Into Force".
+
+temporal spec four years after entry has the duration "P4Y".
+
+temporal spec four years after entry is timed after temporal spec date of entry into force.
+
+temporal spec four years after entry has the function deadline.
+
+
+temporal spec four years one day after entry is identified by "http://data.europa.eu/leg/lomo/vehicle-registration#TemporalSpec_FourYearsOneDayAfterEntry".
+
+temporal spec four years one day after entry has the type "owl:NamedIndividual".
+
+temporal spec four years one day after entry is a temporal specification.
+
+temporal spec four years one day after entry has the label "4 Years and 1 Day After Entry Into Force".
+
+temporal spec four years one day after entry has the duration "P4Y1D".
+
+temporal spec four years one day after entry is timed after temporal spec date of entry into force.
+
+temporal spec four years one day after entry has the function starting point.
+
+
+temporal spec march 31 2030 is identified by "http://data.europa.eu/leg/lomo/vehicle-registration#TemporalSpec_March31_2030".
+
+temporal spec march 31 2030 has the type "owl:NamedIndividual".
+
+temporal spec march 31 2030 is a temporal specification.
+
+temporal spec march 31 2030 has the label "31 March 2030".
+
+temporal spec march 31 2030 has the instant 2030-03-31.
+
+temporal spec march 31 2030 has the function deadline.
+
+temporal spec march 31 2030 has the temporal label "31 March 2030".
+
+
+temporal spec triennial deadline is identified by "http://data.europa.eu/leg/lomo/vehicle-registration#TemporalSpec_TriennialDeadline".
+
+temporal spec triennial deadline has the type "owl:NamedIndividual".
+
+temporal spec triennial deadline is a temporal specification.
+
+temporal spec triennial deadline has the label "Every 3 Years After 31 March 2030".
+
+temporal spec triennial deadline has the frequency "P3Y".
+
+temporal spec triennial deadline is timed immediately after temporal spec march 31 2030.
+
+temporal spec triennial deadline has the function deadline.
+
+
+requirement art 10 par 2 is identified by "http://data.europa.eu/leg/lomo/vehicle-registration#Requirement_Art10_Par2".
+
+requirement art 10 par 2 has the type "owl:NamedIndividual".
+
+requirement art 10 par 2 is a prescriptive rule.
+
+requirement art 10 par 2 has the label "Temporary Submission Requirement (Art. 10(2))".
+
+requirement art 10 par 2 has the legal text "Until [date of entry into force + 4 years] the competent authorities shall require the submission of only Part I of the physical registration certificate when re-registering a vehicle previously registered in another Member State. Until that date, they may also accept the presentation of a mobile registration certificate, if any.".
+
+requirement art 10 par 2 has the modality obligation.
+
+requirement art 10 par 2 has the requirement type "http://publications.europa.eu/resource/dataset/administrative-obligation/c_d98a69b9".
+
+requirement art 10 par 2 has the digital dimension digital public service.
+
+requirement art 10 par 2 is established in "https://data.europa.eu/eli/dl/proc/2025/96/cod/doc/com/COM_2025_179/art_10/par_2/FINAL/eng".
+
+requirement art 10 par 2 produces action require physical cert.
+
+requirement art 10 par 2 produces action accept mobile cert.
+
+requirement art 10 par 2 uses the definition def physical registration certificate.
+
+requirement art 10 par 2 uses the definition def mobile registration certificate.
+
+requirement art 10 par 2 uses the definition def vehicle.
+
+
+action require physical cert is identified by "http://data.europa.eu/leg/lomo/vehicle-registration#Action_RequirePhysicalCert".
+
+action require physical cert has the type "owl:NamedIndividual".
+
+action require physical cert is an action.
+
+action require physical cert has the label "Require Submission of Part I".
+
+action require physical cert has the legal text "the competent authorities shall require the submission of only Part I of the physical registration certificate when re-registering a vehicle previously registered in another Member State.".
+
+action require physical cert has the time specification temporal spec four years after entry.
+
+action require physical cert has the agent role agent role comp auth require physical.
+
+action require physical cert has the agent role agent role owner submit physical.
+
+action require physical cert has the result result physical cert submission.
+
+
+agent role comp auth require physical is identified by "http://data.europa.eu/leg/lomo/vehicle-registration#AgentRole_CompAuth_RequirePhysical".
+
+agent role comp auth require physical has the type "owl:NamedIndividual".
+
+agent role comp auth require physical is an agent role.
+
+agent role comp auth require physical is for the agent agent type competent authorities.
+
+agent role comp auth require physical has the role addressee.
+
+
+agent role owner submit physical is identified by "http://data.europa.eu/leg/lomo/vehicle-registration#AgentRole_Owner_SubmitPhysical".
+
+agent role owner submit physical has the type "owl:NamedIndividual".
+
+agent role owner submit physical is an agent role.
+
+agent role owner submit physical is for the agent agent type vehicle owner.
+
+agent role owner submit physical has the role addresser.
+
+
+result physical cert submission is identified by "http://data.europa.eu/leg/lomo/vehicle-registration#Result_PhysicalCertSubmission".
+
+result physical cert submission has the type "owl:NamedIndividual".
+
+result physical cert submission is an action result.
+
+result physical cert submission has the label "Physical Certificate Part I Submission".
+
+result physical cert submission has for "lomo:hasAnnotation" the value "the submission of only Part I of the physical registration certificate".
+
+result physical cert submission has for "lomo:hasResultType" the resource result type physical certificate part i.
+
+
+action accept mobile cert is identified by "http://data.europa.eu/leg/lomo/vehicle-registration#Action_AcceptMobileCert".
+
+action accept mobile cert has the type "owl:NamedIndividual".
+
+action accept mobile cert is an action.
+
+action accept mobile cert has the label "Accept Mobile Certificate Presentation".
+
+action accept mobile cert has the legal text "they may also accept the presentation of a mobile registration certificate, if any.".
+
+action accept mobile cert has the time specification temporal spec four years after entry.
+
+action accept mobile cert has the agent role agent role comp auth accept mobile.
+
+action accept mobile cert has the agent role agent role owner present mobile.
+
+action accept mobile cert has the result result mobile cert presentation.
+
+
+agent role comp auth accept mobile is identified by "http://data.europa.eu/leg/lomo/vehicle-registration#AgentRole_CompAuth_AcceptMobile".
+
+agent role comp auth accept mobile has the type "owl:NamedIndividual".
+
+agent role comp auth accept mobile is an agent role.
+
+agent role comp auth accept mobile is for the agent agent type competent authorities.
+
+agent role comp auth accept mobile has the role addressee.
+
+
+agent role owner present mobile is identified by "http://data.europa.eu/leg/lomo/vehicle-registration#AgentRole_Owner_PresentMobile".
+
+agent role owner present mobile has the type "owl:NamedIndividual".
+
+agent role owner present mobile is an agent role.
+
+agent role owner present mobile is for the agent agent type vehicle owner.
+
+agent role owner present mobile has the role addresser.
+
+
+result mobile cert presentation is identified by "http://data.europa.eu/leg/lomo/vehicle-registration#Result_MobileCertPresentation".
+
+result mobile cert presentation has the type "owl:NamedIndividual".
+
+result mobile cert presentation is an action result.
+
+result mobile cert presentation has the label "Mobile Certificate Presentation".
+
+result mobile cert presentation has for "lomo:hasAnnotation" the value "a mobile registration certificate".
+
+result mobile cert presentation has for "lomo:hasResultType" the resource result type mobile certificate presentation.
+
+
+requirement art 10 par 3 is identified by "http://data.europa.eu/leg/lomo/vehicle-registration#Requirement_Art10_Par3".
+
+requirement art 10 par 3 has the type "owl:NamedIndividual".
+
+requirement art 10 par 3 is a prescriptive rule.
+
+requirement art 10 par 3 has the label "Accept Both Certificates for Re-registration (Art. 10(3))".
+
+requirement art 10 par 3 has the legal text "From [entry into force + 4 years +1 day], Member States shall accept both Part I of the physical registration certificate and the presentation of the mobile registration certificate for the purposes of re-registering a vehicle previously registered in another Member State. The re-registering Member State shall verify with the Member State of registration which format(s) of the registration certificates have been issued.".
+
+requirement art 10 par 3 has the modality obligation.
+
+requirement art 10 par 3 has the requirement type "http://publications.europa.eu/resource/dataset/administrative-obligation/c_d98a69b9".
+
+requirement art 10 par 3 has the digital dimension digital public service.
+
+requirement art 10 par 3 is established in "https://data.europa.eu/eli/dl/proc/2025/96/cod/doc/com/COM_2025_179/art_10/par_3/FINAL/eng".
+
+requirement art 10 par 3 produces action accept both certs.
+
+requirement art 10 par 3 produces action verify formats.
+
+requirement art 10 par 3 uses the definition def physical registration certificate.
+
+requirement art 10 par 3 uses the definition def mobile registration certificate.
+
+requirement art 10 par 3 uses the definition def vehicle.
+
+
+action accept both certs is identified by "http://data.europa.eu/leg/lomo/vehicle-registration#Action_AcceptBothCerts".
+
+action accept both certs has the type "owl:NamedIndividual".
+
+action accept both certs is an action.
+
+action accept both certs has the label "Accept Both Certificate Formats".
+
+action accept both certs has the legal text "Member States shall accept both Part I of the physical registration certificate and the presentation of the mobile registration certificate for the purposes of re-registering a vehicle previously registered in another Member State.".
+
+action accept both certs has the time specification temporal spec four years one day after entry.
+
+action accept both certs has the agent role agent role ms accept both.
+
+action accept both certs has the result result acceptance both formats.
+
+action accept both certs is followed by action verify formats.
+
+
+agent role ms accept both is identified by "http://data.europa.eu/leg/lomo/vehicle-registration#AgentRole_MS_AcceptBoth".
+
+agent role ms accept both has the type "owl:NamedIndividual".
+
+agent role ms accept both is an agent role.
+
+agent role ms accept both is for the agent agent type reregistering member state.
+
+agent role ms accept both has the role addressee.
+
+agent role ms accept both has the comment "Re-registering Member State is obligated to accept both formats".
+
+
+result acceptance both formats is identified by "http://data.europa.eu/leg/lomo/vehicle-registration#Result_AcceptanceBothFormats".
+
+result acceptance both formats has the type "owl:NamedIndividual".
+
+result acceptance both formats is an action result.
+
+result acceptance both formats has the label "Acceptance of Both Certificate Formats".
+
+result acceptance both formats has for "lomo:hasAnnotation" the value "acceptance of both Part I of the physical registration certificate and the presentation of the mobile registration certificate".
+
+result acceptance both formats has for "lomo:hasResultType" the resource result type acceptance decision.
+
+
+action verify formats is identified by "http://data.europa.eu/leg/lomo/vehicle-registration#Action_VerifyFormats".
+
+action verify formats has the type "owl:NamedIndividual".
+
+action verify formats is an action.
+
+action verify formats has the label "Verify Certificate Formats Issued".
+
+action verify formats has the legal text "The re-registering Member State shall verify with the Member State of registration which format(s) of the registration certificates have been issued.".
+
+action verify formats has the time specification temporal spec four years one day after entry.
+
+action verify formats has the agent role agent role rereg ms verify.
+
+action verify formats has the agent role agent role orig ms respond.
+
+action verify formats has the result result verification info.
+
+action verify formats has for "lomo:precedes" the resource action accept both certs.
+
+
+agent role rereg ms verify is identified by "http://data.europa.eu/leg/lomo/vehicle-registration#AgentRole_ReregMS_Verify".
+
+agent role rereg ms verify has the type "owl:NamedIndividual".
+
+agent role rereg ms verify is an agent role.
+
+agent role rereg ms verify is for the agent agent type reregistering member state.
+
+agent role rereg ms verify has the role addresser.
+
+
+agent role orig ms respond is identified by "http://data.europa.eu/leg/lomo/vehicle-registration#AgentRole_OrigMS_Respond".
+
+agent role orig ms respond has the type "owl:NamedIndividual".
+
+agent role orig ms respond is an agent role.
+
+agent role orig ms respond is for the agent agent type member state of registration.
+
+agent role orig ms respond has the role addressee.
+
+
+result verification info is identified by "http://data.europa.eu/leg/lomo/vehicle-registration#Result_VerificationInfo".
+
+result verification info has the type "owl:NamedIndividual".
+
+result verification info is an action result.
+
+result verification info has the label "Certificate Format Verification Information".
+
+result verification info has for "lomo:hasAnnotation" the value "verification of which format(s) of the registration certificates have been issued".
+
+result verification info has for "lomo:hasResultType" the resource result type verification report.
+
+
+requirement art 16 par 1 is identified by "http://data.europa.eu/leg/lomo/vehicle-registration#Requirement_Art16_Par1".
+
+requirement art 16 par 1 has the type "owl:NamedIndividual".
+
+requirement art 16 par 1 is a prescriptive rule.
+
+requirement art 16 par 1 has the label "Triennial Reporting Obligation (Art. 16(1))".
+
+requirement art 16 par 1 has the legal text "By 31 March 2030, and by 31 March of each third year thereafter, Member States shall communicate to the Commission through the online reporting platform referred to in Article 28 of Regulation (EU) 2018/1999 of the European Parliament and of the Council ('e-platform'), the data relating to the vehicles registered in their territory during each of the previous three calendar years. The data shall comprise (per calendar year):
+(a) the number of physical registration certificates issued, per vehicle category;
+(b) the number of mobile registration certificates issued, per vehicle category;
+(c) the number of re-registrations of vehicles previously registered in another Member State, per vehicle category;
+(d) the number of vehicle registrations suspended, per vehicle category;
+The first report shall cover the years 2027, 2028, and 2029, separately.
+The Commission shall transmit the data collected to the European Parliament and to the Council.".
+
+requirement art 16 par 1 has the modality obligation.
+
+requirement art 16 par 1 has the requirement type "http://publications.europa.eu/resource/dataset/administrative-obligation/c_80214a02".
+
+requirement art 16 par 1 has the digital dimension data.
+
+requirement art 16 par 1 has the digital dimension digital public service.
+
+requirement art 16 par 1 is established in "https://data.europa.eu/eli/dl/proc/2025/96/cod/doc/com/COM_2025_179/art_16/par_1/FINAL/eng".
+
+requirement art 16 par 1 produces action communicate data to commission.
+
+requirement art 16 par 1 produces action transmit data to parliament council.
+
+requirement art 16 par 1 uses the definition def physical registration certificate.
+
+requirement art 16 par 1 uses the definition def mobile registration certificate.
+
+requirement art 16 par 1 uses the definition def vehicle.
+
+
+action communicate data to commission is identified by "http://data.europa.eu/leg/lomo/vehicle-registration#Action_CommunicateDataToCommission".
+
+action communicate data to commission has the type "owl:NamedIndividual".
+
+action communicate data to commission is an action.
+
+action communicate data to commission has the label "Communicate Vehicle Registration Data to Commission".
+
+action communicate data to commission has the legal text "By 31 March 2030, and by 31 March of each third year thereafter, Member States shall communicate to the Commission through the online reporting platform referred to in Article 28 of Regulation (EU) 2018/1999 of the European Parliament and of the Council (e-platform), the data relating to the vehicles registered in their territory during each of the previous three calendar years.".
+
+action communicate data to commission has the time specification temporal spec march 31 2030.
+
+action communicate data to commission has the time specification temporal spec triennial deadline.
+
+action communicate data to commission has the agent role agent role ms communicate.
+
+action communicate data to commission has the agent role agent role commission receive.
+
+action communicate data to commission has the result result triennial report.
+
+action communicate data to commission is followed by action transmit data to parliament council.
+
+
+agent role ms communicate is identified by "http://data.europa.eu/leg/lomo/vehicle-registration#AgentRole_MS_Communicate".
+
+agent role ms communicate has the type "owl:NamedIndividual".
+
+agent role ms communicate is an agent role.
+
+agent role ms communicate is for the agent agent type member states.
+
+agent role ms communicate has the role addresser.
+
+
+agent role commission receive is identified by "http://data.europa.eu/leg/lomo/vehicle-registration#AgentRole_Commission_Receive".
+
+agent role commission receive has the type "owl:NamedIndividual".
+
+agent role commission receive is an agent role.
+
+agent role commission receive is for the agent agent european commission.
+
+agent role commission receive has the role addressee.
+
+
+result triennial report is identified by "http://data.europa.eu/leg/lomo/vehicle-registration#Result_TriennialReport".
+
+result triennial report has the type "owl:NamedIndividual".
+
+result triennial report is an action result.
+
+result triennial report has the label "Triennial Vehicle Registration Report".
+
+result triennial report has for "lomo:hasAnnotation" the value "report containing the data relating to the vehicles registered in their territory during each of the previous three calendar years, including: (a) number of physical registration certificates issued, per vehicle category; (b) number of mobile registration certificates issued, per vehicle category; (c) number of re-registrations of vehicles previously registered in another Member State, per vehicle category; (d) number of vehicle registrations suspended, per vehicle category".
+
+result triennial report has for "lomo:hasResultType" the resource result type vehicle registration report.
+
+result triennial report is composed of result physical cert data.
+
+result triennial report is composed of result mobile cert data.
+
+result triennial report is composed of result reregistration data.
+
+result triennial report is composed of result suspension data.
+
+
+result physical cert data is identified by "http://data.europa.eu/leg/lomo/vehicle-registration#Result_PhysicalCertData".
+
+result physical cert data has the type "owl:NamedIndividual".
+
+result physical cert data is an action result.
+
+result physical cert data has the label "Physical Registration Certificates Data".
+
+result physical cert data has for "lomo:hasAnnotation" the value "number of physical registration certificates issued, per vehicle category".
+
+result physical cert data has the digital dimension observation.
+
+
+result mobile cert data is identified by "http://data.europa.eu/leg/lomo/vehicle-registration#Result_MobileCertData".
+
+result mobile cert data has the type "owl:NamedIndividual".
+
+result mobile cert data is an action result.
+
+result mobile cert data has the label "Mobile Registration Certificates Data".
+
+result mobile cert data has for "lomo:hasAnnotation" the value "number of mobile registration certificates issued, per vehicle category".
+
+result mobile cert data has the digital dimension observation.
+
+
+result reregistration data is identified by "http://data.europa.eu/leg/lomo/vehicle-registration#Result_ReregistrationData".
+
+result reregistration data has the type "owl:NamedIndividual".
+
+result reregistration data is an action result.
+
+result reregistration data has the label "Re-registrations Data".
+
+result reregistration data has for "lomo:hasAnnotation" the value "number of re-registrations of vehicles previously registered in another Member State, per vehicle category".
+
+result reregistration data has the digital dimension observation.
+
+
+result suspension data is identified by "http://data.europa.eu/leg/lomo/vehicle-registration#Result_SuspensionData".
+
+result suspension data has the type "owl:NamedIndividual".
+
+result suspension data is an action result.
+
+result suspension data has the label "Suspensions Data".
+
+result suspension data has for "lomo:hasAnnotation" the value "number of vehicle registrations suspended, per vehicle category".
+
+result suspension data has the digital dimension observation.
+
+
+action transmit data to parliament council is identified by "http://data.europa.eu/leg/lomo/vehicle-registration#Action_TransmitDataToParliamentCouncil".
+
+action transmit data to parliament council has the type "owl:NamedIndividual".
+
+action transmit data to parliament council is an action.
+
+action transmit data to parliament council has the label "Transmit Data to Parliament and Council".
+
+action transmit data to parliament council has the legal text "The Commission shall transmit the data collected to the European Parliament and to the Council.".
+
+action transmit data to parliament council has the agent role agent role commission transmit.
+
+action transmit data to parliament council has the agent role agent role parliament receive.
+
+action transmit data to parliament council has the agent role agent role council receive.
+
+action transmit data to parliament council has the result result data transmission to institutions.
+
+
+agent role commission transmit is identified by "http://data.europa.eu/leg/lomo/vehicle-registration#AgentRole_Commission_Transmit".
+
+agent role commission transmit has the type "owl:NamedIndividual".
+
+agent role commission transmit is an agent role.
+
+agent role commission transmit is for the agent agent european commission.
+
+agent role commission transmit has the role addresser.
+
+
+agent role parliament receive is identified by "http://data.europa.eu/leg/lomo/vehicle-registration#AgentRole_Parliament_Receive".
+
+agent role parliament receive has the type "owl:NamedIndividual".
+
+agent role parliament receive is an agent role.
+
+agent role parliament receive is for the agent agent european parliament.
+
+agent role parliament receive has the role addressee.
+
+
+agent role council receive is identified by "http://data.europa.eu/leg/lomo/vehicle-registration#AgentRole_Council_Receive".
+
+agent role council receive has the type "owl:NamedIndividual".
+
+agent role council receive is an agent role.
+
+agent role council receive is for the agent agent european council.
+
+agent role council receive has the role addressee.
+
+
+result data transmission to institutions is identified by "http://data.europa.eu/leg/lomo/vehicle-registration#Result_DataTransmissionToInstitutions".
+
+result data transmission to institutions has the type "owl:NamedIndividual".
+
+result data transmission to institutions is an action result.
+
+result data transmission to institutions has the label "Data Transmission to EU Institutions".
+
+result data transmission to institutions has for "lomo:hasAnnotation" the value "the data collected transmitted to Parliament and Council".
+
+result data transmission to institutions has for "lomo:hasResultType" the resource result type data transmission.
+
+
+requirement art 10 par 1 obligation is identified by "http://data.europa.eu/leg/lomo/vehicle-registration#Requirement_Art10_Par1_Obligation".
+
+requirement art 10 par 1 obligation has the type "owl:NamedIndividual".
+
+requirement art 10 par 1 obligation is a prescriptive rule.
+
+requirement art 10 par 1 obligation has the label "Obligation to Accept Both Certificates for Vehicle Identification (Art. 10(1))".
+
+requirement art 10 par 1 obligation has the legal text "After that date, Member States shall accept both physical and mobile registration certificates for that purpose.".
+
+requirement art 10 par 1 obligation has the modality obligation.
+
+requirement art 10 par 1 obligation has the requirement type "http://publications.europa.eu/resource/dataset/administrative-obligation/c_d98a69b9".
+
+requirement art 10 par 1 obligation has the digital dimension digital public service.
+
+requirement art 10 par 1 obligation is established in "https://data.europa.eu/eli/dl/proc/2025/96/cod/doc/com/COM_2025_179/art_10/par_1/FINAL/eng".
+
+requirement art 10 par 1 obligation produces action ms accept both forms for id.
+
+requirement art 10 par 1 obligation uses the definition def physical registration certificate.
+
+requirement art 10 par 1 obligation uses the definition def mobile registration certificate.
+
+requirement art 10 par 1 obligation uses the definition def vehicle.
+
+requirement art 10 par 1 obligation has the comment "This obligation on Member States creates a correlative right for drivers/vehicle owners.".
+
+
+action ms accept both forms for id is identified by "http://data.europa.eu/leg/lomo/vehicle-registration#Action_MS_AcceptBothFormsForID".
+
+action ms accept both forms for id has the type "owl:NamedIndividual".
+
+action ms accept both forms for id is an action.
+
+action ms accept both forms for id has the label "Member State Accepts Both Certificate Formats".
+
+action ms accept both forms for id has the legal text "Member States shall accept both physical and mobile registration certificates for that purpose.".
+
+action ms accept both forms for id has the time specification temporal spec four years after entry.
+
+action ms accept both forms for id has the agent role agent role ms accept both id bearer.
+
+action ms accept both forms for id has the agent role agent role driver benefits from acceptance.
+
+action ms accept both forms for id has the result result acceptance both for id.
+
+
+agent role ms accept both id bearer is identified by "http://data.europa.eu/leg/lomo/vehicle-registration#AgentRole_MS_AcceptBothID_Bearer".
+
+agent role ms accept both id bearer has the type "owl:NamedIndividual".
+
+agent role ms accept both id bearer is an agent role.
+
+agent role ms accept both id bearer is for the agent agent type member states.
+
+agent role ms accept both id bearer has the role addressee.
+
+agent role ms accept both id bearer has the comment "Member States are required to accept both formats".
+
+
+agent role driver benefits from acceptance is identified by "http://data.europa.eu/leg/lomo/vehicle-registration#AgentRole_Driver_BenefitsFromAcceptance".
+
+agent role driver benefits from acceptance has the type "owl:NamedIndividual".
+
+agent role driver benefits from acceptance is an agent role.
+
+agent role driver benefits from acceptance is for the agent agent type vehicle owner.
+
+agent role driver benefits from acceptance has the role beneficiary.
+
+agent role driver benefits from acceptance has the comment "Drivers/vehicle owners benefit from this obligation".
+
+
+result acceptance both for id is identified by "http://data.europa.eu/leg/lomo/vehicle-registration#Result_AcceptanceBothForID".
+
+result acceptance both for id has the type "owl:NamedIndividual".
+
+result acceptance both for id is an action result.
+
+result acceptance both for id has the label "Acceptance of Both Formats for Vehicle Identification".
+
+result acceptance both for id has for "lomo:hasAnnotation" the value "acceptance of both physical and mobile registration certificates for identifying vehicles in road traffic".
+
+result acceptance both for id has for "lomo:hasResultType" the resource result type acceptance decision.
+
+
+requirement art 10 par 1 right is identified by "http://data.europa.eu/leg/lomo/vehicle-registration#Requirement_Art10_Par1_Right".
+
+requirement art 10 par 1 right has the type "owl:NamedIndividual".
+
+requirement art 10 par 1 right is a prescriptive rule.
+
+requirement art 10 par 1 right has the label "Right to Use Either Certificate Format for Vehicle Identification (Art. 10(1))".
+
+requirement art 10 par 1 right has the legal text "After that date, Member States shall accept both physical and mobile registration certificates for that purpose.".
+
+requirement art 10 par 1 right has the modality right.
+
+requirement art 10 par 1 right has the requirement type "http://publications.europa.eu/resource/dataset/administrative-obligation/c_d98a69b9".
+
+requirement art 10 par 1 right has the digital dimension digital public service.
+
+requirement art 10 par 1 right is established in "https://data.europa.eu/eli/dl/proc/2025/96/cod/doc/com/COM_2025_179/art_10/par_1/FINAL/eng".
+
+requirement art 10 par 1 right produces action driver use format.
+
+requirement art 10 par 1 right uses the definition def physical registration certificate.
+
+requirement art 10 par 1 right uses the definition def mobile registration certificate.
+
+requirement art 10 par 1 right uses the definition def vehicle.
+
+requirement art 10 par 1 right has the comment "This right for drivers/vehicle owners is the correlative of the obligation on Member States. Same legal provision, different perspectives.".
+
+
+action driver use format is identified by "http://data.europa.eu/leg/lomo/vehicle-registration#Action_Driver_UseEitherFormat".
+
+action driver use format has the type "owl:NamedIndividual".
+
+action driver use format is an action.
+
+action driver use format has the label "Driver Uses Either Certificate Format".
+
+action driver use format has the legal text "Member States shall accept both physical and mobile registration certificates".
+
+action driver use format has the time specification temporal spec four years after entry.
+
+action driver use format has the agent role agent role driver right holder.
+
+action driver use format has the agent role agent role ms duty bearer.
+
+action driver use format has the result result certificate presentation.
+
+
+agent role driver right holder is identified by "http://data.europa.eu/leg/lomo/vehicle-registration#AgentRole_Driver_RightHolder".
+
+agent role driver right holder has the type "owl:NamedIndividual".
+
+agent role driver right holder is an agent role.
+
+agent role driver right holder is for the agent agent type vehicle owner.
+
+agent role driver right holder has the role beneficiary.
+
+agent role driver right holder has the comment "Driver/vehicle owner is the right-holder, entitled to use either format".
+
+
+agent role ms duty bearer is identified by "http://data.europa.eu/leg/lomo/vehicle-registration#AgentRole_MS_DutyBearer".
+
+agent role ms duty bearer has the type "owl:NamedIndividual".
+
+agent role ms duty bearer is an agent role.
+
+agent role ms duty bearer is for the agent agent type member states.
+
+agent role ms duty bearer has the role addressee.
+
+agent role ms duty bearer has the comment "Member States have the correlative duty to accept the certificate".
+
+
+result certificate presentation is identified by "http://data.europa.eu/leg/lomo/vehicle-registration#Result_CertificatePresentation".
+
+result certificate presentation has the type "owl:NamedIndividual".
+
+result certificate presentation is an action result.
+
+result certificate presentation has the label "Presentation of Either Certificate Format".
+
+result certificate presentation has for "lomo:hasAnnotation" the value "driver presents either physical or mobile registration certificate for vehicle identification".
+
+result certificate presentation has for "lomo:hasResultType" the resource result type physical certificate part i.
+
+result certificate presentation has for "lomo:hasResultType" the resource result type mobile certificate presentation.
+
+
+% The questions of LOMO's requirements document (its competency questions),
+% as far as a description can answer them.
+scenario description is, as stated in the source description:
+    modalities expects answers ["requirement art 10 par 1 obligation has the modality obligation", "requirement art 10 par 1 right has the modality right", "requirement art 10 par 2 has the modality obligation", "requirement art 10 par 3 has the modality obligation", "requirement art 16 par 1 has the modality obligation"].
+    actions_of_rules expects answers ["requirement art 10 par 1 obligation produces action ms accept both forms for id", "requirement art 10 par 1 right produces action driver use format", "requirement art 10 par 2 produces action accept mobile cert", "requirement art 10 par 2 produces action require physical cert", "requirement art 10 par 3 produces action accept both certs", "requirement art 10 par 3 produces action verify formats", "requirement art 16 par 1 produces action communicate data to commission", "requirement art 16 par 1 produces action transmit data to parliament council"].
+    actions_of_agents expects answers ["agent european commission acts as addressee in action communicate data to commission", "agent european commission acts as addresser in action transmit data to parliament council", "agent european council acts as addressee in action transmit data to parliament council", "agent european parliament acts as addressee in action transmit data to parliament council", "agent type competent authorities acts as addressee in action accept mobile cert", "agent type competent authorities acts as addressee in action require physical cert", "agent type member state of registration acts as addressee in action verify formats", "agent type member states acts as addressee in action driver use format", "agent type member states acts as addressee in action ms accept both forms for id", "agent type member states acts as addresser in action communicate data to commission", "agent type reregistering member state acts as addressee in action accept both certs", "agent type reregistering member state acts as addresser in action verify formats", "agent type vehicle owner acts as addresser in action accept mobile cert", "agent type vehicle owner acts as addresser in action require physical cert", "agent type vehicle owner acts as beneficiary in action driver use format", "agent type vehicle owner acts as beneficiary in action ms accept both forms for id"].
+
+query kinds is:
+    which thing is of the kind which kind.
+
+query bearer is:
+    the bearer role is which role.
+
+query rules_of_act is:
+    which rule is established by the act which act.
+
+query provisions is:
+    which thing is established in which provision.
+
+query places is:
+    which rule is laid down in which place.
+
+query legal_texts is:
+    which thing has the legal text which text.
+
+query joint_rules is:
+    which rule is established in more than one provision.
+
+query prescriptive is:
+    which thing is a prescriptive rule.
+
+query constitutive is:
+    which thing is a constitutive rule.
+
+query modalities is:
+    which rule has the modality which modality.
+
+query obligations is:
+    which rule has the modality obligation for which agent as which role.
+
+query prohibitions is:
+    which rule has the modality prohibition for which agent as which role.
+
+query permissions is:
+    which rule has the modality permission for which agent as which role.
+
+query rights is:
+    which rule has the modality right for which agent as which role.
+
+query requirement_types is:
+    which rule has the requirement type which requirement type.
+
+query triggers is:
+    which thing is triggered by which event.
+
+query definitions is:
+    which thing is a definition.
+
+query definienda is:
+    which definition has the definiendum which text.
+
+query definientia is:
+    which definition has the definiens which text.
+
+query semantic_definitions is:
+    which definition has the semantic flag which truth value.
+
+query definitions_used is:
+    which rule uses the definition which definition.
+
+query actions_of_rules is:
+    which rule produces which action.
+
+query addressers is:
+    which agent acts as addresser in which action.
+
+query addressees is:
+    which agent acts as addressee in which action.
+
+query beneficiaries is:
+    which agent acts as beneficiary in which action.
+
+query identified_agents is:
+    which thing is an agent.
+
+query agent_types is:
+    which thing is an agent type.
+
+query actions_of_agents is:
+    which agent acts as which role in which action.
+
+query concerned_agents is:
+    which rule concerns which agent.
+
+query sequence is:
+    which action comes before which second action.
+
+query deadlines is:
+    which thing has which temporal specification as deadline.
+
+query starting_points is:
+    which thing has which temporal specification as starting point.
+
+query validity is:
+    which thing has which temporal specification as validity.
+
+query durations is:
+    which temporal specification has the duration which duration.
+
+query instants is:
+    which temporal specification has the instant which date.
+
+query frequencies is:
+    which temporal specification has the frequency which duration.
+
+query timed_after is:
+    which temporal specification is timed after which second temporal specification.
+
+query timed_immediately_after is:
+    which temporal specification is timed immediately after which second temporal specification.
+
+query results is:
+    which action has the result which result.
+
+query composed_results is:
+    which result is composed of which second result.
+
+query digital_dimensions is:
+    which rule has the digital dimension which dimension.
+
+query texts is:
+    which thing is described by the text which text.
+
+query other_values is:
+    which thing has for which property the value which value.
+
+query other_resources is:
+    which thing has for which property the resource which resource.
+
+query other_types is:
+    which thing has the type which class.
+
+query addresses is:
+    which thing is identified by which address.
+
+query definition_flags is:
+    which definition has the semantic flag which truth value.
+

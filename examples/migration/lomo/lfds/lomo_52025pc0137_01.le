@@ -1,0 +1,210 @@
+% The register of a LOMO description: the Logical English twin of
+% 52025PC0137(01).ttl (kept in sources/), written by the LOMO translator.
+% One fact for each statement of the description, in the words of lomo.le.
+% LOMO describes rules; it has no conditions and no cases. A question
+% about a case gets its answer only from the parts of the description that
+% have values (deadlines, agents, derogations).
+%
+% LOMO and its data: (c) European Union, Creative Commons Attribution 4.0
+% (https://creativecommons.org/licenses/by/4.0/); source: the LOMO
+% repository, https://code.europa.eu/drpm/lomo. The description was changed
+% into Logical English by the LOMO translator of Logical English.
+%
+% DISCLAIMER. This program was written by a translator from a program of another
+% system. It is provided "as is", without warranty of any kind, express or
+% implied, including any warranty that it is accurate, complete or fit for a
+% particular purpose. The translation may be wrong: check it against its source
+% before relying on it. It is not legal, tax, insurance, financial or other
+% professional advice. Its authors accept no liability for any loss or damage
+% arising from its use.
+
+the target language is: prolog.
+
+the knowledge base lomo_52025pc0137_01 includes these resources:
+    lomo.
+
+the knowledge base lomo_52025pc0137_01 includes:
+
+the text of the source description is at "sources/52025PC0137(01).ttl".
+
+% Who bears a duty: the agent of this role of the action (lomo.le).
+the bearer role is addresser.
+
+
+description 1 is identified by "http://example.org/analysis/description/1".
+
+description 1 is a legal rule.
+
+description 1 has the label "Article 1(6)".
+
+description 1 is established in "https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/art_1/par_6".
+
+description 1 involves the process labelling of grapevine products.
+
+description 1 produces item 1 action.
+
+description 1 has the description "The Commission is empowered to define rules and provisions on the electronic labelling of mandatory information defined in Article 119 of the regulation.".
+
+
+description 2 is identified by "http://example.org/analysis/description/2".
+
+description 2 is a legal rule.
+
+description 2 has the label "Article 2(3)".
+
+description 2 is established in "https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/art_2/par_3".
+
+description 2 involves the process labelling of aromatised wine products.
+
+description 2 produces item 2 action.
+
+description 2 has the description "As above for aromatised wine products.".
+
+
+commission is identified by "http://example.org/agent/commission".
+
+commission has the label "Commission".
+
+
+item 1 action is identified by "http://example.org/analysis/description/1/action".
+
+item 1 action is an action.
+
+item 1 action has the agent role addressee commission.
+
+item 1 action has the agent role item 1 action role addressee general public.
+
+item 1 action has the agent role item 1 action role addressee stakeholders.
+
+
+addressee commission is identified by "http://example.org/analysis/description/1/action/role/addressee-commission".
+
+addressee commission is an agent role.
+
+addressee commission is for the agent commission.
+
+addressee commission has the role addressee.
+
+
+item 1 action role addressee general public is identified by "http://example.org/analysis/description/1/action/role/addressee-general-public".
+
+item 1 action role addressee general public is an agent role.
+
+item 1 action role addressee general public is for the agent general public.
+
+item 1 action role addressee general public has the role addressee.
+
+
+item 1 action role addressee stakeholders is identified by "http://example.org/analysis/description/1/action/role/addressee-stakeholders".
+
+item 1 action role addressee stakeholders is an agent role.
+
+item 1 action role addressee stakeholders is for the agent stakeholders.
+
+item 1 action role addressee stakeholders has the role addressee.
+
+
+item 2 action is identified by "http://example.org/analysis/description/2/action".
+
+item 2 action is an action.
+
+item 2 action has the agent role item 2 action role addressee general public.
+
+item 2 action has the agent role item 2 action role addressee stakeholders.
+
+
+item 2 action role addressee general public is identified by "http://example.org/analysis/description/2/action/role/addressee-general-public".
+
+item 2 action role addressee general public is an agent role.
+
+item 2 action role addressee general public is for the agent general public.
+
+item 2 action role addressee general public has the role addressee.
+
+
+item 2 action role addressee stakeholders is identified by "http://example.org/analysis/description/2/action/role/addressee-stakeholders".
+
+item 2 action role addressee stakeholders is an agent role.
+
+item 2 action role addressee stakeholders is for the agent stakeholders.
+
+item 2 action role addressee stakeholders has the role addressee.
+
+
+labelling of aromatised wine products is identified by "http://example.org/process/labelling-of-aromatised-wine-products".
+
+labelling of aromatised wine products has the preferred label "Labelling of aromatised wine products".
+
+
+labelling of grapevine products is identified by "http://example.org/process/labelling-of-grapevine-products".
+
+labelling of grapevine products has the preferred label "Labelling of grapevine products".
+
+
+general public is identified by "http://example.org/agent/general-public".
+
+general public has the label "General public".
+
+
+stakeholders is identified by "http://example.org/agent/stakeholders".
+
+stakeholders has the label "Stakeholders".
+
+
+% The questions of LOMO's requirements document (its competency questions),
+% as far as a description can answer them.
+scenario description is, as stated in the source description:
+    actions_of_rules expects answers ["description 1 produces item 1 action", "description 2 produces item 2 action"].
+    actions_of_agents expects answers ["commission acts as addressee in item 1 action", "general public acts as addressee in item 1 action", "general public acts as addressee in item 2 action", "stakeholders acts as addressee in item 1 action", "stakeholders acts as addressee in item 2 action"].
+
+query kinds is:
+    which thing is of the kind which kind.
+
+query bearer is:
+    the bearer role is which role.
+
+query rules_of_act is:
+    which rule is established by the act which act.
+
+query provisions is:
+    which thing is established in which provision.
+
+query places is:
+    which rule is laid down in which place.
+
+query joint_rules is:
+    which rule is established in more than one provision.
+
+query prescriptive is:
+    which thing is a prescriptive rule.
+
+query constitutive is:
+    which thing is a constitutive rule.
+
+query actions_of_rules is:
+    which rule produces which action.
+
+query addressers is:
+    which agent acts as addresser in which action.
+
+query addressees is:
+    which agent acts as addressee in which action.
+
+query beneficiaries is:
+    which agent acts as beneficiary in which action.
+
+query actions_of_agents is:
+    which agent acts as which role in which action.
+
+query concerned_agents is:
+    which rule concerns which agent.
+
+query processes is:
+    which rule involves the process which process.
+
+query texts is:
+    which thing is described by the text which text.
+
+query addresses is:
+    which thing is identified by which address.
+

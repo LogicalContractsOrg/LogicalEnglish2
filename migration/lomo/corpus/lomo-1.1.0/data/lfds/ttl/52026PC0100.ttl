@@ -1,0 +1,464 @@
+@prefix adms: <http://www.w3.org/ns/adms#> .
+@prefix cav: <http://data.europa.eu/2sa/cav#> .
+@prefix cpsv: <http://purl.org/vocab/cpsv#> .
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix dctype: <http://purl.org/dc/dcmitype/> .
+@prefix dd: <http://data.europa.eu/leg/digital-dimensions/> .
+@prefix iac: <http://data.europa.eu/leg/interop-assessment#> .
+@prefix iopa: <http://data.europa.eu/2qy/iopa#> .
+@prefix lomo: <http://data.europa.eu/leg/lomo#> .
+@prefix m8g: <http://data.europa.eu/m8g/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix tf: <http://data.europa.eu/leg/temporal-function/> .
+@prefix y6k: <http://data.europa.eu/y6k/> .
+
+<http://example.org/analysis/assessment/1> a cav:Assessment ;
+    cav:assesses <http://example.org/analysis/description/1> ;
+    cav:resultsIn <http://example.org/analysis/assessment/1/1/barrier>,
+        <http://example.org/analysis/assessment/1/1/measure>,
+        <http://example.org/analysis/assessment/1/2/measure>,
+        <http://example.org/analysis/assessment/1/3/measure> ;
+    m8g:isProvidedBy <http://publications.europa.eu/resource/authority/corporate-body/COM> .
+
+<http://example.org/analysis/description/10> a lomo:LegalRule ;
+    rdfs:label "Article 37"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/100/cod/doc/com/COM_2026_100/FINAL/eng/art_37> ;
+    lomo:hasCategory dd:Data,
+        dd:ProcessAutomation ;
+    lomo:involvesProcess <http://example.org/process/information-sharing> ;
+    lomo:produces <http://example.org/analysis/description/10/action> ;
+    dcterms:description "List of areas of information relevant for citizens and business exercising their internal market rights established by Regulation (EU) 2018/1724 is extended by information on permit-granting procedures, effectively utilising solutions under the Single Digital Gateway."@en .
+
+<http://example.org/analysis/description/2> a lomo:LegalRule ;
+    rdfs:label "Article 5"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/100/cod/doc/com/COM_2026_100/FINAL/eng/art_5> ;
+    lomo:hasCategory dd:Data,
+        dd:ProcessAutomation ;
+    lomo:involvesProcess <http://example.org/process/permit-granting> ;
+    lomo:produces <http://example.org/analysis/description/2/action> ;
+    lomo:references <http://example.org/dataset/permit-granting-applications-for-industrial-manufacturing-projects> ;
+    dcterms:description "Orchestration of national permit-granting procedures to enable a one-stop-shop for permitting of industrial manufacturing projects."@en .
+
+<http://example.org/analysis/description/3> a lomo:LegalRule ;
+    rdfs:label "Article 6"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/100/cod/doc/com/COM_2026_100/FINAL/eng/art_6> ;
+    lomo:hasCategory dd:ProcessAutomation ;
+    lomo:involvesProcess <http://example.org/process/permit-granting> ;
+    lomo:produces <http://example.org/analysis/description/3/action> ;
+    dcterms:description "The application of streamlined administrative and permit-granting processes, as defined by Regulation (EU) 2024/1735, is extended to cover energy-intensive industry decarbonisation projects."@en .
+
+<http://example.org/analysis/description/4> a lomo:LegalRule ;
+    rdfs:label "Article 20"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/100/cod/doc/com/COM_2026_100/FINAL/eng/art_20> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/monitoring> ;
+    lomo:produces <http://example.org/analysis/description/4/action> ;
+    lomo:references <http://example.org/dataset/data-on-global-manufacturing-capacity-for-emerging-strategic-sectors> ;
+    dcterms:description "Monitoring and publishing of the global manufacturing capacity for emerging strategic sectors."@en .
+
+<http://example.org/analysis/description/5> a lomo:LegalRule ;
+    rdfs:label "Article 16"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/100/cod/doc/com/COM_2026_100/FINAL/eng/art_16> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/notifications> ;
+    lomo:produces <http://example.org/analysis/action/2>,
+        <http://example.org/analysis/description/5/action> ;
+    lomo:references <http://example.org/dataset/prior-notification-of-planned-investments-by-foreign-investors> ;
+    dcterms:description "Notification of planned direct investments by foreign investors."@en .
+
+<http://example.org/analysis/description/6> a lomo:LegalRule ;
+    rdfs:label "Article 17"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/100/cod/doc/com/COM_2026_100/FINAL/eng/art_17> ;
+    lomo:hasCategory dd:ProcessAutomation ;
+    lomo:involvesProcess <http://example.org/process/notifications> ;
+    lomo:produces <http://example.org/analysis/description/6/action> ;
+    dcterms:description "Review and approval procedure for prior notifications of planned direct investments."@en .
+
+<http://example.org/analysis/description/7> a lomo:LegalRule ;
+    rdfs:label "Article 19-20"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/100/cod/doc/com/COM_2026_100/FINAL/eng/art_19> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess y6k:c_422e961c ;
+    lomo:produces <http://example.org/analysis/action/3>,
+        <http://example.org/analysis/description/7/action> ;
+    lomo:references <http://example.org/dataset/reports-on-foreign-investment-compliance> ;
+    dcterms:description "Monitoring of foreign investment compliance"@en .
+
+<http://example.org/analysis/description/8> a lomo:LegalRule ;
+    rdfs:label "Article 22"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/100/cod/doc/com/COM_2026_100/FINAL/eng/art_22> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/notifications> ;
+    lomo:produces <http://example.org/analysis/action/4>,
+        <http://example.org/analysis/description/8/action> ;
+    lomo:references <http://example.org/dataset/notification-of-designated-industrial-manufacturing-acceleration-areas> ;
+    dcterms:description "Notification of designated industrial manufacturing acceleration areas, including required assessments, by Member States."@en .
+
+<http://example.org/analysis/description/9> a lomo:LegalRule ;
+    rdfs:label "Article 24"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/100/cod/doc/com/COM_2026_100/FINAL/eng/art_24> ;
+    lomo:hasCategory dd:ProcessAutomation ;
+    lomo:involvesProcess <http://example.org/process/permit-granting> ;
+    lomo:produces <http://example.org/analysis/description/9/action> ;
+    dcterms:description "Establishing of an aggregated baseline permit that authorises industrial activities in designated acceleration areas."@en .
+
+<http://example.org/analysis/solution/1> a dctype:Software ;
+    rdfs:label "Digital Permitting System"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/100/cod/doc/com/COM_2026_100/FINAL/eng/art_4> ;
+    lomo:hasCapability "Permit-granting procedures for industrial manufacturing are carried out through fully digital means.The system shall provide a single user interface enabling interaction with the relevant public services.The digital permitting system shall enable the paperless submission, tracking, and decision-making of permit applications." ;
+    dcterms:publisher <http://example.org/agent/member-statesnational-competent-authorities> ;
+    dcterms:title "Digital Permitting System"@en .
+
+y6k:c_422e961c skos:prefLabel "Reporting"@en .
+
+<http://example.org/agent/citizens> rdfs:label "Citizens"@en .
+
+<http://example.org/agent/member-state> rdfs:label "Member State"@en .
+
+<http://example.org/analysis/action/1> a lomo:Action ;
+    rdfs:label "Permit-granting applications"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Required for permit-granting applications."@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/100/cod/doc/com/COM_2026_100/FINAL/eng/art_4> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/1/role/addressee-national-competent-authority>,
+        <http://example.org/analysis/action/1/role/addresser-economic-operator> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Permit-granting applications"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/permit-granting-applications> ] .
+
+<http://example.org/analysis/action/1/role/addressee-national-competent-authority> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/national-competent-authority> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/1/role/addresser-economic-operator> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/economic-operator> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/2> a lomo:Action ;
+    rdfs:label "Prior notification of planned investments by foreign investors"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Upon the intention to realise investment"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/100/cod/doc/com/COM_2026_100/FINAL/eng/art_16> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/2/role/addressee-national-competent-authority>,
+        <http://example.org/analysis/action/2/role/addresser-economic-operator> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Prior notification of planned investments by foreign investors"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/prior-notification-of-planned-investments-by-foreign-investors> ] .
+
+<http://example.org/analysis/action/2/role/addressee-national-competent-authority> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/national-competent-authority> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/2/role/addresser-economic-operator> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/economic-operator> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/3> a lomo:Action ;
+    rdfs:label "Reports on foreign investment compliance"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Upon request"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/100/cod/doc/com/COM_2026_100/FINAL/eng/art_19> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/3/role/addressee-european-commission>,
+        <http://example.org/analysis/action/3/role/addresser-national-competent-authority> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Reports on foreign investment compliance"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/reports-on-foreign-investment-compliance> ] .
+
+<http://example.org/analysis/action/3/role/addressee-european-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/european-commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/3/role/addresser-national-competent-authority> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/national-competent-authority> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/4> a lomo:Action ;
+    rdfs:label "Decision on designated industrial manufacturing acceleration areas"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Decision made"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/100/cod/doc/com/COM_2026_100/FINAL/eng/art_22> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/4/role/addressee-european-commission>,
+        <http://example.org/analysis/action/4/role/addresser-member-state> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Decision on designated industrial manufacturing acceleration areas"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/decision-on-designated-industrial-manufacturing-acceleration-areas> ] .
+
+<http://example.org/analysis/action/4/role/addressee-european-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/european-commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/4/role/addresser-member-state> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-state> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/assessment/1/1/barrier> a cav:Statement ;
+    cav:interpretation iac:InterpretationNegative ;
+    cav:judgement "Additional organisational measures at national level may be needed to ensure appropriate involvement of competent authorities responsible for individual permits."@en ;
+    cav:type iac:StatementTypeOrganisationBarrier ;
+    dcterms:description "Organisational measures for a smooth cross-border digital public services delivery"@en ;
+    dcterms:title "Digital Permitting System"@en .
+
+<http://example.org/analysis/assessment/1/1/measure> a cav:Statement ;
+    cav:interpretation iac:InterpretationPositive ;
+    cav:judgement "Member States shall be responsible for the development, operation, maintenance, security, and supervision of their digital permitting systems. To the extent possible, the implementation of the digital permitting systems should make use of existing Union digital infrastructures, catalogues and building blocks, including those developed under the Once-Only Technical System and its implementing acts. This would promote complementarity, interoperability and the efficient use of public resources, while avoiding duplication of existing digital solutions."@en ;
+    cav:type iac:StatementTypeOrganisationMeasure ;
+    dcterms:description "Organisational measures for a smooth cross-border digital public services delivery"@en ;
+    dcterms:title "Digital Permitting System"@en .
+
+<http://example.org/analysis/assessment/1/2/measure> a cav:Statement ;
+    cav:interpretation iac:InterpretationPositive ;
+    cav:judgement "The Commission shall, by means of implementing acts, establish detailed rules, technical standards, and procedures necessary to ensure the interoperability, security, and effective functioning of the digital permitting systems. The permit-granting procedures are added in the scope of Single Digital Gateway and Once-Only Technical System."@en ;
+    cav:type iac:StatementTypeSharedMeasure ;
+    dcterms:description "Measures taken to ensure a shared understanding of the data"@en ;
+    dcterms:title "Digital Permitting System"@en .
+
+<http://example.org/analysis/assessment/1/3/measure> a cav:Statement ;
+    cav:interpretation iac:InterpretationPositive ;
+    cav:judgement "The Commission shall, by means of implementing acts, establish detailed rules, technical standards, and procedures necessary to ensure the interoperability, security, and effective functioning of the digital permitting systems."@en ;
+    cav:type iac:StatementTypeStandardsMeasure ;
+    dcterms:description "Use of commonly agreed open technical specifications and standards"@en ;
+    dcterms:title "Digital Permitting System"@en .
+
+<http://example.org/analysis/description/1> a iopa:BindingRequirement,
+        lomo:LegalRule ;
+    rdfs:label "Article 4"@en ;
+    iopa:affects <http://example.org/analysis/interop/1> ;
+    cav:valueDescription "Making available a single access point at national level connecting all relevant public authorities, in order to ensure that permit-granting procedures for industrial manufacturing are carried out through fully digital means."@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/100/cod/doc/com/COM_2026_100/FINAL/eng/art_4> ;
+    lomo:hasCategory dd:Data,
+        dd:ProcessAutomation ;
+    lomo:involvesProcess <http://example.org/process/permit-granting> ;
+    lomo:produces <http://example.org/analysis/action/1>,
+        <http://example.org/analysis/description/1/action> ;
+    lomo:references <http://example.org/dataset/permit-granting-applications-for-industrial-manufacturing-projects> ;
+    dcterms:description "Making available a single access point at national level connecting all relevant public authorities, in order to ensure that permit-granting procedures for industrial manufacturing are carried out through fully digital means."@en ;
+    dcterms:relation <http://example.org/ie-solution/once-only-technical-system> .
+
+<http://example.org/analysis/description/1/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/1/action/role/addressee-economic-operators>,
+        <http://example.org/analysis/description/1/action/role/addressee-member-states>,
+        <http://example.org/analysis/description/1/action/role/addressee-national-competent-authorities> .
+
+<http://example.org/analysis/description/1/action/role/addressee-economic-operators> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/economic-operators> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/1/action/role/addressee-member-states> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/1/action/role/addressee-national-competent-authorities> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/national-competent-authorities> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/10/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/10/action/role/addressee-citizens>,
+        <http://example.org/analysis/description/10/action/role/addressee-economic-operators>,
+        <http://example.org/analysis/description/10/action/role/addressee-european-commission>,
+        <http://example.org/analysis/description/10/action/role/addressee-member-states>,
+        <http://example.org/analysis/description/10/action/role/addressee-national-competent-authorities> .
+
+<http://example.org/analysis/description/10/action/role/addressee-citizens> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/citizens> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/10/action/role/addressee-economic-operators> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/economic-operators> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/10/action/role/addressee-european-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/european-commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/10/action/role/addressee-member-states> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/10/action/role/addressee-national-competent-authorities> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/national-competent-authorities> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/2/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/2/action/role/addressee-member-states>,
+        <http://example.org/analysis/description/2/action/role/addressee-national-competent-authorities> .
+
+<http://example.org/analysis/description/2/action/role/addressee-member-states> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/2/action/role/addressee-national-competent-authorities> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/national-competent-authorities> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/3/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/3/action/role/addressee-member-states>,
+        <http://example.org/analysis/description/3/action/role/addressee-national-competent-authorities> .
+
+<http://example.org/analysis/description/3/action/role/addressee-member-states> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/3/action/role/addressee-national-competent-authorities> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/national-competent-authorities> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/4/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/4/action/role/addressee-european-commission> .
+
+<http://example.org/analysis/description/4/action/role/addressee-european-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/european-commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/5/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/5/action/role/addressee-economic-operators>,
+        <http://example.org/analysis/description/5/action/role/addressee-member-states> .
+
+<http://example.org/analysis/description/5/action/role/addressee-economic-operators> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/economic-operators> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/5/action/role/addressee-member-states> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/6/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/6/action/role/addressee-european-commission>,
+        <http://example.org/analysis/description/6/action/role/addressee-member-states> .
+
+<http://example.org/analysis/description/6/action/role/addressee-european-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/european-commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/6/action/role/addressee-member-states> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/7/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/7/action/role/addressee-european-commission>,
+        <http://example.org/analysis/description/7/action/role/addressee-national-competent-authorities> .
+
+<http://example.org/analysis/description/7/action/role/addressee-european-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/european-commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/7/action/role/addressee-national-competent-authorities> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/national-competent-authorities> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/8/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/8/action/role/addressee-european-commission>,
+        <http://example.org/analysis/description/8/action/role/addressee-member-states> .
+
+<http://example.org/analysis/description/8/action/role/addressee-european-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/european-commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/8/action/role/addressee-member-states> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/9/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/9/action/role/addressee-member-states>,
+        <http://example.org/analysis/description/9/action/role/addressee-national-competent-authorities> .
+
+<http://example.org/analysis/description/9/action/role/addressee-member-states> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/9/action/role/addressee-national-competent-authorities> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/national-competent-authorities> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/interop/1> a cpsv:PublicService ;
+    rdfs:label "Digital Permitting SystemCategory of digital public services according toCOFOG04.7.4"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/100/cod/doc/com/COM_2026_100/FINAL/eng/art_4> ;
+    dcterms:description "Member States shall enable a national a digital permitting system connecting all relevant public authorities, in order to ensure that permit-granting procedures for industrial manufacturing are carried out through fully digital means."@en ;
+    dcterms:identifier "interop/1" ;
+    dcterms:references <http://example.org/ie-solution/once-only-technical-system> ;
+    dcterms:title "Digital Permitting SystemCategory of digital public services according toCOFOG04.7.4"@en .
+
+<http://example.org/dataset/data-on-global-manufacturing-capacity-for-emerging-strategic-sectors> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/100/cod/doc/com/COM_2026_100/FINAL/eng/art_20> ;
+    dcterms:conformsTo <http://example.org/standard/the-commission-shall-provide-and-publish-updated-information-on-the-most-recent-year-for-which-data-is-available-for-each-of-the-emerging-strategic-sectors> ;
+    dcterms:title "Data on global manufacturing capacity for emerging strategic sectors"@en .
+
+<http://example.org/dataset/decision-on-designated-industrial-manufacturing-acceleration-areas> a dcat:Dataset ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Decision on designated industrial manufacturing acceleration areas"@en ] ;
+    dcterms:title "Decision on designated industrial manufacturing acceleration areas"@en .
+
+<http://example.org/dataset/notification-of-designated-industrial-manufacturing-acceleration-areas> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/100/cod/doc/com/COM_2026_100/FINAL/eng/art_22> ;
+    dcterms:title "Notification of designated industrial manufacturing acceleration areas"@en .
+
+<http://example.org/dataset/permit-granting-applications> a dcat:Dataset ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Permit-granting applications"@en ] ;
+    dcterms:title "Permit-granting applications"@en .
+
+<http://example.org/process/information-sharing> skos:prefLabel "Information sharing"@en .
+
+<http://example.org/process/monitoring> skos:prefLabel "Monitoring"@en .
+
+<http://example.org/standard/the-commission-is-empowered-to-adopt-implementing-acts-to-set-out-technical-standards-necessary-to-ensure-the-interoperability-of-the-national-single-access-points> a dcterms:Standard ;
+    dcterms:title "The Commission is empowered to adopt implementing acts to set out technical standards necessary to ensure the interoperability of the national single access points."@en .
+
+<http://example.org/standard/the-commission-shall-provide-and-publish-updated-information-on-the-most-recent-year-for-which-data-is-available-for-each-of-the-emerging-strategic-sectors> a dcterms:Standard ;
+    dcterms:title "The Commission shall provide and publish updated information on the most recent year for which data is available for each of the emerging strategic sectors."@en .
+
+<http://publications.europa.eu/resource/authority/corporate-body/COM> a m8g:PublicOrganisation ;
+    dcterms:description "The European Commission, provider of the interoperability assessment."@en ;
+    skos:prefLabel "European Commission"@en .
+
+<http://example.org/agent/economic-operator> rdfs:label "Economic Operator"@en .
+
+<http://example.org/dataset/permit-granting-applications-for-industrial-manufacturing-projects> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/100/cod/doc/com/COM_2026_100/FINAL/eng/art_4>,
+        <https://data.europa.eu/eli/dl/proc/2026/100/cod/doc/com/COM_2026_100/FINAL/eng/art_5> ;
+    dcterms:conformsTo <http://example.org/standard/the-commission-is-empowered-to-adopt-implementing-acts-to-set-out-technical-standards-necessary-to-ensure-the-interoperability-of-the-national-single-access-points> ;
+    dcterms:title "Permit-granting applications for industrial manufacturing projects"@en .
+
+<http://example.org/dataset/prior-notification-of-planned-investments-by-foreign-investors> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/100/cod/doc/com/COM_2026_100/FINAL/eng/art_16> ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Prior notification of planned investments by foreign investors"@en ] ;
+    dcterms:title "Prior notification of planned investments by foreign investors"@en .
+
+<http://example.org/dataset/reports-on-foreign-investment-compliance> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/100/cod/doc/com/COM_2026_100/FINAL/eng/art_19> ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Reports on foreign investment compliance"@en ] ;
+    dcterms:title "Reports on foreign investment compliance"@en .
+
+<http://example.org/ie-solution/once-only-technical-system> a adms:Asset ;
+    dcterms:description "Once-Only Technical System"@en ;
+    dcterms:title "Once-Only Technical System"@en .
+
+<http://example.org/agent/economic-operators> rdfs:label "Economic Operators"@en .
+
+<http://example.org/agent/national-competent-authority> rdfs:label "National Competent Authority"@en .
+
+<http://example.org/process/notifications> skos:prefLabel "Notifications"@en .
+
+<http://example.org/process/permit-granting> skos:prefLabel "Permit granting"@en .
+
+<http://example.org/agent/national-competent-authorities> rdfs:label "National competent authorities"@en .
+
+<http://example.org/agent/european-commission> rdfs:label "European Commission"@en .
+
+<http://example.org/agent/member-states> rdfs:label "Member States"@en .
+

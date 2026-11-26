@@ -1,0 +1,255 @@
+# Migration ledger: csa2_lfds_lomo_instances
+
+Source: a LOMO description (Legal Obligation Metadata Ontology 1.1.0, Turtle) — csa2_lfds_lomo-instances.ttl
+Translator: LE2 migration/lomo (lomo_twin.pl)
+Date: 2026-11-26
+Source licence: Creative Commons Attribution 4.0 (the description); the register: the same, as a changed copy
+
+## Summary
+
+| Verdict | Source elements |
+|---|---|
+| encoded | 222 |
+| approximated | 0 |
+| residue | 0 |
+| **total** | 222 |
+
+Fidelity: **3 of 3** source test expectation(s) reproduced (100%).
+
+A source element is **encoded** when a documented mapping rule translated it with its meaning unchanged, **approximated** when the mapping changes its meaning in a documented way (see the note), and **residue** when it was not translated: it is marked in the program (`% RESIDUE <id> BEGIN ... END`) for the LE Contract Assistant or a person.
+
+## Source elements
+
+| Source element | Kind | Verdict | Mapping | In the program | Note |
+|---|---|---|---|---|---|
+| http://data.europa.eu/leg/lomo/lfds/CSA2 | owl:Ontology | encoded | 6 statements(6), one fact each | csa 2 | kept in the generic form (no word in lomo.le): dcterms:created, dcterms:creator, owl:imports |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Agent_ENISA | agent | encoded | 4 statements(4), one fact each | agent enisa |  |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Agent_Commission | agent | encoded | 4 statements(4), one fact each | agent commission |  |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Agent_EDPB | agent | encoded | 4 statements(4), one fact each | agent edpb |  |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Agent_ECCC | agent | encoded | 4 statements(4), one fact each | agent eccc |  |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Agent_EUCyCLONe | agent | encoded | 4 statements(4), one fact each | agent eu cy clo ne |  |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Agent_CERTEU | agent | encoded | 4 statements(4), one fact each | agent certeu |  |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Agent_EuropeanParliament | agent | encoded | 4 statements(4), one fact each | agent european parliament |  |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Agent_Council | agent | encoded | 4 statements(4), one fact each | agent council |  |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Agent_CourtOfAuditors | agent | encoded | 4 statements(4), one fact each | agent court of auditors |  |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Agent_BoardOfAppeal | agent | encoded | 4 statements(4), one fact each | agent board of appeal |  |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Agent_NISCooperationGroup | agent | encoded | 4 statements(4), one fact each | agent nis cooperation group |  |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Agent_MemberStates | agent type | encoded | 4 statements(4), one fact each | agent member states |  |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Agent_StakeholdersImpacted | agent type | encoded | 4 statements(4), one fact each | agent stakeholders impacted |  |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Agent_GeneralPublic | agent type | encoded | 4 statements(4), one fact each | agent general public |  |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Agent_EUEntities | agent type | encoded | 4 statements(4), one fact each | agent eu entities |  |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Agent_PublicPrivateStakeholders | agent type | encoded | 4 statements(4), one fact each | agent public private stakeholders |  |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Agent_MarketSurveillanceAuthorities | agent type | encoded | 4 statements(4), one fact each | agent market surveillance authorities |  |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Agent_ECCGMembers | agent type | encoded | 4 statements(4), one fact each | agent eccg members |  |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Agent_CSIRTs | agent type | encoded | 4 statements(4), one fact each | agent csir ts |  |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Agent_EntitiesNIS2 | agent type | encoded | 4 statements(4), one fact each | agent entities nis 2 |  |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Agent_Applicants | agent type | encoded | 4 statements(4), one fact each | agent applicants |  |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Agent_AttestationProviders | agent type | encoded | 4 statements(4), one fact each | agent attestation providers |  |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Agent_ConformityAssessmentBodies | agent type | encoded | 4 statements(4), one fact each | agent conformity assessment bodies |  |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Agent_ExpertStakeholders | agent type | encoded | 4 statements(4), one fact each | agent expert stakeholders |  |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Agent_CertificateHolders | agent type | encoded | 4 statements(4), one fact each | agent certificate holders |  |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Agent_Suppliers | agent type | encoded | 4 statements(4), one fact each | agent suppliers |  |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Agent_ThirdCountryEntities | agent type | encoded | 4 statements(4), one fact each | agent third country entities |  |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Agent_CompetentAuthorityDNA | agent type | encoded | 4 statements(4), one fact each | agent competent authority dna |  |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Agent_TelecomProviders | agent type | encoded | 4 statements(4), one fact each | agent telecom providers |  |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Agent_EssentialImportantEntities | agent type | encoded | 4 statements(4), one fact each | agent essential important entities |  |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#HighLevelProcessScheme | *a thing* is a concept scheme | encoded | 4 statements(4), one fact each | high level process scheme |  |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Process_DataAnalysis | *a thing* is a concept | encoded | 6 statements(6), one fact each | process data analysis | kept in the generic form (no word in lomo.le): skos:scopeNote |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Process_InformationSharing | *a thing* is a concept | encoded | 6 statements(6), one fact each | process information sharing | kept in the generic form (no word in lomo.le): skos:scopeNote |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Process_ProvidingGuidance | *a thing* is a concept | encoded | 6 statements(6), one fact each | process providing guidance | kept in the generic form (no word in lomo.le): skos:scopeNote |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Process_TechnicalSupport | *a thing* is a concept | encoded | 6 statements(6), one fact each | process technical support | kept in the generic form (no word in lomo.le): skos:scopeNote |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Process_Consultation | *a thing* is a concept | encoded | 5 statements(5), one fact each | process consultation |  |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Process_SchemeManagement | *a thing* is a concept | encoded | 6 statements(6), one fact each | process scheme management | kept in the generic form (no word in lomo.le): skos:scopeNote |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Process_ApplicationProcessing | *a thing* is a concept | encoded | 5 statements(5), one fact each | process application processing |  |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Process_PublicDissemination | *a thing* is a concept | encoded | 6 statements(6), one fact each | process public dissemination | kept in the generic form (no word in lomo.le): skos:scopeNote |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Process_RepositoryMaintenance | *a thing* is a concept | encoded | 5 statements(5), one fact each | process repository maintenance |  |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Process_Reporting | *a thing* is a concept | encoded | 6 statements(6), one fact each | process reporting | kept in the generic form (no word in lomo.le): skos:scopeNote |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Process_EarlyWarning | *a thing* is a concept | encoded | 5 statements(5), one fact each | process early warning |  |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Process_IncidentHandling | *a thing* is a concept | encoded | 5 statements(5), one fact each | process incident handling |  |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Process_RiskAssessment | *a thing* is a concept | encoded | 5 statements(5), one fact each | process risk assessment |  |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Process_Designation | *a thing* is a concept | encoded | 6 statements(6), one fact each | process designation | kept in the generic form (no word in lomo.le): skos:scopeNote |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Process_SecretariatServices | *a thing* is a concept | encoded | 5 statements(5), one fact each | process secretariat services |  |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Process_ExerciseOrganisation | *a thing* is a concept | encoded | 5 statements(5), one fact each | process exercise organisation |  |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Process_AppealHandling | *a thing* is a concept | encoded | 5 statements(5), one fact each | process appeal handling |  |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Process_BudgetManagement | *a thing* is a concept | encoded | 5 statements(5), one fact each | process budget management |  |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Process_ProgrammingDocumentation | *a thing* is a concept | encoded | 5 statements(5), one fact each | process programming documentation |  |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Process_GovernanceOversight | *a thing* is a concept | encoded | 5 statements(5), one fact each | process governance oversight |  |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Process_ConflictOfInterest | *a thing* is a concept | encoded | 5 statements(5), one fact each | process conflict of interest |  |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Process_ClassifiedInformationHandling | *a thing* is a concept | encoded | 5 statements(5), one fact each | process classified information handling |  |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Process_ComplaintManagement | *a thing* is a concept | encoded | 6 statements(6), one fact each | process complaint management | kept in the generic form (no word in lomo.le): skos:scopeNote |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Process_SupplierAssessment | *a thing* is a concept | encoded | 5 statements(5), one fact each | process supplier assessment |  |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Process_AuthorisationManagement | *a thing* is a concept | encoded | 5 statements(5), one fact each | process authorisation management |  |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Process_MutualAssistance | *a thing* is a concept | encoded | 5 statements(5), one fact each | process mutual assistance |  |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Process_CooperationFacilitation | *a thing* is a concept | encoded | 5 statements(5), one fact each | process cooperation facilitation |  |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#TemporalSpec_AsNeeded | *a thing* is a temporal specification | encoded | 6 statements(6), one fact each | temporal spec as needed |  |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#ResultType_GuidanceDocumentation | action result type | encoded | 4 statements(4), one fact each | result type guidance documentation |  |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#ResultType_ReportsAnalyses | action result type | encoded | 4 statements(4), one fact each | result type reports analyses |  |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#ResultType_AdviceOpinions | action result type | encoded | 4 statements(4), one fact each | result type advice opinions |  |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#ResultType_AlertsNotifications | action result type | encoded | 4 statements(4), one fact each | result type alerts notifications |  |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#ResultType_DigitalSolutionsDatabases | action result type | encoded | 4 statements(4), one fact each | result type digital solutions databases |  |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#ResultType_FrameworksSchemesChemes | action result type | encoded | 4 statements(4), one fact each | result type frameworks schemes chemes |  |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#ResultType_PlanningRegulatoryDocuments | action result type | encoded | 4 statements(4), one fact each | result type planning regulatory documents |  |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Requirement_Art1_Scope | *a thing* is a constitutive rule | encoded | 6 statements(6), one fact each | requirement art 1 scope |  |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Def_Cybersecurity | *a thing* is a definition | encoded | 7 statements(7), one fact each | def cybersecurity | words of LOMO before 1.1.0: lomo:isSemanticDefinition |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Def_UnionEntities | *a thing* is a definition | encoded | 7 statements(7), one fact each | def union entities | words of LOMO before 1.1.0: lomo:isSemanticDefinition |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Def_AuthorisedAttestationProvider | *a thing* is a definition | encoded | 7 statements(7), one fact each | def authorised attestation provider | words of LOMO before 1.1.0: lomo:isSemanticDefinition |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Def_EuropeanIndividualCybersecuritySkillsAttestation | *a thing* is a definition | encoded | 7 statements(7), one fact each | def european individual cybersecurity skills attestation | words of LOMO before 1.1.0: lomo:isSemanticDefinition |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Def_EuropeanIndividualCybersecuritySkillsAttestationScheme | *a thing* is a definition | encoded | 7 statements(7), one fact each | def european individual cybersecurity skills attestation scheme | words of LOMO before 1.1.0: lomo:isSemanticDefinition |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Def_NetworkAndInformationSystem | *a thing* is a definition | encoded | 7 statements(7), one fact each | def network information system | words of LOMO before 1.1.0: lomo:isSemanticDefinition |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Def_NationalCybersecurityStrategy | *a thing* is a definition | encoded | 7 statements(7), one fact each | def national cybersecurity strategy | words of LOMO before 1.1.0: lomo:isSemanticDefinition |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Def_Incident | *a thing* is a definition | encoded | 7 statements(7), one fact each | def incident | words of LOMO before 1.1.0: lomo:isSemanticDefinition |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Def_LargeScaleCybersecurityIncident | *a thing* is a definition | encoded | 7 statements(7), one fact each | def large scale cybersecurity incident | words of LOMO before 1.1.0: lomo:isSemanticDefinition |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Def_IncidentHandling | *a thing* is a definition | encoded | 7 statements(7), one fact each | def incident handling | words of LOMO before 1.1.0: lomo:isSemanticDefinition |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Def_CyberThreat | *a thing* is a definition | encoded | 7 statements(7), one fact each | def cyber threat | words of LOMO before 1.1.0: lomo:isSemanticDefinition |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Def_EuropeanCybersecurityCertificationScheme | *a thing* is a definition | encoded | 7 statements(7), one fact each | def european cybersecurity certification scheme | words of LOMO before 1.1.0: lomo:isSemanticDefinition |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Def_NationalCybersecurityCertificationScheme | *a thing* is a definition | encoded | 7 statements(7), one fact each | def national cybersecurity certification scheme | words of LOMO before 1.1.0: lomo:isSemanticDefinition |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Def_EuropeanCybersecurityCertificate | *a thing* is a definition | encoded | 7 statements(7), one fact each | def european cybersecurity certificate | words of LOMO before 1.1.0: lomo:isSemanticDefinition |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Def_EUStatementOfConformity | *a thing* is a definition | encoded | 7 statements(7), one fact each | def eu statement of conformity | words of LOMO before 1.1.0: lomo:isSemanticDefinition |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Def_ICTProduct | *a thing* is a definition | encoded | 7 statements(7), one fact each | def ict product | words of LOMO before 1.1.0: lomo:isSemanticDefinition |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Def_ICTService | *a thing* is a definition | encoded | 7 statements(7), one fact each | def ict service | words of LOMO before 1.1.0: lomo:isSemanticDefinition |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Def_ICTProcess | *a thing* is a definition | encoded | 7 statements(7), one fact each | def ict process | words of LOMO before 1.1.0: lomo:isSemanticDefinition |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Def_ManagedSecurityService | *a thing* is a definition | encoded | 7 statements(7), one fact each | def managed security service | words of LOMO before 1.1.0: lomo:isSemanticDefinition |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Def_Accreditation | *a thing* is a definition | encoded | 7 statements(7), one fact each | def accreditation | words of LOMO before 1.1.0: lomo:isSemanticDefinition |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Def_NationalAccreditationBody | *a thing* is a definition | encoded | 7 statements(7), one fact each | def national accreditation body | words of LOMO before 1.1.0: lomo:isSemanticDefinition |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Def_ConformityAssessment | *a thing* is a definition | encoded | 7 statements(7), one fact each | def conformity assessment | words of LOMO before 1.1.0: lomo:isSemanticDefinition |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Def_ConformityAssessmentBody | *a thing* is a definition | encoded | 7 statements(7), one fact each | def conformity assessment body | words of LOMO before 1.1.0: lomo:isSemanticDefinition |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Def_Standard | *a thing* is a definition | encoded | 7 statements(7), one fact each | def standard | words of LOMO before 1.1.0: lomo:isSemanticDefinition |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Def_TechnicalSpecification | *a thing* is a definition | encoded | 7 statements(7), one fact each | def technical specification | words of LOMO before 1.1.0: lomo:isSemanticDefinition |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Def_HarmonisedStandard | *a thing* is a definition | encoded | 7 statements(7), one fact each | def harmonised standard | words of LOMO before 1.1.0: lomo:isSemanticDefinition |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Def_AssuranceLevel | *a thing* is a definition | encoded | 7 statements(7), one fact each | def assurance level | words of LOMO before 1.1.0: lomo:isSemanticDefinition |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Def_ConformitySelfAssessment | *a thing* is a definition | encoded | 7 statements(7), one fact each | def conformity self assessment | words of LOMO before 1.1.0: lomo:isSemanticDefinition |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Def_CyberPostureOfEntities | *a thing* is a definition | encoded | 7 statements(7), one fact each | def cyber posture of entities | words of LOMO before 1.1.0: lomo:isSemanticDefinition |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Def_PriorApprovalModel | *a thing* is a definition | encoded | 7 statements(7), one fact each | def prior approval model | words of LOMO before 1.1.0: lomo:isSemanticDefinition |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Def_GeneralDelegationModel | *a thing* is a definition | encoded | 7 statements(7), one fact each | def general delegation model | words of LOMO before 1.1.0: lomo:isSemanticDefinition |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Def_CSIRT | *a thing* is a definition | encoded | 7 statements(7), one fact each | def csirt | words of LOMO before 1.1.0: lomo:isSemanticDefinition |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Def_ICTComponents | *a thing* is a definition | encoded | 7 statements(7), one fact each | def ict components | words of LOMO before 1.1.0: lomo:isSemanticDefinition |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Def_ICTAssets | *a thing* is a definition | encoded | 7 statements(7), one fact each | def ict assets | words of LOMO before 1.1.0: lomo:isSemanticDefinition |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Def_KeyICTAssets | *a thing* is a definition | encoded | 7 statements(7), one fact each | def key ict assets | words of LOMO before 1.1.0: lomo:isSemanticDefinition |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Def_ElectronicCommunicationsNetwork | *a thing* is a definition | encoded | 7 statements(7), one fact each | def electronic communications network | words of LOMO before 1.1.0: lomo:isSemanticDefinition |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Def_Control | *a thing* is a definition | encoded | 7 statements(7), one fact each | def control | words of LOMO before 1.1.0: lomo:isSemanticDefinition |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Def_Establishment | *a thing* is a definition | encoded | 7 statements(7), one fact each | def establishment | words of LOMO before 1.1.0: lomo:isSemanticDefinition |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Def_HighRiskSupplier | *a thing* is a definition | encoded | 7 statements(7), one fact each | def high risk supplier | words of LOMO before 1.1.0: lomo:isSemanticDefinition |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Def_ICTSupplyChain | *a thing* is a definition | encoded | 7 statements(7), one fact each | def ict supply chain | words of LOMO before 1.1.0: lomo:isSemanticDefinition |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Def_ThirdCountry | *a thing* is a definition | encoded | 7 statements(7), one fact each | def third country | words of LOMO before 1.1.0: lomo:isSemanticDefinition |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Def_NonTechnicalRisk | *a thing* is a definition | encoded | 7 statements(7), one fact each | def non technical risk | words of LOMO before 1.1.0: lomo:isSemanticDefinition |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Def_SignificantNonTechnicalCybersecurityRisk | *a thing* is a definition | encoded | 7 statements(7), one fact each | def significant non technical cybersecurity risk | words of LOMO before 1.1.0: lomo:isSemanticDefinition |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Def_CoreNetworkFunctionsMobile | *a thing* is a definition | encoded | 7 statements(7), one fact each | def core network functions mobile | words of LOMO before 1.1.0: lomo:isSemanticDefinition |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Def_NFVAndMANOMobile | *a thing* is a definition | encoded | 7 statements(7), one fact each | def nfv mano mobile | words of LOMO before 1.1.0: lomo:isSemanticDefinition |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Def_RANMobile | *a thing* is a definition | encoded | 7 statements(7), one fact each | def ran mobile | words of LOMO before 1.1.0: lomo:isSemanticDefinition |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Def_CoreNetworkFunctionsFixed | *a thing* is a definition | encoded | 7 statements(7), one fact each | def core network functions fixed | words of LOMO before 1.1.0: lomo:isSemanticDefinition |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Def_NetworkManagementSystemFixed | *a thing* is a definition | encoded | 7 statements(7), one fact each | def network management system fixed | words of LOMO before 1.1.0: lomo:isSemanticDefinition |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Def_TransportTransmissionFixed | *a thing* is a definition | encoded | 7 statements(7), one fact each | def transport transmission fixed | words of LOMO before 1.1.0: lomo:isSemanticDefinition |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Def_AccessNetworkFixed | *a thing* is a definition | encoded | 7 statements(7), one fact each | def access network fixed | words of LOMO before 1.1.0: lomo:isSemanticDefinition |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#ConstitutiveRule_Art3_Par1 | *a thing* is a constitutive rule | encoded | 6 statements(6), one fact each | constitutive rule art 3 par 1 |  |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#ConstitutiveRule_Art3_Par2 | *a thing* is a constitutive rule | encoded | 6 statements(6), one fact each | constitutive rule art 3 par 2 |  |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#ConstitutiveRule_Art3_Par3 | *a thing* is a constitutive rule | encoded | 6 statements(6), one fact each | constitutive rule art 3 par 3 |  |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#ConstitutiveRule_Art3_Par4 | *a thing* is a constitutive rule | encoded | 6 statements(6), one fact each | constitutive rule art 3 par 4 |  |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#ConstitutiveRule_Art3_Par5 | *a thing* is a constitutive rule | encoded | 6 statements(6), one fact each | constitutive rule art 3 par 5 |  |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Requirement_Art15_Par1 | *a thing* is a prescriptive rule | encoded | 14 statements(14), one fact each | requirement art 15 par 1 |  |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Requirement_Art15_Par2 | *a thing* is a prescriptive rule | encoded | 11 statements(11), one fact each | requirement art 15 par 2 |  |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Action_Art15_Par1_ProvideToolsAndPlatforms | action | encoded | 5 statements(5), one fact each | action art 15 par 1 provide tools platforms |  |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Action_Art15_Par2_CooperateAndExchange | action | encoded | 7 statements(7), one fact each | action art 15 par 2 cooperate exchange |  |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#AgentRole_Art15_Par1_ENISA_ToolProvider | agent role | encoded | 4 statements(4), one fact each | agent role art 15 par 1 enisa tool provider |  |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#AgentRole_Art15_Par2_ENISA_Cooperator | agent role | encoded | 4 statements(4), one fact each | agent role art 15 par 2 enisa cooperator |  |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#AgentRole_Art15_Par2_CSIRTs_Partner | agent role | encoded | 4 statements(4), one fact each | agent role art 15 par 2 csir ts partner |  |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#AgentRole_Art15_Par2_MarketAuthorities_Partner | agent role | encoded | 4 statements(4), one fact each | agent role art 15 par 2 market authorities partner |  |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Dataset_CybersecurityAnalysisReports | *a thing* is a dataset | encoded | 8 statements(8), one fact each | dataset cybersecurity analysis reports | kept in the generic form (no word in lomo.le): dcterms:subject |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Dataset_OperationalCooperationSituationalAwareness | *a thing* is a dataset | encoded | 8 statements(8), one fact each | dataset operational cooperation situational awareness | kept in the generic form (no word in lomo.le): dcterms:subject |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Dataset_SkillsAttestationSchemes | *a thing* is a dataset | encoded | 7 statements(7), one fact each | dataset skills attestation schemes | kept in the generic form (no word in lomo.le): dcterms:subject |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Dataset_CybersecurityCertificationSchemes | *a thing* is a dataset | encoded | 7 statements(7), one fact each | dataset cybersecurity certification schemes | kept in the generic form (no word in lomo.le): dcterms:subject |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Dataset_CertificationFrameworkGovernance | *a thing* is a dataset | encoded | 7 statements(7), one fact each | dataset certification framework governance | kept in the generic form (no word in lomo.le): dcterms:subject |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Dataset_ENISAInternalFunctions | *a thing* is a dataset | encoded | 7 statements(7), one fact each | dataset enisa internal functions | kept in the generic form (no word in lomo.le): dcterms:subject |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Dataset_PersonalData | *a thing* is a dataset | encoded | 8 statements(8), one fact each | dataset personal data | kept in the generic form (no word in lomo.le): dcterms:subject |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Dataset_CoordinatedRiskAssessments | *a thing* is a dataset | encoded | 8 statements(8), one fact each | dataset coordinated risk assessments | kept in the generic form (no word in lomo.le): dcterms:subject |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Dataset_ThirdCountryData | *a thing* is a dataset | encoded | 6 statements(6), one fact each | dataset third country data | kept in the generic form (no word in lomo.le): dcterms:subject |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Dataset_NationalAuthoritiesData | *a thing* is a dataset | encoded | 6 statements(6), one fact each | dataset national authorities data | kept in the generic form (no word in lomo.le): dcterms:subject |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Dataset_RiskAssessments | *a thing* is a dataset | encoded | 7 statements(7), one fact each | dataset risk assessments | kept in the generic form (no word in lomo.le): dcterms:subject |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Dataset_MutualAssistance | *a thing* is a dataset | encoded | 6 statements(6), one fact each | dataset mutual assistance | kept in the generic form (no word in lomo.le): dcterms:subject |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Standard_EuropeanVulnerabilityDatabase | *a thing* is a standard | encoded | 6 statements(6), one fact each | standard european vulnerability database |  |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Standard_ConfidentialityHandling | *a thing* is a standard | encoded | 5 statements(5), one fact each | standard confidentiality handling |  |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Standard_InteroperabilityGuidelines | *a thing* is a standard | encoded | 6 statements(6), one fact each | standard interoperability guidelines |  |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Standard_DigitalIdentityWallets | *a thing* is a standard | encoded | 6 statements(6), one fact each | standard digital identity wallets |  |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Standard_InternationalConformityAssessment | *a thing* is a standard | encoded | 5 statements(5), one fact each | standard international conformity assessment |  |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Standard_FinancialRegulationGuidelines | *a thing* is a standard | encoded | 5 statements(5), one fact each | standard financial regulation guidelines |  |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Standard_GDPR | *a thing* is a standard | encoded | 6 statements(6), one fact each | standard gdpr |  |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Standard_DataProtectionEUInstitutions | *a thing* is a standard | encoded | 6 statements(6), one fact each | standard data protection eu institutions |  |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Standard_NIS2Directive_Art21 | *a thing* is a standard | encoded | 6 statements(6), one fact each | standard nis 2 directive art 21 |  |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Standard_DORA_Art13 | *a thing* is a standard | encoded | 6 statements(6), one fact each | standard dora art 13 |  |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Software_CSIRTsSecureCommunications | owl:NamedIndividual | encoded | 12 statements(12), one fact each | software csir ts secure communications | kept in the generic form (no word in lomo.le): dcterms:creator, dcterms:isReferencedBy |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Software_CyberThreatIntelligenceRepository | owl:NamedIndividual | encoded | 16 statements(16), one fact each | software cyber threat intelligence repository | kept in the generic form (no word in lomo.le): dcterms:creator, dcterms:isReferencedBy |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Software_LessonsLearnedRepository | owl:NamedIndividual | encoded | 10 statements(10), one fact each | software lessons learned repository | kept in the generic form (no word in lomo.le): dcterms:creator, dcterms:isReferencedBy |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Software_SingleReportingPlatform | owl:NamedIndividual | encoded | 13 statements(13), one fact each | software single reporting platform | kept in the generic form (no word in lomo.le): dcterms:creator, dcterms:isReferencedBy |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Software_EuropeanVulnerabilityDatabase | owl:NamedIndividual | encoded | 12 statements(12), one fact each | software european vulnerability database | kept in the generic form (no word in lomo.le): dcterms:creator, dcterms:isReferencedBy |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Software_ECSFPublicWebsite | owl:NamedIndividual | encoded | 17 statements(17), one fact each | software ecsf public website | kept in the generic form (no word in lomo.le): dcterms:creator, dcterms:isReferencedBy |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Software_CommissionCertificationWebsite | owl:NamedIndividual | encoded | 11 statements(11), one fact each | software commission certification website | kept in the generic form (no word in lomo.le): dcterms:creator, dcterms:isReferencedBy |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Software_ENISACertificationWebsite | owl:NamedIndividual | encoded | 16 statements(16), one fact each | software enisa certification website | kept in the generic form (no word in lomo.le): dcterms:creator, dcterms:isReferencedBy |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Software_ThirdCountryExemptionsRegister | owl:NamedIndividual | encoded | 12 statements(12), one fact each | software third country exemptions register | kept in the generic form (no word in lomo.le): dcterms:creator, dcterms:isReferencedBy |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Software_CompetentAuthoritiesNetwork | owl:NamedIndividual | encoded | 10 statements(10), one fact each | software competent authorities network | kept in the generic form (no word in lomo.le): dcterms:creator, dcterms:isReferencedBy |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Software_NIS2EntitiesRegistry | owl:NamedIndividual | encoded | 12 statements(12), one fact each | software nis 2 entities registry | kept in the generic form (no word in lomo.le): dcterms:creator, dcterms:isReferencedBy |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Assessment_RepositoriesPlatforms_AlignmentPolicies | assessment | encoded | 12 statements(12), one fact each | assessment repositories platforms alignment policies | kept in the generic form (no word in lomo.le): cav:assesses, dcterms:type |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Statement_RepositoriesPlatforms_Alignment_Cybersecurity | assessment statement | encoded | 4 statements(4), one fact each | statement repositories platforms alignment cybersecurity |  |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Assessment_RepositoriesPlatforms_OrganisationalMeasures | assessment | encoded | 15 statements(15), one fact each | assessment repositories platforms organisational measures | kept in the generic form (no word in lomo.le): cav:assesses, dcterms:type |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Statement_RepositoriesPlatforms_Org_ManagementBoard | assessment statement | encoded | 4 statements(4), one fact each | statement repositories platforms org management board |  |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Statement_RepositoriesPlatforms_Org_CSIRTsNetwork | assessment statement | encoded | 4 statements(4), one fact each | statement repositories platforms org csir ts network |  |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Statement_RepositoriesPlatforms_Org_EUCyCLONe | assessment statement | encoded | 4 statements(4), one fact each | statement repositories platforms org eu cy clo ne |  |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Statement_RepositoriesPlatforms_Org_NISCoopGroup | assessment statement | encoded | 4 statements(4), one fact each | statement repositories platforms org nis coop group |  |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Assessment_RepositoriesPlatforms_SharedDataUnderstanding | assessment | encoded | 12 statements(12), one fact each | assessment repositories platforms shared data understanding | kept in the generic form (no word in lomo.le): cav:assesses, dcterms:type |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Statement_RepositoriesPlatforms_Shared_NotApplicable | assessment statement | encoded | 4 statements(4), one fact each | statement repositories platforms shared applicable |  |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Assessment_RepositoriesPlatforms_StandardsSpecifications | assessment | encoded | 12 statements(12), one fact each | assessment repositories platforms standards specifications | kept in the generic form (no word in lomo.le): cav:assesses, dcterms:type |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Statement_RepositoriesPlatforms_Standards_NotApplicable | assessment statement | encoded | 4 statements(4), one fact each | statement repositories platforms standards applicable |  |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Assessment_SkillsAttestation_AlignmentPolicies | assessment | encoded | 9 statements(9), one fact each | assessment skills attestation alignment policies | kept in the generic form (no word in lomo.le): cav:assesses, dcterms:type |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Statement_SkillsAttestation_Alignment_CybersecuritySkillsAcademy | assessment statement | encoded | 4 statements(4), one fact each | statement skills attestation alignment cybersecurity skills academy |  |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Statement_SkillsAttestation_Alignment_EUDIWallet | assessment statement | encoded | 4 statements(4), one fact each | statement skills attestation alignment eudi wallet |  |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Statement_SkillsAttestation_Alignment_Cybersecurity | assessment statement | encoded | 4 statements(4), one fact each | statement skills attestation alignment cybersecurity |  |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Statement_SkillsAttestation_Alignment_GDPR | assessment statement | encoded | 4 statements(4), one fact each | statement skills attestation alignment gdpr |  |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Assessment_SkillsAttestation_OrganisationalMeasures | assessment | encoded | 9 statements(9), one fact each | assessment skills attestation organisational measures | kept in the generic form (no word in lomo.le): cav:assesses, dcterms:type |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Statement_SkillsAttestation_Org_StakeholderConsultation | assessment statement | encoded | 4 statements(4), one fact each | statement skills attestation org stakeholder consultation |  |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Statement_SkillsAttestation_Org_SeparationActivities | assessment statement | encoded | 4 statements(4), one fact each | statement skills attestation org separation activities |  |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Statement_SkillsAttestation_Org_BoardAppeal | assessment statement | encoded | 4 statements(4), one fact each | statement skills attestation org board appeal |  |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Statement_SkillsAttestation_Barrier_VoluntaryUse | assessment statement | encoded | 4 statements(4), one fact each | statement skills attestation barrier voluntary use |  |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Assessment_SkillsAttestation_SharedDataUnderstanding | assessment | encoded | 11 statements(11), one fact each | assessment skills attestation shared data understanding | kept in the generic form (no word in lomo.le): cav:assesses, dcterms:type |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Statement_SkillsAttestation_Shared_DetailedSchemes | assessment statement | encoded | 4 statements(4), one fact each | statement skills attestation shared detailed schemes |  |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Statement_SkillsAttestation_Shared_EUDIWalletFormat | assessment statement | encoded | 4 statements(4), one fact each | statement skills attestation shared eudi wallet format |  |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Statement_SkillsAttestation_Shared_GuidanceTraining | assessment statement | encoded | 4 statements(4), one fact each | statement skills attestation shared guidance training |  |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Statement_SkillsAttestation_Shared_PublicWebsite | assessment statement | encoded | 4 statements(4), one fact each | statement skills attestation shared public website |  |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Statement_SkillsAttestation_Shared_ImplementingActsFees | assessment statement | encoded | 4 statements(4), one fact each | statement skills attestation shared implementing acts fees |  |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Statement_SkillsAttestation_Barrier_UnforeseenDimensions | assessment statement | encoded | 4 statements(4), one fact each | statement skills attestation barrier unforeseen dimensions |  |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Assessment_SkillsAttestation_StandardsSpecifications | assessment | encoded | 6 statements(6), one fact each | assessment skills attestation standards specifications | kept in the generic form (no word in lomo.le): cav:assesses, dcterms:type |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Statement_SkillsAttestation_Standards_StakeholderDevelopment | assessment statement | encoded | 4 statements(4), one fact each | statement skills attestation standards stakeholder development |  |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Assessment_CertificationSchemes_AlignmentPolicies | assessment | encoded | 7 statements(7), one fact each | assessment certification schemes alignment policies | kept in the generic form (no word in lomo.le): cav:assesses, dcterms:type |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Statement_CertificationSchemes_Alignment_NewLegislativeFramework | assessment statement | encoded | 4 statements(4), one fact each | statement certification schemes alignment new legislative framework |  |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Statement_CertificationSchemes_Alignment_SectoralLegislation | assessment statement | encoded | 4 statements(4), one fact each | statement certification schemes alignment sectoral legislation |  |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Assessment_CertificationSchemes_OrganisationalMeasures | assessment | encoded | 12 statements(12), one fact each | assessment certification schemes organisational measures | kept in the generic form (no word in lomo.le): cav:assesses, dcterms:type |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Statement_CertificationSchemes_Org_CertificationGroup | assessment statement | encoded | 4 statements(4), one fact each | statement certification schemes org certification group |  |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Statement_CertificationSchemes_Org_ENISA | assessment statement | encoded | 4 statements(4), one fact each | statement certification schemes org enisa |  |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Statement_CertificationSchemes_Org_WorkingGroups | assessment statement | encoded | 4 statements(4), one fact each | statement certification schemes org working groups |  |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Statement_CertificationSchemes_Org_Assembly | assessment statement | encoded | 4 statements(4), one fact each | statement certification schemes org assembly |  |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Statement_CertificationSchemes_Org_StakeholderConsultation | assessment statement | encoded | 4 statements(4), one fact each | statement certification schemes org stakeholder consultation |  |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Statement_CertificationSchemes_Org_Comitology | assessment statement | encoded | 4 statements(4), one fact each | statement certification schemes org comitology |  |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Statement_CertificationSchemes_Barrier_VoluntaryUse | assessment statement | encoded | 4 statements(4), one fact each | statement certification schemes barrier voluntary use |  |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Assessment_CertificationSchemes_SharedDataUnderstanding | assessment | encoded | 7 statements(7), one fact each | assessment certification schemes shared data understanding | kept in the generic form (no word in lomo.le): cav:assesses, dcterms:type |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Statement_CertificationSchemes_Shared_ImplementingActs | assessment statement | encoded | 4 statements(4), one fact each | statement certification schemes shared implementing acts |  |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Statement_CertificationSchemes_Barrier_VoluntaryUseMeasure | assessment statement | encoded | 4 statements(4), one fact each | statement certification schemes barrier voluntary use measure |  |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Assessment_CertificationSchemes_StandardsSpecifications | assessment | encoded | 8 statements(8), one fact each | assessment certification schemes standards specifications | kept in the generic form (no word in lomo.le): cav:assesses, dcterms:type |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Statement_CertificationSchemes_Standards_ImplementingActs | assessment statement | encoded | 4 statements(4), one fact each | statement certification schemes standards implementing acts |  |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Statement_CertificationSchemes_Standards_ConsistencyUnionLegislation | assessment statement | encoded | 4 statements(4), one fact each | statement certification schemes standards consistency union legislation |  |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Statement_CertificationSchemes_Standards_InternationalStandards | assessment statement | encoded | 4 statements(4), one fact each | statement certification schemes standards international standards |  |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Assessment_PublicWebsites_AlignmentPolicies | assessment | encoded | 9 statements(9), one fact each | assessment public websites alignment policies | kept in the generic form (no word in lomo.le): cav:assesses, dcterms:type |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Statement_PublicWebsites_Alignment_AccessibilityAct | assessment statement | encoded | 4 statements(4), one fact each | statement public websites alignment accessibility act |  |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Statement_PublicWebsites_Alignment_WebAccessibility | assessment statement | encoded | 4 statements(4), one fact each | statement public websites alignment web accessibility |  |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Statement_PublicWebsites_Alignment_Cybersecurity | assessment statement | encoded | 4 statements(4), one fact each | statement public websites alignment cybersecurity |  |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Assessment_PublicWebsites_OrganisationalMeasures | assessment | encoded | 7 statements(7), one fact each | assessment public websites organisational measures | kept in the generic form (no word in lomo.le): cav:assesses, dcterms:type |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Statement_PublicWebsites_Org_NotApplicable | assessment statement | encoded | 4 statements(4), one fact each | statement public websites org applicable |  |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Assessment_PublicWebsites_SharedDataUnderstanding | assessment | encoded | 7 statements(7), one fact each | assessment public websites shared data understanding | kept in the generic form (no word in lomo.le): cav:assesses, dcterms:type |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Statement_PublicWebsites_Shared_NotApplicable | assessment statement | encoded | 4 statements(4), one fact each | statement public websites shared applicable |  |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Assessment_PublicWebsites_StandardsSpecifications | assessment | encoded | 7 statements(7), one fact each | assessment public websites standards specifications | kept in the generic form (no word in lomo.le): cav:assesses, dcterms:type |
+| http://data.europa.eu/leg/lomo/lfds-CSA2#Statement_PublicWebsites_Standards_NotApplicable | assessment statement | encoded | 4 statements(4), one fact each | statement public websites standards applicable |  |
+
+## Source tests
+
+| Source test | Query | Result | Detail |
+|---|---|---|---|
+| description | modalities | pass |  |
+| description | actions_of_rules | pass |  |
+| description | actions_of_agents | pass |  |
+

@@ -1,0 +1,141 @@
+@prefix : <http://data.europa.eu/leg/digital-dimensions/> .
+@prefix lomo: <http://data.europa.eu/leg/lomo#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+@base <http://data.europa.eu/leg/digital-dimensions> .
+
+#################################################################
+#    Digital Dimensions Concept Scheme
+#################################################################
+
+:DigitalDimensionsScheme rdf:type skos:ConceptScheme ;
+    skos:notation "digital_dimension" ;
+    rdfs:label "Digital Dimensions"@en ;
+    rdfs:comment "A controlled vocabulary of digital dimension categories for classifying prescriptive rules by their relationship to data, digital public services, digital solutions and process automation."@en ;
+    skos:prefLabel "Digital Dimensions"@en ;
+    skos:prefLabel "Dimensions numériques"@fr ;
+    dcterms:title "Digital Dimensions Controlled Vocabulary"@en ;
+    dcterms:description "Classification scheme for digital dimensions used in the assessment of legal frameworks for digital services. These categories help identify how prescriptive rules relate to data (including observations and data flows), digital public services, digital solutions and process automation."@en ;
+    dcterms:creator "European Commission"@en ;
+    dcterms:modified "2026-10-21"^^xsd:date ;
+    dcterms:license <http://publications.europa.eu/resource/authority/licence/CC_BY_4_0> ;
+    owl:versionInfo "1.1.0" ;
+    dcterms:source "LFDS (Legislative Financial and Digital Statement)"@en ;
+    rdfs:seeAlso <http://data.europa.eu/2qy/lfds> ;
+    skos:hasTopConcept :Data ,
+                       :DigitalPublicService ,
+                       :DigitalSolutions ,
+                       :ProcessAutomation .
+
+:Data rdf:type owl:NamedIndividual , skos:Concept ;
+    skos:notation "data" ;
+    rdfs:label "Data"@en ;
+    skos:prefLabel "Data"@en ;
+    skos:prefLabel "Données"@fr ;
+    skos:altLabel "Data Requirements"@en ;
+    skos:definition "Category for requirements related to data collection, transmission, storage, quality, and reuse. Includes requirements about datasets, data formats, data standards, and data governance: obligations to provide, submit, report or transmit data; data quality, accuracy, integrity or confidentiality; periodic, one-off or trigger-based reporting; database setup and data retention."@en ;
+    skos:scopeNote """Use this category for requirements that:
+- Mandate collection or transmission of specific data
+- Specify data quality standards or validation rules
+- Define data formats, structures, or schemas
+- Establish data sharing or reuse obligations
+- Set data retention or archiving requirements
+- Reference specific datasets or data types
+
+Where the requirement is about moving data between parties (who reports or notifies whom, how often, by what channel), classify it under the narrower Data Flow."""@en ;
+    skos:narrower :Observation ,
+                  :DataFlow ;
+    skos:inScheme :DigitalDimensionsScheme ;
+    skos:topConceptOf :DigitalDimensionsScheme .
+
+:Observation rdf:type owl:NamedIndividual , skos:Concept ;
+    skos:notation "observation" ;
+    rdfs:label "Observation"@en ;
+    skos:prefLabel "Observation"@en ;
+    skos:prefLabel "Observation"@fr ;
+    skos:altLabel "Data Point"@en , "Observed Value"@en ;
+    skos:definition "Category for requirements that establish specific data values, measurements, rates, thresholds, or other discrete data points that must be recorded, transmitted, or processed by digital systems. Aligned with qb:Observation from the W3C RDF Data Cube Vocabulary / SDMX."@en ;
+    skos:scopeNote """Use this category for requirements that:
+- Define specific rates, percentages, or thresholds (e.g., duty rates, tax rates, limits)
+- Establish reference values that systems must use for calculations
+- Mandate recording of discrete measurements or observations
+- Specify coded values (e.g., TARIC codes, classification codes)
+- Define authoritative data points that must be exchanged between systems
+
+This is a subconcept of Data, specifically for discrete, well-defined data points rather than broader data management or dataset requirements.
+
+Alignment: This concept corresponds to qb:Observation in the W3C RDF Data Cube Vocabulary (http://purl.org/linked-data/cube#Observation), which is the RDF representation of SDMX statistical observations."""@en ;
+    skos:closeMatch <http://purl.org/linked-data/cube#Observation> ;
+    skos:broader :Data ;
+    skos:inScheme :DigitalDimensionsScheme .
+
+:DigitalPublicService rdf:type owl:NamedIndividual , skos:Concept ;
+    skos:notation "digital_public_service" ;
+    rdfs:label "Digital Public Service"@en ;
+    skos:prefLabel "Digital Public Service"@en ;
+    skos:prefLabel "Service public numérique"@fr ;
+    skos:altLabel "DPS"@en ;
+    skos:definition "Category for requirements related to digital public services, including statistical services, information dissemination, citizen-facing portals, and administrative e-services, provided digitally by or on behalf of public administrations to citizens, businesses or other public bodies: certification and authorisation, digital identity verification, open data portals, environmental or financial monitoring, e-government services, inter-agency data exchange, e-procurement. Interoperability requirements for data or digital solutions in a public service context belong here too."@en ;
+    skos:scopeNote """Use this category for requirements that:
+- Establish or mandate digital public services
+- Define service levels or availability requirements
+- Specify public access to information or data
+- Require provision of online administrative services
+- Mandate interoperability between public services
+- Define user rights or service guarantees"""@en ;
+    skos:inScheme :DigitalDimensionsScheme ;
+    skos:topConceptOf :DigitalDimensionsScheme .
+
+:DigitalSolutions rdf:type owl:NamedIndividual , skos:Concept ;
+    skos:notation "digital_solution" ;
+    rdfs:label "Digital Solution"@en ;
+    skos:prefLabel "Digital Solution"@en ;
+    skos:prefLabel "Solution numérique"@fr ;
+    skos:altLabel "Digital Infrastructure"@en ;
+    skos:definition "Category for requirements related to digital infrastructure, software systems, technical platforms, and IT solutions that support the implementation of legal obligations: applications, systems (CMS, CRM, ERP), APIs and libraries, databases, registries and repositories, cloud services, digital infrastructure and networks. Groups of people, governance mechanisms, regulatory instruments and regulatory sandboxes are not digital solutions."@en ;
+    skos:scopeNote """Use this category for requirements that:
+- Mandate specific software systems or platforms
+- Define technical infrastructure requirements
+- Specify system interoperability standards
+- Require use of particular technologies or tools
+- Establish technical security or reliability standards
+- Reference databases, registers, or information systems"""@en ;
+    skos:inScheme :DigitalDimensionsScheme ;
+    skos:topConceptOf :DigitalDimensionsScheme .
+
+:ProcessAutomation rdf:type owl:NamedIndividual , skos:Concept ;
+    skos:notation "process_automation" ;
+    rdfs:label "Process Automation"@en ;
+    skos:prefLabel "Process Automation"@en ;
+    skos:prefLabel "Automatisation des processus"@fr ;
+    skos:altLabel "Workflow Automation"@en ;
+    skos:definition "Category for requirements related to process automation and workflow optimisation, where a procedure is carried out by a system rather than manually, such as RPA, electronic data exchange, AI tools or remote sensing that reduce manual intervention."@en ;
+    skos:scopeNote """Use this category for requirements that:
+- Mandate automated handling of a procedure or decision
+- Replace a manual step with a system-performed one
+- Define workflow orchestration or routing rules
+- Set conditions under which automated processing applies
+- Require straight-through processing or automatic validation"""@en ;
+    skos:inScheme :DigitalDimensionsScheme ;
+    skos:topConceptOf :DigitalDimensionsScheme .
+
+:DataFlow rdf:type owl:NamedIndividual , skos:Concept ;
+    skos:notation "data_flow" ;
+    rdfs:label "Data Flow"@en ;
+    skos:prefLabel "Data Flow"@en ;
+    skos:prefLabel "Flux de données"@fr ;
+    skos:altLabel "Reporting Requirement"@en ;
+    skos:definition "Category for requirements that move data between parties, such as reporting, notification and transmission obligations: whether and how data should travel between systems, applications or processes. Key verbs: submit, report, notify, transmit, publish, disclose, share, collect, exchange."@en ;
+    skos:scopeNote """Use this category for requirements that:
+- Oblige one party to report or notify another
+- Define the direction, frequency or deadline of a transmission
+- Establish exchange between authorities or between authority and operator
+- Specify the channel or system carrying the exchange
+- Require forwarding, onward sharing or publication of received data"""@en ;
+    skos:broader :Data ;
+    skos:inScheme :DigitalDimensionsScheme .

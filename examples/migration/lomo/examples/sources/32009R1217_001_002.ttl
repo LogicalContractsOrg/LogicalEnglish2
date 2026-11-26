@@ -1,0 +1,42 @@
+# CREATION OF A FARM SUSTAINABILITY DATA NETWORK - Article 1, Paragraph 2
+# SDN data shall cover the topics set out in Annex I. The Commission is empowered to adopt delegated acts, in accordance with Article 19a, amending Annex I in order to modify those topics or to add new ones.
+#
+# Note: For this provision, it was decided to model only the first sentence of the legal text. The subsequent sentences, which concern the delegation of powers to the Commission and the conditions for exercising those powers, were considered out of scope for this modelling exercise.
+
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix eli: <http://data.europa.eu/eli/ontology#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix example: <https://system.org/example#> .
+@prefix lomo: <http://data.europa.eu/leg/lomo#> .
+
+# Agent Role instance
+example:REG20091217ART1PAR2_AgentRole1
+    a lomo:AgentRole ;
+    lomo:forAgent example:MemberStates ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+# Legal Rule
+example:REG20091217ART1PAR2
+    a lomo:PrescriptiveRule ;
+    rdfs:label "Coverage of FSDN data"@en ;
+    lomo:hasDeonticModality <http://data.europa.eu/leg/deontic-modality/Obligation> ;
+    lomo:hasRequirementType <http://publications.europa.eu/resource/dataset/administrative-obligation/c_80214a02> ;
+    lomo:establishedIn <http://data.europa.eu/eli/reg/2009/1217/art_1/par_2/2024-01-01> ;
+    lomo:produces example:REG20091217ART1PAR2_Action1 ;
+    lomo:legalText "FSDN data shall cover the topics set out in Annex I."@en .
+
+# Actions
+example:REG20091217ART1PAR2_Action1
+    a lomo:Action ;
+    lomo:hasAgentRole example:REG20091217ART1PAR2_AgentRole1 ;
+    lomo:hasResult example:REG20091217ART1PAR2_ActionResult1 ;
+    lomo:legalText "FSDN data shall cover the topics set out in Annex I."@en .
+
+# Action Results
+example:REG20091217ART1PAR2_ActionResult1
+    a lomo:ActionResult ;
+    rdfs:label "FSDN data"@en ;
+    lomo:legalText "FSDN data"@en .

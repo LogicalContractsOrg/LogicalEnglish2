@@ -1,0 +1,58 @@
+# The Turtle example of lomo:isDerogatedBy in the specification of LOMO 1.1.0
+# (https://drpm.pages.code.europa.eu/lomo/latest/#isDerogatedBy), with the prefixes it uses.
+@prefix ex: <http://example.org/> .
+@prefix lomo: <http://data.europa.eu/leg/lomo#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix dctype: <http://purl.org/dc/dcmitype/> .
+@prefix cpsv: <http://purl.org/vocab/cpsv#> .
+@prefix eli: <http://data.europa.eu/eli/ontology#> .
+@prefix tf: <http://data.europa.eu/leg/temporal-function/> .
+@prefix dm: <http://data.europa.eu/leg/deontic-modality/> .
+@prefix dd: <http://data.europa.eu/leg/digital-dimensions/> .
+@prefix rc: <http://data.europa.eu/leg/result-category/> .
+@prefix role: <http://publications.europa.eu/resource/authority/role/> .
+
+# Note: the rule instances below are abbreviated - the mandatory lomo:produces on PrescriptiveRule instances is omitted to keep the focus on the isDerogatedBy relationship.
+# Example 1: Financial reporting obligation derogated by micro-entity exemption
+ex:Rule_Dir2013_34_Art1_GeneralObligation a lomo:PrescriptiveRule ;
+    rdfs:label "Directive 2013/34/EU Article 1(2)(a): General requirements for financial statements"@en ;
+    lomo:hasDeonticModality <http://data.europa.eu/leg/deontic-modality/Obligation> ;
+    lomo:isDerogatedBy ex:Rule_Dir2013_34_Art1a_MicroEntityDerogation ;
+    lomo:establishedIn <http://data.europa.eu/eli/dir/2013/34/oj/art_1> .
+
+ex:Rule_Dir2013_34_Art1a_MicroEntityDerogation a lomo:PrescriptiveRule ;
+    rdfs:label "Directive 2013/34/EU Article 1a: Derogation for micro-entities"@en ;
+    lomo:hasDeonticModality <http://data.europa.eu/leg/deontic-modality/Permission> ;
+    lomo:establishedIn <http://data.europa.eu/eli/dir/2013/34/oj/art_1a> .
+
+# Example 2: Consent requirement derogated by alternative contract-based lawful basis
+ex:Rule_GDPR_Art6_1_a_Consent a lomo:PrescriptiveRule ;
+    rdfs:label "GDPR Article 6(1)(a): Lawful basis - Consent"@en ;
+    lomo:hasDeonticModality <http://data.europa.eu/leg/deontic-modality/Permission> ;
+    lomo:isDerogatedBy ex:Rule_GDPR_Art6_1_b_ContractPerformance ;
+    lomo:establishedIn <http://data.europa.eu/eli/reg/2016/679/art_6/par_1/point_a> .
+
+ex:Rule_GDPR_Art6_1_b_ContractPerformance a lomo:PrescriptiveRule ;
+    rdfs:label "GDPR Article 6(1)(b): Lawful basis - Contract performance"@en ;
+    lomo:hasDeonticModality <http://data.europa.eu/leg/deontic-modality/Permission> ;
+    lomo:establishedIn <http://data.europa.eu/eli/reg/2016/679/art_6/par_1/point_b> ;
+    rdfs:comment "Article 6(1)(b) substitutes consent as a lawful basis when contract performance is necessary" .
+
+# Example 3: CO₂ monitoring obligation derogated by category exemptions
+ex:Rule_EU2019_1242_Art4_CO2Monitoring a lomo:SubstantiveRule ;
+    rdfs:label "Regulation (EU) 2019/1242 Article 4: CO₂ monitoring"@en ;
+    lomo:hasDeonticModality <http://data.europa.eu/leg/deontic-modality/Obligation> ;
+    lomo:isDerogatedBy ex:Rule_EU2019_1242_Art5_4_VehicleDerogation ;
+    lomo:establishedIn <http://data.europa.eu/eli/reg/2019/1242/art_4> .
+
+ex:Rule_EU2019_1242_Art5_4_VehicleDerogation a lomo:PrescriptiveRule ;
+    rdfs:label "Regulation (EU) 2019/1242 Article 5(4): Derogation from monitoring for certain vehicles"@en ;
+    lomo:hasDeonticModality <http://data.europa.eu/leg/deontic-modality/Permission> ;
+    lomo:establishedIn <http://data.europa.eu/eli/reg/2019/1242/art_5/par_4> ;
+    rdfs:comment "Article 5(4) provides a blocking derogation that suspends the general monitoring obligation for specified vehicle categories" .

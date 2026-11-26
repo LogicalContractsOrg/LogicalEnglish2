@@ -1,0 +1,693 @@
+@prefix adms: <http://www.w3.org/ns/adms#> .
+@prefix cav: <http://data.europa.eu/2sa/cav#> .
+@prefix cpsv: <http://purl.org/vocab/cpsv#> .
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix dctype: <http://purl.org/dc/dcmitype/> .
+@prefix iac: <http://data.europa.eu/leg/interop-assessment#> .
+@prefix iopa: <http://data.europa.eu/2qy/iopa#> .
+@prefix lomo: <http://data.europa.eu/leg/lomo#> .
+@prefix m8g: <http://data.europa.eu/m8g/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix tf: <http://data.europa.eu/leg/temporal-function/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<http://example.org/analysis/action/1> a lomo:Action ;
+    rdfs:label "Commercial catches"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Calendar year"@en ],
+        [ a lomo:TemporalSpecification ;
+            lomo:frequency "P1Y"^^xsd:duration ;
+            lomo:hasFunction tf:deadline ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/435/cod/doc/com/COM_2025_435/FINAL/eng/art_1> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/1/role/addressee-commission-eurostat>,
+        <http://example.org/analysis/action/1/role/addresser-member-states> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Commercial catches"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/commercial-catches> ] .
+
+<http://example.org/analysis/action/10> a lomo:Action ;
+    rdfs:label "Establishments"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:deadline ;
+            lomo:temporalLabel "Every second year"@en ],
+        [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Calendar year"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/435/cod/doc/com/COM_2025_435/FINAL/eng/art_1> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/10/role/addressee-commission-eurostat>,
+        <http://example.org/analysis/action/10/role/addresser-member-states> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Establishments"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/establishments> ] .
+
+<http://example.org/analysis/action/2> a lomo:Action ;
+    rdfs:label "Discards"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:frequency "P1Y"^^xsd:duration ;
+            lomo:hasFunction tf:deadline ],
+        [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Calendar year"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/435/cod/doc/com/COM_2025_435/FINAL/eng/art_1> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/2/role/addressee-commission-eurostat>,
+        <http://example.org/analysis/action/2/role/addresser-member-states> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Discards"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/discards> ] .
+
+<http://example.org/analysis/action/3> a lomo:Action ;
+    rdfs:label "Recreational catches"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:frequency "P1Y"^^xsd:duration ;
+            lomo:hasFunction tf:deadline ],
+        [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Calendar year"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/435/cod/doc/com/COM_2025_435/FINAL/eng/art_1> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/3/role/addressee-commission-eurostat>,
+        <http://example.org/analysis/action/3/role/addresser-member-states> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Recreational catches"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/recreational-catches> ] .
+
+<http://example.org/analysis/action/4> a lomo:Action ;
+    rdfs:label "Landed products"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Calendar year"@en ],
+        [ a lomo:TemporalSpecification ;
+            lomo:frequency "P1Y"^^xsd:duration ;
+            lomo:hasFunction tf:deadline ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/435/cod/doc/com/COM_2025_435/FINAL/eng/art_1> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/4/role/addressee-commission-eurostat>,
+        <http://example.org/analysis/action/4/role/addresser-member-states> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Landed products"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/landed-products> ] .
+
+<http://example.org/analysis/action/5> a lomo:Action ;
+    rdfs:label "Catching fleet structure"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:frequency "P1Y"^^xsd:duration ;
+            lomo:hasFunction tf:deadline ],
+        [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Calendar year"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/435/cod/doc/com/COM_2025_435/FINAL/eng/art_1> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/5/role/addressee-commission-eurostat>,
+        <http://example.org/analysis/action/5/role/addresser-member-states> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Catching fleet structure"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/catching-fleet-structure> ] .
+
+<http://example.org/analysis/action/6> a lomo:Action ;
+    rdfs:label "Aquaculture products excluding eggs"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Calendar year"@en ],
+        [ a lomo:TemporalSpecification ;
+            lomo:frequency "P1Y"^^xsd:duration ;
+            lomo:hasFunction tf:deadline ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/435/cod/doc/com/COM_2025_435/FINAL/eng/art_1> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/6/role/addressee-commission-eurostat>,
+        <http://example.org/analysis/action/6/role/addresser-member-states> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Aquaculture products excluding eggs"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/aquaculture-products-excluding-eggs> ] .
+
+<http://example.org/analysis/action/7> a lomo:Action ;
+    rdfs:label "Aquaculture eggs"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:frequency "P1Y"^^xsd:duration ;
+            lomo:hasFunction tf:deadline ],
+        [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Calendar year"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/435/cod/doc/com/COM_2025_435/FINAL/eng/art_1> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/7/role/addressee-commission-eurostat>,
+        <http://example.org/analysis/action/7/role/addresser-member-states> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Aquaculture eggs"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/aquaculture-eggs> ] .
+
+<http://example.org/analysis/action/8> a lomo:Action ;
+    rdfs:label "Capture-based aquaculture"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:frequency "P1Y"^^xsd:duration ;
+            lomo:hasFunction tf:deadline ],
+        [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Calendar year"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/435/cod/doc/com/COM_2025_435/FINAL/eng/art_1> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/8/role/addressee-commission-eurostat>,
+        <http://example.org/analysis/action/8/role/addresser-member-states> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Capture-based aquaculture"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/capture-based-aquaculture> ] .
+
+<http://example.org/analysis/action/9> a lomo:Action ;
+    rdfs:label "Products from hatcheries and nurseries"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:frequency "P1Y"^^xsd:duration ;
+            lomo:hasFunction tf:deadline ],
+        [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Calendar year"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/435/cod/doc/com/COM_2025_435/FINAL/eng/art_1> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/9/role/addressee-commission-eurostat>,
+        <http://example.org/analysis/action/9/role/addresser-member-states> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Products from hatcheries and nurseries"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/products-from-hatcheries-and-nurseries> ] .
+
+<http://example.org/analysis/assessment/1> a cav:Assessment ;
+    cav:assesses <http://example.org/analysis/description/1>,
+        <http://example.org/analysis/description/2>,
+        <http://example.org/analysis/description/3>,
+        <http://example.org/analysis/description/4>,
+        <http://example.org/analysis/description/5>,
+        <http://example.org/analysis/description/6>,
+        <http://example.org/analysis/description/7>,
+        <http://example.org/analysis/description/8> ;
+    cav:resultsIn <http://example.org/analysis/assessment/1/1/barrier>,
+        <http://example.org/analysis/assessment/1/1/measure>,
+        <http://example.org/analysis/assessment/1/2/measure>,
+        <http://example.org/analysis/assessment/1/3/barrier>,
+        <http://example.org/analysis/assessment/1/3/measure>,
+        <http://example.org/analysis/assessment/1/4/barrier>,
+        <http://example.org/analysis/assessment/1/4/measure> ;
+    m8g:isProvidedBy <http://publications.europa.eu/resource/authority/corporate-body/COM> .
+
+<http://example.org/analysis/solution/1> a dctype:Software ;
+    rdfs:label "European statistical systems for fisheries and aquaculture"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/435/cod/doc/com/COM_2025_435/FINAL/eng/art_7> ;
+    lomo:hasCapability "Produce European statistics on fisheries" ;
+    dcterms:publisher <http://example.org/agent/european-commission> ;
+    dcterms:title "European statistical systems for fisheries and aquaculture"@en .
+
+<http://example.org/analysis/solution/2> a dctype:Software ;
+    rdfs:label "National statistical systems for fisheries and aquaculture"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/435/cod/doc/com/COM_2025_435/FINAL/eng/art_8> ;
+    lomo:hasCapability "Produce European statistics on fisheries" ;
+    dcterms:publisher <http://example.org/agent/member-state> ;
+    dcterms:title "National statistical systems for fisheries and aquaculture"@en .
+
+<http://example.org/agent/international-intergovernmental-and-regional-fisheries-management-organisations> rdfs:label "international, intergovernmental and regional fisheries management organisations"@en .
+
+<http://example.org/agent/international-organisations> rdfs:label "International organisations"@en .
+
+<http://example.org/analysis/action/1/role/addressee-commission-eurostat> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/commission-eurostat> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/1/role/addresser-member-states> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/10/role/addressee-commission-eurostat> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/commission-eurostat> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/10/role/addresser-member-states> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/11> a lomo:Action ;
+    rdfs:label "Aggregated data covered by this regulation"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "As needed"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/435/cod/doc/com/COM_2025_435/FINAL/eng/art_9> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/11/role/addressee-international-organisations>,
+        <http://example.org/analysis/action/11/role/addresser-commission-eurostat> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Aggregated data covered by this regulation"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/aggregated-data-covered-by-this-regulation> ] .
+
+<http://example.org/analysis/action/11/role/addressee-international-organisations> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/international-organisations> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/11/role/addresser-commission-eurostat> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/commission-eurostat> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/2/role/addressee-commission-eurostat> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/commission-eurostat> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/2/role/addresser-member-states> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/3/role/addressee-commission-eurostat> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/commission-eurostat> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/3/role/addresser-member-states> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/4/role/addressee-commission-eurostat> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/commission-eurostat> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/4/role/addresser-member-states> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/5/role/addressee-commission-eurostat> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/commission-eurostat> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/5/role/addresser-member-states> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/6/role/addressee-commission-eurostat> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/commission-eurostat> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/6/role/addresser-member-states> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/7/role/addressee-commission-eurostat> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/commission-eurostat> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/7/role/addresser-member-states> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/8/role/addressee-commission-eurostat> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/commission-eurostat> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/8/role/addresser-member-states> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/9/role/addressee-commission-eurostat> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/commission-eurostat> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/9/role/addresser-member-states> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/assessment/1/1/barrier> a cav:Statement ;
+    cav:interpretation iac:InterpretationNegative ;
+    cav:judgement "-Agreements on additional quality checks, confidentiality requirements, and dissemination of the ECR data, are to beestablishedbetween theCommission and the MemberStates"@en ;
+    cav:type iac:StatementTypeAlignmentBarrier ;
+    m8g:hasRelatedService <http://example.org/analysis/interop/1> ;
+    dcterms:description "Assess the alignment with existing digital and sectorial policiesPlease list the applicable digital and sectorial policies identified"@en .
+
+<http://example.org/analysis/assessment/1/1/measure> a cav:Statement ;
+    cav:interpretation iac:InterpretationPositive ;
+    cav:judgement """This act ensures consistency and streamlines statistical processes in the area of European fisheries and aquaculture statistics.
+Under the legal framework of Regulation (EC) No 223/2009.
+Relying on data (Council Regulation (EC) No 1224/2009 of the European Parliament and of the Council and Commission Implementing Regulation (EU) 2017/218 of 6 February 2017),
+Commission Implementing Regulation (EU) 2017/218.
+Aligned with the DCF (Regulation (EU) No 2017/1004)."""@en ;
+    cav:type iac:StatementTypeAlignmentMeasure ;
+    m8g:hasRelatedService <http://example.org/analysis/interop/1> ;
+    dcterms:description "Assess the alignment with existing digital and sectorial policiesPlease list the applicable digital and sectorial policies identified"@en .
+
+<http://example.org/analysis/assessment/1/2/measure> a cav:Statement ;
+    cav:interpretation iac:InterpretationPositive ;
+    cav:judgement """-Asis the case forall European statistics disseminated by Eurostat,fisheries and aquaculture statistics are associated with ametadata description; - Member Statesare advisedto use the‘latest version of the SIMS’(see Commission Recommendation (EU) 2023/397). All tables disseminated by Eurostat are associated with ametadata description.
+-Uses the existing network of statistical offices."""@en ;
+    cav:type iac:StatementTypeOrganisationMeasure ;
+    m8g:hasRelatedService <http://example.org/analysis/interop/1> ;
+    dcterms:description "Assess the organisational measures for a smooth cross-border digital public services deliveryPlease list the governance measures foreseen"@en .
+
+<http://example.org/analysis/assessment/1/3/barrier> a cav:Statement ;
+    cav:interpretation iac:InterpretationNegative ;
+    cav:judgement """-The specific data sources that the legislation aims to reuse may not use harmonised concepts andthegranularity of observations may hinder the reuse of data for the purpose of statistics;
+-iplementation aspects may involve the creation of additional vocabularies."""@en ;
+    cav:type iac:StatementTypeSharedBarrier ;
+    m8g:hasRelatedService <http://example.org/analysis/interop/1> ;
+    dcterms:description "Assess the measures taken to ensure a shared understanding of the dataPlease list such measures"@en .
+
+<http://example.org/analysis/assessment/1/3/measure> a cav:Statement ;
+    cav:interpretation iac:InterpretationPositive ;
+    cav:judgement """-Promotes the use of international standards for fisheries statistics, including concepts and classifications,such as the Fishing Areas for Statistical Purposes and the ASFISlist ofspecies.
+-Promotes the alignment of the data requests, definitions, methodologies, and reporting formats with those oftheFAO and theOECD.
+-Promotes the use of a clear definition for ‘aquaculture establishments’.
+-Applies Regulation (EC) No1059/2003 of the European Parliament and of the Council to data on terrestrial units."""@en ;
+    cav:type iac:StatementTypeSharedMeasure ;
+    m8g:hasRelatedService <http://example.org/analysis/interop/1> ;
+    dcterms:description "Assess the measures taken to ensure a shared understanding of the dataPlease list such measures"@en .
+
+<http://example.org/analysis/assessment/1/4/barrier> a cav:Statement ;
+    cav:interpretation iac:InterpretationNegative ;
+    cav:judgement "-Further developments are neededtoextract anddevelopthe data thatarecurrently stored in internal Commission repositories."@en ;
+    cav:type iac:StatementTypeStandardsBarrier ;
+    m8g:hasRelatedService <http://example.org/analysis/interop/1> ;
+    dcterms:description "Assess the use of commonly agreed open technical specifications and standardsPlease list such measures"@en .
+
+<http://example.org/analysis/assessment/1/4/measure> a cav:Statement ;
+    cav:interpretation iac:InterpretationPositive ;
+    cav:judgement """-The data structure used in thisregulation should be comparable with the DCF set out in Regulation (EU) No2017/1004 of the European Parliament and of the Council.
+-DG MARE collectsdata using the international FLUX standard (DG-MARE-FLUX-Brochure.pdf)."""@en ;
+    cav:type iac:StatementTypeStandardsMeasure ;
+    m8g:hasRelatedService <http://example.org/analysis/interop/1> ;
+    dcterms:description "Assess the use of commonly agreed open technical specifications and standardsPlease list such measures"@en .
+
+<http://example.org/analysis/description/1> a iopa:BindingRequirement,
+        lomo:LegalRule ;
+    rdfs:label "Article 4"@en ;
+    iopa:affects <http://example.org/analysis/interop/1> ;
+    cav:valueDescription "Data requirements"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/435/cod/doc/com/COM_2025_435/FINAL/eng/art_4> ;
+    lomo:hasCategory <http://data.europa.eu/leg/digital-dimensions/Data>,
+        <http://data.europa.eu/leg/digital-dimensions/DigitalPublicService> ;
+    lomo:involvesProcess <http://example.org/process/data-collection-data-transmission> ;
+    lomo:produces <http://example.org/analysis/description/1/action> ;
+    lomo:references <http://example.org/dataset/aquaculture-statistics-aquaculture-production-excluding-hatcheries-and-nurseries-flows-in-aquaculture-and-aquaculture-establishments>,
+        <http://example.org/dataset/fisheries-statistics-catches-landings-and-catching-fleet>,
+        <http://example.org/dataset/metadata> ;
+    dcterms:description "Data requirements"@en ;
+    dcterms:relation <http://example.org/ie-solution/eurostat-public-dissemination-database-eurobasedatabase---eurostat> .
+
+<http://example.org/analysis/description/1/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/1/action/role/addressee-member-states-european-commission> .
+
+<http://example.org/analysis/description/1/action/role/addressee-member-states-european-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states-european-commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/2> a iopa:BindingRequirement,
+        lomo:LegalRule ;
+    rdfs:label "Article 5"@en ;
+    iopa:affects <http://example.org/analysis/interop/1> ;
+    cav:valueDescription "Ad hoc data collection"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/435/cod/doc/com/COM_2025_435/FINAL/eng/art_5> ;
+    lomo:hasCategory <http://data.europa.eu/leg/digital-dimensions/Data>,
+        <http://data.europa.eu/leg/digital-dimensions/DigitalPublicService> ;
+    lomo:involvesProcess <http://example.org/process/data-collection-data-transmission> ;
+    lomo:produces <http://example.org/analysis/description/2/action> ;
+    lomo:references <http://example.org/dataset/aquaculture-statistics-aquaculture-production-excluding-hatcheries-and-nurseries-flows-in-aquaculture-and-aquaculture-establishments>,
+        <http://example.org/dataset/fisheries-statistics-catches-landings-and-catching-fleet>,
+        <http://example.org/dataset/metadata> ;
+    dcterms:description "Ad hoc data collection"@en ;
+    dcterms:relation <http://example.org/ie-solution/eurostat-public-dissemination-database-eurobasedatabase---eurostat> .
+
+<http://example.org/analysis/description/2/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/2/action/role/addressee-member-states-european-commission> .
+
+<http://example.org/analysis/description/2/action/role/addressee-member-states-european-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states-european-commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/3> a iopa:BindingRequirement,
+        lomo:LegalRule ;
+    rdfs:label "Article 6"@en ;
+    iopa:affects <http://example.org/analysis/interop/1> ;
+    cav:valueDescription "Coverage"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/435/cod/doc/com/COM_2025_435/FINAL/eng/art_6> ;
+    lomo:hasCategory <http://data.europa.eu/leg/digital-dimensions/Data>,
+        <http://data.europa.eu/leg/digital-dimensions/DigitalPublicService> ;
+    lomo:involvesProcess <http://example.org/process/data-collection>,
+        <http://example.org/process/data-quality-verification> ;
+    lomo:produces <http://example.org/analysis/description/3/action> ;
+    lomo:references <http://example.org/dataset/aquaculture-statistics-aquaculture-production-excluding-hatcheries-and-nurseries-flows-in-aquaculture-and-aquaculture-establishments>,
+        <http://example.org/dataset/fisheries-statistics-catches-landings-and-catching-fleet>,
+        <http://example.org/dataset/metadata> ;
+    dcterms:description "Coverage"@en ;
+    dcterms:relation <http://example.org/ie-solution/eurostat-public-dissemination-database-eurobasedatabase---eurostat> .
+
+<http://example.org/analysis/description/3/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/3/action/role/addressee-member-states-european-commission> .
+
+<http://example.org/analysis/description/3/action/role/addressee-member-states-european-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states-european-commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/4> a iopa:BindingRequirement,
+        lomo:LegalRule ;
+    rdfs:label "Article 7"@en ;
+    iopa:affects <http://example.org/analysis/interop/1> ;
+    cav:valueDescription "Production of European statistics on fisheries and aquaculture"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/435/cod/doc/com/COM_2025_435/FINAL/eng/art_7> ;
+    lomo:hasCategory <http://data.europa.eu/leg/digital-dimensions/Data>,
+        <http://data.europa.eu/leg/digital-dimensions/DigitalPublicService>,
+        <http://data.europa.eu/leg/digital-dimensions/DigitalSolutions> ;
+    lomo:involvesProcess <http://example.org/process/data-reuse-data-processing-data-transmission> ;
+    lomo:produces <http://example.org/analysis/description/4/action> ;
+    lomo:references <http://example.org/dataset/aquaculture-statistics-aquaculture-production-excluding-hatcheries-and-nurseries-flows-in-aquaculture-and-aquaculture-establishments>,
+        <http://example.org/dataset/fisheries-statistics-catches-landings-and-catching-fleet>,
+        <http://example.org/dataset/metadata> ;
+    dcterms:description "Production of European statistics on fisheries and aquaculture"@en ;
+    dcterms:relation <http://example.org/ie-solution/eurostat-public-dissemination-database-eurobasedatabase---eurostat> .
+
+<http://example.org/analysis/description/4/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/4/action/role/addressee-member-states-european-commission> .
+
+<http://example.org/analysis/description/4/action/role/addressee-member-states-european-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states-european-commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/5> a iopa:BindingRequirement,
+        lomo:LegalRule ;
+    rdfs:label "Article 8"@en ;
+    iopa:affects <http://example.org/analysis/interop/1> ;
+    cav:valueDescription "Data sources and methods"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/435/cod/doc/com/COM_2025_435/FINAL/eng/art_8> ;
+    lomo:hasCategory <http://data.europa.eu/leg/digital-dimensions/Data>,
+        <http://data.europa.eu/leg/digital-dimensions/DigitalPublicService>,
+        <http://data.europa.eu/leg/digital-dimensions/DigitalSolutions> ;
+    lomo:involvesProcess <http://example.org/process/data-reuse-data-processing-data-transmission> ;
+    lomo:produces <http://example.org/analysis/description/5/action> ;
+    lomo:references <http://example.org/dataset/aquaculture-statistics-aquaculture-production-excluding-hatcheries-and-nurseries-flows-in-aquaculture-and-aquaculture-establishments>,
+        <http://example.org/dataset/fisheries-statistics-catches-landings-and-catching-fleet>,
+        <http://example.org/dataset/metadata> ;
+    dcterms:description "Data sources and methods"@en ;
+    dcterms:relation <http://example.org/ie-solution/eurostat-public-dissemination-database-eurobasedatabase---eurostat> .
+
+<http://example.org/analysis/description/5/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/5/action/role/addressee-member-states> .
+
+<http://example.org/analysis/description/5/action/role/addressee-member-states> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/6> a iopa:BindingRequirement,
+        lomo:LegalRule ;
+    rdfs:label "Article 9"@en ;
+    iopa:affects <http://example.org/analysis/interop/1> ;
+    cav:valueDescription "Data-sharing with international organisations"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/435/cod/doc/com/COM_2025_435/FINAL/eng/art_9> ;
+    lomo:hasCategory <http://data.europa.eu/leg/digital-dimensions/Data>,
+        <http://data.europa.eu/leg/digital-dimensions/DigitalPublicService> ;
+    lomo:involvesProcess <http://example.org/process/data-reuse-data-transmission> ;
+    lomo:produces <http://example.org/analysis/action/11>,
+        <http://example.org/analysis/description/6/action> ;
+    lomo:references <http://example.org/dataset/aquaculture-statistics-aquaculture-production-excluding-hatcheries-and-nurseries-flows-in-aquaculture-and-aquaculture-establishments>,
+        <http://example.org/dataset/fisheries-statistics-catches-landings-and-catching-fleet>,
+        <http://example.org/dataset/metadata> ;
+    dcterms:description "Data-sharing with international organisations"@en ;
+    dcterms:relation <http://example.org/ie-solution/eurostat-public-dissemination-database-eurobasedatabase---eurostat> .
+
+<http://example.org/analysis/description/6/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/6/action/role/addressee-international-intergovernmental-and-regional-fisheries-management-organisations>,
+        <http://example.org/analysis/description/6/action/role/addressee-member-states-european-commission> .
+
+<http://example.org/analysis/description/6/action/role/addressee-international-intergovernmental-and-regional-fisheries-management-organisations> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/international-intergovernmental-and-regional-fisheries-management-organisations> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/6/action/role/addressee-member-states-european-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states-european-commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/7> a iopa:BindingRequirement,
+        lomo:LegalRule ;
+    rdfs:label "Article 11"@en ;
+    iopa:affects <http://example.org/analysis/interop/1> ;
+    cav:valueDescription "Quality requirements and quality reporting"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/435/cod/doc/com/COM_2025_435/FINAL/eng/art_11> ;
+    lomo:hasCategory <http://data.europa.eu/leg/digital-dimensions/Data>,
+        <http://data.europa.eu/leg/digital-dimensions/DigitalPublicService> ;
+    lomo:involvesProcess <http://example.org/process/data-quality-verification> ;
+    lomo:produces <http://example.org/analysis/description/7/action> ;
+    lomo:references <http://example.org/dataset/aquaculture-statistics-aquaculture-production-excluding-hatcheries-and-nurseries-flows-in-aquaculture-and-aquaculture-establishments>,
+        <http://example.org/dataset/fisheries-statistics-catches-landings-and-catching-fleet>,
+        <http://example.org/dataset/metadata> ;
+    dcterms:description "Quality requirements and quality reporting"@en ;
+    dcterms:relation <http://example.org/ie-solution/eurostat-public-dissemination-database-eurobasedatabase---eurostat> .
+
+<http://example.org/analysis/description/7/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/7/action/role/addressee-member-states-european-commission> .
+
+<http://example.org/analysis/description/7/action/role/addressee-member-states-european-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states-european-commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/8> a iopa:BindingRequirement,
+        lomo:LegalRule ;
+    rdfs:label "Article 12"@en ;
+    iopa:affects <http://example.org/analysis/interop/1> ;
+    cav:valueDescription "Transitional regime for data on catches from recreational fisheries and data on catches of sensitive species"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/435/cod/doc/com/COM_2025_435/FINAL/eng/art_12> ;
+    lomo:hasCategory <http://data.europa.eu/leg/digital-dimensions/Data>,
+        <http://data.europa.eu/leg/digital-dimensions/DigitalPublicService> ;
+    lomo:involvesProcess <http://example.org/process/data-transmission> ;
+    lomo:produces <http://example.org/analysis/description/8/action> ;
+    lomo:references <http://example.org/dataset/aquaculture-statistics-aquaculture-production-excluding-hatcheries-and-nurseries-flows-in-aquaculture-and-aquaculture-establishments>,
+        <http://example.org/dataset/fisheries-statistics-catches-landings-and-catching-fleet>,
+        <http://example.org/dataset/metadata> ;
+    dcterms:description "Transitional regime for data on catches from recreational fisheries and data on catches of sensitive species"@en ;
+    dcterms:relation <http://example.org/ie-solution/eurostat-public-dissemination-database-eurobasedatabase---eurostat> .
+
+<http://example.org/analysis/description/8/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/8/action/role/addressee-member-states-european-commission> .
+
+<http://example.org/analysis/description/8/action/role/addressee-member-states-european-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states-european-commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/dataset/aggregated-data-covered-by-this-regulation> a dcat:Dataset ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Aggregated data covered by this regulation"@en ] ;
+    dcterms:title "Aggregated data covered by this regulation"@en .
+
+<http://example.org/dataset/aquaculture-eggs> a dcat:Dataset ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Aquaculture eggs"@en ] ;
+    dcterms:title "Aquaculture eggs"@en .
+
+<http://example.org/dataset/aquaculture-products-excluding-eggs> a dcat:Dataset ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Aquaculture products excluding eggs"@en ] ;
+    dcterms:title "Aquaculture products excluding eggs"@en .
+
+<http://example.org/dataset/capture-based-aquaculture> a dcat:Dataset ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Capture-based aquaculture"@en ] ;
+    dcterms:title "Capture-based aquaculture"@en .
+
+<http://example.org/dataset/catching-fleet-structure> a dcat:Dataset ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Catching fleet structure"@en ] ;
+    dcterms:title "Catching fleet structure"@en .
+
+<http://example.org/dataset/commercial-catches> a dcat:Dataset ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Commercial catches"@en ] ;
+    dcterms:title "Commercial catches"@en .
+
+<http://example.org/dataset/discards> a dcat:Dataset ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Discards"@en ] ;
+    dcterms:title "Discards"@en .
+
+<http://example.org/dataset/establishments> a dcat:Dataset ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Establishments"@en ] ;
+    dcterms:title "Establishments"@en .
+
+<http://example.org/dataset/landed-products> a dcat:Dataset ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Landed products"@en ] ;
+    dcterms:title "Landed products"@en .
+
+<http://example.org/dataset/products-from-hatcheries-and-nurseries> a dcat:Dataset ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Products from hatcheries and nurseries"@en ] ;
+    dcterms:title "Products from hatcheries and nurseries"@en .
+
+<http://example.org/dataset/recreational-catches> a dcat:Dataset ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Recreational catches"@en ] ;
+    dcterms:title "Recreational catches"@en .
+
+<http://example.org/process/data-collection> skos:prefLabel "Data collection;"@en .
+
+<http://example.org/process/data-reuse-data-transmission> skos:prefLabel "Data reuse, data transmission;"@en .
+
+<http://example.org/process/data-transmission> skos:prefLabel "Data transmission"@en .
+
+<http://example.org/standard/metadata-must-conform-to-the-requirements-set-out-in-article-121-of-regulation-ec-no-2232009> a dcterms:Standard ;
+    dcterms:title "Metadata must conform to the requirements set out in Article 12(1) of Regulation (EC) No 223/2009."@en .
+
+<http://publications.europa.eu/resource/authority/corporate-body/COM> a m8g:PublicOrganisation ;
+    dcterms:description "The European Commission, provider of the interoperability assessment."@en ;
+    skos:prefLabel "European Commission"@en .
+
+<http://example.org/process/data-collection-data-transmission> skos:prefLabel "Data collection; data transmission"@en .
+
+<http://example.org/process/data-quality-verification> skos:prefLabel "data quality verification"@en .
+
+<http://example.org/process/data-reuse-data-processing-data-transmission> skos:prefLabel "Data reuse; data processing; data transmission"@en .
+
+<http://example.org/standard/data-must-conform-to-the-requirements-set-out-in-the-annex> a dcterms:Standard ;
+    dcterms:title "Data must conform to the requirements set out in the Annex."@en .
+
+<http://example.org/agent/member-states-european-commission> rdfs:label "Member States, European Commission"@en .
+
+<http://example.org/dataset/aquaculture-statistics-aquaculture-production-excluding-hatcheries-and-nurseries-flows-in-aquaculture-and-aquaculture-establishments> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/435/cod/doc/com/COM_2025_435/FINAL/eng/art_11>,
+        <https://data.europa.eu/eli/dl/proc/2025/435/cod/doc/com/COM_2025_435/FINAL/eng/art_12>,
+        <https://data.europa.eu/eli/dl/proc/2025/435/cod/doc/com/COM_2025_435/FINAL/eng/art_4>,
+        <https://data.europa.eu/eli/dl/proc/2025/435/cod/doc/com/COM_2025_435/FINAL/eng/art_5>,
+        <https://data.europa.eu/eli/dl/proc/2025/435/cod/doc/com/COM_2025_435/FINAL/eng/art_6>,
+        <https://data.europa.eu/eli/dl/proc/2025/435/cod/doc/com/COM_2025_435/FINAL/eng/art_7>,
+        <https://data.europa.eu/eli/dl/proc/2025/435/cod/doc/com/COM_2025_435/FINAL/eng/art_8>,
+        <https://data.europa.eu/eli/dl/proc/2025/435/cod/doc/com/COM_2025_435/FINAL/eng/art_9> ;
+    dcterms:conformsTo <http://example.org/standard/data-must-conform-to-the-requirements-set-out-in-the-annex> ;
+    dcterms:title "Aquaculture statistics (aquaculture production excluding hatcheries and nurseries, flows in aquaculture and aquaculture establishments)"@en .
+
+<http://example.org/dataset/fisheries-statistics-catches-landings-and-catching-fleet> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/435/cod/doc/com/COM_2025_435/FINAL/eng/art_11>,
+        <https://data.europa.eu/eli/dl/proc/2025/435/cod/doc/com/COM_2025_435/FINAL/eng/art_12>,
+        <https://data.europa.eu/eli/dl/proc/2025/435/cod/doc/com/COM_2025_435/FINAL/eng/art_4>,
+        <https://data.europa.eu/eli/dl/proc/2025/435/cod/doc/com/COM_2025_435/FINAL/eng/art_5>,
+        <https://data.europa.eu/eli/dl/proc/2025/435/cod/doc/com/COM_2025_435/FINAL/eng/art_6>,
+        <https://data.europa.eu/eli/dl/proc/2025/435/cod/doc/com/COM_2025_435/FINAL/eng/art_7>,
+        <https://data.europa.eu/eli/dl/proc/2025/435/cod/doc/com/COM_2025_435/FINAL/eng/art_8>,
+        <https://data.europa.eu/eli/dl/proc/2025/435/cod/doc/com/COM_2025_435/FINAL/eng/art_9> ;
+    dcterms:conformsTo <http://example.org/standard/data-must-conform-to-the-requirements-set-out-in-the-annex> ;
+    dcterms:title "Fisheries statistics (catches, landings and catching fleet)"@en .
+
+<http://example.org/dataset/metadata> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/435/cod/doc/com/COM_2025_435/FINAL/eng/art_11>,
+        <https://data.europa.eu/eli/dl/proc/2025/435/cod/doc/com/COM_2025_435/FINAL/eng/art_12>,
+        <https://data.europa.eu/eli/dl/proc/2025/435/cod/doc/com/COM_2025_435/FINAL/eng/art_4>,
+        <https://data.europa.eu/eli/dl/proc/2025/435/cod/doc/com/COM_2025_435/FINAL/eng/art_5>,
+        <https://data.europa.eu/eli/dl/proc/2025/435/cod/doc/com/COM_2025_435/FINAL/eng/art_6>,
+        <https://data.europa.eu/eli/dl/proc/2025/435/cod/doc/com/COM_2025_435/FINAL/eng/art_7>,
+        <https://data.europa.eu/eli/dl/proc/2025/435/cod/doc/com/COM_2025_435/FINAL/eng/art_8>,
+        <https://data.europa.eu/eli/dl/proc/2025/435/cod/doc/com/COM_2025_435/FINAL/eng/art_9> ;
+    dcterms:conformsTo <http://example.org/standard/metadata-must-conform-to-the-requirements-set-out-in-article-121-of-regulation-ec-no-2232009> ;
+    dcterms:title "Metadata"@en .
+
+<http://example.org/ie-solution/eurostat-public-dissemination-database-eurobasedatabase---eurostat> a adms:Asset ;
+    dcterms:description "Eurostat public dissemination database (EUROBASE):Database - Eurostat"@en ;
+    dcterms:title "Eurostat public dissemination database (EUROBASE):Database - Eurostat"@en .
+
+<http://example.org/agent/commission-eurostat> rdfs:label "Commission (Eurostat)"@en .
+
+<http://example.org/agent/member-states> rdfs:label "Member States"@en .
+
+<http://example.org/analysis/interop/1> a cpsv:PublicService ;
+    rdfs:label "Statistical services"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/435/cod/doc/com/COM_2025_435/FINAL/eng/art_11>,
+        <https://data.europa.eu/eli/dl/proc/2025/435/cod/doc/com/COM_2025_435/FINAL/eng/art_12>,
+        <https://data.europa.eu/eli/dl/proc/2025/435/cod/doc/com/COM_2025_435/FINAL/eng/art_4>,
+        <https://data.europa.eu/eli/dl/proc/2025/435/cod/doc/com/COM_2025_435/FINAL/eng/art_5>,
+        <https://data.europa.eu/eli/dl/proc/2025/435/cod/doc/com/COM_2025_435/FINAL/eng/art_6>,
+        <https://data.europa.eu/eli/dl/proc/2025/435/cod/doc/com/COM_2025_435/FINAL/eng/art_7>,
+        <https://data.europa.eu/eli/dl/proc/2025/435/cod/doc/com/COM_2025_435/FINAL/eng/art_8>,
+        <https://data.europa.eu/eli/dl/proc/2025/435/cod/doc/com/COM_2025_435/FINAL/eng/art_9> ;
+    dcterms:description "Dissemination of statistics"@en ;
+    dcterms:identifier "interop/1" ;
+    dcterms:references <http://example.org/ie-solution/eurostat-public-dissemination-database-eurobasedatabase---eurostat> ;
+    dcterms:title "Statistical services"@en .
+

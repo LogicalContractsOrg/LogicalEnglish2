@@ -50,6 +50,7 @@ papers, and they are not published. The text here does not need them.
 | [openfisca](openfisca/README.md) | OpenFisca and PolicyEngine | yes | yes | private (see below) |
 | [ponens](ponens/README.md) | Ponens policies | yes | yes | LPS2, `examples/migration/ponens/` |
 | [rulespec](rulespec/README.md) | Axiom RuleSpec | yes | yes | `examples/migration/rulespec/` |
+| [lomo](lomo/README.md) | LOMO (the Legal Obligation Metadata Ontology of the European institutions) | yes | yes | `examples/migration/lomo/` |
 | [ruml](ruml/README.md) | RUML (the Rulemapping Logic Format) | yes | yes | `examples/migration/ruml/` |
 | [rune](rune/README.md) | Rune (ISDA's Digital Regulatory Reporting, the Common Domain Model) | yes | yes | private (see below) |
 | [scasp](scasp/README.md) | s(CASP) and Prolog | yes | | `examples/migration/scasp/` |

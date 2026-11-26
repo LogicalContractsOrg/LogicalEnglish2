@@ -1,0 +1,51 @@
+# The Turtle example of lomo:isSpecifiedBy in the specification of LOMO 1.1.0
+# (https://drpm.pages.code.europa.eu/lomo/latest/#isSpecifiedBy), with the prefixes it uses.
+@prefix ex: <http://example.org/> .
+@prefix lomo: <http://data.europa.eu/leg/lomo#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix dctype: <http://purl.org/dc/dcmitype/> .
+@prefix cpsv: <http://purl.org/vocab/cpsv#> .
+@prefix eli: <http://data.europa.eu/eli/ontology#> .
+@prefix tf: <http://data.europa.eu/leg/temporal-function/> .
+@prefix dm: <http://data.europa.eu/leg/deontic-modality/> .
+@prefix dd: <http://data.europa.eu/leg/digital-dimensions/> .
+@prefix rc: <http://data.europa.eu/leg/result-category/> .
+@prefix role: <http://publications.europa.eu/resource/authority/role/> .
+
+# Note: the rule instances below are abbreviated - the mandatory lomo:produces on PrescriptiveRule instances is omitted to keep the focus on the isSpecifiedBy relationship.
+# Example 1: GDPR principle specified by definition
+ex:Rule_GDPR_Art5_Principles a lomo:ConstitutiveRule ;
+    rdfs:label "GDPR Article 5: Principles relating to processing"@en ;
+    lomo:isSpecifiedBy ex:Rule_GDPR_Art4_7_Controller .
+
+ex:Rule_GDPR_Art4_7_Controller a lomo:Definition ;
+    rdfs:label "GDPR Article 4(7): Definition of Controller"@en ;
+    lomo:establishedIn <http://data.europa.eu/eli/reg/2016/679/art_4/par_7> .
+
+# Example 2: General obligation specified by detailed practices
+ex:Rule_OrgFarm_Art3_GeneralObligation a lomo:PrescriptiveRule ;
+    rdfs:label "Regulation (EU) 2018/848 Article 3: General Obligation"@en ;
+    lomo:isSpecifiedBy ex:Rule_OrgFarm_Art10_CropProduction ;
+    lomo:isSpecifiedBy ex:Rule_OrgFarm_Art11_LivestockProduction .
+
+ex:Rule_OrgFarm_Art10_CropProduction a lomo:SubstantiveRule ;
+    rdfs:label "Regulation (EU) 2018/848 Article 10: Crop Production Requirements"@en ;
+    lomo:establishedIn <http://data.europa.eu/eli/reg/2018/848/art_10> .
+
+ex:Rule_OrgFarm_Art11_LivestockProduction a lomo:SubstantiveRule ;
+    rdfs:label "Regulation (EU) 2018/848 Article 11: Livestock Production Requirements"@en ;
+    lomo:establishedIn <http://data.europa.eu/eli/reg/2018/848/art_11> .
+
+ex:Rule_Dir2013_34_Art4_ReportingObligations a lomo:PrescriptiveRule ;
+    rdfs:label "Directive 2013/34/EU Article 4: General requirements"@en ;
+    lomo:isSpecifiedBy ex:Rule_Dir2013_34_Art2_3_SmallUndertakings .
+
+ex:Rule_Dir2013_34_Art2_3_SmallUndertakings a lomo:Definition ;
+    rdfs:label "Directive 2013/34/EU Article 2(3): Definition of small undertakings"@en ;
+    lomo:establishedIn <http://data.europa.eu/eli/dir/2013/34/oj/art_2/par_3> .

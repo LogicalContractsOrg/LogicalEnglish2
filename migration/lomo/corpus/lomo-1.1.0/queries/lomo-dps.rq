@@ -1,0 +1,27 @@
+PREFIX lomo:    <http://data.europa.eu/leg/lomo#>
+PREFIX cpsv:    <http://purl.org/vocab/cpsv#>
+PREFIX dcterms: <http://purl.org/dc/terms/>
+PREFIX rdf:     <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs:    <http://www.w3.org/2000/01/rdf-schema#>
+
+# Reverse of process_interoperability_table -> interoperability.html
+# One row per public service: service | description | reference(s) | referenced solutions
+# Forward stores both IE and other solutions as dcterms:references (indistinguishable
+# after the fact), so they are returned together and rendered in the "other" column.
+SELECT ?service ?title ?description
+       (GROUP_CONCAT(DISTINCT COALESCE(STR(?eli), "");  SEPARATOR="||") AS ?elis)
+       (GROUP_CONCAT(DISTINCT COALESCE(?solution, "");  SEPARATOR="||") AS ?solutions)
+WHERE {
+  ?service rdf:type cpsv:PublicService ;
+           dcterms:title ?title .
+
+  OPTIONAL { ?service dcterms:description ?description . }
+  OPTIONAL { ?service lomo:establishedIn ?eli . }
+  OPTIONAL {
+    ?service dcterms:references ?solURI .
+    OPTIONAL { ?solURI dcterms:title ?solTitle . }
+    BIND(COALESCE(STR(?solTitle), REPLACE(STR(?solURI), "^.*/ie-solution/", "")) AS ?solution)
+  }
+}
+GROUP BY ?service ?title ?description
+ORDER BY ?title

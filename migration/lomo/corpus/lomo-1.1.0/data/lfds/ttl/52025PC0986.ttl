@@ -1,0 +1,224 @@
+@prefix adms: <http://www.w3.org/ns/adms#> .
+@prefix cav: <http://data.europa.eu/2sa/cav#> .
+@prefix cpsv: <http://purl.org/vocab/cpsv#> .
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix dctype: <http://purl.org/dc/dcmitype/> .
+@prefix dd: <http://data.europa.eu/leg/digital-dimensions/> .
+@prefix iac: <http://data.europa.eu/leg/interop-assessment#> .
+@prefix iopa: <http://data.europa.eu/2qy/iopa#> .
+@prefix lomo: <http://data.europa.eu/leg/lomo#> .
+@prefix m8g: <http://data.europa.eu/m8g/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix tf: <http://data.europa.eu/leg/temporal-function/> .
+
+<http://example.org/analysis/assessment/1> a cav:Assessment ;
+    cav:assesses <http://example.org/analysis/description/4> ;
+    cav:resultsIn <http://example.org/analysis/assessment/1/1/measure>,
+        <http://example.org/analysis/assessment/1/2/barrier>,
+        <http://example.org/analysis/assessment/1/2/measure>,
+        <http://example.org/analysis/assessment/1/3/measure>,
+        <http://example.org/analysis/assessment/1/4/barrier>,
+        <http://example.org/analysis/assessment/1/4/measure> ;
+    m8g:isProvidedBy <http://publications.europa.eu/resource/authority/corporate-body/COM> .
+
+<http://example.org/analysis/description/1> a lomo:LegalRule ;
+    rdfs:label "Art. 1(3) [Art. 37(6) Dir. 2008/98/EC]"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/986/cod/doc/com/COM_2025_986/FINAL/eng/art_1/par_3> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/monitoring-and-review> ;
+    lomo:produces <http://example.org/analysis/description/1/action> ;
+    dcterms:description "Digital reporting to the Commission maintained for monitoring implementation; Commission reviews information transmitted electronically."@en .
+
+<http://example.org/analysis/description/2> a lomo:LegalRule ;
+    rdfs:label "Art. 1(2) [Art. 9(2) Dir. 2008/98/EC]"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/986/cod/doc/com/COM_2025_986/FINAL/eng/art_1/par_2> ;
+    lomo:hasCategory dd:Data,
+        dd:DigitalSolutions ;
+    lomo:involvesProcess <http://example.org/process/database-maintenance> ;
+    lomo:produces <http://example.org/analysis/description/2/action> ;
+    dcterms:description "Discontinuation of SCIP database. European Chemicals Agency (ECHA) to retain already reported data electronically."@en .
+
+<http://example.org/analysis/description/3> a lomo:LegalRule ;
+    rdfs:label "Art. 2(1) [Art. 14a Dir. 2010/75/EU]"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/986/cod/doc/com/COM_2025_986/FINAL/eng/art_2/par_1> ;
+    lomo:involvesProcess <http://example.org/process/publication-and-transparency> ;
+    lomo:produces <http://example.org/analysis/description/3/action> ;
+    dcterms:description "Environmental Management System (EMS) information to be made available online, free of charge and without access restriction."@en .
+
+<http://example.org/analysis/solution/1> a dctype:Software ;
+    rdfs:label "SCIP Database archive"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/986/cod/doc/com/COM_2025_986/FINAL/eng/art_1/par_2> ;
+    lomo:hasCapability "Retention and maintenance of existing data submissions",
+        "secure and public access" ;
+    dcterms:publisher <http://example.org/agent/echa> ;
+    dcterms:title "SCIP Database archive"@en .
+
+<http://example.org/analysis/solution/2> a dctype:Software ;
+    rdfs:label "EMS publication"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/986/cod/doc/com/COM_2025_986/FINAL/eng/art_2/par_1> ;
+    lomo:hasCapability "Digital access to EMS data, harmonised with EMAS/ISO 14001 structures" ;
+    dcterms:publisher <http://example.org/agent/operators-competent-authorities> ;
+    dcterms:title "EMS publication"@en .
+
+<http://example.org/agent/echa-economic-operators-commission> rdfs:label "ECHA; Economic operators; Commission"@en .
+
+<http://example.org/agent/member-states-european-commission> rdfs:label "Member States; European Commission"@en .
+
+<http://example.org/agent/operators> rdfs:label "Operators"@en .
+
+<http://example.org/agent/operators-member-states-public> rdfs:label "Operators; Member States; Public"@en .
+
+<http://example.org/agent/public-competent-authorities> rdfs:label "Public / Competent authorities"@en .
+
+<http://example.org/analysis/action/1> a lomo:Action ;
+    rdfs:label "EMS data"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Publication obligation"@en ],
+        [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:deadline ;
+            lomo:temporalLabel "Continuous"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/986/cod/doc/com/COM_2025_986/FINAL/eng/art_2/par_1> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/1/role/addressee-public-competent-authorities>,
+        <http://example.org/analysis/action/1/role/addresser-operators> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "EMS data"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/ems-data> ] .
+
+<http://example.org/analysis/action/1/role/addressee-public-competent-authorities> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/public-competent-authorities> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/1/role/addresser-operators> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/operators> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/assessment/1/1/measure> a cav:Statement ;
+    cav:interpretation iac:InterpretationPositive ;
+    cav:judgement "Online public availability of specified EMS information is mandated (Art. 2(1) [Art. 14a Dir. 2010/75/EU]). Rules under the Open Data Directive apply."@en ;
+    cav:type iac:StatementTypeAlignmentMeasure ;
+    m8g:hasRelatedService <http://example.org/analysis/interop/1> ;
+    dcterms:description "Assess the alignment with existing digital and sectorial policiesPlease list the applicable digital and sectorial policies identified"@en .
+
+<http://example.org/analysis/assessment/1/2/barrier> a cav:Statement ;
+    cav:interpretation iac:InterpretationNegative ;
+    cav:judgement "Differences may arise from nat Resource constraints; uneven monitoring of publication obligations."@en ;
+    cav:type iac:StatementTypeOrganisationBarrier ;
+    m8g:hasRelatedService <http://example.org/analysis/interop/1> ;
+    dcterms:description "Assess the organisational measures for a smooth cross-border digital public services deliveryPlease list the governance measures foreseen"@en .
+
+<http://example.org/analysis/assessment/1/2/measure> a cav:Statement ;
+    cav:interpretation iac:InterpretationPositive ;
+    cav:judgement "Operators prepare and implement an EMS (Art. 2(1) [Art. 14a of Dir. 2010/75/EU]; Member States ensure that the relevant EMS information listed in Art. 2(1) [Art. 14a(2) Dir. 2010/75/EU] is made available on the internet free of charge and without restricting access to registered users (Art. 2(1) [Art. 14a of Dir. 2010/75/EU])."@en ;
+    cav:type iac:StatementTypeOrganisationMeasure ;
+    m8g:hasRelatedService <http://example.org/analysis/interop/1> ;
+    dcterms:description "Assess the organisational measures for a smooth cross-border digital public services deliveryPlease list the governance measures foreseen"@en .
+
+<http://example.org/analysis/assessment/1/3/measure> a cav:Statement ;
+    cav:interpretation iac:InterpretationPositive ;
+    cav:judgement "Publish the EMS information items as listed in Art. 2(1) [Art. 14a(2 of Dir. 2010/75/EU])."@en ;
+    cav:type iac:StatementTypeSharedMeasure ;
+    m8g:hasRelatedService <http://example.org/analysis/interop/1> ;
+    dcterms:description "Assess the measures taken to ensure a shared understanding of the dataPlease list such measures"@en .
+
+<http://example.org/analysis/assessment/1/4/barrier> a cav:Statement ;
+    cav:interpretation iac:InterpretationNegative ;
+    cav:judgement "Potential heterogeneity of publication formats due to absence of mandated standards."@en ;
+    cav:type iac:StatementTypeStandardsBarrier ;
+    m8g:hasRelatedService <http://example.org/analysis/interop/1> ;
+    dcterms:description "Assess the use of commonly agreed open technical specifications and standardsPlease list such measures"@en .
+
+<http://example.org/analysis/assessment/1/4/measure> a cav:Statement ;
+    cav:interpretation iac:InterpretationPositive ;
+    cav:judgement "Online dissemination of EMS data harmonised with EMAS and ISO formats."@en ;
+    cav:type iac:StatementTypeStandardsMeasure ;
+    m8g:hasRelatedService <http://example.org/analysis/interop/1> ;
+    dcterms:description "Assess the use of commonly agreed open technical specifications and standardsPlease list such measures"@en .
+
+<http://example.org/analysis/description/1/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/1/action/role/addressee-member-states-european-commission> .
+
+<http://example.org/analysis/description/1/action/role/addressee-member-states-european-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states-european-commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/2/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/2/action/role/addressee-echa-economic-operators-commission> .
+
+<http://example.org/analysis/description/2/action/role/addressee-echa-economic-operators-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/echa-economic-operators-commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/3/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/3/action/role/addressee-operators-member-states-public> .
+
+<http://example.org/analysis/description/3/action/role/addressee-operators-member-states-public> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/operators-member-states-public> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/4> a iopa:BindingRequirement,
+        lomo:LegalRule ;
+    rdfs:label "Art. 2(1) [Art. 14a Dir. 2010/75/EU]"@en ;
+    iopa:affects <http://example.org/analysis/interop/1> ;
+    cav:valueDescription "Harmonisation of EMS at installation, facility, or company level, ensuring digital accessibility and alignment with frameworks such as EMAS/ISO 14001."@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ;
+            lomo:temporalLabel "Continuous"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/986/cod/doc/com/COM_2025_986/FINAL/eng/art_2/par_1> ;
+    lomo:hasCategory dd:Data,
+        dd:ProcessAutomation ;
+    lomo:involvesProcess <http://example.org/process/environmental-management> ;
+    lomo:produces <http://example.org/analysis/action/1>,
+        <http://example.org/analysis/description/4/action> ;
+    lomo:references <http://example.org/dataset/environmental-management-data> ;
+    dcterms:description "Harmonisation of EMS at installation, facility, or company level, ensuring digital accessibility and alignment with frameworks such as EMAS/ISO 14001."@en ;
+    dcterms:relation <http://example.org/ie-solution/emas-regulation-interoperability-framework> .
+
+<http://example.org/analysis/description/4/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/4/action/role/addressee-operators-competent-authorities> .
+
+<http://example.org/analysis/description/4/action/role/addressee-operators-competent-authorities> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/operators-competent-authorities> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/dataset/ems-data> a dcat:Dataset ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "EMS data"@en ] ;
+    dcterms:title "EMS data"@en .
+
+<http://example.org/dataset/environmental-management-data> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/986/cod/doc/com/COM_2025_986/FINAL/eng/art_2/par_1> ;
+    dcterms:conformsTo <http://example.org/standard/iso-14001-emas-digital-formats> ;
+    dcterms:title "Environmental management data"@en .
+
+<http://example.org/process/database-maintenance> skos:prefLabel "Database maintenance"@en .
+
+<http://example.org/process/environmental-management> skos:prefLabel "Environmental management"@en .
+
+<http://example.org/process/monitoring-and-review> skos:prefLabel "Monitoring and review"@en .
+
+<http://example.org/process/publication-and-transparency> skos:prefLabel "Publication and transparency"@en .
+
+<http://example.org/standard/iso-14001-emas-digital-formats> a dcterms:Standard ;
+    dcterms:title "ISO 14001; EMAS digital formats"@en .
+
+<http://publications.europa.eu/resource/authority/corporate-body/COM> a m8g:PublicOrganisation ;
+    dcterms:description "The European Commission, provider of the interoperability assessment."@en ;
+    skos:prefLabel "European Commission"@en .
+
+<http://example.org/agent/operators-competent-authorities> rdfs:label "Operators; Competent authorities"@en .
+
+<http://example.org/ie-solution/emas-regulation-interoperability-framework> a adms:Asset ;
+    dcterms:description "EMAS regulation interoperability framework"@en ;
+    dcterms:title "EMAS regulation interoperability framework"@en .
+
+<http://example.org/analysis/interop/1> a cpsv:PublicService ;
+    rdfs:label "EMS Publication"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/986/cod/doc/com/COM_2025_986/FINAL/eng/art_2/par_1> ;
+    dcterms:description "Online dissemination of EMS data harmonised with EMAS and ISO formats."@en ;
+    dcterms:identifier "interop/1" ;
+    dcterms:references <http://example.org/ie-solution/emas-regulation-interoperability-framework> ;
+    dcterms:title "EMS Publication"@en .
+

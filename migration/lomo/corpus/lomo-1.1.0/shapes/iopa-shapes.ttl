@@ -1,0 +1,941 @@
+@prefix dc: <http://purl.org/dc/terms/> .
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix org: <http://www.w3.org/ns/org#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix shacl: <http://www.w3.org/ns/shacl#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<https://semiceu.github.io/IOPA/releases/1.0.0> rdfs:member <https://semiceu.github.io/IOPA/releases/1.0.0#BindingRequirementShape>,
+    <https://semiceu.github.io/IOPA/releases/1.0.0#AssessmentShape>,
+    <https://semiceu.github.io/IOPA/releases/1.0.0#StatementShape>,
+    <https://semiceu.github.io/IOPA/releases/1.0.0#LegalExpressionShape>,
+    <https://semiceu.github.io/IOPA/releases/1.0.0#ParticipationShape>,
+    <https://semiceu.github.io/IOPA/releases/1.0.0#PublicOrganisationShape>,
+    <https://semiceu.github.io/IOPA/releases/1.0.0#LocationShape>,
+    <https://semiceu.github.io/IOPA/releases/1.0.0#PublicServiceShape>,
+    <https://semiceu.github.io/IOPA/releases/1.0.0#ExpressionShape>,
+    <https://semiceu.github.io/IOPA/releases/1.0.0#TextShape>,
+    <https://semiceu.github.io/IOPA/releases/1.0.0#LiteralShape>,
+    <https://semiceu.github.io/IOPA/releases/1.0.0#URIShape>,
+    <https://semiceu.github.io/IOPA/releases/1.0.0#CodeShape>,
+    <https://semiceu.github.io/IOPA/releases/1.0.0#AssetShape>,
+    <https://semiceu.github.io/IOPA/releases/1.0.0#IdentifierShape>,
+    <https://semiceu.github.io/IOPA/releases/1.0.0#ResourceShape>,
+    <https://semiceu.github.io/IOPA/releases/1.0.0#AgentShape>,
+    <https://semiceu.github.io/IOPA/releases/1.0.0#DocumentShape> .
+
+<https://semiceu.github.io/IOPA/releases/1.0.0#AgentShape> a shacl:NodeShape;
+  shacl:closed false;
+  shacl:property <https://semiceu.github.io/IOPA/releases/1.0.0#AgentShape/263a563c5bed08cdaadf4a0fd0a5fb9874d742bc>,
+    <https://semiceu.github.io/IOPA/releases/1.0.0#AgentShape/322371a77364a50f049d46180f6192532eea26dc>,
+    <https://semiceu.github.io/IOPA/releases/1.0.0#AgentShape/4f381639bb6e021939f65b4f41409d1edaeade9b>,
+    <https://semiceu.github.io/IOPA/releases/1.0.0#AgentShape/96cdcbb0489a41ab01fc39c521f5ed607a0b2c41>,
+    <https://semiceu.github.io/IOPA/releases/1.0.0#AgentShape/9caf9e629daa0e64ece77788576468821d7cff8c>,
+    <https://semiceu.github.io/IOPA/releases/1.0.0#AgentShape/be01df43f1c288b656b3ca3879eb3dd9d8c700b9>;
+  shacl:targetClass foaf:Agent .
+
+<https://semiceu.github.io/IOPA/releases/1.0.0#AgentShape/263a563c5bed08cdaadf4a0fd0a5fb9874d742bc> rdfs:seeAlso "https://semiceu.github.io/IOPA/releases/1.0.0#Agent.name";
+  shacl:datatype rdf:langString;
+  shacl:description "The noun given to the Agent."@en;
+  shacl:name "name"@en;
+  shacl:path dc:title .
+
+<https://semiceu.github.io/IOPA/releases/1.0.0#AgentShape/322371a77364a50f049d46180f6192532eea26dc> rdfs:seeAlso "https://semiceu.github.io/IOPA/releases/1.0.0#Agent.type";
+  shacl:class skos:Concept;
+  shacl:description "A classification assigned to an Agent."@en;
+  shacl:name "type"@en;
+  shacl:path dc:type .
+
+<https://semiceu.github.io/IOPA/releases/1.0.0#AgentShape/4f381639bb6e021939f65b4f41409d1edaeade9b> rdfs:seeAlso "https://semiceu.github.io/IOPA/releases/1.0.0#Agent.type";
+  shacl:description "A classification assigned to an Agent."@en;
+  shacl:name "type"@en;
+  shacl:nodeKind shacl:BlankNodeOrIRI;
+  shacl:path dc:type .
+
+<https://semiceu.github.io/IOPA/releases/1.0.0#AgentShape/96cdcbb0489a41ab01fc39c521f5ed607a0b2c41> rdfs:seeAlso "https://semiceu.github.io/IOPA/releases/1.0.0#Agent.name";
+  shacl:description "The noun given to the Agent."@en;
+  shacl:minCount 1;
+  shacl:name "name"@en;
+  shacl:path dc:title .
+
+<https://semiceu.github.io/IOPA/releases/1.0.0#AgentShape/9caf9e629daa0e64ece77788576468821d7cff8c> rdfs:seeAlso "https://semiceu.github.io/IOPA/releases/1.0.0#Agent.name";
+  shacl:description "The noun given to the Agent."@en;
+  shacl:name "name"@en;
+  shacl:nodeKind shacl:Literal;
+  shacl:path dc:title .
+
+<https://semiceu.github.io/IOPA/releases/1.0.0#AgentShape/be01df43f1c288b656b3ca3879eb3dd9d8c700b9> rdfs:seeAlso "https://semiceu.github.io/IOPA/releases/1.0.0#Agent.name";
+  shacl:description "The noun given to the Agent."@en;
+  shacl:name "name"@en;
+  shacl:path dc:title;
+  shacl:uniqueLang true .
+
+<https://semiceu.github.io/IOPA/releases/1.0.0#AssessmentShape> a shacl:NodeShape;
+  shacl:closed false;
+  shacl:property <https://semiceu.github.io/IOPA/releases/1.0.0#AssessmentShape/5c78cfc0b2f1e3a2139614e0cdf0ace1a05783dd>,
+    <https://semiceu.github.io/IOPA/releases/1.0.0#AssessmentShape/61cc0dfef321fbb593fd1700c1126d35716316c7>,
+    <https://semiceu.github.io/IOPA/releases/1.0.0#AssessmentShape/77c3f3351cf9ad07e57a72992174114d1c133edd>,
+    <https://semiceu.github.io/IOPA/releases/1.0.0#AssessmentShape/7a09f593c7b7a14dc1dadb43a2a1dd4648fc73ed>,
+    <https://semiceu.github.io/IOPA/releases/1.0.0#AssessmentShape/8501022f89495be75c7fe71eb1d7bb0aeb4f3064>,
+    <https://semiceu.github.io/IOPA/releases/1.0.0#AssessmentShape/9e05ee20692449c9a40295851d47556bee8ad6cc>,
+    <https://semiceu.github.io/IOPA/releases/1.0.0#AssessmentShape/ae8ce6b6172f73af3138b326c707e8521923ac3b>,
+    <https://semiceu.github.io/IOPA/releases/1.0.0#AssessmentShape/b2faf6881126d26d68f45976089a43918fe556f6>,
+    <https://semiceu.github.io/IOPA/releases/1.0.0#AssessmentShape/c0070628e43ac62c563764409d0813f46c59737f>,
+    <https://semiceu.github.io/IOPA/releases/1.0.0#AssessmentShape/ca8d20b8541e80306131c535e919a3e09e9aa511>;
+  shacl:targetClass <http://data.europa.eu/2sa/cav#Assessment> .
+
+<https://semiceu.github.io/IOPA/releases/1.0.0#AssessmentShape/5c78cfc0b2f1e3a2139614e0cdf0ace1a05783dd> rdfs:seeAlso "https://semiceu.github.io/IOPA/releases/1.0.0#Assessment.assesses";
+  shacl:class <http://data.europa.eu/2qy/iopa#BindingRequirement>;
+  shacl:description "The reference to the asset(s) that are the object of the assessment."@en;
+  shacl:name "assesses"@en;
+  shacl:path <http://data.europa.eu/2sa/cav#assesses> .
+
+<https://semiceu.github.io/IOPA/releases/1.0.0#AssessmentShape/61cc0dfef321fbb593fd1700c1126d35716316c7> rdfs:seeAlso "https://semiceu.github.io/IOPA/releases/1.0.0#Assessment.assesses";
+  shacl:description "The reference to the asset(s) that are the object of the assessment."@en;
+  shacl:name "assesses"@en;
+  shacl:nodeKind shacl:BlankNodeOrIRI;
+  shacl:path <http://data.europa.eu/2sa/cav#assesses> .
+
+<https://semiceu.github.io/IOPA/releases/1.0.0#AssessmentShape/77c3f3351cf9ad07e57a72992174114d1c133edd> rdfs:seeAlso "https://semiceu.github.io/IOPA/releases/1.0.0#Assessment.isprovidedby";
+  shacl:description "Agent that transmits the Assessment."@en;
+  shacl:name "is provided by"@en;
+  shacl:nodeKind shacl:BlankNodeOrIRI;
+  shacl:path <http://data.europa.eu/m8g/isProvidedBy> .
+
+<https://semiceu.github.io/IOPA/releases/1.0.0#AssessmentShape/7a09f593c7b7a14dc1dadb43a2a1dd4648fc73ed> rdfs:seeAlso "https://semiceu.github.io/IOPA/releases/1.0.0#Assessment.isprovidedby";
+  shacl:class <http://data.europa.eu/m8g/PublicOrganisation>;
+  shacl:description "Agent that transmits the Assessment."@en;
+  shacl:name "is provided by"@en;
+  shacl:path <http://data.europa.eu/m8g/isProvidedBy> .
+
+<https://semiceu.github.io/IOPA/releases/1.0.0#AssessmentShape/8501022f89495be75c7fe71eb1d7bb0aeb4f3064> rdfs:seeAlso "https://semiceu.github.io/IOPA/releases/1.0.0#Assessment.isprovidedby";
+  shacl:description "Agent that transmits the Assessment."@en;
+  shacl:maxCount 1;
+  shacl:name "is provided by"@en;
+  shacl:path <http://data.europa.eu/m8g/isProvidedBy> .
+
+<https://semiceu.github.io/IOPA/releases/1.0.0#AssessmentShape/9e05ee20692449c9a40295851d47556bee8ad6cc> rdfs:seeAlso "https://semiceu.github.io/IOPA/releases/1.0.0#Assessment.resultsin";
+  shacl:class <http://data.europa.eu/2sa/cav#Statement>;
+  shacl:description "The creation of the statements resulting from the assessment."@en;
+  shacl:name "results in"@en;
+  shacl:path <http://data.europa.eu/2sa/cav#resultsIn> .
+
+<https://semiceu.github.io/IOPA/releases/1.0.0#AssessmentShape/ae8ce6b6172f73af3138b326c707e8521923ac3b> rdfs:seeAlso "https://semiceu.github.io/IOPA/releases/1.0.0#Assessment.assesses";
+  shacl:description "The reference to the asset(s) that are the object of the assessment."@en;
+  shacl:minCount 1;
+  shacl:name "assesses"@en;
+  shacl:path <http://data.europa.eu/2sa/cav#assesses> .
+
+<https://semiceu.github.io/IOPA/releases/1.0.0#AssessmentShape/b2faf6881126d26d68f45976089a43918fe556f6> rdfs:seeAlso "https://semiceu.github.io/IOPA/releases/1.0.0#Assessment.resultsin";
+  shacl:description "The creation of the statements resulting from the assessment."@en;
+  shacl:name "results in"@en;
+  shacl:nodeKind shacl:BlankNodeOrIRI;
+  shacl:path <http://data.europa.eu/2sa/cav#resultsIn> .
+
+<https://semiceu.github.io/IOPA/releases/1.0.0#AssessmentShape/c0070628e43ac62c563764409d0813f46c59737f> rdfs:seeAlso "https://semiceu.github.io/IOPA/releases/1.0.0#Assessment.isprovidedby";
+  shacl:description "Agent that transmits the Assessment."@en;
+  shacl:minCount 1;
+  shacl:name "is provided by"@en;
+  shacl:path <http://data.europa.eu/m8g/isProvidedBy> .
+
+<https://semiceu.github.io/IOPA/releases/1.0.0#AssessmentShape/ca8d20b8541e80306131c535e919a3e09e9aa511> rdfs:seeAlso "https://semiceu.github.io/IOPA/releases/1.0.0#Assessment.resultsin";
+  shacl:description "The creation of the statements resulting from the assessment."@en;
+  shacl:minCount 1;
+  shacl:name "results in"@en;
+  shacl:path <http://data.europa.eu/2sa/cav#resultsIn> .
+
+<https://semiceu.github.io/IOPA/releases/1.0.0#AssetShape> a shacl:NodeShape;
+  shacl:closed false;
+  shacl:property <https://semiceu.github.io/IOPA/releases/1.0.0#AssetShape/30e78cd98aa6cd5dbc31678289abb5e0cc0b55c7>,
+    <https://semiceu.github.io/IOPA/releases/1.0.0#AssetShape/322371a77364a50f049d46180f6192532eea26dc>,
+    <https://semiceu.github.io/IOPA/releases/1.0.0#AssetShape/488f0bcb1b2d7cb5288ca9952a7b94f106f95859>,
+    <https://semiceu.github.io/IOPA/releases/1.0.0#AssetShape/4f381639bb6e021939f65b4f41409d1edaeade9b>,
+    <https://semiceu.github.io/IOPA/releases/1.0.0#AssetShape/6c7c1bd2ab3b7761e5be759a078a9fd93f411a57>,
+    <https://semiceu.github.io/IOPA/releases/1.0.0#AssetShape/6cae9880e515253132af1452a38a8a5827165149>,
+    <https://semiceu.github.io/IOPA/releases/1.0.0#AssetShape/768bb4171e00505886fe9a1e949b4cd71f0eb548>,
+    <https://semiceu.github.io/IOPA/releases/1.0.0#AssetShape/8f61614144aa7bca188b24f5976593dc08aad0e6>,
+    <https://semiceu.github.io/IOPA/releases/1.0.0#AssetShape/92d65d33f2a5d5345f1980ffd0cf304e47dd0caf>,
+    <https://semiceu.github.io/IOPA/releases/1.0.0#AssetShape/aadbd67a77a624f073be2076627fb9dc883cbe48>,
+    <https://semiceu.github.io/IOPA/releases/1.0.0#AssetShape/c0d17764e84e711728581fda7356a51e99a9040a>,
+    <https://semiceu.github.io/IOPA/releases/1.0.0#AssetShape/d4d4f2399b8cf2f615ac658920373b714726bed0>,
+    <https://semiceu.github.io/IOPA/releases/1.0.0#AssetShape/d5d74574f70f9a979535f3624608f88180dd0c97>,
+    <https://semiceu.github.io/IOPA/releases/1.0.0#AssetShape/e2017f72421063cd9ff494011ec78f35f9632a4a>,
+    <https://semiceu.github.io/IOPA/releases/1.0.0#AssetShape/f8b02efd063b8089b72ce9677a1e4a3488eeb9a9>,
+    <https://semiceu.github.io/IOPA/releases/1.0.0#AssetShape/ffbbcd28b1fd92213d8350e1b6418d3d998c7197>;
+  shacl:targetClass <http://www.w3.org/ns/adms#Asset> .
+
+<https://semiceu.github.io/IOPA/releases/1.0.0#AssetShape/30e78cd98aa6cd5dbc31678289abb5e0cc0b55c7> rdfs:seeAlso "https://semiceu.github.io/IOPA/releases/1.0.0#Asset.landingpage";
+  shacl:description "A web page that provides access to the Dataset, its Distributions and/or additional information."@en;
+  shacl:name "landing page"@en;
+  shacl:nodeKind shacl:BlankNodeOrIRI;
+  shacl:path dcat:landingPage .
+
+<https://semiceu.github.io/IOPA/releases/1.0.0#AssetShape/322371a77364a50f049d46180f6192532eea26dc> rdfs:seeAlso "https://semiceu.github.io/IOPA/releases/1.0.0#Asset.type";
+  shacl:class skos:Concept;
+  shacl:description "The nature or genre of the resource."@en;
+  shacl:name "type"@en;
+  shacl:path dc:type .
+
+<https://semiceu.github.io/IOPA/releases/1.0.0#AssetShape/488f0bcb1b2d7cb5288ca9952a7b94f106f95859> rdfs:seeAlso "https://semiceu.github.io/IOPA/releases/1.0.0#Asset.title";
+  shacl:datatype rdf:langString;
+  shacl:description """	A name given to the resource."""@en;
+  shacl:name "title"@en;
+  shacl:path dc:title .
+
+<https://semiceu.github.io/IOPA/releases/1.0.0#AssetShape/4f381639bb6e021939f65b4f41409d1edaeade9b> rdfs:seeAlso "https://semiceu.github.io/IOPA/releases/1.0.0#Asset.type";
+  shacl:description "The nature or genre of the resource."@en;
+  shacl:name "type"@en;
+  shacl:nodeKind shacl:BlankNodeOrIRI;
+  shacl:path dc:type .
+
+<https://semiceu.github.io/IOPA/releases/1.0.0#AssetShape/6c7c1bd2ab3b7761e5be759a078a9fd93f411a57> rdfs:seeAlso "https://semiceu.github.io/IOPA/releases/1.0.0#Asset.identifier";
+  shacl:description "Links a resource to an adms:Identifier class."@en;
+  shacl:minCount 1;
+  shacl:name "identifier"@en;
+  shacl:path <http://www.w3.org/ns/adms#identifier> .
+
+<https://semiceu.github.io/IOPA/releases/1.0.0#AssetShape/6cae9880e515253132af1452a38a8a5827165149> rdfs:seeAlso "https://semiceu.github.io/IOPA/releases/1.0.0#Asset.description";
+  shacl:description "An account of the resource."@en;
+  shacl:name "description"@en;
+  shacl:nodeKind shacl:Literal;
+  shacl:path dc:description .
+
+<https://semiceu.github.io/IOPA/releases/1.0.0#AssetShape/768bb4171e00505886fe9a1e949b4cd71f0eb548> rdfs:seeAlso "https://semiceu.github.io/IOPA/releases/1.0.0#Asset.description";
+  shacl:description "An account of the resource."@en;
+  shacl:name "description"@en;
+  shacl:path dc:description;
+  shacl:uniqueLang true .
+
+<https://semiceu.github.io/IOPA/releases/1.0.0#AssetShape/8f61614144aa7bca188b24f5976593dc08aad0e6> rdfs:seeAlso "https://semiceu.github.io/IOPA/releases/1.0.0#Asset.description";
+  shacl:description "An account of the resource."@en;
+  shacl:minCount 1;
+  shacl:name "description"@en;
+  shacl:path dc:description .
+
+<https://semiceu.github.io/IOPA/releases/1.0.0#AssetShape/92d65d33f2a5d5345f1980ffd0cf304e47dd0caf> rdfs:seeAlso "https://semiceu.github.io/IOPA/releases/1.0.0#Asset.title";
+  shacl:description """	A name given to the resource."""@en;
+  shacl:name "title"@en;
+  shacl:path dc:title;
+  shacl:uniqueLang true .
+
+<https://semiceu.github.io/IOPA/releases/1.0.0#AssetShape/aadbd67a77a624f073be2076627fb9dc883cbe48> rdfs:seeAlso "https://semiceu.github.io/IOPA/releases/1.0.0#Asset.identifier";
+  shacl:description "Links a resource to an adms:Identifier class."@en;
+  shacl:name "identifier"@en;
+  shacl:nodeKind shacl:BlankNodeOrIRI;
+  shacl:path <http://www.w3.org/ns/adms#identifier> .
+
+<https://semiceu.github.io/IOPA/releases/1.0.0#AssetShape/c0d17764e84e711728581fda7356a51e99a9040a> rdfs:seeAlso "https://semiceu.github.io/IOPA/releases/1.0.0#Asset.identifier";
+  shacl:description "Links a resource to an adms:Identifier class."@en;
+  shacl:maxCount 1;
+  shacl:name "identifier"@en;
+  shacl:path <http://www.w3.org/ns/adms#identifier> .
+
+<https://semiceu.github.io/IOPA/releases/1.0.0#AssetShape/d4d4f2399b8cf2f615ac658920373b714726bed0> rdfs:seeAlso "https://semiceu.github.io/IOPA/releases/1.0.0#Asset.description";
+  shacl:datatype rdf:langString;
+  shacl:description "An account of the resource."@en;
+  shacl:name "description"@en;
+  shacl:path dc:description .
+
+<https://semiceu.github.io/IOPA/releases/1.0.0#AssetShape/d5d74574f70f9a979535f3624608f88180dd0c97> rdfs:seeAlso "https://semiceu.github.io/IOPA/releases/1.0.0#Asset.title";
+  shacl:description """	A name given to the resource."""@en;
+  shacl:name "title"@en;
+  shacl:nodeKind shacl:Literal;
+  shacl:path dc:title .
+
+<https://semiceu.github.io/IOPA/releases/1.0.0#AssetShape/e2017f72421063cd9ff494011ec78f35f9632a4a> rdfs:seeAlso "https://semiceu.github.io/IOPA/releases/1.0.0#Asset.identifier";
+  shacl:class <http://www.w3.org/ns/adms#Identifier>;
+  shacl:description "Links a resource to an adms:Identifier class."@en;
+  shacl:name "identifier"@en;
+  shacl:path <http://www.w3.org/ns/adms#identifier> .
+
+<https://semiceu.github.io/IOPA/releases/1.0.0#AssetShape/f8b02efd063b8089b72ce9677a1e4a3488eeb9a9> rdfs:seeAlso "https://semiceu.github.io/IOPA/releases/1.0.0#Asset.title";
+  shacl:description """	A name given to the resource."""@en;
+  shacl:minCount 1;
+  shacl:name "title"@en;
+  shacl:path dc:title .
+
+<https://semiceu.github.io/IOPA/releases/1.0.0#AssetShape/ffbbcd28b1fd92213d8350e1b6418d3d998c7197> rdfs:seeAlso "https://semiceu.github.io/IOPA/releases/1.0.0#Asset.landingpage";
+  shacl:class foaf:Document;
+  shacl:description "A web page that provides access to the Dataset, its Distributions and/or additional information."@en;
+  shacl:name "landing page"@en;
+  shacl:path dcat:landingPage .
+
+<https://semiceu.github.io/IOPA/releases/1.0.0#BindingRequirementShape> a shacl:NodeShape;
+  shacl:closed false;
+  shacl:property <https://semiceu.github.io/IOPA/releases/1.0.0#BindingRequirementShape/28d4860d1ad14d789ffc09b841dfc4f9b27a0f4d>,
+    <https://semiceu.github.io/IOPA/releases/1.0.0#BindingRequirementShape/2c910cdeaf75333350c3c9a4ad3abaf73d012113>,
+    <https://semiceu.github.io/IOPA/releases/1.0.0#BindingRequirementShape/30f9d5dc387c26cd181ecaf79a783dde08b13f17>,
+    <https://semiceu.github.io/IOPA/releases/1.0.0#BindingRequirementShape/49a8d6e4fe7aa6f0addb4ed11d01108c6348d433>,
+    <https://semiceu.github.io/IOPA/releases/1.0.0#BindingRequirementShape/53250fc5eb79cc3dc36ee2690f966b44eb3cde1a>,
+    <https://semiceu.github.io/IOPA/releases/1.0.0#BindingRequirementShape/5871eb562969e2a4f395c8424314cc119686e019>,
+    <https://semiceu.github.io/IOPA/releases/1.0.0#BindingRequirementShape/5d3b501368b0e6230133103390ac50e7385e214a>,
+    <https://semiceu.github.io/IOPA/releases/1.0.0#BindingRequirementShape/61d3ec2b1eb4ee541999f05c4a695db49038c866>,
+    <https://semiceu.github.io/IOPA/releases/1.0.0#BindingRequirementShape/6439a3ecd827441f83ed8a7001a3cb7e3d6724a8>,
+    <https://semiceu.github.io/IOPA/releases/1.0.0#BindingRequirementShape/837ca7aadb4e9b329c60db5f35ffa3258e9a4dbb>,
+    <https://semiceu.github.io/IOPA/releases/1.0.0#BindingRequirementShape/8ea5dbc8f99291b81e441d1a5666a22f1c4d3608>,
+    <https://semiceu.github.io/IOPA/releases/1.0.0#BindingRequirementShape/b2022e46cdd278e120492d597d45342f243b13f7>,
+    <https://semiceu.github.io/IOPA/releases/1.0.0#BindingRequirementShape/b7aa98e1befa5130659568aa62e7f38575dc17c1>,
+    <https://semiceu.github.io/IOPA/releases/1.0.0#BindingRequirementShape/c1605e7eee91579de3df40d771e03a44a59d8ed3>,
+    <https://semiceu.github.io/IOPA/releases/1.0.0#BindingRequirementShape/ef2c104f9bc5019523318900356723ac0a8500e2>,
+    <https://semiceu.github.io/IOPA/releases/1.0.0#BindingRequirementShape/f04655e0c2d7e379bc84d56c6c34095087b32fe7>,
+    <https://semiceu.github.io/IOPA/releases/1.0.0#BindingRequirementShape/f67a7eac23a6765471f8d867cc7ba256bea49ce3>,
+    <https://semiceu.github.io/IOPA/releases/1.0.0#BindingRequirementShape/fb0f4ce42568457dd68730013f20f7749a22ad39>,
+    <https://semiceu.github.io/IOPA/releases/1.0.0#BindingRequirementShape/fbd972203ba45fa82f1113fd0b036d84cf8c4069>;
+  shacl:targetClass <http://data.europa.eu/2qy/iopa#BindingRequirement> .
+
+<https://semiceu.github.io/IOPA/releases/1.0.0#BindingRequirementShape/28d4860d1ad14d789ffc09b841dfc4f9b27a0f4d> rdfs:seeAlso "https://semiceu.github.io/IOPA/releases/1.0.0#BindingRequirement.ispartof";
+  shacl:description "A related resource in which the described resource is physically or logically included."@en;
+  shacl:name "is part of"@en;
+  shacl:nodeKind shacl:BlankNodeOrIRI;
+  shacl:path dc:isPartOf .
+
+<https://semiceu.github.io/IOPA/releases/1.0.0#BindingRequirementShape/2c910cdeaf75333350c3c9a4ad3abaf73d012113> rdfs:seeAlso "https://semiceu.github.io/IOPA/releases/1.0.0#BindingRequirement.affects";
+  shacl:description "The Public Service affected by the Binding Requirement."@en;
+  shacl:minCount 1;
+  shacl:name "affects"@en;
+  shacl:path <http://data.europa.eu/2qy/iopa#affects> .
+
+<https://semiceu.github.io/IOPA/releases/1.0.0#BindingRequirementShape/30f9d5dc387c26cd181ecaf79a783dde08b13f17> rdfs:seeAlso "https://semiceu.github.io/IOPA/releases/1.0.0#BindingRequirement.valuedescription";
+  shacl:description "Brief description of the Asset."@en;
+  shacl:minCount 1;
+  shacl:name "value description"@en;
+  shacl:path <http://data.europa.eu/2sa/cav#valueDescription> .
+
+<https://semiceu.github.io/IOPA/releases/1.0.0#BindingRequirementShape/49a8d6e4fe7aa6f0addb4ed11d01108c6348d433> rdfs:seeAlso "https://semiceu.github.io/IOPA/releases/1.0.0#BindingRequirement.page";
+  shacl:class foaf:Document;
+  shacl:description "A page or document about this thing."@en;
+  shacl:name "page"@en;
+  shacl:path foaf:page .
+
+<https://semiceu.github.io/IOPA/releases/1.0.0#BindingRequirementShape/53250fc5eb79cc3dc36ee2690f966b44eb3cde1a> rdfs:seeAlso "https://semiceu.github.io/IOPA/releases/1.0.0#BindingRequirement.valuedescription";
+  shacl:description "Brief description of the Asset."@en;
+  shacl:name "value description"@en;
+  shacl:nodeKind shacl:Literal;
+  shacl:path <http://data.europa.eu/2sa/cav#valueDescription> .
+
+<https://semiceu.github.io/IOPA/releases/1.0.0#BindingRequirementShape/5871eb562969e2a4f395c8424314cc119686e019> rdfs:seeAlso "https://semiceu.github.io/IOPA/releases/1.0.0#BindingRequirement.relation";
+  shacl:description "A related resource."@en;
+  shacl:name "relation"@en;
+  shacl:nodeKind shacl:BlankNodeOrIRI;
+  shacl:path dc:relation .
+
+<https://semiceu.github.io/IOPA/releases/1.0.0#BindingRequirementShape/5d3b501368b0e6230133103390ac50e7385e214a> rdfs:seeAlso "https://semiceu.github.io/IOPA/releases/1.0.0#BindingRequirement.ispartof";
+  shacl:class <http://data.europa.eu/eli/ontology#LegalExpression>,
+    <http://purl.org/vocab/frbr/core#Expression>;
+  shacl:description "A related resource in which the described resource is physically or logically included."@en;
+  shacl:name "is part of"@en;
+  shacl:path dc:isPartOf .
+
+<https://semiceu.github.io/IOPA/releases/1.0.0#BindingRequirementShape/61d3ec2b1eb4ee541999f05c4a695db49038c866> rdfs:seeAlso "https://semiceu.github.io/IOPA/releases/1.0.0#BindingRequirement.references";
+  shacl:description "A related resource that is referenced, cited, or otherwise pointed to by the described resource."@en;
+  shacl:name "references"@en;
+  shacl:nodeKind shacl:BlankNodeOrIRI;
+  shacl:path dc:references .
+
+<https://semiceu.github.io/IOPA/releases/1.0.0#BindingRequirementShape/6439a3ecd827441f83ed8a7001a3cb7e3d6724a8> rdfs:seeAlso "https://semiceu.github.io/IOPA/releases/1.0.0#BindingRequirement.affects";
+  shacl:class <http://purl.org/vocab/cpsv#PublicService>;
+  shacl:description "The Public Service affected by the Binding Requirement."@en;
+  shacl:name "affects"@en;
+  shacl:path <http://data.europa.eu/2qy/iopa#affects> .
+
+<https://semiceu.github.io/IOPA/releases/1.0.0#BindingRequirementShape/837ca7aadb4e9b329c60db5f35ffa3258e9a4dbb> rdfs:seeAlso "https://semiceu.github.io/IOPA/releases/1.0.0#BindingRequirement.references";
+  shacl:class dcat:Resource;
+  shacl:description "A related resource that is referenced, cited, or otherwise pointed to by the described resource."@en;
+  shacl:name "references"@en;
+  shacl:path dc:references .
+
+<https://semiceu.github.io/IOPA/releases/1.0.0#BindingRequirementShape/8ea5dbc8f99291b81e441d1a5666a22f1c4d3608> rdfs:seeAlso "https://semiceu.github.io/IOPA/releases/1.0.0#BindingRequirement.valuedescription";
+  shacl:datatype rdf:langString;
+  shacl:description "Brief description of the Asset."@en;
+  shacl:name "value description"@en;
+  shacl:path <http://data.europa.eu/2sa/cav#valueDescription> .
+
+<https://semiceu.github.io/IOPA/releases/1.0.0#BindingRequirementShape/b2022e46cdd278e120492d597d45342f243b13f7> rdfs:seeAlso "https://semiceu.github.io/IOPA/releases/1.0.0#BindingRequirement.documentedin";
+  shacl:datatype xsd:anyURI;
+  shacl:description """A link to any information supporting the value of the asset and any 
+other related relevant details."""@en;
+  shacl:name "documented in"@en;
+  shacl:path <http://data.europa.eu/2sa/cav#documentedIn> .
+
+<https://semiceu.github.io/IOPA/releases/1.0.0#BindingRequirementShape/b7aa98e1befa5130659568aa62e7f38575dc17c1> rdfs:seeAlso "https://semiceu.github.io/IOPA/releases/1.0.0#BindingRequirement.relation";
+  shacl:class <http://www.w3.org/ns/adms#Asset>;
+  shacl:description "A related resource."@en;
+  shacl:name "relation"@en;
+  shacl:path dc:relation .
+
+<https://semiceu.github.io/IOPA/releases/1.0.0#BindingRequirementShape/c1605e7eee91579de3df40d771e03a44a59d8ed3> rdfs:seeAlso "https://semiceu.github.io/IOPA/releases/1.0.0#BindingRequirement.valuedescription";
+  shacl:description "Brief description of the Asset."@en;
+  shacl:name "value description"@en;
+  shacl:path <http://data.europa.eu/2sa/cav#valueDescription>;
+  shacl:uniqueLang true .
+
+<https://semiceu.github.io/IOPA/releases/1.0.0#BindingRequirementShape/ef2c104f9bc5019523318900356723ac0a8500e2> rdfs:seeAlso "https://semiceu.github.io/IOPA/releases/1.0.0#BindingRequirement.hasparticipation";
+  shacl:description "The way how a resource is organized."@en;
+  shacl:name "has participation"@en;
+  shacl:nodeKind shacl:BlankNodeOrIRI;
+  shacl:path <http://data.europa.eu/m8g/hasParticipation> .
+
+<https://semiceu.github.io/IOPA/releases/1.0.0#BindingRequirementShape/f04655e0c2d7e379bc84d56c6c34095087b32fe7> rdfs:seeAlso "https://semiceu.github.io/IOPA/releases/1.0.0#BindingRequirement.documentedin";
+  shacl:description """A link to any information supporting the value of the asset and any 
+other related relevant details."""@en;
+  shacl:name "documented in"@en;
+  shacl:nodeKind shacl:Literal;
+  shacl:path <http://data.europa.eu/2sa/cav#documentedIn> .
+
+<https://semiceu.github.io/IOPA/releases/1.0.0#BindingRequirementShape/f67a7eac23a6765471f8d867cc7ba256bea49ce3> rdfs:seeAlso "https://semiceu.github.io/IOPA/releases/1.0.0#BindingRequirement.page";
+  shacl:description "A page or document about this thing."@en;
+  shacl:name "page"@en;
+  shacl:nodeKind shacl:BlankNodeOrIRI;
+  shacl:path foaf:page .
+
+<https://semiceu.github.io/IOPA/releases/1.0.0#BindingRequirementShape/fb0f4ce42568457dd68730013f20f7749a22ad39> rdfs:seeAlso "https://semiceu.github.io/IOPA/releases/1.0.0#BindingRequirement.hasparticipation";
+  shacl:class <http://data.europa.eu/m8g/Participation>;
+  shacl:description "The way how a resource is organized."@en;
+  shacl:name "has participation"@en;
+  shacl:path <http://data.europa.eu/m8g/hasParticipation> .
+
+<https://semiceu.github.io/IOPA/releases/1.0.0#BindingRequirementShape/fbd972203ba45fa82f1113fd0b036d84cf8c4069> rdfs:seeAlso "https://semiceu.github.io/IOPA/releases/1.0.0#BindingRequirement.affects";
+  shacl:description "The Public Service affected by the Binding Requirement."@en;
+  shacl:name "affects"@en;
+  shacl:nodeKind shacl:BlankNodeOrIRI;
+  shacl:path <http://data.europa.eu/2qy/iopa#affects> .
+
+<https://semiceu.github.io/IOPA/releases/1.0.0#CodeShape> a shacl:NodeShape;
+  shacl:closed false;
+  shacl:targetClass skos:Concept .
+
+<https://semiceu.github.io/IOPA/releases/1.0.0#DocumentShape> a shacl:NodeShape;
+  shacl:closed false;
+  shacl:targetClass foaf:Document .
+
+<https://semiceu.github.io/IOPA/releases/1.0.0#ExpressionShape> a shacl:NodeShape;
+  shacl:closed false;
+  shacl:property <https://semiceu.github.io/IOPA/releases/1.0.0#ExpressionShape/263a563c5bed08cdaadf4a0fd0a5fb9874d742bc>,
+    <https://semiceu.github.io/IOPA/releases/1.0.0#ExpressionShape/6cae9880e515253132af1452a38a8a5827165149>,
+    <https://semiceu.github.io/IOPA/releases/1.0.0#ExpressionShape/768bb4171e00505886fe9a1e949b4cd71f0eb548>,
+    <https://semiceu.github.io/IOPA/releases/1.0.0#ExpressionShape/8f61614144aa7bca188b24f5976593dc08aad0e6>,
+    <https://semiceu.github.io/IOPA/releases/1.0.0#ExpressionShape/96cdcbb0489a41ab01fc39c521f5ed607a0b2c41>,
+    <https://semiceu.github.io/IOPA/releases/1.0.0#ExpressionShape/9caf9e629daa0e64ece77788576468821d7cff8c>,
+    <https://semiceu.github.io/IOPA/releases/1.0.0#ExpressionShape/b2022e46cdd278e120492d597d45342f243b13f7>,
+    <https://semiceu.github.io/IOPA/releases/1.0.0#ExpressionShape/be01df43f1c288b656b3ca3879eb3dd9d8c700b9>,
+    <https://semiceu.github.io/IOPA/releases/1.0.0#ExpressionShape/d4d4f2399b8cf2f615ac658920373b714726bed0>,
+    <https://semiceu.github.io/IOPA/releases/1.0.0#ExpressionShape/f04655e0c2d7e379bc84d56c6c34095087b32fe7>;
+  shacl:targetClass <http://purl.org/vocab/frbr/core#Expression> .
+
+<https://semiceu.github.io/IOPA/releases/1.0.0#ExpressionShape/263a563c5bed08cdaadf4a0fd0a5fb9874d742bc> rdfs:seeAlso "https://semiceu.github.io/IOPA/releases/1.0.0#Expression.name";
+  shacl:datatype rdf:langString;
+  shacl:description "A name given to the resource."@en;
+  shacl:name "name"@en;
+  shacl:path dc:title .
+
+<https://semiceu.github.io/IOPA/releases/1.0.0#ExpressionShape/6cae9880e515253132af1452a38a8a5827165149> rdfs:seeAlso "https://semiceu.github.io/IOPA/releases/1.0.0#Expression.description";
+  shacl:description "A free text Description of the resource."@en;
+  shacl:name "description"@en;
+  shacl:nodeKind shacl:Literal;
+  shacl:path dc:description .
+
+<https://semiceu.github.io/IOPA/releases/1.0.0#ExpressionShape/768bb4171e00505886fe9a1e949b4cd71f0eb548> rdfs:seeAlso "https://semiceu.github.io/IOPA/releases/1.0.0#Expression.description";
+  shacl:description "A free text Description of the resource."@en;
+  shacl:name "description"@en;
+  shacl:path dc:description;
+  shacl:uniqueLang true .
+
+<https://semiceu.github.io/IOPA/releases/1.0.0#ExpressionShape/8f61614144aa7bca188b24f5976593dc08aad0e6> rdfs:seeAlso "https://semiceu.github.io/IOPA/releases/1.0.0#Expression.description";
+  shacl:description "A free text Description of the resource."@en;
+  shacl:minCount 1;
+  shacl:name "description"@en;
+  shacl:path dc:description .
+
+<https://semiceu.github.io/IOPA/releases/1.0.0#ExpressionShape/96cdcbb0489a41ab01fc39c521f5ed607a0b2c41> rdfs:seeAlso "https://semiceu.github.io/IOPA/releases/1.0.0#Expression.name";
+  shacl:description "A name given to the resource."@en;
+  shacl:minCount 1;
+  shacl:name "name"@en;
+  shacl:path dc:title .
+
+<https://semiceu.github.io/IOPA/releases/1.0.0#ExpressionShape/9caf9e629daa0e64ece77788576468821d7cff8c> rdfs:seeAlso "https://semiceu.github.io/IOPA/releases/1.0.0#Expression.name";
+  shacl:description "A name given to the resource."@en;
+  shacl:name "name"@en;
+  shacl:nodeKind shacl:Literal;
+  shacl:path dc:title .
+
+<https://semiceu.github.io/IOPA/releases/1.0.0#ExpressionShape/b2022e46cdd278e120492d597d45342f243b13f7> rdfs:seeAlso "https://semiceu.github.io/IOPA/releases/1.0.0#Expression.documentedin";
+  shacl:datatype xsd:anyURI;
+  shacl:description "A link to any information supporting the value of the work and any other related relevant details."@en;
+  shacl:name "documented in"@en;
+  shacl:path <http://data.europa.eu/2sa/cav#documentedIn> .
+
+<https://semiceu.github.io/IOPA/releases/1.0.0#ExpressionShape/be01df43f1c288b656b3ca3879eb3dd9d8c700b9> rdfs:seeAlso "https://semiceu.github.io/IOPA/releases/1.0.0#Expression.name";
+  shacl:description "A name given to the resource."@en;
+  shacl:name "name"@en;
+  shacl:path dc:title;
+  shacl:uniqueLang true .
+
+<https://semiceu.github.io/IOPA/releases/1.0.0#ExpressionShape/d4d4f2399b8cf2f615ac658920373b714726bed0> rdfs:seeAlso "https://semiceu.github.io/IOPA/releases/1.0.0#Expression.description";
+  shacl:datatype rdf:langString;
+  shacl:description "A free text Description of the resource."@en;
+  shacl:name "description"@en;
+  shacl:path dc:description .
+
+<https://semiceu.github.io/IOPA/releases/1.0.0#ExpressionShape/f04655e0c2d7e379bc84d56c6c34095087b32fe7> rdfs:seeAlso "https://semiceu.github.io/IOPA/releases/1.0.0#Expression.documentedin";
+  shacl:description "A link to any information supporting the value of the work and any other related relevant details."@en;
+  shacl:name "documented in"@en;
+  shacl:nodeKind shacl:Literal;
+  shacl:path <http://data.europa.eu/2sa/cav#documentedIn> .
+
+<https://semiceu.github.io/IOPA/releases/1.0.0#IdentifierShape> a shacl:NodeShape;
+  shacl:closed false;
+  shacl:targetClass <http://www.w3.org/ns/adms#Identifier> .
+
+<https://semiceu.github.io/IOPA/releases/1.0.0#LegalExpressionShape> a shacl:NodeShape;
+  shacl:closed false;
+  shacl:targetClass <http://data.europa.eu/eli/ontology#LegalExpression> .
+
+<https://semiceu.github.io/IOPA/releases/1.0.0#LiteralShape> a shacl:NodeShape;
+  shacl:closed false;
+  shacl:targetClass rdfs:Literal .
+
+<https://semiceu.github.io/IOPA/releases/1.0.0#LocationShape> a shacl:NodeShape;
+  shacl:closed false;
+  shacl:property <https://semiceu.github.io/IOPA/releases/1.0.0#LocationShape/de64768127c2c96295191bbf7ced703cb1b65346>,
+    <https://semiceu.github.io/IOPA/releases/1.0.0#LocationShape/e8ee1e84cb83b9448511b77b2105dcaebb8942df>;
+  shacl:targetClass dc:Location .
+
+<https://semiceu.github.io/IOPA/releases/1.0.0#LocationShape/de64768127c2c96295191bbf7ced703cb1b65346> rdfs:seeAlso "https://semiceu.github.io/IOPA/releases/1.0.0#Location.geographicidentifier";
+  shacl:datatype xsd:anyURI;
+  shacl:description "A reference in the form of a Uniform Resource Identifier to the Location."@en;
+  shacl:name "geographic identifier"@en;
+  shacl:path rdfs:seeAlso .
+
+<https://semiceu.github.io/IOPA/releases/1.0.0#LocationShape/e8ee1e84cb83b9448511b77b2105dcaebb8942df> rdfs:seeAlso "https://semiceu.github.io/IOPA/releases/1.0.0#Location.geographicidentifier";
+  shacl:description "A reference in the form of a Uniform Resource Identifier to the Location."@en;
+  shacl:name "geographic identifier"@en;
+  shacl:nodeKind shacl:Literal;
+  shacl:path rdfs:seeAlso .
+
+<https://semiceu.github.io/IOPA/releases/1.0.0#ParticipationShape> a shacl:NodeShape;
+  shacl:closed false;
+  shacl:property <https://semiceu.github.io/IOPA/releases/1.0.0#ParticipationShape/322371a77364a50f049d46180f6192532eea26dc>,
+    <https://semiceu.github.io/IOPA/releases/1.0.0#ParticipationShape/4f381639bb6e021939f65b4f41409d1edaeade9b>,
+    <https://semiceu.github.io/IOPA/releases/1.0.0#ParticipationShape/6c7c1bd2ab3b7761e5be759a078a9fd93f411a57>,
+    <https://semiceu.github.io/IOPA/releases/1.0.0#ParticipationShape/6cae9880e515253132af1452a38a8a5827165149>,
+    <https://semiceu.github.io/IOPA/releases/1.0.0#ParticipationShape/74feba662f4f65577bf45a8dd94f8faec0f03592>,
+    <https://semiceu.github.io/IOPA/releases/1.0.0#ParticipationShape/768bb4171e00505886fe9a1e949b4cd71f0eb548>,
+    <https://semiceu.github.io/IOPA/releases/1.0.0#ParticipationShape/8f61614144aa7bca188b24f5976593dc08aad0e6>,
+    <https://semiceu.github.io/IOPA/releases/1.0.0#ParticipationShape/91fca326def04ee4ef7ed1efba4e59fae00d1faa>,
+    <https://semiceu.github.io/IOPA/releases/1.0.0#ParticipationShape/96872d3a91278412b47d750ed71a4938984306c0>,
+    <https://semiceu.github.io/IOPA/releases/1.0.0#ParticipationShape/aadbd67a77a624f073be2076627fb9dc883cbe48>,
+    <https://semiceu.github.io/IOPA/releases/1.0.0#ParticipationShape/c0d17764e84e711728581fda7356a51e99a9040a>,
+    <https://semiceu.github.io/IOPA/releases/1.0.0#ParticipationShape/d2254b8259635ec986bc7c65b0227299193c6c16>,
+    <https://semiceu.github.io/IOPA/releases/1.0.0#ParticipationShape/d4d4f2399b8cf2f615ac658920373b714726bed0>,
+    <https://semiceu.github.io/IOPA/releases/1.0.0#ParticipationShape/ef2c104f9bc5019523318900356723ac0a8500e2>,
+    <https://semiceu.github.io/IOPA/releases/1.0.0#ParticipationShape/fb0f4ce42568457dd68730013f20f7749a22ad39>;
+  shacl:targetClass <http://data.europa.eu/m8g/Participation> .
+
+<https://semiceu.github.io/IOPA/releases/1.0.0#ParticipationShape/322371a77364a50f049d46180f6192532eea26dc> rdfs:seeAlso "https://semiceu.github.io/IOPA/releases/1.0.0#Participation.type";
+  shacl:class skos:Concept;
+  shacl:description "A classification assigned to a Participation."@en;
+  shacl:name "type"@en;
+  shacl:path dc:type .
+
+<https://semiceu.github.io/IOPA/releases/1.0.0#ParticipationShape/4f381639bb6e021939f65b4f41409d1edaeade9b> rdfs:seeAlso "https://semiceu.github.io/IOPA/releases/1.0.0#Participation.type";
+  shacl:description "A classification assigned to a Participation."@en;
+  shacl:name "type"@en;
+  shacl:nodeKind shacl:BlankNodeOrIRI;
+  shacl:path dc:type .
+
+<https://semiceu.github.io/IOPA/releases/1.0.0#ParticipationShape/6c7c1bd2ab3b7761e5be759a078a9fd93f411a57> rdfs:seeAlso "https://semiceu.github.io/IOPA/releases/1.0.0#Participation.identifier";
+  shacl:description "The unambiguous structured reference for the Participation."@en;
+  shacl:minCount 1;
+  shacl:name "identifier"@en;
+  shacl:path dc:identifier .
+
+<https://semiceu.github.io/IOPA/releases/1.0.0#ParticipationShape/6cae9880e515253132af1452a38a8a5827165149> rdfs:seeAlso "https://semiceu.github.io/IOPA/releases/1.0.0#Participation.description";
+  shacl:description "A textual explanation of the Participation."@en;
+  shacl:name "description"@en;
+  shacl:nodeKind shacl:Literal;
+  shacl:path dc:description .
+
+<https://semiceu.github.io/IOPA/releases/1.0.0#ParticipationShape/74feba662f4f65577bf45a8dd94f8faec0f03592> rdfs:seeAlso "https://semiceu.github.io/IOPA/releases/1.0.0#Participation.type";
+  shacl:description "A classification assigned to a Participation."@en;
+  shacl:minCount 1;
+  shacl:name "type"@en;
+  shacl:path dc:type .
+
+<https://semiceu.github.io/IOPA/releases/1.0.0#ParticipationShape/768bb4171e00505886fe9a1e949b4cd71f0eb548> rdfs:seeAlso "https://semiceu.github.io/IOPA/releases/1.0.0#Participation.description";
+  shacl:description "A textual explanation of the Participation."@en;
+  shacl:name "description"@en;
+  shacl:path dc:description;
+  shacl:uniqueLang true .
+
+<https://semiceu.github.io/IOPA/releases/1.0.0#ParticipationShape/8f61614144aa7bca188b24f5976593dc08aad0e6> rdfs:seeAlso "https://semiceu.github.io/IOPA/releases/1.0.0#Participation.description";
+  shacl:description "A textual explanation of the Participation."@en;
+  shacl:minCount 1;
+  shacl:name "description"@en;
+  shacl:path dc:description .
+
+<https://semiceu.github.io/IOPA/releases/1.0.0#ParticipationShape/91fca326def04ee4ef7ed1efba4e59fae00d1faa> rdfs:seeAlso "https://semiceu.github.io/IOPA/releases/1.0.0#Participation.role";
+  shacl:description "The function of an Agent within a Participation."@en;
+  shacl:name "role"@en;
+  shacl:nodeKind shacl:BlankNodeOrIRI;
+  shacl:path <http://data.europa.eu/m8g/role> .
+
+<https://semiceu.github.io/IOPA/releases/1.0.0#ParticipationShape/96872d3a91278412b47d750ed71a4938984306c0> rdfs:seeAlso "https://semiceu.github.io/IOPA/releases/1.0.0#Participation.role";
+  shacl:description "The function of an Agent within a Participation."@en;
+  shacl:minCount 1;
+  shacl:name "role"@en;
+  shacl:path <http://data.europa.eu/m8g/role> .
+
+<https://semiceu.github.io/IOPA/releases/1.0.0#ParticipationShape/aadbd67a77a624f073be2076627fb9dc883cbe48> rdfs:seeAlso "https://semiceu.github.io/IOPA/releases/1.0.0#Participation.identifier";
+  shacl:description "The unambiguous structured reference for the Participation."@en;
+  shacl:name "identifier"@en;
+  shacl:nodeKind shacl:Literal;
+  shacl:path dc:identifier .
+
+<https://semiceu.github.io/IOPA/releases/1.0.0#ParticipationShape/c0d17764e84e711728581fda7356a51e99a9040a> rdfs:seeAlso "https://semiceu.github.io/IOPA/releases/1.0.0#Participation.identifier";
+  shacl:description "The unambiguous structured reference for the Participation."@en;
+  shacl:maxCount 1;
+  shacl:name "identifier"@en;
+  shacl:path dc:identifier .
+
+<https://semiceu.github.io/IOPA/releases/1.0.0#ParticipationShape/d2254b8259635ec986bc7c65b0227299193c6c16> rdfs:seeAlso "https://semiceu.github.io/IOPA/releases/1.0.0#Participation.role";
+  shacl:class skos:Concept;
+  shacl:description "The function of an Agent within a Participation."@en;
+  shacl:name "role"@en;
+  shacl:path <http://data.europa.eu/m8g/role> .
+
+<https://semiceu.github.io/IOPA/releases/1.0.0#ParticipationShape/d4d4f2399b8cf2f615ac658920373b714726bed0> rdfs:seeAlso "https://semiceu.github.io/IOPA/releases/1.0.0#Participation.description";
+  shacl:datatype rdf:langString;
+  shacl:description "A textual explanation of the Participation."@en;
+  shacl:name "description"@en;
+  shacl:path dc:description .
+
+<https://semiceu.github.io/IOPA/releases/1.0.0#ParticipationShape/ef2c104f9bc5019523318900356723ac0a8500e2> rdfs:seeAlso "https://semiceu.github.io/IOPA/releases/1.0.0#Participation.hasparticipation";
+  shacl:description "The Agent involved in the Participation."@en;
+  shacl:name "has participation"@en;
+  shacl:nodeKind shacl:BlankNodeOrIRI;
+  shacl:path <http://data.europa.eu/m8g/hasParticipant> .
+
+<https://semiceu.github.io/IOPA/releases/1.0.0#ParticipationShape/fb0f4ce42568457dd68730013f20f7749a22ad39> rdfs:seeAlso "https://semiceu.github.io/IOPA/releases/1.0.0#Participation.hasparticipation";
+  shacl:class foaf:Agent;
+  shacl:description "The Agent involved in the Participation."@en;
+  shacl:name "has participation"@en;
+  shacl:path <http://data.europa.eu/m8g/hasParticipant> .
+
+<https://semiceu.github.io/IOPA/releases/1.0.0#PublicOrganisationShape> a shacl:NodeShape;
+  shacl:closed false;
+  shacl:property <https://semiceu.github.io/IOPA/releases/1.0.0#PublicOrganisationShape/322ac30abbb777e02239ab84ebf7d14ebde22688>,
+    <https://semiceu.github.io/IOPA/releases/1.0.0#PublicOrganisationShape/3b9cc6558bbf88b7fbaf0c2f3ab6ae7fb8c1b4b9>,
+    <https://semiceu.github.io/IOPA/releases/1.0.0#PublicOrganisationShape/6cae9880e515253132af1452a38a8a5827165149>,
+    <https://semiceu.github.io/IOPA/releases/1.0.0#PublicOrganisationShape/6cd0f0f5e19a1c8dce362ecbe8a196575b9cd85f>,
+    <https://semiceu.github.io/IOPA/releases/1.0.0#PublicOrganisationShape/768bb4171e00505886fe9a1e949b4cd71f0eb548>,
+    <https://semiceu.github.io/IOPA/releases/1.0.0#PublicOrganisationShape/8f61614144aa7bca188b24f5976593dc08aad0e6>,
+    <https://semiceu.github.io/IOPA/releases/1.0.0#PublicOrganisationShape/8fd1cd7a406ec3816234c1ec0c69f985a9117476>,
+    <https://semiceu.github.io/IOPA/releases/1.0.0#PublicOrganisationShape/b93b49bf7122a561ecc9674449665256e441faf5>,
+    <https://semiceu.github.io/IOPA/releases/1.0.0#PublicOrganisationShape/b9d7391deffceb182bef20e69771e5bfcf511f96>,
+    <https://semiceu.github.io/IOPA/releases/1.0.0#PublicOrganisationShape/c552423cc5f3398e44ee3d03cdf62e560fedd532>,
+    <https://semiceu.github.io/IOPA/releases/1.0.0#PublicOrganisationShape/d4d4f2399b8cf2f615ac658920373b714726bed0>,
+    <https://semiceu.github.io/IOPA/releases/1.0.0#PublicOrganisationShape/e4d44fb0d3c41df2a4042ee73fec8d83fc141a60>;
+  shacl:targetClass <http://data.europa.eu/m8g/PublicOrganisation> .
+
+<https://semiceu.github.io/IOPA/releases/1.0.0#PublicOrganisationShape/322ac30abbb777e02239ab84ebf7d14ebde22688> rdfs:seeAlso "https://semiceu.github.io/IOPA/releases/1.0.0#PublicOrganisation.preferredlabel";
+  shacl:datatype rdf:langString;
+  shacl:description "A preferred label is used to provide the primary, legally recognised name of the Public Organization, as defined in the ORG Ontology."@en;
+  shacl:name "preferred label"@en;
+  shacl:path skos:prefLabel .
+
+<https://semiceu.github.io/IOPA/releases/1.0.0#PublicOrganisationShape/3b9cc6558bbf88b7fbaf0c2f3ab6ae7fb8c1b4b9> rdfs:seeAlso "https://semiceu.github.io/IOPA/releases/1.0.0#PublicOrganisation.preferredlabel";
+  shacl:description "A preferred label is used to provide the primary, legally recognised name of the Public Organization, as defined in the ORG Ontology."@en;
+  shacl:name "preferred label"@en;
+  shacl:path skos:prefLabel;
+  shacl:uniqueLang true .
+
+<https://semiceu.github.io/IOPA/releases/1.0.0#PublicOrganisationShape/6cae9880e515253132af1452a38a8a5827165149> rdfs:seeAlso "https://semiceu.github.io/IOPA/releases/1.0.0#PublicOrganisation.description";
+  shacl:description "The textual description of the Public Organization."@en;
+  shacl:name "description"@en;
+  shacl:nodeKind shacl:Literal;
+  shacl:path dc:description .
+
+<https://semiceu.github.io/IOPA/releases/1.0.0#PublicOrganisationShape/6cd0f0f5e19a1c8dce362ecbe8a196575b9cd85f> rdfs:seeAlso "https://semiceu.github.io/IOPA/releases/1.0.0#PublicOrganisation.preferredlabel";
+  shacl:description "A preferred label is used to provide the primary, legally recognised name of the Public Organization, as defined in the ORG Ontology."@en;
+  shacl:name "preferred label"@en;
+  shacl:nodeKind shacl:Literal;
+  shacl:path skos:prefLabel .
+
+<https://semiceu.github.io/IOPA/releases/1.0.0#PublicOrganisationShape/768bb4171e00505886fe9a1e949b4cd71f0eb548> rdfs:seeAlso "https://semiceu.github.io/IOPA/releases/1.0.0#PublicOrganisation.description";
+  shacl:description "The textual description of the Public Organization."@en;
+  shacl:name "description"@en;
+  shacl:path dc:description;
+  shacl:uniqueLang true .
+
+<https://semiceu.github.io/IOPA/releases/1.0.0#PublicOrganisationShape/8f61614144aa7bca188b24f5976593dc08aad0e6> rdfs:seeAlso "https://semiceu.github.io/IOPA/releases/1.0.0#PublicOrganisation.description";
+  shacl:description "The textual description of the Public Organization."@en;
+  shacl:minCount 1;
+  shacl:name "description"@en;
+  shacl:path dc:description .
+
+<https://semiceu.github.io/IOPA/releases/1.0.0#PublicOrganisationShape/8fd1cd7a406ec3816234c1ec0c69f985a9117476> rdfs:seeAlso "https://semiceu.github.io/IOPA/releases/1.0.0#PublicOrganisation.spatial";
+  shacl:class dc:Location;
+  shacl:description "This property links an Organization to the Administrative Region(s) that it covers."@en;
+  shacl:name "spatial"@en;
+  shacl:path dc:spatial .
+
+<https://semiceu.github.io/IOPA/releases/1.0.0#PublicOrganisationShape/b93b49bf7122a561ecc9674449665256e441faf5> rdfs:seeAlso "https://semiceu.github.io/IOPA/releases/1.0.0#PublicOrganisation.spatial";
+  shacl:description "This property links an Organization to the Administrative Region(s) that it covers."@en;
+  shacl:name "spatial"@en;
+  shacl:nodeKind shacl:BlankNodeOrIRI;
+  shacl:path dc:spatial .
+
+<https://semiceu.github.io/IOPA/releases/1.0.0#PublicOrganisationShape/b9d7391deffceb182bef20e69771e5bfcf511f96> rdfs:seeAlso "https://semiceu.github.io/IOPA/releases/1.0.0#PublicOrganisation.classification";
+  shacl:class skos:Concept;
+  shacl:name "classification"@en;
+  shacl:path org:classification .
+
+<https://semiceu.github.io/IOPA/releases/1.0.0#PublicOrganisationShape/c552423cc5f3398e44ee3d03cdf62e560fedd532> rdfs:seeAlso "https://semiceu.github.io/IOPA/releases/1.0.0#PublicOrganisation.classification";
+  shacl:name "classification"@en;
+  shacl:nodeKind shacl:BlankNodeOrIRI;
+  shacl:path org:classification .
+
+<https://semiceu.github.io/IOPA/releases/1.0.0#PublicOrganisationShape/d4d4f2399b8cf2f615ac658920373b714726bed0> rdfs:seeAlso "https://semiceu.github.io/IOPA/releases/1.0.0#PublicOrganisation.description";
+  shacl:datatype rdf:langString;
+  shacl:description "The textual description of the Public Organization."@en;
+  shacl:name "description"@en;
+  shacl:path dc:description .
+
+<https://semiceu.github.io/IOPA/releases/1.0.0#PublicOrganisationShape/e4d44fb0d3c41df2a4042ee73fec8d83fc141a60> rdfs:seeAlso "https://semiceu.github.io/IOPA/releases/1.0.0#PublicOrganisation.preferredlabel";
+  shacl:description "A preferred label is used to provide the primary, legally recognised name of the Public Organization, as defined in the ORG Ontology."@en;
+  shacl:minCount 1;
+  shacl:name "preferred label"@en;
+  shacl:path skos:prefLabel .
+
+<https://semiceu.github.io/IOPA/releases/1.0.0#PublicServiceShape> a shacl:NodeShape;
+  shacl:closed false;
+  shacl:property <https://semiceu.github.io/IOPA/releases/1.0.0#PublicServiceShape/263a563c5bed08cdaadf4a0fd0a5fb9874d742bc>,
+    <https://semiceu.github.io/IOPA/releases/1.0.0#PublicServiceShape/59263d34cd9c655e707d40d27dbf78ecd3d6b76a>,
+    <https://semiceu.github.io/IOPA/releases/1.0.0#PublicServiceShape/6c7c1bd2ab3b7761e5be759a078a9fd93f411a57>,
+    <https://semiceu.github.io/IOPA/releases/1.0.0#PublicServiceShape/6cae9880e515253132af1452a38a8a5827165149>,
+    <https://semiceu.github.io/IOPA/releases/1.0.0#PublicServiceShape/768bb4171e00505886fe9a1e949b4cd71f0eb548>,
+    <https://semiceu.github.io/IOPA/releases/1.0.0#PublicServiceShape/8f61614144aa7bca188b24f5976593dc08aad0e6>,
+    <https://semiceu.github.io/IOPA/releases/1.0.0#PublicServiceShape/8fd1cd7a406ec3816234c1ec0c69f985a9117476>,
+    <https://semiceu.github.io/IOPA/releases/1.0.0#PublicServiceShape/96cdcbb0489a41ab01fc39c521f5ed607a0b2c41>,
+    <https://semiceu.github.io/IOPA/releases/1.0.0#PublicServiceShape/9caf9e629daa0e64ece77788576468821d7cff8c>,
+    <https://semiceu.github.io/IOPA/releases/1.0.0#PublicServiceShape/aadbd67a77a624f073be2076627fb9dc883cbe48>,
+    <https://semiceu.github.io/IOPA/releases/1.0.0#PublicServiceShape/b3298d22e02dabdb98f5271a3e3ef2e3d95c2409>,
+    <https://semiceu.github.io/IOPA/releases/1.0.0#PublicServiceShape/b93b49bf7122a561ecc9674449665256e441faf5>,
+    <https://semiceu.github.io/IOPA/releases/1.0.0#PublicServiceShape/be01df43f1c288b656b3ca3879eb3dd9d8c700b9>,
+    <https://semiceu.github.io/IOPA/releases/1.0.0#PublicServiceShape/d4d4f2399b8cf2f615ac658920373b714726bed0>;
+  shacl:targetClass <http://purl.org/vocab/cpsv#PublicService> .
+
+<https://semiceu.github.io/IOPA/releases/1.0.0#PublicServiceShape/263a563c5bed08cdaadf4a0fd0a5fb9874d742bc> rdfs:seeAlso "https://semiceu.github.io/IOPA/releases/1.0.0#PublicService.name";
+  shacl:datatype rdf:langString;
+  shacl:description "A name given to the resource."@en;
+  shacl:name "name"@en;
+  shacl:path dc:title .
+
+<https://semiceu.github.io/IOPA/releases/1.0.0#PublicServiceShape/59263d34cd9c655e707d40d27dbf78ecd3d6b76a> rdfs:seeAlso "https://semiceu.github.io/IOPA/releases/1.0.0#PublicService.thematicarea";
+  shacl:description "The Thematic Area of a Public Service."@en;
+  shacl:name "thematic area"@en;
+  shacl:nodeKind shacl:BlankNodeOrIRI;
+  shacl:path <http://data.europa.eu/m8g/thematicArea> .
+
+<https://semiceu.github.io/IOPA/releases/1.0.0#PublicServiceShape/6c7c1bd2ab3b7761e5be759a078a9fd93f411a57> rdfs:seeAlso "https://semiceu.github.io/IOPA/releases/1.0.0#PublicService.identifier";
+  shacl:description "A formally-issued Identifier for the Public Service."@en;
+  shacl:minCount 1;
+  shacl:name "identifier"@en;
+  shacl:path dc:identifier .
+
+<https://semiceu.github.io/IOPA/releases/1.0.0#PublicServiceShape/6cae9880e515253132af1452a38a8a5827165149> rdfs:seeAlso "https://semiceu.github.io/IOPA/releases/1.0.0#PublicService.description";
+  shacl:description "A free text Description of the Public Service."@en;
+  shacl:name "description"@en;
+  shacl:nodeKind shacl:Literal;
+  shacl:path dc:description .
+
+<https://semiceu.github.io/IOPA/releases/1.0.0#PublicServiceShape/768bb4171e00505886fe9a1e949b4cd71f0eb548> rdfs:seeAlso "https://semiceu.github.io/IOPA/releases/1.0.0#PublicService.description";
+  shacl:description "A free text Description of the Public Service."@en;
+  shacl:name "description"@en;
+  shacl:path dc:description;
+  shacl:uniqueLang true .
+
+<https://semiceu.github.io/IOPA/releases/1.0.0#PublicServiceShape/8f61614144aa7bca188b24f5976593dc08aad0e6> rdfs:seeAlso "https://semiceu.github.io/IOPA/releases/1.0.0#PublicService.description";
+  shacl:description "A free text Description of the Public Service."@en;
+  shacl:minCount 1;
+  shacl:name "description"@en;
+  shacl:path dc:description .
+
+<https://semiceu.github.io/IOPA/releases/1.0.0#PublicServiceShape/8fd1cd7a406ec3816234c1ec0c69f985a9117476> rdfs:seeAlso "https://semiceu.github.io/IOPA/releases/1.0.0#PublicService.spatial";
+  shacl:class dc:Location;
+  shacl:description "Spatial characteristics of the resource."@en;
+  shacl:name "spatial"@en;
+  shacl:path dc:spatial .
+
+<https://semiceu.github.io/IOPA/releases/1.0.0#PublicServiceShape/96cdcbb0489a41ab01fc39c521f5ed607a0b2c41> rdfs:seeAlso "https://semiceu.github.io/IOPA/releases/1.0.0#PublicService.name";
+  shacl:description "A name given to the resource."@en;
+  shacl:minCount 1;
+  shacl:name "name"@en;
+  shacl:path dc:title .
+
+<https://semiceu.github.io/IOPA/releases/1.0.0#PublicServiceShape/9caf9e629daa0e64ece77788576468821d7cff8c> rdfs:seeAlso "https://semiceu.github.io/IOPA/releases/1.0.0#PublicService.name";
+  shacl:description "A name given to the resource."@en;
+  shacl:name "name"@en;
+  shacl:nodeKind shacl:Literal;
+  shacl:path dc:title .
+
+<https://semiceu.github.io/IOPA/releases/1.0.0#PublicServiceShape/aadbd67a77a624f073be2076627fb9dc883cbe48> rdfs:seeAlso "https://semiceu.github.io/IOPA/releases/1.0.0#PublicService.identifier";
+  shacl:description "A formally-issued Identifier for the Public Service."@en;
+  shacl:name "identifier"@en;
+  shacl:nodeKind shacl:Literal;
+  shacl:path dc:identifier .
+
+<https://semiceu.github.io/IOPA/releases/1.0.0#PublicServiceShape/b3298d22e02dabdb98f5271a3e3ef2e3d95c2409> rdfs:seeAlso "https://semiceu.github.io/IOPA/releases/1.0.0#PublicService.thematicarea";
+  shacl:class skos:Concept;
+  shacl:description "The Thematic Area of a Public Service."@en;
+  shacl:name "thematic area"@en;
+  shacl:path <http://data.europa.eu/m8g/thematicArea> .
+
+<https://semiceu.github.io/IOPA/releases/1.0.0#PublicServiceShape/b93b49bf7122a561ecc9674449665256e441faf5> rdfs:seeAlso "https://semiceu.github.io/IOPA/releases/1.0.0#PublicService.spatial";
+  shacl:description "Spatial characteristics of the resource."@en;
+  shacl:name "spatial"@en;
+  shacl:nodeKind shacl:BlankNodeOrIRI;
+  shacl:path dc:spatial .
+
+<https://semiceu.github.io/IOPA/releases/1.0.0#PublicServiceShape/be01df43f1c288b656b3ca3879eb3dd9d8c700b9> rdfs:seeAlso "https://semiceu.github.io/IOPA/releases/1.0.0#PublicService.name";
+  shacl:description "A name given to the resource."@en;
+  shacl:name "name"@en;
+  shacl:path dc:title;
+  shacl:uniqueLang true .
+
+<https://semiceu.github.io/IOPA/releases/1.0.0#PublicServiceShape/d4d4f2399b8cf2f615ac658920373b714726bed0> rdfs:seeAlso "https://semiceu.github.io/IOPA/releases/1.0.0#PublicService.description";
+  shacl:datatype rdf:langString;
+  shacl:description "A free text Description of the Public Service."@en;
+  shacl:name "description"@en;
+  shacl:path dc:description .
+
+<https://semiceu.github.io/IOPA/releases/1.0.0#ResourceShape> a shacl:NodeShape;
+  shacl:closed false;
+  shacl:property <https://semiceu.github.io/IOPA/releases/1.0.0#ResourceShape/6cae9880e515253132af1452a38a8a5827165149>,
+    <https://semiceu.github.io/IOPA/releases/1.0.0#ResourceShape/8f61614144aa7bca188b24f5976593dc08aad0e6>;
+  shacl:targetClass dcat:Resource .
+
+<https://semiceu.github.io/IOPA/releases/1.0.0#ResourceShape/6cae9880e515253132af1452a38a8a5827165149> rdfs:seeAlso "https://semiceu.github.io/IOPA/releases/1.0.0#Resource.description";
+  shacl:description "An account of the resource."@en;
+  shacl:name "description"@en;
+  shacl:nodeKind shacl:Literal;
+  shacl:path dc:description .
+
+<https://semiceu.github.io/IOPA/releases/1.0.0#ResourceShape/8f61614144aa7bca188b24f5976593dc08aad0e6> rdfs:seeAlso "https://semiceu.github.io/IOPA/releases/1.0.0#Resource.description";
+  shacl:description "An account of the resource."@en;
+  shacl:minCount 1;
+  shacl:name "description"@en;
+  shacl:path dc:description .
+
+<https://semiceu.github.io/IOPA/releases/1.0.0#StatementShape> a shacl:NodeShape;
+  shacl:closed false;
+  shacl:property <https://semiceu.github.io/IOPA/releases/1.0.0#StatementShape/07a0274a8a68299fecf732d169f3bb5ab0a8f95d>,
+    <https://semiceu.github.io/IOPA/releases/1.0.0#StatementShape/322371a77364a50f049d46180f6192532eea26dc>,
+    <https://semiceu.github.io/IOPA/releases/1.0.0#StatementShape/49a8d6e4fe7aa6f0addb4ed11d01108c6348d433>,
+    <https://semiceu.github.io/IOPA/releases/1.0.0#StatementShape/4f381639bb6e021939f65b4f41409d1edaeade9b>,
+    <https://semiceu.github.io/IOPA/releases/1.0.0#StatementShape/50a278b580af7f10bcb00d4ac1520b892ff0106f>,
+    <https://semiceu.github.io/IOPA/releases/1.0.0#StatementShape/74feba662f4f65577bf45a8dd94f8faec0f03592>,
+    <https://semiceu.github.io/IOPA/releases/1.0.0#StatementShape/8a9e187b1ac7957f5eb60ddf074e3eefe43e69eb>,
+    <https://semiceu.github.io/IOPA/releases/1.0.0#StatementShape/98ffe17542e29f8ee6f4efc5a05f436a0f94345d>,
+    <https://semiceu.github.io/IOPA/releases/1.0.0#StatementShape/9ebf1b5d8a196fa0a4b586139d2f450121292fa0>,
+    <https://semiceu.github.io/IOPA/releases/1.0.0#StatementShape/a39bd847a22757fc8b40eb45e77f8f361673fcc1>,
+    <https://semiceu.github.io/IOPA/releases/1.0.0#StatementShape/b294397dcc861f6573c6465d2465e0b5140589c2>,
+    <https://semiceu.github.io/IOPA/releases/1.0.0#StatementShape/e2d0d5eedfd41ec2069031a080f5dee685c8c218>,
+    <https://semiceu.github.io/IOPA/releases/1.0.0#StatementShape/f67a7eac23a6765471f8d867cc7ba256bea49ce3>,
+    <https://semiceu.github.io/IOPA/releases/1.0.0#StatementShape/fa72091311d810c1892a6fea7709976d4e13c197>;
+  shacl:targetClass <http://data.europa.eu/2sa/cav#Statement> .
+
+<https://semiceu.github.io/IOPA/releases/1.0.0#StatementShape/07a0274a8a68299fecf732d169f3bb5ab0a8f95d> rdfs:seeAlso "https://semiceu.github.io/IOPA/releases/1.0.0#Statement.interpretation";
+  shacl:description "The favourability perception of the statement (e.g. positive, negative or neutral)."@en;
+  shacl:minCount 1;
+  shacl:name "interpretation"@en;
+  shacl:path <http://data.europa.eu/2sa/cav#interpretation> .
+
+<https://semiceu.github.io/IOPA/releases/1.0.0#StatementShape/322371a77364a50f049d46180f6192532eea26dc> rdfs:seeAlso "https://semiceu.github.io/IOPA/releases/1.0.0#Statement.type";
+  shacl:class skos:Concept;
+  shacl:description "The categorisation of the statement."@en;
+  shacl:name "type"@en;
+  shacl:path <http://data.europa.eu/2sa/cav#type> .
+
+<https://semiceu.github.io/IOPA/releases/1.0.0#StatementShape/49a8d6e4fe7aa6f0addb4ed11d01108c6348d433> rdfs:seeAlso "https://semiceu.github.io/IOPA/releases/1.0.0#Statement.page";
+  shacl:class foaf:Document;
+  shacl:description "A page or document about this thing."@en;
+  shacl:name "page"@en;
+  shacl:path foaf:page .
+
+<https://semiceu.github.io/IOPA/releases/1.0.0#StatementShape/4f381639bb6e021939f65b4f41409d1edaeade9b> rdfs:seeAlso "https://semiceu.github.io/IOPA/releases/1.0.0#Statement.type";
+  shacl:description "The categorisation of the statement."@en;
+  shacl:name "type"@en;
+  shacl:nodeKind shacl:BlankNodeOrIRI;
+  shacl:path <http://data.europa.eu/2sa/cav#type> .
+
+<https://semiceu.github.io/IOPA/releases/1.0.0#StatementShape/50a278b580af7f10bcb00d4ac1520b892ff0106f> rdfs:seeAlso "https://semiceu.github.io/IOPA/releases/1.0.0#Statement.hasrelatedservice";
+  shacl:description "The Public Service related to the Statement."@en;
+  shacl:name "has related service"@en;
+  shacl:nodeKind shacl:BlankNodeOrIRI;
+  shacl:path <http://data.europa.eu/m8g/hasRelatedService> .
+
+<https://semiceu.github.io/IOPA/releases/1.0.0#StatementShape/74feba662f4f65577bf45a8dd94f8faec0f03592> rdfs:seeAlso "https://semiceu.github.io/IOPA/releases/1.0.0#Statement.type";
+  shacl:description "The categorisation of the statement."@en;
+  shacl:minCount 1;
+  shacl:name "type"@en;
+  shacl:path <http://data.europa.eu/2sa/cav#type> .
+
+<https://semiceu.github.io/IOPA/releases/1.0.0#StatementShape/8a9e187b1ac7957f5eb60ddf074e3eefe43e69eb> rdfs:seeAlso "https://semiceu.github.io/IOPA/releases/1.0.0#Statement.judgement";
+  shacl:datatype rdf:langString;
+  shacl:description "The text expressing the statement's resulting value judgement."@en;
+  shacl:name "judgement"@en;
+  shacl:path <http://data.europa.eu/2sa/cav#judgement> .
+
+<https://semiceu.github.io/IOPA/releases/1.0.0#StatementShape/98ffe17542e29f8ee6f4efc5a05f436a0f94345d> rdfs:seeAlso "https://semiceu.github.io/IOPA/releases/1.0.0#Statement.judgement";
+  shacl:description "The text expressing the statement's resulting value judgement."@en;
+  shacl:minCount 1;
+  shacl:name "judgement"@en;
+  shacl:path <http://data.europa.eu/2sa/cav#judgement> .
+
+<https://semiceu.github.io/IOPA/releases/1.0.0#StatementShape/9ebf1b5d8a196fa0a4b586139d2f450121292fa0> rdfs:seeAlso "https://semiceu.github.io/IOPA/releases/1.0.0#Statement.judgement";
+  shacl:description "The text expressing the statement's resulting value judgement."@en;
+  shacl:name "judgement"@en;
+  shacl:nodeKind shacl:Literal;
+  shacl:path <http://data.europa.eu/2sa/cav#judgement> .
+
+<https://semiceu.github.io/IOPA/releases/1.0.0#StatementShape/a39bd847a22757fc8b40eb45e77f8f361673fcc1> rdfs:seeAlso "https://semiceu.github.io/IOPA/releases/1.0.0#Statement.interpretation";
+  shacl:description "The favourability perception of the statement (e.g. positive, negative or neutral)."@en;
+  shacl:name "interpretation"@en;
+  shacl:nodeKind shacl:BlankNodeOrIRI;
+  shacl:path <http://data.europa.eu/2sa/cav#interpretation> .
+
+<https://semiceu.github.io/IOPA/releases/1.0.0#StatementShape/b294397dcc861f6573c6465d2465e0b5140589c2> rdfs:seeAlso "https://semiceu.github.io/IOPA/releases/1.0.0#Statement.hasrelatedservice";
+  shacl:class <http://purl.org/vocab/cpsv#PublicService>;
+  shacl:description "The Public Service related to the Statement."@en;
+  shacl:name "has related service"@en;
+  shacl:path <http://data.europa.eu/m8g/hasRelatedService> .
+
+<https://semiceu.github.io/IOPA/releases/1.0.0#StatementShape/e2d0d5eedfd41ec2069031a080f5dee685c8c218> rdfs:seeAlso "https://semiceu.github.io/IOPA/releases/1.0.0#Statement.interpretation";
+  shacl:class skos:Concept;
+  shacl:description "The favourability perception of the statement (e.g. positive, negative or neutral)."@en;
+  shacl:name "interpretation"@en;
+  shacl:path <http://data.europa.eu/2sa/cav#interpretation> .
+
+<https://semiceu.github.io/IOPA/releases/1.0.0#StatementShape/f67a7eac23a6765471f8d867cc7ba256bea49ce3> rdfs:seeAlso "https://semiceu.github.io/IOPA/releases/1.0.0#Statement.page";
+  shacl:description "A page or document about this thing."@en;
+  shacl:name "page"@en;
+  shacl:nodeKind shacl:BlankNodeOrIRI;
+  shacl:path foaf:page .
+
+<https://semiceu.github.io/IOPA/releases/1.0.0#StatementShape/fa72091311d810c1892a6fea7709976d4e13c197> rdfs:seeAlso "https://semiceu.github.io/IOPA/releases/1.0.0#Statement.judgement";
+  shacl:description "The text expressing the statement's resulting value judgement."@en;
+  shacl:name "judgement"@en;
+  shacl:path <http://data.europa.eu/2sa/cav#judgement>;
+  shacl:uniqueLang true .
+
+<https://semiceu.github.io/IOPA/releases/1.0.0#TextShape> a shacl:NodeShape;
+  shacl:closed false;
+  shacl:targetClass rdf:langString .
+
+<https://semiceu.github.io/IOPA/releases/1.0.0#URIShape> a shacl:NodeShape;
+  shacl:closed false;
+  shacl:targetClass xsd:anyURI .

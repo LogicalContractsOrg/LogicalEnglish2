@@ -1,0 +1,154 @@
+# Article 11, Paragraph 1 - Central AML/CFT database
+# The Authority shall establish and keep up to date a central database of information pursuant to this Article.
+# The Authority shall make the information available to supervisory authorities, non-AML/CFT authorities, other national authorities and bodies competent for ensuring compliance with various Directives and Regulations, and to the European Supervisory Authorities (EBA, ESMA, EIOPA), on a need-to-know and confidential basis, where it is necessary for the fulfilment of their tasks.
+# The Authority shall also analyse the collected information and may share the results of its analysis on its own initiative with supervisory authorities, where to do so would facilitate their supervisory activities, and, where relevant, with obliged entities.
+
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix eli: <http://data.europa.eu/eli/ontology#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix example: <https://system.org/example#> .
+@prefix lomo: <http://data.europa.eu/leg/lomo#> .
+
+# Agent Role instances
+example:REG20241620ART11PAR1_AgentRole1
+    a lomo:AgentRole ;
+    lomo:forAgent example:TheAuthority ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+example:REG20241620ART11PAR1_AgentRole2
+    a lomo:AgentRole ;
+    lomo:forAgent example:TheAuthority ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+example:REG20241620ART11PAR1_AgentRole3
+    a lomo:AgentRole ;
+    lomo:forAgent example:TheAuthority ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+example:REG20241620ART11PAR1_AgentRole4
+    a lomo:AgentRole ;
+    lomo:forAgent example:SupervisoryAuthorities ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+example:REG20241620ART11PAR1_AgentRole5
+    a lomo:AgentRole ;
+    lomo:forAgent example:NonAMLCFTAuthorities ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+example:REG20241620ART11PAR1_AgentRole6
+    a lomo:AgentRole ;
+    lomo:forAgent example:OtherNationalAuthorities ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+example:REG20241620ART11PAR1_AgentRole7
+    a lomo:AgentRole ;
+    lomo:forAgent example:EuropeanSupervisoryAuthorities ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+example:REG20241620ART11PAR1_AgentRole8
+    a lomo:AgentRole ;
+    lomo:forAgent example:TheAuthority ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+example:REG20241620ART11PAR1_AgentRole9
+    a lomo:AgentRole ;
+    lomo:forAgent example:TheAuthority ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+example:REG20241620ART11PAR1_AgentRole10
+    a lomo:AgentRole ;
+    lomo:forAgent example:SupervisoryAuthorities ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+example:REG20241620ART11PAR1_AgentRole11
+    a lomo:AgentRole ;
+    lomo:forAgent example:ObligedEntities ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+# Legal Rule
+example:REG20241620ART11PAR1
+    a lomo:PrescriptiveRule ;
+    rdfs:label "Establishment of a central database of information"@en ;
+    lomo:hasDeonticModality <http://data.europa.eu/leg/deontic-modality/Obligation> ;
+    lomo:hasRequirementType <http://publications.europa.eu/resource/dataset/administrative-obligation/c_80214a02> ;
+    lomo:establishedIn <http://data.europa.eu/eli/reg/2024/1620/art_11/par_1/2025-11-10> ;
+    lomo:produces
+        example:REG20241620ART11PAR1_Action1,
+        example:REG20241620ART11PAR1_Action2,
+        example:REG20241620ART11PAR1_Action3,
+        example:REG20241620ART11PAR1_Action4,
+        example:REG20241620ART11PAR1_Action5 ;
+    lomo:legalText
+        "The Authority shall establish and keep up to date a central database of information pursuant to this Article. The Authority shall make the information available to supervisory authorities, non-AML/CFT authorities, other national authorities and competent bodies, and to the European Supervisory Authorities, on a need-to-know and confidential basis. The Authority shall also analyse the collected information and may share the results of its analysis."@en .
+
+# Actions
+example:REG20241620ART11PAR1_Action1
+    a lomo:Action ;
+    lomo:hasAgentRole example:REG20241620ART11PAR1_AgentRole1 ;
+    lomo:hasNext example:REG20241620ART11PAR1_Action2 ;
+    lomo:hasResult example:REG20241620ART11PAR1_ActionResult1 ;
+    lomo:legalText "shall establish a central database of information"@en .
+
+example:REG20241620ART11PAR1_Action2
+    a lomo:Action ;
+    lomo:hasAgentRole example:REG20241620ART11PAR1_AgentRole2 ;
+    lomo:hasNext example:REG20241620ART11PAR1_Action3 ;
+    lomo:hasResult example:REG20241620ART11PAR1_ActionResult2 ;
+    lomo:legalText "shall keep the central database up to date"@en .
+
+example:REG20241620ART11PAR1_Action3
+    a lomo:Action ;
+    lomo:hasAgentRole example:REG20241620ART11PAR1_AgentRole3,
+                  example:REG20241620ART11PAR1_AgentRole4,
+                  example:REG20241620ART11PAR1_AgentRole5,
+                  example:REG20241620ART11PAR1_AgentRole6,
+                  example:REG20241620ART11PAR1_AgentRole7 ;
+    lomo:hasNext example:REG20241620ART11PAR1_Action4 ;
+    lomo:hasResult example:REG20241620ART11PAR1_ActionResult3 ;
+    lomo:legalText
+        "shall make the information available on a need-to-know and confidential basis where necessary for the fulfilment of their tasks"@en .
+
+example:REG20241620ART11PAR1_Action4
+    a lomo:Action ;
+    lomo:hasAgentRole example:REG20241620ART11PAR1_AgentRole8 ;
+    lomo:hasNext example:REG20241620ART11PAR1_Action5 ;
+    lomo:hasResult example:REG20241620ART11PAR1_ActionResult4 ;
+    lomo:legalText "shall analyse the collected information"@en .
+
+example:REG20241620ART11PAR1_Action5
+    a lomo:Action ;
+    lomo:hasAgentRole example:REG20241620ART11PAR1_AgentRole9,
+                  example:REG20241620ART11PAR1_AgentRole10,
+                  example:REG20241620ART11PAR1_AgentRole11 ;
+    lomo:hasResult example:REG20241620ART11PAR1_ActionResult5 ;
+    lomo:legalText
+        "may share the results of its analysis where this would facilitate supervisory activities"@en .
+
+# Action Results
+example:REG20241620ART11PAR1_ActionResult1
+    a lomo:ActionResult ;
+    rdfs:label "Establishment of a central database of information"@en ;
+    lomo:legalText "Establishment of a central database of information."@en .
+
+example:REG20241620ART11PAR1_ActionResult2
+    a lomo:ActionResult ;
+    rdfs:label "Updated central database"@en ;
+    lomo:legalText "Updated central database."@en .
+
+example:REG20241620ART11PAR1_ActionResult3
+    a lomo:ActionResult ;
+    rdfs:label "Access to information from the central database"@en ;
+    lomo:legalText "Access to information from the central database."@en .
+
+example:REG20241620ART11PAR1_ActionResult4
+    a lomo:ActionResult ;
+    rdfs:label "Analysis of the collected information"@en ;
+    lomo:legalText "Analysis of the collected information."@en .
+
+example:REG20241620ART11PAR1_ActionResult5
+    a lomo:ActionResult ;
+    rdfs:label "Sharing analytical results with supervisory authorities and obliged entities"@en ;
+    lomo:legalText "Sharing analytical results with supervisory authorities and obliged entities."@en .

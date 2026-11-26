@@ -1,0 +1,440 @@
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix dctype: <http://purl.org/dc/dcmitype/> .
+@prefix lomo: <http://data.europa.eu/leg/lomo#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix tf: <http://data.europa.eu/leg/temporal-function/> .
+@prefix y6k: <http://data.europa.eu/y6k/> .
+
+<http://example.org/analysis/action/8> a lomo:Action ;
+    rdfs:label "Organisation/user access request"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Upon request to stablish the user structure in CECIS"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/548/cod/doc/com/COM_2025_548/FINAL/eng/art_36> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/8/role/addressee-ucpm-privileged-users>,
+        <http://example.org/analysis/action/8/role/addresser-member-statesercc> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Organisation/user access request"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/organisationuser-access-request> ] .
+
+<http://example.org/analysis/description/1> a lomo:LegalRule ;
+    rdfs:label "Article 23 + 29"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/548/cod/doc/com/COM_2025_548/FINAL/eng/art_23> ;
+    lomo:involvesProcess <http://example.org/process/information-management-notification-situational-awareness> ;
+    lomo:produces <http://example.org/analysis/action/7>,
+        <http://example.org/analysis/description/1/action> ;
+    dcterms:description "14. Member States shall be informed of the operational status of rescEU capacities through CECIS"@en .
+
+<http://example.org/analysis/description/2> a lomo:LegalRule ;
+    rdfs:label "Article 29"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/548/cod/doc/com/COM_2025_548/FINAL/eng/art_29> ;
+    lomo:involvesProcess <http://example.org/process/emergency-response-notification-information-management> ;
+    lomo:produces <http://example.org/analysis/action/1>,
+        <http://example.org/analysis/description/2/action> ;
+    dcterms:description "1. In the event of a disaster within the Union, or of an imminent disaster, which causes or is capable of causing multi-country transboundary effects or affects or is capable of affecting other Member States, the Member State in which the disaster occurs or is likely to occur shall, without delay, notify the potentially affected Member States and the Commission. The notification to the Commission shall not be required where the obligation of notification has already been addressed under other Union legislation, under the Treaty establishing the European Atomic Energy Community or under existing international agreements. 2. In the event of a disaster within the Union, or of an imminent disaster, which is likely to result in a call for assistance from one or more Member States, the Member State in which the disaster occurs or is likely to occur shall, without delay, notify the Commission that a possible request for assistance through the ERCC can be expected, in order to enable the Commission, as appropriate, to inform the other Member States and to activate its competent services. 3. The notifications referred to in paragraphs 1 and 2 shall, as appropriate, be made through CECIS."@en .
+
+<http://example.org/analysis/description/3> a lomo:LegalRule ;
+    rdfs:label "Article 30"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ],
+        [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ],
+        [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ],
+        [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/548/cod/doc/com/COM_2025_548/FINAL/eng/art_30> ;
+    lomo:involvesProcess <http://example.org/process/request-management-emergency-response-notification-information-management> ;
+    lomo:produces <http://example.org/analysis/action/2>,
+        <http://example.org/analysis/action/3>,
+        <http://example.org/analysis/action/4>,
+        <http://example.org/analysis/action/5>,
+        <http://example.org/analysis/description/3/action> ;
+    dcterms:description "8. Any Member State to which a request for assistance is addressed through the Union Mechanism shall promptly determine whether it is able to render the assistance required and inform the ERCC of its decision to offer assistance through CECIS, indicating its scope and terms. The ERCC shall keep Member States informed."@en .
+
+<http://example.org/analysis/description/4> a lomo:LegalRule ;
+    rdfs:label "Article 26"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/548/cod/doc/com/COM_2025_548/FINAL/eng/art_26> ;
+    lomo:involvesProcess <http://example.org/process/system-development-data-management> ;
+    lomo:produces <http://example.org/analysis/description/4/action> ;
+    dcterms:description "1. The Commission shall adopt implementing acts on the following matters: (b) the components of CECIS as well as the organisation of information sharing through CECIS;"@en .
+
+<http://example.org/analysis/description/5> a lomo:LegalRule ;
+    rdfs:label "Article 22 and 23"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ],
+        [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/548/cod/doc/com/COM_2025_548/FINAL/eng/art_22> ;
+    lomo:involvesProcess <http://example.org/process/readiness-assessment-capacity-management-crisis-management> ;
+    lomo:produces <http://example.org/analysis/action/6>,
+        <http://example.org/analysis/action/7>,
+        <http://example.org/analysis/description/5/action> ;
+    dcterms:description "1. (b) progress in increasing the level of readiness for disasters: measured by the number of response capacities registered in the European Civil Protection Pool taking into account the capacity goals referred to in Article 7(1)(f), the number of response capacities registered in the Common Emergency Communication and Information System (CECIS) and the number of rescEU capacities established to provide assistance in overwhelming situations;"@en .
+
+<http://example.org/analysis/description/6> a lomo:LegalRule ;
+    rdfs:label "ANNEX I"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/548/cod/doc/com/COM_2025_548/FINAL/eng/anx_1> ;
+    lomo:involvesProcess <http://example.org/process/system-management-information-management-crisis-management> ;
+    lomo:produces <http://example.org/analysis/description/6/action> ;
+    dcterms:description "(b) manage CECIS to enable communication and sharing of information between the ERCC and the Member States’ contact points; (w) support Member States, upon their request, in respect of disasters happening within their territories by providing the possibility of using European scientific partnerships for targeted scientific analysis. The resulting analyses may be shared via CECIS, with the agreement of the affected Member States. (x) Contribute to the development of transnational detection, early warning and alert systems of European interest, in order to enable a rapid response as well as to promote the inter-linkage between national early warning and alert systems and their linkage to the ERCC and the CECIS shall be eligible for Union financial assistance. These systems shall take into account and build upon existing and future information, monitoring or detection sources and systems;"@en .
+
+<http://example.org/analysis/description/7> a lomo:LegalRule ;
+    rdfs:label "Article 35"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/548/cod/doc/com/COM_2025_548/FINAL/eng/art_35> ;
+    lomo:involvesProcess y6k:c_76864ec8c7a0 ;
+    lomo:produces <http://example.org/analysis/description/7/action> ;
+    dcterms:description "The ATHINA platform aims at making use and complementing existing epidemic intelligence resources by combining intelligence on health threats and on medical countermeasures. The platform intends to collect information from producers and Member States on production and stockpiles of crisis-relevant raw materials, as well as on equipment and infrastructure. The platform will cover strict security requirements to facilitate the exchange of information with other secured platforms while preserving the integrity of the whole IT architecture, including robustness to cyber threats and the protection of commercial data."@en .
+
+<http://example.org/analysis/solution/1> a dctype:Software ;
+    rdfs:label "CECIS"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/548/cod/doc/com/COM_2025_548/FINAL/eng/art_23>,
+        <https://data.europa.eu/eli/dl/proc/2025/548/cod/doc/com/COM_2025_548/FINAL/eng/art_29>,
+        <https://data.europa.eu/eli/dl/proc/2025/548/cod/doc/com/COM_2025_548/FINAL/eng/art_3>,
+        <https://data.europa.eu/eli/dl/proc/2025/548/cod/doc/com/COM_2025_548/FINAL/eng/art_30>,
+        <https://data.europa.eu/eli/dl/proc/2025/548/cod/doc/com/COM_2025_548/FINAL/eng/sec_4/anx_1> ;
+    lomo:hasCapability "Resource Registration and Management:to register, manage, and update information on resources available by Member States.Emergency Management:to support emergency management activities, including:1.Incident Reporting2.Situation Awareness3.Emergency Response PlanningRequest and Offer Management:to manage requests for assistance and offers of resources, including the ability to create, update, and cancel requests and offers.Deployment and Tracking:to track the deployment of resources, including their location, status, and availability.Communication and Collaboration:to facilitate communication and collaboration between Member States, the ERCC, and other stakeholders, sharing information and coordinating responses.Data Analytics and Reporting: to provide data analytics and reporting capabilities, including the ability to generate reports.Security and Access Control:to ensure the security and integrity of the platform, including the ability to control access to sensitive information and resources.Integration with Other Systems:to integrate with other systems and platforms, including existing emergency management systems and early warning systems." ;
+    dcterms:publisher <http://example.org/agent/dg-echo-a1> ;
+    dcterms:title "CECIS"@en .
+
+<http://example.org/dataset/emergency-detailsaffected-regions-types-of-hazard-synopsis-activation-level-requested-assistance-details-offered-assistance-details-logbook-messages-and-notifications-operational-maps-documents> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/548/cod/doc/com/COM_2025_548/FINAL/eng/art_19>,
+        <https://data.europa.eu/eli/dl/proc/2025/548/cod/doc/com/COM_2025_548/FINAL/eng/sec_4/anx_1/art_20> ;
+    dcterms:conformsTo <http://example.org/standard/stesta-connection-accessible-as-read-only-on-regular-internet-for-authorised-users> ;
+    dcterms:title "Emergency details:Affected regions, types of hazard, synopsis, activation level, requested assistance details, offered assistance details, logbook messages and notifications, operational maps, documents…"@en .
+
+<http://example.org/dataset/operational-data-for-resourcesmodulescapacities-including-resceu-and-ecppcomposition-details-availability-stockpiles-deployment-history> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/548/cod/doc/com/COM_2025_548/FINAL/eng/art_14>,
+        <https://data.europa.eu/eli/dl/proc/2025/548/cod/doc/com/COM_2025_548/FINAL/eng/art_38> ;
+    dcterms:conformsTo <http://example.org/standard/stesta-connection> ;
+    dcterms:title "Operational data for resources/modules/capacities (including rescEU and ECPP)Composition details, availability, stockpiles, deployment history"@en .
+
+<http://example.org/dataset/personal-data-of-expertscontact-details-expertisetrainings-languages-vaccinations-eucpt-categoryskillsroles> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/548/cod/doc/com/COM_2025_548/FINAL/eng/art_20>,
+        <https://data.europa.eu/eli/dl/proc/2025/548/cod/doc/com/COM_2025_548/FINAL/eng/art_38> ;
+    dcterms:conformsTo <http://example.org/standard/stesta-connection> ;
+    dcterms:title "Personal data of Experts:Contact details, expertise/trainings, languages, vaccinations, EUCPT category/skills/roles"@en .
+
+<http://example.org/dataset/user-managementuser-roles-and-privileges-data-about-roles-and-associated-privileges-which-define-access-and-operational-control-in-the-system> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/548/cod/doc/com/COM_2025_548/FINAL/eng/art_36> ;
+    dcterms:title "User management:User roles and privileges, data about roles and associated privileges which define access and operational control in the system."@en .
+
+y6k:c_76864ec8c7a0 skos:prefLabel "Data management"@en .
+
+<http://example.org/agent/commission-member-states-stakeholders-incl-industry> rdfs:label "Commission, Member States, stakeholders (incl. Industry)"@en .
+
+<http://example.org/agent/ucpm-privileged-users> rdfs:label "UCPM Privileged users"@en .
+
+<http://example.org/analysis/action/1> a lomo:Action ;
+    rdfs:label "Disaster notification"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Event of a disaster or imminent disaster"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/548/cod/doc/com/COM_2025_548/FINAL/eng/art_29> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/1/role/addressee-ucpm-users>,
+        <http://example.org/analysis/action/1/role/addresser-member-statesercc> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Disaster notification"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/disaster-notification> ] .
+
+<http://example.org/analysis/action/1/role/addressee-ucpm-users> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/ucpm-users> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/1/role/addresser-member-statesercc> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-statesercc> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/2> a lomo:Action ;
+    rdfs:label "Request for Assistance"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Request for assistance through the UCPM"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/548/cod/doc/com/COM_2025_548/FINAL/eng/art_30> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/2/role/addressee-ucpm-users>,
+        <http://example.org/analysis/action/2/role/addresser-member-statesercc> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Request for Assistance"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/request-for-assistance> ] .
+
+<http://example.org/analysis/action/2/role/addressee-ucpm-users> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/ucpm-users> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/2/role/addresser-member-statesercc> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-statesercc> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/3> a lomo:Action ;
+    rdfs:label "Assistance Offer"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Availability to offer assistance"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/548/cod/doc/com/COM_2025_548/FINAL/eng/art_30> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/3/role/addressee-ucpm-users>,
+        <http://example.org/analysis/action/3/role/addresser-member-statesercc> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Assistance Offer"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/assistance-offer> ] .
+
+<http://example.org/analysis/action/3/role/addressee-ucpm-users> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/ucpm-users> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/3/role/addresser-member-statesercc> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-statesercc> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/4> a lomo:Action ;
+    rdfs:label "Acceptance and deployment phase"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "The assistance offered matches the assistance requested"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/548/cod/doc/com/COM_2025_548/FINAL/eng/art_30> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/4/role/addressee-ucpm-users>,
+        <http://example.org/analysis/action/4/role/addresser-member-statesercc> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Acceptance and deployment phase"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/acceptance-and-deployment-phase> ] .
+
+<http://example.org/analysis/action/4/role/addressee-ucpm-users> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/ucpm-users> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/4/role/addresser-member-statesercc> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-statesercc> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/5> a lomo:Action ;
+    rdfs:label "Closure and reporting"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Upon request or after a maximum period of 90 days"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/548/cod/doc/com/COM_2025_548/FINAL/eng/art_30> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/5/role/addressee-ucpm-users>,
+        <http://example.org/analysis/action/5/role/addresser-ercc> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Closure and reporting"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/closure-and-reporting> ] .
+
+<http://example.org/analysis/action/5/role/addressee-ucpm-users> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/ucpm-users> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/5/role/addresser-ercc> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/ercc> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/6> a lomo:Action ;
+    rdfs:label "Resource registration"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Mandatory step in order to be offered as a part of the assistance delivered"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/548/cod/doc/com/COM_2025_548/FINAL/eng/art_22> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/6/role/addressee-ucpm-users>,
+        <http://example.org/analysis/action/6/role/addresser-member-statesercc> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Resource registration"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/resource-registration> ] .
+
+<http://example.org/analysis/action/6/role/addressee-ucpm-users> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/ucpm-users> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/6/role/addresser-member-statesercc> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-statesercc> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/7/role/addressee-ucpm-users> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/ucpm-users> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/7/role/addresser-member-statesercc> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-statesercc> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/8/role/addressee-ucpm-privileged-users> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/ucpm-privileged-users> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/8/role/addresser-member-statesercc> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-statesercc> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/description/1/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/1/action/role/addressee-ercc>,
+        <http://example.org/analysis/description/1/action/role/addressee-resceu-focal-points>,
+        <http://example.org/analysis/description/1/action/role/addressee-ucpm-member-states-and-participating-states> .
+
+<http://example.org/analysis/description/1/action/role/addressee-ercc> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/ercc> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/1/action/role/addressee-resceu-focal-points> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/resceu-focal-points> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/1/action/role/addressee-ucpm-member-states-and-participating-states> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/ucpm-member-states-and-participating-states> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/2/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/2/action/role/addressee-ercc>,
+        <http://example.org/analysis/description/2/action/role/addressee-ucpm-member-states-and-participating-states> .
+
+<http://example.org/analysis/description/2/action/role/addressee-ercc> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/ercc> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/2/action/role/addressee-ucpm-member-states-and-participating-states> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/ucpm-member-states-and-participating-states> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/3/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/3/action/role/addressee-ercc>,
+        <http://example.org/analysis/description/3/action/role/addressee-ucpm-member-states-and-participating-states> .
+
+<http://example.org/analysis/description/3/action/role/addressee-ercc> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/ercc> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/3/action/role/addressee-ucpm-member-states-and-participating-states> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/ucpm-member-states-and-participating-states> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/4/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/4/action/role/addressee-ercc>,
+        <http://example.org/analysis/description/4/action/role/addressee-ucpm-member-states-and-participating-states> .
+
+<http://example.org/analysis/description/4/action/role/addressee-ercc> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/ercc> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/4/action/role/addressee-ucpm-member-states-and-participating-states> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/ucpm-member-states-and-participating-states> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/5/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/5/action/role/addressee-ercc>,
+        <http://example.org/analysis/description/5/action/role/addressee-resceu-focal-points>,
+        <http://example.org/analysis/description/5/action/role/addressee-ucpm-member-states-and-participating-states> .
+
+<http://example.org/analysis/description/5/action/role/addressee-ercc> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/ercc> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/5/action/role/addressee-resceu-focal-points> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/resceu-focal-points> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/5/action/role/addressee-ucpm-member-states-and-participating-states> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/ucpm-member-states-and-participating-states> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/6/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/6/action/role/addressee-ercc>,
+        <http://example.org/analysis/description/6/action/role/addressee-ucpm-member-states-and-participating-states> .
+
+<http://example.org/analysis/description/6/action/role/addressee-ercc> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/ercc> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/6/action/role/addressee-ucpm-member-states-and-participating-states> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/ucpm-member-states-and-participating-states> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/7/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/7/action/role/addressee-commission-member-states-stakeholders-incl-industry> .
+
+<http://example.org/analysis/description/7/action/role/addressee-commission-member-states-stakeholders-incl-industry> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/commission-member-states-stakeholders-incl-industry> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/dataset/acceptance-and-deployment-phase> a dcat:Dataset ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Acceptance and deployment phase"@en ] ;
+    dcterms:title "Acceptance and deployment phase"@en .
+
+<http://example.org/dataset/assistance-offer> a dcat:Dataset ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Assistance Offer"@en ] ;
+    dcterms:title "Assistance Offer"@en .
+
+<http://example.org/dataset/closure-and-reporting> a dcat:Dataset ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Closure and reporting"@en ] ;
+    dcterms:title "Closure and reporting"@en .
+
+<http://example.org/dataset/disaster-notification> a dcat:Dataset ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Disaster notification"@en ] ;
+    dcterms:title "Disaster notification"@en .
+
+<http://example.org/dataset/organisationuser-access-request> a dcat:Dataset ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Organisation/user access request"@en ] ;
+    dcterms:title "Organisation/user access request"@en .
+
+<http://example.org/dataset/request-for-assistance> a dcat:Dataset ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Request for Assistance"@en ] ;
+    dcterms:title "Request for Assistance"@en .
+
+<http://example.org/dataset/resource-registration> a dcat:Dataset ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Resource registration"@en ] ;
+    dcterms:title "Resource registration"@en .
+
+<http://example.org/dataset/resource-update> a dcat:Dataset ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Resource update"@en ] ;
+    dcterms:title "Resource update"@en .
+
+<http://example.org/process/emergency-response-notification-information-management> skos:prefLabel "emergency response; notification; information management;"@en .
+
+<http://example.org/process/information-management-notification-situational-awareness> skos:prefLabel "Information management; notification; situational awareness"@en .
+
+<http://example.org/process/readiness-assessment-capacity-management-crisis-management> skos:prefLabel "Readiness assessment; capacity management; crisis management"@en .
+
+<http://example.org/process/request-management-emergency-response-notification-information-management> skos:prefLabel "request management; emergency response; notification; information management"@en .
+
+<http://example.org/process/system-development-data-management> skos:prefLabel "System development; data management;"@en .
+
+<http://example.org/process/system-management-information-management-crisis-management> skos:prefLabel "System management; information management; crisis management"@en .
+
+<http://example.org/standard/stesta-connection-accessible-as-read-only-on-regular-internet-for-authorised-users> a dcterms:Standard ;
+    dcterms:title "sTESTA connection / accessible as read only on regular internet for authorised users."@en .
+
+<http://example.org/agent/resceu-focal-points> rdfs:label "rescEU focal points;"@en .
+
+<http://example.org/analysis/action/7> a lomo:Action ;
+    rdfs:label "Resource update"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "When there are changes to a resource's characteristics, such as its availability, capabilities, capacity, or contact information"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/548/cod/doc/com/COM_2025_548/FINAL/eng/art_22>,
+        <https://data.europa.eu/eli/dl/proc/2025/548/cod/doc/com/COM_2025_548/FINAL/eng/art_23>,
+        <https://data.europa.eu/eli/dl/proc/2025/548/cod/doc/com/COM_2025_548/FINAL/eng/art_27> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/7/role/addressee-ucpm-users>,
+        <http://example.org/analysis/action/7/role/addresser-member-statesercc> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Resource update"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/resource-update> ] .
+
+<http://example.org/standard/stesta-connection> a dcterms:Standard ;
+    dcterms:title "sTESTA connection"@en .
+
+<http://example.org/agent/ucpm-member-states-and-participating-states> rdfs:label "UCPM Member States and Participating States;"@en .
+
+<http://example.org/agent/ercc> rdfs:label "ERCC"@en .
+
+<http://example.org/agent/member-statesercc> rdfs:label "Member states/ERCC"@en .
+
+<http://example.org/agent/ucpm-users> rdfs:label "UCPM users"@en .
+

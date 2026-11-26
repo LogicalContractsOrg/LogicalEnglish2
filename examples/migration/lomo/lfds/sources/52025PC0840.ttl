@@ -1,0 +1,355 @@
+@prefix cav: <http://data.europa.eu/2sa/cav#> .
+@prefix cpsv: <http://purl.org/vocab/cpsv#> .
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix dctype: <http://purl.org/dc/dcmitype/> .
+@prefix dd: <http://data.europa.eu/leg/digital-dimensions/> .
+@prefix iopa: <http://data.europa.eu/2qy/iopa#> .
+@prefix lomo: <http://data.europa.eu/leg/lomo#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix tf: <http://data.europa.eu/leg/temporal-function/> .
+
+<http://example.org/analysis/description/1> a iopa:BindingRequirement,
+        lomo:LegalRule ;
+    rdfs:label "Article 6"@en ;
+    iopa:affects <http://example.org/analysis/interop/1> ;
+    cav:valueDescription "Registration information to be made available- in the existing register. PEPP providers have to demonstrate their ability to provide value for money as part of the registration process"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ],
+        [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/840/cod/doc/com/COM_2025_840/FINAL/eng/art_6> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/manage-registry>,
+        <http://example.org/process/transmission-of-information> ;
+    lomo:produces <http://example.org/analysis/action/1>,
+        <http://example.org/analysis/action/2>,
+        <http://example.org/analysis/description/1/action> ;
+    lomo:references <http://example.org/dataset/registration-information-on-capacity-to-provide-value-for-money> ;
+    dcterms:description "Registration information to be made available- in the existing register. PEPP providers have to demonstrate their ability to provide value for money as part of the registration process"@en .
+
+<http://example.org/analysis/description/2> a iopa:BindingRequirement,
+        lomo:LegalRule ;
+    rdfs:label "Article 13"@en ;
+    iopa:affects <http://example.org/analysis/interop/1> ;
+    cav:valueDescription "The scope of the existing central public register maintained by EIOPA is extended to include historical data on costs, performance, and the summary risk indicator."@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ],
+        [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/840/cod/doc/com/COM_2025_840/FINAL/eng/art_13> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/manage-registry>,
+        <http://example.org/process/monitor>,
+        <http://example.org/process/publish>,
+        <http://example.org/process/transmission-of-information> ;
+    lomo:produces <http://example.org/analysis/action/3>,
+        <http://example.org/analysis/action/4>,
+        <http://example.org/analysis/description/2/action> ;
+    lomo:references <http://example.org/dataset/registration-of-data-on-cost-performance-risk-indicators> ;
+    dcterms:description "The scope of the existing central public register maintained by EIOPA is extended to include historical data on costs, performance, and the summary risk indicator."@en .
+
+<http://example.org/analysis/description/3> a iopa:BindingRequirement,
+        lomo:LegalRule ;
+    rdfs:label "Article 51a"@en ;
+    iopa:affects <http://example.org/analysis/interop/2> ;
+    cav:valueDescription "PEPP providers and distributors could transmit to pension tracking systems, in a standardised and interoperable format, all information necessary to provide customers with a comprehensive, reliable and up-to-date overview of their entitlements."@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/840/cod/doc/com/COM_2025_840/FINAL/eng/art_51> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/transmission-of-information> ;
+    lomo:produces <http://example.org/analysis/action/5>,
+        <http://example.org/analysis/description/3/action> ;
+    lomo:references <http://example.org/dataset/up-to-date-information-on-savers-entitlements-to-be-made-available-in-the-pension-tracking-system-where-this-exists> ;
+    dcterms:description "PEPP providers and distributors could transmit to pension tracking systems, in a standardised and interoperable format, all information necessary to provide customers with a comprehensive, reliable and up-to-date overview of their entitlements."@en .
+
+<http://example.org/analysis/description/4> a iopa:BindingRequirement,
+        lomo:LegalRule ;
+    rdfs:label "Article 65"@en ;
+    iopa:affects <http://example.org/analysis/interop/3> ;
+    cav:valueDescription "EIOPA can, under certain conditions, set up collaborative platforms to strengthen the exchange of information and to enhance collaboration between the relevant competent authorities – similar to the collaborative platform set-up in the Directive (EU) 2016/2341"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/840/cod/doc/com/COM_2025_840/FINAL/eng/art_65> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/establish-a-digital-public-service>,
+        <http://example.org/process/monitor> ;
+    lomo:produces <http://example.org/analysis/action/6>,
+        <http://example.org/analysis/description/4/action> ;
+    lomo:references <http://example.org/dataset/exchange-of-relevant-supervisory-information-between-authorities> ;
+    dcterms:description "EIOPA can, under certain conditions, set up collaborative platforms to strengthen the exchange of information and to enhance collaboration between the relevant competent authorities – similar to the collaborative platform set-up in the Directive (EU) 2016/2341"@en .
+
+<http://example.org/analysis/solution/1> a dctype:Software ;
+    rdfs:label "Central public registry"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/840/cod/doc/com/COM_2025_840/FINAL/eng/art_13>,
+        <https://data.europa.eu/eli/dl/proc/2025/840/cod/doc/com/COM_2025_840/FINAL/eng/art_6> ;
+    lomo:hasCapability "Registration data, cost, performance, risk indicators to be incorporated in the Central public register maintained by EIOPA – already existing" ;
+    dcterms:publisher <http://example.org/agent/eiopa> ;
+    dcterms:title "Central public registry"@en .
+
+<http://example.org/analysis/solution/2> a dctype:Software ;
+    rdfs:label "Updating of existing pension tracking system"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/840/cod/doc/com/COM_2025_840/FINAL/eng/art_51> ;
+    lomo:hasCapability "PEPP providers and distributors could transmit to pension tracking systems, in a standardised and interoperable format, all information necessary to provide customers with a comprehensive, reliable and up-to-date overview of their entitlements." ;
+    dcterms:publisher <http://example.org/agent/ncas> ;
+    dcterms:title "Updating of existing pension tracking system"@en .
+
+<http://example.org/analysis/solution/3> a dctype:Software ;
+    rdfs:label "Collaborative platforms"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/840/cod/doc/com/COM_2025_840/FINAL/eng/art_65> ;
+    lomo:hasCapability "EIOPA can, under certain conditions, set up collaborative platforms to strengthen the exchange of information and to enhance collaboration between the relevant competent authorities – similar to the collaborative platform set-up in the Directive (EU) 2016/2341" ;
+    dcterms:publisher <http://example.org/agent/eiopa> ;
+    dcterms:title "Collaborative platforms"@en .
+
+<http://example.org/agent/eiopa-nca-pepp-providers> rdfs:label "EIOPA, NCA, PEPP providers"@en .
+
+<http://example.org/agent/eiopa-ncas> rdfs:label "EIOPA, NCAs"@en .
+
+<http://example.org/agent/ncas-eiopa-pepp-provider> rdfs:label "NCAs, EIOPA, PEPP provider"@en .
+
+<http://example.org/agent/pension-tracking-system-provider> rdfs:label "pension tracking system provider"@en .
+
+<http://example.org/agent/pepp-providerdistributor> rdfs:label "PEPP provider/distributor"@en .
+
+<http://example.org/agent/pepp-providers-pension-tracking-system-providers-ncas> rdfs:label "PEPP providers, pension tracking system providers, NCAs"@en .
+
+<http://example.org/analysis/action/1> a lomo:Action ;
+    rdfs:label "Registration information"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Request for registration"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/840/cod/doc/com/COM_2025_840/FINAL/eng/art_6> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/1/role/addressee-nca>,
+        <http://example.org/analysis/action/1/role/addresser-pepp-provider> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Registration information"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/registration-information> ] .
+
+<http://example.org/analysis/action/1/role/addressee-nca> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/nca> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/1/role/addresser-pepp-provider> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/pepp-provider> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/2> a lomo:Action ;
+    rdfs:label "Registration information"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Decision for registration"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/840/cod/doc/com/COM_2025_840/FINAL/eng/art_6> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/2/role/addressee-eiopa>,
+        <http://example.org/analysis/action/2/role/addresser-nca> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Registration information"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/registration-information> ] .
+
+<http://example.org/analysis/action/2/role/addressee-eiopa> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/eiopa> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/2/role/addresser-nca> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/nca> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/3> a lomo:Action ;
+    rdfs:label "Registration of data on cost, performance, risk indicators"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "As established by EIOPA"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/840/cod/doc/com/COM_2025_840/FINAL/eng/art_13> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/3/role/addressee-nca>,
+        <http://example.org/analysis/action/3/role/addresser-pepp-provider> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Registration of data on cost, performance, risk indicators"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/registration-of-data-on-cost-performance-risk-indicators> ] .
+
+<http://example.org/analysis/action/3/role/addressee-nca> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/nca> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/3/role/addresser-pepp-provider> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/pepp-provider> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/4> a lomo:Action ;
+    rdfs:label "Registration of data on cost, performance, risk indicators"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "As established by EIOPA"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/840/cod/doc/com/COM_2025_840/FINAL/eng/art_13> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/4/role/addressee-eiopa>,
+        <http://example.org/analysis/action/4/role/addresser-nca> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Registration of data on cost, performance, risk indicators"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/registration-of-data-on-cost-performance-risk-indicators> ] .
+
+<http://example.org/analysis/action/4/role/addressee-eiopa> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/eiopa> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/4/role/addresser-nca> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/nca> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/5> a lomo:Action ;
+    rdfs:label "Up-to-date information on savers’ entitlements"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "at defined by the NCAs"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/840/cod/doc/com/COM_2025_840/FINAL/eng/art_51> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/5/role/addressee-pension-tracking-system-provider>,
+        <http://example.org/analysis/action/5/role/addresser-pepp-providerdistributor> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Up-to-date information on savers’ entitlements"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/up-to-date-information-on-savers-entitlements> ] .
+
+<http://example.org/analysis/action/5/role/addressee-pension-tracking-system-provider> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/pension-tracking-system-provider> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/5/role/addresser-pepp-providerdistributor> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/pepp-providerdistributor> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/6> a lomo:Action ;
+    rdfs:label "Supervisory information"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "As established by NCAs/EIOPA"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/840/cod/doc/com/COM_2025_840/FINAL/eng/art_65> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/6/role/addressee-eiopa>,
+        <http://example.org/analysis/action/6/role/addresser-ncas> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Supervisory information"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/supervisory-information> ] .
+
+<http://example.org/analysis/action/6/role/addressee-eiopa> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/eiopa> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/6/role/addresser-ncas> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/ncas> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/description/1/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/1/action/role/addressee-ncas-eiopa-pepp-provider> .
+
+<http://example.org/analysis/description/1/action/role/addressee-ncas-eiopa-pepp-provider> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/ncas-eiopa-pepp-provider> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/2/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/2/action/role/addressee-eiopa-nca-pepp-providers> .
+
+<http://example.org/analysis/description/2/action/role/addressee-eiopa-nca-pepp-providers> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/eiopa-nca-pepp-providers> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/3/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/3/action/role/addressee-pepp-providers-pension-tracking-system-providers-ncas> .
+
+<http://example.org/analysis/description/3/action/role/addressee-pepp-providers-pension-tracking-system-providers-ncas> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/pepp-providers-pension-tracking-system-providers-ncas> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/4/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/4/action/role/addressee-eiopa-ncas> .
+
+<http://example.org/analysis/description/4/action/role/addressee-eiopa-ncas> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/eiopa-ncas> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/interop/2> a cpsv:PublicService ;
+    rdfs:label "Pension tracking system"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/840/cod/doc/com/COM_2025_840/FINAL/eng/art_51> ;
+    dcterms:description "Up-to-date information on savers’ entitlements"@en ;
+    dcterms:identifier "interop/2" ;
+    dcterms:title "Pension tracking system"@en .
+
+<http://example.org/analysis/interop/3> a cpsv:PublicService ;
+    rdfs:label "Collaborative platforms"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/840/cod/doc/com/COM_2025_840/FINAL/eng/art_65> ;
+    dcterms:description "To be created, maintained and updated regularly, as well as made publicly available"@en ;
+    dcterms:identifier "interop/3" ;
+    dcterms:title "Collaborative platforms"@en .
+
+<http://example.org/dataset/exchange-of-relevant-supervisory-information-between-authorities> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/840/cod/doc/com/COM_2025_840/FINAL/eng/art_65> ;
+    dcterms:conformsTo <http://example.org/standard/as-defined-by-the-ncas-eiopa> ;
+    dcterms:title "Exchange of relevant supervisory information between authorities"@en .
+
+<http://example.org/dataset/registration-information-on-capacity-to-provide-value-for-money> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/840/cod/doc/com/COM_2025_840/FINAL/eng/art_6> ;
+    dcterms:conformsTo <http://example.org/standard/as-defined-by-eiopa> ;
+    dcterms:title "Registration information on capacity to provide value for money"@en .
+
+<http://example.org/dataset/supervisory-information> a dcat:Dataset ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Supervisory information"@en ] ;
+    dcterms:title "Supervisory information"@en .
+
+<http://example.org/dataset/up-to-date-information-on-savers-entitlements> a dcat:Dataset ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Up-to-date information on savers’ entitlements"@en ] ;
+    dcterms:title "Up-to-date information on savers’ entitlements"@en .
+
+<http://example.org/dataset/up-to-date-information-on-savers-entitlements-to-be-made-available-in-the-pension-tracking-system-where-this-exists> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/840/cod/doc/com/COM_2025_840/FINAL/eng/art_51> ;
+    dcterms:conformsTo <http://example.org/standard/as-defined-by-the-ncas> ;
+    dcterms:title "Up-to-date information on savers’ entitlements to be made available in the pension tracking system, where this exists."@en .
+
+<http://example.org/process/establish-a-digital-public-service> skos:prefLabel "Establish a Digital Public Service;"@en .
+
+<http://example.org/process/publish> skos:prefLabel "Publish"@en .
+
+<http://example.org/standard/as-defined-by-the-ncas> a dcterms:Standard ;
+    dcterms:title "As defined by the NCAs"@en .
+
+<http://example.org/standard/as-defined-by-the-ncas-eiopa> a dcterms:Standard ;
+    dcterms:title "As defined by the NCAs/ EIOPA"@en .
+
+<http://example.org/agent/ncas> rdfs:label "NCAs"@en .
+
+<http://example.org/agent/pepp-provider> rdfs:label "PEPP provider"@en .
+
+<http://example.org/analysis/interop/1> a cpsv:PublicService ;
+    rdfs:label "Central public register"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/840/cod/doc/com/COM_2025_840/FINAL/eng/art_13>,
+        <https://data.europa.eu/eli/dl/proc/2025/840/cod/doc/com/COM_2025_840/FINAL/eng/art_6> ;
+    dcterms:description "Registration of value for money delivery capacity; data on costs, performance, and the summary risk indicator."@en ;
+    dcterms:identifier "interop/1" ;
+    dcterms:title "Central public register"@en .
+
+<http://example.org/dataset/registration-information> a dcat:Dataset ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Registration information"@en ],
+        [ a lomo:ActionResult ;
+            rdfs:label "Registration information"@en ] ;
+    dcterms:title "Registration information"@en .
+
+<http://example.org/process/manage-registry> skos:prefLabel "Manage registry"@en .
+
+<http://example.org/process/monitor> skos:prefLabel "Monitor"@en .
+
+<http://example.org/standard/as-defined-by-eiopa> a dcterms:Standard ;
+    dcterms:title "As defined by EIOPA"@en .
+
+<http://example.org/dataset/registration-of-data-on-cost-performance-risk-indicators> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/840/cod/doc/com/COM_2025_840/FINAL/eng/art_13> ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Registration of data on cost, performance, risk indicators"@en ],
+        [ a lomo:ActionResult ;
+            rdfs:label "Registration of data on cost, performance, risk indicators"@en ] ;
+    dcterms:conformsTo <http://example.org/standard/as-defined-by-eiopa> ;
+    dcterms:title "Registration of data on cost, performance, risk indicators"@en .
+
+<http://example.org/process/transmission-of-information> skos:prefLabel "Transmission of information"@en .
+
+<http://example.org/agent/nca> rdfs:label "NCA"@en .
+
+<http://example.org/agent/eiopa> rdfs:label "EIOPA"@en .
+

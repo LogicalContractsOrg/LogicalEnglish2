@@ -1,0 +1,213 @@
+@prefix rdf:     <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh:      <http://www.w3.org/ns/shacl#> .
+@prefix skos:    <http://www.w3.org/2004/02/skos/core#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .
+@prefix owl:     <http://www.w3.org/2002/07/owl#> .
+@prefix shapes:  <http://data.europa.eu/leg/lomo/shapes#> .
+@prefix lomo:    <http://data.europa.eu/leg/lomo#> .
+@prefix dm:      <http://data.europa.eu/leg/deontic-modality/> .
+@prefix tf:      <http://data.europa.eu/leg/temporal-function/> .
+@prefix rc:      <http://data.europa.eu/leg/result-category/> .
+@prefix dd:      <http://data.europa.eu/leg/digital-dimensions/> .
+
+<http://data.europa.eu/leg/lomo/shapes>
+    rdf:type        owl:Ontology ;
+    dcterms:title   "LOMO SHACL Shapes"@en ;
+    dcterms:description "Validation shapes for LOMO instance data"@en ;
+    dcterms:modified "2026-09-10"^^xsd:date .
+
+#################################################################
+#    LOMO Instance Data Shapes
+#################################################################
+
+# ─── LegalRule ─────────────────────────────────────────────────
+
+shapes:LegalRuleShape rdf:type sh:NodeShape ;
+    rdfs:label "Legal Rule Shape"@en ;
+    sh:targetClass lomo:LegalRule ;
+    sh:property [
+        sh:path rdfs:label ;
+        sh:minCount 1 ;
+        sh:datatype rdf:langString ;
+        sh:uniqueLang true ;
+        sh:name "label"@en ;
+    ] ;
+    sh:property [
+        sh:path lomo:establishedIn ;
+        sh:minCount 1 ;
+        sh:nodeKind sh:IRI ;
+        sh:name "established in"@en ;
+        sh:description "Every legal rule must be linked to at least one legal source via ELI URI."@en ;
+    ] .
+
+# ─── PrescriptiveRule ─────────────────────────────────────────
+
+shapes:PrescriptiveRuleShape rdf:type sh:NodeShape ;
+    rdfs:label "Prescriptive Rule Shape"@en ;
+    sh:targetClass lomo:PrescriptiveRule ;
+    sh:property [
+        sh:path rdfs:label ;
+        sh:minCount 1 ;
+        sh:datatype rdf:langString ;
+        sh:uniqueLang true ;
+        sh:name "label"@en ;
+    ] ;
+    sh:property [
+        sh:path lomo:establishedIn ;
+        sh:minCount 1 ;
+        sh:nodeKind sh:IRI ;
+        sh:name "established in"@en ;
+    ] ;
+    sh:property [
+        sh:path lomo:hasDeonticModality ;
+        sh:minCount 1 ;
+        sh:nodeKind sh:IRI ;
+        sh:name "has deontic modality"@en ;
+        sh:in ( dm:Obligation dm:Permission dm:Prohibition dm:Right ) ;
+    ] ;
+    sh:property [
+        sh:path lomo:produces ;
+        sh:minCount 1 ;
+        sh:nodeKind sh:IRI ;
+        sh:name "produces"@en ;
+        sh:description "A prescriptive rule must produce at least one action."@en ;
+    ] .
+
+# ─── ConstitutiveRule ──────────────────────────────────────────
+
+shapes:ConstitutiveRuleShape rdf:type sh:NodeShape ;
+    rdfs:label "Constitutive Rule Shape"@en ;
+    sh:targetClass lomo:ConstitutiveRule ;
+    sh:property [
+        sh:path rdfs:label ;
+        sh:minCount 1 ;
+        sh:datatype rdf:langString ;
+        sh:uniqueLang true ;
+        sh:name "label"@en ;
+    ] ;
+    sh:property [
+        sh:path lomo:establishedIn ;
+        sh:minCount 1 ;
+        sh:nodeKind sh:IRI ;
+        sh:name "established in"@en ;
+    ] ;
+    # Constitutive rules must NOT have deontic modality
+    sh:property [
+        sh:path lomo:hasDeonticModality ;
+        sh:maxCount 0 ;
+        sh:name "has deontic modality"@en ;
+        sh:description "Constitutive rules must not have a deontic modality."@en ;
+    ] ;
+    # Constitutive rules must NOT produce actions
+    sh:property [
+        sh:path lomo:produces ;
+        sh:maxCount 0 ;
+        sh:name "produces"@en ;
+        sh:description "Constitutive rules do not produce actions."@en ;
+    ] .
+
+# ─── Action ────────────────────────────────────────────────────
+
+shapes:ActionShape rdf:type sh:NodeShape ;
+    rdfs:label "Action Shape"@en ;
+    sh:targetClass lomo:Action ;
+    sh:property [
+        sh:path lomo:hasAgentRole ;
+        sh:minCount 1 ;
+        sh:nodeKind sh:IRI ;
+        sh:name "has agent role"@en ;
+        sh:description "Every action should have at least one agent role."@en ;
+    ] .
+
+# ─── AgentRole ─────────────────────────────────────────────────
+
+shapes:AgentRoleShape rdf:type sh:NodeShape ;
+    rdfs:label "Agent Role Shape"@en ;
+    sh:targetClass lomo:AgentRole ;
+    sh:property [
+        sh:path lomo:withRole ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:IRI ;
+        sh:name "with role"@en ;
+        sh:in ( <http://publications.europa.eu/resource/authority/role/ADDRESSER>
+                <http://publications.europa.eu/resource/authority/role/ADDRESSEE>
+                <http://publications.europa.eu/resource/authority/role/BENEF> ) ;
+    ] ;
+    sh:property [
+        sh:path lomo:forAgent ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:IRI ;
+        sh:name "for agent"@en ;
+        sh:description "An agent role must reference exactly one agent or agent type."@en ;
+    ] .
+
+# ─── TemporalSpecification ────────────────────────────────────
+
+shapes:TemporalSpecificationShape rdf:type sh:NodeShape ;
+    rdfs:label "Temporal Specification Shape"@en ;
+    sh:targetClass lomo:TemporalSpecification ;
+    sh:property [
+        sh:path lomo:hasFunction ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:IRI ;
+        sh:name "has function"@en ;
+        sh:in ( tf:deadline tf:validity tf:startingPoint tf:trigger ) ;
+    ] .
+
+# ─── ActionResult ─────────────────────────────────────────────
+
+shapes:ActionResultShape rdf:type sh:NodeShape ;
+    rdfs:label "Action Result Shape"@en ;
+    sh:targetClass lomo:ActionResult ;
+    sh:property [
+        sh:path rdfs:label ;
+        sh:minCount 1 ;
+        sh:datatype rdf:langString ;
+        sh:name "label"@en ;
+    ] .
+
+# ─── ActionResultType ─────────────────────────────────────────
+
+shapes:ActionResultTypeShape rdf:type sh:NodeShape ;
+    rdfs:label "Action Result Type Shape"@en ;
+    sh:targetClass lomo:ActionResultType ;
+    sh:property [
+        sh:path rdfs:label ;
+        sh:minCount 1 ;
+        sh:datatype rdf:langString ;
+        sh:name "label"@en ;
+    ] .
+
+# ─── Controlled vocabulary values (#156) ──────────────────────
+# Values of these properties must be concepts of their scheme; the data job merges the
+# vocabularies in, so skos:inScheme is visible to the validator.
+
+shapes:HasCategoryValueShape rdf:type sh:NodeShape ;
+    rdfs:label "Digital dimension values"@en ;
+    sh:targetSubjectsOf lomo:hasCategory ;
+    sh:property [
+        sh:path lomo:hasCategory ;
+        sh:nodeKind sh:IRI ;
+        sh:node [
+            sh:property [ sh:path skos:inScheme ; sh:hasValue dd:DigitalDimensionsScheme ]
+        ] ;
+        sh:name "has category"@en ;
+        sh:message "has category must be a concept of the Digital Dimensions scheme."@en ;
+    ] .
+
+shapes:HasResultCategoryValueShape rdf:type sh:NodeShape ;
+    rdfs:label "Result category values"@en ;
+    sh:targetSubjectsOf lomo:hasResultCategory ;
+    sh:property [
+        sh:path lomo:hasResultCategory ;
+        sh:nodeKind sh:IRI ;
+        sh:node [
+            sh:property [ sh:path skos:inScheme ; sh:hasValue rc:ResultCategoryScheme ]
+        ] ;
+        sh:name "has result category"@en ;
+        sh:message "has result category must be a concept of the Result Category scheme."@en ;
+    ] .

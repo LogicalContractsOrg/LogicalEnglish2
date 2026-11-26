@@ -1,0 +1,621 @@
+@prefix adms: <http://www.w3.org/ns/adms#> .
+@prefix cav: <http://data.europa.eu/2sa/cav#> .
+@prefix cpsv: <http://purl.org/vocab/cpsv#> .
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix dctype: <http://purl.org/dc/dcmitype/> .
+@prefix dd: <http://data.europa.eu/leg/digital-dimensions/> .
+@prefix iac: <http://data.europa.eu/leg/interop-assessment#> .
+@prefix iopa: <http://data.europa.eu/2qy/iopa#> .
+@prefix lomo: <http://data.europa.eu/leg/lomo#> .
+@prefix m8g: <http://data.europa.eu/m8g/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix tf: <http://data.europa.eu/leg/temporal-function/> .
+@prefix y6k: <http://data.europa.eu/y6k/> .
+
+<http://example.org/analysis/action/2> a lomo:Action ;
+    rdfs:label "Deposit of BBNJ standardised batch identifier ,Marine genetic resource and digital sequence information"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "no later than three years from the start of such utilisation, or as soon as they become available."@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/173/cod/doc/com/COM_2025_173/FINAL/eng/art_7/par_1> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/2/role/addressee-general-public>,
+        <http://example.org/analysis/action/2/role/addresser-natural-or-legal-persons> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Deposit of BBNJ standardised batch identifier ,Marine genetic resource and digital sequence information"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/deposit-of-bbnj-standardised-batch-identifier-marine-genetic-resource-and-digital-sequence-information> ] .
+
+<http://example.org/analysis/action/3> a lomo:Action ;
+    rdfs:label "Confirmation that samples and data have been deposited"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "no later than three years from the start of such utilisation, or as soon as they become available"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/173/cod/doc/com/COM_2025_173/FINAL/eng/art_7/par_2> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/3/role/addressee-competent-authority>,
+        <http://example.org/analysis/action/3/role/addresser-natural-or-legal-persons> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Confirmation that samples and data have been deposited"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/confirmation-that-samples-and-data-have-been-deposited> ] .
+
+<http://example.org/analysis/action/4> a lomo:Action ;
+    rdfs:label "Sharing of information of the deposited BBNJ standardised batch identifier, and confirmation of the deposited resourceMarine genetic resource"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/173/cod/doc/com/COM_2025_173/FINAL/eng/art_7/par_3> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/4/role/addressee-member-states>,
+        <http://example.org/analysis/action/4/role/addresser-member-states> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Sharing of information of the deposited BBNJ standardised batch identifier, and confirmation of the deposited resourceMarine genetic resource"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/sharing-of-information-of-the-deposited-bbnj-standardised-batch-identifier-and-confirmation-of-the-deposited-resourcemarine-genetic-resource> ] .
+
+<http://example.org/analysis/assessment/1> a cav:Assessment ;
+    cav:assesses <http://example.org/analysis/description/1>,
+        <http://example.org/analysis/description/10>,
+        <http://example.org/analysis/description/2>,
+        <http://example.org/analysis/description/3>,
+        <http://example.org/analysis/description/5>,
+        <http://example.org/analysis/description/6>,
+        <http://example.org/analysis/description/7>,
+        <http://example.org/analysis/description/8>,
+        <http://example.org/analysis/description/9> ;
+    cav:resultsIn <http://example.org/analysis/assessment/1/1/measure>,
+        <http://example.org/analysis/assessment/1/2/barrier>,
+        <http://example.org/analysis/assessment/1/2/measure>,
+        <http://example.org/analysis/assessment/1/3/barrier>,
+        <http://example.org/analysis/assessment/1/4/barrier> ;
+    m8g:isProvidedBy <http://publications.europa.eu/resource/authority/corporate-body/COM> .
+
+<http://example.org/analysis/solution/1> a dctype:Software ;
+    rdfs:label "BBNJ Clearing house"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/173/cod/doc/com/COM_2025_173/FINAL/eng/art_6>,
+        <https://data.europa.eu/eli/dl/proc/2025/173/cod/doc/com/COM_2025_173/FINAL/eng/art_7> ;
+    lomo:hasCapability "Prepare and submit information.Control submissions.List submissions." ;
+    dcterms:publisher <http://example.org/agent/un> ;
+    dcterms:title "BBNJ Clearing house"@en .
+
+<http://example.org/analysis/solution/2> a dctype:Software ;
+    rdfs:label "Digital platform if EU/national additional data elements are needed"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/173/cod/doc/com/COM_2025_173/FINAL/eng/art_6>,
+        <https://data.europa.eu/eli/dl/proc/2025/173/cod/doc/com/COM_2025_173/FINAL/eng/art_7> ;
+    lomo:hasCapability "Prepare and submit information" ;
+    dcterms:publisher <http://example.org/agent/ms-andor-commission> ;
+    dcterms:title "Digital platform if EU/national additional data elements are needed"@en .
+
+<http://example.org/agent/affected-parties> rdfs:label "Affected parties"@en .
+
+<http://example.org/agent/bbjn-clearing-house-mechanism> rdfs:label "BBJN Clearing House mechanism"@en .
+
+<http://example.org/agent/bbnj-clear-house-mechanism> rdfs:label "BBNJ Clear-house mechanism"@en .
+
+<http://example.org/agent/competent-authoritygeneral-public> rdfs:label "Competent authorityGeneral public"@en .
+
+<http://example.org/agent/legal-and-natural-persons> rdfs:label "Legal and natural persons"@en .
+
+<http://example.org/analysis/action/1> a lomo:Action ;
+    rdfs:label "Information on research projects including :·BBNJ standardised batch identifier ,·Marine genetic resource and digital sequence information·and information on their further utilisation"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "six months or as early as possible prior to the collection in situ of marine genetic resources of areas beyond national jurisdiction:"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/173/cod/doc/com/COM_2025_173/FINAL/eng/art_6> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/1/role/addressee-bbjn-clearing-house-mechanism>,
+        <http://example.org/analysis/action/1/role/addresser-member-states> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Information on research projects including :·BBNJ standardised batch identifier ,·Marine genetic resource and digital sequence information·and information on their further utilisation"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/information-on-research-projects-including-bbnj-standardised-batch-identifier-marine-genetic-resource-and-digital-sequence-informationand-information-on-their-further-utilisation> ] .
+
+<http://example.org/analysis/action/1/role/addressee-bbjn-clearing-house-mechanism> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/bbjn-clearing-house-mechanism> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/1/role/addresser-member-states> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/2/role/addressee-general-public> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/general-public> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/2/role/addresser-natural-or-legal-persons> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/natural-or-legal-persons> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/3/role/addressee-competent-authority> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/competent-authority> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/3/role/addresser-natural-or-legal-persons> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/natural-or-legal-persons> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/4/role/addressee-member-states> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/4/role/addresser-member-states> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/5/role/addressee-general-public> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/general-public> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/5/role/addresser-member-states> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/6> a lomo:Action ;
+    rdfs:label "Consultations Results"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Consultations shall not be shorter than 30 days but shall not be longer than 85 days."@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/173/cod/doc/com/COM_2025_173/FINAL/eng/art_11> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/6/role/addressee-affected-parties>,
+        <http://example.org/analysis/action/6/role/addresser-member-states> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Consultations Results"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/consultations-results> ] .
+
+<http://example.org/analysis/action/6/role/addressee-affected-parties> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/affected-parties> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/6/role/addresser-member-states> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/7> a lomo:Action ;
+    rdfs:label "Decisions"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Not specified"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/173/cod/doc/com/COM_2025_173/FINAL/eng/art_12> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/7/role/addressee-general-public>,
+        <http://example.org/analysis/action/7/role/addresser-member-states> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Decisions"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/decisions> ] .
+
+<http://example.org/analysis/action/7/role/addressee-general-public> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/general-public> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/7/role/addresser-member-states> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/8> a lomo:Action ;
+    rdfs:label "Environmental damage caused by authorised activities"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:deadline ;
+            lomo:temporalLabel "not less frequent than every three years"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/173/cod/doc/com/COM_2025_173/FINAL/eng/art_13> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/8/role/addressee-general-public>,
+        <http://example.org/analysis/action/8/role/addresser-member-states> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Environmental damage caused by authorised activities"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/environmental-damage-caused-by-authorised-activities> ] .
+
+<http://example.org/analysis/action/8/role/addressee-general-public> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/general-public> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/8/role/addresser-member-states> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/assessment/1/1/measure> a cav:Statement ;
+    cav:interpretation iac:InterpretationPositive ;
+    cav:judgement "-The proposal is aligned with Directive (EU) 2019/1024 of the European Parliament and of the Council that promotes the use of open data from public sector bodies and public undertaking"@en ;
+    cav:type iac:StatementTypeAlignmentMeasure ;
+    dcterms:description "Assess the alignment with existing digital and sectorial policiesPlease list the applicable digital and sectorial policies identified"@en ;
+    dcterms:title "Monitoring of research projects in the domain of marine biology and dissemination of related information"@en .
+
+<http://example.org/analysis/assessment/1/2/barrier> a cav:Statement ;
+    cav:interpretation iac:InterpretationNegative ;
+    cav:judgement "-Criteria to ensure that these reports are of sufficient quality should be harmonised and agreed among Member States, if the BBNJ clearing house doesn't provide suitable templates."@en ;
+    cav:type iac:StatementTypeOrganisationBarrier ;
+    dcterms:description "Assess the organisational measures for a smooth cross-border digital public services deliveryPlease list the governance measures foreseen"@en ;
+    dcterms:title "Monitoring of research projects in the domain of marine biology and dissemination of related information"@en .
+
+<http://example.org/analysis/assessment/1/2/measure> a cav:Statement ;
+    cav:interpretation iac:InterpretationPositive ;
+    cav:judgement """-Article 6 sets measures around data governance
+-Article 19 requires Member states to ensure that the environmental impact assessment reports are of sufficient quality"""@en ;
+    cav:type iac:StatementTypeOrganisationMeasure ;
+    dcterms:description "Assess the organisational measures for a smooth cross-border digital public services deliveryPlease list the governance measures foreseen"@en ;
+    dcterms:title "Monitoring of research projects in the domain of marine biology and dissemination of related information"@en .
+
+<http://example.org/analysis/assessment/1/3/barrier> a cav:Statement ;
+    cav:interpretation iac:InterpretationNegative ;
+    cav:judgement "Implementation measures will have to consider harmonisation of data managed by the national authorities and the bodies set in accordance with the interinstitutional arrangements, on top of the existing international agreement guidelines."@en ;
+    cav:type iac:StatementTypeSharedBarrier ;
+    dcterms:description "Assess the measures taken to ensure a shared understanding of the dataPlease list such measures"@en ;
+    dcterms:title "Monitoring of research projects in the domain of marine biology and dissemination of related information"@en .
+
+<http://example.org/analysis/assessment/1/4/barrier> a cav:Statement ;
+    cav:interpretation iac:InterpretationNegative ;
+    cav:judgement "Implementation measures will have to consider technical interoperability of systems managed by the national authorities and the bodies set in accordance with the interinstitutional arrangements."@en ;
+    cav:type iac:StatementTypeStandardsBarrier ;
+    dcterms:description "Assess the use of commonly agreed open technical specifications and standardsPlease list such measures"@en ;
+    dcterms:title "Monitoring of research projects in the domain of marine biology and dissemination of related information"@en .
+
+<http://example.org/analysis/description/1> a iopa:BindingRequirement,
+        lomo:LegalRule ;
+    rdfs:label "Article 5"@en ;
+    iopa:affects <http://example.org/analysis/interop/1> ;
+    cav:valueDescription "Member States shall ensure that collection in situ of marine genetic resources is carried out with due regard for the rights and legitimate interests of coastal states in areas within their national jurisdiction and with due regard for the interests of other states in areas beyond national jurisdiction, in accordance with the United Nations Convention on the Law of the Sea. For this purpose, Member States shall cooperate, as appropriate, including using the BBNJ Clearing-House Mechanism, in order to implement the provisions of this Chapter. Member States shall cooperate, as appropriate, including using the BBNJ Clearing-House Mechanism, in order to implement the provisions of this Chapter."@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/173/cod/doc/com/COM_2025_173/FINAL/eng/art_5> ;
+    lomo:hasCategory dd:Data,
+        dd:DigitalSolutions ;
+    lomo:involvesProcess <http://example.org/process/data-collection> ;
+    lomo:produces <http://example.org/analysis/description/1/action> ;
+    dcterms:description "Member States shall ensure that collection in situ of marine genetic resources is carried out with due regard for the rights and legitimate interests of coastal states in areas within their national jurisdiction and with due regard for the interests of other states in areas beyond national jurisdiction, in accordance with the United Nations Convention on the Law of the Sea. For this purpose, Member States shall cooperate, as appropriate, including using the BBNJ Clearing-House Mechanism, in order to implement the provisions of this Chapter. Member States shall cooperate, as appropriate, including using the BBNJ Clearing-House Mechanism, in order to implement the provisions of this Chapter."@en ;
+    dcterms:relation <http://example.org/ie-solution/to-be-further-explored> .
+
+<http://example.org/analysis/description/1/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/1/action/role/addressee-member-states> .
+
+<http://example.org/analysis/description/1/action/role/addressee-member-states> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/10> a iopa:BindingRequirement,
+        lomo:LegalRule ;
+    rdfs:label "Article 13"@en ;
+    iopa:affects <http://example.org/analysis/interop/1> ;
+    cav:valueDescription "Obligation to inform about significant and harmful changes to the marine environment triggered by the authorised activities and that were not foreseen during the environmental impact assessment"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ;
+            lomo:temporalLabel "not less frequent than every three years"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/173/cod/doc/com/COM_2025_173/FINAL/eng/art_13> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess y6k:c_d63972244bc8 ;
+    lomo:produces <http://example.org/analysis/action/8>,
+        <http://example.org/analysis/description/10/action> ;
+    lomo:references <http://example.org/dataset/environmental-damage-caused-by-authorised-activities> ;
+    dcterms:description "Obligation to inform about significant and harmful changes to the marine environment triggered by the authorised activities and that were not foreseen during the environmental impact assessment"@en ;
+    dcterms:relation <http://example.org/ie-solution/to-be-further-explored> .
+
+<http://example.org/analysis/description/10/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/10/action/role/addressee-general-public>,
+        <http://example.org/analysis/description/10/action/role/addressee-member-states> .
+
+<http://example.org/analysis/description/10/action/role/addressee-general-public> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/general-public> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/10/action/role/addressee-member-states> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/2> a iopa:BindingRequirement,
+        lomo:LegalRule ;
+    rdfs:label "Article 6"@en ;
+    iopa:affects <http://example.org/analysis/interop/1> ;
+    cav:valueDescription "The obligation to notify to the BBNJ Clearing House Mechanism certain information/data. EU Member States will have to identify who has to do this notification: most likely the chief scientists responsible for the research project."@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/173/cod/doc/com/COM_2025_173/FINAL/eng/art_6> ;
+    lomo:hasCategory dd:Data,
+        dd:DigitalPublicService,
+        dd:DigitalSolutions ;
+    lomo:involvesProcess <http://example.org/process/notification> ;
+    lomo:produces <http://example.org/analysis/action/1>,
+        <http://example.org/analysis/description/2/action> ;
+    lomo:references <http://example.org/dataset/information-on-research-projects>,
+        <http://example.org/dataset/information-on-the-utilisation-of-marine-genetic-resources>,
+        <http://example.org/dataset/marine-genetic-resource-and-digital-sequence-information> ;
+    dcterms:description "The obligation to notify to the BBNJ Clearing House Mechanism certain information/data. EU Member States will have to identify who has to do this notification: most likely the chief scientists responsible for the research project."@en ;
+    dcterms:relation <http://example.org/ie-solution/to-be-further-explored> .
+
+<http://example.org/analysis/description/2/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/2/action/role/addressee-bbnj-clear-house-mechanism>,
+        <http://example.org/analysis/description/2/action/role/addressee-competent-authorities-of-member-states>,
+        <http://example.org/analysis/description/2/action/role/addressee-member-states> .
+
+<http://example.org/analysis/description/2/action/role/addressee-bbnj-clear-house-mechanism> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/bbnj-clear-house-mechanism> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/2/action/role/addressee-competent-authorities-of-member-states> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/competent-authorities-of-member-states> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/2/action/role/addressee-member-states> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/3> a iopa:BindingRequirement,
+        lomo:LegalRule ;
+    rdfs:label "Article 7"@en ;
+    iopa:affects <http://example.org/analysis/interop/1> ;
+    cav:valueDescription "Obligation for legal and natural persons utilising MGR of ABNJ to communicate to the competent authority the confirmations of deposits of samples and data."@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/173/cod/doc/com/COM_2025_173/FINAL/eng/art_7> ;
+    lomo:hasCategory dd:Data,
+        dd:DigitalSolutions ;
+    lomo:involvesProcess <http://example.org/process/notification> ;
+    lomo:produces <http://example.org/analysis/description/3/action> ;
+    lomo:references <http://example.org/dataset/confirmation-that-samples-and-data-have-been-deposited> ;
+    dcterms:description "Obligation for legal and natural persons utilising MGR of ABNJ to communicate to the competent authority the confirmations of deposits of samples and data."@en ;
+    dcterms:relation <http://example.org/ie-solution/to-be-further-explored> .
+
+<http://example.org/analysis/description/3/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/3/action/role/addressee-competent-authorities-of-member-states>,
+        <http://example.org/analysis/description/3/action/role/addressee-legal-and-natural-persons>,
+        <http://example.org/analysis/description/3/action/role/addressee-member-states> .
+
+<http://example.org/analysis/description/3/action/role/addressee-competent-authorities-of-member-states> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/competent-authorities-of-member-states> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/3/action/role/addressee-legal-and-natural-persons> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/legal-and-natural-persons> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/3/action/role/addressee-member-states> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/5> a iopa:BindingRequirement,
+        lomo:LegalRule ;
+    rdfs:label "Article 8"@en ;
+    iopa:affects <http://example.org/analysis/interop/1> ;
+    cav:valueDescription "For activities for which an environmental impact assessment has been carried out in accordance with the requirements of other relevant legal instruments or frameworks or by relevant global, regional, subregional or sectoral bodies, obligation for Member States to publish an environmental impact assessment report through the BBNJ Clear-House Mechanism and make relevant information available"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/173/cod/doc/com/COM_2025_173/FINAL/eng/art_8> ;
+    lomo:hasCategory dd:Data,
+        dd:DigitalPublicService,
+        dd:DigitalSolutions ;
+    lomo:involvesProcess <http://example.org/process/publication-data-management> ;
+    lomo:produces <http://example.org/analysis/action/5>,
+        <http://example.org/analysis/description/5/action> ;
+    lomo:references <http://example.org/dataset/environmental-impact-assessment-report-planned-activities-and-decisions> ;
+    dcterms:description "For activities for which an environmental impact assessment has been carried out in accordance with the requirements of other relevant legal instruments or frameworks or by relevant global, regional, subregional or sectoral bodies, obligation for Member States to publish an environmental impact assessment report through the BBNJ Clear-House Mechanism and make relevant information available"@en ;
+    dcterms:relation <http://example.org/ie-solution/to-be-further-explored> .
+
+<http://example.org/analysis/description/5/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/5/action/role/addressee-general-public>,
+        <http://example.org/analysis/description/5/action/role/addressee-member-states> .
+
+<http://example.org/analysis/description/5/action/role/addressee-general-public> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/general-public> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/5/action/role/addressee-member-states> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/6> a iopa:BindingRequirement,
+        lomo:LegalRule ;
+    rdfs:label "Article 9"@en ;
+    iopa:affects <http://example.org/analysis/interop/1> ;
+    cav:valueDescription "Obligation to publish the screening decision"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/173/cod/doc/com/COM_2025_173/FINAL/eng/art_9> ;
+    lomo:hasCategory dd:Data,
+        dd:DigitalPublicService,
+        dd:DigitalSolutions ;
+    lomo:involvesProcess y6k:c_d63972244bc8 ;
+    lomo:produces <http://example.org/analysis/action/5>,
+        <http://example.org/analysis/description/6/action> ;
+    lomo:references <http://example.org/dataset/environmental-impact-assessment-report-planned-activities-and-decisions> ;
+    dcterms:description "Obligation to publish the screening decision"@en ;
+    dcterms:relation <http://example.org/ie-solution/to-be-further-explored> .
+
+<http://example.org/analysis/description/6/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/6/action/role/addressee-competent-authoritygeneral-public> .
+
+<http://example.org/analysis/description/6/action/role/addressee-competent-authoritygeneral-public> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/competent-authoritygeneral-public> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/7> a iopa:BindingRequirement,
+        lomo:LegalRule ;
+    rdfs:label "Article 10"@en ;
+    iopa:affects <http://example.org/analysis/interop/1> ;
+    cav:valueDescription "Environmental impact assessment: scoping and report"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/173/cod/doc/com/COM_2025_173/FINAL/eng/art_10> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/data-collection> ;
+    lomo:produces <http://example.org/analysis/action/5>,
+        <http://example.org/analysis/description/7/action> ;
+    lomo:references <http://example.org/dataset/environmental-impact-assessment-report-planned-activities-and-decisions> ;
+    dcterms:description "Environmental impact assessment: scoping and report"@en ;
+    dcterms:relation <http://example.org/ie-solution/to-be-further-explored> .
+
+<http://example.org/analysis/description/7/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/7/action/role/addressee-competent-authority>,
+        <http://example.org/analysis/description/7/action/role/addressee-member-states> .
+
+<http://example.org/analysis/description/7/action/role/addressee-competent-authority> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/competent-authority> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/7/action/role/addressee-member-states> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/8> a iopa:BindingRequirement,
+        lomo:LegalRule ;
+    rdfs:label "Article 11"@en ;
+    iopa:affects <http://example.org/analysis/interop/1> ;
+    cav:valueDescription "Obligation to inform and consult general public on planned activities and environment impact assessment"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ],
+        [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/173/cod/doc/com/COM_2025_173/FINAL/eng/art_11> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess y6k:c_d63972244bc8 ;
+    lomo:produces <http://example.org/analysis/action/5>,
+        <http://example.org/analysis/action/6>,
+        <http://example.org/analysis/description/8/action> ;
+    lomo:references <http://example.org/dataset/environmental-impact-assessment-report-planned-activities-and-decisions> ;
+    dcterms:description "Obligation to inform and consult general public on planned activities and environment impact assessment"@en ;
+    dcterms:relation <http://example.org/ie-solution/to-be-further-explored> .
+
+<http://example.org/analysis/description/8/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/8/action/role/addressee-general-public>,
+        <http://example.org/analysis/description/8/action/role/addressee-member-states> .
+
+<http://example.org/analysis/description/8/action/role/addressee-general-public> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/general-public> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/8/action/role/addressee-member-states> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/9> a iopa:BindingRequirement,
+        lomo:LegalRule ;
+    rdfs:label "Article 12"@en ;
+    iopa:affects <http://example.org/analysis/interop/1> ;
+    cav:valueDescription "Obligation to inform the general public on decisions to authorise or not planned activities"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/173/cod/doc/com/COM_2025_173/FINAL/eng/art_12> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess y6k:c_d63972244bc8 ;
+    lomo:produces <http://example.org/analysis/action/7>,
+        <http://example.org/analysis/description/9/action> ;
+    lomo:references <http://example.org/dataset/result-of-consultations> ;
+    dcterms:description "Obligation to inform the general public on decisions to authorise or not planned activities"@en ;
+    dcterms:relation <http://example.org/ie-solution/to-be-further-explored> .
+
+<http://example.org/analysis/description/9/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/9/action/role/addressee-general-public>,
+        <http://example.org/analysis/description/9/action/role/addressee-member-states> .
+
+<http://example.org/analysis/description/9/action/role/addressee-general-public> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/general-public> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/9/action/role/addressee-member-states> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/dataset/consultations-results> a dcat:Dataset ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Consultations Results"@en ] ;
+    dcterms:title "Consultations Results"@en .
+
+<http://example.org/dataset/decisions> a dcat:Dataset ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Decisions"@en ] ;
+    dcterms:title "Decisions"@en .
+
+<http://example.org/dataset/deposit-of-bbnj-standardised-batch-identifier-marine-genetic-resource-and-digital-sequence-information> a dcat:Dataset ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Deposit of BBNJ standardised batch identifier ,Marine genetic resource and digital sequence information"@en ] ;
+    dcterms:title "Deposit of BBNJ standardised batch identifier ,Marine genetic resource and digital sequence information"@en .
+
+<http://example.org/dataset/environmental-impact-assessment-reportincluding-screening-decision-when-relevantenvironmental-impact-assessment> a dcat:Dataset ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Environmental impact assessment reportincluding :·Screening decision when relevant·Environmental impact assessment"@en ] ;
+    dcterms:title "Environmental impact assessment reportincluding :·Screening decision when relevant·Environmental impact assessment"@en .
+
+<http://example.org/dataset/information-on-research-projects> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/173/cod/doc/com/COM_2025_173/FINAL/eng/art_6> ;
+    dcterms:title "Information on research projects"@en .
+
+<http://example.org/dataset/information-on-research-projects-including-bbnj-standardised-batch-identifier-marine-genetic-resource-and-digital-sequence-informationand-information-on-their-further-utilisation> a dcat:Dataset ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Information on research projects including :·BBNJ standardised batch identifier ,·Marine genetic resource and digital sequence information·and information on their further utilisation"@en ] ;
+    dcterms:title "Information on research projects including :·BBNJ standardised batch identifier ,·Marine genetic resource and digital sequence information·and information on their further utilisation"@en .
+
+<http://example.org/dataset/information-on-the-utilisation-of-marine-genetic-resources> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/173/cod/doc/com/COM_2025_173/FINAL/eng/art_6> ;
+    dcterms:title "Information on the utilisation of marine genetic resources"@en .
+
+<http://example.org/dataset/marine-genetic-resource-and-digital-sequence-information> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/173/cod/doc/com/COM_2025_173/FINAL/eng/art_6> ;
+    dcterms:title "marine genetic resource and digital sequence information"@en .
+
+<http://example.org/dataset/result-of-consultations> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/173/cod/doc/com/COM_2025_173/FINAL/eng/art_12> ;
+    dcterms:title "Result of consultations"@en .
+
+<http://example.org/dataset/sharing-of-information-of-the-deposited-bbnj-standardised-batch-identifier-and-confirmation-of-the-deposited-resourcemarine-genetic-resource> a dcat:Dataset ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Sharing of information of the deposited BBNJ standardised batch identifier, and confirmation of the deposited resourceMarine genetic resource"@en ] ;
+    dcterms:title "Sharing of information of the deposited BBNJ standardised batch identifier, and confirmation of the deposited resourceMarine genetic resource"@en .
+
+<http://example.org/process/publication-data-management> skos:prefLabel "Publication, data management"@en .
+
+<http://publications.europa.eu/resource/authority/corporate-body/COM> a m8g:PublicOrganisation ;
+    dcterms:description "The European Commission, provider of the interoperability assessment."@en ;
+    skos:prefLabel "European Commission"@en .
+
+<http://example.org/agent/competent-authorities-of-member-states> rdfs:label "Competent authorities of Member States"@en .
+
+<http://example.org/agent/competent-authority> rdfs:label "Competent authority"@en .
+
+<http://example.org/agent/natural-or-legal-persons> rdfs:label "natural or legal persons"@en .
+
+<http://example.org/dataset/confirmation-that-samples-and-data-have-been-deposited> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/173/cod/doc/com/COM_2025_173/FINAL/eng/art_7> ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Confirmation that samples and data have been deposited"@en ] ;
+    dcterms:title "Confirmation that samples and data have been deposited"@en .
+
+<http://example.org/dataset/environmental-damage-caused-by-authorised-activities> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/173/cod/doc/com/COM_2025_173/FINAL/eng/art_13> ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Environmental damage caused by authorised activities"@en ] ;
+    dcterms:title "Environmental damage caused by authorised activities"@en .
+
+<http://example.org/process/data-collection> skos:prefLabel "Data collection"@en .
+
+<http://example.org/process/notification> skos:prefLabel "Notification"@en .
+
+y6k:c_d63972244bc8 skos:prefLabel "Publication"@en .
+
+<http://example.org/analysis/action/5> a lomo:Action ;
+    rdfs:label "Environmental impact assessment reportincluding :·Screening decision when relevant·Environmental impact assessment"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Not specified"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/173/cod/doc/com/COM_2025_173/FINAL/eng/art_10>,
+        <https://data.europa.eu/eli/dl/proc/2025/173/cod/doc/com/COM_2025_173/FINAL/eng/art_11>,
+        <https://data.europa.eu/eli/dl/proc/2025/173/cod/doc/com/COM_2025_173/FINAL/eng/art_8>,
+        <https://data.europa.eu/eli/dl/proc/2025/173/cod/doc/com/COM_2025_173/FINAL/eng/art_9> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/5/role/addressee-general-public>,
+        <http://example.org/analysis/action/5/role/addresser-member-states> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Environmental impact assessment reportincluding :·Screening decision when relevant·Environmental impact assessment"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/environmental-impact-assessment-reportincluding-screening-decision-when-relevantenvironmental-impact-assessment> ] .
+
+<http://example.org/dataset/environmental-impact-assessment-report-planned-activities-and-decisions> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/173/cod/doc/com/COM_2025_173/FINAL/eng/art_10>,
+        <https://data.europa.eu/eli/dl/proc/2025/173/cod/doc/com/COM_2025_173/FINAL/eng/art_11>,
+        <https://data.europa.eu/eli/dl/proc/2025/173/cod/doc/com/COM_2025_173/FINAL/eng/art_8>,
+        <https://data.europa.eu/eli/dl/proc/2025/173/cod/doc/com/COM_2025_173/FINAL/eng/art_9> ;
+    dcterms:title "Environmental impact assessment report, planned activities and decisions"@en .
+
+<http://example.org/agent/general-public> rdfs:label "General public"@en .
+
+<http://example.org/analysis/interop/1> a cpsv:PublicService ;
+    rdfs:label "Monitoring of research projects in the domain of marine biology and planned activity and dissemination of related information"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/173/cod/doc/com/COM_2025_173/FINAL/eng/art_10>,
+        <https://data.europa.eu/eli/dl/proc/2025/173/cod/doc/com/COM_2025_173/FINAL/eng/art_11>,
+        <https://data.europa.eu/eli/dl/proc/2025/173/cod/doc/com/COM_2025_173/FINAL/eng/art_12>,
+        <https://data.europa.eu/eli/dl/proc/2025/173/cod/doc/com/COM_2025_173/FINAL/eng/art_13>,
+        <https://data.europa.eu/eli/dl/proc/2025/173/cod/doc/com/COM_2025_173/FINAL/eng/art_5>,
+        <https://data.europa.eu/eli/dl/proc/2025/173/cod/doc/com/COM_2025_173/FINAL/eng/art_6>,
+        <https://data.europa.eu/eli/dl/proc/2025/173/cod/doc/com/COM_2025_173/FINAL/eng/art_7>,
+        <https://data.europa.eu/eli/dl/proc/2025/173/cod/doc/com/COM_2025_173/FINAL/eng/art_8>,
+        <https://data.europa.eu/eli/dl/proc/2025/173/cod/doc/com/COM_2025_173/FINAL/eng/art_9> ;
+    dcterms:description "Provide relevant authorisations in respect with the principle of non environmental harm"@en ;
+    dcterms:identifier "interop/1" ;
+    dcterms:references <http://example.org/ie-solution/to-be-further-explored> ;
+    dcterms:title "Monitoring of research projects in the domain of marine biology and planned activity and dissemination of related information"@en .
+
+<http://example.org/ie-solution/to-be-further-explored> a adms:Asset ;
+    dcterms:description "To be further explored"@en ;
+    dcterms:title "To be further explored"@en .
+
+<http://example.org/agent/member-states> rdfs:label "Member states"@en .
+

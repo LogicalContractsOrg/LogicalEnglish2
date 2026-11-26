@@ -1,0 +1,332 @@
+@prefix adms: <http://www.w3.org/ns/adms#> .
+@prefix cav: <http://data.europa.eu/2sa/cav#> .
+@prefix cpsv: <http://purl.org/vocab/cpsv#> .
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix dctype: <http://purl.org/dc/dcmitype/> .
+@prefix dd: <http://data.europa.eu/leg/digital-dimensions/> .
+@prefix iac: <http://data.europa.eu/leg/interop-assessment#> .
+@prefix iopa: <http://data.europa.eu/2qy/iopa#> .
+@prefix lomo: <http://data.europa.eu/leg/lomo#> .
+@prefix m8g: <http://data.europa.eu/m8g/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix tf: <http://data.europa.eu/leg/temporal-function/> .
+
+<http://example.org/analysis/action/1> a lomo:Action ;
+    rdfs:label "Countries, organisations, budget, participants and priorities per project, project results (where applicable per key Action)"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:deadline ;
+            lomo:temporalLabel "Performance Regulation Article XX (monitoring) and article XX (implementation report and retrospective evaluations).Annual reporting"@en ],
+        [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Performance Regulation Article XX and article XX.(monitoring ) and article XX (implementation report and retrospective evaluations).Expenditure tracking, programme performance reporting and monitoring of implementation and results"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/549/cod/doc/com/COM_2025_549/FINAL/eng/art_13> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/1/role/addressee-general-publiccommissioneuropean-parliamentcouncil-of-the-european-union>,
+        <http://example.org/analysis/action/1/role/addresser-beneficiaries-programme-desk> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Countries, organisations, budget, participants and priorities per project, project results (where applicable per key Action)"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/countries-organisations-budget-participants-and-priorities-per-project-project-results-where-applicable-per-key-action> ] .
+
+<http://example.org/analysis/assessment/1> a cav:Assessment ;
+    cav:assesses <http://example.org/analysis/description/3> ;
+    cav:resultsIn <http://example.org/analysis/assessment/1/1/measure>,
+        <http://example.org/analysis/assessment/1/2/measure>,
+        <http://example.org/analysis/assessment/1/3/measure>,
+        <http://example.org/analysis/assessment/1/4/measure> ;
+    m8g:isProvidedBy <http://publications.europa.eu/resource/authority/corporate-body/COM> .
+
+<http://example.org/analysis/description/1> a lomo:LegalRule ;
+    rdfs:label "Article 20.9"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/549/cod/doc/com/COM_2025_549/FINAL/eng/art_20> ;
+    lomo:hasCategory dd:DigitalSolutions ;
+    lomo:involvesProcess <http://example.org/process/programme-support-indirect-grant-management> ;
+    lomo:produces <http://example.org/analysis/description/1/action> ;
+    lomo:references <http://example.org/dataset/countries-organisations-budget-participants-and-priorities-per-project-where-applicable-per-key-action> ;
+    dcterms:description "The Commission shall deliver the necessary information technology systems to support the implementation of the Programme objectives laid down in Article 3, including for indirect management."@en .
+
+<http://example.org/analysis/description/2> a lomo:LegalRule ;
+    rdfs:label "Recital 33"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/549/cod/doc/com/COM_2025_549/FINAL/eng/art_33> ;
+    lomo:hasCategory dd:DigitalSolutions ;
+    lomo:involvesProcess <http://example.org/process/programme-support> ;
+    lomo:produces <http://example.org/analysis/description/2/action> ;
+    dcterms:description "User-friendly online platforms and tools for virtual cooperation can play an important role in supporting the delivery of education and training and youth policy in Europe and beyond. To increase the use of virtual cooperation activities, the Programme should support more systematic and coherent use of online platforms. It should as well facilitate and support mobility processes through digitalisation."@en .
+
+<http://example.org/analysis/solution/1> a dctype:Software ;
+    rdfs:label "Digital solution #1 - Indirect Grant Management Platform"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/549/cod/doc/com/COM_2025_549/FINAL/eng/art_20> ;
+    lomo:hasCapability "Management of the indirect grants" ;
+    dcterms:publisher <http://example.org/agent/european-commission> ;
+    dcterms:title "Digital solution #1 - Indirect Grant Management Platform"@en .
+
+<http://example.org/analysis/solution/2> a dctype:Software ;
+    rdfs:label "Digital solution #2- Platform(s) to support the programme"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/549/cod/doc/com/COM_2025_549/FINAL/eng/art_20> ;
+    lomo:hasCapability "Programme SupportNB: Such platform(s) will be identified or confirmed during the implementation of the programme" ;
+    dcterms:publisher <http://example.org/agent/european-commission> ;
+    dcterms:title "Digital solution #2- Platform(s) to support the programme"@en .
+
+<http://example.org/analysis/solution/3> a dctype:Software ;
+    rdfs:label "Digital Solution #3 – Programme Analytics - Data and AI Platform"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/549/cod/doc/com/COM_2025_549/FINAL/eng/art_20> ;
+    lomo:hasCapability "Programme Support" ;
+    dcterms:publisher <http://example.org/agent/european-commission> ;
+    dcterms:title "Digital Solution #3 – Programme Analytics - Data and AI Platform"@en .
+
+<http://example.org/analysis/solution/4> a dctype:Software ;
+    rdfs:label "Digital Solution #4 – Europass"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/549/cod/doc/com/COM_2025_549/FINAL/eng/art_35>,
+        <https://data.europa.eu/eli/dl/proc/2025/549/cod/doc/com/COM_2025_549/FINAL/eng/art_7> ;
+    lomo:hasCapability "Labour mobility programme support: user profiles incl. skills assessment and career management, learning opportunities, accreditation of institutions" ;
+    dcterms:publisher <http://example.org/agent/european-commission> ;
+    dcterms:title "Digital Solution #4 – Europass"@en .
+
+<http://example.org/agent/beneficiaries-programme-desk> rdfs:label "Beneficiaries, Programme Desk"@en .
+
+<http://example.org/agent/european-commission-national-authorities-national-europass-centres-european-qualifications-framework-national-coordination-points-euroguidance-participants-individuals> rdfs:label "European Commission, National Authorities, National Europass Centres, European Qualifications Framework National Coordination Points; Euroguidance; Participants; Individuals"@en .
+
+<http://example.org/agent/general-publiccommissioneuropean-parliamentcouncil-of-the-european-union> rdfs:label "General publicCommissionEuropean ParliamentCouncil of the European Union"@en .
+
+<http://example.org/agent/national-authorities> rdfs:label "National authorities"@en .
+
+<http://example.org/agent/national-authorities-education-and-training-providers-individuals> rdfs:label "National Authorities, Education and Training Providers, Individuals"@en .
+
+<http://example.org/analysis/action/1/role/addressee-general-publiccommissioneuropean-parliamentcouncil-of-the-european-union> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/general-publiccommissioneuropean-parliamentcouncil-of-the-european-union> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/1/role/addresser-beneficiaries-programme-desk> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/beneficiaries-programme-desk> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/2> a lomo:Action ;
+    rdfs:label "Europass registered user profiles (ePortfolio IT module)"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:deadline ;
+            lomo:temporalLabel "Upon users’ needs"@en ],
+        [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Registration of users on Europass (ePortfolio)"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/549/cod/doc/com/COM_2025_549/FINAL/eng/art_35>,
+        <https://data.europa.eu/eli/dl/proc/2025/549/cod/doc/com/COM_2025_549/FINAL/eng/art_7> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/2/role/addressee-individuals>,
+        <http://example.org/analysis/action/2/role/addresser-individuals> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Europass registered user profiles (ePortfolio IT module)"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/europass-registered-user-profiles-eportfolio-it-module> ] .
+
+<http://example.org/analysis/action/2/role/addressee-individuals> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/individuals> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/2/role/addresser-individuals> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/individuals> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/3> a lomo:Action ;
+    rdfs:label "Learning opportunities, accreditations of educational institutions (Qualification Dataset Register IT module)"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:deadline ;
+            lomo:temporalLabel "ad-hoc basis (requested at least once a year)"@en ],
+        [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Proposals during Europass Advisory Group meetings, trigger upon national authorities update"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/549/cod/doc/com/COM_2025_549/FINAL/eng/art_35>,
+        <https://data.europa.eu/eli/dl/proc/2025/549/cod/doc/com/COM_2025_549/FINAL/eng/art_7> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/3/role/addressee-national-authorities-education-and-training-providers-individuals>,
+        <http://example.org/analysis/action/3/role/addresser-national-authorities> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Learning opportunities, accreditations of educational institutions (Qualification Dataset Register IT module)"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/learning-opportunities-accreditations-of-educational-institutions-qualification-dataset-register-it-module> ] .
+
+<http://example.org/analysis/action/3/role/addressee-national-authorities-education-and-training-providers-individuals> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/national-authorities-education-and-training-providers-individuals> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/3/role/addresser-national-authorities> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/national-authorities> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/assessment/1/1/measure> a cav:Statement ;
+    cav:interpretation iac:InterpretationPositive ;
+    cav:judgement "Europass Decision - 2018/646"@en ;
+    cav:type iac:StatementTypeAlignmentMeasure ;
+    dcterms:description "Alignment with existing digital and sectorial policiesPlease list the applicable digital and sectorial policies identified"@en ;
+    dcterms:title "Europass"@en .
+
+<http://example.org/analysis/assessment/1/2/measure> a cav:Statement ;
+    cav:interpretation iac:InterpretationPositive ;
+    cav:judgement """Europass and EQF networks:
+-Europass AdvisoryGroup
+-National EuropassCentres
+-EQF Advisory Group"""@en ;
+    cav:type iac:StatementTypeOrganisationMeasure ;
+    dcterms:description "Organisational measures for a smooth cross-border digital public services deliveryPlease list the governance measures foreseen"@en ;
+    dcterms:title "Europass"@en .
+
+<http://example.org/analysis/assessment/1/3/measure> a cav:Statement ;
+    cav:interpretation iac:InterpretationPositive ;
+    cav:judgement """Publication of datasets:
+-ELM browser
+-Open Data portal"""@en ;
+    cav:type iac:StatementTypeSharedMeasure ;
+    dcterms:description "Measures taken to ensure a shared understanding of the dataPlease list such measures"@en ;
+    dcterms:title "Europass"@en .
+
+<http://example.org/analysis/assessment/1/4/measure> a cav:Statement ;
+    cav:interpretation iac:InterpretationPositive ;
+    cav:judgement """Data models:
+-Europass CV format
+-ELM (European Learning model)
+-ESCO (European Classification for Skills and Occupations)
+-EFSS (EURES Functional Standards and Specifications)"""@en ;
+    cav:type iac:StatementTypeStandardsMeasure ;
+    dcterms:description "Use of commonly agreed open technical specifications and standardsPlease list such measures"@en ;
+    dcterms:title "Europass"@en .
+
+<http://example.org/analysis/description/1/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/1/action/role/addressee-european-commission-national-authorities-national-agencies-beneficiaries-participants> .
+
+<http://example.org/analysis/description/1/action/role/addressee-european-commission-national-authorities-national-agencies-beneficiaries-participants> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/european-commission-national-authorities-national-agencies-beneficiaries-participants> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/2/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/2/action/role/addressee-european-commission-national-authorities-national-agencies-beneficiaries-participants> .
+
+<http://example.org/analysis/description/2/action/role/addressee-european-commission-national-authorities-national-agencies-beneficiaries-participants> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/european-commission-national-authorities-national-agencies-beneficiaries-participants> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/3> a iopa:BindingRequirement,
+        lomo:LegalRule ;
+    rdfs:label "Article 7, footnote 45"@en ;
+    iopa:affects <http://example.org/analysis/interop/1>,
+        <http://example.org/analysis/interop/2>,
+        <http://example.org/analysis/interop/3>,
+        <http://example.org/analysis/interop/4> ;
+    cav:valueDescription "The Programme shall support […] Programme implementation including synergies with, and support to other Union policies and programmes, online platforms, tools for virtual cooperation and tools to facilitate learning mobility (including support to the common framework and tools for the provision of better services for skills and qualifications (Europass))"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ;
+            lomo:temporalLabel "Upon users’ needs"@en ],
+        [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ;
+            lomo:temporalLabel "ad-hoc basis (requested at least once a year)"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/549/cod/doc/com/COM_2025_549/FINAL/eng/art_45>,
+        <https://data.europa.eu/eli/dl/proc/2025/549/cod/doc/com/COM_2025_549/FINAL/eng/art_7> ;
+    lomo:hasCategory dd:Data,
+        dd:DigitalSolutions ;
+    lomo:involvesProcess <http://example.org/process/programme-support> ;
+    lomo:produces <http://example.org/analysis/action/2>,
+        <http://example.org/analysis/action/3>,
+        <http://example.org/analysis/description/3/action> ;
+    lomo:references <http://example.org/dataset/europass-registered-user-profiles-related-to-careers-and-skills-incl-skills-self-assessments-libraries-wallets-digital-credentials-for-learning-learning-opportunities-accreditations-of-educational-institutions> ;
+    dcterms:description "The Programme shall support […] Programme implementation including synergies with, and support to other Union policies and programmes, online platforms, tools for virtual cooperation and tools to facilitate learning mobility (including support to the common framework and tools for the provision of better services for skills and qualifications (Europass))"@en ;
+    dcterms:relation <http://example.org/ie-solution/eu-digital-identity-walletw3c-verifiable-credential-standard>,
+        <http://example.org/ie-solution/euraxess-eures-hr-transformation-program-tools>,
+        <http://example.org/ie-solution/eures> .
+
+<http://example.org/analysis/description/3/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/3/action/role/addressee-european-commission-national-authorities-national-europass-centres-european-qualifications-framework-national-coordination-points-euroguidance-participants-individuals> .
+
+<http://example.org/analysis/description/3/action/role/addressee-european-commission-national-authorities-national-europass-centres-european-qualifications-framework-national-coordination-points-euroguidance-participants-individuals> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/european-commission-national-authorities-national-europass-centres-european-qualifications-framework-national-coordination-points-euroguidance-participants-individuals> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/interop/1> a cpsv:PublicService ;
+    rdfs:label "Europass registered user profiles, related to careers and skills (incl. skills self-assessments, libraries, wallets, digital credentials for learning…)"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/549/cod/doc/com/COM_2025_549/FINAL/eng/art_35>,
+        <https://data.europa.eu/eli/dl/proc/2025/549/cod/doc/com/COM_2025_549/FINAL/eng/art_7> ;
+    dcterms:description "Supports users to create a profile based on the European Europass profile format.Helps users identify, document, and present their skills and competences using structured tools, based on the European Classification for Skills and Occupations (ESCO)Offers self-assessment tools for languages and other soft skills."@en ;
+    dcterms:identifier "interop/1" ;
+    dcterms:references <http://example.org/ie-solution/euraxess-eures-hr-transformation-program-tools> ;
+    dcterms:title "Europass registered user profiles, related to careers and skills (incl. skills self-assessments, libraries, wallets, digital credentials for learning…)"@en .
+
+<http://example.org/analysis/interop/2> a cpsv:PublicService ;
+    rdfs:label "Job & learning opportunity recommender"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/549/cod/doc/com/COM_2025_549/FINAL/eng/art_35>,
+        <https://data.europa.eu/eli/dl/proc/2025/549/cod/doc/com/COM_2025_549/FINAL/eng/art_7> ;
+    dcterms:description "Provides access to job and course listings across Europe. Interoperability with EURES platform: Jobs are provided through the EURES platform.Europass profiles can be exported to the EURES platform to be found by EURES advisors and employers."@en ;
+    dcterms:identifier "interop/2" ;
+    dcterms:references <http://example.org/ie-solution/eures> ;
+    dcterms:title "Job & learning opportunity recommender"@en .
+
+<http://example.org/analysis/interop/3> a cpsv:PublicService ;
+    rdfs:label "Creation and storage of Digital Credentials for Learning (e.g. Europass mobility certificates)"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/549/cod/doc/com/COM_2025_549/FINAL/eng/art_35>,
+        <https://data.europa.eu/eli/dl/proc/2025/549/cod/doc/com/COM_2025_549/FINAL/eng/art_7> ;
+    dcterms:description "Enables education and training institutions to issue credentials related to learning in a standardised, trusted format, implementing the European Learning Model (ELM).Receiving and sharing digital credentials in the field of learning that are verifiable and interoperable across countries."@en ;
+    dcterms:identifier "interop/3" ;
+    dcterms:references <http://example.org/ie-solution/eu-digital-identity-walletw3c-verifiable-credential-standard> ;
+    dcterms:title "Creation and storage of Digital Credentials for Learning (e.g. Europass mobility certificates)"@en .
+
+<http://example.org/analysis/interop/4> a cpsv:PublicService ;
+    rdfs:label "Transparency of qualifications"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/549/cod/doc/com/COM_2025_549/FINAL/eng/art_35>,
+        <https://data.europa.eu/eli/dl/proc/2025/549/cod/doc/com/COM_2025_549/FINAL/eng/art_7> ;
+    dcterms:description "Supports transparency of qualifications and skills across EU Member States, EEA countries, candidates countries, potential candidates countriesEases mobility of learners, jobseekers, and volunteers by providing transparent, comparable information."@en ;
+    dcterms:identifier "interop/4" ;
+    dcterms:title "Transparency of qualifications"@en .
+
+<http://example.org/dataset/countries-organisations-budget-participants-and-priorities-per-project-project-results-where-applicable-per-key-action> a dcat:Dataset ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Countries, organisations, budget, participants and priorities per project, project results (where applicable per key Action)"@en ] ;
+    dcterms:title "Countries, organisations, budget, participants and priorities per project, project results (where applicable per key Action)"@en .
+
+<http://example.org/dataset/countries-organisations-budget-participants-and-priorities-per-project-where-applicable-per-key-action> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/549/cod/doc/com/COM_2025_549/FINAL/eng/art_20>,
+        <https://data.europa.eu/eli/dl/proc/2025/549/cod/doc/com/COM_2025_549/FINAL/eng/chp_20> ;
+    dcterms:conformsTo <http://example.org/standard/commission-monitoring-and-reporting-tools-including-egrants-for-the-centralised-management> ;
+    dcterms:title "Countries, organisations, budget, participants and priorities per project (where applicable per key Action)"@en .
+
+<http://example.org/dataset/europass-registered-user-profiles-eportfolio-it-module> a dcat:Dataset ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Europass registered user profiles (ePortfolio IT module)"@en ] ;
+    dcterms:title "Europass registered user profiles (ePortfolio IT module)"@en .
+
+<http://example.org/dataset/europass-registered-user-profiles-related-to-careers-and-skills-incl-skills-self-assessments-libraries-wallets-digital-credentials-for-learning-learning-opportunities-accreditations-of-educational-institutions> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/549/cod/doc/com/COM_2025_549/FINAL/eng/art_35>,
+        <https://data.europa.eu/eli/dl/proc/2025/549/cod/doc/com/COM_2025_549/FINAL/eng/art_7> ;
+    dcterms:conformsTo <http://example.org/standard/europass-candidate-profile>,
+        <http://example.org/standard/european-learning-model-elm> ;
+    dcterms:title "Europass registered user profiles, related to careers and skills (incl. skills self-assessments, libraries, wallets, digital credentials for learning…), learning opportunities, accreditations of educational institutions"@en .
+
+<http://example.org/dataset/learning-opportunities-accreditations-of-educational-institutions-qualification-dataset-register-it-module> a dcat:Dataset ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Learning opportunities, accreditations of educational institutions (Qualification Dataset Register IT module)"@en ] ;
+    dcterms:title "Learning opportunities, accreditations of educational institutions (Qualification Dataset Register IT module)"@en .
+
+<http://example.org/process/programme-support-indirect-grant-management> skos:prefLabel "Programme Support; Indirect Grant Management"@en .
+
+<http://example.org/standard/commission-monitoring-and-reporting-tools-including-egrants-for-the-centralised-management> a dcterms:Standard ;
+    dcterms:title "Commission monitoring and reporting tools including eGrants for the centralised management"@en .
+
+<http://example.org/standard/europass-candidate-profile> a dcterms:Standard ;
+    dcterms:title "Europass candidate profile"@en .
+
+<http://example.org/standard/european-learning-model-elm> a dcterms:Standard ;
+    dcterms:title "European Learning Model (ELM)"@en .
+
+<http://publications.europa.eu/resource/authority/corporate-body/COM> a m8g:PublicOrganisation ;
+    dcterms:description "The European Commission, provider of the interoperability assessment."@en ;
+    skos:prefLabel "European Commission"@en .
+
+<http://example.org/agent/european-commission-national-authorities-national-agencies-beneficiaries-participants> rdfs:label "European Commission, National Authorities, National Agencies; Beneficiaries; Participants"@en .
+
+<http://example.org/agent/individuals> rdfs:label "Individuals"@en .
+
+<http://example.org/ie-solution/eu-digital-identity-walletw3c-verifiable-credential-standard> a adms:Asset ;
+    dcterms:description "EU Digital Identity WalletW3C Verifiable Credential standard"@en ;
+    dcterms:title "EU Digital Identity WalletW3C Verifiable Credential standard"@en .
+
+<http://example.org/ie-solution/euraxess-eures-hr-transformation-program-tools> a adms:Asset ;
+    dcterms:description "Euraxess, EURES, HR transformation program tools"@en ;
+    dcterms:title "Euraxess, EURES, HR transformation program tools"@en .
+
+<http://example.org/ie-solution/eures> a adms:Asset ;
+    dcterms:description "EURES"@en ;
+    dcterms:title "EURES"@en .
+
+<http://example.org/process/programme-support> skos:prefLabel "Programme Support"@en .
+

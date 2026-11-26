@@ -1,0 +1,42 @@
+# The Turtle example of lomo:PrescriptiveRule in the specification of LOMO 1.1.0
+# (https://drpm.pages.code.europa.eu/lomo/latest/#PrescriptiveRule), with the prefixes it uses.
+@prefix ex: <http://example.org/> .
+@prefix lomo: <http://data.europa.eu/leg/lomo#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix dctype: <http://purl.org/dc/dcmitype/> .
+@prefix cpsv: <http://purl.org/vocab/cpsv#> .
+@prefix eli: <http://data.europa.eu/eli/ontology#> .
+@prefix tf: <http://data.europa.eu/leg/temporal-function/> .
+@prefix dm: <http://data.europa.eu/leg/deontic-modality/> .
+@prefix dd: <http://data.europa.eu/leg/digital-dimensions/> .
+@prefix rc: <http://data.europa.eu/leg/result-category/> .
+@prefix role: <http://publications.europa.eu/resource/authority/role/> .
+
+# 1) Fisheries regulation - data requirements (Article 4(1))
+ex:Requirement_Art4_Par1 rdf:type lomo:PrescriptiveRule ;
+    lomo:hasDeonticModality <http://data.europa.eu/leg/deontic-modality/Obligation> ;
+    lomo:hasRequirementType <http://publications.europa.eu/resource/dataset/administrative-obligation/c_80214a02> ;
+    lomo:produces ex:Action_Art4_DataCollection , ex:Action_Art4_DataTransmission ;
+    lomo:legalText "The detailed topics, transmission frequencies, reference periods and the dimensions related to sensitive species, organic production and regional breakdown on fisheries and aquaculture statistics referred to in Article 1, shall be as set out in the Annex."@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/96/cod/doc/com/COM_2025_425/FINAL/eng/art_4/par_1> .
+
+# 2) Financial reporting - publication obligation (Article 30(1))
+ex:Requirement_Art30_Par1_PublicationObligation rdf:type lomo:PrescriptiveRule ;
+    lomo:hasDeonticModality <http://data.europa.eu/leg/deontic-modality/Obligation> ;
+    lomo:hasRequirementType <http://publications.europa.eu/resource/dataset/administrative-obligation/c_80214a02> ;
+    lomo:produces ex:Action_Art30_Publish ;
+    lomo:legalText "Member States shall ensure that undertakings publish within a reasonable period of time, which shall not exceed 12 months after the balance sheet date, the duly approved annual financial statements and the management report, together with the opinion submitted by the statutory auditor or audit firm."@en ;
+    lomo:establishedIn <http://data.europa.eu/eli/dir/2013/34/oj/art_30/par_1> .
+
+# 3) Vehicle registration - temporary submission requirement (Article 10(2))
+ex:Requirement_Art10_Par2 rdf:type lomo:PrescriptiveRule ;
+    lomo:hasDeonticModality <http://data.europa.eu/leg/deontic-modality/Obligation> ;
+    lomo:hasRequirementType <http://publications.europa.eu/resource/dataset/administrative-obligation/c_39b9f824> ;
+    lomo:legalText "Until [date of entry into force + 4 years] the competent authorities shall require the submission of only Part I of the physical registration certificate when re-registering a vehicle previously registered in another Member State. Until that date, they may also accept the presentation of a mobile registration certificate, if any."@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/96/cod/doc/com/COM_2025_179/FINAL/art_10/par_2> .

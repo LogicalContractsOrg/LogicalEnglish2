@@ -1,0 +1,298 @@
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix dctype: <http://purl.org/dc/dcmitype/> .
+@prefix lomo: <http://data.europa.eu/leg/lomo#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix tf: <http://data.europa.eu/leg/temporal-function/> .
+
+<http://example.org/analysis/action/1> a lomo:Action ;
+    rdfs:label "Testing reports for all suppliers and copy of the mandate for and for authorised representatives the mandate"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "upon entry into force of revised rules for existing entries and when putting a product model on the EU market"@en ],
+        [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:deadline ;
+            lomo:temporalLabel "once"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/565/cod/doc/com/COM_2026_565/FINAL/eng/anx_1/art_2/par_8> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/1/role/addressee-national-market-surveillance-authorities-via-ec-run-eprel-database-compliance-part>,
+        <http://example.org/analysis/action/1/role/addresser-supplier-of-energy-related-product-with-label-and-authorised-representatives-of-3rd-country-manufacturers-of-energy-related-products> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Testing reports for all suppliers and copy of the mandate for and for authorised representatives the mandate"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/testing-reports-for-all-suppliers-and-copy-of-the-mandate-for-and-for-authorised-representatives-the-mandate> ] .
+
+<http://example.org/analysis/action/2> a lomo:Action ;
+    rdfs:label "Testing reports for tyre suppliers"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:deadline ;
+            lomo:temporalLabel "once"@en ],
+        [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "upon entry into force of revised rules for existing entries and when putting a product model on the EU market"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/565/cod/doc/com/COM_2026_565/FINAL/eng/anx_7/art_3> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/2/role/addressee-national-market-surveillance-authorities-via-ec-run-eprel-database-compliance-part>,
+        <http://example.org/analysis/action/2/role/addresser-tyre-suppliers> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Testing reports for tyre suppliers"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/testing-reports-for-tyre-suppliers> ] .
+
+<http://example.org/analysis/action/3> a lomo:Action ;
+    rdfs:label "Additional product specifications for tyres"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:deadline ;
+            lomo:temporalLabel "once"@en ],
+        [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "upon entry into force of revised rules for existing entries and when putting a product model on the EU market"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/565/cod/doc/com/COM_2026_565/FINAL/eng/art_2020>,
+        <https://data.europa.eu/eli/dl/proc/2026/565/cod/doc/com/COM_2026_565/FINAL/eng/art_3> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/3/role/addressee-european-commission>,
+        <http://example.org/analysis/action/3/role/addresser-tyre-supplier> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Additional product specifications for tyres"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/additional-product-specifications-for-tyres> ] .
+
+<http://example.org/analysis/description/1> a lomo:LegalRule ;
+    rdfs:label "Art 2 [Art 3(1) Article 4 and Art 11(13) of Regulation 2017/1369]"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/565/cod/doc/com/COM_2026_565/FINAL/eng/art_2/par_1> ;
+    lomo:hasCategory <http://data.europa.eu/leg/digital-dimensions/Data>,
+        <http://data.europa.eu/leg/digital-dimensions/DigitalPublicService> ;
+    lomo:involvesProcess <http://example.org/process/management-of-eprel-for-compliance> ;
+    lomo:produces <http://example.org/analysis/description/1/action> ;
+    dcterms:description "Provide EPREL registration number and/or link to EPREL"@en .
+
+<http://example.org/analysis/description/10> a lomo:LegalRule ;
+    rdfs:label "Art 4 [Annex VII of Regulation 2020/740]"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/565/cod/doc/com/COM_2026_565/FINAL/eng/anx_7/art_4> ;
+    lomo:involvesProcess <http://example.org/process/data> ;
+    lomo:produces <http://example.org/analysis/description/10/action> ;
+    dcterms:description "information, including test reports, to be provided in the compliance part of EPREL"@en .
+
+<http://example.org/analysis/description/2> a lomo:LegalRule ;
+    rdfs:label "Art 3 [Art 4 (8) of Regulation 2017/1369]"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/565/cod/doc/com/COM_2026_565/FINAL/eng/art_3/par_8> ;
+    lomo:hasCategory <http://data.europa.eu/leg/digital-dimensions/Data>,
+        <http://data.europa.eu/leg/digital-dimensions/DigitalPublicService> ;
+    lomo:involvesProcess <http://example.org/process/management-of-eprel-for-compliance> ;
+    lomo:produces <http://example.org/analysis/description/2/action> ;
+    dcterms:description "Authorised representatives to upload voluntarily into the compliance part of EPREL a copy of the mandate of the manufacturer."@en .
+
+<http://example.org/analysis/description/3> a lomo:LegalRule ;
+    rdfs:label "Art 3 [Art 5 (1) of Regulation 2017/1369]"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/565/cod/doc/com/COM_2026_565/FINAL/eng/art_3/par_1> ;
+    lomo:hasCategory <http://data.europa.eu/leg/digital-dimensions/DigitalPublicService>,
+        <http://data.europa.eu/leg/digital-dimensions/DigitalSolutions> ;
+    lomo:involvesProcess <http://example.org/process/download-and-print-label-if-specified-in-product-specific-act> ;
+    lomo:produces <http://example.org/analysis/description/3/action> ;
+    dcterms:description "Download and print from EPREL database the energy label for the correct model and with right colour scheme and size."@en .
+
+<http://example.org/analysis/description/4> a lomo:LegalRule ;
+    rdfs:label "Art 3 [Art 5 (2) of Regulation 2017/1369]"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/565/cod/doc/com/COM_2026_565/FINAL/eng/art_3/par_2> ;
+    lomo:involvesProcess <http://example.org/process/display-label> ;
+    lomo:produces <http://example.org/analysis/description/4/action> ;
+    dcterms:description "Retailers can use electronic displays for label display"@en .
+
+<http://example.org/analysis/description/5> a lomo:LegalRule ;
+    rdfs:label "Art 3 [Annex I of Regulation (EU) 2017/1369]"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/565/cod/doc/com/COM_2026_565/FINAL/eng/anx_1/art_3> ;
+    lomo:involvesProcess <http://example.org/process/management-of-eprel-for-compliance> ;
+    lomo:produces <http://example.org/analysis/description/5/action> ;
+    dcterms:description "Suppliers to upload into the compliance part of the EPREL database the testing reports (or summary if reports contain sensitive info) on a voluntary basis"@en .
+
+<http://example.org/analysis/description/6> a lomo:LegalRule ;
+    rdfs:label "Art 3 [Art5 (3) of Regulation 2017/1369]"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/565/cod/doc/com/COM_2026_565/FINAL/eng/art_3/par_3> ;
+    lomo:involvesProcess <http://example.org/process/management-of-registry-for-compliance> ;
+    lomo:produces <http://example.org/analysis/description/6/action> ;
+    dcterms:description "Providers of online marketplaces to verify registration of a product/supplier in EPREL before offering product for sale"@en .
+
+<http://example.org/analysis/description/7> a lomo:LegalRule ;
+    rdfs:label "Art 3 [Art 7 (2) of Regulation 2017/1369]"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/565/cod/doc/com/COM_2026_565/FINAL/eng/art_3/par_2> ;
+    lomo:hasCategory <http://data.europa.eu/leg/digital-dimensions/Data>,
+        <http://data.europa.eu/leg/digital-dimensions/DigitalPublicService> ;
+    lomo:involvesProcess <http://example.org/process/digitalisation-of-procurement> ;
+    lomo:produces <http://example.org/analysis/description/7/action> ;
+    dcterms:description "Obligation on MS to accept the information contained in EPREL for the purposes of financial schemes"@en .
+
+<http://example.org/analysis/description/8> a lomo:LegalRule ;
+    rdfs:label "Art 4 [Annex III of Regulation 2020/740]"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/565/cod/doc/com/COM_2026_565/FINAL/eng/anx_3/art_4> ;
+    lomo:involvesProcess <http://example.org/process/management-of-registry> ;
+    lomo:produces <http://example.org/analysis/description/8/action> ;
+    dcterms:description "information on tyre characteristics to be entered into EPREL database (public part)"@en .
+
+<http://example.org/analysis/description/9> a lomo:LegalRule ;
+    rdfs:label "Art 4 [Annex IV of Regulation 2020/740]"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/565/cod/doc/com/COM_2026_565/FINAL/eng/anx_4/art_4> ;
+    lomo:involvesProcess <http://example.org/process/display> ;
+    lomo:produces <http://example.org/analysis/description/9/action> ;
+    dcterms:description "information to be provided in visual advertisement including access/link to EPREL"@en .
+
+<http://example.org/analysis/solution/1> a dctype:Software ;
+    rdfs:label "EPREL"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/565/cod/doc/com/COM_2026_565/FINAL/eng/art_3/par_13> ;
+    lomo:hasCapability "Data collection, data use" ;
+    dcterms:publisher <http://example.org/agent/european-commission> ;
+    dcterms:title "EPREL"@en .
+
+<http://example.org/dataset/public-data-and-non-public-compliance-data-for-energy-related-products-with-label-placed-on-the-single-market-and-tyres> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/565/cod/doc/com/COM_2026_565/FINAL/eng/art_3> ;
+    dcterms:conformsTo <http://example.org/standard/existing-eprel-database-and-data-formats-implementation-regulation-2024994> ;
+    dcterms:title "Public data and non-public compliance data for energy-related products with label placed on the single market and tyres."@en .
+
+<http://example.org/agent/authorised-representatives-of-3rd-country-manufacturers> rdfs:label "Authorised representatives of 3rd country manufacturers"@en .
+
+<http://example.org/agent/ms-and-applicants-for-financial-schemes> rdfs:label "MS and applicants for financial schemes"@en .
+
+<http://example.org/agent/providers-of-online-marketplaces> rdfs:label "Providers of online marketplaces"@en .
+
+<http://example.org/agent/retailer> rdfs:label "Retailer"@en .
+
+<http://example.org/agent/retailers-at-point-of-sale> rdfs:label "Retailers at point of sale"@en .
+
+<http://example.org/agent/supplier-of-energy-related-product-with-label-and-authorised-representatives-of-3rd-country-manufacturers-of-energy-related-products> rdfs:label "Supplier of energy related product with label and authorised representatives of 3rd country manufacturers of energy-related products"@en .
+
+<http://example.org/agent/suppliers> rdfs:label "Suppliers"@en .
+
+<http://example.org/agent/suppliers-manufacturers-authorised-representatives-of-manufacturers-outside-the-eu-and-importers> rdfs:label "Suppliers (manufacturers, authorised representatives of manufacturers outside the EU) and importers)."@en .
+
+<http://example.org/agent/tyre-supplier> rdfs:label "Tyre supplier"@en .
+
+<http://example.org/agent/tyre-suppliers> rdfs:label "Tyre suppliers"@en .
+
+<http://example.org/analysis/action/1/role/addressee-national-market-surveillance-authorities-via-ec-run-eprel-database-compliance-part> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/national-market-surveillance-authorities-via-ec-run-eprel-database-compliance-part> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/1/role/addresser-supplier-of-energy-related-product-with-label-and-authorised-representatives-of-3rd-country-manufacturers-of-energy-related-products> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/supplier-of-energy-related-product-with-label-and-authorised-representatives-of-3rd-country-manufacturers-of-energy-related-products> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/2/role/addressee-national-market-surveillance-authorities-via-ec-run-eprel-database-compliance-part> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/national-market-surveillance-authorities-via-ec-run-eprel-database-compliance-part> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/2/role/addresser-tyre-suppliers> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/tyre-suppliers> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/3/role/addressee-european-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/european-commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/3/role/addresser-tyre-supplier> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/tyre-supplier> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/description/1/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/1/action/role/addressee-suppliers-manufacturers-authorised-representatives-of-manufacturers-outside-the-eu-and-importers> .
+
+<http://example.org/analysis/description/1/action/role/addressee-suppliers-manufacturers-authorised-representatives-of-manufacturers-outside-the-eu-and-importers> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/suppliers-manufacturers-authorised-representatives-of-manufacturers-outside-the-eu-and-importers> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/10/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/10/action/role/addressee-tyre-manufacturers> .
+
+<http://example.org/analysis/description/10/action/role/addressee-tyre-manufacturers> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/tyre-manufacturers> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/2/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/2/action/role/addressee-authorised-representatives-of-3rd-country-manufacturers> .
+
+<http://example.org/analysis/description/2/action/role/addressee-authorised-representatives-of-3rd-country-manufacturers> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/authorised-representatives-of-3rd-country-manufacturers> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/3/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/3/action/role/addressee-retailer> .
+
+<http://example.org/analysis/description/3/action/role/addressee-retailer> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/retailer> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/4/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/4/action/role/addressee-retailers-at-point-of-sale> .
+
+<http://example.org/analysis/description/4/action/role/addressee-retailers-at-point-of-sale> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/retailers-at-point-of-sale> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/5/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/5/action/role/addressee-suppliers> .
+
+<http://example.org/analysis/description/5/action/role/addressee-suppliers> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/suppliers> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/6/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/6/action/role/addressee-providers-of-online-marketplaces> .
+
+<http://example.org/analysis/description/6/action/role/addressee-providers-of-online-marketplaces> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/providers-of-online-marketplaces> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/7/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/7/action/role/addressee-ms-and-applicants-for-financial-schemes> .
+
+<http://example.org/analysis/description/7/action/role/addressee-ms-and-applicants-for-financial-schemes> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/ms-and-applicants-for-financial-schemes> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/8/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/8/action/role/addressee-tyre-manufacturers> .
+
+<http://example.org/analysis/description/8/action/role/addressee-tyre-manufacturers> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/tyre-manufacturers> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/9/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/9/action/role/addressee-tyre-manufacturers> .
+
+<http://example.org/analysis/description/9/action/role/addressee-tyre-manufacturers> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/tyre-manufacturers> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/dataset/additional-product-specifications-for-tyres> a dcat:Dataset ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Additional product specifications for tyres"@en ] ;
+    dcterms:title "Additional product specifications for tyres"@en .
+
+<http://example.org/dataset/testing-reports-for-all-suppliers-and-copy-of-the-mandate-for-and-for-authorised-representatives-the-mandate> a dcat:Dataset ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Testing reports for all suppliers and copy of the mandate for and for authorised representatives the mandate"@en ] ;
+    dcterms:title "Testing reports for all suppliers and copy of the mandate for and for authorised representatives the mandate"@en .
+
+<http://example.org/dataset/testing-reports-for-tyre-suppliers> a dcat:Dataset ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Testing reports for tyre suppliers"@en ] ;
+    dcterms:title "Testing reports for tyre suppliers"@en .
+
+<http://example.org/process/data> skos:prefLabel "Data"@en .
+
+<http://example.org/process/digitalisation-of-procurement> skos:prefLabel "Digitalisation of procurement"@en .
+
+<http://example.org/process/display> skos:prefLabel "Display"@en .
+
+<http://example.org/process/display-label> skos:prefLabel "Display label"@en .
+
+<http://example.org/process/download-and-print-label-if-specified-in-product-specific-act> skos:prefLabel "download and print label if specified in product specific act"@en .
+
+<http://example.org/process/management-of-registry> skos:prefLabel "Management of registry"@en .
+
+<http://example.org/process/management-of-registry-for-compliance> skos:prefLabel "Management of registry for compliance"@en .
+
+<http://example.org/standard/existing-eprel-database-and-data-formats-implementation-regulation-2024994> a dcterms:Standard ;
+    dcterms:title "Existing EPREL database and data formats Implementation Regulation 2024/994."@en .
+
+<http://example.org/agent/european-commission> rdfs:label "European Commission"@en .
+
+<http://example.org/agent/national-market-surveillance-authorities-via-ec-run-eprel-database-compliance-part> rdfs:label "National market surveillance authorities via EC run EPREL database (compliance part)"@en .
+
+<http://example.org/agent/tyre-manufacturers> rdfs:label "tyre manufacturers"@en .
+
+<http://example.org/process/management-of-eprel-for-compliance> skos:prefLabel "Management of EPREL for compliance"@en .
+

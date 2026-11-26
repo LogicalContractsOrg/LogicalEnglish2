@@ -1,0 +1,241 @@
+@prefix : <http://example.org/accounting-graph#> .
+@prefix lomo: <http://data.europa.eu/leg/lomo#> .
+@prefix eli: <http://data.europa.eu/eli/ontology#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix eli-lo: <http://data.europa.eu/eli-lo/ontology#> .
+
+<http://data.europa.eu/eli/dir/2013/34/oj> a eli:LegalResource .
+
+#################################################################
+# 
+# PART B: LEGAL DEFINITIONS (Article 2) - CONSOLIDATED
+#################################################################
+
+#--- Definition (1) ---
+:Def_PublicInterestEntity rdf:type lomo:Definition ;
+	rdfs:label "Definition: Public-Interest Entities"@en ;
+	lomo:establishedIn <http://data.europa.eu/eli/dir/2013/34/art_2/par_1/oj> ;
+	lomo:hasDefiniens "undertakings within the scope of Article 1 which are: (a) governed by the law of a Member State and whose transferable securities are admitted to trading on a regulated market of any Member State within the meaning of point (14) of Article 4(1) of Directive 2004/39/EC...; (b) credit institutions as defined in point (1) of Article 4 of Directive 2006/48/EC..., other than those referred to in Article 2 of that Directive; (c) insurance undertakings within the meaning of Article 2(1) of Council Directive 91/674/EEC...; or (d) designated by Member States as public-interest entities, for instance undertakings that are of significant public relevance because of the nature of their business, their size or the number of their employees;"@en ;
+	lomo:hasDefiniendum "public-interest entities"@en .
+
+#################################################################
+# 
+# (End of Article 2 Extraction)
+#################################################################
+
+#--- Institutional Agents ---
+
+:Def_MicroUndertaking rdf:type lomo:Definition ;
+	rdfs:label "Definition: Micro-undertakings"@en ;
+	lomo:establishedIn <http://data.europa.eu/eli/dir/2013/34/art_3/par_1/oj> ;
+	lomo:hasDefiniens "undertakings which on their balance sheet dates do not exceed the limits of at least two of the three following criteria:"@en ;
+	lomo:hasDefiniendum "micro-undertakings"@en ;
+	# Links the definition to the AgentType structured description
+	lomo:defines :Actor_MicroUndertaking .
+
+
+#--- Substantive Agents (Undertaking Categories from Art. 3) ---
+:Actor_MicroUndertaking rdf:type lomo:AgentType ;
+	rdfs:label "Micro-undertaking"@en ;
+	# Criterias to define AgentTypes could put in an LOMO extension
+	eli-lo:balance_sheet [
+		rdf:type eli-lo:Amount ;
+		eli-lo:upper_value_limit "350000"^^xsd:decimal ;
+		eli-lo:unit "EUR"@en ;
+		eli-lo:has_source <http://data.europa.eu/eli/dir/2013/34/art_3/par_1/pnt_a/oj> ;
+		eli-lo:source_text "balance sheet total: EUR 350 000;"@en
+	] ;
+	eli-lo:net_turn_over [
+		rdf:type eli-lo:Amount ;
+		eli-lo:upper_value_limit "700000"^^xsd:decimal ;
+		eli-lo:unit "EUR"@en ;
+		eli-lo:has_source <http://data.europa.eu/eli/dir/2013/34/art_3/par_1/pnt_b/oj> ;
+		eli-lo:source_text "net turnover: EUR 700 000;"@en
+	] ;
+	eli-lo:average_employees [
+		rdf:type eli-lo:Amount ;
+		eli-lo:upper_value_limit "10"^^xsd:decimal ;
+		eli-lo:unit "employees"@en ;
+		eli-lo:has_source <http://data.europa.eu/eli/dir/2013/34/art_3/par_1/pnt_c/oj> ;
+		eli-lo:source_text "average number of employees during the financial year: 10."@en
+	] ;
+	eli-lo:size_category :Size_Micro .
+
+
+# The remaining size categories are referenced by the Article 30 norm; only the
+# micro-undertaking one carries the full eli-lo criteria description above.
+:Actor_SmallUndertaking rdf:type lomo:AgentType ;
+	rdfs:label "Small undertaking"@en ;
+	eli-lo:size_category :Size_Small .
+
+:Actor_MediumSizedUndertaking rdf:type lomo:AgentType ;
+	rdfs:label "Medium-sized undertaking"@en ;
+	eli-lo:size_category :Size_Medium .
+
+:Actor_LargeUndertaking rdf:type lomo:AgentType ;
+	rdfs:label "Large undertaking"@en ;
+	eli-lo:size_category :Size_Large .
+
+:Agent_MemberState rdf:type lomo:AgentType ;
+	rdfs:label "Member State"@en .
+
+:Agent_Commission rdf:type lomo:Agent ;
+	rdfs:label "European Commission"@en .
+
+#################################################################
+#
+# PART C: SUBSTANTIVE LEGAL NORMS (Art. 19, 30) - WITH BLANK NODES
+#################################################################
+
+#--- Article 19 ---
+:Norm_ManagementReportContent rdf:type lomo:ConstitutiveRule ;
+	rdfs:label "Obligation for Content of Management Report"@en ;
+	lomo:establishedIn <http://data.europa.eu/eli/dir/2013/34/art_19/par_1/oj> ;
+	lomo:legalText "The management report shall include a fair review of the development and performance of the undertaking's business and of its position, together with a description of the principal risks and uncertainties that it faces."@en .
+
+#--- Article 30 ---
+:Norm_PublicationObligation rdf:type lomo:SubstantiveRule ;
+	rdfs:label "General Publication Obligation"@en ;
+	lomo:hasDeonticModality <http://data.europa.eu/leg/deontic-modality/Obligation> ;
+	# Note : in LOMO it is currently not possible
+	# to link Rules to agents on which they are applicable
+	# Agents are linked only Actions
+	# We suggest to introduce the equivalent of eli-lo:applies_to to capture this
+	eli-lo:applies_to :Actor_MicroUndertaking, :Actor_SmallUndertaking, :Actor_MediumSizedUndertaking, :Actor_LargeUndertaking ;
+	lomo:produces :Step_PublishFullReport ;
+	lomo:establishedIn <http://data.europa.eu/eli/dir/2013/34/art_30/par_1/oj> ;
+	lomo:legalText "Member States shall ensure that undertakings publish within a reasonable period of time, which shall not exceed 12 months after the balance sheet date, the duly approved annual financial statements and the management report, together with the opinion submitted by the statutory auditor or audit firm..."@en .
+
+:Step_PublishFullReport rdf:type lomo:Action ;
+	rdfs:label "publish statements, report, and auditor opinion"@en ;
+	lomo:hasResult 
+		:Doc_AnnualFinancialStatements,
+		:Doc_ManagementReport,
+		:Doc_AuditorOpinion ;
+	lomo:atTime [
+		rdf:type lomo:TemporalSpecification ;
+		# This is a deadline for the Action
+		lomo:hasFunction <http://data.europa.eu/leg/temporal-function/deadline> ;
+		# 12 months...
+		lomo:duration "P12M"^^xsd:duration ;
+		# ... after a named event
+		lomo:after [
+			rdf:type lomo:TemporalSpecification ;
+			lomo:temporalLabel "balance sheet date"@en ;
+			lomo:establishedIn <http://data.europa.eu/eli/dir/2013/34/art_30/par_1/oj> ;
+		] ;
+		lomo:establishedIn <http://data.europa.eu/eli/dir/2013/34/art_30/par_1/oj/art_30/par_1> ;
+		lomo:legalText "not exceed 12 months after the balance sheet date"@en ;		
+	] ;
+	lomo:establishedIn <http://data.europa.eu/eli/dir/2013/34/art_30/par_1/oj> ;
+	lomo:legalText "publish within a reasonable period of time, which shall not exceed 12 months after the balance sheet date, the duly approved annual financial statements and the management report, together with the opinion submitted by the statutory auditor or audit firm..."@en ;
+	# One AgentRole per agent: lomo:forAgent is single-valued and lomo:hasAgentRole
+	# expects IRIs, so the four undertaking categories get one named role each.
+	lomo:hasAgentRole
+		:AgentRole_MicroUndertaking_Publisher,
+		:AgentRole_SmallUndertaking_Publisher,
+		:AgentRole_MediumSizedUndertaking_Publisher,
+		:AgentRole_LargeUndertaking_Publisher .
+
+# TODO : the value ADDRESSER must be generalized to capture
+# the fact that an Action applies on an Agent
+:AgentRole_MicroUndertaking_Publisher rdf:type lomo:AgentRole ;
+	lomo:forAgent :Actor_MicroUndertaking ;
+	lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+:AgentRole_SmallUndertaking_Publisher rdf:type lomo:AgentRole ;
+	lomo:forAgent :Actor_SmallUndertaking ;
+	lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+:AgentRole_MediumSizedUndertaking_Publisher rdf:type lomo:AgentRole ;
+	lomo:forAgent :Actor_MediumSizedUndertaking ;
+	lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+:AgentRole_LargeUndertaking_Publisher rdf:type lomo:AgentRole ;
+	lomo:forAgent :Actor_LargeUndertaking ;
+	lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+	# This is how we would capture the addressee of the report with an additional AgentRole
+	# lomo:hasAgentRole [
+	# 	rdf:type lomo:AgentRole ;
+	# 	lomo:forAgent :AdmistrativeAuthorityOfTheMemberState ;
+	# 	# This would be the addressee
+	# 	lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> ;
+	# ] ;
+
+
+:Doc_ManagementReport rdf:type lomo:ActionResultType ;
+	rdfs:label "Management Report"@en ;
+	lomo:hasResultCategory <http://data.europa.eu/leg/result-category/report> .
+
+:Doc_AnnualFinancialStatements rdf:type lomo:ActionResultType ;
+	rdfs:label "Annual Financial Statements"@en ;
+	lomo:hasResultCategory <http://data.europa.eu/leg/result-category/report> .
+
+:Doc_AuditorOpinion rdf:type lomo:ActionResultType ;
+	rdfs:label "Auditor Opinion"@en ;
+	lomo:hasResultCategory <http://data.europa.eu/leg/result-category/report> .
+
+
+#################################################################
+# 
+# PART D: IMPLEMENTATION AND OVERSIGHT NORMS (Art. 3, 19, 30, 31, 53) - WITH BLANK NODES
+#################################################################
+
+
+:Norm_TranspositionObligation rdf:type lomo:ImplementationAndOversightRule ;
+	rdfs:label "Obligation to Transpose Directive"@en ;
+	lomo:hasDeonticModality <http://data.europa.eu/leg/deontic-modality/Obligation> ;
+	# TODO : cannot be expressed in LOMO
+	eli-lo:applies_to :Agent_MemberState ;
+	lomo:produces :Step_BringInForce, :Step_CommunicateText ;
+	lomo:establishedIn <http://data.europa.eu/eli/dir/2013/34/art_53/par_1/oj> ;
+	lomo:legalText "Member States shall bring into force the laws, regulations and administrative provisions necessary to comply with this Directive by 20 July 2015."@en .
+
+
+:Step_BringInForce rdf:type lomo:Action ;
+	rdfs:label "bring into force laws, regulations and administrative provisions"@en ;
+	# TODO : we suggest to introduce a direct predicate to link directly to the bearer
+	lomo:hasAgentRole :AgentRole_MemberState_Transposer ;
+	lomo:atTime [
+		rdf:type lomo:TemporalSpecification ;
+		# This is a deadline for the Action
+		lomo:hasFunction <http://data.europa.eu/leg/temporal-function/deadline> ;
+		lomo:instant "2015-07-20"^^xsd:date ;
+		lomo:temporalLabel "by 20 July 2015"@en ;
+		lomo:establishedIn <http://data.europa.eu/eli/dir/2013/34/art_53/par_1/oj> ;
+	] ;
+	lomo:establishedIn <http://data.europa.eu/eli/dir/2013/34/art_53/par_1/oj> ;
+	lomo:hasNext :Step_CommunicateText ;
+	lomo:legalText "Member States shall bring into force the laws, regulations and administrative provisions necessary to comply with this Directive by 20 July 2015. They shall immediately inform the Commission thereof."@en .
+
+# TODO : lomo:bearer was used here, but it is not a LOMO term and the controlled
+# list for lomo:withRole only allows ADDRESSER / ADDRESSEE / BENEF. ADDRESSEE is
+# used in the meantime: the Member State is the party the norm is addressed to.
+:AgentRole_MemberState_Transposer rdf:type lomo:AgentRole ;
+	lomo:forAgent :Agent_MemberState ;
+	lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+:Step_CommunicateText rdf:type eli-lo:LegalProcedureStep ;
+	rdfs:label "communicate text of main provisions of national law"@en ;
+	lomo:hasAgentRole [
+		rdf:type lomo:AgentRole ;
+		lomo:forAgent :Agent_MemberState ;
+		lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> ;
+	] ;
+	lomo:hasAgentRole [
+		rdf:type lomo:AgentRole ;
+		lomo:forAgent :Agent_Commission ;
+		# EU Commission is the addressee
+		lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> ;
+	] ;
+	lomo:hasResult :Doc_Legislation ; # Represents the text of national law
+	lomo:hasPrevious :Step_BringInForce ;
+	lomo:establishedIn <http://data.europa.eu/eli/dir/2013/34/art_53/par_2/oj> ;
+	lomo:legalText "Member States shall communicate to the Commission the text of the main provisions of national law which they adopt in the field covered by this Directive."@en .
+
+:Doc_Legislation rdf:type lomo:ActionResultType ;
+	rdfs:label "Text of National Law Provisions"@en ;
+	lomo:legalText "laws, regulations and administrative provisions necessary to comply with this Directive"@en .

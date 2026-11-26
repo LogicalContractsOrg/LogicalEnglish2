@@ -1,0 +1,797 @@
+@prefix : <http://data.europa.eu/leg/lomo/test#> .
+@prefix lomo: <http://data.europa.eu/leg/lomo#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix eli: <http://data.europa.eu/eli/ontology#> .
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix cpsv: <http://purl.org/vocab/cpsv#> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix cav: <http://data.europa.eu/2sa/cav#> .
+@prefix lfds: <http://data.europa.eu/2qy/lfds#> .
+
+@base <http://data.europa.eu/leg/lomo/test> .
+
+<http://data.europa.eu/leg/lomo/test> rdf:type owl:Ontology ;
+    dcterms:title "Proposal for a REGULATION OF THE EUROPEAN PARLIAMENT AND OF THE COUNCIL on settlement finality and repealing Directive 98/26/EC and amending Directive 2002/47/EC on financial collateral arrangements"@en ;
+    dcterms:description ""@en ;
+    dcterms:created "2026-02-17"^^xsd:date ;
+    dcterms:modified "2026-02-17"^^xsd:date ;    
+    owl:imports <http://data.europa.eu/leg/lomo> .
+
+#################################################################
+#    AGENTS (following ontology schema)
+#################################################################
+
+:Agent_ESMA rdf:type owl:NamedIndividual , lomo:Agent ;
+    rdfs:label "European Securities and Markets Authority"@en .
+
+:Agent_EBA rdf:type owl:NamedIndividual , lomo:Agent ;
+    rdfs:label "European Banking Authority"@en .
+
+:Agent_ESCB rdf:type owl:NamedIndividual , lomo:Agent ;
+    rdfs:label "European System of Central Banks"@en .
+
+:Agent_CompetentAuthority rdf:type owl:NamedIndividual , lomo:AgentType ;
+    rdfs:label "Competent Authority (Member State)"@en .
+
+:Agent_SystemOperator rdf:type owl:NamedIndividual , lomo:AgentType ;
+    rdfs:label "System Operator"@en .
+
+:Agent_ThirdCountrySystemOperator rdf:type owl:NamedIndividual , lomo:AgentType ;
+    rdfs:label "Third-Country System Operator"@en .
+
+:Agent_RegisteringAuthority rdf:type owl:NamedIndividual , lomo:AgentType ;
+    rdfs:label "Registering Authority"@en .
+
+:Agent_NationalCompetentAuthority rdf:type owl:NamedIndividual , lomo:AgentType ;
+    rdfs:label "National Competent Authority"@en .
+
+:Agent_DesignatingAuthority rdf:type owl:NamedIndividual , lomo:AgentType ;
+    rdfs:label "Designating Authority"@en .
+
+#################################################################
+#    LEGAL RULES (Prescriptive Rules with EXACT Digital Dimensions from file)
+#    Based on the exact elements in DIGITAL_DIMENSIONS.TXT
+#################################################################
+
+:Rule_Article26_CentralDatabase rdf:type owl:NamedIndividual , lomo:PrescriptiveRule , lomo:ImplementationAndOversightRule ;
+    rdfs:label "ESMA Central Database Establishment"@en ;
+    lomo:hasDeonticModality <http://data.europa.eu/leg/deontic-modality/Obligation> ;
+    lomo:hasRequirementType <http://publications.europa.eu/resource/dataset/law-implementation-and-oversight/c_39b9f824> ;
+    lomo:legalText "ESMA shall establish and maintain a central database providing access to the authorities involved in or concerned by the designation process of EU systems and the registration process of third-country systems, as well as the system operators."@en ;
+    lomo:establishedIn <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:52025PC0941/art_26> ;
+    lomo:hasCategory <http://data.europa.eu/leg/digital-dimensions/DigitalSolutions> ;
+    lomo:produces :Action_ESMA_EstablishDatabase ;
+    lomo:hasAgentRole :AgentRole_ESMA_DatabaseOperator ;
+    lomo:atTime :TemporalSpec_Immediate ;
+    lomo:involvesProcess :Process_DataSharing , :Process_SystemRegistration ;
+    lomo:references :DigitalSolution_CentralDatabase ;
+    rdfs:comment "ESMA shall establish and maintain a central database providing access to the authorities involved in or concerned by the designation process of EU systems and the registration process of third-country systems, as well as the system operators."@en .
+
+:Rule_Article4_ElectronicApplication rdf:type owl:NamedIndividual , lomo:PrescriptiveRule , lomo:SubstantiveRule ;
+    rdfs:label "Electronic Application Submission"@en ;
+    lomo:hasDeonticModality <http://data.europa.eu/leg/deontic-modality/Obligation> ;
+    lomo:hasRequirementType <http://publications.europa.eu/resource/dataset/administrative-obligation/c_80214a02> ;
+    lomo:legalText "The system operator that applies for designation of a system it operates shall submit, in an electronic format, an application addressed to the competent authority of the Member State whose law governs the system via the central database where it is processed afterwards and additional information might be asked."@en ;
+    lomo:establishedIn <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:52025PC0941/art_4> ;
+    lomo:hasCategory <http://data.europa.eu/leg/digital-dimensions/Data> , <http://data.europa.eu/leg/digital-dimensions/DigitalSolutions> ;
+    lomo:produces :Action_SystemOperator_SubmitApplication ;
+    lomo:hasAgentRole :AgentRole_SystemOperator_Applicant , :AgentRole_CompetentAuthority_Recipient ;
+    lomo:atTime :TemporalSpec_ApplicationPeriod ;
+    lomo:involvesProcess :Process_ApplicationSubmission ;
+    lomo:references :DigitalSolution_CentralDatabase , :Dataset_DesignationApplications , :Dataset_DesignationApplicationData , :DigitalPublicService_DesignationRegistrationPlatform ;
+    rdfs:comment "The system operator that applies for designation of a system it operates shall submit, in an electronic format, an application addressed to the competent authority of the Member State whose law governs the system via the central database where it is processed afterwards and additional information might be asked."@en .
+
+:Rule_Article6_Notification rdf:type owl:NamedIndividual , lomo:PrescriptiveRule , lomo:SubstantiveRule ;
+    rdfs:label "Notification of System Designation"@en ;
+    lomo:hasDeonticModality <http://data.europa.eu/leg/deontic-modality/Obligation> ;
+    lomo:hasRequirementType <http://publications.europa.eu/resource/dataset/administrative-obligation/c_39b9f824> ;
+    lomo:legalText "A competent authority shall notify ESMA where it has designated a system through the central database. The competent authority shall notify ESMA and any other concerned authorities through the central database of changes in relation to the designation of the system."@en ;
+    lomo:establishedIn <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:52025PC0941/art_6> ;
+    lomo:hasCategory <http://data.europa.eu/leg/digital-dimensions/Data> , <http://data.europa.eu/leg/digital-dimensions/DigitalSolutions> ;
+    lomo:produces :Action_CompetentAuthority_NotifyDesignation ;
+    lomo:hasAgentRole :AgentRole_CompetentAuthority_Notifier , :AgentRole_ESMA_Recipient ;
+    lomo:atTime :TemporalSpec_Immediate ;
+    lomo:involvesProcess :Process_Notification ;
+    lomo:references :DigitalSolution_CentralDatabase , :Dataset_SystemNotifications ;
+    rdfs:comment "A competent authority shall notify ESMA where it has designated a system through the central database. The competent authority shall notify ESMA and any other concerned authorities through the central database of changes in relation to the designation of the system."@en .
+
+:Rule_Article8_ChangesNotification rdf:type owl:NamedIndividual , lomo:PrescriptiveRule , lomo:SubstantiveRule ;
+    rdfs:label "Notification of System Changes"@en ;
+    lomo:hasDeonticModality <http://data.europa.eu/leg/deontic-modality/Obligation> ;
+    lomo:hasRequirementType <http://publications.europa.eu/resource/dataset/administrative-obligation/c_39b9f824> ;
+    lomo:legalText "The system operator shall notify the competent authority, via the central database of relevant changes to the information provided in the application."@en ;
+    lomo:establishedIn <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:52025PC0941/art_8> ;
+    lomo:hasCategory <http://data.europa.eu/leg/digital-dimensions/Data> , <http://data.europa.eu/leg/digital-dimensions/DigitalSolutions> ;
+    lomo:produces :Action_SystemOperator_NotifyChanges ;
+    lomo:hasAgentRole :AgentRole_SystemOperator_Notifier , :AgentRole_CompetentAuthority_Recipient ;
+    lomo:atTime :TemporalSpec_Ongoing ;
+    lomo:involvesProcess :Process_ChangeManagement ;
+    lomo:references :DigitalSolution_CentralDatabase , :Dataset_DesignationApplications ;
+    rdfs:comment "The system operator shall notify the competent authority, via the central database of relevant changes to the information provided in the application."@en .
+
+:Rule_Article9_WithdrawalNotification rdf:type owl:NamedIndividual , lomo:PrescriptiveRule , lomo:SubstantiveRule ;
+    rdfs:label "Notification of Designation Withdrawal"@en ;
+    lomo:hasDeonticModality <http://data.europa.eu/leg/deontic-modality/Obligation> ;
+    lomo:hasRequirementType <http://publications.europa.eu/resource/dataset/administrative-obligation/c_39b9f824> ;
+    lomo:legalText "Where a competent authority takes a decision to withdraw the designation of a system, the decision shall take effect throughout the Union and the competent authority shall inform the system operator, the national competent authority, ESMA, EBA and the ESCB via the central database."@en ;
+    lomo:establishedIn <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:52025PC0941/art_9> ;
+    lomo:hasCategory <http://data.europa.eu/leg/digital-dimensions/Data> , <http://data.europa.eu/leg/digital-dimensions/DigitalSolutions> ;
+    lomo:produces :Action_CompetentAuthority_NotifyWithdrawal ;
+    lomo:hasAgentRole :AgentRole_CompetentAuthority_Notifier ,
+                      :AgentRole_SystemOperator_Recipient ,
+                      :AgentRole_NationalCompetentAuthority_Recipient ,
+                      :AgentRole_ESMA_Recipient ,
+                      :AgentRole_EBA_Recipient ,
+                      :AgentRole_ESCB_Recipient ;
+    lomo:atTime :TemporalSpec_Immediate ;
+    lomo:involvesProcess :Process_Withdrawal ;
+    lomo:references :DigitalSolution_CentralDatabase , :Dataset_DesignationWithdrawals , :Dataset_DesignationWithdrawal ;
+    rdfs:comment "Where a competent authority takes a decision to withdraw the designation of a system, the decision shall take effect throughout the Union and the competent authority shall inform the system operator, the national competent authority, ESMA, EBA and the ESCB via the central database."@en .
+
+:Rule_Article10_CompetentAuthorityNotification rdf:type owl:NamedIndividual , lomo:PrescriptiveRule , lomo:SubstantiveRule ;
+    rdfs:label "Notification of Competent Authorities"@en ;
+    lomo:hasDeonticModality <http://data.europa.eu/leg/deontic-modality/Obligation> ;
+    lomo:hasRequirementType <http://publications.europa.eu/resource/dataset/administrative-obligation/c_39b9f824> ;
+    lomo:legalText "Member States shall notify, via the central database, the competent authorities and the registration authorities to ESMA."@en ;
+    lomo:establishedIn <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:52025PC0941/art_10> ;
+    lomo:hasCategory <http://data.europa.eu/leg/digital-dimensions/Data> , <http://data.europa.eu/leg/digital-dimensions/DigitalSolutions> ;
+    lomo:produces :Action_MemberState_NotifyAuthorities ;
+    lomo:hasAgentRole :AgentRole_MemberState_Notifier , :AgentRole_ESMA_Recipient ;
+    lomo:atTime :TemporalSpec_Immediate ;
+    lomo:involvesProcess :Process_AuthorityRegistration ;
+    lomo:references :DigitalSolution_CentralDatabase ;
+    rdfs:comment "Member States shall notify, via the central database, the competent authorities and the registration authorities to ESMA."@en .
+
+:Rule_Article11_InformationExchange rdf:type owl:NamedIndividual , lomo:PrescriptiveRule , lomo:SubstantiveRule ;
+    rdfs:label "Exchange of Information"@en ;
+    lomo:hasDeonticModality <http://data.europa.eu/leg/deontic-modality/Obligation> ;
+    lomo:hasRequirementType <http://publications.europa.eu/resource/dataset/administrative-obligation/c_39b9f824> ;
+    lomo:legalText "Designating authorities, registering authorities, national competent authorities, competent authorities referred to in Article 22(2), ESMA, EBA and the ESCB, shall share and provide one another with information where that is requested for carrying out their respective duties under this Regulation without undue delay."@en ;
+    lomo:establishedIn <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:52025PC0941/art_11> ;
+    lomo:hasCategory <http://data.europa.eu/leg/digital-dimensions/Data> , <http://data.europa.eu/leg/digital-dimensions/DigitalSolutions> , <http://data.europa.eu/leg/digital-dimensions/ProcessAutomation> ;
+    lomo:produces :Action_Authorities_ExchangeInformation ;
+    lomo:hasAgentRole :AgentRole_DesignatingAuthority_Sharer ,
+                      :AgentRole_RegisteringAuthority_Sharer ,
+                      :AgentRole_NationalCompetentAuthority_Sharer ,
+                      :AgentRole_CompetentAuthority_Sharer ,
+                      :AgentRole_ESMA_Sharer ,
+                      :AgentRole_EBA_Sharer ,
+                      :AgentRole_ESCB_Sharer ,
+                      :AgentRole_DesignatingAuthority_Recipient ,
+                      :AgentRole_RegisteringAuthority_Recipient ,
+                      :AgentRole_NationalCompetentAuthority_Recipient ,
+                      :AgentRole_CompetentAuthority_Recipient ,
+                      :AgentRole_ESMA_Recipient ,
+                      :AgentRole_EBA_Recipient ,
+                      :AgentRole_ESCB_Recipient ;
+    lomo:atTime :TemporalSpec_Ongoing ;
+    lomo:involvesProcess :Process_InformationExchange ;
+    lomo:references :DigitalSolution_CentralDatabase ;
+    rdfs:comment "Designating authorities, registering authorities, national competent authorities, competent authorities referred to in Article 22(2), ESMA, EBA and the ESCB, shall share and provide one another with information where that is requested for carrying out their respective duties under this Regulation without undue delay."@en .
+
+:Rule_Article13_RegistrationApplication rdf:type owl:NamedIndividual , lomo:PrescriptiveRule , lomo:SubstantiveRule ;
+    rdfs:label "Third-Country System Registration Application"@en ;
+    lomo:hasDeonticModality <http://data.europa.eu/leg/deontic-modality/Obligation> ;
+    lomo:hasRequirementType <http://publications.europa.eu/resource/dataset/administrative-obligation/c_80214a02> ;
+    lomo:legalText "Application, information, requests for information as well as decisions for third-country system registration are to be done via the central database."@en ;
+    lomo:establishedIn <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:52025PC0941/art_13> ;
+    lomo:hasCategory <http://data.europa.eu/leg/digital-dimensions/Data> , <http://data.europa.eu/leg/digital-dimensions/DigitalSolutions> ;
+    lomo:produces :Action_ThirdCountryOperator_SubmitRegistration ;
+    lomo:hasAgentRole :AgentRole_ThirdCountryOperator_Applicant , :AgentRole_ESMA_Recipient ;
+    lomo:atTime :TemporalSpec_ApplicationPeriod ;
+    lomo:involvesProcess :Process_Registration ;
+    lomo:references :DigitalSolution_CentralDatabase , :Dataset_RegistrationApplications , :Dataset_RegistrationDesignationSSCS , :Dataset_RegistrationDesignationPaymentSystems , :DigitalPublicService_DesignationRegistrationPlatform ;
+    rdfs:comment "Application, information, requests for information as well as decisions for third-country system registration are to be done via the central database."@en .
+
+:Rule_Article15_RegistrationNotification rdf:type owl:NamedIndividual , lomo:PrescriptiveRule , lomo:SubstantiveRule ;
+    rdfs:label "Notification of Registered Systems"@en ;
+    lomo:hasDeonticModality <http://data.europa.eu/leg/deontic-modality/Obligation> ;
+    lomo:hasRequirementType <http://publications.europa.eu/resource/dataset/administrative-obligation/c_39b9f824> ;
+    lomo:legalText "After taking a decision on registration of a system, each registering authority shall notify the applicant third-country system operator, ESMA, EBA, the ESCB and the other registering authorities, as applicable of its decision."@en ;
+    lomo:establishedIn <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:52025PC0941/art_15> ;
+    lomo:hasCategory <http://data.europa.eu/leg/digital-dimensions/Data> , <http://data.europa.eu/leg/digital-dimensions/DigitalSolutions> ;
+    lomo:produces :Action_RegisteringAuthority_NotifyRegistration ;
+    lomo:hasAgentRole :AgentRole_RegisteringAuthority_Notifier ,
+                      :AgentRole_ThirdCountryOperator_Recipient ,
+                      :AgentRole_ESMA_Recipient ,
+                      :AgentRole_EBA_Recipient ,
+                      :AgentRole_ESCB_Recipient ,
+                      :AgentRole_RegisteringAuthority_Recipient ;
+    lomo:atTime :TemporalSpec_Immediate ;
+    lomo:involvesProcess :Process_Notification ;
+    lomo:references :DigitalSolution_CentralDatabase , :Dataset_RegistrationApplications ;
+    rdfs:comment "After taking a decision on registration of a system, each registering authority shall notify the applicant third-country system operator, ESMA, EBA, the ESCB and the other registering authorities, as applicable of its decision."@en .
+
+:Rule_Article16_RegistrationWithdrawalNotification rdf:type owl:NamedIndividual , lomo:PrescriptiveRule , lomo:SubstantiveRule ;
+    rdfs:label "Notification of Registration Withdrawal"@en ;
+    lomo:hasDeonticModality <http://data.europa.eu/leg/deontic-modality/Obligation> ;
+    lomo:hasRequirementType <http://publications.europa.eu/resource/dataset/administrative-obligation/c_39b9f824> ;
+    lomo:legalText "Where the registering authority withdraws the registration, it shall notify the system operator as well as ESMA, EBA, the ESCB and other registering authorities, as applicable, of the decision."@en ;
+    lomo:establishedIn <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:52025PC0941/art_16> ;
+    lomo:hasCategory <http://data.europa.eu/leg/digital-dimensions/Data> , <http://data.europa.eu/leg/digital-dimensions/DigitalSolutions> ;
+    lomo:produces :Action_RegisteringAuthority_NotifyWithdrawal ;
+    lomo:hasAgentRole :AgentRole_RegisteringAuthority_Notifier ,
+                      :AgentRole_ThirdCountryOperator_Recipient ,
+                      :AgentRole_ESMA_Recipient ,
+                      :AgentRole_EBA_Recipient ,
+                      :AgentRole_ESCB_Recipient ,
+                      :AgentRole_RegisteringAuthority_Recipient ;
+    lomo:atTime :TemporalSpec_Immediate ;
+    lomo:involvesProcess :Process_Withdrawal ;
+    lomo:references :DigitalSolution_CentralDatabase , :Dataset_RegistrationWithdrawals , :Dataset_RegistrationWithdrawal ;
+    rdfs:comment "Where the registering authority withdraws the registration, it shall notify the system operator as well as ESMA, EBA, the ESCB and other registering authorities, as applicable, of the decision."@en .
+
+:Rule_Article22_InsolvencyNotification rdf:type owl:NamedIndividual , lomo:PrescriptiveRule , lomo:SubstantiveRule ;
+    rdfs:label "Notification of Insolvency Proceedings"@en ;
+    lomo:hasDeonticModality <http://data.europa.eu/leg/deontic-modality/Obligation> ;
+    lomo:hasRequirementType <http://publications.europa.eu/resource/dataset/administrative-obligation/c_39b9f824> ;
+    lomo:legalText "The competent authority shall immediately notify via the central database about insolvency proceedings ESMA, the ECB/ESCB, EBA, the European Systemic Risk Board and other Member States in writing."@en ;
+    lomo:establishedIn <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:52025PC0941/art_22> ;
+    lomo:hasCategory <http://data.europa.eu/leg/digital-dimensions/Data> , <http://data.europa.eu/leg/digital-dimensions/DigitalSolutions> ;
+    lomo:produces :Action_CompetentAuthority_NotifyInsolvency ;
+    lomo:hasAgentRole :AgentRole_CompetentAuthority_Notifier ,
+                      :AgentRole_ESMA_Recipient ,
+                      :AgentRole_ESCB_Recipient ,
+                      :AgentRole_EBA_Recipient ,
+                      :AgentRole_CompetentAuthority_Recipient ;
+    lomo:atTime :TemporalSpec_Immediate ;
+    lomo:involvesProcess :Process_InsolvencyHandling ;
+    lomo:references :DigitalSolution_CentralDatabase , :Dataset_InsolvencyData , :Dataset_InsolvencyProceedings ;
+    rdfs:comment "The competent authority shall immediately notify via the central database about insolvency proceedings ESMA, the ECB/ESCB, EBA, the European Systemic Risk Board and other Member States in writing."@en .
+
+#################################################################
+#    ACTIONS (following ontology schema)
+#################################################################
+
+:Action_ESMA_EstablishDatabase rdf:type owl:NamedIndividual , lomo:Action ;
+    rdfs:label "Establish Central Database"@en ;
+    lomo:hasAgentRole :AgentRole_ESMA_DatabaseOperator ;
+    lomo:hasResult :Result_CentralDatabase ;
+    lomo:atTime :TemporalSpec_Immediate .
+
+:Action_SystemOperator_SubmitApplication rdf:type owl:NamedIndividual , lomo:Action ;
+    rdfs:label "Submit Designation Application"@en ;
+    lomo:hasAgentRole :AgentRole_SystemOperator_Applicant , :AgentRole_CompetentAuthority_Recipient ;
+    lomo:hasResult :Result_ApplicationSubmission , :Dataset_DesignationApplicationData ;
+    lomo:atTime :TemporalSpec_ApplicationPeriod .
+
+:Result_ApplicationSubmission lomo:isManifestedIn :Dataset_DesignationApplicationData .
+
+:Action_CompetentAuthority_NotifyDesignation rdf:type owl:NamedIndividual , lomo:Action ;
+    rdfs:label "Notify System Designation"@en ;
+    lomo:hasAgentRole :AgentRole_CompetentAuthority_Notifier , :AgentRole_ESMA_Recipient ;
+    lomo:hasResult :Result_DesignationNotification , :Dataset_SystemNotifications ;
+    lomo:atTime :TemporalSpec_Immediate .
+
+:Result_DesignationNotification lomo:isManifestedIn :Dataset_SystemNotifications .
+
+:Action_SystemOperator_NotifyChanges rdf:type owl:NamedIndividual , lomo:Action ;
+    rdfs:label "Notify System Changes"@en ;
+    lomo:hasAgentRole :AgentRole_SystemOperator_Notifier , :AgentRole_CompetentAuthority_Recipient ;
+    lomo:hasResult :Result_ChangeNotification , :Dataset_DesignationWithdrawal ;
+    lomo:atTime :TemporalSpec_Ongoing .
+
+:Action_CompetentAuthority_NotifyWithdrawal rdf:type owl:NamedIndividual , lomo:Action ;
+    rdfs:label "Notify Designation Withdrawal"@en ;
+    lomo:hasAgentRole :AgentRole_CompetentAuthority_Notifier ,
+                      :AgentRole_SystemOperator_Recipient ,
+                      :AgentRole_NationalCompetentAuthority_Recipient ,
+                      :AgentRole_ESMA_Recipient ,
+                      :AgentRole_EBA_Recipient ,
+                      :AgentRole_ESCB_Recipient ;
+    lomo:hasResult :Result_WithdrawalNotification , :Dataset_DesignationWithdrawal ;
+    lomo:atTime :TemporalSpec_Immediate .
+
+:Action_MemberState_NotifyAuthorities rdf:type owl:NamedIndividual , lomo:Action ;
+    rdfs:label "Notify Competent Authorities"@en ;
+    lomo:hasAgentRole :AgentRole_MemberState_Notifier , :AgentRole_ESMA_Recipient ;
+    lomo:hasResult :Result_AuthorityNotification ;
+    lomo:atTime :TemporalSpec_Immediate .
+
+:Action_Authorities_ExchangeInformation rdf:type owl:NamedIndividual , lomo:Action ;
+    rdfs:label "Exchange Information"@en ;
+    lomo:hasAgentRole :AgentRole_DesignatingAuthority_Sharer ,
+                      :AgentRole_RegisteringAuthority_Sharer ,
+                      :AgentRole_NationalCompetentAuthority_Sharer ,
+                      :AgentRole_CompetentAuthority_Sharer ,
+                      :AgentRole_ESMA_Sharer ,
+                      :AgentRole_EBA_Sharer ,
+                      :AgentRole_ESCB_Sharer ,
+                      :AgentRole_DesignatingAuthority_Recipient ,
+                      :AgentRole_RegisteringAuthority_Recipient ,
+                      :AgentRole_NationalCompetentAuthority_Recipient ,
+                      :AgentRole_CompetentAuthority_Recipient ,
+                      :AgentRole_ESMA_Recipient ,
+                      :AgentRole_EBA_Recipient ,
+                      :AgentRole_ESCB_Recipient ;
+    lomo:hasResult :Result_InformationExchange ;
+    lomo:atTime :TemporalSpec_Ongoing .
+
+:Action_ThirdCountryOperator_SubmitRegistration rdf:type owl:NamedIndividual , lomo:Action ;
+    rdfs:label "Submit Registration Application"@en ;
+    lomo:hasAgentRole :AgentRole_ThirdCountryOperator_Applicant , :AgentRole_ESMA_Recipient ;
+    lomo:hasResult :Result_RegistrationApplication , :Dataset_RegistrationDesignationSSCS , :Dataset_RegistrationDesignationPaymentSystems ;
+    lomo:atTime :TemporalSpec_ApplicationPeriod .
+
+:Action_RegisteringAuthority_NotifyRegistration rdf:type owl:NamedIndividual , lomo:Action ;
+    rdfs:label "Notify System Registration"@en ;
+    lomo:hasAgentRole :AgentRole_RegisteringAuthority_Notifier ,
+                      :AgentRole_ThirdCountryOperator_Recipient ,
+                      :AgentRole_ESMA_Recipient ,
+                      :AgentRole_EBA_Recipient ,
+                      :AgentRole_ESCB_Recipient ,
+                      :AgentRole_RegisteringAuthority_Recipient ;
+    lomo:hasResult :Result_RegistrationNotification , :Dataset_RegistrationApplications ;
+    lomo:atTime :TemporalSpec_Immediate .
+
+:Action_RegisteringAuthority_NotifyWithdrawal rdf:type owl:NamedIndividual , lomo:Action ;
+    rdfs:label "Notify Registration Withdrawal"@en ;
+    lomo:hasAgentRole :AgentRole_RegisteringAuthority_Notifier ,
+                      :AgentRole_ThirdCountryOperator_Recipient ,
+                      :AgentRole_ESMA_Recipient ,
+                      :AgentRole_EBA_Recipient ,
+                      :AgentRole_ESCB_Recipient ,
+                      :AgentRole_RegisteringAuthority_Recipient ;
+    lomo:hasResult :Result_RegistrationWithdrawalNotification , :Dataset_RegistrationWithdrawal ;
+    lomo:atTime :TemporalSpec_Immediate .
+
+:Action_CompetentAuthority_NotifyInsolvency rdf:type owl:NamedIndividual , lomo:Action ;
+    rdfs:label "Notify Insolvency Proceedings"@en ;
+    lomo:hasAgentRole :AgentRole_CompetentAuthority_Notifier ,
+                      :AgentRole_ESMA_Recipient ,
+                      :AgentRole_ESCB_Recipient ,
+                      :AgentRole_EBA_Recipient ,
+                      :AgentRole_CompetentAuthority_Recipient ;
+    lomo:hasResult :Result_InsolvencyNotification , :Dataset_InsolvencyProceedings ;
+    lomo:atTime :TemporalSpec_Immediate .
+
+#################################################################
+#    AGENT ROLES (following ontology schema with exact actors from file)
+#################################################################
+
+:AgentRole_ESMA_DatabaseOperator rdf:type owl:NamedIndividual , lomo:AgentRole ;
+    lomo:forAgent :Agent_ESMA ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+:AgentRole_SystemOperator_Applicant rdf:type owl:NamedIndividual , lomo:AgentRole ;
+    lomo:forAgent :Agent_SystemOperator ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+:AgentRole_CompetentAuthority_Recipient rdf:type owl:NamedIndividual , lomo:AgentRole ;
+    lomo:forAgent :Agent_CompetentAuthority ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+:AgentRole_CompetentAuthority_Notifier rdf:type owl:NamedIndividual , lomo:AgentRole ;
+    lomo:forAgent :Agent_CompetentAuthority ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+:AgentRole_ESMA_Recipient rdf:type owl:NamedIndividual , lomo:AgentRole ;
+    lomo:forAgent :Agent_ESMA ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+:AgentRole_SystemOperator_Notifier rdf:type owl:NamedIndividual , lomo:AgentRole ;
+    lomo:forAgent :Agent_SystemOperator ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+:AgentRole_SystemOperator_Recipient rdf:type owl:NamedIndividual , lomo:AgentRole ;
+    lomo:forAgent :Agent_SystemOperator ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+:AgentRole_ThirdCountryOperator_Recipient rdf:type owl:NamedIndividual , lomo:AgentRole ;
+    lomo:forAgent :Agent_ThirdCountrySystemOperator ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+:AgentRole_NationalCompetentAuthority_Recipient rdf:type owl:NamedIndividual , lomo:AgentRole ;
+    lomo:forAgent :Agent_NationalCompetentAuthority ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+:AgentRole_DesignatingAuthority_Recipient rdf:type owl:NamedIndividual , lomo:AgentRole ;
+    lomo:forAgent :Agent_DesignatingAuthority ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+:AgentRole_RegisteringAuthority_Recipient rdf:type owl:NamedIndividual , lomo:AgentRole ;
+    lomo:forAgent :Agent_RegisteringAuthority ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+:AgentRole_EBA_Recipient rdf:type owl:NamedIndividual , lomo:AgentRole ;
+    lomo:forAgent :Agent_EBA ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+:AgentRole_ESCB_Recipient rdf:type owl:NamedIndividual , lomo:AgentRole ;
+    lomo:forAgent :Agent_ESCB ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+:AgentRole_MemberState_Notifier rdf:type owl:NamedIndividual , lomo:AgentRole ;
+    lomo:forAgent :Agent_CompetentAuthority ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+# Article 11 information exchange: each listed authority both shares information
+# (addresser) and receives it from the others (addressee), so every authority is
+# given one role per direction.
+
+:AgentRole_DesignatingAuthority_Sharer rdf:type owl:NamedIndividual , lomo:AgentRole ;
+    lomo:forAgent :Agent_DesignatingAuthority ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+:AgentRole_RegisteringAuthority_Sharer rdf:type owl:NamedIndividual , lomo:AgentRole ;
+    lomo:forAgent :Agent_RegisteringAuthority ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+:AgentRole_NationalCompetentAuthority_Sharer rdf:type owl:NamedIndividual , lomo:AgentRole ;
+    lomo:forAgent :Agent_NationalCompetentAuthority ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+:AgentRole_CompetentAuthority_Sharer rdf:type owl:NamedIndividual , lomo:AgentRole ;
+    lomo:forAgent :Agent_CompetentAuthority ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+:AgentRole_ESMA_Sharer rdf:type owl:NamedIndividual , lomo:AgentRole ;
+    lomo:forAgent :Agent_ESMA ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+:AgentRole_EBA_Sharer rdf:type owl:NamedIndividual , lomo:AgentRole ;
+    lomo:forAgent :Agent_EBA ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+:AgentRole_ESCB_Sharer rdf:type owl:NamedIndividual , lomo:AgentRole ;
+    lomo:forAgent :Agent_ESCB ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+:AgentRole_ThirdCountryOperator_Applicant rdf:type owl:NamedIndividual , lomo:AgentRole ;
+    lomo:forAgent :Agent_ThirdCountrySystemOperator ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+:AgentRole_RegisteringAuthority_Notifier rdf:type owl:NamedIndividual , lomo:AgentRole ;
+    lomo:forAgent :Agent_RegisteringAuthority ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+#################################################################
+#    TEMPORAL SPECIFICATIONS (following ontology schema)
+#################################################################
+
+:TemporalSpec_Immediate rdf:type owl:NamedIndividual , lomo:TemporalSpecification ;
+    rdfs:label "Immediate Implementation"@en ;
+    lomo:instant "2024-02-17"^^xsd:date ;
+    lomo:hasFunction <http://data.europa.eu/leg/temporal-function/startingPoint> ;
+    lomo:temporalLabel "Immediate"@en ;
+    lomo:frequency "Ad-hoc"@en .
+
+:TemporalSpec_ApplicationPeriod rdf:type owl:NamedIndividual , lomo:TemporalSpecification ;
+    rdfs:label "Application Processing Period"@en ;
+    lomo:duration "P20D"^^xsd:duration ;
+    lomo:hasFunction <http://data.europa.eu/leg/temporal-function/validity> ;
+    lomo:temporalLabel "For designation and on an ad-hoc basis if changes to the designation data occur"@en ;
+    lomo:frequency "For designation and on an ad-hoc basis if changes to the designation data occur"@en .
+
+:TemporalSpec_Ongoing rdf:type owl:NamedIndividual , lomo:TemporalSpecification ;
+    rdfs:label "Ongoing Obligation"@en ;
+    lomo:hasFunction <http://data.europa.eu/leg/temporal-function/validity> ;
+    lomo:temporalLabel "Ongoing"@en ;
+    lomo:frequency "Ad-hoc"@en .
+
+#################################################################
+#    ACTION RESULTS (following ontology schema)
+#################################################################
+
+:Result_CentralDatabase rdf:type owl:NamedIndividual , lomo:ActionResult ;
+    rdfs:label "Central Database System"@en ;
+    lomo:hasResultCategory <http://data.europa.eu/leg/result-category/report> ;
+    lomo:isManifestedIn :Dataset_CentralDatabase .
+
+:Result_ApplicationSubmission rdf:type owl:NamedIndividual , lomo:ActionResult ;
+    rdfs:label "Application Submission Record"@en ;
+    lomo:hasResultCategory <http://data.europa.eu/leg/result-category/report> ;
+    lomo:isManifestedIn :Dataset_ApplicationRecords .
+
+:Result_DesignationNotification rdf:type owl:NamedIndividual , lomo:ActionResult ;
+    rdfs:label "Designation Notification"@en ;
+    lomo:hasResultCategory <http://data.europa.eu/leg/result-category/report> ;
+    lomo:isManifestedIn :Dataset_NotificationRecords .
+
+:Result_ChangeNotification rdf:type owl:NamedIndividual , lomo:ActionResult ;
+    rdfs:label "Change Notification Record"@en ;
+    lomo:hasResultCategory <http://data.europa.eu/leg/result-category/report> ;
+    lomo:isManifestedIn :Dataset_ChangeRecords , :Dataset_DesignationWithdrawal .
+
+:Result_WithdrawalNotification rdf:type owl:NamedIndividual , lomo:ActionResult ;
+    rdfs:label "Withdrawal Notification"@en ;
+    lomo:hasResultCategory <http://data.europa.eu/leg/result-category/report> ;
+    lomo:isManifestedIn :Dataset_WithdrawalRecords , :Dataset_DesignationWithdrawal .
+
+:Result_AuthorityNotification rdf:type owl:NamedIndividual , lomo:ActionResult ;
+    rdfs:label "Authority Notification Record"@en ;
+    lomo:hasResultCategory <http://data.europa.eu/leg/result-category/report> ;
+    lomo:isManifestedIn :Dataset_AuthorityRecords .
+
+:Result_InformationExchange rdf:type owl:NamedIndividual , lomo:ActionResult ;
+    rdfs:label "Information Exchange Record"@en ;
+    lomo:hasResultCategory <http://data.europa.eu/leg/result-category/report> ;
+    lomo:isManifestedIn :Dataset_InformationExchange .
+
+:Result_RegistrationApplication rdf:type owl:NamedIndividual , lomo:ActionResult ;
+    rdfs:label "Registration Application Record"@en ;
+    lomo:hasResultCategory <http://data.europa.eu/leg/result-category/report> ;
+    lomo:isManifestedIn :Dataset_RegistrationApplications , :Dataset_RegistrationDesignationSSCS , :Dataset_RegistrationDesignationPaymentSystems .
+
+:Result_RegistrationNotification rdf:type owl:NamedIndividual , lomo:ActionResult ;
+    rdfs:label "Registration Notification"@en ;
+    lomo:hasResultCategory <http://data.europa.eu/leg/result-category/report> ;
+    lomo:isManifestedIn :Dataset_RegistrationNotifications .
+
+:Result_RegistrationWithdrawalNotification rdf:type owl:NamedIndividual , lomo:ActionResult ;
+    rdfs:label "Registration Withdrawal Notification"@en ;
+    lomo:hasResultCategory <http://data.europa.eu/leg/result-category/report> ;
+    lomo:isManifestedIn :Dataset_WithdrawalNotifications , :Dataset_RegistrationWithdrawal .
+
+:Result_InsolvencyNotification rdf:type owl:NamedIndividual , lomo:ActionResult ;
+    rdfs:label "Insolvency Notification Record"@en ;
+    lomo:hasResultCategory <http://data.europa.eu/leg/result-category/report> ;
+    lomo:isManifestedIn :Dataset_InsolvencyRecords , :Dataset_InsolvencyProceedings .
+
+#################################################################
+#    DATASETS (DCAT integration)
+#################################################################
+
+:Dataset_CentralDatabase rdf:type dcat:Dataset ;
+    dcterms:title "Central Database System"@en ;
+    dcterms:description "ESMA's central database for system designation and registration processes."@en .
+
+:Dataset_ApplicationRecords rdf:type dcat:Dataset ;
+    dcterms:title "System Designation Applications"@en ;
+    dcterms:description "Records of applications for system designation submitted via the central database."@en .
+
+:Dataset_NotificationRecords rdf:type dcat:Dataset ;
+    dcterms:title "System Designation Notifications"@en ;
+    dcterms:description "Records of notifications regarding system designations."@en .
+
+:Dataset_ChangeRecords rdf:type dcat:Dataset ;
+    dcterms:title "System Change Notifications"@en ;
+    dcterms:description "Records of notifications regarding changes to designated systems."@en .
+
+:Dataset_WithdrawalRecords rdf:type dcat:Dataset ;
+    dcterms:title "Designation Withdrawal Notifications"@en ;
+    dcterms:description "Records of notifications regarding withdrawal of system designations."@en .
+
+:Dataset_AuthorityRecords rdf:type dcat:Dataset ;
+    dcterms:title "Competent Authority Notifications"@en ;
+    dcterms:description "Records of notifications regarding competent authorities."@en .
+
+:Dataset_InformationExchange rdf:type dcat:Dataset ;
+    dcterms:title "Information Exchange Records"@en ;
+    dcterms:description "Records of information exchanges between authorities."@en .
+
+:Dataset_RegistrationApplications rdf:type dcat:Dataset ;
+    dcterms:title "Third-Country System Registration Applications"@en ;
+    dcterms:description "Records of applications for registration of third-country systems."@en .
+
+:Dataset_RegistrationNotifications rdf:type dcat:Dataset ;
+    dcterms:title "System Registration Notifications"@en ;
+    dcterms:description "Records of notifications regarding system registrations."@en .
+
+:Dataset_WithdrawalNotifications rdf:type dcat:Dataset ;
+    dcterms:title "Registration Withdrawal Notifications"@en ;
+    dcterms:description "Records of notifications regarding withdrawal of system registrations."@en .
+
+:Dataset_InsolvencyRecords rdf:type dcat:Dataset ;
+    dcterms:title "Insolvency Proceedings Notifications"@en ;
+    dcterms:description "Records of notifications regarding insolvency proceedings."@en .
+
+# Data types from DIGITAL_DIMENSIONS.TXT section 4.2.1
+
+:Dataset_DesignationApplicationData rdf:type dcat:Dataset ;
+    dcterms:title "Data relevant for application for designation as a EU system"@en ;
+    dcterms:description "Data relevant for application for designation as a EU system"@en ;
+    dcterms:conformsTo :Standard_Article5_1 .
+
+:Dataset_RegistrationDesignationSSCS rdf:type dcat:Dataset ;
+    dcterms:title "Data relevant for application for registration and designation of securities settlement and clearing systems"@en ;
+    dcterms:description "Data relevant for application for registration and designation of securities settlement and clearing systems"@en ;
+    dcterms:conformsTo :Standard_Article13_13 .
+
+:Dataset_DesignationWithdrawal rdf:type dcat:Dataset ;
+    dcterms:title "Data relevant for withdrawal of designation"@en ;
+    dcterms:description "Data relevant for withdrawal of designation"@en .
+
+:Dataset_RegistrationDesignationPaymentSystems rdf:type dcat:Dataset ;
+    dcterms:title "Data relevant for application for registration and designation of payment systems"@en ;
+    dcterms:description "Data relevant for application for registration and designation of payment systems"@en ;
+    dcterms:conformsTo :Standard_Article13_15 .
+
+:Dataset_RegistrationWithdrawal rdf:type dcat:Dataset ;
+    dcterms:title "Data relevant for withdrawal of registration"@en ;
+    dcterms:description "Data relevant for withdrawal of registration"@en .
+
+:Dataset_InsolvencyProceedings rdf:type dcat:Dataset ;
+    dcterms:title "Data regarding insolvency proceedings"@en ;
+    dcterms:description "Data regarding insolvency proceedings"@en .
+
+# Standards from DIGITAL_DIMENSIONS.TXT
+
+:Standard_Article5_1 rdf:type dcterms:Standard ;
+    dcterms:title "Article 5(1) Technical Standards"@en ;
+    dcterms:description "ESMA, in close cooperation with the ESCB, may develop draft regulatory technical standards to further specify the conditions referred to in Article 5(1) for security settlement systems and clearing systems. EBA, in close cooperation with the ESCB, may develop draft regulatory technical standards to further specify the conditions referred to in Article 5(1) for payment systems."@en .
+
+:Standard_Article13_13 rdf:type dcterms:Standard ;
+    dcterms:title "Article 13(13) Implementing Technical Standards"@en ;
+    dcterms:description "ESMA shall, in close cooperation with the ESCB, develop draft implementing technical standards to specify, for securities settlement systems and clearing systems: (a) the uniform electronic formats for the application for registration referred to in paragraph 1, to be submitted to the central database; (b) the uniform electronic formats for the application for designation referred to in Article 4(1), to be submitted to the central database."@en .
+
+:Standard_Article13_15 rdf:type dcterms:Standard ;
+    dcterms:title "Article 13(15) Regulatory Technical Standards"@en ;
+    dcterms:description "EBA shall, in close cooperation with the ESCB, develop, for payment systems, draft regulatory technical standards to further specify the information to be provided in: (a) an application for registration as referred to in paragraph 1 with a view to demonstrate that the applicant third-country system operator and the third-country system comply with all relevant requirements set out in this Article, including the conditions set out in Article 14, and to specify the information the application shall contain on the members, of the third-country system, established in the Union; (b) an application for designation as referred to in Article 4(1), with a view to demonstrate that the applicant system operator and the system comply with all the relevant requirements of this Regulation."@en .
+
+#################################################################
+#    HIGH-LEVEL PROCESSES (following ontology schema)
+#################################################################
+
+:HighLevelProcessScheme rdf:type skos:ConceptScheme ;
+    skos:prefLabel "High-Level Processes"@en ;
+    skos:definition "Classification scheme for high-level processes in the settlement finality regulation."@en .
+
+:Process_DataSharing rdf:type skos:Concept ;
+    skos:prefLabel "Data Sharing"@en ;
+    skos:definition "Processes related to sharing data between authorities and system operators."@en ;
+    skos:inScheme :HighLevelProcessScheme .
+
+:Process_SystemRegistration rdf:type skos:Concept ;
+    skos:prefLabel "System Registration"@en ;
+    skos:definition "Processes related to registration of systems and third-country systems."@en ;
+    skos:inScheme :HighLevelProcessScheme .
+
+:Process_ApplicationSubmission rdf:type skos:Concept ;
+    skos:prefLabel "Application Submission"@en ;
+    skos:definition "Processes related to submission of applications for system designation."@en ;
+    skos:inScheme :HighLevelProcessScheme .
+
+:Process_Notification rdf:type skos:Concept ;
+    skos:prefLabel "Notification"@en ;
+    skos:definition "Processes related to notification of system status changes."@en ;
+    skos:inScheme :HighLevelProcessScheme .
+
+:Process_ChangeManagement rdf:type skos:Concept ;
+    skos:prefLabel "Change Management"@en ;
+    skos:definition "Processes related to management of changes to designated systems."@en ;
+    skos:inScheme :HighLevelProcessScheme .
+
+:Process_Withdrawal rdf:type skos:Concept ;
+    skos:prefLabel "Withdrawal"@en ;
+    skos:definition "Processes related to withdrawal of system designations or registrations."@en ;
+    skos:inScheme :HighLevelProcessScheme .
+
+:Process_AuthorityRegistration rdf:type skos:Concept ;
+    skos:prefLabel "Authority Registration"@en ;
+    skos:definition "Processes related to registration of competent authorities."@en ;
+    skos:inScheme :HighLevelProcessScheme .
+
+:Process_InformationExchange rdf:type skos:Concept ;
+    skos:prefLabel "Information Exchange"@en ;
+    skos:definition "Processes related to exchange of information between authorities."@en ;
+    skos:inScheme :HighLevelProcessScheme .
+
+:Process_Registration rdf:type skos:Concept ;
+    skos:prefLabel "Registration"@en ;
+    skos:definition "Processes related to registration of third-country systems."@en ;
+    skos:inScheme :HighLevelProcessScheme .
+
+:Process_InsolvencyHandling rdf:type skos:Concept ;
+    skos:prefLabel "Insolvency Handling"@en ;
+    skos:definition "Processes related to handling of insolvency proceedings."@en ;
+    skos:inScheme :HighLevelProcessScheme .
+
+#################################################################
+#    DIGITAL SOLUTIONS (from DIGITAL_DIMENSIONS.TXT section 4.3)
+#################################################################
+
+:DigitalSolution_CentralDatabase rdf:type owl:NamedIndividual , dcterms:Software ;
+    skos:prefLabel "Central Database Solution"@en ;
+    skos:inScheme :DigitalDimensionScheme ;
+    skos:definition "Central database for simultaneous information sharing amongst authorities involved in the designation and registration process"@en ;
+    skos:broader <http://data.europa.eu/leg/digital-dimensions/DigitalSolutions> ;
+    dcterms:title "Central database"@en ;
+    rdfs:comment "Central database for simultaneous information sharing amongst authorities involved in the designation and registration process. Uses existing infrastructure for accessibility and reusability."@en ;
+    lomo:hasReference "Article 26" ;
+    lomo:hasFunctionality "Simultaneous information sharing" ;
+    lomo:hasCapability "Simultaneous information sharing amongst authorities involved in the designation and registration process" ;
+    dcterms:publisher :Agent_ESMA ;
+    lomo:hasResponsibleBody :Agent_ESMA ;
+    lomo:hasAccessibilityMeasure "ESMA, EBA (in close cooperation with the ESCB) shall develop draft implementing technical standards to specify the uniform electronic formats to be submitted to the central database." ;
+    lomo:hasReusabilityMeasure "Data provided to the central database under this Regulation is made available to relevant competent authorities if relevant or necessary for the performance of their duties under Regulations (EU) No 648/2012 and Regulation (EU) No 909/2014." ;
+    lomo:hasPolicyCompliance "Compliance with the EU Cybersecurity framework will be ensured through the implementation of technical standards and specifications, which will be established by ESMA and EBA in close collaboration with ESCB." .
+
+
+#################################################################
+#    DIGITAL PUBLIC SERVICES (from DIGITAL_DIMENSIONS.TXT section 4.4)
+#################################################################
+
+:DigitalPublicService_DesignationRegistrationPlatform rdf:type owl:NamedIndividual , cpsv:PublicService ;
+    dcterms:title "Platform for applications for designation of a system and third-country systems registration"@en ;
+    dcterms:description "Provide central entry point for applications in an electronic format for designation of a system. Provide central entry point for application for registration of third-country systems. Platform for processing and sharing the data amongst authorities involved in the designation and registration process."@en .    
+
+#################################################################
+#    IMPLEMENTATION MEASURES (from DIGITAL_DIMENSIONS.TXT section 4.5)
+#################################################################
+
+:ImplementationMeasure_CentralDatabase rdf:type owl:NamedIndividual , skos:Concept ;
+    skos:prefLabel "Central Database Establishment"@en ;
+    skos:inScheme :DigitalDimensionScheme ;
+    skos:definition "ESMA shall establish a central database"@en ;
+    lomo:hasReference "Article 26" ;
+    lomo:hasResponsibleBody :Agent_ESMA ;
+    lomo:hasTimeline "Immediate implementation" .
+
+:ImplementationMeasure_TechnicalStandards rdf:type owl:NamedIndividual , skos:Concept ;
+    skos:prefLabel "Technical Standards Development"@en ;
+    skos:inScheme :DigitalDimensionScheme ;
+    skos:definition "ESMA, EBA (in close cooperation with the ESCB) shall develop draft implementing technical standards to specify the uniform electronic formats to be submitted to the central database"@en ;
+    lomo:hasReference "Article 13(13), Article 13(15)" ;
+    lomo:hasResponsibleBody :Agent_ESMA , :Agent_EBA ;
+    lomo:hasTimeline "One year after entry into force" ;
+    lomo:hasCommissionRole "Delegated acts adoption" .
+
+#################################################################
+#    INTEROPERABILITY ASSESSMENTS (CAV format)
+#################################################################
+
+# Assessment Types
+:AssessmentTypeAlignmentPolicies rdf:type owl:NamedIndividual , cav:AssessmentType ;
+    dct:title "Assessment of alignment with existing digital and sectorial policies"@en .
+
+:AssessmentTypeOrganisationalMeasures rdf:type owl:NamedIndividual , cav:AssessmentType ;
+    dct:title "Assessment of organisational measures for smooth cross-border digital public services delivery"@en .
+
+:AssessmentTypeSharedDataUnderstanding rdf:type owl:NamedIndividual , cav:AssessmentType ;
+    dct:title "Assessment of measures taken to ensure a shared understanding of the data"@en .
+
+:AssessmentTypeStandardsSpecifications rdf:type owl:NamedIndividual , cav:AssessmentType ;
+    dct:title "Assessment of the use of commonly agreed open technical specifications and standards"@en .
+
+# Assessment Statements
+:Statement_AlignmentPolicies rdf:type owl:NamedIndividual , cav:Statement ;
+    dct:type :AssessmentTypeAlignmentPolicies ;
+    cav:judgement "The regulation aligns with existing digital and sectorial policies through the central database approach."@en ;
+    cav:type "Alignment Assessment"@en ;
+    cav:interpretation "The central database ensures consistency with EU digital policies and sector-specific requirements."@en .
+
+:Statement_OrganisationalMeasures rdf:type owl:NamedIndividual , cav:Statement ;
+    dct:type :AssessmentTypeOrganisationalMeasures ;
+    cav:judgement "Organisational measures are in place through ESMA's central database and technical standards development."@en ;
+    cav:type "Organisational Assessment"@en ;
+    cav:interpretation "ESMA, EBA, and ESCB collaboration ensures smooth cross-border service delivery."@en .
+
+:Statement_DataUnderstanding rdf:type owl:NamedIndividual , cav:Statement ;
+    dct:type :AssessmentTypeSharedDataUnderstanding ;
+    cav:judgement "Measures ensure shared data understanding through uniform electronic formats and standards."@en ;
+    cav:type "Data Understanding Assessment"@en ;
+    cav:interpretation "Technical standards development promotes consistent data interpretation across authorities."@en .
+
+:Statement_StandardsUsage rdf:type owl:NamedIndividual , cav:Statement ;
+    dct:type :AssessmentTypeStandardsSpecifications ;
+    cav:judgement "The regulation uses commonly agreed open technical specifications through implementing technical standards."@en ;
+    cav:type "Standards Assessment"@en ;
+    cav:interpretation "ESMA and EBA develop draft implementing technical standards for uniform electronic formats."@en .
+
+# Assessments
+:Assessment_AlignmentPolicies rdf:type owl:NamedIndividual , cav:Assessment ;
+    dct:type :AssessmentTypeAlignmentPolicies ;
+    dct:description "Assessment of alignment with existing digital and sectorial policies"@en ;
+    cav:resultsIn :Statement_AlignmentPolicies .
+
+:Assessment_OrganisationalMeasures rdf:type owl:NamedIndividual , cav:Assessment ;
+    dct:type :AssessmentTypeOrganisationalMeasures ;
+    dct:description "Assessment of organisational measures for smooth cross-border digital public services delivery"@en ;
+    cav:resultsIn :Statement_OrganisationalMeasures .
+
+:Assessment_DataUnderstanding rdf:type owl:NamedIndividual , cav:Assessment ;
+    dct:type :AssessmentTypeSharedDataUnderstanding ;
+    dct:description "Assessment of measures taken to ensure a shared understanding of the data"@en ;
+    cav:resultsIn :Statement_DataUnderstanding .
+
+:Assessment_StandardsUsage rdf:type owl:NamedIndividual , cav:Assessment ;
+    dct:type :AssessmentTypeStandardsSpecifications ;
+    dct:description "Assessment of the use of commonly agreed open technical specifications and standards"@en ;
+    cav:resultsIn :Statement_StandardsUsage .

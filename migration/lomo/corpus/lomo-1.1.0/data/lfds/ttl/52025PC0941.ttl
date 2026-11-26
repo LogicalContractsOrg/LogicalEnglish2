@@ -1,0 +1,543 @@
+@prefix cav: <http://data.europa.eu/2sa/cav#> .
+@prefix cpsv: <http://purl.org/vocab/cpsv#> .
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix dctype: <http://purl.org/dc/dcmitype/> .
+@prefix iac: <http://data.europa.eu/leg/interop-assessment#> .
+@prefix iopa: <http://data.europa.eu/2qy/iopa#> .
+@prefix lomo: <http://data.europa.eu/leg/lomo#> .
+@prefix m8g: <http://data.europa.eu/m8g/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix tf: <http://data.europa.eu/leg/temporal-function/> .
+
+<http://example.org/analysis/action/1> a lomo:Action ;
+    rdfs:label "Data relevant for application for designation as a EU system"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:deadline ;
+            lomo:temporalLabel "For designation and on an ad-hoc basis if changes to the designation data occur"@en ],
+        [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Application for designation"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/941/cod/doc/com/COM_2025_941/FINAL/eng/art_5/par_1> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/1/role/addressee-competent-authority-member-state>,
+        <http://example.org/analysis/action/1/role/addresser-system-operators> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Data relevant for application for designation as a EU system"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/data-relevant-for-application-for-designation-as-a-eu-system> ] .
+
+<http://example.org/analysis/action/2> a lomo:Action ;
+    rdfs:label "Data relevant for notification of systems to ESMA"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:deadline ;
+            lomo:temporalLabel "Ad-hoc"@en ],
+        [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Notification"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/941/cod/doc/com/COM_2025_941/FINAL/eng/art_6/par_2>,
+        <https://data.europa.eu/eli/dl/proc/2025/941/cod/doc/com/COM_2025_941/FINAL/eng/art_6/par_3> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/2/role/addressee-esma>,
+        <http://example.org/analysis/action/2/role/addresser-competent-authority-member-state> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Data relevant for notification of systems to ESMA"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/data-relevant-for-notification-of-systems-to-esma> ] .
+
+<http://example.org/analysis/action/3> a lomo:Action ;
+    rdfs:label "Data relevant for withdrawal of designation"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:deadline ;
+            lomo:temporalLabel "Ad-hoc"@en ],
+        [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Non-compliance with designation criteria"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/941/cod/doc/com/COM_2025_941/FINAL/eng/art_9/par_2>,
+        <https://data.europa.eu/eli/dl/proc/2025/941/cod/doc/com/COM_2025_941/FINAL/eng/art_9/par_4> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/3/role/addressee-esma-system-operator-other-relevant-authorities-eba-escb>,
+        <http://example.org/analysis/action/3/role/addresser-competent-authority-member-state> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Data relevant for withdrawal of designation"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/data-relevant-for-withdrawal-of-designation> ] .
+
+<http://example.org/analysis/action/4> a lomo:Action ;
+    rdfs:label "Data relevant for registration of third-country systems"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:deadline ;
+            lomo:temporalLabel "For registration and on an ad hoc basis if changes to the designation data occur"@en ],
+        [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Application for registration"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/941/cod/doc/com/COM_2025_941/FINAL/eng/art_14/par_1> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/4/role/addressee-esma-relevant-authorities-member-state-level-eba-escb>,
+        <http://example.org/analysis/action/4/role/addresser-third-country-system-operators> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Data relevant for registration of third-country systems"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/data-relevant-for-registration-of-third-country-systems> ] .
+
+<http://example.org/analysis/action/5> a lomo:Action ;
+    rdfs:label "Data relevant for withdrawal of registration"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:deadline ;
+            lomo:temporalLabel "Ad-hoc"@en ],
+        [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Non-compliance with registration criteria"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/941/cod/doc/com/COM_2025_941/FINAL/eng/art_16/par_2> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/5/role/addressee-esma-system-operator-other-relevant-authorities-eba-escb>,
+        <http://example.org/analysis/action/5/role/addresser-competent-authority-member-state> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Data relevant for withdrawal of registration"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/data-relevant-for-withdrawal-of-registration> ] .
+
+<http://example.org/analysis/action/6> a lomo:Action ;
+    rdfs:label "Data related to designated and registered systems"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:deadline ;
+            lomo:temporalLabel "Ad-hoc"@en ],
+        [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Update of data/availability of new data related to the designation and registration of systems"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/941/cod/doc/com/COM_2025_941/FINAL/eng/art_10/par_3>,
+        <https://data.europa.eu/eli/dl/proc/2025/941/cod/doc/com/COM_2025_941/FINAL/eng/art_15/par_2>,
+        <https://data.europa.eu/eli/dl/proc/2025/941/cod/doc/com/COM_2025_941/FINAL/eng/art_16/par_4>,
+        <https://data.europa.eu/eli/dl/proc/2025/941/cod/doc/com/COM_2025_941/FINAL/eng/art_6/par_4> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/6/role/addressee-general-public>,
+        <http://example.org/analysis/action/6/role/addresser-esma> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Data related to designated and registered systems"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/data-related-to-designated-and-registered-systems> ] .
+
+<http://example.org/analysis/action/7> a lomo:Action ;
+    rdfs:label "Data regarding insolvency proceedings"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Opening of insolvency proceedings"@en ],
+        [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:deadline ;
+            lomo:temporalLabel "Ad-hoc"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/941/cod/doc/com/COM_2025_941/FINAL/eng/art_12/par_2> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/7/role/addressee-ecbescb-eba-the-european-systemic-risk-board-and-other-member-states>,
+        <http://example.org/analysis/action/7/role/addressee-esma>,
+        <http://example.org/analysis/action/7/role/addresser-competent-authority-member-state> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Data regarding insolvency proceedings"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/data-regarding-insolvency-proceedings> ] .
+
+<http://example.org/analysis/assessment/1> a cav:Assessment ;
+    cav:assesses <http://example.org/analysis/description/2>,
+        <http://example.org/analysis/description/8> ;
+    cav:resultsIn <http://example.org/analysis/assessment/1/1/barrier>,
+        <http://example.org/analysis/assessment/1/2/measure>,
+        <http://example.org/analysis/assessment/1/3/measure>,
+        <http://example.org/analysis/assessment/1/4/measure> ;
+    m8g:isProvidedBy <http://publications.europa.eu/resource/authority/corporate-body/COM> .
+
+<http://example.org/analysis/description/1> a lomo:LegalRule ;
+    rdfs:label "Article 26 – Central database"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/941/cod/doc/com/COM_2025_941/FINAL/eng/art_26> ;
+    lomo:involvesProcess <http://example.org/process/establish-a-central-database> ;
+    lomo:produces <http://example.org/analysis/description/1/action> ;
+    dcterms:description "ESMA shall establish and maintain a central database providing access to the authorities involved in or concerned by the designation process of EU systems and the registration process of third-country systems, as well as the system operators."@en .
+
+<http://example.org/analysis/description/10> a lomo:LegalRule ;
+    rdfs:label "Article 16 – Withdrawal of registration"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/941/cod/doc/com/COM_2025_941/FINAL/eng/art_16> ;
+    lomo:hasCategory <http://data.europa.eu/leg/digital-dimensions/Data>,
+        <http://data.europa.eu/leg/digital-dimensions/DigitalSolutions> ;
+    lomo:involvesProcess <http://example.org/process/notify> ;
+    lomo:produces <http://example.org/analysis/description/10/action> ;
+    lomo:references <http://example.org/dataset/data-relevant-for-withdrawal-of-registration> ;
+    dcterms:description "Where the registering authority withdraws the registration, it shall notify the system operator as well as ESMA, EBA, the ESCB and other registering authorities, as applicable, of the decision."@en .
+
+<http://example.org/analysis/description/11> a lomo:LegalRule ;
+    rdfs:label "Article 22 – Insolvency proceedings"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/941/cod/doc/com/COM_2025_941/FINAL/eng/art_22> ;
+    lomo:hasCategory <http://data.europa.eu/leg/digital-dimensions/Data>,
+        <http://data.europa.eu/leg/digital-dimensions/DigitalSolutions> ;
+    lomo:involvesProcess <http://example.org/process/notify> ;
+    lomo:produces <http://example.org/analysis/description/11/action> ;
+    lomo:references <http://example.org/dataset/data-regarding-insolvency-proceedings> ;
+    dcterms:description "The competent authority shall immediately notify via the central database about insolvency proceedings ESMA, the ECB/ESCB, EBA, the European Systemic Risk Board and other Member States in writing."@en .
+
+<http://example.org/analysis/description/3> a lomo:LegalRule ;
+    rdfs:label "Article 6 – Notifications of systems"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/941/cod/doc/com/COM_2025_941/FINAL/eng/art_6> ;
+    lomo:hasCategory <http://data.europa.eu/leg/digital-dimensions/Data>,
+        <http://data.europa.eu/leg/digital-dimensions/DigitalSolutions> ;
+    lomo:involvesProcess <http://example.org/process/notify> ;
+    lomo:produces <http://example.org/analysis/description/3/action> ;
+    dcterms:description "A competent authority shall notify ESMA where it has designated a system through the central database. The competent authority shall notify ESMA and any other concerned authorities through the central database of changes in relation to the designation of the system."@en .
+
+<http://example.org/analysis/description/4> a lomo:LegalRule ;
+    rdfs:label "Article 8 – Duties of a system operator of a designated system"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/941/cod/doc/com/COM_2025_941/FINAL/eng/art_8> ;
+    lomo:hasCategory <http://data.europa.eu/leg/digital-dimensions/Data>,
+        <http://data.europa.eu/leg/digital-dimensions/DigitalSolutions> ;
+    lomo:involvesProcess <http://example.org/process/notify> ;
+    lomo:produces <http://example.org/analysis/description/4/action> ;
+    dcterms:description "The system operator shall notify the competent authority, via the central database of relevant changes to the information provided in the application."@en .
+
+<http://example.org/analysis/description/5> a lomo:LegalRule ;
+    rdfs:label "Article 9 – withdrawal of designation"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/941/cod/doc/com/COM_2025_941/FINAL/eng/art_9> ;
+    lomo:hasCategory <http://data.europa.eu/leg/digital-dimensions/Data>,
+        <http://data.europa.eu/leg/digital-dimensions/DigitalSolutions> ;
+    lomo:involvesProcess <http://example.org/process/notify> ;
+    lomo:produces <http://example.org/analysis/description/5/action> ;
+    lomo:references <http://example.org/dataset/data-relevant-for-withdrawal-of-designation> ;
+    dcterms:description "Where a competent authority takes a decision to withdraw the designation of a system, the decision shall take effect throughout the Union and the competent authority shall inform the system operator, the national competent authority, ESMA, EBA and the ESCB via the central database."@en .
+
+<http://example.org/analysis/description/6> a lomo:LegalRule ;
+    rdfs:label "Article 10 – competent authority"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/941/cod/doc/com/COM_2025_941/FINAL/eng/art_10> ;
+    lomo:hasCategory <http://data.europa.eu/leg/digital-dimensions/Data>,
+        <http://data.europa.eu/leg/digital-dimensions/DigitalSolutions> ;
+    lomo:involvesProcess <http://example.org/process/notify> ;
+    lomo:produces <http://example.org/analysis/description/6/action> ;
+    dcterms:description "Member States shall notify, via the central database, the competent authorities and the registration authorities to ESMA."@en .
+
+<http://example.org/analysis/description/7> a lomo:LegalRule ;
+    rdfs:label "Article 11 – Exchange of information"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/941/cod/doc/com/COM_2025_941/FINAL/eng/art_11> ;
+    lomo:hasCategory <http://data.europa.eu/leg/digital-dimensions/Data>,
+        <http://data.europa.eu/leg/digital-dimensions/DigitalSolutions>,
+        <http://data.europa.eu/leg/digital-dimensions/ProcessAutomation> ;
+    lomo:involvesProcess <http://example.org/process/notify> ;
+    lomo:produces <http://example.org/analysis/description/7/action> ;
+    dcterms:description "Designating authorities, registering authorities, national competent authorities, competent authorities referred to in Article 22(2), ESMA, EBA or the ESCB, shall share whatever information that is requested for carrying out their respective duties under this Regulation without undue delay"@en .
+
+<http://example.org/analysis/description/9> a lomo:LegalRule ;
+    rdfs:label "Article 15 – Notification of registered systems"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/941/cod/doc/com/COM_2025_941/FINAL/eng/art_15> ;
+    lomo:hasCategory <http://data.europa.eu/leg/digital-dimensions/Data>,
+        <http://data.europa.eu/leg/digital-dimensions/DigitalSolutions> ;
+    lomo:involvesProcess <http://example.org/process/notify> ;
+    lomo:produces <http://example.org/analysis/description/9/action> ;
+    dcterms:description "After taking a decision on registration of a system, each registering authority shall notify the applicant third-country system operator, ESMA, EBA, the ESCB and the other registering authorities, as applicable of its decision."@en .
+
+<http://example.org/analysis/solution/1> a dctype:Software ;
+    rdfs:label "Central database"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/941/cod/doc/com/COM_2025_941/FINAL/eng/art_26> ;
+    lomo:hasCapability "Simultaneous information sharing amongst authorities involved in the designation and registration process" ;
+    dcterms:publisher <http://example.org/agent/esma> ;
+    dcterms:title "Central database"@en .
+
+<http://example.org/agent/competent-authority-member-state-esma-ecbescb-eba-european-systemic-risk-board-other-member-states> rdfs:label "Competent authority (Member State), ESMA, ECB/ESCB, EBA, European Systemic Risk board, other Member States"@en .
+
+<http://example.org/agent/competent-authority-member-state-system-operator-esma-national-competent-authority-eba-escb> rdfs:label "Competent authority (Member State), system operator, ESMA, national competent authority, EBA, ESCB"@en .
+
+<http://example.org/agent/designating-authorities-registering-authorities-national-competent-authorities-competent-authorities-referred-to-in-article-222-esma-eba-or-the-escb> rdfs:label "Designating authorities, registering authorities, national competent authorities, competent authorities referred to in Article 22(2), ESMA, EBA or the ESCB"@en .
+
+<http://example.org/agent/ecbescb-eba-the-european-systemic-risk-board-and-other-member-states> rdfs:label "ECB/ESCB, EBA, the European Systemic Risk Board and other Member States"@en .
+
+<http://example.org/agent/esma-relevant-authorities-member-state-level-eba-escb> rdfs:label "ESMA, relevant authorities (Member State level), EBA, ESCB"@en .
+
+<http://example.org/agent/general-public> rdfs:label "General public"@en .
+
+<http://example.org/agent/system-operators> rdfs:label "System operators"@en .
+
+<http://example.org/agent/third-country-system-operator-esma-eba-competent-authority-member-state> rdfs:label "Third-country system operator, ESMA, EBA, competent authority (Member State)"@en .
+
+<http://example.org/agent/third-country-system-operators> rdfs:label "Third-country system operators"@en .
+
+<http://example.org/analysis/action/1/role/addressee-competent-authority-member-state> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/competent-authority-member-state> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/1/role/addresser-system-operators> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/system-operators> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/2/role/addressee-esma> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/esma> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/2/role/addresser-competent-authority-member-state> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/competent-authority-member-state> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/3/role/addressee-esma-system-operator-other-relevant-authorities-eba-escb> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/esma-system-operator-other-relevant-authorities-eba-escb> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/3/role/addresser-competent-authority-member-state> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/competent-authority-member-state> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/4/role/addressee-esma-relevant-authorities-member-state-level-eba-escb> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/esma-relevant-authorities-member-state-level-eba-escb> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/4/role/addresser-third-country-system-operators> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/third-country-system-operators> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/5/role/addressee-esma-system-operator-other-relevant-authorities-eba-escb> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/esma-system-operator-other-relevant-authorities-eba-escb> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/5/role/addresser-competent-authority-member-state> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/competent-authority-member-state> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/6/role/addressee-general-public> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/general-public> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/6/role/addresser-esma> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/esma> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/7/role/addressee-ecbescb-eba-the-european-systemic-risk-board-and-other-member-states> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/ecbescb-eba-the-european-systemic-risk-board-and-other-member-states> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/7/role/addressee-esma> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/esma> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/7/role/addresser-competent-authority-member-state> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/competent-authority-member-state> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/assessment/1/1/barrier> a cav:Statement ;
+    cav:interpretation iac:InterpretationPositive ;
+    cav:judgement "No remaining barriers."@en ;
+    cav:type iac:StatementTypeAlignmentBarrier ;
+    dcterms:description "Alignment with existing digital and sectorial policiesPlease list the applicable digital and sectorial policies identified"@en ;
+    dcterms:title "Platform for designation and third-country systems registration"@en .
+
+<http://example.org/analysis/assessment/1/2/measure> a cav:Statement ;
+    cav:interpretation iac:InterpretationPositive ;
+    cav:judgement "-ESMA, EBA (in close cooperation with the ESCB) will develop draft implementing technical standards to specify the uniform electronic formats to be submitted to the central database."@en ;
+    cav:type iac:StatementTypeOrganisationMeasure ;
+    dcterms:description "Organisational measures for a smooth cross-border digital public services deliveryPlease list the governance measures foreseen"@en ;
+    dcterms:title "Platform for designation and third-country systems registration"@en .
+
+<http://example.org/analysis/assessment/1/3/measure> a cav:Statement ;
+    cav:interpretation iac:InterpretationPositive ;
+    cav:judgement "-ESMA, EBA (in close cooperation with the ESCB) will develop draft implementing technical standards to specify the uniform electronic formats to be submitted to the central database."@en ;
+    cav:type iac:StatementTypeSharedMeasure ;
+    dcterms:description "Measures taken to ensure a shared understanding of the dataPlease list such measures"@en ;
+    dcterms:title "Platform for designation and third-country systems registration"@en .
+
+<http://example.org/analysis/assessment/1/4/measure> a cav:Statement ;
+    cav:interpretation iac:InterpretationPositive ;
+    cav:judgement "-ESMA, EBA (in close cooperation with the ESCB) will develop draft implementing technical standards to specify the uniform electronic formats for the information to be submitted to the central database."@en ;
+    cav:type iac:StatementTypeStandardsMeasure ;
+    dcterms:description "Use of commonly agreed open technical specifications and standardsPlease list such measures"@en ;
+    dcterms:title "Platform for designation and third-country systems registration"@en .
+
+<http://example.org/analysis/description/1/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/1/action/role/addressee-esma> .
+
+<http://example.org/analysis/description/1/action/role/addressee-esma> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/esma> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/10/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/10/action/role/addressee-registering-authority-third-country-system-operator-esma-eba-escb-other-registering-authorities-as-applicable> .
+
+<http://example.org/analysis/description/10/action/role/addressee-registering-authority-third-country-system-operator-esma-eba-escb-other-registering-authorities-as-applicable> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/registering-authority-third-country-system-operator-esma-eba-escb-other-registering-authorities-as-applicable> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/11/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/11/action/role/addressee-competent-authority-member-state-esma-ecbescb-eba-european-systemic-risk-board-other-member-states> .
+
+<http://example.org/analysis/description/11/action/role/addressee-competent-authority-member-state-esma-ecbescb-eba-european-systemic-risk-board-other-member-states> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/competent-authority-member-state-esma-ecbescb-eba-european-systemic-risk-board-other-member-states> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/2> a iopa:BindingRequirement,
+        lomo:LegalRule ;
+    rdfs:label "Article 4 – Procedure for granting and refusing designation"@en ;
+    iopa:affects <http://example.org/analysis/interop/1> ;
+    cav:valueDescription "The system operator that applies for designation of a system it operates shall submit, in an electronic format, an application addressed to the competent authority of the Member State whose law governs the system via the central database where it is processed afterwards and additional information might be asked."@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/941/cod/doc/com/COM_2025_941/FINAL/eng/art_4> ;
+    lomo:hasCategory <http://data.europa.eu/leg/digital-dimensions/Data>,
+        <http://data.europa.eu/leg/digital-dimensions/DigitalSolutions> ;
+    lomo:involvesProcess <http://example.org/process/submission-of-datadocuments> ;
+    lomo:produces <http://example.org/analysis/description/2/action> ;
+    dcterms:description "The system operator that applies for designation of a system it operates shall submit, in an electronic format, an application addressed to the competent authority of the Member State whose law governs the system via the central database where it is processed afterwards and additional information might be asked."@en .
+
+<http://example.org/analysis/description/2/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/2/action/role/addressee-system-operator-competent-authority-member-state> .
+
+<http://example.org/analysis/description/2/action/role/addressee-system-operator-competent-authority-member-state> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/system-operator-competent-authority-member-state> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/3/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/3/action/role/addressee-competent-authority-member-state-esma> .
+
+<http://example.org/analysis/description/3/action/role/addressee-competent-authority-member-state-esma> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/competent-authority-member-state-esma> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/4/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/4/action/role/addressee-system-operator-competent-authority-member-state> .
+
+<http://example.org/analysis/description/4/action/role/addressee-system-operator-competent-authority-member-state> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/system-operator-competent-authority-member-state> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/5/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/5/action/role/addressee-competent-authority-member-state-system-operator-esma-national-competent-authority-eba-escb> .
+
+<http://example.org/analysis/description/5/action/role/addressee-competent-authority-member-state-system-operator-esma-national-competent-authority-eba-escb> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/competent-authority-member-state-system-operator-esma-national-competent-authority-eba-escb> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/6/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/6/action/role/addressee-competent-authority-member-state-esma> .
+
+<http://example.org/analysis/description/6/action/role/addressee-competent-authority-member-state-esma> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/competent-authority-member-state-esma> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/7/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/7/action/role/addressee-designating-authorities-registering-authorities-national-competent-authorities-competent-authorities-referred-to-in-article-222-esma-eba-or-the-escb> .
+
+<http://example.org/analysis/description/7/action/role/addressee-designating-authorities-registering-authorities-national-competent-authorities-competent-authorities-referred-to-in-article-222-esma-eba-or-the-escb> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/designating-authorities-registering-authorities-national-competent-authorities-competent-authorities-referred-to-in-article-222-esma-eba-or-the-escb> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/8> a iopa:BindingRequirement,
+        lomo:LegalRule ;
+    rdfs:label "Article 13 – Procedure for granting and refusing registration"@en ;
+    iopa:affects <http://example.org/analysis/interop/1> ;
+    cav:valueDescription "Application, information, requests for information as well as decisions for third-country system registration are to be done via the central database."@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/941/cod/doc/com/COM_2025_941/FINAL/eng/art_13> ;
+    lomo:hasCategory <http://data.europa.eu/leg/digital-dimensions/Data>,
+        <http://data.europa.eu/leg/digital-dimensions/DigitalSolutions> ;
+    lomo:involvesProcess <http://example.org/process/submission-of-datadocuments> ;
+    lomo:produces <http://example.org/analysis/description/8/action> ;
+    lomo:references <http://example.org/dataset/data-relevant-for-application-for-registration-and-designation-of-payment-systems>,
+        <http://example.org/dataset/data-relevant-for-application-for-registration-and-designation-of-securities-settlement-and-clearing-systems> ;
+    dcterms:description "Application, information, requests for information as well as decisions for third-country system registration are to be done via the central database."@en .
+
+<http://example.org/analysis/description/8/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/8/action/role/addressee-third-country-system-operator-esma-eba-competent-authority-member-state> .
+
+<http://example.org/analysis/description/8/action/role/addressee-third-country-system-operator-esma-eba-competent-authority-member-state> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/third-country-system-operator-esma-eba-competent-authority-member-state> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/9/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/9/action/role/addressee-registering-authority-third-country-system-operator-esma-eba-escb-other-registering-authorities-as-applicable> .
+
+<http://example.org/analysis/description/9/action/role/addressee-registering-authority-third-country-system-operator-esma-eba-escb-other-registering-authorities-as-applicable> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/registering-authority-third-country-system-operator-esma-eba-escb-other-registering-authorities-as-applicable> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/dataset/data-related-to-designated-and-registered-systems> a dcat:Dataset ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Data related to designated and registered systems"@en ] ;
+    dcterms:title "Data related to designated and registered systems"@en .
+
+<http://example.org/dataset/data-relevant-for-application-for-designation-as-a-eu-system> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/941/cod/doc/com/COM_2025_941/FINAL/eng/art_5/par_1> ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Data relevant for application for designation as a EU system"@en ] ;
+    dcterms:conformsTo <http://example.org/standard/eba-in-close-cooperation-with-the-escb-may-develop-draft-regulatory-technical-standards-to-further-specify-the-conditions-referred-to-in-article-51-for-payment-systems>,
+        <http://example.org/standard/esma-in-close-cooperation-with-the-escb-may-develop-draft-regulatory-technical-standards-to-further-specify-the-conditions-referred-to-in-article-51-for-security-settlement-systems-and-clearing-systems> ;
+    dcterms:title "Data relevant for application for designation as a EU system"@en .
+
+<http://example.org/dataset/data-relevant-for-application-for-registration-and-designation-of-payment-systems> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/941/cod/doc/com/COM_2025_941/FINAL/eng/art_13/par_15> ;
+    dcterms:conformsTo <http://example.org/standard/aan-application-for-registration-as-referred-to-in-paragraph-1-with-a-view-to-demonstrate-that-the-applicant-third-country-system-operator-and-the-third-country-system-comply-with-all-relevant-requirements-set-out-in-this-article-including-the-conditions-set-out-in-article-14-and-to-specify-the-information-the-application-shall-contain-on-the-members-of-the-third-country-system-established-in-the-union>,
+        <http://example.org/standard/ban-application-for-designation-as-referred-to-in-article-41-with-a-view-to-demonstrate-that-the-applicant-system-operator-and-the-system-comply-with-all-the-relevant-requirements-of-this-regulation>,
+        <http://example.org/standard/eba-shall-in-close-cooperation-with-the-escb-develop-for-payment-systems-draft-regulatory-technical-standards-to-further-specify-the-information-to-be-provided-in> ;
+    dcterms:title "Data relevant for application for registration and designation of payment systems"@en .
+
+<http://example.org/dataset/data-relevant-for-application-for-registration-and-designation-of-securities-settlement-and-clearing-systems> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/941/cod/doc/com/COM_2025_941/FINAL/eng/art_13/par_13> ;
+    dcterms:conformsTo <http://example.org/standard/athe-uniform-electronic-formats-for-the-application-for-registration-referred-to-in-paragraph-1-to-be-submitted-to-the-central-database>,
+        <http://example.org/standard/bthe-uniform-electronic-formats-for-the-application-for-designation-referred-to-in-article-41-to-be-submitted-to-the-central-database>,
+        <http://example.org/standard/esma-shall-in-close-cooperation-with-the-escb-develop-draft-implementing-technical-standards-to-specify-for-securities-settlement-systems-and-clearing-systems> ;
+    dcterms:title "Data relevant for application for registration and designation of securities settlement and clearing systems"@en .
+
+<http://example.org/dataset/data-relevant-for-notification-of-systems-to-esma> a dcat:Dataset ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Data relevant for notification of systems to ESMA"@en ] ;
+    dcterms:title "Data relevant for notification of systems to ESMA"@en .
+
+<http://example.org/dataset/data-relevant-for-registration-of-third-country-systems> a dcat:Dataset ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Data relevant for registration of third-country systems"@en ] ;
+    dcterms:title "Data relevant for registration of third-country systems"@en .
+
+<http://example.org/process/establish-a-central-database> skos:prefLabel "Establish a central database"@en .
+
+<http://example.org/standard/aan-application-for-registration-as-referred-to-in-paragraph-1-with-a-view-to-demonstrate-that-the-applicant-third-country-system-operator-and-the-third-country-system-comply-with-all-relevant-requirements-set-out-in-this-article-including-the-conditions-set-out-in-article-14-and-to-specify-the-information-the-application-shall-contain-on-the-members-of-the-third-country-system-established-in-the-union> a dcterms:Standard ;
+    dcterms:title "(a)an application for registration as referred to in paragraph 1 with a view to demonstrate that the applicant third-country system operator and the third-country system comply with all relevant requirements set out in this Article, including the conditions set out in Article 14, and to specify the information the application shall contain on the members, of the third-country system, established in the Union;"@en .
+
+<http://example.org/standard/athe-uniform-electronic-formats-for-the-application-for-registration-referred-to-in-paragraph-1-to-be-submitted-to-the-central-database> a dcterms:Standard ;
+    dcterms:title "(a)the uniform electronic formats for the application for registration referred to in paragraph 1, to be submitted to the central database;"@en .
+
+<http://example.org/standard/ban-application-for-designation-as-referred-to-in-article-41-with-a-view-to-demonstrate-that-the-applicant-system-operator-and-the-system-comply-with-all-the-relevant-requirements-of-this-regulation> a dcterms:Standard ;
+    dcterms:title "(b)an application for designation as referred to in Article 4(1), with a view to demonstrate that the applicant system operator and the system comply with all the relevant requirements of this Regulation."@en .
+
+<http://example.org/standard/bthe-uniform-electronic-formats-for-the-application-for-designation-referred-to-in-article-41-to-be-submitted-to-the-central-database> a dcterms:Standard ;
+    dcterms:title "(b)the uniform electronic formats for the application for designation referred to in Article 4(1), to be submitted to the central database."@en .
+
+<http://example.org/standard/eba-in-close-cooperation-with-the-escb-may-develop-draft-regulatory-technical-standards-to-further-specify-the-conditions-referred-to-in-article-51-for-payment-systems> a dcterms:Standard ;
+    dcterms:title "EBA, in close cooperation with the ESCB, may develop draft regulatory technical standards to further specify the conditions referred to in Article 5(1) for payment systems."@en .
+
+<http://example.org/standard/eba-shall-in-close-cooperation-with-the-escb-develop-for-payment-systems-draft-regulatory-technical-standards-to-further-specify-the-information-to-be-provided-in> a dcterms:Standard ;
+    dcterms:title "EBA shall, in close cooperation with the ESCB, develop, for payment systems, draft regulatory technical standards to further specify the information to be provided in:"@en .
+
+<http://example.org/standard/esma-in-close-cooperation-with-the-escb-may-develop-draft-regulatory-technical-standards-to-further-specify-the-conditions-referred-to-in-article-51-for-security-settlement-systems-and-clearing-systems> a dcterms:Standard ;
+    dcterms:title "ESMA, in close cooperation with the ESCB, may develop draft regulatory technical standards to further specify the conditions referred to in Article 5(1) for security settlement systems and clearing systems."@en .
+
+<http://example.org/standard/esma-shall-in-close-cooperation-with-the-escb-develop-draft-implementing-technical-standards-to-specify-for-securities-settlement-systems-and-clearing-systems> a dcterms:Standard ;
+    dcterms:title "ESMA shall, in close cooperation with the ESCB, develop draft implementing technical standards to specify, for securities settlement systems and clearing systems:"@en .
+
+<http://publications.europa.eu/resource/authority/corporate-body/COM> a m8g:PublicOrganisation ;
+    dcterms:description "The European Commission, provider of the interoperability assessment."@en ;
+    skos:prefLabel "European Commission"@en .
+
+<http://example.org/agent/competent-authority-member-state-esma> rdfs:label "Competent authority (Member State), ESMA"@en .
+
+<http://example.org/agent/esma-system-operator-other-relevant-authorities-eba-escb> rdfs:label "ESMA, system operator, other relevant authorities, EBA, ESCB"@en .
+
+<http://example.org/agent/registering-authority-third-country-system-operator-esma-eba-escb-other-registering-authorities-as-applicable> rdfs:label "Registering authority, third-country system operator, ESMA, EBA, ESCB, other registering authorities (as applicable)"@en .
+
+<http://example.org/agent/system-operator-competent-authority-member-state> rdfs:label "System operator, competent authority (Member State)"@en .
+
+<http://example.org/analysis/interop/1> a cpsv:PublicService ;
+    rdfs:label "Platform for applications for designation of a system and third-country systems registration"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/941/cod/doc/com/COM_2025_941/FINAL/eng/art_13>,
+        <https://data.europa.eu/eli/dl/proc/2025/941/cod/doc/com/COM_2025_941/FINAL/eng/art_4> ;
+    dcterms:description "Provide central entry point for applications in an electronic format for designation of a systemProvide central entry point for application for registration of third-country systemsPlatform for processing and sharing the data amongst authorities involved in the designation and registration process"@en ;
+    dcterms:identifier "interop/1" ;
+    dcterms:title "Platform for applications for designation of a system and third-country systems registration"@en .
+
+<http://example.org/dataset/data-regarding-insolvency-proceedings> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/941/cod/doc/com/COM_2025_941/FINAL/eng/art_22/par_2> ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Data regarding insolvency proceedings"@en ] ;
+    dcterms:title "Data regarding insolvency proceedings"@en .
+
+<http://example.org/dataset/data-relevant-for-withdrawal-of-designation> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/941/cod/doc/com/COM_2025_941/FINAL/eng/art_9/par_2>,
+        <https://data.europa.eu/eli/dl/proc/2025/941/cod/doc/com/COM_2025_941/FINAL/eng/art_9/par_4> ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Data relevant for withdrawal of designation"@en ] ;
+    dcterms:title "Data relevant for withdrawal of designation"@en .
+
+<http://example.org/dataset/data-relevant-for-withdrawal-of-registration> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/941/cod/doc/com/COM_2025_941/FINAL/eng/art_16/par_2>,
+        <https://data.europa.eu/eli/dl/proc/2025/941/cod/doc/com/COM_2025_941/FINAL/eng/art_16/par_4> ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Data relevant for withdrawal of registration"@en ] ;
+    dcterms:title "Data relevant for withdrawal of registration"@en .
+
+<http://example.org/process/submission-of-datadocuments> skos:prefLabel "Submission of data/documents"@en .
+
+<http://example.org/agent/competent-authority-member-state> rdfs:label "Competent authority (Member State)"@en .
+
+<http://example.org/agent/esma> rdfs:label "ESMA"@en .
+
+<http://example.org/process/notify> skos:prefLabel "Notify"@en .
+

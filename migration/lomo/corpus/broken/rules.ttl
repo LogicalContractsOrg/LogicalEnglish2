@@ -1,0 +1,10 @@
+# Broken on purpose: a constitutive rule with a modality and an action; a prescriptive rule with a modality outside the list.
+@prefix ex: <http://example.org/broken#> .
+@prefix lomo: <http://data.europa.eu/leg/lomo#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+ex:C1 a lomo:Definition ; rdfs:label "a definition"@en ; lomo:establishedIn <http://data.europa.eu/eli/reg/2016/679/art_4> ; lomo:hasDeonticModality <http://data.europa.eu/leg/deontic-modality/Obligation> ; lomo:produces ex:A1 .
+ex:P1 a lomo:PrescriptiveRule ; rdfs:label "a duty"@en ; lomo:establishedIn "not an address" ; lomo:hasDeonticModality <http://example.org/Duty> ; lomo:produces ex:A1 .
+ex:A1 a lomo:Action ; lomo:hasAgentRole ex:R .
+ex:R a lomo:AgentRole ; lomo:forAgent ex:X, ex:Y ; lomo:withRole <http://publications.europa.eu/resource/authority/role/OWNER> .

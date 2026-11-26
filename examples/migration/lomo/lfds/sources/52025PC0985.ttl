@@ -1,0 +1,146 @@
+@prefix adms: <http://www.w3.org/ns/adms#> .
+@prefix cpsv: <http://purl.org/vocab/cpsv#> .
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix dctype: <http://purl.org/dc/dcmitype/> .
+@prefix dd: <http://data.europa.eu/leg/digital-dimensions/> .
+@prefix lomo: <http://data.europa.eu/leg/lomo#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix tc: <http://data.europa.eu/9bx/> .
+@prefix tf: <http://data.europa.eu/leg/temporal-function/> .
+
+<http://example.org/analysis/action/1> a lomo:Action ;
+    rdfs:label "Metadata for spatial datasets and services"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Mandated by directive; periodic updates"@en ],
+        [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:deadline ;
+            lomo:temporalLabel "Ongoing and continuous."@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/985/cod/doc/com/COM_2025_985/FINAL/eng/art_5> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/1/role/addressee-public-access-with-full-reuse>,
+        <http://example.org/analysis/action/1/role/addresser-member-states> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Metadata for spatial datasets and services"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/metadata-for-spatial-datasets-and-services> ] .
+
+<http://example.org/analysis/description/1> a lomo:LegalRule ;
+    rdfs:label "Article 1"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/985/cod/doc/com/COM_2025_985/FINAL/eng/art_1> ;
+    lomo:involvesProcess <http://example.org/process/digital-infrastructure-governance> ;
+    lomo:produces <http://example.org/analysis/description/1/action> ;
+    dcterms:description "Establishment of a European infrastructure for spatial information (INSPIRE) building upon infrastructures established and operated by the Member States"@en .
+
+<http://example.org/analysis/description/2> a lomo:LegalRule ;
+    rdfs:label "Article 5(1)"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/985/cod/doc/com/COM_2025_985/FINAL/eng/art_5/par_1> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess tc:5 ;
+    lomo:produces <http://example.org/analysis/description/2/action> ;
+    dcterms:description "Metadata must be created and kept up to date for datasets and services"@en .
+
+<http://example.org/analysis/description/3> a lomo:LegalRule ;
+    rdfs:label "Article 5(2)"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/985/cod/doc/com/COM_2025_985/FINAL/eng/art_5/par_2> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess tc:5 ;
+    lomo:produces <http://example.org/analysis/description/3/action> ;
+    dcterms:description "Description of information to be included in metadata for spatial datasets and services"@en .
+
+<http://example.org/analysis/description/4> a lomo:LegalRule ;
+    rdfs:label "Article 5(3)"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/985/cod/doc/com/COM_2025_985/FINAL/eng/art_5/par_3> ;
+    lomo:hasCategory dd:Data,
+        dd:DigitalPublicService,
+        dd:DigitalSolutions ;
+    lomo:involvesProcess tc:5 ;
+    lomo:produces <http://example.org/analysis/description/4/action> ;
+    dcterms:description "Metadata describing spatial data sets and spatial data services should be reusable, discoverable and catalogued"@en .
+
+<http://example.org/analysis/interop/1> a cpsv:PublicService ;
+    rdfs:label "European infrastructure for spatial information"@en ;
+    dcterms:description "European infrastructure for spatial information building upon national infrastructures for spatial information created by the Member States and designed to ensure that spatial data are stored, made available and maintained at the most appropriate level and under conditions which do not unduly restrict their extensive use."@en ;
+    dcterms:identifier "interop/1" ;
+    dcterms:references <http://example.org/ie-solution/european-infrastructure-for-spatial-information-building-upon-national-infrastructures-for-spatial-information-created-by-the-member-states-and-designed-to-ensure-that-spatial-data-are-stored-made-available-and-maintained-at-the-most-appropriate-level-and-under-conditions-which-do-not-unduly-restrict-their-extensive-use> ;
+    dcterms:title "European infrastructure for spatial information"@en .
+
+<http://example.org/analysis/interop/2> a cpsv:PublicService ;
+    rdfs:label "European infrastructure for spatial information building upon national infrastructures for spatial information created by the Member States and designed to ensure that spatial data are stored, made available and maintained at the most appropriate level and under conditions which do not unduly restrict their extensive use."@en ;
+    dcterms:description "European infrastructure for spatial information building upon national infrastructures for spatial information created by the Member States and designed to ensure that spatial data are stored, made available and maintained at the most appropriate level and under conditions which do not unduly restrict their extensive use."@en ;
+    dcterms:identifier "interop/2" ;
+    dcterms:title "European infrastructure for spatial information building upon national infrastructures for spatial information created by the Member States and designed to ensure that spatial data are stored, made available and maintained at the most appropriate level and under conditions which do not unduly restrict their extensive use."@en .
+
+<http://example.org/analysis/solution/1> a dctype:Software ;
+    rdfs:label "National Spatial Data Infrastructures"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/985/cod/doc/com/COM_2025_985/FINAL/eng/art_1/par_2> ;
+    lomo:hasCapability "Host and provide access to metadata, spatial datasets and supporting information for interoperability" ;
+    dcterms:publisher <http://example.org/agent/member-states> ;
+    dcterms:title "National Spatial Data Infrastructures"@en .
+
+<http://example.org/dataset/spatial-data-elevation-models-protected-sites-etc> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/985/cod/doc/com/COM_2025_985/FINAL/eng/art_4> ;
+    dcterms:conformsTo <http://example.org/standard/annex-i-ii-and-iii-to-directive-20072ec-categories-1-geospatial2-earth-observation-and-environment-and-6-mobility-of-the-annex-to-commission-implementing-regulation-eu-2023138-on-high-value-datasets> ;
+    dcterms:title "Spatial data (elevation models, protected sites etc.)"@en .
+
+<http://example.org/agent/public-access-with-full-reuse> rdfs:label "Public access with full reuse"@en .
+
+<http://example.org/analysis/action/1/role/addressee-public-access-with-full-reuse> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/public-access-with-full-reuse> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/1/role/addresser-member-states> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/description/1/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/1/action/role/addressee-member-states> .
+
+<http://example.org/analysis/description/1/action/role/addressee-member-states> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/2/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/2/action/role/addressee-member-states> .
+
+<http://example.org/analysis/description/2/action/role/addressee-member-states> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/3/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/3/action/role/addressee-member-states> .
+
+<http://example.org/analysis/description/3/action/role/addressee-member-states> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/4/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/4/action/role/addressee-member-states> .
+
+<http://example.org/analysis/description/4/action/role/addressee-member-states> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/dataset/metadata-for-spatial-datasets-and-services> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/985/cod/doc/com/COM_2025_985/FINAL/eng/art_5> ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Metadata for spatial datasets and services"@en ] ;
+    dcterms:conformsTo <http://example.org/standard/inspire-metadata-regulation-ec-no-12052008-iso-19115-dcat-ap> ;
+    dcterms:title "Metadata for spatial datasets and services"@en .
+
+<http://example.org/ie-solution/european-infrastructure-for-spatial-information-building-upon-national-infrastructures-for-spatial-information-created-by-the-member-states-and-designed-to-ensure-that-spatial-data-are-stored-made-available-and-maintained-at-the-most-appropriate-level-and-under-conditions-which-do-not-unduly-restrict-their-extensive-use> a adms:Asset ;
+    dcterms:description "European infrastructure for spatial information building upon national infrastructures for spatial information created by the Member States and designed to ensure that spatial data are stored, made available and maintained at the most appropriate level and under conditions which do not unduly restrict their extensive use."@en ;
+    dcterms:title "European infrastructure for spatial information building upon national infrastructures for spatial information created by the Member States and designed to ensure that spatial data are stored, made available and maintained at the most appropriate level and under conditions which do not unduly restrict their extensive use."@en .
+
+<http://example.org/process/digital-infrastructure-governance> skos:prefLabel "Digital infrastructure governance"@en .
+
+<http://example.org/standard/annex-i-ii-and-iii-to-directive-20072ec-categories-1-geospatial2-earth-observation-and-environment-and-6-mobility-of-the-annex-to-commission-implementing-regulation-eu-2023138-on-high-value-datasets> a dcterms:Standard ;
+    dcterms:title "Annex I, II and III to Directive 2007/2/EC; Categories “1. GEOSPATIAL”,”2. EARTH OBSERVATION AND ENVIRONMENT” and “6. MOBILITY” of the Annex to Commission Implementing Regulation (EU) 2023/138 on high-value datasets."@en .
+
+<http://example.org/standard/inspire-metadata-regulation-ec-no-12052008-iso-19115-dcat-ap> a dcterms:Standard ;
+    dcterms:title "INSPIRE Metadata Regulation (EC) No 1205/2008; ISO 19115; DCAT-AP;"@en .
+
+tc:5 skos:prefLabel "Metadata management"@en .
+
+<http://example.org/agent/member-states> rdfs:label "Member States"@en .
+

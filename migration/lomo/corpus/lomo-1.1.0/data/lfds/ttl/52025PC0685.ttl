@@ -1,0 +1,255 @@
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix dctype: <http://purl.org/dc/dcmitype/> .
+@prefix dd: <http://data.europa.eu/leg/digital-dimensions/> .
+@prefix lomo: <http://data.europa.eu/leg/lomo#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix tf: <http://data.europa.eu/leg/temporal-function/> .
+
+<http://example.org/analysis/description/1> a lomo:LegalRule ;
+    rdfs:label "Article 36"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/685/cod/doc/com/COM_2025_685/FINAL/eng/art_36> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/report> ;
+    lomo:produces <http://example.org/analysis/action/1>,
+        <http://example.org/analysis/description/1/action> ;
+    lomo:references <http://example.org/dataset/any-information-on-vat-fraud> ;
+    dcterms:description "Eurofisc working field coordinators shall communicate any information on cross-border VAT fraud to the EPPO and OLAF"@en .
+
+<http://example.org/analysis/description/2> a lomo:LegalRule ;
+    rdfs:label "Article 49a, 49b"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/685/cod/doc/com/COM_2025_685/FINAL/eng/art_49> ;
+    lomo:hasCategory dd:DigitalSolutions ;
+    lomo:involvesProcess <http://example.org/process/access-registry>,
+        <http://example.org/process/monitor> ;
+    lomo:produces <http://example.org/analysis/description/2/action> ;
+    dcterms:description "Member States shall grant the EPPO and OLAF access to the information points referred to in (a)-(c) of Article 17(1) (intra-Community transactions - VIES)"@en .
+
+<http://example.org/analysis/description/3> a lomo:LegalRule ;
+    rdfs:label "Article 49a, 49b"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/685/cod/doc/com/COM_2025_685/FINAL/eng/art_49> ;
+    lomo:hasCategory dd:DigitalSolutions ;
+    lomo:involvesProcess <http://example.org/process/access-registry>,
+        <http://example.org/process/monitor> ;
+    lomo:produces <http://example.org/analysis/description/3/action> ;
+    dcterms:description "Member States shall grant the EPPO and OLAF access the information points referred to in (e), (f) of Article 17(1), (customs information relevant for VAT controls at import, VAT exempt imports, IOSS imports)"@en .
+
+<http://example.org/analysis/description/4> a lomo:LegalRule ;
+    rdfs:label "Article 49a, 49b"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ],
+        [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ],
+        [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/685/cod/doc/com/COM_2025_685/FINAL/eng/art_49> ;
+    lomo:hasCategory dd:DigitalSolutions ;
+    lomo:involvesProcess <http://example.org/process/access-registry>,
+        <http://example.org/process/monitor> ;
+    lomo:produces <http://example.org/analysis/action/2>,
+        <http://example.org/analysis/action/3>,
+        <http://example.org/analysis/action/4>,
+        <http://example.org/analysis/description/4/action> ;
+    lomo:references <http://example.org/dataset/information-points-referred-to-in-a-c-of-article-171-intra-community-transactions---vies>,
+        <http://example.org/dataset/information-points-referred-to-in-article-24b3-payment-information-cesop>,
+        <http://example.org/dataset/information-points-referred-to-in-e-f-of-article-171-customs-information-relevant-for-vat-controls-at-import-vat-exempt-imports-ioss-imports> ;
+    dcterms:description "Member States shall grant the EPPO and OLAF access to the information points referred to in Article 24b(3) (payment information – CESOP)"@en .
+
+<http://example.org/analysis/solution/1> a dctype:Software ;
+    rdfs:label "Existing IT tools used by Eurofisc"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/685/cod/doc/com/COM_2025_685/FINAL/eng/art_36> ;
+    lomo:hasCapability "Information exchange (spontaneous or upon request)" ;
+    dcterms:publisher <http://example.org/agent/eurofisc> ;
+    dcterms:title "Existing IT tools used by Eurofisc"@en .
+
+<http://example.org/analysis/solution/2> a dctype:Software ;
+    rdfs:label "VIES"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/685/cod/doc/com/COM_2025_685/FINAL/eng/art_49/par_1> ;
+    lomo:hasCapability "Information access" ;
+    dcterms:publisher <http://example.org/agent/member-states-commission> ;
+    dcterms:title "VIES"@en .
+
+<http://example.org/analysis/solution/3> a dctype:Software ;
+    rdfs:label "SURVEILLANCE"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/685/cod/doc/com/COM_2025_685/FINAL/eng/art_49/par_1> ;
+    lomo:hasCapability "Information access" ;
+    dcterms:publisher <http://example.org/agent/member-states-commission> ;
+    dcterms:title "SURVEILLANCE"@en .
+
+<http://example.org/analysis/solution/4> a dctype:Software ;
+    rdfs:label "CESOP"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/685/cod/doc/com/COM_2025_685/FINAL/eng/art_49/par_1> ;
+    lomo:hasCapability "Information access" ;
+    dcterms:publisher <http://example.org/agent/member-states-commission> ;
+    dcterms:title "CESOP"@en .
+
+<http://example.org/agent/eppo-olaf-eurofisc> rdfs:label "EPPO, OLAF, Eurofisc"@en .
+
+<http://example.org/analysis/action/1> a lomo:Action ;
+    rdfs:label "any information on cross-border VAT fraud"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Spontaneous or upon request"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/685/cod/doc/com/COM_2025_685/FINAL/eng/art_36> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/1/role/addressee-eppo-olaf>,
+        <http://example.org/analysis/action/1/role/addresser-eurofisc> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "any information on cross-border VAT fraud"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/any-information-on-cross-border-vat-fraud> ] .
+
+<http://example.org/analysis/action/1/role/addressee-eppo-olaf> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/eppo-olaf> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/1/role/addresser-eurofisc> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/eurofisc> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/2> a lomo:Action ;
+    rdfs:label "information points referred to in (a)-(c) of Article 17(1) (intra-Community transactions - VIES)"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Spontaneous"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/685/cod/doc/com/COM_2025_685/FINAL/eng/art_49> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/2/role/addressee-eppo-olaf>,
+        <http://example.org/analysis/action/2/role/addresser-member-states> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "information points referred to in (a)-(c) of Article 17(1) (intra-Community transactions - VIES)"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/information-points-referred-to-in-a-c-of-article-171-intra-community-transactions---vies> ] .
+
+<http://example.org/analysis/action/2/role/addressee-eppo-olaf> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/eppo-olaf> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/2/role/addresser-member-states> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/3> a lomo:Action ;
+    rdfs:label "information points referred to in (e), (f) of Article 17(1), (customs information relevant for VAT controls at import, VAT exempt imports, IOSS imports)"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Spontaneous"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/685/cod/doc/com/COM_2025_685/FINAL/eng/art_49> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/3/role/addressee-eppo-olaf>,
+        <http://example.org/analysis/action/3/role/addresser-member-states> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "information points referred to in (e), (f) of Article 17(1), (customs information relevant for VAT controls at import, VAT exempt imports, IOSS imports)"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/information-points-referred-to-in-e-f-of-article-171-customs-information-relevant-for-vat-controls-at-import-vat-exempt-imports-ioss-imports> ] .
+
+<http://example.org/analysis/action/3/role/addressee-eppo-olaf> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/eppo-olaf> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/3/role/addresser-member-states> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/4> a lomo:Action ;
+    rdfs:label "information points referred to in Article 24b(3) (payment information – CESOP)"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Spontaneous"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/685/cod/doc/com/COM_2025_685/FINAL/eng/art_49> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/4/role/addressee-eppo-olaf>,
+        <http://example.org/analysis/action/4/role/addresser-member-states> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "information points referred to in Article 24b(3) (payment information – CESOP)"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/information-points-referred-to-in-article-24b3-payment-information-cesop> ] .
+
+<http://example.org/analysis/action/4/role/addressee-eppo-olaf> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/eppo-olaf> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/4/role/addresser-member-states> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/description/1/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/1/action/role/addressee-eppo-olaf-eurofisc> .
+
+<http://example.org/analysis/description/1/action/role/addressee-eppo-olaf-eurofisc> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/eppo-olaf-eurofisc> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/2/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/2/action/role/addressee-eppo-olaf-member-states-eurofisc> .
+
+<http://example.org/analysis/description/2/action/role/addressee-eppo-olaf-member-states-eurofisc> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/eppo-olaf-member-states-eurofisc> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/3/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/3/action/role/addressee-eppo-olaf-member-states-eurofisc> .
+
+<http://example.org/analysis/description/3/action/role/addressee-eppo-olaf-member-states-eurofisc> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/eppo-olaf-member-states-eurofisc> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/4/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/4/action/role/addressee-eppo-olaf-member-states-eurofisc> .
+
+<http://example.org/analysis/description/4/action/role/addressee-eppo-olaf-member-states-eurofisc> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/eppo-olaf-member-states-eurofisc> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/dataset/any-information-on-cross-border-vat-fraud> a dcat:Dataset ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "any information on cross-border VAT fraud"@en ] ;
+    dcterms:title "any information on cross-border VAT fraud"@en .
+
+<http://example.org/dataset/any-information-on-vat-fraud> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/685/cod/doc/com/COM_2025_685/FINAL/eng/art_36> ;
+    dcterms:conformsTo <http://example.org/standard/when-relevant-according-to-the-commonly-agreed-formats-used-in-eurofisc-exchanged-over-existing-secure-communication-channels> ;
+    dcterms:title "any information on VAT fraud"@en .
+
+<http://example.org/process/report> skos:prefLabel "Report"@en .
+
+<http://example.org/standard/in-accordance-with-the-common-standardised-format-set-out-in-commission-implementing-regulation-eu-2022150439> a dcterms:Standard ;
+    dcterms:title "In accordance with the common standardised format set out in Commission Implementing Regulation (EU) 2022/150439"@en .
+
+<http://example.org/standard/in-accordance-with-the-common-standardised-format-set-out-in-commission-implementing-regulation-eu-no-79201238> a dcterms:Standard ;
+    dcterms:title "In accordance with the common standardised format set out in Commission Implementing Regulation (EU) No 79/201238"@en .
+
+<http://example.org/standard/in-accordance-with-the-common-standardised-format-set-out-in-vies-functional-specifications> a dcterms:Standard ;
+    dcterms:title "In accordance with the common standardised format set out in VIES functional specifications"@en .
+
+<http://example.org/standard/when-relevant-according-to-the-commonly-agreed-formats-used-in-eurofisc-exchanged-over-existing-secure-communication-channels> a dcterms:Standard ;
+    dcterms:title "When relevant, according to the commonly agreed formats used in Eurofisc exchanged over existing secure communication channels."@en .
+
+<http://example.org/agent/eurofisc> rdfs:label "Eurofisc"@en .
+
+<http://example.org/dataset/information-points-referred-to-in-a-c-of-article-171-intra-community-transactions---vies> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/685/cod/doc/com/COM_2025_685/FINAL/eng/art_49/par_1> ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "information points referred to in (a)-(c) of Article 17(1) (intra-Community transactions - VIES)"@en ] ;
+    dcterms:conformsTo <http://example.org/standard/in-accordance-with-the-common-standardised-format-set-out-in-vies-functional-specifications> ;
+    dcterms:title "information points referred to in (a)-(c) of Article 17(1) (intra-Community transactions - VIES)"@en .
+
+<http://example.org/dataset/information-points-referred-to-in-article-24b3-payment-information-cesop> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/685/cod/doc/com/COM_2025_685/FINAL/eng/art_49/par_1> ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "information points referred to in Article 24b(3) (payment information – CESOP)"@en ] ;
+    dcterms:conformsTo <http://example.org/standard/in-accordance-with-the-common-standardised-format-set-out-in-commission-implementing-regulation-eu-2022150439> ;
+    dcterms:title "information points referred to in Article 24b(3) (payment information – CESOP)"@en .
+
+<http://example.org/dataset/information-points-referred-to-in-e-f-of-article-171-customs-information-relevant-for-vat-controls-at-import-vat-exempt-imports-ioss-imports> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/685/cod/doc/com/COM_2025_685/FINAL/eng/art_49/par_1> ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "information points referred to in (e), (f) of Article 17(1), (customs information relevant for VAT controls at import, VAT exempt imports, IOSS imports)"@en ] ;
+    dcterms:conformsTo <http://example.org/standard/in-accordance-with-the-common-standardised-format-set-out-in-commission-implementing-regulation-eu-no-79201238> ;
+    dcterms:title "information points referred to in (e), (f) of Article 17(1), (customs information relevant for VAT controls at import, VAT exempt imports, IOSS imports)"@en .
+
+<http://example.org/agent/eppo-olaf-member-states-eurofisc> rdfs:label "EPPO, OLAF Member States, Eurofisc"@en .
+
+<http://example.org/agent/member-states> rdfs:label "Member States"@en .
+
+<http://example.org/process/access-registry> skos:prefLabel "Access registry;"@en .
+
+<http://example.org/process/monitor> skos:prefLabel "Monitor;"@en .
+
+<http://example.org/agent/eppo-olaf> rdfs:label "EPPO, OLAF"@en .
+

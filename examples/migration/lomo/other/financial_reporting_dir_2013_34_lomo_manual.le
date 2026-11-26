@@ -1,0 +1,535 @@
+% The register of a LOMO description: the Logical English twin of
+% financial-reporting-dir_2013_34-lomo-manual.ttl (kept in sources/), written by the LOMO translator.
+% One fact for each statement of the description, in the words of lomo.le.
+% LOMO describes rules; it has no conditions and no cases. A question
+% about a case gets its answer only from the parts of the description that
+% have values (deadlines, agents, derogations).
+%
+% LOMO and its data: (c) European Union, Creative Commons Attribution 4.0
+% (https://creativecommons.org/licenses/by/4.0/); source: the LOMO
+% repository, https://code.europa.eu/drpm/lomo. The description was changed
+% into Logical English by the LOMO translator of Logical English.
+%
+% DISCLAIMER. This program was written by a translator from a program of another
+% system. It is provided "as is", without warranty of any kind, express or
+% implied, including any warranty that it is accurate, complete or fit for a
+% particular purpose. The translation may be wrong: check it against its source
+% before relying on it. It is not legal, tax, insurance, financial or other
+% professional advice. Its authors accept no liability for any loss or damage
+% arising from its use.
+
+the target language is: prolog.
+
+the knowledge base financial_reporting_dir_2013_34_lomo_manual includes these resources:
+    lomo.
+
+the knowledge base financial_reporting_dir_2013_34_lomo_manual includes:
+
+the text of the source description is at "sources/financial-reporting-dir_2013_34-lomo-manual.ttl".
+
+% Who bears a duty: the agent of this role of the action (lomo.le).
+the bearer role is addresser.
+
+the values of "eli-lo:upper_value_limit" have the datatype "xsd:decimal".
+
+
+eli dir 2013 34 oj is identified by "http://data.europa.eu/eli/dir/2013/34/oj".
+
+eli dir 2013 34 oj has the type "eli:LegalResource".
+
+
+def public interest entity is identified by "http://example.org/accounting-graph#Def_PublicInterestEntity".
+
+def public interest entity is a definition.
+
+def public interest entity has the label "Definition: Public-Interest Entities".
+
+def public interest entity is established in "http://data.europa.eu/eli/dir/2013/34/art_2/par_1/oj".
+
+def public interest entity has the definiens "undertakings within the scope of Article 1 which are: (a) governed by the law of a Member State and whose transferable securities are admitted to trading on a regulated market of any Member State within the meaning of point (14) of Article 4(1) of Directive 2004/39/EC...; (b) credit institutions as defined in point (1) of Article 4 of Directive 2006/48/EC..., other than those referred to in Article 2 of that Directive; (c) insurance undertakings within the meaning of Article 2(1) of Council Directive 91/674/EEC...; or (d) designated by Member States as public-interest entities, for instance undertakings that are of significant public relevance because of the nature of their business, their size or the number of their employees;".
+
+def public interest entity has the definiendum "public-interest entities".
+
+
+def micro undertaking is identified by "http://example.org/accounting-graph#Def_MicroUndertaking".
+
+def micro undertaking is a definition.
+
+def micro undertaking has the label "Definition: Micro-undertakings".
+
+def micro undertaking is established in "http://data.europa.eu/eli/dir/2013/34/art_3/par_1/oj".
+
+def micro undertaking has the definiens "undertakings which on their balance sheet dates do not exceed the limits of at least two of the three following criteria:".
+
+def micro undertaking has the definiendum "micro-undertakings".
+
+def micro undertaking defines actor micro undertaking.
+
+
+actor micro undertaking is identified by "http://example.org/accounting-graph#Actor_MicroUndertaking".
+
+actor micro undertaking is an agent type.
+
+actor micro undertaking has the label "Micro-undertaking".
+
+actor micro undertaking has for "eli-lo:balance_sheet" the resource actor micro undertaking balance sheet.
+
+actor micro undertaking has for "eli-lo:net_turn_over" the resource actor micro undertaking net turn over.
+
+actor micro undertaking has for "eli-lo:average_employees" the resource actor micro undertaking average employees.
+
+actor micro undertaking has for "eli-lo:size_category" the resource "http://example.org/accounting-graph#Size_Micro".
+
+
+actor micro undertaking balance sheet has the type "eli-lo:Amount".
+
+actor micro undertaking balance sheet has for "eli-lo:upper_value_limit" the value 350000.
+
+actor micro undertaking balance sheet has for "eli-lo:unit" the value "EUR".
+
+actor micro undertaking balance sheet has for "eli-lo:has_source" the resource "http://data.europa.eu/eli/dir/2013/34/art_3/par_1/pnt_a/oj".
+
+actor micro undertaking balance sheet has for "eli-lo:source_text" the value "balance sheet total: EUR 350 000;".
+
+
+actor micro undertaking net turn over has the type "eli-lo:Amount".
+
+actor micro undertaking net turn over has for "eli-lo:upper_value_limit" the value 700000.
+
+actor micro undertaking net turn over has for "eli-lo:unit" the value "EUR".
+
+actor micro undertaking net turn over has for "eli-lo:has_source" the resource "http://data.europa.eu/eli/dir/2013/34/art_3/par_1/pnt_b/oj".
+
+actor micro undertaking net turn over has for "eli-lo:source_text" the value "net turnover: EUR 700 000;".
+
+
+actor micro undertaking average employees has the type "eli-lo:Amount".
+
+actor micro undertaking average employees has for "eli-lo:upper_value_limit" the value 10.
+
+actor micro undertaking average employees has for "eli-lo:unit" the value "employees".
+
+actor micro undertaking average employees has for "eli-lo:has_source" the resource "http://data.europa.eu/eli/dir/2013/34/art_3/par_1/pnt_c/oj".
+
+actor micro undertaking average employees has for "eli-lo:source_text" the value "average number of employees during the financial year: 10.".
+
+
+actor small undertaking is identified by "http://example.org/accounting-graph#Actor_SmallUndertaking".
+
+actor small undertaking is an agent type.
+
+actor small undertaking has the label "Small undertaking".
+
+actor small undertaking has for "eli-lo:size_category" the resource "http://example.org/accounting-graph#Size_Small".
+
+
+actor medium sized undertaking is identified by "http://example.org/accounting-graph#Actor_MediumSizedUndertaking".
+
+actor medium sized undertaking is an agent type.
+
+actor medium sized undertaking has the label "Medium-sized undertaking".
+
+actor medium sized undertaking has for "eli-lo:size_category" the resource "http://example.org/accounting-graph#Size_Medium".
+
+
+actor large undertaking is identified by "http://example.org/accounting-graph#Actor_LargeUndertaking".
+
+actor large undertaking is an agent type.
+
+actor large undertaking has the label "Large undertaking".
+
+actor large undertaking has for "eli-lo:size_category" the resource "http://example.org/accounting-graph#Size_Large".
+
+
+agent member state is identified by "http://example.org/accounting-graph#Agent_MemberState".
+
+agent member state is an agent type.
+
+agent member state has the label "Member State".
+
+
+agent commission is identified by "http://example.org/accounting-graph#Agent_Commission".
+
+agent commission is an agent.
+
+agent commission has the label "European Commission".
+
+
+norm management report content is identified by "http://example.org/accounting-graph#Norm_ManagementReportContent".
+
+norm management report content is a constitutive rule.
+
+norm management report content has the label "Obligation for Content of Management Report".
+
+norm management report content is established in "http://data.europa.eu/eli/dir/2013/34/art_19/par_1/oj".
+
+norm management report content has the legal text "The management report shall include a fair review of the development and performance of the undertaking's business and of its position, together with a description of the principal risks and uncertainties that it faces.".
+
+
+norm publication obligation is identified by "http://example.org/accounting-graph#Norm_PublicationObligation".
+
+norm publication obligation is a substantive rule.
+
+norm publication obligation has the label "General Publication Obligation".
+
+norm publication obligation has the modality obligation.
+
+norm publication obligation has for "eli-lo:applies_to" the resource actor micro undertaking.
+
+norm publication obligation has for "eli-lo:applies_to" the resource actor small undertaking.
+
+norm publication obligation has for "eli-lo:applies_to" the resource actor medium sized undertaking.
+
+norm publication obligation has for "eli-lo:applies_to" the resource actor large undertaking.
+
+norm publication obligation produces step publish full report.
+
+norm publication obligation is established in "http://data.europa.eu/eli/dir/2013/34/art_30/par_1/oj".
+
+norm publication obligation has the legal text "Member States shall ensure that undertakings publish within a reasonable period of time, which shall not exceed 12 months after the balance sheet date, the duly approved annual financial statements and the management report, together with the opinion submitted by the statutory auditor or audit firm...".
+
+
+step publish full report is identified by "http://example.org/accounting-graph#Step_PublishFullReport".
+
+step publish full report is an action.
+
+step publish full report has the label "publish statements, report, and auditor opinion".
+
+step publish full report has the result doc annual financial statements.
+
+step publish full report has the result doc management report.
+
+step publish full report has the result doc auditor opinion.
+
+step publish full report has the time specification step publish full report time.
+
+step publish full report is established in "http://data.europa.eu/eli/dir/2013/34/art_30/par_1/oj".
+
+step publish full report has the legal text "publish within a reasonable period of time, which shall not exceed 12 months after the balance sheet date, the duly approved annual financial statements and the management report, together with the opinion submitted by the statutory auditor or audit firm...".
+
+step publish full report has the agent role agent role micro undertaking publisher.
+
+step publish full report has the agent role agent role small undertaking publisher.
+
+step publish full report has the agent role agent role medium sized undertaking publisher.
+
+step publish full report has the agent role agent role large undertaking publisher.
+
+
+step publish full report time is a temporal specification.
+
+step publish full report time has the function deadline.
+
+step publish full report time has the duration "P12M".
+
+step publish full report time is timed after step publish full report time earlier time.
+
+step publish full report time is established in "http://data.europa.eu/eli/dir/2013/34/art_30/par_1/oj/art_30/par_1".
+
+step publish full report time has the legal text "not exceed 12 months after the balance sheet date".
+
+
+step publish full report time earlier time is a temporal specification.
+
+step publish full report time earlier time has the temporal label "balance sheet date".
+
+step publish full report time earlier time is established in "http://data.europa.eu/eli/dir/2013/34/art_30/par_1/oj".
+
+
+agent role micro undertaking publisher is identified by "http://example.org/accounting-graph#AgentRole_MicroUndertaking_Publisher".
+
+agent role micro undertaking publisher is an agent role.
+
+agent role micro undertaking publisher is for the agent actor micro undertaking.
+
+agent role micro undertaking publisher has the role addresser.
+
+
+agent role small undertaking publisher is identified by "http://example.org/accounting-graph#AgentRole_SmallUndertaking_Publisher".
+
+agent role small undertaking publisher is an agent role.
+
+agent role small undertaking publisher is for the agent actor small undertaking.
+
+agent role small undertaking publisher has the role addresser.
+
+
+agent role medium sized undertaking publisher is identified by "http://example.org/accounting-graph#AgentRole_MediumSizedUndertaking_Publisher".
+
+agent role medium sized undertaking publisher is an agent role.
+
+agent role medium sized undertaking publisher is for the agent actor medium sized undertaking.
+
+agent role medium sized undertaking publisher has the role addresser.
+
+
+agent role large undertaking publisher is identified by "http://example.org/accounting-graph#AgentRole_LargeUndertaking_Publisher".
+
+agent role large undertaking publisher is an agent role.
+
+agent role large undertaking publisher is for the agent actor large undertaking.
+
+agent role large undertaking publisher has the role addresser.
+
+
+doc management report is identified by "http://example.org/accounting-graph#Doc_ManagementReport".
+
+doc management report is an action result type.
+
+doc management report has the label "Management Report".
+
+doc management report has the result category report.
+
+
+doc annual financial statements is identified by "http://example.org/accounting-graph#Doc_AnnualFinancialStatements".
+
+doc annual financial statements is an action result type.
+
+doc annual financial statements has the label "Annual Financial Statements".
+
+doc annual financial statements has the result category report.
+
+
+doc auditor opinion is identified by "http://example.org/accounting-graph#Doc_AuditorOpinion".
+
+doc auditor opinion is an action result type.
+
+doc auditor opinion has the label "Auditor Opinion".
+
+doc auditor opinion has the result category report.
+
+
+norm transposition obligation is identified by "http://example.org/accounting-graph#Norm_TranspositionObligation".
+
+norm transposition obligation is an implementation and oversight rule.
+
+norm transposition obligation has the label "Obligation to Transpose Directive".
+
+norm transposition obligation has the modality obligation.
+
+norm transposition obligation has for "eli-lo:applies_to" the resource agent member state.
+
+norm transposition obligation produces step bring in force.
+
+norm transposition obligation produces step communicate text.
+
+norm transposition obligation is established in "http://data.europa.eu/eli/dir/2013/34/art_53/par_1/oj".
+
+norm transposition obligation has the legal text "Member States shall bring into force the laws, regulations and administrative provisions necessary to comply with this Directive by 20 July 2015.".
+
+
+step bring in force is identified by "http://example.org/accounting-graph#Step_BringInForce".
+
+step bring in force is an action.
+
+step bring in force has the label "bring into force laws, regulations and administrative provisions".
+
+step bring in force has the agent role agent role member state transposer.
+
+step bring in force has the time specification step bring in force time.
+
+step bring in force is established in "http://data.europa.eu/eli/dir/2013/34/art_53/par_1/oj".
+
+step bring in force is followed by step communicate text.
+
+step bring in force has the legal text "Member States shall bring into force the laws, regulations and administrative provisions necessary to comply with this Directive by 20 July 2015. They shall immediately inform the Commission thereof.".
+
+
+step bring in force time is a temporal specification.
+
+step bring in force time has the function deadline.
+
+step bring in force time has the instant 2015-07-20.
+
+step bring in force time has the temporal label "by 20 July 2015".
+
+step bring in force time is established in "http://data.europa.eu/eli/dir/2013/34/art_53/par_1/oj".
+
+
+agent role member state transposer is identified by "http://example.org/accounting-graph#AgentRole_MemberState_Transposer".
+
+agent role member state transposer is an agent role.
+
+agent role member state transposer is for the agent agent member state.
+
+agent role member state transposer has the role addressee.
+
+
+step communicate text is identified by "http://example.org/accounting-graph#Step_CommunicateText".
+
+step communicate text has the type "eli-lo:LegalProcedureStep".
+
+step communicate text has the label "communicate text of main provisions of national law".
+
+step communicate text has the agent role step communicate text role 1.
+
+step communicate text has the agent role step communicate text role 2.
+
+step communicate text has the result doc legislation.
+
+step communicate text follows step bring in force.
+
+step communicate text is established in "http://data.europa.eu/eli/dir/2013/34/art_53/par_2/oj".
+
+step communicate text has the legal text "Member States shall communicate to the Commission the text of the main provisions of national law which they adopt in the field covered by this Directive.".
+
+
+step communicate text role 1 is an agent role.
+
+step communicate text role 1 is for the agent agent member state.
+
+step communicate text role 1 has the role addresser.
+
+
+step communicate text role 2 is an agent role.
+
+step communicate text role 2 is for the agent agent commission.
+
+step communicate text role 2 has the role addressee.
+
+
+doc legislation is identified by "http://example.org/accounting-graph#Doc_Legislation".
+
+doc legislation is an action result type.
+
+doc legislation has the label "Text of National Law Provisions".
+
+doc legislation has the legal text "laws, regulations and administrative provisions necessary to comply with this Directive".
+
+
+% The questions of LOMO's requirements document (its competency questions),
+% as far as a description can answer them.
+scenario description is, as stated in the source description:
+    modalities expects answers ["norm publication obligation has the modality obligation", "norm transposition obligation has the modality obligation"].
+    actions_of_rules expects answers ["norm publication obligation produces step publish full report", "norm transposition obligation produces step bring in force", "norm transposition obligation produces step communicate text"].
+    actions_of_agents expects answers ["actor large undertaking acts as addresser in step publish full report", "actor medium sized undertaking acts as addresser in step publish full report", "actor micro undertaking acts as addresser in step publish full report", "actor small undertaking acts as addresser in step publish full report", "agent commission acts as addressee in step communicate text", "agent member state acts as addressee in step bring in force", "agent member state acts as addresser in step communicate text"].
+
+query kinds is:
+    which thing is of the kind which kind.
+
+query bearer is:
+    the bearer role is which role.
+
+query rules_of_act is:
+    which rule is established by the act which act.
+
+query provisions is:
+    which thing is established in which provision.
+
+query places is:
+    which rule is laid down in which place.
+
+query legal_texts is:
+    which thing has the legal text which text.
+
+query joint_rules is:
+    which rule is established in more than one provision.
+
+query prescriptive is:
+    which thing is a prescriptive rule.
+
+query constitutive is:
+    which thing is a constitutive rule.
+
+query modalities is:
+    which rule has the modality which modality.
+
+query obligations is:
+    which rule has the modality obligation for which agent as which role.
+
+query prohibitions is:
+    which rule has the modality prohibition for which agent as which role.
+
+query permissions is:
+    which rule has the modality permission for which agent as which role.
+
+query rights is:
+    which rule has the modality right for which agent as which role.
+
+query oversight_rules is:
+    which thing is an implementation and oversight rule.
+
+query triggers is:
+    which thing is triggered by which event.
+
+query definitions is:
+    which thing is a definition.
+
+query definienda is:
+    which definition has the definiendum which text.
+
+query definientia is:
+    which definition has the definiens which text.
+
+query defined_things is:
+    which definition gives the meaning of which thing.
+
+query actions_of_rules is:
+    which rule produces which action.
+
+query addressers is:
+    which agent acts as addresser in which action.
+
+query addressees is:
+    which agent acts as addressee in which action.
+
+query beneficiaries is:
+    which agent acts as beneficiary in which action.
+
+query identified_agents is:
+    which thing is an agent.
+
+query agent_types is:
+    which thing is an agent type.
+
+query actions_of_agents is:
+    which agent acts as which role in which action.
+
+query concerned_agents is:
+    which rule concerns which agent.
+
+query sequence is:
+    which action comes before which second action.
+
+query deadlines is:
+    which thing has which temporal specification as deadline.
+
+query starting_points is:
+    which thing has which temporal specification as starting point.
+
+query validity is:
+    which thing has which temporal specification as validity.
+
+query durations is:
+    which temporal specification has the duration which duration.
+
+query instants is:
+    which temporal specification has the instant which date.
+
+query timed_after is:
+    which temporal specification is timed after which second temporal specification.
+
+query results is:
+    which action has the result which result.
+
+query result_categories is:
+    which result has the result category which category.
+
+query texts is:
+    which thing is described by the text which text.
+
+query other_values is:
+    which thing has for which property the value which value.
+
+query other_resources is:
+    which thing has for which property the resource which resource.
+
+query other_types is:
+    which thing has the type which class.
+
+query addresses is:
+    which thing is identified by which address.
+
+query literal_forms is:
+    the values of which property have the datatype which datatype.
+

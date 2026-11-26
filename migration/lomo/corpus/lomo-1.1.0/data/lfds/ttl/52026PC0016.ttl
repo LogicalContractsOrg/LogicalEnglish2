@@ -1,0 +1,1546 @@
+@prefix adms: <http://www.w3.org/ns/adms#> .
+@prefix cav: <http://data.europa.eu/2sa/cav#> .
+@prefix cpsv: <http://purl.org/vocab/cpsv#> .
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix dctype: <http://purl.org/dc/dcmitype/> .
+@prefix dd: <http://data.europa.eu/leg/digital-dimensions/> .
+@prefix iac: <http://data.europa.eu/leg/interop-assessment#> .
+@prefix iopa: <http://data.europa.eu/2qy/iopa#> .
+@prefix lomo: <http://data.europa.eu/leg/lomo#> .
+@prefix m8g: <http://data.europa.eu/m8g/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix tc: <http://data.europa.eu/9bx/> .
+@prefix y6k: <http://data.europa.eu/y6k/> .
+
+<http://example.org/analysis/assessment/1> a cav:Assessment ;
+    cav:assesses <http://example.org/analysis/description/2>,
+        <http://example.org/analysis/description/5>,
+        <http://example.org/analysis/description/7>,
+        <http://example.org/analysis/description/8>,
+        <http://example.org/analysis/description/9> ;
+    cav:resultsIn <http://example.org/analysis/assessment/1/1/measure>,
+        <http://example.org/analysis/assessment/1/2/measure>,
+        <http://example.org/analysis/assessment/1/3/measure>,
+        <http://example.org/analysis/assessment/1/4/barrier>,
+        <http://example.org/analysis/assessment/1/5/barrier>,
+        <http://example.org/analysis/assessment/1/6/measure>,
+        <http://example.org/analysis/assessment/1/7/measure>,
+        <http://example.org/analysis/assessment/1/8/measure> ;
+    m8g:isProvidedBy <http://publications.europa.eu/resource/authority/corporate-body/COM> .
+
+<http://example.org/analysis/description/1> a lomo:LegalRule ;
+    rdfs:label "Part II – Preparedness and Resilience"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/16/cod/doc/com/COM_2026_16/FINAL/eng/pt_2> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/institutional-cooperation-incl-crisis-response>,
+        <http://example.org/process/preparation-and-dissemination-of-reports> ;
+    lomo:produces <http://example.org/analysis/description/1/action> ;
+    lomo:references <http://example.org/dataset/information-to-ensure-shared-situational-awareness-and-coherence-in-crisis-response>,
+        <http://example.org/dataset/the-union-preparedness-plan-for-digital-infrastructures-and-information-used-in-the-preparation-of-said-plan> ;
+    dcterms:description "Flows of data related to the Union Preparedness Plan for Digital Infrastructures; or in the context of crisis response."@en .
+
+<http://example.org/analysis/description/10> a lomo:LegalRule ;
+    rdfs:label "Part V – Transition to fibre, markets functioning and competition;"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/16/cod/doc/com/COM_2026_16/FINAL/eng/pt_5>,
+        <https://data.europa.eu/eli/dl/proc/2026/16/cod/doc/com/COM_2026_16/FINAL/eng/tit_4> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/developing-recommendation>,
+        <http://example.org/process/notification-of-information>,
+        <http://example.org/process/producing-guidelines> ;
+    lomo:produces <http://example.org/analysis/description/10/action> ;
+    dcterms:description "Data and data flows: -The Recommendation identifying product and service markets that justify the imposition of regulatory obligations -Analysis of the market and notification of the corresponding draft regulatory measures -Implicit information flows regarding the identification of transnational markets and demands -Guidelines for market analysis and assessment of significant market power"@en .
+
+<http://example.org/analysis/description/11> a lomo:LegalRule ;
+    rdfs:label "Part V – Transition to fibre, markets functioning and competition;"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/16/cod/doc/com/COM_2026_16/FINAL/eng/pt_5>,
+        <https://data.europa.eu/eli/dl/proc/2026/16/cod/doc/com/COM_2026_16/FINAL/eng/tit_4> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/making-publicly-available>,
+        <http://example.org/process/submitting-information> ;
+    lomo:produces <http://example.org/analysis/description/11/action> ;
+    dcterms:description "Data and data flows: -Description of the cost-accounting system publicly available -Information regarding the commitment procedure"@en .
+
+<http://example.org/analysis/description/12> a lomo:LegalRule ;
+    rdfs:label "Part V – Transition to fibre, markets functioning and competition;"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/16/cod/doc/com/COM_2026_16/FINAL/eng/pt_5>,
+        <https://data.europa.eu/eli/dl/proc/2026/16/cod/doc/com/COM_2026_16/FINAL/eng/tit_4> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/issuing-opinions>,
+        <http://example.org/process/submitting-information> ;
+    lomo:produces <http://example.org/analysis/description/12/action> ;
+    lomo:references <http://example.org/dataset/access-and-interconnection-procedures-and-regulatory-assessment-outcomes>,
+        <http://example.org/dataset/copper-switch-off-information-and-transition-planning-data>,
+        <http://example.org/dataset/cost-accounting-system-information-and-compliance-verification-data>,
+        <http://example.org/dataset/draft-regulatory-measures-comments-opinions-decisions-and-final-adopted-measure>,
+        <http://example.org/dataset/ecosystem-cooperation-guidance-and-conciliation>,
+        <http://example.org/dataset/information-on-commitments-offered-by-operators-with-significant-market-power>,
+        <http://example.org/dataset/market-definitions-market-analysis-outcomes-regulatory-measures-and-guidance-documents>,
+        <http://example.org/dataset/rspb-biennial-work-programme-and-rspb-biennial-activity-report-and-information-exchanges-between-berec-and-rspb> ;
+    dcterms:description "Information flows regarding the consolidation of the internal market in the area of electronic communications"@en .
+
+<http://example.org/analysis/description/13> a lomo:LegalRule ;
+    rdfs:label "Part VI – Services"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/16/cod/doc/com/COM_2026_16/FINAL/eng/pt_6> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess y6k:c_422e961c,
+        <http://example.org/process/developing-a-template>,
+        <http://example.org/process/developing-guidelines>,
+        <http://example.org/process/information-sharing> ;
+    lomo:produces <http://example.org/analysis/description/13/action> ;
+    dcterms:description "Data and data flows: -Submitting information regarding open internet access -Information sharing with BEREC -BEREC’s report on main practices and findings of national regulatory authorities -BEREC’s common template to collect information from providers -BEREC’s guidelines on the implementation of the obligations of national regulatory authorities"@en .
+
+<http://example.org/analysis/description/14> a lomo:LegalRule ;
+    rdfs:label "Part VI – Services"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/16/cod/doc/com/COM_2026_16/FINAL/eng/pt_6> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/information-sharing> ;
+    lomo:produces <http://example.org/analysis/description/14/action> ;
+    dcterms:description "Data and data flows: -Information requirements for contracts -Transparency information -Information requirements for contract duration and termination"@en .
+
+<http://example.org/analysis/description/15> a lomo:LegalRule ;
+    rdfs:label "Part VI – Services"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/16/cod/doc/com/COM_2026_16/FINAL/eng/pt_6> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/developing-guidelines>,
+        <http://example.org/process/informing>,
+        <http://example.org/process/sharing-information> ;
+    lomo:produces <http://example.org/analysis/description/15/action> ;
+    lomo:references <http://example.org/dataset/contract-information-transparency-information-performance-data-notifications-on-contractual-changes-consumption-monitoring-data>,
+        <http://example.org/dataset/fraudulent-activity-information-emergency-communications-data-public-warnings-data-calling-line-identification-data-public-interest-information-end-user-disability-accessibility-information>,
+        <http://example.org/dataset/information-on-network-capacity-management-traffic-management-measures-quality-of-service-parameters-compliance-data-and-enforcement-findings>,
+        <http://example.org/dataset/switching-process-information-number-portability-data-porting-timelines-service-continuity-data-compensation-information-consent-records> ;
+    dcterms:description "Data and data flows: -Information requirements regarding switching and number portability"@en .
+
+<http://example.org/analysis/description/16> a lomo:LegalRule ;
+    rdfs:label "Part VI – Services"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/16/cod/doc/com/COM_2026_16/FINAL/eng/pt_6/art_107/par_13> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess y6k:c_422e961c,
+        <http://example.org/process/collecting-information>,
+        <http://example.org/process/sharing-information> ;
+    lomo:produces <http://example.org/analysis/description/16/action> ;
+    dcterms:description "Data and data flows related to end-user protection and communication service requirements (fraud prevention, emergency services, call functionalities, equipment interoperability) Digital solution: -Member states shall report to the ODN, with the purpose of maintaining a database by ODN under the supervision of BEREC, the E.164 numbers to contact Member State’s PSAP systems to ensure that they are able to contact each other from one Member State to another."@en .
+
+<http://example.org/analysis/description/17> a lomo:LegalRule ;
+    rdfs:label "Part VII – Governance"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/16/cod/doc/com/COM_2026_16/FINAL/eng/pt_7> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess y6k:c_422e961c,
+        <http://example.org/process/notification>,
+        <http://example.org/process/publishing-information> ;
+    lomo:produces <http://example.org/analysis/description/17/action> ;
+    dcterms:description "Data and data flows: -Notification of all national regulatory and other competent authorities -Budget reporting by national regulatory authorities -Implicit report emerging from budget control"@en .
+
+<http://example.org/analysis/description/18> a lomo:LegalRule ;
+    rdfs:label "Part VII – Governance"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/16/cod/doc/com/COM_2026_16/FINAL/eng/pt_7> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/publishing-information>,
+        <http://example.org/process/supervising> ;
+    lomo:produces <http://example.org/analysis/description/18/action> ;
+    dcterms:description "Data and data flows related to BEREC tasks and organisation"@en .
+
+<http://example.org/analysis/description/19> a lomo:LegalRule ;
+    rdfs:label "Part VII – Governance"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/16/cod/doc/com/COM_2026_16/FINAL/eng/pt_7> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/submitting-report> ;
+    lomo:produces <http://example.org/analysis/description/19/action> ;
+    dcterms:description "Data and data flows -Information flows related to common provisions and cooperation between BEREC and RSPB, including biennial work programmes and notification, and activity reports."@en .
+
+<http://example.org/analysis/description/20> a lomo:LegalRule ;
+    rdfs:label "Part VII – Governance"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/16/cod/doc/com/COM_2026_16/FINAL/eng/pt_7> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/developing-documents-and-reports>,
+        <http://example.org/process/submitting-reports> ;
+    lomo:produces <http://example.org/analysis/description/20/action> ;
+    dcterms:description "Data and data flows: -Information flows related to ODN’s tasks and organisation"@en .
+
+<http://example.org/analysis/description/21> a lomo:LegalRule ;
+    rdfs:label "Part VII – Governance"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/16/cod/doc/com/COM_2026_16/FINAL/eng/pt_7> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/publishing-information>,
+        <http://example.org/process/submitting-information> ;
+    lomo:produces <http://example.org/analysis/description/21/action> ;
+    dcterms:description "Data and data flows: -Information flows related to ODN’s budget and programming"@en .
+
+<http://example.org/analysis/description/22> a lomo:LegalRule ;
+    rdfs:label "Part VII – Governance"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/16/cod/doc/com/COM_2026_16/FINAL/eng/pt_7> ;
+    lomo:hasCategory dd:Data,
+        dd:DigitalSolutions ;
+    lomo:involvesProcess y6k:c_422e961c,
+        <http://example.org/process/exchanging-information>,
+        <http://example.org/process/submitting-declarations> ;
+    lomo:produces <http://example.org/analysis/description/22/action> ;
+    lomo:references <http://example.org/dataset/berec-regulatory-tasks-public-list-berec-opinions-guidelines-reports-recommendations-common-positions-best-practices-commissioned-studies-public-consultation-results-data-collected-by-national-regulatory-authorities-biennial-work-programme-biennial-activity-report-members-of-board-of-regulators-and-alternates-rules-of-procedure-working-arrangements-with-competent-bodiesauthorities>,
+        <http://example.org/dataset/information-exchange-document-access-declarations-of-interests-communication-activities-and-evaluations>,
+        <http://example.org/dataset/names-of-national-regulatory-and-other-competent-authorities-and-their-respective-tasks-notification-of-national-regulatory-and-other-competent-authorities-and-their-responsibilities-annual-reports-by-national-regulatory-authorities-annual-budgets-of-national-regulatory-authorities>,
+        <http://example.org/dataset/odn-annual-budget-and-consolidated-annual-activity-reportannual-report-on-progress-towards-the-single-market-for-electronic-communications>,
+        <http://example.org/dataset/odn-single-programming-document-annual-budget-consolidated-annual-activity-report-and-financial-accounts>,
+        <http://example.org/dataset/rspb-biennial-work-programme-and-rspb-biennial-activity-report-and-information-exchanges-between-berec-and-rspb> ;
+    dcterms:description "Data and data flows: -Information flows related to the ODN’s general provisions, including cooperation with BEREC and RSPB Digital solutions: -Digital solutions for the creation of an information and communication system pursuant to Article 174"@en .
+
+<http://example.org/analysis/description/23> a lomo:LegalRule ;
+    rdfs:label "PART VIII: General and final provisions"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/16/cod/doc/com/COM_2026_16/FINAL/eng/pt_8> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/exchanging-information>,
+        <http://example.org/process/submitting-information> ;
+    lomo:produces <http://example.org/analysis/description/23/action> ;
+    dcterms:description "Data and data flows: -Information flows related to provision of information, surveys, and consultation mechanisms"@en .
+
+<http://example.org/analysis/description/24> a lomo:LegalRule ;
+    rdfs:label "PART VIII: General and final provisions"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/16/cod/doc/com/COM_2026_16/FINAL/eng/pt_8> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/publishing-standards>,
+        <http://example.org/process/submitting-information> ;
+    lomo:produces <http://example.org/analysis/description/24/action> ;
+    dcterms:description "Data and data flows: -Information flows related to standardisation activities"@en .
+
+<http://example.org/analysis/description/25> a lomo:LegalRule ;
+    rdfs:label "PART VIII: General and final provisions"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/16/cod/doc/com/COM_2026_16/FINAL/eng/pt_8> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/making-publicly-available>,
+        <http://example.org/process/sendending-notificationss> ;
+    lomo:produces <http://example.org/analysis/description/25/action> ;
+    dcterms:description "Data and data flows: -Information flows related to dispute resolution"@en .
+
+<http://example.org/analysis/description/26> a lomo:LegalRule ;
+    rdfs:label "PART VIII: General and final provisions"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/16/cod/doc/com/COM_2026_16/FINAL/eng/pt_8> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/publishing-information>,
+        <http://example.org/process/submitting-information> ;
+    lomo:produces <http://example.org/analysis/description/26/action> ;
+    dcterms:description "Data and data flows: -Information flows related to the ecosystem cooperation"@en .
+
+<http://example.org/analysis/description/27> a lomo:LegalRule ;
+    rdfs:label "PART VIII: General and final provisions"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/16/cod/doc/com/COM_2026_16/FINAL/eng/pt_8> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/publishing-information>,
+        <http://example.org/process/sending-notifications> ;
+    lomo:produces <http://example.org/analysis/description/27/action> ;
+    lomo:references <http://example.org/dataset/administrative-procedures-notifications-and-reporting>,
+        <http://example.org/dataset/dispute-resolution-procedures-and-decisions>,
+        <http://example.org/dataset/ecosystem-cooperation-guidance-and-conciliation>,
+        <http://example.org/dataset/information-provision-geographical-surveys-and-consultation-mechanisms-survey-results>,
+        <http://example.org/dataset/standardisation-activities-and-harmonisation-measures> ;
+    dcterms:description "Data and data flows: -General information flows"@en .
+
+<http://example.org/analysis/description/3> a lomo:LegalRule ;
+    rdfs:label "Part IV – Resources (Spectrum and Numbering);"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/16/cod/doc/com/COM_2026_16/FINAL/eng/pt_4>,
+        <https://data.europa.eu/eli/dl/proc/2026/16/cod/doc/com/COM_2026_16/FINAL/eng/tit_1/chp_1> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/cross-border-cooperation-of-national-authorities>,
+        <http://example.org/process/strategic-planning-and-management> ;
+    lomo:produces <http://example.org/analysis/description/3/action> ;
+    lomo:references <http://example.org/dataset/information-on-strategic-planning-and-management-of-radio-spectrum-including-for-the-purpose-of-addressing-harmful-interference> ;
+    dcterms:description "Data flows related to the strategic planning and management of radio spectrum. Implied data flows pertaining to cooperation in the context of the cross-border coordination of the use of radio spectrum (including for the purpose of addressing harmful interference)."@en .
+
+<http://example.org/analysis/description/4> a lomo:LegalRule ;
+    rdfs:label "Part IV – Resources (Spectrum and Numbering);"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/16/cod/doc/com/COM_2026_16/FINAL/eng/pt_4>,
+        <https://data.europa.eu/eli/dl/proc/2026/16/cod/doc/com/COM_2026_16/FINAL/eng/tit_1/chp_2> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/institutional-cooperation>,
+        <http://example.org/process/request-management>,
+        <http://example.org/process/strategic-planning> ;
+    lomo:produces <http://example.org/analysis/description/4/action> ;
+    lomo:references <http://example.org/dataset/requests-for-harmonisation-of-radio-spectrum>,
+        <http://example.org/dataset/requests-for-review-of-deadline-extensions-for-allowing-alternative-use-on-an-exceptional-basis-where-the-use-of-radio-spectrum-has-been-harmonised-by-technical-implementing-measures-in-accordance-with-decision-no-6762002ec>,
+        <http://example.org/dataset/union-spectrum-strategy-and-roadmaps> ;
+    dcterms:description "Data flows relating to the Union Spectrum Strategy and Roadmaps, the coordinated timing of assignments, and to requests for harmonisation of radio spectrum."@en .
+
+<http://example.org/analysis/description/6> a lomo:LegalRule ;
+    rdfs:label "Part IV – Resources (Spectrum and Numbering);"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/16/cod/doc/com/COM_2026_16/FINAL/eng/pt_4>,
+        <https://data.europa.eu/eli/dl/proc/2026/16/cod/doc/com/COM_2026_16/FINAL/eng/tit_2> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess tc:63,
+        <http://example.org/process/request-management>,
+        <http://example.org/process/supervision-and-remedies> ;
+    lomo:produces <http://example.org/analysis/description/6/action> ;
+    lomo:references <http://example.org/dataset/berec-regulatory-tasks-public-list-berec-opinions-guidelines-reports-recommendations-common-positions-best-practices-commissioned-studies-public-consultation-results-data-collected-by-national-regulatory-authorities-biennial-work-programme-biennial-activity-report-members-of-board-of-regulators-and-alternates-rules-of-procedure-working-arrangements-with-competent-bodiesauthorities>,
+        <http://example.org/dataset/data-in-the-context-of-filing-and-coordination-of-satellite-systems-with-the-international-telecommunication-union-itu>,
+        <http://example.org/dataset/data-in-the-context-of-supervision-and-remedies-including-resolution-of-satellite-interferences>,
+        <http://example.org/dataset/data-pertaining-to-union-level-authorisations-for-the-use-of-satellite-spectrum>,
+        <http://example.org/dataset/information-on-network-capacity-management-traffic-management-measures-quality-of-service-parameters-compliance-data-and-enforcement-findings>,
+        <http://example.org/dataset/standardisation-activities-and-harmonisation-measures> ;
+    dcterms:description "Data flows relating to: -the filing and coordination of satellite systems with the International Telecommunications Union (ITU); -general authorisations for provision of satellite networks and/or satellite communication services; -Union authorisation for the use of satellite/radio spectrum; -supervision and remedies in the context of compliance of the satellite networks and satellite communications services operating under a Union authorisation; -resolution of satellite interferences; and -requests for the coordination of the use of spectrum between terrestrial and space applications."@en .
+
+<http://example.org/analysis/solution/1> a dctype:Software ;
+    rdfs:label "Union Database of Notifications"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/16/cod/doc/com/COM_2026_16/FINAL/eng/pt_3> ;
+    lomo:hasCapability "Publicly available Union database of the notifications submitted to the national regulatory authorities for the implementation of the single passport system." ;
+    dcterms:publisher <http://example.org/agent/odn> ;
+    dcterms:title "Union Database of Notifications"@en .
+
+<http://example.org/analysis/solution/2> a dctype:Software ;
+    rdfs:label "Dynamic Spectrum Database"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/16/cod/doc/com/COM_2026_16/FINAL/eng/pt_4>,
+        <https://data.europa.eu/eli/dl/proc/2026/16/cod/doc/com/COM_2026_16/FINAL/eng/tit_1/chp_3> ;
+    lomo:hasCapability "Dynamic database for geolocation and monitoring of spectrum usage opportunities.The database shall include up-to-date information collected and provided by Member States on the geolocalisation of existing uses of spectrum.This database shall be directly accessible to any prospective user of radio spectrum." ;
+    dcterms:publisher <http://example.org/agent/odn> ;
+    dcterms:title "Dynamic Spectrum Database"@en .
+
+<http://example.org/analysis/solution/3> a dctype:Software ;
+    rdfs:label "Database of Pan-European Numbering Resources"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/16/cod/doc/com/COM_2026_16/FINAL/eng/pt_4>,
+        <https://data.europa.eu/eli/dl/proc/2026/16/cod/doc/com/COM_2026_16/FINAL/eng/tit_3> ;
+    lomo:hasCapability "Database of the pan-European numbering resources on the basis of the information provided by national regulatory authorities on the allocation of numbers and beneficiaries of the numbers.(*) The ODN is charged with setting up the procedureand systemfor provision of information. This may constitute yet another digital solution or be integrated with the database hereby being analysed." ;
+    dcterms:publisher <http://example.org/agent/odn> ;
+    dcterms:title "Database of Pan-European Numbering Resources"@en .
+
+<http://example.org/analysis/solution/4> a dctype:Software ;
+    rdfs:label "ODN Information and communication system"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/16/cod/doc/com/COM_2026_16/FINAL/eng/art_41>,
+        <https://data.europa.eu/eli/dl/proc/2026/16/cod/doc/com/COM_2026_16/FINAL/eng/chp_3>,
+        <https://data.europa.eu/eli/dl/proc/2026/16/cod/doc/com/COM_2026_16/FINAL/eng/pt_7>,
+        <https://data.europa.eu/eli/dl/proc/2026/16/cod/doc/com/COM_2026_16/FINAL/eng/tit_5> ;
+    lomo:hasCapability "Common platform for information exchange between BEREC, RSPB, Commission, national regulatory authorities and competent authorities responsible for spectrumDedicated interface for information requests and notifications (Article 173)Platform for early identification of coordination needs between national regulatory authorities and competent authorities responsible for spectrum" ;
+    dcterms:publisher <http://example.org/agent/odn-technical-and-functional-specifications-adopted-by-management-board> ;
+    dcterms:title "ODN Information and communication system"@en .
+
+tc:63 skos:prefLabel "Authorisation"@en .
+
+<http://example.org/agent/berec-odn-commission-national-regulatory-authorities-providers-of-electronic-communications-networks-undertakings-active-in-electronic-communications-or-closely-related-sectors-stakeholders> rdfs:label "BEREC, ODN, Commission, national regulatory authorities, providers of electronic communications networks, undertakings active in electronic communications or closely related sectors, stakeholders"@en .
+
+<http://example.org/agent/berec-odn-national-regulatory-authorities-commission-european-parliament-council-and-other-stakeholders> rdfs:label "BEREC, ODN, National regulatory authorities, Commission, European Parliament, Council, and other stakeholders"@en .
+
+<http://example.org/agent/commission-european-parliament-council-member-states-national-regulatory-authorities-communications-committee-radio-spectrum-committee-berec-rspb-odn-undertakings-experts-stakeholders> rdfs:label "Commission, European Parliament, Council, Member States, national regulatory authorities, Communications Committee, Radio Spectrum Committee, BEREC, RSPB, ODN, undertakings, experts, stakeholders"@en .
+
+<http://example.org/agent/communication-committee-or-external-experts> rdfs:label "Communication Committee or external experts"@en .
+
+<http://example.org/agent/competent-spectrum-authorities> rdfs:label "Competent spectrum authorities"@en .
+
+<http://example.org/agent/court-of-auditors> rdfs:label "Court of Auditors"@en .
+
+<http://example.org/agent/end-users> rdfs:label "End-users"@en .
+
+<http://example.org/agent/eu-commission-national-regulatory-authorities-other-competent-authorities-berec-rspb-european-parliament-council-european-standardisation-organisations-public> rdfs:label "EU Commission, national regulatory authorities, other competent authorities, BEREC, RSPB, European Parliament, Council, European standardisation organisations, public"@en .
+
+<http://example.org/agent/eu-cyclone> rdfs:label "EU-CyCLONe"@en .
+
+<http://example.org/agent/europea-commission> rdfs:label "Europea Commission"@en .
+
+<http://example.org/agent/european-economic-and-social-committee> rdfs:label "European Economic and Social Committee."@en .
+
+<http://example.org/agent/holders-of-a-spectrum-usage-right> rdfs:label "Holders of a spectrum usage right"@en .
+
+<http://example.org/agent/holders-of-a-union-authorisation-that-are-found-to-be-in-breach-of-the-conditions> rdfs:label "Holders of a Union authorisation (that are found to be in breach of the conditions)"@en .
+
+<http://example.org/agent/interested-parties-in-re-individual-rights-of-use> rdfs:label "Interested parties (in re individual rights of use)"@en .
+
+<http://example.org/agent/itu> rdfs:label "ITU"@en .
+
+<http://example.org/agent/member-states-national-regulatory-authorities> rdfs:label "Member States (national regulatory authorities)"@en .
+
+<http://example.org/agent/microenterprises> rdfs:label "Microenterprises"@en .
+
+<http://example.org/agent/odn-berec-rspb-commission-national-regulatory-authorities-competent-authorities-member-states-european-parliament-council> rdfs:label "ODN, BEREC, RSPB, Commission, national regulatory authorities, competent authorities, Member States, European Parliament, Council"@en .
+
+<http://example.org/agent/odn-european-parliament-council-court-of-auditors> rdfs:label "ODN, European Parliament, Council, Court of Auditors"@en .
+
+<http://example.org/agent/originators-of-request-for-harmonisation> rdfs:label "Originators of request for harmonisation"@en .
+
+<http://example.org/agent/prospective-users-of-radio-spectrum> rdfs:label "Prospective users of radio spectrum"@en .
+
+<http://example.org/agent/providers-of-electronic-communications-networks-or-services> rdfs:label "Providers of electronic communications networks or services"@en .
+
+<http://example.org/agent/providers-of-electronic-communications-to-the-public> rdfs:label "Providers of electronic communications to the public"@en .
+
+<http://example.org/agent/providers-of-satellite-networks-andor-satellite-communication-services> rdfs:label "Providers of satellite networks and/or satellite communication services"@en .
+
+<http://example.org/agent/rspb-and-rspg> rdfs:label "RSPB and RSPG"@en .
+
+<http://example.org/agent/service-providers> rdfs:label "Service providers"@en .
+
+<http://example.org/agent/the-rspb-board> rdfs:label "The RSPB Board"@en .
+
+<http://example.org/agent/third-countries> rdfs:label "Third countries"@en .
+
+<http://example.org/agent/undertakings-for-the-provision-of-electronic-communications-networks-or-services> rdfs:label "Undertakings for the provision of electronic communications networks or services"@en .
+
+<http://example.org/agent/undertakings-providing-electronic-communications-networksservices-national-regulatory-authorities-other-competent-authorities-berec-rspb-commission-member-states-authorities-public-authorities-single-information-points-end-users-consumers-manufacturers> rdfs:label "Undertakings providing electronic communications networks/services, national regulatory authorities, other competent authorities, BEREC, RSPB, Commission, Member States authorities, public authorities, single information points, end-users, consumers, manufacturers"@en .
+
+<http://example.org/analysis/assessment/1/1/measure> a cav:Statement ;
+    cav:interpretation iac:InterpretationPositive ;
+    cav:judgement "Introduces a streamlined notification-based system enabling providers to operate in one or several Member States on the basis of a single authorisation, thus improving legal interoperability."@en ;
+    cav:type iac:StatementTypeAlignmentMeasure ;
+    m8g:hasRelatedService <http://example.org/analysis/interop/1> ;
+    dcterms:description "Alignment with existing digital and sectorial policiesPlease list the applicable digital and sectorial policies identified"@en .
+
+<http://example.org/analysis/assessment/1/2/measure> a cav:Statement ;
+    cav:interpretation iac:InterpretationPositive ;
+    cav:judgement """Under the single passport procedure, it is established that a provider shall submit a notification to the national regulatory authority of one of those Member States where it intends to provide networks or services. Additional data flows are in place to govern how coordination between Member Stated and ODN shall look like.
+Each Member State shall designate a national single contact point.
+ODN is charged with the maintenance of a central database of all notifications provided in the context of the Single Passport procedure. Competent authorities should transmit only complete notifications to the ODN"""@en ;
+    cav:type iac:StatementTypeOrganisationMeasure ;
+    m8g:hasRelatedService <http://example.org/analysis/interop/1> ;
+    dcterms:description "Organisational measures for a smooth cross-border digital public services deliveryPlease list the governance measures foreseen"@en .
+
+<http://example.org/analysis/assessment/1/3/measure> a cav:Statement ;
+    cav:interpretation iac:InterpretationPositive ;
+    cav:judgement "The notification of intention to provide networks or services shall be made in accordance with a notification template to be made available by BEREC."@en ;
+    cav:type iac:StatementTypeSharedMeasure ;
+    m8g:hasRelatedService <http://example.org/analysis/interop/1> ;
+    dcterms:description "Measures taken to ensure a shared understanding of the dataPlease list such measures"@en .
+
+<http://example.org/analysis/assessment/1/4/barrier> a cav:Statement ;
+    cav:interpretation iac:InterpretationPositive ;
+    cav:judgement "No remaining barriers."@en ;
+    cav:type iac:StatementTypeStandardsBarrier ;
+    m8g:hasRelatedService <http://example.org/analysis/interop/1> ;
+    dcterms:description "Use of commonly agreed open technical specifications and standardsPlease list such measures"@en .
+
+<http://example.org/analysis/assessment/1/5/barrier> a cav:Statement ;
+    cav:interpretation iac:InterpretationPositive ;
+    cav:judgement "No remaining barriers."@en ;
+    cav:type iac:StatementTypeAlignmentBarrier ;
+    m8g:hasRelatedService <http://example.org/analysis/interop/2> ;
+    dcterms:description "Alignment with existing digital and sectorial policiesPlease list the applicable digital and sectorial policies identified"@en .
+
+<http://example.org/analysis/assessment/1/6/measure> a cav:Statement ;
+    cav:interpretation iac:InterpretationPositive ;
+    cav:judgement """The ODN shall establish and administer dynamic databases for geolocation and monitoring of spectrum usage opportunities.
+The ODN, in cooperation with national regulatory authorities, an under the supervision of BEREC, shall establish and keep an up-to-date the database of the pan-European numbering resources."""@en ;
+    cav:type iac:StatementTypeOrganisationMeasure ;
+    m8g:hasRelatedService <http://example.org/analysis/interop/2> ;
+    dcterms:description "Organisational measures for a smooth cross-border digital public services deliveryPlease list the governance measures foreseen"@en .
+
+<http://example.org/analysis/assessment/1/7/measure> a cav:Statement ;
+    cav:interpretation iac:InterpretationPositive ;
+    cav:judgement """The Commission, taking utmost account of the views of the RSPB, may adopt implementing acts to define the spectrum bands covered by the dynamic database and develop uniform formats for the collection and provision of data by the competent authorities.
+Six months after the adoption of the Union numbering plan, the ODN shall set up the procedure for provision of information that will feed the pan-European numbering resources database."""@en ;
+    cav:type iac:StatementTypeSharedMeasure ;
+    m8g:hasRelatedService <http://example.org/analysis/interop/2> ;
+    dcterms:description "Measures taken to ensure a shared understanding of the dataPlease list such measures"@en .
+
+<http://example.org/analysis/assessment/1/8/measure> a cav:Statement ;
+    cav:interpretation iac:InterpretationPositive ;
+    cav:judgement "The ODN shall establish technical specifications for the dynamic database for geolocation and monitoring of spectrum usage opportunities, and the pan-European numbering resources database, at a later date."@en ;
+    cav:type iac:StatementTypeStandardsMeasure ;
+    m8g:hasRelatedService <http://example.org/analysis/interop/2> ;
+    dcterms:description "Use of commonly agreed open technical specifications and standards"@en .
+
+<http://example.org/analysis/description/1/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/1/action/role/addressee-berec>,
+        <http://example.org/analysis/description/1/action/role/addressee-enisa>,
+        <http://example.org/analysis/description/1/action/role/addressee-eu-cyclone>,
+        <http://example.org/analysis/description/1/action/role/addressee-european-commission>,
+        <http://example.org/analysis/description/1/action/role/addressee-national-regulatory-authorities>,
+        <http://example.org/analysis/description/1/action/role/addressee-odn> .
+
+<http://example.org/analysis/description/1/action/role/addressee-berec> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/berec> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/1/action/role/addressee-enisa> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/enisa> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/1/action/role/addressee-eu-cyclone> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/eu-cyclone> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/1/action/role/addressee-european-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/european-commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/1/action/role/addressee-national-regulatory-authorities> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/national-regulatory-authorities> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/1/action/role/addressee-odn> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/odn> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/10/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/10/action/role/addressee-berec>,
+        <http://example.org/analysis/description/10/action/role/addressee-eu-commission>,
+        <http://example.org/analysis/description/10/action/role/addressee-national-regulatory-authorities> .
+
+<http://example.org/analysis/description/10/action/role/addressee-berec> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/berec> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/10/action/role/addressee-eu-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/eu-commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/10/action/role/addressee-national-regulatory-authorities> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/national-regulatory-authorities> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/11/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/11/action/role/addressee-national-regulatory-authorities>,
+        <http://example.org/analysis/description/11/action/role/addressee-operators> .
+
+<http://example.org/analysis/description/11/action/role/addressee-national-regulatory-authorities> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/national-regulatory-authorities> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/11/action/role/addressee-operators> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/operators> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/12/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/12/action/role/addressee-berec>,
+        <http://example.org/analysis/description/12/action/role/addressee-eu-commission>,
+        <http://example.org/analysis/description/12/action/role/addressee-national-regulatory-authorities> .
+
+<http://example.org/analysis/description/12/action/role/addressee-berec> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/berec> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/12/action/role/addressee-eu-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/eu-commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/12/action/role/addressee-national-regulatory-authorities> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/national-regulatory-authorities> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/13/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/13/action/role/addressee-berec>,
+        <http://example.org/analysis/description/13/action/role/addressee-national-regulatory-authorities>,
+        <http://example.org/analysis/description/13/action/role/addressee-providers-of-electronic-communications-to-the-public> .
+
+<http://example.org/analysis/description/13/action/role/addressee-berec> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/berec> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/13/action/role/addressee-national-regulatory-authorities> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/national-regulatory-authorities> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/13/action/role/addressee-providers-of-electronic-communications-to-the-public> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/providers-of-electronic-communications-to-the-public> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/14/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/14/action/role/addressee-consumers>,
+        <http://example.org/analysis/description/14/action/role/addressee-providers-of-internet-access-services> .
+
+<http://example.org/analysis/description/14/action/role/addressee-consumers> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/consumers> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/14/action/role/addressee-providers-of-internet-access-services> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/providers-of-internet-access-services> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/15/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/15/action/role/addressee-berec>,
+        <http://example.org/analysis/description/15/action/role/addressee-consumers>,
+        <http://example.org/analysis/description/15/action/role/addressee-microenterprises>,
+        <http://example.org/analysis/description/15/action/role/addressee-odn>,
+        <http://example.org/analysis/description/15/action/role/addressee-providers-of-internet-access-services> .
+
+<http://example.org/analysis/description/15/action/role/addressee-berec> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/berec> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/15/action/role/addressee-consumers> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/consumers> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/15/action/role/addressee-microenterprises> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/microenterprises> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/15/action/role/addressee-odn> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/odn> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/15/action/role/addressee-providers-of-internet-access-services> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/providers-of-internet-access-services> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/16/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/16/action/role/addressee-end-users>,
+        <http://example.org/analysis/description/16/action/role/addressee-enisa>,
+        <http://example.org/analysis/description/16/action/role/addressee-member-states>,
+        <http://example.org/analysis/description/16/action/role/addressee-odn>,
+        <http://example.org/analysis/description/16/action/role/addressee-service-providers> .
+
+<http://example.org/analysis/description/16/action/role/addressee-end-users> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/end-users> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/16/action/role/addressee-enisa> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/enisa> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/16/action/role/addressee-member-states> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/16/action/role/addressee-odn> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/odn> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/16/action/role/addressee-service-providers> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/service-providers> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/17/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/17/action/role/addressee-eu-commission>,
+        <http://example.org/analysis/description/17/action/role/addressee-member-states>,
+        <http://example.org/analysis/description/17/action/role/addressee-national-regulatory-authorities> .
+
+<http://example.org/analysis/description/17/action/role/addressee-eu-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/eu-commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/17/action/role/addressee-member-states> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/17/action/role/addressee-national-regulatory-authorities> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/national-regulatory-authorities> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/18/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/18/action/role/addressee-berec-odn-national-regulatory-authorities-commission-european-parliament-council-and-other-stakeholders> .
+
+<http://example.org/analysis/description/18/action/role/addressee-berec-odn-national-regulatory-authorities-commission-european-parliament-council-and-other-stakeholders> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/berec-odn-national-regulatory-authorities-commission-european-parliament-council-and-other-stakeholders> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/19/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/19/action/role/addressee-berec>,
+        <http://example.org/analysis/description/19/action/role/addressee-commission>,
+        <http://example.org/analysis/description/19/action/role/addressee-council>,
+        <http://example.org/analysis/description/19/action/role/addressee-european-economic-and-social-committee>,
+        <http://example.org/analysis/description/19/action/role/addressee-european-parliament>,
+        <http://example.org/analysis/description/19/action/role/addressee-the-rspb-board> .
+
+<http://example.org/analysis/description/19/action/role/addressee-berec> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/berec> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/19/action/role/addressee-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/19/action/role/addressee-council> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/council> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/19/action/role/addressee-european-economic-and-social-committee> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/european-economic-and-social-committee> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/19/action/role/addressee-european-parliament> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/european-parliament> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/19/action/role/addressee-the-rspb-board> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/the-rspb-board> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/2> a iopa:BindingRequirement,
+        lomo:LegalRule ;
+    rdfs:label "Part III – Single Market Authorisation and Passporting"@en ;
+    iopa:affects <http://example.org/analysis/interop/1> ;
+    cav:valueDescription "Flows of data related to general authorisation, the Single Passport procedure, mutual assistance, and administrative charges. Digital solution: publicly available Union database of the notifications submitted to the national regulatory authorities (centralised database for the single passport system implementation)."@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/16/cod/doc/com/COM_2026_16/FINAL/eng/pt_3> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/market-authorisation> ;
+    lomo:produces <http://example.org/analysis/description/2/action> ;
+    lomo:references <http://example.org/dataset/data-in-the-context-or-market-authorisation-and-the-single-passport-procedure>,
+        <http://example.org/dataset/guidelines-on-the-general-authorisation-regime-and-data-in-the-context-of-mutual-assistance>,
+        <http://example.org/dataset/information-on-administrative-costs-and-charges> ;
+    dcterms:description "Flows of data related to general authorisation, the Single Passport procedure, mutual assistance, and administrative charges. Digital solution: publicly available Union database of the notifications submitted to the national regulatory authorities (centralised database for the single passport system implementation)."@en ;
+    dcterms:relation <http://example.org/ie-solution/not-specified> .
+
+<http://example.org/analysis/description/2/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/2/action/role/addressee-berec>,
+        <http://example.org/analysis/description/2/action/role/addressee-european-commission>,
+        <http://example.org/analysis/description/2/action/role/addressee-member-states-national-regulatory-authorities>,
+        <http://example.org/analysis/description/2/action/role/addressee-odn>,
+        <http://example.org/analysis/description/2/action/role/addressee-providers-of-electronic-communications-networks-or-services> .
+
+<http://example.org/analysis/description/2/action/role/addressee-berec> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/berec> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/2/action/role/addressee-european-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/european-commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/2/action/role/addressee-member-states-national-regulatory-authorities> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states-national-regulatory-authorities> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/2/action/role/addressee-odn> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/odn> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/2/action/role/addressee-providers-of-electronic-communications-networks-or-services> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/providers-of-electronic-communications-networks-or-services> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/20/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/20/action/role/addressee-berec>,
+        <http://example.org/analysis/description/20/action/role/addressee-commission>,
+        <http://example.org/analysis/description/20/action/role/addressee-council>,
+        <http://example.org/analysis/description/20/action/role/addressee-court-of-auditors>,
+        <http://example.org/analysis/description/20/action/role/addressee-enisa>,
+        <http://example.org/analysis/description/20/action/role/addressee-european-parliament>,
+        <http://example.org/analysis/description/20/action/role/addressee-odn>,
+        <http://example.org/analysis/description/20/action/role/addressee-rspb> .
+
+<http://example.org/analysis/description/20/action/role/addressee-berec> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/berec> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/20/action/role/addressee-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/20/action/role/addressee-council> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/council> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/20/action/role/addressee-court-of-auditors> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/court-of-auditors> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/20/action/role/addressee-enisa> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/enisa> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/20/action/role/addressee-european-parliament> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/european-parliament> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/20/action/role/addressee-odn> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/odn> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/20/action/role/addressee-rspb> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/rspb> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/21/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/21/action/role/addressee-odn-european-parliament-council-court-of-auditors> .
+
+<http://example.org/analysis/description/21/action/role/addressee-odn-european-parliament-council-court-of-auditors> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/odn-european-parliament-council-court-of-auditors> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/22/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/22/action/role/addressee-odn-berec-rspb-commission-national-regulatory-authorities-competent-authorities-member-states-european-parliament-council> .
+
+<http://example.org/analysis/description/22/action/role/addressee-odn-berec-rspb-commission-national-regulatory-authorities-competent-authorities-member-states-european-parliament-council> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/odn-berec-rspb-commission-national-regulatory-authorities-competent-authorities-member-states-european-parliament-council> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/23/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/23/action/role/addressee-undertakings-providing-electronic-communications-networksservices-national-regulatory-authorities-other-competent-authorities-berec-rspb-commission-member-states-authorities-public-authorities-single-information-points-end-users-consumers-manufacturers> .
+
+<http://example.org/analysis/description/23/action/role/addressee-undertakings-providing-electronic-communications-networksservices-national-regulatory-authorities-other-competent-authorities-berec-rspb-commission-member-states-authorities-public-authorities-single-information-points-end-users-consumers-manufacturers> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/undertakings-providing-electronic-communications-networksservices-national-regulatory-authorities-other-competent-authorities-berec-rspb-commission-member-states-authorities-public-authorities-single-information-points-end-users-consumers-manufacturers> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/24/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/24/action/role/addressee-eu-commission-national-regulatory-authorities-other-competent-authorities-berec-rspb-european-parliament-council-european-standardisation-organisations-public> .
+
+<http://example.org/analysis/description/24/action/role/addressee-eu-commission-national-regulatory-authorities-other-competent-authorities-berec-rspb-european-parliament-council-european-standardisation-organisations-public> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/eu-commission-national-regulatory-authorities-other-competent-authorities-berec-rspb-european-parliament-council-european-standardisation-organisations-public> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/25/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/25/action/role/addressee-berec>,
+        <http://example.org/analysis/description/25/action/role/addressee-national-regulatory-authorities> .
+
+<http://example.org/analysis/description/25/action/role/addressee-berec> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/berec> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/25/action/role/addressee-national-regulatory-authorities> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/national-regulatory-authorities> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/26/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/26/action/role/addressee-berec-odn-commission-national-regulatory-authorities-providers-of-electronic-communications-networks-undertakings-active-in-electronic-communications-or-closely-related-sectors-stakeholders> .
+
+<http://example.org/analysis/description/26/action/role/addressee-berec-odn-commission-national-regulatory-authorities-providers-of-electronic-communications-networks-undertakings-active-in-electronic-communications-or-closely-related-sectors-stakeholders> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/berec-odn-commission-national-regulatory-authorities-providers-of-electronic-communications-networks-undertakings-active-in-electronic-communications-or-closely-related-sectors-stakeholders> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/27/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/27/action/role/addressee-commission-european-parliament-council-member-states-national-regulatory-authorities-communications-committee-radio-spectrum-committee-berec-rspb-odn-undertakings-experts-stakeholders> .
+
+<http://example.org/analysis/description/27/action/role/addressee-commission-european-parliament-council-member-states-national-regulatory-authorities-communications-committee-radio-spectrum-committee-berec-rspb-odn-undertakings-experts-stakeholders> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/commission-european-parliament-council-member-states-national-regulatory-authorities-communications-committee-radio-spectrum-committee-berec-rspb-odn-undertakings-experts-stakeholders> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/3/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/3/action/role/addressee-european-commission>,
+        <http://example.org/analysis/description/3/action/role/addressee-holders-of-a-spectrum-usage-right>,
+        <http://example.org/analysis/description/3/action/role/addressee-member-states-competent-authorities>,
+        <http://example.org/analysis/description/3/action/role/addressee-rspb>,
+        <http://example.org/analysis/description/3/action/role/addressee-third-countries> .
+
+<http://example.org/analysis/description/3/action/role/addressee-european-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/european-commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/3/action/role/addressee-holders-of-a-spectrum-usage-right> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/holders-of-a-spectrum-usage-right> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/3/action/role/addressee-member-states-competent-authorities> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states-competent-authorities> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/3/action/role/addressee-rspb> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/rspb> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/3/action/role/addressee-third-countries> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/third-countries> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/4/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/4/action/role/addressee-european-commission>,
+        <http://example.org/analysis/description/4/action/role/addressee-member-states-competent-authorities>,
+        <http://example.org/analysis/description/4/action/role/addressee-originators-of-request-for-harmonisation>,
+        <http://example.org/analysis/description/4/action/role/addressee-radio-spectrum-committee>,
+        <http://example.org/analysis/description/4/action/role/addressee-rspb> .
+
+<http://example.org/analysis/description/4/action/role/addressee-european-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/european-commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/4/action/role/addressee-member-states-competent-authorities> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states-competent-authorities> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/4/action/role/addressee-originators-of-request-for-harmonisation> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/originators-of-request-for-harmonisation> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/4/action/role/addressee-radio-spectrum-committee> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/radio-spectrum-committee> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/4/action/role/addressee-rspb> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/rspb> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/5> a iopa:BindingRequirement,
+        lomo:LegalRule ;
+    rdfs:label "Part IV – Resources (Spectrum and Numbering);"@en ;
+    iopa:affects <http://example.org/analysis/interop/2> ;
+    cav:valueDescription "Data flows relating to individual rights of the use of radio spectrum, common authorisation conditions for the use of radio spectrum, shared use of spectrum, and Spectrum Single market selection procedures. Digital solution: dynamic database for geolocation and monitoring of spectrum usage opportunities to promote and allow the shared use of specific spectrum bands"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/16/cod/doc/com/COM_2026_16/FINAL/eng/pt_4>,
+        <https://data.europa.eu/eli/dl/proc/2026/16/cod/doc/com/COM_2026_16/FINAL/eng/tit_1/chp_3> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/authorisation-and-rights-of-use>,
+        <http://example.org/process/database> ;
+    lomo:produces <http://example.org/analysis/description/5/action> ;
+    lomo:references <http://example.org/dataset/data-for-the-dynamic-database-for-geolocation-and-monitoring-of-spectrum-usage-opportunities>,
+        <http://example.org/dataset/data-in-relation-to-common-authorisation-conditions-of-use-for-radio-spectrum>,
+        <http://example.org/dataset/data-used-in-the-context-of-the-spectrum-single-market-procedure>,
+        <http://example.org/dataset/information-on-individual-rights-of-use>,
+        <http://example.org/dataset/other-data-on-individual-rights> ;
+    dcterms:description "Data flows relating to individual rights of the use of radio spectrum, common authorisation conditions for the use of radio spectrum, shared use of spectrum, and Spectrum Single market selection procedures. Digital solution: dynamic database for geolocation and monitoring of spectrum usage opportunities to promote and allow the shared use of specific spectrum bands"@en ;
+    dcterms:relation <http://example.org/ie-solution/not-specified> .
+
+<http://example.org/analysis/description/5/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/5/action/role/addressee-berec>,
+        <http://example.org/analysis/description/5/action/role/addressee-communication-committee-or-external-experts>,
+        <http://example.org/analysis/description/5/action/role/addressee-european-commission>,
+        <http://example.org/analysis/description/5/action/role/addressee-interested-parties-in-re-individual-rights-of-use>,
+        <http://example.org/analysis/description/5/action/role/addressee-member-states-competent-authorities>,
+        <http://example.org/analysis/description/5/action/role/addressee-odn>,
+        <http://example.org/analysis/description/5/action/role/addressee-rspb-and-rspg> .
+
+<http://example.org/analysis/description/5/action/role/addressee-berec> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/berec> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/5/action/role/addressee-communication-committee-or-external-experts> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/communication-committee-or-external-experts> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/5/action/role/addressee-european-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/european-commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/5/action/role/addressee-interested-parties-in-re-individual-rights-of-use> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/interested-parties-in-re-individual-rights-of-use> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/5/action/role/addressee-member-states-competent-authorities> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states-competent-authorities> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/5/action/role/addressee-odn> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/odn> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/5/action/role/addressee-rspb-and-rspg> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/rspb-and-rspg> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/6/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/6/action/role/addressee-competent-spectrum-authorities>,
+        <http://example.org/analysis/description/6/action/role/addressee-europea-commission>,
+        <http://example.org/analysis/description/6/action/role/addressee-holders-of-a-union-authorisation-that-are-found-to-be-in-breach-of-the-conditions>,
+        <http://example.org/analysis/description/6/action/role/addressee-itu>,
+        <http://example.org/analysis/description/6/action/role/addressee-prospective-users-of-radio-spectrum>,
+        <http://example.org/analysis/description/6/action/role/addressee-providers-of-satellite-networks-andor-satellite-communication-services>,
+        <http://example.org/analysis/description/6/action/role/addressee-radio-spectrum-committee>,
+        <http://example.org/analysis/description/6/action/role/addressee-rspb> .
+
+<http://example.org/analysis/description/6/action/role/addressee-competent-spectrum-authorities> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/competent-spectrum-authorities> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/6/action/role/addressee-europea-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/europea-commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/6/action/role/addressee-holders-of-a-union-authorisation-that-are-found-to-be-in-breach-of-the-conditions> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/holders-of-a-union-authorisation-that-are-found-to-be-in-breach-of-the-conditions> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/6/action/role/addressee-itu> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/itu> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/6/action/role/addressee-prospective-users-of-radio-spectrum> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/prospective-users-of-radio-spectrum> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/6/action/role/addressee-providers-of-satellite-networks-andor-satellite-communication-services> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/providers-of-satellite-networks-andor-satellite-communication-services> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/6/action/role/addressee-radio-spectrum-committee> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/radio-spectrum-committee> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/6/action/role/addressee-rspb> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/rspb> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/7> a iopa:BindingRequirement,
+        lomo:LegalRule ;
+    rdfs:label "Part IV – Resources (Spectrum and Numbering);"@en ;
+    iopa:affects <http://example.org/analysis/interop/2> ;
+    cav:valueDescription "Data flows pertaining to: pan-European numbering resources; national numbering resources; and the granting of rights of use for numbering resources. Digital solution: Database of the pan-European numbering resources"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/16/cod/doc/com/COM_2026_16/FINAL/eng/pt_4>,
+        <https://data.europa.eu/eli/dl/proc/2026/16/cod/doc/com/COM_2026_16/FINAL/eng/tit_3> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/database>,
+        <http://example.org/process/information-sharing-incl-publication>,
+        <http://example.org/process/procedure-for-granting-of-rights>,
+        <http://example.org/process/report-dissemination> ;
+    lomo:produces <http://example.org/analysis/description/7/action> ;
+    lomo:references <http://example.org/dataset/data-concerning-national-numbering-resources>,
+        <http://example.org/dataset/data-concerning-pan-european-numbering-resources>,
+        <http://example.org/dataset/data-for-the-dynamic-database-for-geolocation-and-monitoring-of-spectrum-usage-opportunities>,
+        <http://example.org/dataset/data-in-relation-to-common-authorisation-conditions-of-use-for-radio-spectrum>,
+        <http://example.org/dataset/data-in-the-context-of-filing-and-coordination-of-satellite-systems-with-the-international-telecommunication-union-itu>,
+        <http://example.org/dataset/data-in-the-context-of-supervision-and-remedies-including-resolution-of-satellite-interferences>,
+        <http://example.org/dataset/data-in-the-context-of-the-granting-of-rights-of-use-for-numbering-resources>,
+        <http://example.org/dataset/data-in-the-context-of-the-strategic-planning-and-management-of-numbering-resources>,
+        <http://example.org/dataset/data-pertaining-to-union-level-authorisations-for-the-use-of-satellite-spectrum>,
+        <http://example.org/dataset/data-used-in-the-context-of-the-spectrum-single-market-procedure>,
+        <http://example.org/dataset/information-on-individual-rights-of-use>,
+        <http://example.org/dataset/information-on-strategic-planning-and-management-of-radio-spectrum-including-for-the-purpose-of-addressing-harmful-interference>,
+        <http://example.org/dataset/other-data-on-individual-rights>,
+        <http://example.org/dataset/requests-for-harmonisation-of-radio-spectrum>,
+        <http://example.org/dataset/requests-for-review-of-deadline-extensions-for-allowing-alternative-use-on-an-exceptional-basis-where-the-use-of-radio-spectrum-has-been-harmonised-by-technical-implementing-measures-in-accordance-with-decision-no-6762002ec>,
+        <http://example.org/dataset/union-spectrum-strategy-and-roadmaps> ;
+    dcterms:description "Data flows pertaining to: pan-European numbering resources; national numbering resources; and the granting of rights of use for numbering resources. Digital solution: Database of the pan-European numbering resources"@en ;
+    dcterms:relation <http://example.org/ie-solution/not-specified> .
+
+<http://example.org/analysis/description/7/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/7/action/role/addressee-berec>,
+        <http://example.org/analysis/description/7/action/role/addressee-national-regulatory-authorities>,
+        <http://example.org/analysis/description/7/action/role/addressee-odn>,
+        <http://example.org/analysis/description/7/action/role/addressee-undertakings-for-the-provision-of-electronic-communications-networks-or-services> .
+
+<http://example.org/analysis/description/7/action/role/addressee-berec> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/berec> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/7/action/role/addressee-national-regulatory-authorities> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/national-regulatory-authorities> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/7/action/role/addressee-odn> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/odn> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/7/action/role/addressee-undertakings-for-the-provision-of-electronic-communications-networks-or-services> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/undertakings-for-the-provision-of-electronic-communications-networks-or-services> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/8> a iopa:BindingRequirement,
+        lomo:LegalRule ;
+    rdfs:label "Part V – Transition to fibre, markets functioning and competition;"@en ;
+    iopa:affects <http://example.org/analysis/interop/2> ;
+    cav:valueDescription "Data and data flows: -Update and publish CSO areas, publish the CSO areas where sustainability conditions are met -Notification of the national transition to fibre plan -Implicit information flows for end-users in areas affected by the copper switch-off -Operators’ submission of the copper switch-off plans to national regulatory authorities"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/16/cod/doc/com/COM_2026_16/FINAL/eng/pt_5>,
+        <https://data.europa.eu/eli/dl/proc/2026/16/cod/doc/com/COM_2026_16/FINAL/eng/tit_1> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/information-sharing>,
+        <http://example.org/process/publishing-information>,
+        <http://example.org/process/submission-of-information> ;
+    lomo:produces <http://example.org/analysis/description/8/action> ;
+    lomo:references <http://example.org/dataset/copper-switch-off-information-and-transition-planning-data>,
+        <http://example.org/dataset/information-provision-geographical-surveys-and-consultation-mechanisms-survey-results>,
+        <http://example.org/dataset/names-of-national-regulatory-and-other-competent-authorities-and-their-respective-tasks-notification-of-national-regulatory-and-other-competent-authorities-and-their-responsibilities-annual-reports-by-national-regulatory-authorities-annual-budgets-of-national-regulatory-authorities> ;
+    dcterms:description "Data and data flows: -Update and publish CSO areas, publish the CSO areas where sustainability conditions are met -Notification of the national transition to fibre plan -Implicit information flows for end-users in areas affected by the copper switch-off -Operators’ submission of the copper switch-off plans to national regulatory authorities"@en ;
+    dcterms:relation <http://example.org/ie-solution/not-specified> .
+
+<http://example.org/analysis/description/8/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/8/action/role/addressee-member-states>,
+        <http://example.org/analysis/description/8/action/role/addressee-national-regulatory-authorities>,
+        <http://example.org/analysis/description/8/action/role/addressee-operators> .
+
+<http://example.org/analysis/description/8/action/role/addressee-member-states> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/8/action/role/addressee-national-regulatory-authorities> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/national-regulatory-authorities> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/8/action/role/addressee-operators> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/operators> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/9> a iopa:BindingRequirement,
+        lomo:LegalRule ;
+    rdfs:label "Part V – Transition to fibre, markets functioning and competition;"@en ;
+    iopa:affects <http://example.org/analysis/interop/2> ;
+    cav:valueDescription "Data and data flows: -Produce guidance and make publicly available the procedures to gain access and interconnection -Notification of the outcome of the assessment on the regulatory framework pursuant to Article 69"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/16/cod/doc/com/COM_2026_16/FINAL/eng/pt_5>,
+        <https://data.europa.eu/eli/dl/proc/2026/16/cod/doc/com/COM_2026_16/FINAL/eng/tit_3> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/developing-guidance-and-publish-information>,
+        <http://example.org/process/notification-of-information> ;
+    lomo:produces <http://example.org/analysis/description/9/action> ;
+    lomo:references <http://example.org/dataset/access-and-interconnection-procedures-and-regulatory-assessment-outcomes>,
+        <http://example.org/dataset/contract-information-transparency-information-performance-data-notifications-on-contractual-changes-consumption-monitoring-data>,
+        <http://example.org/dataset/data-concerning-national-numbering-resources>,
+        <http://example.org/dataset/data-concerning-pan-european-numbering-resources>,
+        <http://example.org/dataset/data-in-the-context-of-the-granting-of-rights-of-use-for-numbering-resources>,
+        <http://example.org/dataset/data-in-the-context-of-the-strategic-planning-and-management-of-numbering-resources>,
+        <http://example.org/dataset/dispute-resolution-procedures-and-decisions>,
+        <http://example.org/dataset/fraudulent-activity-information-emergency-communications-data-public-warnings-data-calling-line-identification-data-public-interest-information-end-user-disability-accessibility-information>,
+        <http://example.org/dataset/switching-process-information-number-portability-data-porting-timelines-service-continuity-data-compensation-information-consent-records> ;
+    dcterms:description "Data and data flows: -Produce guidance and make publicly available the procedures to gain access and interconnection -Notification of the outcome of the assessment on the regulatory framework pursuant to Article 69"@en ;
+    dcterms:relation <http://example.org/ie-solution/not-specified> .
+
+<http://example.org/analysis/description/9/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/9/action/role/addressee-national-regulatory-authorities> .
+
+<http://example.org/analysis/description/9/action/role/addressee-national-regulatory-authorities> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/national-regulatory-authorities> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/dataset/administrative-procedures-notifications-and-reporting> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/16/cod/doc/com/COM_2026_16/FINAL/eng/pt_8>,
+        <https://data.europa.eu/eli/dl/proc/2026/16/cod/doc/com/COM_2026_16/FINAL/eng/tit_6> ;
+    dcterms:title "Administrative procedures, notifications, and reporting"@en .
+
+<http://example.org/dataset/cost-accounting-system-information-and-compliance-verification-data> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/16/cod/doc/com/COM_2026_16/FINAL/eng/chp_2>,
+        <https://data.europa.eu/eli/dl/proc/2026/16/cod/doc/com/COM_2026_16/FINAL/eng/pt_5>,
+        <https://data.europa.eu/eli/dl/proc/2026/16/cod/doc/com/COM_2026_16/FINAL/eng/tit_4> ;
+    dcterms:conformsTo <http://example.org/standard/a-description-of-the-cost-accounting-system-showing-at-least-the-main-categories-under-which-costs-are-grouped-and-the-rules-used-for-the-allocation-of-costs-must-be-made-publicly-available-the-system-must-be-verified-by-a-qualified-independent-body> ;
+    dcterms:title "Cost-accounting system information and compliance verification data"@en .
+
+<http://example.org/dataset/data-in-the-context-or-market-authorisation-and-the-single-passport-procedure> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/16/cod/doc/com/COM_2026_16/FINAL/eng/pt_3> ;
+    dcterms:conformsTo <http://example.org/standard/a-description-if-provided-on-the-information-to-be-included-in-the-confirmation-of-the-authorisation>,
+        <http://example.org/standard/the-notification-of-intention-to-provide-networks-or-services-shall-be-made-in-accordance-with-a-notification-template-to-be-made-available-by-berec> ;
+    dcterms:title "Data in the context or market authorisation and the Single Passport procedure"@en .
+
+<http://example.org/dataset/draft-regulatory-measures-comments-opinions-decisions-and-final-adopted-measure> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/16/cod/doc/com/COM_2026_16/FINAL/eng/chp_3>,
+        <https://data.europa.eu/eli/dl/proc/2026/16/cod/doc/com/COM_2026_16/FINAL/eng/pt_5>,
+        <https://data.europa.eu/eli/dl/proc/2026/16/cod/doc/com/COM_2026_16/FINAL/eng/tit_4> ;
+    dcterms:conformsTo <http://example.org/standard/berec-shall-issue-an-opinion-within-30-working-days-from-the-beginning-of-the-90-day-period-provisional-measures-under-article-86-are-valid-for-maximum-12-months>,
+        <http://example.org/standard/draft-measures-must-be-published-and-communicated-simultaneously-to-the-commission-berec-and-national-regulatory-authorities-in-other-member-states-stating-the-reasons-in-accordance-with-article-203> ;
+    dcterms:title "Draft regulatory measures, comments, opinions, decisions, and final adopted measure"@en .
+
+<http://example.org/dataset/guidelines-on-the-general-authorisation-regime-and-data-in-the-context-of-mutual-assistance> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/16/cod/doc/com/COM_2026_16/FINAL/eng/pt_3> ;
+    dcterms:title "Guidelines on the general authorisation regime and data in the context of mutual assistance"@en .
+
+<http://example.org/dataset/information-exchange-document-access-declarations-of-interests-communication-activities-and-evaluations> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/16/cod/doc/com/COM_2026_16/FINAL/eng/chp_3>,
+        <https://data.europa.eu/eli/dl/proc/2026/16/cod/doc/com/COM_2026_16/FINAL/eng/pt_7>,
+        <https://data.europa.eu/eli/dl/proc/2026/16/cod/doc/com/COM_2026_16/FINAL/eng/tit_5> ;
+    dcterms:conformsTo <http://example.org/standard/common-templates> ;
+    dcterms:title "Information exchange, document access, declarations of interests, communication activities, and evaluations"@en .
+
+<http://example.org/dataset/information-on-administrative-costs-and-charges> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/16/cod/doc/com/COM_2026_16/FINAL/eng/pt_3> ;
+    dcterms:title "Information on administrative costs and charges"@en .
+
+<http://example.org/dataset/information-on-commitments-offered-by-operators-with-significant-market-power> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/16/cod/doc/com/COM_2026_16/FINAL/eng/chp_2>,
+        <https://data.europa.eu/eli/dl/proc/2026/16/cod/doc/com/COM_2026_16/FINAL/eng/pt_5>,
+        <https://data.europa.eu/eli/dl/proc/2026/16/cod/doc/com/COM_2026_16/FINAL/eng/tit_4> ;
+    dcterms:conformsTo <http://example.org/standard/commitments-shall-be-sufficiently-detailed-regarding-scope-duration-timing-and-modality-of-implementation-to-allow-assessment-by-the-national-regulatory-authority> ;
+    dcterms:title "Information on commitments offered by operators with significant market power"@en .
+
+<http://example.org/dataset/information-to-ensure-shared-situational-awareness-and-coherence-in-crisis-response> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/16/cod/doc/com/COM_2026_16/FINAL/eng/pt_2> ;
+    dcterms:title "Information to ensure shared situational awareness and coherence in crisis response"@en .
+
+<http://example.org/dataset/market-definitions-market-analysis-outcomes-regulatory-measures-and-guidance-documents> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/16/cod/doc/com/COM_2026_16/FINAL/eng/chp_1>,
+        <https://data.europa.eu/eli/dl/proc/2026/16/cod/doc/com/COM_2026_16/FINAL/eng/pt_5>,
+        <https://data.europa.eu/eli/dl/proc/2026/16/cod/doc/com/COM_2026_16/FINAL/eng/tit_4> ;
+    dcterms:conformsTo <http://example.org/standard/market-analysis-must-follow-procedures-in-articles-186-and-85-be-conducted-in-a-timely-manner-and-conclude-within-one-year-markets-where-ex-ante-regulation-is-imposed-shall-be-reviewed-every-five-years-to-determine-whether-the-three-criteria-in-article-721-are-met>,
+        <http://example.org/standard/smp-guidelines-shall-be-in-accordance-with-relevant-principles-of-competition-law-and-include-guidance-on-applying-the-concept-of-significant-market-power-to-ex-ante-regulation-of-electronic-communications-markets>,
+        <http://example.org/standard/the-recommendation-shall-identify-product-and-service-markets-defined-in-accordance-with-principles-of-competition-law> ;
+    dcterms:title "Market definitions, market analysis outcomes, regulatory measures, and guidance documents"@en .
+
+<http://example.org/dataset/odn-annual-budget-and-consolidated-annual-activity-reportannual-report-on-progress-towards-the-single-market-for-electronic-communications> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/16/cod/doc/com/COM_2026_16/FINAL/eng/chp_1>,
+        <https://data.europa.eu/eli/dl/proc/2026/16/cod/doc/com/COM_2026_16/FINAL/eng/pt_7>,
+        <https://data.europa.eu/eli/dl/proc/2026/16/cod/doc/com/COM_2026_16/FINAL/eng/tit_5> ;
+    dcterms:title "ODN annual budget, and consolidated annual activity reportAnnual report on progress towards the single market for electronic communications"@en .
+
+<http://example.org/dataset/odn-single-programming-document-annual-budget-consolidated-annual-activity-report-and-financial-accounts> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/16/cod/doc/com/COM_2026_16/FINAL/eng/chp_2>,
+        <https://data.europa.eu/eli/dl/proc/2026/16/cod/doc/com/COM_2026_16/FINAL/eng/pt_7>,
+        <https://data.europa.eu/eli/dl/proc/2026/16/cod/doc/com/COM_2026_16/FINAL/eng/tit_5> ;
+    dcterms:title "ODN single programming document, annual budget, consolidated annual activity report, and financial accounts"@en .
+
+<http://example.org/dataset/the-union-preparedness-plan-for-digital-infrastructures-and-information-used-in-the-preparation-of-said-plan> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/16/cod/doc/com/COM_2026_16/FINAL/eng/pt_2> ;
+    dcterms:conformsTo <http://example.org/standard/a-description-of-what-the-plan-ought-to-include-is-provided-in-the-legal-text>,
+        <http://example.org/standard/berec-shall-publish-a-common-template-to-be-used-by-national-regulatory-authorities-for-the-collection-of-the-information-that-will-feed-the-plan> ;
+    dcterms:title "The ‘Union Preparedness Plan for Digital Infrastructures’ and information used in the preparation of said Plan"@en .
+
+<http://example.org/process/authorisation-and-rights-of-use> skos:prefLabel "Authorisation and rights of use"@en .
+
+<http://example.org/process/collecting-information> skos:prefLabel "Collecting information"@en .
+
+<http://example.org/process/cross-border-cooperation-of-national-authorities> skos:prefLabel "Cross-border cooperation of national authorities"@en .
+
+<http://example.org/process/developing-a-template> skos:prefLabel "Developing a template"@en .
+
+<http://example.org/process/developing-documents-and-reports> skos:prefLabel "Developing documents and reports"@en .
+
+<http://example.org/process/developing-guidance-and-publish-information> skos:prefLabel "Developing guidance and publish information"@en .
+
+<http://example.org/process/developing-recommendation> skos:prefLabel "Developing recommendation"@en .
+
+<http://example.org/process/information-sharing-incl-publication> skos:prefLabel "Information sharing (incl. publication)"@en .
+
+<http://example.org/process/informing> skos:prefLabel "Informing"@en .
+
+<http://example.org/process/institutional-cooperation> skos:prefLabel "Institutional cooperation"@en .
+
+<http://example.org/process/institutional-cooperation-incl-crisis-response> skos:prefLabel "Institutional cooperation (incl. crisis response)"@en .
+
+<http://example.org/process/issuing-opinions> skos:prefLabel "Issuing opinions"@en .
+
+<http://example.org/process/market-authorisation> skos:prefLabel "Market authorisation"@en .
+
+<http://example.org/process/notification> skos:prefLabel "Notification"@en .
+
+<http://example.org/process/preparation-and-dissemination-of-reports> skos:prefLabel "Preparation and dissemination of reports"@en .
+
+<http://example.org/process/procedure-for-granting-of-rights> skos:prefLabel "Procedure for granting of rights"@en .
+
+<http://example.org/process/producing-guidelines> skos:prefLabel "Producing guidelines"@en .
+
+<http://example.org/process/publishing-standards> skos:prefLabel "Publishing standards"@en .
+
+<http://example.org/process/report-dissemination> skos:prefLabel "Report dissemination"@en .
+
+<http://example.org/process/sendending-notificationss> skos:prefLabel "Sendending notificationss"@en .
+
+<http://example.org/process/sending-notifications> skos:prefLabel "Sending notifications"@en .
+
+<http://example.org/process/strategic-planning> skos:prefLabel "Strategic planning"@en .
+
+<http://example.org/process/strategic-planning-and-management> skos:prefLabel "Strategic planning and management"@en .
+
+<http://example.org/process/submission-of-information> skos:prefLabel "Submission of information"@en .
+
+<http://example.org/process/submitting-declarations> skos:prefLabel "Submitting declarations"@en .
+
+<http://example.org/process/submitting-report> skos:prefLabel "Submitting report"@en .
+
+<http://example.org/process/submitting-reports> skos:prefLabel "Submitting reports"@en .
+
+<http://example.org/process/supervising> skos:prefLabel "Supervising"@en .
+
+<http://example.org/process/supervision-and-remedies> skos:prefLabel "Supervision and remedies"@en .
+
+<http://example.org/standard/a-description-if-provided-on-the-information-to-be-included-in-the-confirmation-of-the-authorisation> a dcterms:Standard ;
+    dcterms:title "A description if provided on the information to be included in the confirmation of the authorisation."@en .
+
+<http://example.org/standard/a-description-of-the-cost-accounting-system-showing-at-least-the-main-categories-under-which-costs-are-grouped-and-the-rules-used-for-the-allocation-of-costs-must-be-made-publicly-available-the-system-must-be-verified-by-a-qualified-independent-body> a dcterms:Standard ;
+    dcterms:title "A description of the cost-accounting system showing at least the main categories under which costs are grouped and the rules used for the allocation of costs must be made publicly available. The system must be verified by a qualified independent body"@en .
+
+<http://example.org/standard/a-description-of-what-the-plan-ought-to-include-is-provided-in-the-legal-text> a dcterms:Standard ;
+    dcterms:title "A description of what the Plan ought to include is provided in the legal text."@en .
+
+<http://example.org/standard/accessible-format-per-annex-1-of-directive-eu-2019882-for-end-users-with-disabilities-performance-monitoring-per-berec-guidelines-article-953> a dcterms:Standard ;
+    dcterms:title "Accessible format per Annex 1 of Directive (EU) 2019/882 for end-users with disabilities. Performance monitoring per BEREC guidelines (Article 95(3))."@en .
+
+<http://example.org/standard/berec-guidelines-common-reporting-formats-and-templates> a dcterms:Standard ;
+    dcterms:title "BEREC guidelines, common reporting formats and templates"@en .
+
+<http://example.org/standard/berec-guidelines-on-ecosystem-cooperation> a dcterms:Standard ;
+    dcterms:title "BEREC guidelines on ecosystem cooperation"@en .
+
+<http://example.org/standard/berec-shall-issue-an-opinion-within-30-working-days-from-the-beginning-of-the-90-day-period-provisional-measures-under-article-86-are-valid-for-maximum-12-months> a dcterms:Standard ;
+    dcterms:title "BEREC shall issue an opinion within 30 working days from the beginning of the 90-day period. Provisional measures under Article 86 are valid for maximum 12 months."@en .
+
+<http://example.org/standard/berec-shall-publish-a-common-template-to-be-used-by-national-regulatory-authorities-for-the-collection-of-the-information-that-will-feed-the-plan> a dcterms:Standard ;
+    dcterms:title "BEREC shall publish a common template to be used by national regulatory authorities for the collection of the information that will feed the Plan."@en .
+
+<http://example.org/standard/berec-template-by-adoption-date-1-year-berec-guidelines-shall-detail-qos-parameters-measurement-methods-information-format-annex-iii-publication-format-annex-iv-and-quality-certification-mechanisms-including-parameters-for-end-users-with-disabilities> a dcterms:Standard ;
+    dcterms:title "BEREC template by [adoption date + 1 year]. BEREC guidelines shall detail QoS parameters, measurement methods, information format (Annex III), publication format (Annex IV), and quality certification mechanisms, including parameters for end-users with disabilities."@en .
+
+<http://example.org/standard/biennial-reporting-by-providers-covering-networktraffic-management-and-justifications> a dcterms:Standard ;
+    dcterms:title "Biennial reporting by providers covering network/traffic management and justifications."@en .
+
+<http://example.org/standard/brief-content-requirements-for-the-national-spectrum-roadmaps> a dcterms:Standard ;
+    dcterms:title "Brief content requirements for the national spectrum roadmaps."@en .
+
+<http://example.org/standard/caller-location-information-per-harmonised-european-criteria-delegated-act-by-adoption-date-2-years-public-interest-information-in-standardised-format-calling-line-identification-using-simple-and-free-of-charge-means-accessibility-per-directive-eu-2019882> a dcterms:Standard ;
+    dcterms:title "Caller location information per harmonised European criteria (delegated act by [adoption date + 2 years]). Public interest information in standardised format. Calling line identification using simple and free of charge means. Accessibility per Directive (EU) 2019/882."@en .
+
+<http://example.org/standard/commitments-shall-be-sufficiently-detailed-regarding-scope-duration-timing-and-modality-of-implementation-to-allow-assessment-by-the-national-regulatory-authority> a dcterms:Standard ;
+    dcterms:title "Commitments shall be sufficiently detailed regarding scope, duration, timing, and modality of implementation to allow assessment by the national regulatory authority."@en .
+
+<http://example.org/standard/common-templates> a dcterms:Standard ;
+    dcterms:title "Common templates"@en .
+
+<http://example.org/standard/contract-summary-template-may-be-specified-by-commission-after-consulting-berec> a dcterms:Standard ;
+    dcterms:title "Contract summary template may be specified by Commission after consulting BEREC."@en .
+
+<http://example.org/standard/cso-areas-shall-be-delimited-taking-account-of-commission-guidance-to-be-adopted-by-29-february-2028> a dcterms:Standard ;
+    dcterms:title "CSO areas shall be delimited taking account of Commission guidance to be adopted by 29 February 2028."@en .
+
+<http://example.org/standard/draft-measures-must-be-published-and-communicated-simultaneously-to-the-commission-berec-and-national-regulatory-authorities-in-other-member-states-stating-the-reasons-in-accordance-with-article-203> a dcterms:Standard ;
+    dcterms:title "Draft measures must be published and communicated simultaneously to the Commission, BEREC, and national regulatory authorities in other Member States, stating the reasons in accordance with Article 20(3)."@en .
+
+<http://example.org/standard/european-standards-international-standards-itu-cept-iso-iec> a dcterms:Standard ;
+    dcterms:title "European standards; international standards (ITU, CEPT, ISO, IEC)"@en .
+
+<http://example.org/standard/information-provided-in-clear-comprehensible-manner-on-durable-medium-or-easily-downloadable-document-article-962> a dcterms:Standard ;
+    dcterms:title "Information provided in clear, comprehensible manner on durable medium or easily downloadable document (Article 96(2))."@en .
+
+<http://example.org/standard/market-analysis-must-follow-procedures-in-articles-186-and-85-be-conducted-in-a-timely-manner-and-conclude-within-one-year-markets-where-ex-ante-regulation-is-imposed-shall-be-reviewed-every-five-years-to-determine-whether-the-three-criteria-in-article-721-are-met> a dcterms:Standard ;
+    dcterms:title "Market analysis must follow procedures in Articles 186 and 85, be conducted in a timely manner, and conclude within one year. Markets where ex ante regulation is imposed shall be reviewed every five years to determine whether the three criteria in Article 72(1) are met."@en .
+
+<http://example.org/standard/minimum-content-requirements> a dcterms:Standard ;
+    dcterms:title "Minimum content requirements."@en .
+
+<http://example.org/standard/national-regulatory-authorities-shall-specify-objective-and-transparent-parameters-and-criteria-for-assessing-close-proximity-reasonable-effort-reasonable-cost-and-affordability> a dcterms:Standard ;
+    dcterms:title "National regulatory authorities shall specify objective and transparent parameters and criteria for assessing close proximity, reasonable effort, reasonable cost, and affordability."@en .
+
+<http://example.org/standard/obligations-and-conditions-must-be-objective-transparent-proportionate-and-non-discriminatory-implemented-in-accordance-with-articles-186-and-85> a dcterms:Standard ;
+    dcterms:title "Obligations and conditions must be objective, transparent, proportionate and non-discriminatory, implemented in accordance with Articles 186 and 85."@en .
+
+<http://example.org/standard/open-reusable-machine-readable-format-publications-on-berec-website-and-eu-digital-gateway> a dcterms:Standard ;
+    dcterms:title "Open, reusable, machine-readable format. Publications on BEREC website and EU Digital Gateway."@en .
+
+<http://example.org/standard/procedures-must-ensure-that-undertakings-including-smes-and-providers-with-limited-geographical-reach-can-benefit-from-imposed-obligations> a dcterms:Standard ;
+    dcterms:title "Procedures must ensure that undertakings, including SMEs and providers with limited geographical reach, can benefit from imposed obligations."@en .
+
+<http://example.org/standard/publication-in-easily-accessible-form-annual-reporting-budget-control-exercised-in-transparent-manner-and-made-public> a dcterms:Standard ;
+    dcterms:title "Publication in easily accessible form. Annual reporting. Budget control exercised in transparent manner and made public."@en .
+
+<http://example.org/standard/six-months-after-the-adoption-of-the-union-numbering-plan-the-odn-shall-set-up-the-procedure-and-system-for-provision-of-information> a dcterms:Standard ;
+    dcterms:title "Six months after the adoption of the Union numbering plan, the ODN shall set up the procedure and system for provision of information."@en .
+
+<http://example.org/standard/smp-guidelines-shall-be-in-accordance-with-relevant-principles-of-competition-law-and-include-guidance-on-applying-the-concept-of-significant-market-power-to-ex-ante-regulation-of-electronic-communications-markets> a dcterms:Standard ;
+    dcterms:title "SMP guidelines shall be in accordance with relevant principles of competition law and include guidance on applying the concept of significant market power to ex ante regulation of electronic communications markets."@en .
+
+<http://example.org/standard/sustainability-conditions-require-fibre-networks-to-pass-in-close-proximity-to-at-least-95-of-homes-in-the-cso-area> a dcterms:Standard ;
+    dcterms:title "Sustainability conditions require fibre networks to pass in close proximity to at least 95% of homes in the CSO area."@en .
+
+<http://example.org/standard/the-commission-may-adopt-implementing-acts-to-define-the-spectrum-bands-covered-by-the-database-and-develop-practical-arrangements-and-uniform-formats-for-the-collection-and-provision-of-data-by-the-competent-authorities-to-the-commission> a dcterms:Standard ;
+    dcterms:title "The Commission may adopt implementing acts to define the spectrum bands covered by the database and develop practical arrangements and uniform formats for the collection and provision of data by the competent authorities to the Commission."@en .
+
+<http://example.org/standard/the-notification-of-intention-to-provide-networks-or-services-shall-be-made-in-accordance-with-a-notification-template-to-be-made-available-by-berec> a dcterms:Standard ;
+    dcterms:title "The notification of intention to provide networks or services shall be made in accordance with a notification template to be made available by BEREC."@en .
+
+<http://example.org/standard/the-recommendation-shall-identify-product-and-service-markets-defined-in-accordance-with-principles-of-competition-law> a dcterms:Standard ;
+    dcterms:title "The Recommendation shall identify product and service markets defined in accordance with principles of competition law."@en .
+
+<http://example.org/standard/transparency-information-published-in-clear-comprehensive-machine-readable-manner-per-annex-iv> a dcterms:Standard ;
+    dcterms:title "Transparency information published in clear, comprehensive, machine-readable manner per Annex IV."@en .
+
+<http://publications.europa.eu/resource/authority/corporate-body/COM> a m8g:PublicOrganisation ;
+    dcterms:description "The European Commission, provider of the interoperability assessment."@en ;
+    skos:prefLabel "European Commission"@en .
+
+<http://example.org/agent/commission> rdfs:label "Commission"@en .
+
+<http://example.org/agent/consumers> rdfs:label "Consumers"@en .
+
+<http://example.org/agent/council> rdfs:label "Council"@en .
+
+<http://example.org/agent/european-parliament> rdfs:label "European Parliament"@en .
+
+<http://example.org/agent/operators> rdfs:label "Operators"@en .
+
+<http://example.org/agent/providers-of-internet-access-services> rdfs:label "Providers of internet access services"@en .
+
+<http://example.org/agent/radio-spectrum-committee> rdfs:label "Radio Spectrum Committee"@en .
+
+<http://example.org/dataset/access-and-interconnection-procedures-and-regulatory-assessment-outcomes> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/16/cod/doc/com/COM_2026_16/FINAL/eng/chp_2>,
+        <https://data.europa.eu/eli/dl/proc/2026/16/cod/doc/com/COM_2026_16/FINAL/eng/pt_5>,
+        <https://data.europa.eu/eli/dl/proc/2026/16/cod/doc/com/COM_2026_16/FINAL/eng/tit_3> ;
+    dcterms:conformsTo <http://example.org/standard/obligations-and-conditions-must-be-objective-transparent-proportionate-and-non-discriminatory-implemented-in-accordance-with-articles-186-and-85>,
+        <http://example.org/standard/procedures-must-ensure-that-undertakings-including-smes-and-providers-with-limited-geographical-reach-can-benefit-from-imposed-obligations> ;
+    dcterms:title "Access and interconnection procedures, and regulatory assessment outcomes"@en .
+
+<http://example.org/dataset/berec-regulatory-tasks-public-list-berec-opinions-guidelines-reports-recommendations-common-positions-best-practices-commissioned-studies-public-consultation-results-data-collected-by-national-regulatory-authorities-biennial-work-programme-biennial-activity-report-members-of-board-of-regulators-and-alternates-rules-of-procedure-working-arrangements-with-competent-bodiesauthorities> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/16/cod/doc/com/COM_2026_16/FINAL/eng/pt_7>,
+        <https://data.europa.eu/eli/dl/proc/2026/16/cod/doc/com/COM_2026_16/FINAL/eng/tit_2> ;
+    dcterms:conformsTo <http://example.org/standard/open-reusable-machine-readable-format-publications-on-berec-website-and-eu-digital-gateway> ;
+    dcterms:title "BEREC regulatory tasks (public list), BEREC opinions, guidelines, reports, recommendations, common positions, best practices, commissioned studies, Public consultation results, Data collected by national regulatory authorities, biennial work programme, biennial activity report, Members of Board of Regulators and alternates, rules of procedure, working arrangements with competent bodies/authorities"@en .
+
+<http://example.org/dataset/contract-information-transparency-information-performance-data-notifications-on-contractual-changes-consumption-monitoring-data> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/16/cod/doc/com/COM_2026_16/FINAL/eng/chp_1>,
+        <https://data.europa.eu/eli/dl/proc/2026/16/cod/doc/com/COM_2026_16/FINAL/eng/pt_6>,
+        <https://data.europa.eu/eli/dl/proc/2026/16/cod/doc/com/COM_2026_16/FINAL/eng/tit_3> ;
+    dcterms:conformsTo <http://example.org/standard/accessible-format-per-annex-1-of-directive-eu-2019882-for-end-users-with-disabilities-performance-monitoring-per-berec-guidelines-article-953>,
+        <http://example.org/standard/contract-summary-template-may-be-specified-by-commission-after-consulting-berec>,
+        <http://example.org/standard/information-provided-in-clear-comprehensible-manner-on-durable-medium-or-easily-downloadable-document-article-962>,
+        <http://example.org/standard/transparency-information-published-in-clear-comprehensive-machine-readable-manner-per-annex-iv> ;
+    dcterms:title "Contract information, transparency information, performance data, notifications on contractual changes, consumption monitoring data"@en .
+
+<http://example.org/dataset/copper-switch-off-information-and-transition-planning-data> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/16/cod/doc/com/COM_2026_16/FINAL/eng/pt_5>,
+        <https://data.europa.eu/eli/dl/proc/2026/16/cod/doc/com/COM_2026_16/FINAL/eng/tit_1> ;
+    dcterms:conformsTo <http://example.org/standard/cso-areas-shall-be-delimited-taking-account-of-commission-guidance-to-be-adopted-by-29-february-2028>,
+        <http://example.org/standard/national-regulatory-authorities-shall-specify-objective-and-transparent-parameters-and-criteria-for-assessing-close-proximity-reasonable-effort-reasonable-cost-and-affordability>,
+        <http://example.org/standard/sustainability-conditions-require-fibre-networks-to-pass-in-close-proximity-to-at-least-95-of-homes-in-the-cso-area> ;
+    dcterms:title "Copper switch-off information and transition planning data"@en .
+
+<http://example.org/dataset/data-concerning-national-numbering-resources> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/16/cod/doc/com/COM_2026_16/FINAL/eng/pt_4>,
+        <https://data.europa.eu/eli/dl/proc/2026/16/cod/doc/com/COM_2026_16/FINAL/eng/tit_3> ;
+    dcterms:title "Data concerning national numbering resources"@en .
+
+<http://example.org/dataset/data-concerning-pan-european-numbering-resources> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/16/cod/doc/com/COM_2026_16/FINAL/eng/pt_4>,
+        <https://data.europa.eu/eli/dl/proc/2026/16/cod/doc/com/COM_2026_16/FINAL/eng/tit_3> ;
+    dcterms:conformsTo <http://example.org/standard/six-months-after-the-adoption-of-the-union-numbering-plan-the-odn-shall-set-up-the-procedure-and-system-for-provision-of-information> ;
+    dcterms:title "Data concerning pan-European numbering resources"@en .
+
+<http://example.org/dataset/data-for-the-dynamic-database-for-geolocation-and-monitoring-of-spectrum-usage-opportunities> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/16/cod/doc/com/COM_2026_16/FINAL/eng/pt_4>,
+        <https://data.europa.eu/eli/dl/proc/2026/16/cod/doc/com/COM_2026_16/FINAL/eng/tit_1/chp_3> ;
+    dcterms:conformsTo <http://example.org/standard/the-commission-may-adopt-implementing-acts-to-define-the-spectrum-bands-covered-by-the-database-and-develop-practical-arrangements-and-uniform-formats-for-the-collection-and-provision-of-data-by-the-competent-authorities-to-the-commission> ;
+    dcterms:title "Data for the dynamic database for geolocation and monitoring of spectrum usage opportunities"@en .
+
+<http://example.org/dataset/data-in-relation-to-common-authorisation-conditions-of-use-for-radio-spectrum> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/16/cod/doc/com/COM_2026_16/FINAL/eng/pt_4>,
+        <https://data.europa.eu/eli/dl/proc/2026/16/cod/doc/com/COM_2026_16/FINAL/eng/tit_1/chp_3> ;
+    dcterms:title "Data in relation to common authorisation conditions of use for radio spectrum"@en .
+
+<http://example.org/dataset/data-in-the-context-of-filing-and-coordination-of-satellite-systems-with-the-international-telecommunication-union-itu> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/16/cod/doc/com/COM_2026_16/FINAL/eng/pt_4>,
+        <https://data.europa.eu/eli/dl/proc/2026/16/cod/doc/com/COM_2026_16/FINAL/eng/tit_2> ;
+    dcterms:title "Data in the context of filing and coordination of satellite systems with the International Telecommunication Union (ITU)"@en .
+
+<http://example.org/dataset/data-in-the-context-of-supervision-and-remedies-including-resolution-of-satellite-interferences> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/16/cod/doc/com/COM_2026_16/FINAL/eng/pt_4>,
+        <https://data.europa.eu/eli/dl/proc/2026/16/cod/doc/com/COM_2026_16/FINAL/eng/tit_2> ;
+    dcterms:title "Data in the context of supervision and remedies (including resolution of satellite interferences)"@en .
+
+<http://example.org/dataset/data-in-the-context-of-the-granting-of-rights-of-use-for-numbering-resources> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/16/cod/doc/com/COM_2026_16/FINAL/eng/pt_4>,
+        <https://data.europa.eu/eli/dl/proc/2026/16/cod/doc/com/COM_2026_16/FINAL/eng/tit_3> ;
+    dcterms:title "Data in the context of the granting of rights of use for numbering resources"@en .
+
+<http://example.org/dataset/data-in-the-context-of-the-strategic-planning-and-management-of-numbering-resources> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/16/cod/doc/com/COM_2026_16/FINAL/eng/pt_4>,
+        <https://data.europa.eu/eli/dl/proc/2026/16/cod/doc/com/COM_2026_16/FINAL/eng/tit_3> ;
+    dcterms:title "Data in the context of the strategic planning and management of numbering resources"@en .
+
+<http://example.org/dataset/data-pertaining-to-union-level-authorisations-for-the-use-of-satellite-spectrum> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/16/cod/doc/com/COM_2026_16/FINAL/eng/pt_4>,
+        <https://data.europa.eu/eli/dl/proc/2026/16/cod/doc/com/COM_2026_16/FINAL/eng/tit_2> ;
+    dcterms:title "Data pertaining to Union level authorisations for the use of satellite spectrum"@en .
+
+<http://example.org/dataset/data-used-in-the-context-of-the-spectrum-single-market-procedure> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/16/cod/doc/com/COM_2026_16/FINAL/eng/pt_4>,
+        <https://data.europa.eu/eli/dl/proc/2026/16/cod/doc/com/COM_2026_16/FINAL/eng/tit_1/chp_3> ;
+    dcterms:conformsTo <http://example.org/standard/minimum-content-requirements> ;
+    dcterms:title "Data used in the context of the Spectrum Single market procedure"@en .
+
+<http://example.org/dataset/dispute-resolution-procedures-and-decisions> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/16/cod/doc/com/COM_2026_16/FINAL/eng/pt_8>,
+        <https://data.europa.eu/eli/dl/proc/2026/16/cod/doc/com/COM_2026_16/FINAL/eng/tit_3> ;
+    dcterms:title "Dispute resolution procedures and decisions"@en .
+
+<http://example.org/dataset/ecosystem-cooperation-guidance-and-conciliation> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/16/cod/doc/com/COM_2026_16/FINAL/eng/pt_8>,
+        <https://data.europa.eu/eli/dl/proc/2026/16/cod/doc/com/COM_2026_16/FINAL/eng/tit_4> ;
+    dcterms:conformsTo <http://example.org/standard/berec-guidelines-on-ecosystem-cooperation> ;
+    dcterms:title "Ecosystem cooperation guidance and conciliation"@en .
+
+<http://example.org/dataset/fraudulent-activity-information-emergency-communications-data-public-warnings-data-calling-line-identification-data-public-interest-information-end-user-disability-accessibility-information> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/16/cod/doc/com/COM_2026_16/FINAL/eng/chp_3>,
+        <https://data.europa.eu/eli/dl/proc/2026/16/cod/doc/com/COM_2026_16/FINAL/eng/pt_6>,
+        <https://data.europa.eu/eli/dl/proc/2026/16/cod/doc/com/COM_2026_16/FINAL/eng/tit_3> ;
+    dcterms:conformsTo <http://example.org/standard/caller-location-information-per-harmonised-european-criteria-delegated-act-by-adoption-date-2-years-public-interest-information-in-standardised-format-calling-line-identification-using-simple-and-free-of-charge-means-accessibility-per-directive-eu-2019882> ;
+    dcterms:title "Fraudulent activity information, emergency communications data, public warnings data, calling line identification data, public interest information, end-user disability accessibility information"@en .
+
+<http://example.org/dataset/information-on-individual-rights-of-use> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/16/cod/doc/com/COM_2026_16/FINAL/eng/pt_4>,
+        <https://data.europa.eu/eli/dl/proc/2026/16/cod/doc/com/COM_2026_16/FINAL/eng/tit_1/chp_3> ;
+    dcterms:title "Information on individual rights of use"@en .
+
+<http://example.org/dataset/information-on-network-capacity-management-traffic-management-measures-quality-of-service-parameters-compliance-data-and-enforcement-findings> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/16/cod/doc/com/COM_2026_16/FINAL/eng/pt_6>,
+        <https://data.europa.eu/eli/dl/proc/2026/16/cod/doc/com/COM_2026_16/FINAL/eng/tit_2> ;
+    dcterms:conformsTo <http://example.org/standard/berec-template-by-adoption-date-1-year-berec-guidelines-shall-detail-qos-parameters-measurement-methods-information-format-annex-iii-publication-format-annex-iv-and-quality-certification-mechanisms-including-parameters-for-end-users-with-disabilities>,
+        <http://example.org/standard/biennial-reporting-by-providers-covering-networktraffic-management-and-justifications> ;
+    dcterms:title "Information on network capacity management, traffic management measures, quality of service parameters, compliance data, and enforcement findings"@en .
+
+<http://example.org/dataset/information-on-strategic-planning-and-management-of-radio-spectrum-including-for-the-purpose-of-addressing-harmful-interference> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/16/cod/doc/com/COM_2026_16/FINAL/eng/pt_4>,
+        <https://data.europa.eu/eli/dl/proc/2026/16/cod/doc/com/COM_2026_16/FINAL/eng/tit_1/chp_1> ;
+    dcterms:title "Information on strategic planning and management of radio spectrum (including for the purpose of addressing harmful interference)"@en .
+
+<http://example.org/dataset/information-provision-geographical-surveys-and-consultation-mechanisms-survey-results> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/16/cod/doc/com/COM_2026_16/FINAL/eng/pt_8>,
+        <https://data.europa.eu/eli/dl/proc/2026/16/cod/doc/com/COM_2026_16/FINAL/eng/tit_1> ;
+    dcterms:conformsTo <http://example.org/standard/berec-guidelines-common-reporting-formats-and-templates> ;
+    dcterms:title "Information provision, geographical surveys, and consultation mechanisms, survey results"@en .
+
+<http://example.org/dataset/names-of-national-regulatory-and-other-competent-authorities-and-their-respective-tasks-notification-of-national-regulatory-and-other-competent-authorities-and-their-responsibilities-annual-reports-by-national-regulatory-authorities-annual-budgets-of-national-regulatory-authorities> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/16/cod/doc/com/COM_2026_16/FINAL/eng/pt_7>,
+        <https://data.europa.eu/eli/dl/proc/2026/16/cod/doc/com/COM_2026_16/FINAL/eng/tit_1> ;
+    dcterms:conformsTo <http://example.org/standard/publication-in-easily-accessible-form-annual-reporting-budget-control-exercised-in-transparent-manner-and-made-public> ;
+    dcterms:title "Names of national regulatory and other competent authorities and their respective tasks, notification of national regulatory and other competent authorities and their responsibilities, annual reports by national regulatory authorities, annual budgets of national regulatory authorities"@en .
+
+<http://example.org/dataset/other-data-on-individual-rights> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/16/cod/doc/com/COM_2026_16/FINAL/eng/pt_4>,
+        <https://data.europa.eu/eli/dl/proc/2026/16/cod/doc/com/COM_2026_16/FINAL/eng/tit_1/chp_3> ;
+    dcterms:title "Other data on individual rights"@en .
+
+<http://example.org/dataset/requests-for-harmonisation-of-radio-spectrum> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/16/cod/doc/com/COM_2026_16/FINAL/eng/pt_4>,
+        <https://data.europa.eu/eli/dl/proc/2026/16/cod/doc/com/COM_2026_16/FINAL/eng/tit_1/chp_2> ;
+    dcterms:title "Requests for harmonisation of radio spectrum"@en .
+
+<http://example.org/dataset/requests-for-review-of-deadline-extensions-for-allowing-alternative-use-on-an-exceptional-basis-where-the-use-of-radio-spectrum-has-been-harmonised-by-technical-implementing-measures-in-accordance-with-decision-no-6762002ec> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/16/cod/doc/com/COM_2026_16/FINAL/eng/pt_4>,
+        <https://data.europa.eu/eli/dl/proc/2026/16/cod/doc/com/COM_2026_16/FINAL/eng/tit_1/chp_2> ;
+    dcterms:title "Requests for review of deadline extensions for allowing alternative use on an exceptional basis (where the use of radio spectrum has been harmonised by technical implementing measures in accordance with Decision No 676/2002/EC)"@en .
+
+<http://example.org/dataset/rspb-biennial-work-programme-and-rspb-biennial-activity-report-and-information-exchanges-between-berec-and-rspb> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/16/cod/doc/com/COM_2026_16/FINAL/eng/pt_7>,
+        <https://data.europa.eu/eli/dl/proc/2026/16/cod/doc/com/COM_2026_16/FINAL/eng/tit_4> ;
+    dcterms:title "RSPB biennial work programme and RSPB biennial activity report, and information exchanges between BEREC and RSPB"@en .
+
+<http://example.org/dataset/standardisation-activities-and-harmonisation-measures> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/16/cod/doc/com/COM_2026_16/FINAL/eng/pt_8>,
+        <https://data.europa.eu/eli/dl/proc/2026/16/cod/doc/com/COM_2026_16/FINAL/eng/tit_2> ;
+    dcterms:conformsTo <http://example.org/standard/european-standards-international-standards-itu-cept-iso-iec> ;
+    dcterms:title "Standardisation activities and harmonisation measures"@en .
+
+<http://example.org/dataset/switching-process-information-number-portability-data-porting-timelines-service-continuity-data-compensation-information-consent-records> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/16/cod/doc/com/COM_2026_16/FINAL/eng/chp_2>,
+        <https://data.europa.eu/eli/dl/proc/2026/16/cod/doc/com/COM_2026_16/FINAL/eng/pt_6>,
+        <https://data.europa.eu/eli/dl/proc/2026/16/cod/doc/com/COM_2026_16/FINAL/eng/tit_3> ;
+    dcterms:title "Switching process information, number portability data, porting timelines, service continuity data, compensation information, consent records"@en .
+
+<http://example.org/dataset/union-spectrum-strategy-and-roadmaps> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/16/cod/doc/com/COM_2026_16/FINAL/eng/pt_4>,
+        <https://data.europa.eu/eli/dl/proc/2026/16/cod/doc/com/COM_2026_16/FINAL/eng/tit_1/chp_2> ;
+    dcterms:conformsTo <http://example.org/standard/brief-content-requirements-for-the-national-spectrum-roadmaps> ;
+    dcterms:title "Union Spectrum Strategy and Roadmaps"@en .
+
+<http://example.org/process/database> skos:prefLabel "Database"@en .
+
+<http://example.org/process/developing-guidelines> skos:prefLabel "Developing guidelines"@en .
+
+<http://example.org/process/exchanging-information> skos:prefLabel "Exchanging information"@en .
+
+<http://example.org/process/making-publicly-available> skos:prefLabel "Making publicly available"@en .
+
+<http://example.org/process/notification-of-information> skos:prefLabel "Notification of information"@en .
+
+<http://example.org/process/request-management> skos:prefLabel "Request management"@en .
+
+<http://example.org/process/sharing-information> skos:prefLabel "Sharing information"@en .
+
+<http://example.org/agent/enisa> rdfs:label "ENISA"@en .
+
+<http://example.org/agent/eu-commission> rdfs:label "EU Commission"@en .
+
+<http://example.org/agent/member-states> rdfs:label "Member States"@en .
+
+<http://example.org/agent/member-states-competent-authorities> rdfs:label "Member States’ competent authorities"@en .
+
+<http://example.org/process/information-sharing> skos:prefLabel "Information sharing"@en .
+
+y6k:c_422e961c skos:prefLabel "Reporting"@en .
+
+<http://example.org/agent/rspb> rdfs:label "RSPB"@en .
+
+<http://example.org/agent/european-commission> rdfs:label "European Commission"@en .
+
+<http://example.org/analysis/interop/1> a cpsv:PublicService ;
+    rdfs:label "Single Market Authorisation and Passporting"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/16/cod/doc/com/COM_2026_16/FINAL/eng/pt_3> ;
+    dcterms:description "Establishes the single passporting framework for the provision of electronic communications networks and services under a general authorisation regime.Includes the maintenance of a publicly available Union database of the notifications submitted to the national regulatory authorities, and various data flows."@en ;
+    dcterms:identifier "interop/1" ;
+    dcterms:references <http://example.org/ie-solution/not-specified> ;
+    dcterms:title "Single Market Authorisation and Passporting"@en .
+
+<http://example.org/process/publishing-information> skos:prefLabel "Publishing information"@en .
+
+<http://example.org/process/submitting-information> skos:prefLabel "Submitting information"@en .
+
+<http://example.org/ie-solution/not-specified> a adms:Asset ;
+    dcterms:description "Not specified."@en ;
+    dcterms:title "Not specified."@en .
+
+<http://example.org/analysis/interop/2> a cpsv:PublicService ;
+    rdfs:label "Framework for the management, allocation, and use of key electronic communications resources (Spectrum and Numbering)"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/16/cod/doc/com/COM_2026_16/FINAL/eng/pt_4>,
+        <https://data.europa.eu/eli/dl/proc/2026/16/cod/doc/com/COM_2026_16/FINAL/eng/tit_1/chp_3>,
+        <https://data.europa.eu/eli/dl/proc/2026/16/cod/doc/com/COM_2026_16/FINAL/eng/tit_3> ;
+    dcterms:description "In particular:-A database of pan-European numbering resources; and-A dynamic database for geolocation and monitoring of spectrum usage opportunities.A dynamic database focused on specific frequency bands should help identifying underutilised spectrum and support more efficient spectrum use and sharing practices."@en ;
+    dcterms:identifier "interop/2" ;
+    dcterms:references <http://example.org/ie-solution/not-specified> ;
+    dcterms:title "Framework for the management, allocation, and use of key electronic communications resources (Spectrum and Numbering)"@en .
+
+<http://example.org/agent/national-regulatory-authorities> rdfs:label "National regulatory authorities"@en .
+
+<http://example.org/agent/odn> rdfs:label "ODN"@en .
+
+<http://example.org/agent/berec> rdfs:label "BEREC"@en .
+

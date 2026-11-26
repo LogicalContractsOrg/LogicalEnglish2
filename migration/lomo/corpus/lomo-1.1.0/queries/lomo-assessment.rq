@@ -1,0 +1,28 @@
+PREFIX cav:  <http://data.europa.eu/2sa/cav#>
+PREFIX dct:  <http://purl.org/dc/terms/>
+
+SELECT DISTINCT
+  ?assessment
+  ?assessmentType
+  ?assessmentDesc
+  ?policy
+  ?statement
+  ?statementType
+  ?interpretation
+  ?judgement
+WHERE {
+  ?assessment a cav:Assessment ;
+              cav:resultsIn ?statement .
+
+  ?statement cav:judgement ?judgement ;
+             cav:type ?statementType ;
+             cav:interpretation ?interpretation .
+
+  # Hand-modelled examples carry a per-dimension type/description on the
+  # assessment; generated acts have ONE assessment per act without them
+  # (the dimension lives on the statement's cav:type).
+  OPTIONAL { ?assessment dct:type ?assessmentType . }
+  OPTIONAL { ?assessment dct:description ?assessmentDesc . }
+  OPTIONAL { ?assessment dct:references ?policy . }
+}
+ORDER BY ?assessment ?statement ?policy

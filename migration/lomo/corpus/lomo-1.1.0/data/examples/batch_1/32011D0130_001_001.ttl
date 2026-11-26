@@ -1,0 +1,46 @@
+# Provision 2 - Article 1 - Reference format for electronic signatures
+# 1. Member States shall put in place the necessary technical means allowing them to process electronically signed documents that service providers submit in the context of completing procedures and formalities through the Points of Single Contact as foreseen by Article 8 of Directive 2006/123/EC, and which are signed by competent authorities of other Member States with an XML, a CMS or a PDF advanced electronic signature at any conformance level or using an associated signature container at basic level provided these comply with the technical specifications listed in the Annex.
+
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix eli: <http://data.europa.eu/eli/ontology#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix example: <https://system.org/example#> .
+@prefix lomo: <http://data.europa.eu/leg/lomo#> .
+
+# Agent Role instances
+example:DEC2011130_1_ART1PAR1_AgentRole1
+    a lomo:AgentRole ;
+    lomo:forAgent example:MemberStates ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+example:DEC2011130_1_ART1PAR1_AgentRole2
+    a lomo:AgentRole ;
+    lomo:forAgent example:MemberStates ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+# Legal Rule
+example:DEC2011130_1_ART1PAR1
+    a lomo:PrescriptiveRule ;
+    rdfs:label "Obligation to put in place the necessary technical means to process electronically signed documents"@en ;
+    lomo:hasDeonticModality <http://data.europa.eu/leg/deontic-modality/Obligation> ;
+    lomo:hasRequirementType <http://publications.europa.eu/resource/dataset/administrative-obligation/c_80214a02> ;
+    lomo:establishedIn <http://data.europa.eu/eli/dec/2011/130(1)/art_1/par_1/2014-12-01> ;
+    lomo:produces example:DEC2011130_1_ART1PAR1_Action1 ;
+    lomo:legalText "Member States shall put in place the necessary technical means allowing them to process electronically signed documents submitted through the Points of Single Contact, using XML, CMS, or PDF advanced electronic signatures or associated signature containers that comply with the Annex."@en .
+
+# Actions
+example:DEC2011130_1_ART1PAR1_Action1
+    a lomo:Action ;
+    lomo:hasAgentRole example:DEC2011130_1_ART1PAR1_AgentRole1,
+                  example:DEC2011130_1_ART1PAR1_AgentRole2 ;
+    lomo:hasResult example:DEC2011130_1_ART1PAR1_ActionResult1 ;
+    lomo:legalText "shall put in place the necessary technical means to process electronically signed documents"@en .
+
+# Action Results
+example:DEC2011130_1_ART1PAR1_ActionResult1
+    a lomo:ActionResult ;
+    rdfs:label "Processing of electronically signed documents submitted by service providers"@en ;
+    lomo:legalText "Processing of electronically signed documents submitted by service providers through the Points of Single Contact"@en .

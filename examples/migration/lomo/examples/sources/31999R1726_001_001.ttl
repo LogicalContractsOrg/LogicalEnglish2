@@ -1,0 +1,40 @@
+# Article 1 - Definition and breakdown of the information
+# In accordance with Article 6 of Regulation (EC) No 530/1999, Member States shall provide information on the variables listed in Annex I to the present Regulation.
+
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix eli: <http://data.europa.eu/eli/ontology#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix example: <https://system.org/example#> .
+@prefix lomo: <http://data.europa.eu/leg/lomo#> .
+
+# Agent Role instance
+example:REG19991726ART1PAR1_AgentRole1
+    a lomo:AgentRole ;
+    lomo:forAgent example:MemberStates ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+# Legal Rule
+example:REG19991726ART1PAR1
+    a lomo:PrescriptiveRule ;
+    rdfs:label "Information provisions according to the variables listed in Annex I"@en ;
+    lomo:hasDeonticModality <http://data.europa.eu/leg/deontic-modality/Obligation> ;
+    lomo:hasRequirementType <http://publications.europa.eu/resource/dataset/administrative-obligation/c_80214a02> ;
+    lomo:establishedIn <http://data.europa.eu/eli/reg/1999/1726/art_1/par_1/2008-01-01> ;
+    lomo:produces example:REG19991726ART1PAR1_Action1 ;
+    lomo:legalText "In accordance with Article 6 of Regulation (EC) No 530/1999, Member States shall provide information on the variables listed in Annex I to this Regulation."@en .
+
+# Actions
+example:REG19991726ART1PAR1_Action1
+    a lomo:Action ;
+    lomo:hasAgentRole example:REG19991726ART1PAR1_AgentRole1 ;
+    lomo:hasResult example:REG19991726ART1PAR1_ActionResult1 ;
+    lomo:legalText "Provide information on the variables listed in Annex I."@en .
+
+# Action Results
+example:REG19991726ART1PAR1_ActionResult1
+    a lomo:ActionResult ;
+    rdfs:label "Information on the variables listed in Annex I"@en ;
+    lomo:legalText "Information on the variables listed in Annex I."@en .

@@ -1,0 +1,126 @@
+@prefix adms: <http://www.w3.org/ns/adms#> .
+@prefix cpsv: <http://purl.org/vocab/cpsv#> .
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix dctype: <http://purl.org/dc/dcmitype/> .
+@prefix lomo: <http://data.europa.eu/leg/lomo#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix tf: <http://data.europa.eu/leg/temporal-function/> .
+
+<http://example.org/analysis/action/1> a lomo:Action ;
+    rdfs:label "Industrial emissions & waste transfer data"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Environmental reporting cycle"@en ],
+        [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:deadline ;
+            lomo:temporalLabel "Annual / as collected"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/981/cod/doc/com/COM_2025_981/FINAL/eng/art_2/par_9> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/1/role/addressee-commission-eea>,
+        <http://example.org/analysis/action/1/role/addresser-operators-member-states> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Industrial emissions & waste transfer data"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/industrial-emissions-waste-transfer-data> ] .
+
+<http://example.org/analysis/action/2> a lomo:Action ;
+    rdfs:label "Battery waste management data"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Reporting period"@en ],
+        [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:deadline ;
+            lomo:temporalLabel "As determined"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/981/cod/doc/com/COM_2025_981/FINAL/eng/art_1/par_3> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/2/role/addressee-european-commission>,
+        <http://example.org/analysis/action/2/role/addresser-member-states> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Battery waste management data"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/battery-waste-management-data> ] .
+
+<http://example.org/analysis/interop/1> a cpsv:PublicService ;
+    rdfs:label "Art. 1(3) [Art. 76(4) of Regulation (EU) 2023/1542]"@en,
+        "Industrial Emissions Portal"@en ;
+    dcterms:description "Cross-border environmental data exchange between MS and EU institutions."@en,
+        "Replaces the prescriptive obligation for the Commission to publish a periodic report on Member States’ data with a more flexible system allowing adaptive data review and optional publication. Digital relevance: modifies existing EU-level data-management and reporting processes."@en ;
+    dcterms:identifier "interop/1" ;
+    dcterms:references <http://example.org/ie-solution/aarhusprtr-protocol-standards>,
+        <http://example.org/ie-solution/data>,
+        <http://example.org/ie-solution/data-review-and-publication>,
+        <http://example.org/ie-solution/inspire-metadata-rules> ;
+    dcterms:title "Art. 1(3) [Art. 76(4) of Regulation (EU) 2023/1542]"@en,
+        "Industrial Emissions Portal"@en .
+
+<http://example.org/analysis/interop/2> a cpsv:PublicService ;
+    rdfs:label "Art. 2 [Art. 6(9) of Regulation (EU) 2024/1244 ]"@en ;
+    dcterms:description "Allows Member States to gather and submit data on emissions, waste transfers, production volumes and operating hours by alternative digital or administrative means, exempting certain operators. Digital relevance: modifies data-collection and transmission processes within the Industrial Emissions Portal system."@en ;
+    dcterms:identifier "interop/2" ;
+    dcterms:references <http://example.org/ie-solution/data-digital-public-service>,
+        <http://example.org/ie-solution/environmental-data-collection-and-reporting> ;
+    dcterms:title "Art. 2 [Art. 6(9) of Regulation (EU) 2024/1244 ]"@en .
+
+<http://example.org/analysis/solution/1> a dctype:Software ;
+    rdfs:label "Industrial Emissions Portal"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/981/cod/doc/com/COM_2025_981/FINAL/eng/art_2/par_9> ;
+    lomo:hasCapability "Data collection, validation, and publication",
+        "alternative reporting methods by MS." ;
+    dcterms:publisher <http://example.org/agent/eea-european-commission> ;
+    dcterms:title "Industrial Emissions Portal"@en .
+
+<http://example.org/agent/commission-eea> rdfs:label "Commission / EEA"@en .
+
+<http://example.org/agent/european-commission> rdfs:label "European Commission"@en .
+
+<http://example.org/agent/member-states> rdfs:label "Member States"@en .
+
+<http://example.org/agent/operators-member-states> rdfs:label "Operators / Member States"@en .
+
+<http://example.org/analysis/action/1/role/addressee-commission-eea> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/commission-eea> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/1/role/addresser-operators-member-states> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/operators-member-states> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/2/role/addressee-european-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/european-commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/2/role/addresser-member-states> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/dataset/battery-waste-management-data> a dcat:Dataset ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Battery waste management data"@en ] ;
+    dcterms:title "Battery waste management data"@en .
+
+<http://example.org/dataset/industrial-emissions-waste-transfer-data> a dcat:Dataset ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Industrial emissions & waste transfer data"@en ] ;
+    dcterms:title "Industrial emissions & waste transfer data"@en .
+
+<http://example.org/ie-solution/aarhusprtr-protocol-standards> a adms:Asset ;
+    dcterms:description "Aarhus/PRTR protocol standards"@en ;
+    dcterms:title "Aarhus/PRTR protocol standards"@en .
+
+<http://example.org/ie-solution/data> a adms:Asset ;
+    dcterms:description "Data"@en ;
+    dcterms:title "Data"@en .
+
+<http://example.org/ie-solution/data-digital-public-service> a adms:Asset ;
+    dcterms:description "Data / Digital Public Service"@en ;
+    dcterms:title "Data / Digital Public Service"@en .
+
+<http://example.org/ie-solution/data-review-and-publication> a adms:Asset ;
+    dcterms:description "Data review and publication"@en ;
+    dcterms:title "Data review and publication"@en .
+
+<http://example.org/ie-solution/environmental-data-collection-and-reporting> a adms:Asset ;
+    dcterms:description "Environmental data collection and reporting"@en ;
+    dcterms:title "Environmental data collection and reporting"@en .
+
+<http://example.org/ie-solution/inspire-metadata-rules> a adms:Asset ;
+    dcterms:description "INSPIRE metadata rules"@en ;
+    dcterms:title "INSPIRE metadata rules"@en .
+

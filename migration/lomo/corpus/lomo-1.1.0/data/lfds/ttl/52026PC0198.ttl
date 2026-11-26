@@ -1,0 +1,57 @@
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix lomo: <http://data.europa.eu/leg/lomo#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+<http://example.org/analysis/description/1> a lomo:LegalRule ;
+    rdfs:label "Article 1(2)"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/198/cod/doc/com/COM_2026_198/FINAL/eng/art_1/par_2> ;
+    lomo:hasCategory <http://data.europa.eu/leg/digital-dimensions/Data> ;
+    lomo:produces <http://example.org/analysis/description/1/action> ;
+    dcterms:description "reporting obligations"@en .
+
+<http://example.org/analysis/description/2> a lomo:LegalRule ;
+    rdfs:label "Article 3(7)"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/198/cod/doc/com/COM_2026_198/FINAL/eng/art_3/par_7> ;
+    lomo:hasCategory <http://data.europa.eu/leg/digital-dimensions/Data> ;
+    lomo:produces <http://example.org/analysis/description/2/action> ;
+    dcterms:description "electronic monitoring system"@en .
+
+<http://example.org/analysis/description/3> a lomo:LegalRule ;
+    rdfs:label "Article 3(5)(g-i)"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/198/cod/doc/com/COM_2026_198/FINAL/eng/art_3/par_5> ;
+    lomo:hasCategory <http://data.europa.eu/leg/digital-dimensions/Data> ;
+    lomo:produces <http://example.org/analysis/description/3/action> ;
+    dcterms:description "reporting obligations"@en .
+
+<http://example.org/analysis/description/4> a lomo:LegalRule ;
+    rdfs:label "Article 5"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/198/cod/doc/com/COM_2026_198/FINAL/eng/art_5> ;
+    dcterms:description "satellite buoy"@en .
+
+<http://example.org/agent/commission-efca-flag-member-state-fishing-vessel> rdfs:label "Commission, EFCA, flag Member State, fishing vessel"@en .
+
+<http://example.org/agent/member-states> rdfs:label "Member States"@en .
+
+<http://example.org/agent/member-states-fishing-vessels> rdfs:label "Member States, fishing vessels"@en .
+
+<http://example.org/analysis/description/1/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/1/action/role/addressee-member-states> .
+
+<http://example.org/analysis/description/1/action/role/addressee-member-states> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/2/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/2/action/role/addressee-member-states-fishing-vessels> .
+
+<http://example.org/analysis/description/2/action/role/addressee-member-states-fishing-vessels> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states-fishing-vessels> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/3/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/3/action/role/addressee-commission-efca-flag-member-state-fishing-vessel> .
+
+<http://example.org/analysis/description/3/action/role/addressee-commission-efca-flag-member-state-fishing-vessel> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/commission-efca-flag-member-state-fishing-vessel> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+

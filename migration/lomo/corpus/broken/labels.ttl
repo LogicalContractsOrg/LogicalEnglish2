@@ -1,0 +1,8 @@
+# Broken on purpose (test of the validity check): a label without a language, two labels in one language.
+@prefix ex: <http://example.org/broken#> .
+@prefix lomo: <http://data.europa.eu/leg/lomo#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+ex:R1 a lomo:LegalRule ; rdfs:label "no language" ; lomo:establishedIn <http://data.europa.eu/eli/reg/2016/679/art_1> .
+ex:R2 a lomo:ConstitutiveRule ; rdfs:label "one"@en, "two"@en ; lomo:establishedIn <http://data.europa.eu/eli/reg/2016/679/art_2> .

@@ -1,0 +1,57 @@
+# The Turtle example of lomo:relatesTo in the specification of LOMO 1.1.0
+# (https://drpm.pages.code.europa.eu/lomo/latest/#relatesTo), with the prefixes it uses.
+@prefix ex: <http://example.org/> .
+@prefix lomo: <http://data.europa.eu/leg/lomo#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix dctype: <http://purl.org/dc/dcmitype/> .
+@prefix cpsv: <http://purl.org/vocab/cpsv#> .
+@prefix eli: <http://data.europa.eu/eli/ontology#> .
+@prefix tf: <http://data.europa.eu/leg/temporal-function/> .
+@prefix dm: <http://data.europa.eu/leg/deontic-modality/> .
+@prefix dd: <http://data.europa.eu/leg/digital-dimensions/> .
+@prefix rc: <http://data.europa.eu/leg/result-category/> .
+@prefix role: <http://publications.europa.eu/resource/authority/role/> .
+
+# Note: the rule instances below are abbreviated - the mandatory lomo:produces on PrescriptiveRule instances is omitted to keep the focus on the relatesTo relationship.
+# Example 1: Complementary rules from the same regulatory framework (generic relation)
+ex:Rule_GDPR_Art5_Principles a lomo:ConstitutiveRule ;
+    rdfs:label "GDPR Article 5: Principles relating to processing of personal data"@en ;
+    lomo:relatesTo ex:Rule_GDPR_Art6_LawfulBasis ;
+    skos:note "Both articles are foundational to the GDPR but neither specifies nor derogates from the other - they establish complementary requirements" ;
+    lomo:establishedIn <http://data.europa.eu/eli/reg/2016/679/art_5> .
+
+ex:Rule_GDPR_Art6_LawfulBasis a lomo:ConstitutiveRule ;
+    rdfs:label "GDPR Article 6: Lawfulness of processing"@en ;
+    lomo:establishedIn <http://data.europa.eu/eli/reg/2016/679/art_6> .
+
+# Example 2: Data reporting and verification obligations from same legislative instrument
+ex:Rule_FinRep_Art4_DataRequirements a lomo:PrescriptiveRule ;
+    rdfs:label "Financial Reporting Regulation Article 4: Data reporting requirements"@en ;
+    lomo:relatesTo ex:Rule_FinRep_Art5_DataVerification ;
+    skos:note "Both rules govern financial data quality in the same regulatory framework: Article 4 specifies what to report, Article 5 specifies how to verify; they are complementary but independent requirements" ;
+    lomo:establishedIn <http://data.europa.eu/eli/reg/2019/815/art_4> .
+
+ex:Rule_FinRep_Art5_DataVerification a lomo:PrescriptiveRule ;
+    rdfs:label "Financial Reporting Regulation Article 5: Data verification requirements"@en ;
+    lomo:establishedIn <http://data.europa.eu/eli/reg/2019/815/art_5> .
+
+# Example 3: Cross-cutting obligations from environmental legislation
+ex:Rule_EIA_Art5_PublicConsultation a lomo:PrescriptiveRule ;
+    rdfs:label "Environmental Impact Assessment Directive Article 5: Public consultation on environmental effects"@en ;
+    lomo:relatesTo ex:Rule_EIA_Art6_ScreeningRequirements ;
+    skos:note "Both articles are procedural requirements for environmental assessment but neither determines nor overrides the other - they work together in sequence" ;
+    lomo:establishedIn <http://data.europa.eu/eli/dir/2014/52/art_5> .
+
+ex:Rule_EIA_Art6_ScreeningRequirements a lomo:PrescriptiveRule ;
+    rdfs:label "Environmental Impact Assessment Directive Article 6: Screening for environmental effects"@en ;
+    lomo:establishedIn <http://data.europa.eu/eli/dir/2014/52/art_6> .
+
+# Example 4: Using relatesTo for generic querying across all rule types
+# Query: ?rule1 lomo:relatesTo ?rule2
+# Returns results for generic relations (Examples 1-3) plus all specifies and derogatesFrom relationships

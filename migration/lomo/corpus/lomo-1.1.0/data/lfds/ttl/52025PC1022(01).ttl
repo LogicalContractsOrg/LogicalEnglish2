@@ -1,0 +1,1388 @@
+@prefix cav: <http://data.europa.eu/2sa/cav#> .
+@prefix cpsv: <http://purl.org/vocab/cpsv#> .
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix dctype: <http://purl.org/dc/dcmitype/> .
+@prefix dd: <http://data.europa.eu/leg/digital-dimensions/> .
+@prefix iac: <http://data.europa.eu/leg/interop-assessment#> .
+@prefix iopa: <http://data.europa.eu/2qy/iopa#> .
+@prefix lomo: <http://data.europa.eu/leg/lomo#> .
+@prefix m8g: <http://data.europa.eu/m8g/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix tf: <http://data.europa.eu/leg/temporal-function/> .
+@prefix y6k: <http://data.europa.eu/y6k/> .
+
+<http://example.org/analysis/assessment/1> a cav:Assessment ;
+    cav:assesses <http://example.org/analysis/description/22> ;
+    cav:resultsIn <http://example.org/analysis/assessment/1/1/measure>,
+        <http://example.org/analysis/assessment/1/2/measure>,
+        <http://example.org/analysis/assessment/1/3/measure>,
+        <http://example.org/analysis/assessment/1/4/measure> ;
+    m8g:isProvidedBy <http://publications.europa.eu/resource/authority/corporate-body/COM> .
+
+<http://example.org/analysis/description/1> a lomo:LegalRule ;
+    rdfs:label "Article [3] 1b Health Biotechnology Strategic Projects"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/art_3> ;
+    lomo:hasCategory dd:Data,
+        dd:DigitalSolutions ;
+    lomo:involvesProcess <http://example.org/process/technical-documentation-data-generation-data-processing> ;
+    lomo:produces <http://example.org/analysis/description/1/action> ;
+    dcterms:description "Scaling-up or upgrading critical research and technology infrastructures underpinning the development, testing and validation of biotechnology products, including but not limited to pilot or testing infrastructures for biomanufacturing, data and digital platforms;"@en .
+
+<http://example.org/analysis/description/10> a lomo:LegalRule ;
+    rdfs:label "Article [16] 6b Access Principles and Security Safeguards"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/art_16> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/access-to-infrastructures-and-datasets> ;
+    lomo:produces <http://example.org/analysis/description/10/action> ;
+    lomo:references <http://example.org/dataset/sensitive-information-biotechnology-datasets> ;
+    dcterms:description "intellectual property arising from, and the results of, the activities related to the access to infrastructures and datasets remain within the legal entity that is granted access, during and after such access, are not subject to control or restriction by a non-associated third country or by a non-associated third-country entity, and are neither exported outside the Union or outside associated countries nor accessible from outside the Union or outside associated countries without the approval of the Member State or the associated country in which the legal entity is established and in accordance with the objectives of this Regulation"@en .
+
+<http://example.org/analysis/description/11> a lomo:LegalRule ;
+    rdfs:label "Article [17] 2e Strategic Mapping of the Union’s Biotechnology Ecosystem"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/art_17> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/mapping> ;
+    lomo:produces <http://example.org/analysis/description/11/action> ;
+    lomo:references <http://example.org/dataset/mapping-of-existing-infrastructures> ;
+    dcterms:description "use of data and artificial intelligence, by assessing access to data, computing and digital infrastructures for biotechnology and identifying opportunities to foster responsible AI-enabled innovation and contribute to the mitigation of related risks."@en .
+
+<http://example.org/analysis/description/12> a lomo:LegalRule ;
+    rdfs:label "Article [21] 5a"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/art_21> ;
+    lomo:hasCategory dd:Data,
+        dd:DigitalPublicService ;
+    lomo:involvesProcess <http://example.org/process/information-exchange> ;
+    lomo:produces <http://example.org/analysis/description/12/action> ;
+    dcterms:description "facilitate the exchange of information and best practices among Member States, the Commission, and relevant stakeholders in relation to the recognition and the implementation of health biotechnology strategic projects and high impact health biotechnology strategic projects;"@en .
+
+<http://example.org/analysis/description/13> a lomo:LegalRule ;
+    rdfs:label "Article [21] 5h"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/art_21> ;
+    lomo:hasCategory dd:Data,
+        dd:DigitalPublicService ;
+    lomo:involvesProcess <http://example.org/process/information-exchange> ;
+    lomo:produces <http://example.org/analysis/description/13/action> ;
+    dcterms:description "facilitate the coordination and information exchange among the Member States on enforcement of the biosecurity provisions in this regulation and other emerging biosecurity topics as provided for in Article"@en .
+
+<http://example.org/analysis/description/14> a lomo:LegalRule ;
+    rdfs:label "Article [29]b"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/art_29> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/use-of-platform-technologies> ;
+    lomo:produces <http://example.org/analysis/action/1>,
+        <http://example.org/analysis/description/14/action> ;
+    dcterms:description "it contributes to the research, development and marketing authorisation of biosimilar products, and where appropriate to strengthen the use of platform technologies. It includes analytical methodologies that would reduce the need for clinical data for biosimilar medicinal products, without affecting their quality, safety and efficacy."@en .
+
+<http://example.org/analysis/description/15> a lomo:LegalRule ;
+    rdfs:label "Article [31]"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/art_31> ;
+    lomo:involvesProcess <http://example.org/process/technical-documentation> ;
+    lomo:produces <http://example.org/analysis/action/3>,
+        <http://example.org/analysis/description/15/action> ;
+    lomo:references <http://example.org/dataset/guidance-on-the-use-and-deployment-of-ai> ;
+    dcterms:description "The European Medicines Agency (‘the Agency’) shall develop guidance on the deployment and use of artificial-intelligence systems (‘AI systems’) and of general-purpose AI models in the lifecycle of medicinal products development, including during pre-clinical research, clinical development and trials, manufacturing and post-authorisation monitoring. Such guidance shall comply with relevant EU legislation and shall be developed and updated in cooperation with the Commission."@en .
+
+<http://example.org/analysis/description/16> a lomo:LegalRule ;
+    rdfs:label "Article [32]1"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/art_32> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/data-generation-data-processing-setting-up-testing-environments-for-ai> ;
+    lomo:produces <http://example.org/analysis/action/1>,
+        <http://example.org/analysis/description/16/action> ;
+    lomo:references <http://example.org/dataset/data-required-for-testing-and-validation-of-biotechnology-products> ;
+    dcterms:description "A project located in the Union that contributes to the development of trusted testing environments for AI-enabled biotechnology innovations shall be recognised as a high-impact health biotechnology strategic project where, in addition to the conditions laid down in Article [6], paragraph [1], it substantially strengthens the Union’s capacity for responsible experimentation, development, testing and validation of such innovations and it fulfils all of the following conditions:"@en .
+
+<http://example.org/analysis/description/17> a lomo:LegalRule ;
+    rdfs:label "Article [33] 2a"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/art_33> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/development-and-deployment-of-ai-solutions> ;
+    lomo:produces <http://example.org/analysis/description/17/action> ;
+    dcterms:description "aim to foster the development and deployment of trustworthy and competitive AI applications in health biotechnologies, including large-scale and general-purpose models;"@en .
+
+<http://example.org/analysis/description/18> a lomo:LegalRule ;
+    rdfs:label "Article [33] 2b"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/art_33> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/data-generation-data-processing> ;
+    lomo:produces <http://example.org/analysis/description/18/action> ;
+    dcterms:description "ensure that datasets are established, managed and processed in accordance with applicable Union legislation on data governance, ethics and fundamental rights, including Regulation (EU) 2025/327 [European Health Data Space], Regulation (EU) 2016/679 [General Data Protection Regulation]."@en .
+
+<http://example.org/analysis/description/19> a lomo:LegalRule ;
+    rdfs:label "Article [33] 2c"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/art_33> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/data-access> ;
+    lomo:produces <http://example.org/analysis/description/19/action> ;
+    dcterms:description "make such datasets, or the metadata and reference annotations thereof, available under fair, reasonable and non-discriminatory conditions, ensuring equitable access for users including research organisations, SMEs and public institutions, in compliance with the provisions of Article [9] of this Regulation."@en .
+
+<http://example.org/analysis/description/2> a lomo:LegalRule ;
+    rdfs:label "Article [3] 1c Health Biotechnology Strategic Projects"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/art_3> ;
+    lomo:hasCategory dd:Data,
+        dd:DigitalSolutions ;
+    lomo:involvesProcess <http://example.org/process/technical-documentation-data-generation-data-processing> ;
+    lomo:produces <http://example.org/analysis/action/1>,
+        <http://example.org/analysis/description/2/action> ;
+    lomo:references <http://example.org/dataset/data-required-for-testing-and-validation-of-biotechnology-products> ;
+    dcterms:description "accelerating innovation and technology deployment through one or more of the following features: (i) introducing or scaling up breakthrough innovations in biotechnology that have the potential to strengthen the Union’s industrial competitiveness, including AI-enabled technologies and tools;"@en .
+
+<http://example.org/analysis/description/20> a lomo:LegalRule ;
+    rdfs:label "Article [33] 2d"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/art_33> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/data-interoperability-standard-development> ;
+    lomo:produces <http://example.org/analysis/description/20/action> ;
+    dcterms:description "contribute to the development of Union standards and quality frameworks for data representativeness, provenance, interoperability and annotation in biotechnology;"@en .
+
+<http://example.org/analysis/description/21> a lomo:LegalRule ;
+    rdfs:label "Article [33] 2e"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/art_33> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/infrastructure-interoperability-data-integration> ;
+    lomo:produces <http://example.org/analysis/description/21/action> ;
+    dcterms:description "support, where appropriate, the integration of these datasets into Union infrastructures, including the European Health Data Space, European Research Area data spaces, or other, including the infrastructures operated by high impact health biotechnology strategic projects."@en .
+
+<http://example.org/analysis/description/23> a lomo:LegalRule ;
+    rdfs:label "Article [35] 1"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/art_35> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/technical-documentation-information-exchange> ;
+    lomo:produces <http://example.org/analysis/description/23/action> ;
+    dcterms:description "The Commission shall compile, maintain, develop and make publicly available a Regulatory Status Repository to assist developers in navigating cases of novel biotechnology products (‘Regulatory Status Repository’)."@en .
+
+<http://example.org/analysis/description/24> a lomo:LegalRule ;
+    rdfs:label "Article [35] 2"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/art_35> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/technical-documentation-information-exchange> ;
+    lomo:produces <http://example.org/analysis/description/24/action> ;
+    dcterms:description "The Regulatory Status Repository shall contain: a) decisions, opinions, scientific recommendations regarding the regulatory status of a health innovations, issued pursuant to the mechanisms laid down in Article 4 of [revised Regulation (EU) 2017/745], Articles 61 and 62 of [revised Regulation (EC) No 726/2004] and Articles 13 and 69 of Regulation (EU) 2024/1938; b) the summaries of the scientific recommendations delivered by the European Medicines Agency in accordance with Article 17 of Regulation (EC) No 1394/2007 on whether a product falls within the definition of an advanced therapy medicinal product or not; c) the discussion papers delivered by the Foresight Panel for Emerging Health Innovation."@en .
+
+<http://example.org/analysis/description/25> a lomo:LegalRule ;
+    rdfs:label "Article [35] 3"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/art_35> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/technical-documentation-information-exchange> ;
+    lomo:produces <http://example.org/analysis/action/4>,
+        <http://example.org/analysis/description/25/action> ;
+    lomo:references <http://example.org/dataset/regulatory-decisions-opinions-recommendations> ;
+    dcterms:description "Member States shall make publicly available, through the relevant national platforms or registries, decisions, opinions, scientific recommendations, and other outputs issued at national level concerning the regulatory status of novel biotechnology products. Member States shall inform the Commission where such information is made available."@en .
+
+<http://example.org/analysis/description/26> a lomo:LegalRule ;
+    rdfs:label "Article [39] Regulatory Sandboxes provided for in the applicable frameworks and Cross Framework Communication"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/art_39> ;
+    lomo:hasCategory dd:Data,
+        dd:DigitalPublicService ;
+    lomo:involvesProcess <http://example.org/process/technical-documentation-information-exchange> ;
+    lomo:produces <http://example.org/analysis/description/26/action> ;
+    dcterms:description "The European Medicines Agency, the MDCG, the SCB and the Foresight Panel, as applicable, shall facilitate dialogue among the authorities responsible for the setting up and the implementation of regulatory sandboxes for novel health biotechnology products. This dialogue shall focus on exchanging mutual learnings and findings, specifically including: (a) promoting knowledge sharing, by facilitating the exchange of information, experiences and best practices, including on regulatory approaches, technological challenges"@en .
+
+<http://example.org/analysis/description/27> a lomo:LegalRule ;
+    rdfs:label "Article [40]"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/art_40> ;
+    lomo:involvesProcess <http://example.org/process/technical-documentation> ;
+    lomo:produces <http://example.org/analysis/description/27/action> ;
+    dcterms:description "The Commission may, by means of implementing acts, lay down common principles, criteria and practical arrangements for the assessment of applications received from developers and for the establishment and the supervision of the regulatory sandboxes and for sandbox plans."@en .
+
+<http://example.org/analysis/description/28> a lomo:LegalRule ;
+    rdfs:label "Article [41] d"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/art_41> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/surveillance-data-sharing> ;
+    lomo:produces <http://example.org/analysis/action/6>,
+        <http://example.org/analysis/description/28/action> ;
+    lomo:references <http://example.org/dataset/cross-border-surveillance-of-biological-threats> ;
+    dcterms:description "ensure that sequencing data generated through early detection activities is shared in a timely manner via the European Nucleotide Archive (ENA), to enable access and use by actors across the Union for the development, validation and deployment of advanced pathogen detection and characterisation methods; engage in partnerships among industry, academia, public authorities and defence actors to ensure data sharing and integration of warning systems;"@en .
+
+<http://example.org/analysis/description/29> a lomo:LegalRule ;
+    rdfs:label "Article [42] f"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/art_42> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/health-cross-border-surveillance-data-sharing> ;
+    lomo:produces <http://example.org/analysis/action/6>,
+        <http://example.org/analysis/description/29/action> ;
+    lomo:references <http://example.org/dataset/cross-border-surveillance-of-biological-threats> ;
+    dcterms:description "development, validation and benchmarking of methods for the detection and attribution of genetic engineering, including the creation of open genetic engineering detection tools"@en .
+
+<http://example.org/analysis/description/3> a lomo:LegalRule ;
+    rdfs:label "Article [4] 1d High Impact Health Biotechnology Strategic Projects"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/art_4> ;
+    lomo:hasCategory dd:Data,
+        dd:DigitalSolutions ;
+    lomo:involvesProcess <http://example.org/process/data-generation-data-processing> ;
+    lomo:produces <http://example.org/analysis/action/1>,
+        <http://example.org/analysis/description/3/action> ;
+    lomo:references <http://example.org/dataset/data-required-for-testing-and-validation-of-biotechnology-products> ;
+    dcterms:description "the project contributes to the development of trusted testing environments for AI-enabled biotechnology innovations, fulfilling the conditions laid down in Article [36], paragraph [1] or it is Biotechnology Data Quality Accelerator High Impact Project, fulfilling the conditions laid down in Article [37]"@en .
+
+<http://example.org/analysis/description/30> a lomo:LegalRule ;
+    rdfs:label "Article [44] Verification of Legitimate Need"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/art_44> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/identity-verification> ;
+    lomo:produces <http://example.org/analysis/action/6>,
+        <http://example.org/analysis/description/30/action> ;
+    lomo:references <http://example.org/dataset/cross-border-surveillance-of-biological-threats> ;
+    dcterms:description "An economic operator that makes available on the Union market, including through online marketplaces, biotechnology products of concern, shall, for each transaction, verify proof of identity of the prospective customer, record the transaction, including the quantities ordered, and assess whether the customer has a legitimate need."@en .
+
+<http://example.org/analysis/description/31> a lomo:LegalRule ;
+    rdfs:label "Article [46]Prevention and Reporting of Misuse"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/art_46> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/data-reporting-information-exchange> ;
+    lomo:produces <http://example.org/analysis/action/6>,
+        <http://example.org/analysis/description/31/action> ;
+    lomo:references <http://example.org/dataset/cross-border-surveillance-of-biological-threats> ;
+    dcterms:description "For the purpose of preventing and detecting biotechnology misuse, economic operators and online marketplaces shall report suspicious transactions,"@en .
+
+<http://example.org/analysis/description/32> a lomo:LegalRule ;
+    rdfs:label "Article [48] 2"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/art_48> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/information-exchange> ;
+    lomo:produces <http://example.org/analysis/description/32/action> ;
+    dcterms:description "Member States shall ensure that the national inspection authority has the resources and investigative powers necessary to perform their tasks, including the power to request information and records, to carry out on-site inspections and, where appropriate, to conduct test purchases, including online."@en .
+
+<http://example.org/analysis/description/33> a lomo:LegalRule ;
+    rdfs:label "Article [48] 4"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/art_48> ;
+    lomo:hasCategory dd:DataFlow ;
+    lomo:involvesProcess <http://example.org/process/information-exchange> ;
+    lomo:produces <http://example.org/analysis/action/6>,
+        <http://example.org/analysis/description/33/action> ;
+    lomo:references <http://example.org/dataset/cross-border-surveillance-of-biological-threats> ;
+    dcterms:description "Member States shall ensure the participation of national inspection authorities, as appropriate, in the relevant activities of the Steering Group, in particular for the exchange of information on implementation practices, inspection findings and emerging risks."@en .
+
+<http://example.org/analysis/description/34> a lomo:LegalRule ;
+    rdfs:label "Article [49]"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/art_49> ;
+    lomo:hasCategory dd:Data,
+        dd:DigitalPublicService ;
+    lomo:involvesProcess <http://example.org/process/monitoring-requesting-information> ;
+    lomo:produces <http://example.org/analysis/action/6>,
+        <http://example.org/analysis/description/34/action> ;
+    lomo:references <http://example.org/dataset/cross-border-surveillance-of-biological-threats>,
+        <http://example.org/dataset/data-required-for-testing-and-validation-of-biotechnology-products> ;
+    dcterms:description "The Commission may support and monitor national competent authorities in the enforcement of this section, by taking actions such as requesting information and records and running training exercises."@en .
+
+<http://example.org/analysis/description/35> a lomo:LegalRule ;
+    rdfs:label "Article [52]"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/art_52> ;
+    lomo:hasCategory dd:Data,
+        dd:DigitalPublicService ;
+    lomo:involvesProcess <http://example.org/process/monitoring-access-to-data-technical-guidelines> ;
+    lomo:produces <http://example.org/analysis/action/6>,
+        <http://example.org/analysis/description/35/action> ;
+    lomo:references <http://example.org/dataset/cross-border-surveillance-of-biological-threats> ;
+    dcterms:description "AI models in biological applications. The Commission, based on advice by the Advisory Group on Biosecurity, and where appropriate, in cooperation with the Steering Group, may issue and regularly update guidance, to assist actors in the supply chain and the competent authorities, and to facilitate cooperation between them."@en .
+
+<http://example.org/analysis/description/36> a lomo:LegalRule ;
+    rdfs:label "Article [53]"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/art_53> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/monitoring-systemic-risk> ;
+    lomo:produces <http://example.org/analysis/action/6>,
+        <http://example.org/analysis/description/36/action> ;
+    lomo:references <http://example.org/dataset/cross-border-surveillance-of-biological-threats> ;
+    dcterms:description "The Commission shall monitor systemic risk from AI models in biological applications and propose mitigating actions, based on advice provided by the Scientific Panel, including boosting biodefense capabilities or regulation, including on assessment and mitigation of systemic risk from those models, as appropriate."@en .
+
+<http://example.org/analysis/description/37> a lomo:LegalRule ;
+    rdfs:label "Article [54]"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/art_54> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/information-exchange> ;
+    lomo:produces <http://example.org/analysis/action/6>,
+        <http://example.org/analysis/description/37/action> ;
+    lomo:references <http://example.org/dataset/cross-border-surveillance-of-biological-threats> ;
+    dcterms:description "information on how to exchange relevant information between competent authorities, national contact points and among Member States;"@en .
+
+<http://example.org/analysis/description/38> a lomo:LegalRule ;
+    rdfs:label "Article [55] Coordination on Biosecurity and Biosafety"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/art_55> ;
+    lomo:hasCategory dd:Data,
+        dd:DigitalPublicService ;
+    lomo:involvesProcess <http://example.org/process/information-exchange-technical-guidelines> ;
+    lomo:produces <http://example.org/analysis/description/38/action> ;
+    dcterms:description "The Steering Group in cooperation with the Commission, facilitates coordination and information exchange on emerging AI-enabled bio-risks;"@en .
+
+<http://example.org/analysis/description/39> a lomo:LegalRule ;
+    rdfs:label "Article [56] Amendments to Regulation (EC) No 178/2002 (General Food Law): Article 3"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/art_56> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/technical-documentation-information-exchange> ;
+    lomo:produces <http://example.org/analysis/description/39/action> ;
+    dcterms:description "‘regulatory sandbox’ means a controlled environment where participants can test innovative products or substances and related processes as well as data and other regulatory requirements at a pre-market stage under a set of defined rules and monitoring and for a limited period of time."@en .
+
+<http://example.org/analysis/description/4> a lomo:LegalRule ;
+    rdfs:label "Article [5] a"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/art_5> ;
+    lomo:hasCategory dd:Data,
+        dd:DigitalSolutions ;
+    lomo:involvesProcess <http://example.org/process/data-generation-data-processing> ;
+    lomo:produces <http://example.org/analysis/description/4/action> ;
+    dcterms:description "it provides trusted testing or demonstration facilities replicating real-world biomanufacturing processes, including general manufacturing practices (GMPs) compliant processes, or their enabling technologies, for process testing, validation, and small batch manufacturing, including for the initial phases of clinical trials; such enabling technologies may include digital technologies, including AI with specific applicability in biotechnology and biomanufacturing;"@en .
+
+<http://example.org/analysis/description/40> a lomo:LegalRule ;
+    rdfs:label "Article [56] Amendments to Regulation (EC) No 178/2002 (General Food Law): Article 49a (3)General provisions on regulatory sandboxes"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/art_56/par_3> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/facilitating-the-development-testing-and-validation-of-technologies>,
+        <http://example.org/process/testing-alternative-regulatory-requirements-such-as-digital-labelling-instead-of-actual-labels-on-food-products>,
+        <http://example.org/process/testing-data-requirements> ;
+    lomo:produces <http://example.org/analysis/description/40/action> ;
+    dcterms:description "Regulatory sandboxes may be established in relation to the following: (a) all stages of the production, processing and distribution of food with the exception of novel foods, and also of the feed produced for, or fed to food-producing animals; (b) food contact materials, with the exception of plastic recycled materials; (c) products, other than food and feed, containing or consisting of genetically modified organisms as defined in Article 2, point (2), of Directive 2001/18/EC, excluding organisms obtained through the techniques of genetic modification listed in Annex I B to Directive 2001/18/EC. The making available of products within a regulatory sandbox shall not be regarded as placing on the market. Regulatory sandboxes shall have the following objectives: (a) facilitating the development, testing and validation of technologies, products and substances before they obtain authorisation or approval for placing on the market, where so required by Union law; (b) testing data requirements, including the type and design of studies required for conducting a safety and/or efficacy assessment; (c) testing alternative regulatory requirements and appraising their performance as regards the attainment of the objectives of the applicable Union sectoral law in comparison to the existing requirements; in the areas where Union law provides for an approval or authorisation, as well as in the area of food information to consumers"@en .
+
+<http://example.org/analysis/description/41> a lomo:LegalRule ;
+    rdfs:label "Article [56] Amendments to Regulation (EC) No 178/2002 (General Food Law): Article 3"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/art_56> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/technical-documentation-information-exchange> ;
+    lomo:produces <http://example.org/analysis/description/41/action> ;
+    dcterms:description "‘regulatory sandbox’ means a controlled environment where participants can test innovative products or substances and related processes as well as data and other regulatory requirements at a pre-market stage under a set of defined rules and monitoring and for a limited period of time."@en .
+
+<http://example.org/analysis/description/42> a lomo:LegalRule ;
+    rdfs:label "Article [56] Amendments to Regulation (EC) No 178/2002 (General Food Law): Article 49a (3)General provisions on regulatory sandboxes"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/art_56/par_3> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/facilitating-the-development-testing-and-validation-of-technologies>,
+        <http://example.org/process/testing-alternative-regulatory-requirements-such-as-digital-labelling-instead-of-actual-labels-on-food-products>,
+        <http://example.org/process/testing-data-requirements> ;
+    lomo:produces <http://example.org/analysis/description/42/action> ;
+    dcterms:description "Regulatory sandboxes may be established in relation to the following: (a) all stages of the production, processing and distribution of food with the exception of novel foods, and also of the feed produced for, or fed to food-producing animals; (b) food contact materials, with the exception of plastic recycled materials; (c) products, other than food and feed, containing or consisting of genetically modified organisms as defined in Article 2, point (2), of Directive 2001/18/EC, excluding organisms obtained through the techniques of genetic modification listed in Annex I B to Directive 2001/18/EC. The making available of products within a regulatory sandbox shall not be regarded as placing on the market. Regulatory sandboxes shall have the following objectives: (a) facilitating the development, testing and validation of technologies, products and substances before they obtain authorisation or approval for placing on the market, where so required by Union law; (b) testing data requirements, including the type and design of studies required for conducting a safety and/or efficacy assessment; (c) testing alternative regulatory requirements and appraising their performance as regards the attainment of the objectives of the applicable Union sectoral law in comparison to the existing requirements; in the areas where Union law provides for an approval or authorisation, as well as in the area of food information to consumers"@en .
+
+<http://example.org/analysis/description/43> a lomo:LegalRule ;
+    rdfs:label "Article [56] Amendments to Regulation (EC) No 178/2002 (General Food Law): Article 49a"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/art_56> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/monitoring-and-supervision-information-exchange> ;
+    lomo:produces <http://example.org/analysis/description/43/action> ;
+    dcterms:description "Member States shall monitor and supervise the operation of regulatory sandboxes that they establish and ensure compliance with the regulatory sandbox plan. A participant to an established regulatory sandbox shall immediately inform the competent authorities of the Member State(s) concerned if it considers or has reason to believe that the conditions of the regulatory sandbox plan have not been complied with and/or there are potential risks to public health, animal health or welfare, plant health or to the environment, which may require the revocation of the regulatory sandbox or the amendment of the regulatory sandbox plan to provide for mitigating measures. Participants shall also immediately inform the competent authorities of any other information that concerns the quality, safety or efficacy of the subject matter of the relevant regulatory sandbox. Member States shall immediately notify to the Commission and, where relevant, to the Authority any violation of the conditions set out in the regulatory sandbox plan and/or the identification of any potential risks to public health, animal health or welfare, plant health or to the environment. Member States shall suspend or revoke a regulatory sandbox at any time on their own motion, or at the request of the Commission in accordance with paragraph 9, in either of the following cases: (a) the requirements and conditions governing the regulatory sandbox plan are not met; (b) where necessary to protect public health, animal health or welfare, plant health or the environment and there is no possibility for effective mitigation measures. Member States shall inform the Commission, the Authority and the other Member States without delay of the suspension or revocation of a regulatory sandbox and of the reasons. Where after the setting up of a regulatory sandbox in their territory, a Member State identifies risks to public health, animal health and welfare, plant health and to the environment which can be fully mitigated by amendments to the regulatory sandbox plan, it shall communicate to the Commission, the Authority and the other Member States the draft amendments in accordance with the procedure laid down in Article 49b. Where the Commission considers that one of the cases referred to in paragraph 7 is fulfilled, it shall immediately adopt implementing acts.in accordance with the procedure referred to in Article 58(2) requesting the suspension or the revocation of the regulatory sandbox concerned. However, in emergencies, the Commission may provisionally adopt an implementing act requesting the suspension of the regulatory sandbox concerned after consulting the Member State(s) concerned and informing the other Member States. As soon as possible, and at most within 10 working days, the measure taken shall be confirmed, amended or revoked in accordance with the procedure referred to in Article 58(2) and the reasons for the Commission’s decision shall be made public without delay. A Member State may prolong the duration once of a regulatory sandbox for a limited time where this is justified by the need to attain the objective of the specific regulatory sandbox at hand and shall inform the Commission, the Authority and the other Member States thereof. The Commission may, by means of implementing acts, specify common principles or practical arrangements for the establishment and supervision of regulatory sandboxes, including the establishment of sandboxes involving several Member States pursuant to this Article, Article 49b and 49c .Those implementing acts shall be adopted in accordance with the procedure referred to in Article 58(2)."@en .
+
+<http://example.org/analysis/description/44> a lomo:LegalRule ;
+    rdfs:label "Article [56] Amendments to Regulation (EC) No 178/2002 (General Food Law): Article 49b"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/art_56> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/information-exchange> ;
+    lomo:produces <http://example.org/analysis/description/44/action> ;
+    dcterms:description "Where a Member State deems it appropriate to establish a regulatory sandbox pursuant to Article 49a, it shall communicate to the Commission, the Authority and the other Member States a draft regulatory sandbox plan 60 days prior to the commencement"@en .
+
+<http://example.org/analysis/description/45> a lomo:LegalRule ;
+    rdfs:label "Article [56] Amendments to Regulation (EC) No 178/2002 (General Food Law): Article 49c"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/art_56> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/monitoring-information-exchange> ;
+    lomo:produces <http://example.org/analysis/description/45/action> ;
+    dcterms:description "Regulatory sandboxes shall not affect the enforcement and monitoring responsibilities of the competent authorities set out in Article 17 and in other sectoral legislation. Participants, with the exception of final consumers, in particular the operator that is the developer of the product or substance concerned, shall remain liable under applicable national legislation for any harm inflicted on third parties as a result from the testing taking place in the sandbox. Member States shall submit annual reports to the Commission on the results from the implementation of regulatory sandboxes, including good practices developed, lessons learnt and recommendations on their setup and, where relevant, on the application of the relevant sectorial Union legislation. Those reports shall be made publicly available by the Commission. The Authority shall also ensure the necessary revisions of its guidance where relevant and appropriate on the basis of those annual reports."@en .
+
+<http://example.org/analysis/description/46> a lomo:LegalRule ;
+    rdfs:label "Article [58]Amendments to Regulation (EU) No 536/2014 (‘Clinical Trials Regulation’)"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/art_58> ;
+    lomo:hasCategory dd:Data,
+        dd:ProcessAutomation ;
+    lomo:involvesProcess <http://example.org/process/submission-of-an-application-information-exchange-access-to-application> ;
+    lomo:produces <http://example.org/analysis/description/46/action> ;
+    dcterms:description "Article 5: Submission of an application through EU portal Article 6: Assessment report by the reporting Member State— Aspects covered by Part I Article 7: Assessment report - Aspects covered by Part II Article 8: Decision on the clinical trial by Member States to sponsor Article 9: Persons assessing the application Article 14c: Coordinated assessment for the authorisation of combined studies Article 17: Validation of an application for the authorisation of a substantial modification of an aspect covered by Part I of the assessment report Article 19: Decision on the substantial modification of an aspect covered by Part I of the assessment report Article 20: validation, assessment and decision regarding a substantial modification of an aspect covered by Part II of the assessment report Article 21: Substantial modification of aspects covered by Parts I and II of the assessment report Article 25: Data submitted in the application dossier"@en .
+
+<http://example.org/analysis/description/47> a lomo:LegalRule ;
+    rdfs:label "Article [58]Amendments to Regulation (EU) No 536/2014 (‘Clinical Trials Regulation’)/Article 27e: Use of AI in Clinical Trials"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/art_58> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/evaluation-of-ai-models> ;
+    lomo:produces <http://example.org/analysis/description/47/action> ;
+    dcterms:description "Sponsors shall evaluate AI models or AI systems proposed to be used in the context of the lifecycle of the specific clinical trial"@en .
+
+<http://example.org/analysis/description/48> a lomo:LegalRule ;
+    rdfs:label "Article [58]Amendments to Regulation (EU) No 536/2014 (‘Clinical Trials Regulation’) Articles 41 –46, 55, 56-58, 79a regarding reporting requirements"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ],
+        [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/art_55>,
+        <https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/art_56>,
+        <https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/art_58>,
+        <https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/art_79> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess y6k:c_422e961c ;
+    lomo:produces <http://example.org/analysis/action/1>,
+        <http://example.org/analysis/action/6>,
+        <http://example.org/analysis/description/48/action> ;
+    lomo:references <http://example.org/dataset/cross-border-surveillance-of-biological-threats> ;
+    dcterms:description "Article 41: Reporting of adverse events and serious adverse events by the investigator to the sponsor Article 42: Reporting of suspected unexpected serious adverse reactions by the sponsor to the Agency Article 43: Annual reporting by the sponsor to the Agency Article 44: Assessment by Member States Article 46: Reporting with regard to auxiliary medicinal products Article 48: Monitoring Article 52: Reporting of serious breaches Article 55: Investigator’s brochure Article 56: Recording, processing, handling and storage of clinical trial information: Article 57: Clinical trial master file Article 58: Archiving of the clinical trial master file Article 79a: Obligations as regards Union controls: Ensure that the necessary technical assistance and the available documentation, upon justified request, is being provided to the Commission as well as any other support that the Commission requests"@en .
+
+<http://example.org/analysis/description/49> a lomo:LegalRule ;
+    rdfs:label "Article [58]Amendments to Regulation (EU) No 536/2014 (‘Clinical Trials Regulation’)"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/art_58> ;
+    lomo:hasCategory dd:Data,
+        dd:DigitalSolutions,
+        dd:ProcessAutomation ;
+    lomo:involvesProcess y6k:c_422e961c ;
+    lomo:produces <http://example.org/analysis/description/49/action> ;
+    dcterms:description "Article 81 is amended: The sponsor shall permanently update in the EU database information on any changes to the clinical trials which are not substantial modifications but are relevant for the supervision of the clinical trial. The sponsor shall also update the EU portal to satisfy a condition to which an authorisation decision is subject to."@en .
+
+<http://example.org/analysis/description/5> a lomo:LegalRule ;
+    rdfs:label "Article [5] c Biotechnology Development Accelerator"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/art_5> ;
+    lomo:hasCategory dd:Data,
+        dd:DigitalSolutions ;
+    lomo:involvesProcess <http://example.org/process/technical-documentation-information-exchange> ;
+    lomo:produces <http://example.org/analysis/description/5/action> ;
+    dcterms:description "it aims to support hands-on and work-based training programmes aligned with the Union’s skills and workforce development objectives in the biotechnology and biomanufacturing sectors or in relation to enabling technologies, such as digital technologies including AI, with specific applicability in biotechnology and biomanufacturing;"@en .
+
+<http://example.org/analysis/description/50> a lomo:LegalRule ;
+    rdfs:label "Article [58]Amendments to Regulation (EU) No 536/2014 (‘Clinical Trials Regulation’)"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/art_58> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/data-protection> ;
+    lomo:produces <http://example.org/analysis/action/5>,
+        <http://example.org/analysis/description/50/action> ;
+    lomo:references <http://example.org/dataset/personal-health-data-clinical-data> ;
+    dcterms:description "Article 93: Data protection: Sponsors shall comply with Regulation (EU) 2016/679 to process personal data, including data concerning health, in the public interest of health in the context of the entire lifecycle of a clinical trial, from the preparation of the application for the authorisation of the clinical trial to the end of the archiving period"@en .
+
+<http://example.org/analysis/description/51> a lomo:LegalRule ;
+    rdfs:label "Article [59] Amendments to Regulation (EU) 2019/6 (Veterinary Medicine Products Regulation)"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/art_59> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/information-exchange> ;
+    lomo:produces <http://example.org/analysis/description/51/action> ;
+    dcterms:description "Article 61 (2). Where a variation as referred to in paragraph (1) affects the summary of product characteristics, labelling or package leaflet, the marketing authorisation holder shall record the change in the product database within 30 days after its implementation."@en .
+
+<http://example.org/analysis/description/52> a lomo:LegalRule ;
+    rdfs:label "Article [59]"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/art_59> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/technical-documentation-information-exchange> ;
+    lomo:produces <http://example.org/analysis/action/1>,
+        <http://example.org/analysis/description/52/action> ;
+    lomo:references <http://example.org/dataset/data-required-for-testing-and-validation-of-biotechnology-products> ;
+    dcterms:description "‘CHAPTER IX REGULATORY SANDBOX Article 136a Regulatory sandbox 5.After a sandbox is established, the Agency shall: a)develop and make publicly available technical and scientific requirements for technologies, methods or products developed under the sandbox, taking due account of the potential risks of thereof for human and animal health and the environment;"@en .
+
+<http://example.org/analysis/description/53> a lomo:LegalRule ;
+    rdfs:label "Article [61] Amendments to Regulation (EC) No 2024/1938 Article [39a] 3"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/art_61> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/assessment-of-innovations> ;
+    lomo:produces <http://example.org/analysis/description/53/action> ;
+    dcterms:description "The regulatory sandbox shall aim to allow the assessment of the innovations referred to in paragraph 1 in a real-world environment under strict regulatory supervision, to ensure that the necessary evidence and data is generated to demonstrate their, safety quality, including effectiveness in view of their distribution."@en .
+
+<http://example.org/analysis/description/54> a lomo:LegalRule ;
+    rdfs:label "Article [61] Amendments to Regulation (EC) No 2024/1398"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/art_61> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/data-access-information-exchange-leveraging-information-published-on-the-eu-soho-platform-art-743b-of-regulation-eu20241938> ;
+    lomo:produces <http://example.org/analysis/action/1>,
+        <http://example.org/analysis/description/54/action> ;
+    lomo:references <http://example.org/dataset/data-required-for-testing-and-validation-of-biotechnology-products> ;
+    dcterms:description "request information and data from holders of authorisations of SoHO preparations, developers independent experts and researchers, representatives of healthcare professionals and patients and may engage with them in preliminary discussions;"@en .
+
+<http://example.org/analysis/description/55> a lomo:LegalRule ;
+    rdfs:label "Article [63] Evaluation"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/art_63> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/information-exchange> ;
+    lomo:produces <http://example.org/analysis/description/55/action> ;
+    dcterms:description "The national authorities and the economic operators shall, upon request, provide the Commission with any relevant information they have and that the Commission may need for its assessment pursuant to in paragraph 1"@en .
+
+<http://example.org/analysis/description/56> a lomo:LegalRule ;
+    rdfs:label "Article [66]"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/art_66> ;
+    lomo:hasCategory dd:Data,
+        dd:DigitalSolutions ;
+    lomo:involvesProcess <http://example.org/process/information-exchange> ;
+    lomo:produces <http://example.org/analysis/action/7>,
+        <http://example.org/analysis/description/56/action> ;
+    lomo:references <http://example.org/dataset/handling-of-confidential-information> ;
+    dcterms:description "Member States and the Commission shall ensure the protection of trade and business secrets and other sensitive, confidential and classified information obtained and processed in application of this Regulation, including recommendations and measures to be taken, in accordance with Union and relevant national law. The Commission and Member States shall ensure that classified information provided or exchanged pursuant to this Regulation is not downgraded or declassified without the prior written consent of the originator in accordance with relevant Union or national law."@en .
+
+<http://example.org/analysis/description/6> a lomo:LegalRule ;
+    rdfs:label "Article [5] d Biotechnology Development Accelerator"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/art_5> ;
+    lomo:hasCategory dd:Data,
+        dd:DigitalSolutions ;
+    lomo:involvesProcess <http://example.org/process/data-generation-data-processing> ;
+    lomo:produces <http://example.org/analysis/action/1>,
+        <http://example.org/analysis/description/6/action> ;
+    lomo:references <http://example.org/dataset/data-required-for-testing-and-validation-of-biotechnology-products> ;
+    dcterms:description "it conducts applied research in biotechnology or biomanufacturing, or in relation to enabling technologies, such as digital technologies including AI, with specific applicability in biotechnology and biomanufacturing"@en .
+
+<http://example.org/analysis/description/7> a lomo:LegalRule ;
+    rdfs:label "Article [11] 7"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/art_11> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/reuse-of-existing-data> ;
+    lomo:produces <http://example.org/analysis/action/2>,
+        <http://example.org/analysis/description/7/action> ;
+    dcterms:description "Member States shall promote the reuse of existing data, studies and authorisations in order to avoid duplication of procedures, reduce administrative burden and ensure consistency of decision-making. For that purpose, they shall ensure that, when assessing an application, competent authorities duly take into account all relevant studies, assessments and valid permits or authorisations already carried out or issued for the same project or its components, provided that they remain applicable and up to date."@en .
+
+<http://example.org/analysis/description/8> a lomo:LegalRule ;
+    rdfs:label "Article [15] 2e Networks of Health Biotechnology Clusters"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/art_15> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/information-exchange> ;
+    lomo:produces <http://example.org/analysis/action/1>,
+        <http://example.org/analysis/description/8/action> ;
+    lomo:references <http://example.org/dataset/data-required-for-testing-and-validation-of-biotechnology-products> ;
+    dcterms:description "Such networking and cooperation should aim to: e) promote the development of interoperable infrastructure and digital platforms, and AI-enabled technologies supporting biotechnology and biomanufacturing"@en .
+
+<http://example.org/analysis/description/9> a lomo:LegalRule ;
+    rdfs:label "Article [16] 6a Access Principles and Security Safeguards"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/art_16> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/access-to-data> ;
+    lomo:produces <http://example.org/analysis/description/9/action> ;
+    dcterms:description "access by a non-associated third country or by a non-associated third-country entity to sensitive information is prevented and the employees or other persons involved have national security clearance issued by a Member State or an associated country, where appropriate;"@en .
+
+<http://example.org/analysis/solution/1> a dctype:Software ;
+    rdfs:label "Biotechnology testing environments for advanced biotechnology innovations"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/art_32> ;
+    lomo:hasCapability "Development of trusted testing environments biotechnology innovations" ;
+    dcterms:publisher <http://example.org/agent/commission-member-states> ;
+    dcterms:title "Biotechnology testing environments for advanced biotechnology innovations"@en .
+
+<http://example.org/agent/commission-agency-efsa-member-state-authorities> rdfs:label "Commission, Agency (EFSA), Member State authorities"@en .
+
+<http://example.org/agent/commission-agency-ema-member-states> rdfs:label "Commission, Agency (EMA), Member States"@en .
+
+<http://example.org/agent/commission-efsa-member-state-authorities> rdfs:label "Commission, EFSA, Member State authorities"@en .
+
+<http://example.org/agent/commission-eu-agencies-member-state-authorities-industry-stakeholders-and-research-organisations> rdfs:label "Commission, EU Agencies, Member State authorities, industry stakeholders and research organisations"@en .
+
+<http://example.org/agent/commission-member-state-authorities-actors-in-the-supply-chain> rdfs:label "Commission, Member State authorities, Actors in the supply chain"@en .
+
+<http://example.org/agent/commission-member-state-authorities-agency> rdfs:label "Commission, Member State authorities, Agency"@en .
+
+<http://example.org/agent/commission-member-state-authorities-biotechnology-industry-actors-research-organisations> rdfs:label "Commission, Member State authorities, Biotechnology industry actors, Research Organisations"@en .
+
+<http://example.org/agent/economic-operator-prospective-customer> rdfs:label "Economic operator, prospective customer"@en .
+
+<http://example.org/agent/economic-operators-online-marketplaces> rdfs:label "Economic operators, Online marketplaces"@en .
+
+<http://example.org/agent/member-state-authorities-developers-independent-experts-and-researchers-representatives-of-healthcare-professionals-and-patients> rdfs:label "Member State authorities, developers, independent experts and researchers, representatives of healthcare professionals and patients"@en .
+
+<http://example.org/agent/member-state-authorities-research-organisations-biotechnology-industry-actors> rdfs:label "Member State authorities, Research organisations, Biotechnology industry actors"@en .
+
+<http://example.org/agent/member-states-commission-agencies-ema-efsa> rdfs:label "Member States, Commission, Agencies (EMA, EFSA)"@en .
+
+<http://example.org/agent/members-of-the-steering-group-commission-member-state-authorities-research-organisations-biotechnology-industry-actors> rdfs:label "Members of the Steering Group, Commission, Member State authorities, research organisations, biotechnology industry actors"@en .
+
+<http://example.org/agent/union-bodies-and-agencies-industry-stakeholders-and-research-organisations> rdfs:label "Union bodies and agencies, industry stakeholders and research organisations"@en .
+
+<http://example.org/analysis/action/1/role/addressee-member-states-commission-agencies-ema-efsa> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states-commission-agencies-ema-efsa> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/1/role/addresser-biotechnology-industry-actors-research-organizations> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/biotechnology-industry-actors-research-organizations> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/2> a lomo:Action ;
+    rdfs:label "Reuse of existing data"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "permit-granting process for strategic biotechnology projects and high impact biotechnology projects"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/art_11> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/2/role/addressee-member-states-commission>,
+        <http://example.org/analysis/action/2/role/addresser-biotechnology-industry-actors-research-organizations> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Reuse of existing data"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/reuse-of-existing-data> ] .
+
+<http://example.org/analysis/action/2/role/addressee-member-states-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states-commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/2/role/addresser-biotechnology-industry-actors-research-organizations> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/biotechnology-industry-actors-research-organizations> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/3> a lomo:Action ;
+    rdfs:label "Guidance on the use and deployment of AI"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Guidance for biotechnology industry actors and research organizations on the deployment and use of AI systems and general purpose AI models in the lifecycle of medicinal product development"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/art_31> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/3/role/addressee-biotechnology-industry-actors-research-organizations>,
+        <http://example.org/analysis/action/3/role/addresser-member-states-agency-ema-commission> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Guidance on the use and deployment of AI"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/guidance-on-the-use-and-deployment-of-ai> ] .
+
+<http://example.org/analysis/action/3/role/addressee-biotechnology-industry-actors-research-organizations> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/biotechnology-industry-actors-research-organizations> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/3/role/addresser-member-states-agency-ema-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states-agency-ema-commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/4> a lomo:Action ;
+    rdfs:label "Regulatory decisions, opinions, recommendations"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Repository will assist developers in navigating cases of novel biotechnology health biotechnology products"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/art_35> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/4/role/addressee-biotechnology-industry-actors-research-organizations>,
+        <http://example.org/analysis/action/4/role/addresser-member-states-agency-ema-commission> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Regulatory decisions, opinions, recommendations"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/regulatory-decisions-opinions-recommendations> ] .
+
+<http://example.org/analysis/action/4/role/addressee-biotechnology-industry-actors-research-organizations> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/biotechnology-industry-actors-research-organizations> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/4/role/addresser-member-states-agency-ema-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states-agency-ema-commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/5> a lomo:Action ;
+    rdfs:label "Personal health data, clinical data"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Submission of clinical trial"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/art_58> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/5/role/addressee-member-states-agency-ema-commission>,
+        <http://example.org/analysis/action/5/role/addresser-biotechnology-industry-actors-research-organizations> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Personal health data, clinical data"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/personal-health-data-clinical-data> ] .
+
+<http://example.org/analysis/action/5/role/addressee-member-states-agency-ema-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states-agency-ema-commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/5/role/addresser-biotechnology-industry-actors-research-organizations> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/biotechnology-industry-actors-research-organizations> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/6/role/addressee-member-states-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states-commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/6/role/addresser-biotechnology-industry-actors-research-organizations> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/biotechnology-industry-actors-research-organizations> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/7> a lomo:Action ;
+    rdfs:label "Handling of confidential information"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Information acquired in the course of regulation, trade and business secrets"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/art_66> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/7/role/addressee-biotechnology-industry-actors-research-organizations>,
+        <http://example.org/analysis/action/7/role/addresser-member-states-commission> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Handling of confidential information"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/handling-of-confidential-information> ] .
+
+<http://example.org/analysis/action/7/role/addressee-biotechnology-industry-actors-research-organizations> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/biotechnology-industry-actors-research-organizations> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/7/role/addresser-member-states-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states-commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/assessment/1/1/measure> a cav:Statement ;
+    cav:interpretation iac:InterpretationPositive ;
+    cav:judgement "The Biotechnology Data Quality Accelerator will operate in accordance with applicable Union legislation on data governance, ethics and fundamental rights, including Regulation (EU) 2025/327 [European Health Data Space], Regulation (EU) 2016/679 [General Data Protection Regulation]."@en ;
+    cav:type iac:StatementTypeAlignmentMeasure ;
+    m8g:hasRelatedService <http://example.org/analysis/interop/1> ;
+    dcterms:description "Alignment with existing digital and sectorial policiesPlease list the applicable digital and sectorial policies identified"@en .
+
+<http://example.org/analysis/assessment/1/2/measure> a cav:Statement ;
+    cav:interpretation iac:InterpretationPositive ;
+    cav:judgement "It will support, where appropriate, the integration of these datasets into Union infrastructures,including the European Health Data Space, European Research Area data spaces, or other, including the infrastructures operated by high impact healthbiotechnology strategic projects."@en ;
+    cav:type iac:StatementTypeOrganisationMeasure ;
+    m8g:hasRelatedService <http://example.org/analysis/interop/1> ;
+    dcterms:description "Organisational measures for a smooth cross-border digital public services deliveryPlease list the governance measures foreseen"@en .
+
+<http://example.org/analysis/assessment/1/3/measure> a cav:Statement ;
+    cav:interpretation iac:InterpretationPositive ;
+    cav:judgement "Datasets, or the metadata and reference annotations thereof, will be available under fair, reasonable and non-discriminatory conditions, ensuring equitable access for users including research organisations, SMEs and public institutions."@en ;
+    cav:type iac:StatementTypeSharedMeasure ;
+    m8g:hasRelatedService <http://example.org/analysis/interop/1> ;
+    dcterms:description "Measures taken to ensure a shared understanding of the dataPlease list such measures"@en .
+
+<http://example.org/analysis/assessment/1/4/measure> a cav:Statement ;
+    cav:interpretation iac:InterpretationPositive ;
+    cav:judgement "It will contribute to the development of Union standards and quality frameworks for data representativeness, provenance, interoperability and annotation in biotechnology"@en ;
+    cav:type iac:StatementTypeStandardsMeasure ;
+    m8g:hasRelatedService <http://example.org/analysis/interop/1> ;
+    dcterms:description "Use of commonly agreed open technical specifications and standardsPlease list such measures"@en .
+
+<http://example.org/analysis/description/1/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/1/action/role/addressee-member-state-authorities-research-organisations-biotechnology-industry-actors> .
+
+<http://example.org/analysis/description/1/action/role/addressee-member-state-authorities-research-organisations-biotechnology-industry-actors> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-state-authorities-research-organisations-biotechnology-industry-actors> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/10/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/10/action/role/addressee-non-associated-third-country-non-associated-third-country-entity-member-states-associated-countries> .
+
+<http://example.org/analysis/description/10/action/role/addressee-non-associated-third-country-non-associated-third-country-entity-member-states-associated-countries> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/non-associated-third-country-non-associated-third-country-entity-member-states-associated-countries> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/11/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/11/action/role/addressee-union-bodies-and-agencies-industry-stakeholders-and-research-organisations> .
+
+<http://example.org/analysis/description/11/action/role/addressee-union-bodies-and-agencies-industry-stakeholders-and-research-organisations> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/union-bodies-and-agencies-industry-stakeholders-and-research-organisations> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/12/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/12/action/role/addressee-members-of-the-steering-group-commission-member-state-authorities-research-organisations-biotechnology-industry-actors> .
+
+<http://example.org/analysis/description/12/action/role/addressee-members-of-the-steering-group-commission-member-state-authorities-research-organisations-biotechnology-industry-actors> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/members-of-the-steering-group-commission-member-state-authorities-research-organisations-biotechnology-industry-actors> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/13/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/13/action/role/addressee-commission-member-state-authorities> .
+
+<http://example.org/analysis/description/13/action/role/addressee-commission-member-state-authorities> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/commission-member-state-authorities> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/14/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/14/action/role/addressee-member-state-authorities> .
+
+<http://example.org/analysis/description/14/action/role/addressee-member-state-authorities> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-state-authorities> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/15/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/15/action/role/addressee-commission-eu-agencies-member-state-authorities-industry-stakeholders-and-research-organisations> .
+
+<http://example.org/analysis/description/15/action/role/addressee-commission-eu-agencies-member-state-authorities-industry-stakeholders-and-research-organisations> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/commission-eu-agencies-member-state-authorities-industry-stakeholders-and-research-organisations> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/16/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/16/action/role/addressee-commission-member-state-authorities> .
+
+<http://example.org/analysis/description/16/action/role/addressee-commission-member-state-authorities> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/commission-member-state-authorities> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/17/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/17/action/role/addressee-research-organisations-biotechnology-industry-actors> .
+
+<http://example.org/analysis/description/17/action/role/addressee-research-organisations-biotechnology-industry-actors> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/research-organisations-biotechnology-industry-actors> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/18/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/18/action/role/addressee-research-organisations-biotechnology-industry-actors> .
+
+<http://example.org/analysis/description/18/action/role/addressee-research-organisations-biotechnology-industry-actors> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/research-organisations-biotechnology-industry-actors> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/19/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/19/action/role/addressee-research-organisations-biotechnology-industry-actors> .
+
+<http://example.org/analysis/description/19/action/role/addressee-research-organisations-biotechnology-industry-actors> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/research-organisations-biotechnology-industry-actors> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/2/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/2/action/role/addressee-commission-member-state-authorities-research-organisations-biotechnology-industry-actors> .
+
+<http://example.org/analysis/description/2/action/role/addressee-commission-member-state-authorities-research-organisations-biotechnology-industry-actors> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/commission-member-state-authorities-research-organisations-biotechnology-industry-actors> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/20/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/20/action/role/addressee-research-organisations-biotechnology-industry-actors> .
+
+<http://example.org/analysis/description/20/action/role/addressee-research-organisations-biotechnology-industry-actors> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/research-organisations-biotechnology-industry-actors> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/21/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/21/action/role/addressee-research-organisations-biotechnology-industry-actors> .
+
+<http://example.org/analysis/description/21/action/role/addressee-research-organisations-biotechnology-industry-actors> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/research-organisations-biotechnology-industry-actors> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/22> a iopa:BindingRequirement,
+        lomo:LegalRule ;
+    rdfs:label "Article [33] 2f"@en ;
+    iopa:affects <http://example.org/analysis/interop/1> ;
+    cav:valueDescription "give due consideration to the interoperability with platforms deployed pursuant to the EHDS and other relevant data spaces."@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/art_33> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/platform-interoperability> ;
+    lomo:produces <http://example.org/analysis/action/1>,
+        <http://example.org/analysis/description/22/action> ;
+    lomo:references <http://example.org/dataset/data-required-for-testing-and-validation-of-biotechnology-products> ;
+    dcterms:description "give due consideration to the interoperability with platforms deployed pursuant to the EHDS and other relevant data spaces."@en .
+
+<http://example.org/analysis/description/22/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/22/action/role/addressee-research-organisations-biotechnology-industry-actors> .
+
+<http://example.org/analysis/description/22/action/role/addressee-research-organisations-biotechnology-industry-actors> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/research-organisations-biotechnology-industry-actors> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/23/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/23/action/role/addressee-member-state-authorities-commission> .
+
+<http://example.org/analysis/description/23/action/role/addressee-member-state-authorities-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-state-authorities-commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/24/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/24/action/role/addressee-member-state-authorities-commission> .
+
+<http://example.org/analysis/description/24/action/role/addressee-member-state-authorities-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-state-authorities-commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/25/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/25/action/role/addressee-member-state-authorities-commission> .
+
+<http://example.org/analysis/description/25/action/role/addressee-member-state-authorities-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-state-authorities-commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/26/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/26/action/role/addressee-member-state-authorities-commission> .
+
+<http://example.org/analysis/description/26/action/role/addressee-member-state-authorities-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-state-authorities-commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/27/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/27/action/role/addressee-commission> .
+
+<http://example.org/analysis/description/27/action/role/addressee-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/28/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/28/action/role/addressee-commission-member-state-authorities-biotechnology-industry-actors-research-organisations> .
+
+<http://example.org/analysis/description/28/action/role/addressee-commission-member-state-authorities-biotechnology-industry-actors-research-organisations> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/commission-member-state-authorities-biotechnology-industry-actors-research-organisations> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/29/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/29/action/role/addressee-commission-member-state-authorities> .
+
+<http://example.org/analysis/description/29/action/role/addressee-commission-member-state-authorities> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/commission-member-state-authorities> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/3/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/3/action/role/addressee-commission-member-state-authorities-research-organisations-biotechnology-industry-actors> .
+
+<http://example.org/analysis/description/3/action/role/addressee-commission-member-state-authorities-research-organisations-biotechnology-industry-actors> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/commission-member-state-authorities-research-organisations-biotechnology-industry-actors> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/30/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/30/action/role/addressee-economic-operator-prospective-customer> .
+
+<http://example.org/analysis/description/30/action/role/addressee-economic-operator-prospective-customer> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/economic-operator-prospective-customer> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/31/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/31/action/role/addressee-economic-operators-online-marketplaces> .
+
+<http://example.org/analysis/description/31/action/role/addressee-economic-operators-online-marketplaces> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/economic-operators-online-marketplaces> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/32/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/32/action/role/addressee-commission-member-state-authorities> .
+
+<http://example.org/analysis/description/32/action/role/addressee-commission-member-state-authorities> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/commission-member-state-authorities> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/33/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/33/action/role/addressee-commission-member-state-authorities> .
+
+<http://example.org/analysis/description/33/action/role/addressee-commission-member-state-authorities> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/commission-member-state-authorities> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/34/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/34/action/role/addressee-commission> .
+
+<http://example.org/analysis/description/34/action/role/addressee-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/35/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/35/action/role/addressee-commission-member-state-authorities-actors-in-the-supply-chain> .
+
+<http://example.org/analysis/description/35/action/role/addressee-commission-member-state-authorities-actors-in-the-supply-chain> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/commission-member-state-authorities-actors-in-the-supply-chain> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/36/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/36/action/role/addressee-commission-member-state-authorities> .
+
+<http://example.org/analysis/description/36/action/role/addressee-commission-member-state-authorities> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/commission-member-state-authorities> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/37/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/37/action/role/addressee-commission-member-state-authorities> .
+
+<http://example.org/analysis/description/37/action/role/addressee-commission-member-state-authorities> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/commission-member-state-authorities> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/38/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/38/action/role/addressee-commission-member-state-authorities> .
+
+<http://example.org/analysis/description/38/action/role/addressee-commission-member-state-authorities> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/commission-member-state-authorities> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/39/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/39/action/role/addressee-commission-member-state-authorities> .
+
+<http://example.org/analysis/description/39/action/role/addressee-commission-member-state-authorities> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/commission-member-state-authorities> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/4/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/4/action/role/addressee-commission-member-state-authorities-research-organisations-biotechnology-industry-actors> .
+
+<http://example.org/analysis/description/4/action/role/addressee-commission-member-state-authorities-research-organisations-biotechnology-industry-actors> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/commission-member-state-authorities-research-organisations-biotechnology-industry-actors> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/40/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/40/action/role/addressee-member-states> .
+
+<http://example.org/analysis/description/40/action/role/addressee-member-states> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/41/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/41/action/role/addressee-commission-member-state-authorities> .
+
+<http://example.org/analysis/description/41/action/role/addressee-commission-member-state-authorities> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/commission-member-state-authorities> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/42/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/42/action/role/addressee-member-states> .
+
+<http://example.org/analysis/description/42/action/role/addressee-member-states> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/43/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/43/action/role/addressee-member-states-commission> .
+
+<http://example.org/analysis/description/43/action/role/addressee-member-states-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states-commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/44/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/44/action/role/addressee-commission-efsa-member-state-authorities> .
+
+<http://example.org/analysis/description/44/action/role/addressee-commission-efsa-member-state-authorities> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/commission-efsa-member-state-authorities> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/45/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/45/action/role/addressee-commission-agency-efsa-member-state-authorities> .
+
+<http://example.org/analysis/description/45/action/role/addressee-commission-agency-efsa-member-state-authorities> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/commission-agency-efsa-member-state-authorities> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/46/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/46/action/role/addressee-biotechnology-industry-actors-commission-agency-member-states> .
+
+<http://example.org/analysis/description/46/action/role/addressee-biotechnology-industry-actors-commission-agency-member-states> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/biotechnology-industry-actors-commission-agency-member-states> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/47/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/47/action/role/addressee-biotechnology-industry-actors-commission-agency-member-states> .
+
+<http://example.org/analysis/description/47/action/role/addressee-biotechnology-industry-actors-commission-agency-member-states> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/biotechnology-industry-actors-commission-agency-member-states> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/48/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/48/action/role/addressee-biotechnology-industry-actors-commission-agency-member-states> .
+
+<http://example.org/analysis/description/48/action/role/addressee-biotechnology-industry-actors-commission-agency-member-states> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/biotechnology-industry-actors-commission-agency-member-states> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/49/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/49/action/role/addressee-commission-agency-ema-member-states> .
+
+<http://example.org/analysis/description/49/action/role/addressee-commission-agency-ema-member-states> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/commission-agency-ema-member-states> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/5/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/5/action/role/addressee-commission-member-state-authorities-research-organisations-biotechnology-industry-actors> .
+
+<http://example.org/analysis/description/5/action/role/addressee-commission-member-state-authorities-research-organisations-biotechnology-industry-actors> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/commission-member-state-authorities-research-organisations-biotechnology-industry-actors> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/50/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/50/action/role/addressee-biotechnology-industry-actors-commission-agency-member-states> .
+
+<http://example.org/analysis/description/50/action/role/addressee-biotechnology-industry-actors-commission-agency-member-states> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/biotechnology-industry-actors-commission-agency-member-states> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/51/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/51/action/role/addressee-commission-member-state-authorities-agency> .
+
+<http://example.org/analysis/description/51/action/role/addressee-commission-member-state-authorities-agency> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/commission-member-state-authorities-agency> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/52/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/52/action/role/addressee-commission-member-state-authorities> .
+
+<http://example.org/analysis/description/52/action/role/addressee-commission-member-state-authorities> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/commission-member-state-authorities> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/53/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/53/action/role/addressee-member-state-authorities-commission> .
+
+<http://example.org/analysis/description/53/action/role/addressee-member-state-authorities-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-state-authorities-commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/54/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/54/action/role/addressee-member-state-authorities-developers-independent-experts-and-researchers-representatives-of-healthcare-professionals-and-patients> .
+
+<http://example.org/analysis/description/54/action/role/addressee-member-state-authorities-developers-independent-experts-and-researchers-representatives-of-healthcare-professionals-and-patients> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-state-authorities-developers-independent-experts-and-researchers-representatives-of-healthcare-professionals-and-patients> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/55/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/55/action/role/addressee-commission-member-state-authorities-research-organisations-biotechnology-industry-actors> .
+
+<http://example.org/analysis/description/55/action/role/addressee-commission-member-state-authorities-research-organisations-biotechnology-industry-actors> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/commission-member-state-authorities-research-organisations-biotechnology-industry-actors> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/56/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/56/action/role/addressee-commission-member-states> .
+
+<http://example.org/analysis/description/56/action/role/addressee-commission-member-states> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/commission-member-states> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/6/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/6/action/role/addressee-research-organisations-biotechnology-industry-actors> .
+
+<http://example.org/analysis/description/6/action/role/addressee-research-organisations-biotechnology-industry-actors> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/research-organisations-biotechnology-industry-actors> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/7/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/7/action/role/addressee-member-state-authorities> .
+
+<http://example.org/analysis/description/7/action/role/addressee-member-state-authorities> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-state-authorities> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/8/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/8/action/role/addressee-commission-member-state-authorities-research-organisations-biotechnology-industry-actors> .
+
+<http://example.org/analysis/description/8/action/role/addressee-commission-member-state-authorities-research-organisations-biotechnology-industry-actors> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/commission-member-state-authorities-research-organisations-biotechnology-industry-actors> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/9/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/9/action/role/addressee-non-associated-third-country-non-associated-third-country-entity-member-states-associated-countries> .
+
+<http://example.org/analysis/description/9/action/role/addressee-non-associated-third-country-non-associated-third-country-entity-member-states-associated-countries> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/non-associated-third-country-non-associated-third-country-entity-member-states-associated-countries> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/dataset/mapping-of-existing-infrastructures> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/art_17> ;
+    dcterms:title "Mapping of existing infrastructures"@en .
+
+<http://example.org/dataset/reuse-of-existing-data> a dcat:Dataset ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Reuse of existing data"@en ] ;
+    dcterms:title "Reuse of existing data"@en .
+
+<http://example.org/dataset/sensitive-information-biotechnology-datasets> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/art_16> ;
+    dcterms:title "Sensitive information, biotechnology datasets"@en .
+
+<http://example.org/process/access-to-data> skos:prefLabel "Access to data"@en .
+
+<http://example.org/process/access-to-infrastructures-and-datasets> skos:prefLabel "Access to infrastructures and datasets"@en .
+
+<http://example.org/process/assessment-of-innovations> skos:prefLabel "Assessment of innovations"@en .
+
+<http://example.org/process/data-access> skos:prefLabel "Data access"@en .
+
+<http://example.org/process/data-access-information-exchange-leveraging-information-published-on-the-eu-soho-platform-art-743b-of-regulation-eu20241938> skos:prefLabel "Data access, information exchange, leveraging information published on the EU SoHO platform (art 74.3(b) of Regulation (EU)2024/1938,"@en .
+
+<http://example.org/process/data-generation-data-processing-setting-up-testing-environments-for-ai> skos:prefLabel "Data generation, Data processing, setting up testing environments for AI"@en .
+
+<http://example.org/process/data-interoperability-standard-development> skos:prefLabel "Data interoperability, Standard Development"@en .
+
+<http://example.org/process/data-protection> skos:prefLabel "Data protection"@en .
+
+<http://example.org/process/data-reporting-information-exchange> skos:prefLabel "Data reporting, Information exchange"@en .
+
+<http://example.org/process/development-and-deployment-of-ai-solutions> skos:prefLabel "Development and deployment of AI solutions"@en .
+
+<http://example.org/process/evaluation-of-ai-models> skos:prefLabel "Evaluation of AI models"@en .
+
+<http://example.org/process/health-cross-border-surveillance-data-sharing> skos:prefLabel "Health cross border Surveillance, data sharing"@en .
+
+<http://example.org/process/identity-verification> skos:prefLabel "Identity verification"@en .
+
+<http://example.org/process/information-exchange-technical-guidelines> skos:prefLabel "Information exchange, Technical Guidelines"@en .
+
+<http://example.org/process/infrastructure-interoperability-data-integration> skos:prefLabel "Infrastructure interoperability, Data integration"@en .
+
+<http://example.org/process/mapping> skos:prefLabel "Mapping"@en .
+
+<http://example.org/process/monitoring-access-to-data-technical-guidelines> skos:prefLabel "Monitoring, access to data, Technical guidelines"@en .
+
+<http://example.org/process/monitoring-and-supervision-information-exchange> skos:prefLabel "Monitoring and Supervision, Information exchange"@en .
+
+<http://example.org/process/monitoring-information-exchange> skos:prefLabel "Monitoring, Information exchange"@en .
+
+<http://example.org/process/monitoring-requesting-information> skos:prefLabel "Monitoring, requesting information"@en .
+
+<http://example.org/process/monitoring-systemic-risk> skos:prefLabel "Monitoring systemic risk"@en .
+
+<http://example.org/process/platform-interoperability> skos:prefLabel "Platform interoperability"@en .
+
+<http://example.org/process/reuse-of-existing-data> skos:prefLabel "Reuse of existing data"@en .
+
+<http://example.org/process/submission-of-an-application-information-exchange-access-to-application> skos:prefLabel "Submission of an application, Information exchange, access to application"@en .
+
+<http://example.org/process/surveillance-data-sharing> skos:prefLabel "Surveillance, data sharing"@en .
+
+<http://example.org/process/use-of-platform-technologies> skos:prefLabel "Use of platform technologies"@en .
+
+<http://example.org/standard/one-implementing-actdelegated-act-foreseen> a dcterms:Standard ;
+    dcterms:title "One implementing Act/Delegated Act foreseen"@en .
+
+<http://publications.europa.eu/resource/authority/corporate-body/COM> a m8g:PublicOrganisation ;
+    dcterms:description "The European Commission, provider of the interoperability assessment."@en ;
+    skos:prefLabel "European Commission"@en .
+
+y6k:c_422e961c skos:prefLabel "Reporting"@en .
+
+<http://example.org/agent/commission> rdfs:label "Commission"@en .
+
+<http://example.org/agent/commission-member-states> rdfs:label "Commission, Member States"@en .
+
+<http://example.org/agent/member-state-authorities> rdfs:label "Member State authorities"@en .
+
+<http://example.org/agent/member-states> rdfs:label "Member States"@en .
+
+<http://example.org/agent/non-associated-third-country-non-associated-third-country-entity-member-states-associated-countries> rdfs:label "Non-associated third country, Non-associated third-country entity, Member States, Associated countries"@en .
+
+<http://example.org/dataset/guidance-on-the-use-and-deployment-of-ai> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/art_31> ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Guidance on the use and deployment of AI"@en ] ;
+    dcterms:title "Guidance on the use and deployment of AI"@en .
+
+<http://example.org/dataset/handling-of-confidential-information> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/art_66> ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Handling of confidential information"@en ] ;
+    dcterms:title "Handling of confidential information"@en .
+
+<http://example.org/dataset/personal-health-data-clinical-data> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/art_58> ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Personal health data, clinical data"@en ] ;
+    dcterms:title "Personal health data, clinical data"@en .
+
+<http://example.org/dataset/regulatory-decisions-opinions-recommendations> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/art_35> ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Regulatory decisions, opinions, recommendations"@en ] ;
+    dcterms:title "Regulatory decisions, opinions, recommendations"@en .
+
+<http://example.org/process/facilitating-the-development-testing-and-validation-of-technologies> skos:prefLabel "Facilitating the development, testing, and validation of technologies;"@en .
+
+<http://example.org/process/technical-documentation> skos:prefLabel "Technical documentation"@en .
+
+<http://example.org/process/technical-documentation-data-generation-data-processing> skos:prefLabel "Technical documentation, Data generation, Data processing"@en .
+
+<http://example.org/process/testing-alternative-regulatory-requirements-such-as-digital-labelling-instead-of-actual-labels-on-food-products> skos:prefLabel "Testing alternative regulatory requirements (such as digital labelling instead of actual labels on food products)."@en .
+
+<http://example.org/process/testing-data-requirements> skos:prefLabel "Testing data requirements"@en .
+
+<http://example.org/agent/member-states-agency-ema-commission> rdfs:label "Member States, Agency (EMA), Commission"@en .
+
+<http://example.org/agent/biotechnology-industry-actors-commission-agency-member-states> rdfs:label "Biotechnology industry actors, Commission, Agency, Member States"@en .
+
+<http://example.org/agent/member-states-commission> rdfs:label "Member States, Commission"@en .
+
+<http://example.org/process/data-generation-data-processing> skos:prefLabel "Data generation, Data processing"@en .
+
+<http://example.org/agent/member-state-authorities-commission> rdfs:label "Member State authorities, Commission"@en .
+
+<http://example.org/analysis/interop/1> a cpsv:PublicService ;
+    rdfs:label "Biotechnology Data Quality Accelerator"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/art_33> ;
+    dcterms:description "Biotechnology Data Quality Accelerator, aimed at improving data quality at source, enhancing interoperability and annotation, and fostering the creation, curation, maintenance and use of shared datasets for the development and refinement of AI systems and models in health biotechnology."@en ;
+    dcterms:identifier "interop/1" ;
+    dcterms:title "Biotechnology Data Quality Accelerator"@en .
+
+<http://example.org/agent/commission-member-state-authorities-research-organisations-biotechnology-industry-actors> rdfs:label "Commission, Member State authorities, Research organisations, Biotechnology industry actors"@en .
+
+<http://example.org/agent/biotechnology-industry-actors-research-organizations> rdfs:label "Biotechnology industry actors, Research organizations"@en .
+
+<http://example.org/agent/research-organisations-biotechnology-industry-actors> rdfs:label "Research organisations, Biotechnology industry actors"@en .
+
+<http://example.org/process/technical-documentation-information-exchange> skos:prefLabel "Technical documentation, Information exchange"@en .
+
+<http://example.org/analysis/action/1> a lomo:Action ;
+    rdfs:label "Data required for testing and validation of biotechnology products"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Testing and validation of innovations"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/art_15>,
+        <https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/art_2019>,
+        <https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/art_29>,
+        <https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/art_3>,
+        <https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/art_32>,
+        <https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/art_33>,
+        <https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/art_4>,
+        <https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/art_5>,
+        <https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/art_56>,
+        <https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/art_59>,
+        <https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/art_61> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/1/role/addressee-member-states-commission-agencies-ema-efsa>,
+        <http://example.org/analysis/action/1/role/addresser-biotechnology-industry-actors-research-organizations> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Data required for testing and validation of biotechnology products"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/data-required-for-testing-and-validation-of-biotechnology-products> ] .
+
+<http://example.org/analysis/action/6> a lomo:Action ;
+    rdfs:label "Cross-border surveillance of biological threats"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Detection, characterisation, identification, analysis and assessment of biological threats"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/art_41>,
+        <https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/art_42>,
+        <https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/art_44>,
+        <https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/art_46>,
+        <https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/art_48>,
+        <https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/art_49>,
+        <https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/art_52>,
+        <https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/art_53>,
+        <https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/art_54>,
+        <https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/art_55> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/6/role/addressee-member-states-commission>,
+        <http://example.org/analysis/action/6/role/addresser-biotechnology-industry-actors-research-organizations> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Cross-border surveillance of biological threats"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/cross-border-surveillance-of-biological-threats> ] .
+
+<http://example.org/dataset/data-required-for-testing-and-validation-of-biotechnology-products> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/art_15>,
+        <https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/art_2019>,
+        <https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/art_3>,
+        <https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/art_30>,
+        <https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/art_32>,
+        <https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/art_33>,
+        <https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/art_4>,
+        <https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/art_49>,
+        <https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/art_5>,
+        <https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/art_59>,
+        <https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/art_61> ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Data required for testing and validation of biotechnology products"@en ] ;
+    dcterms:title "Data required for testing and validation of biotechnology products"@en .
+
+<http://example.org/process/information-exchange> skos:prefLabel "Information exchange"@en .
+
+<http://example.org/agent/commission-member-state-authorities> rdfs:label "Commission, Member State authorities"@en .
+
+<http://example.org/dataset/cross-border-surveillance-of-biological-threats> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/art_41>,
+        <https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/art_42>,
+        <https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/art_44>,
+        <https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/art_46>,
+        <https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/art_48>,
+        <https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/art_49>,
+        <https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/art_52>,
+        <https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/art_53>,
+        <https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/art_54>,
+        <https://data.europa.eu/eli/dl/proc/2025/0/cod/doc/com/COM_2025_0/FINAL/eng/art_55> ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Cross-border surveillance of biological threats"@en ] ;
+    dcterms:conformsTo <http://example.org/standard/one-implementing-actdelegated-act-foreseen> ;
+    dcterms:title "Cross-border surveillance of biological threats"@en .
+

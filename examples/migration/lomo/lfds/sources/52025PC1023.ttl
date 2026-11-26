@@ -1,0 +1,548 @@
+@prefix adms: <http://www.w3.org/ns/adms#> .
+@prefix cav: <http://data.europa.eu/2sa/cav#> .
+@prefix cpsv: <http://purl.org/vocab/cpsv#> .
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix dd: <http://data.europa.eu/leg/digital-dimensions/> .
+@prefix iac: <http://data.europa.eu/leg/interop-assessment#> .
+@prefix iopa: <http://data.europa.eu/2qy/iopa#> .
+@prefix lomo: <http://data.europa.eu/leg/lomo#> .
+@prefix m8g: <http://data.europa.eu/m8g/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix tc: <http://data.europa.eu/9bx/> .
+@prefix tf: <http://data.europa.eu/leg/temporal-function/> .
+@prefix y6k: <http://data.europa.eu/y6k/> .
+
+<http://example.org/analysis/action/7> a lomo:Action ;
+    rdfs:label "Data on possible shortages of devices"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Reporting obligationProduct control"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/1023/cod/doc/com/COM_2025_1023/FINAL/eng/art_10> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/7/role/addressee-competent-authoritieshealth-institutions-and-healthcare-professionals>,
+        <http://example.org/analysis/action/7/role/addresser-economic-operators> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Data on possible shortages of devices"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/data-on-possible-shortages-of-devices> ] .
+
+<http://example.org/analysis/assessment/1> a cav:Assessment ;
+    cav:assesses <http://example.org/analysis/description/4>,
+        <http://example.org/analysis/description/5> ;
+    cav:resultsIn <http://example.org/analysis/assessment/1/1/barrier>,
+        <http://example.org/analysis/assessment/1/2/measure>,
+        <http://example.org/analysis/assessment/1/3/measure>,
+        <http://example.org/analysis/assessment/1/4/barrier> ;
+    m8g:isProvidedBy <http://publications.europa.eu/resource/authority/corporate-body/COM> .
+
+<http://example.org/analysis/description/1> a lomo:LegalRule ;
+    rdfs:label "Art. 10a(4) (MDR/IVDR)"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/1023/cod/doc/com/COM_2025_1023/FINAL/eng/art_10/par_4> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/market-surveillance> ;
+    lomo:produces <http://example.org/analysis/description/1/action> ;
+    dcterms:description "The Commission, if needed in cooperation with the EMA, shall set up, maintain and manage an IT platform for reporting and information exchange on interruption or discontinuation of supply of devices"@en .
+
+<http://example.org/analysis/description/10> a lomo:LegalRule ;
+    rdfs:label "Annex I section 23.1(c) MDR / Annex I section 20.1(c) IVDR"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/1023/cod/doc/com/COM_2025_1023/FINAL/eng/sec_23/anx_1> ;
+    lomo:involvesProcess <http://example.org/process/labelling> ;
+    lomo:produces <http://example.org/analysis/description/10/action> ;
+    dcterms:description "Labels may be provided in digital form to the extent of implementing rules adopted pursuant to the MDR"@en .
+
+<http://example.org/analysis/description/11> a lomo:LegalRule ;
+    rdfs:label "Annex VI Part A sections 1.2 and 1.3 (MDR/IVDR) and Part B section 13 MDR / section 10 IVDR"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/1023/cod/doc/com/COM_2025_1023/FINAL/eng/sec_13/anx_6> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/communication> ;
+    lomo:produces <http://example.org/analysis/description/11/action> ;
+    dcterms:description "Contact details including digital contact"@en .
+
+<http://example.org/analysis/description/12> a lomo:LegalRule ;
+    rdfs:label "Annex VI Part B section 37 MDR / section 29 IVDR"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/1023/cod/doc/com/COM_2025_1023/FINAL/eng/sec_37/anx_6> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/instruction-for-use-availability> ;
+    lomo:produces <http://example.org/analysis/description/12/action> ;
+    dcterms:description "Provide instruction for use in electronic format or URL of the website where it is available"@en .
+
+<http://example.org/analysis/description/2> a lomo:LegalRule ;
+    rdfs:label "Art. 18(1) MDR"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/1023/cod/doc/com/COM_2025_1023/FINAL/eng/art_18/par_1> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/labelling>,
+        <http://example.org/process/traceability> ;
+    lomo:produces <http://example.org/analysis/action/1>,
+        <http://example.org/analysis/description/2/action> ;
+    dcterms:description "Manufacturer can provide implant card information in electronic or digital format"@en .
+
+<http://example.org/analysis/description/3> a lomo:LegalRule ;
+    rdfs:label "Art. 19(2a) MDR / Art 17(2a) IVDR"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/1023/cod/doc/com/COM_2025_1023/FINAL/eng/art_19> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/conformity-of-the-device> ;
+    lomo:produces <http://example.org/analysis/action/2>,
+        <http://example.org/analysis/description/3/action> ;
+    dcterms:description "Declaration of conformity may be provided in electronic form"@en .
+
+<http://example.org/analysis/description/6> a lomo:LegalRule ;
+    rdfs:label "Art. 60 MDR / Art 55 IVDR"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/1023/cod/doc/com/COM_2025_1023/FINAL/eng/art_60> ;
+    lomo:hasCategory dd:Data,
+        dd:DigitalPublicService ;
+    lomo:involvesProcess y6k:c_1cd39254c5a5 ;
+    lomo:produces <http://example.org/analysis/action/4>,
+        <http://example.org/analysis/description/6/action> ;
+    dcterms:description "(Eudamed) Certificates of free sales shall be made available in Eudamed by the competent authority"@en .
+
+<http://example.org/analysis/description/7> a lomo:LegalRule ;
+    rdfs:label "Art 87a (2) MDR / Art 82a (2) IVDR"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/1023/cod/doc/com/COM_2025_1023/FINAL/eng/art_87/par_2> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess tc:88 ;
+    lomo:produces <http://example.org/analysis/action/6>,
+        <http://example.org/analysis/description/7/action> ;
+    dcterms:description "Reporting of actively exploited vulnerabilities and severe incidents of connected devices"@en .
+
+<http://example.org/analysis/description/8> a lomo:LegalRule ;
+    rdfs:label "Art 106b(5) MDR"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/1023/cod/doc/com/COM_2025_1023/FINAL/eng/art_106/par_5> ;
+    lomo:hasCategory dd:Data,
+        dd:DigitalPublicService ;
+    lomo:involvesProcess <http://example.org/process/ema-support> ;
+    lomo:produces <http://example.org/analysis/description/8/action> ;
+    dcterms:description "EMA access to Eudamed"@en .
+
+<http://example.org/analysis/description/9> a lomo:LegalRule ;
+    rdfs:label "Art 110a MDR / Art 103a IVDR"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/1023/cod/doc/com/COM_2025_1023/FINAL/eng/art_110> ;
+    lomo:hasCategory dd:DigitalPublicService ;
+    lomo:involvesProcess <http://example.org/process/submission-of-informationdocuments> ;
+    lomo:produces <http://example.org/analysis/description/9/action> ;
+    dcterms:description "Submission of information or documents electronically"@en .
+
+tc:88 skos:prefLabel "Cybersecurity"@en .
+
+y6k:c_1cd39254c5a5 skos:prefLabel "Transparency"@en .
+
+<http://example.org/agent/all-having-such-obligation-under-the-mdr> rdfs:label "All having such obligation under the MDR"@en .
+
+<http://example.org/agent/competent-authorities-notified-bodies> rdfs:label "Competent authorities Notified bodies"@en .
+
+<http://example.org/agent/competent-authoritieshealth-institutions-and-healthcare-professionals> rdfs:label "Competent authoritieshealth institutions and healthcare professionals"@en .
+
+<http://example.org/agent/csirts-designated-as-coordinators-and-enisa> rdfs:label "CSIRTs designated as coordinators and ENISA"@en .
+
+<http://example.org/agent/distributors> rdfs:label "Distributors"@en .
+
+<http://example.org/agent/ema> rdfs:label "EMA"@en .
+
+<http://example.org/agent/member-states-competent-authoritiescsirts-designated-as-coordinators-and-enisa> rdfs:label "Member States competent authoritiesCSIRTs designated as coordinators and ENISA"@en .
+
+<http://example.org/agent/notified-bodies> rdfs:label "Notified bodies"@en .
+
+<http://example.org/agent/public> rdfs:label "Public"@en .
+
+<http://example.org/analysis/action/1> a lomo:Action ;
+    rdfs:label "Implant card including in electronic or digital format"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Product control/traceability"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/1023/cod/doc/com/COM_2025_1023/FINAL/eng/art_18/par_1> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/1/role/addressee-patients-healthcare-professionals-competent-authorities>,
+        <http://example.org/analysis/action/1/role/addresser-economic-operators> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Implant card including in electronic or digital format"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/implant-card-including-in-electronic-or-digital-format> ] .
+
+<http://example.org/analysis/action/1/role/addressee-patients-healthcare-professionals-competent-authorities> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/patients-healthcare-professionals-competent-authorities> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/1/role/addresser-economic-operators> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/economic-operators> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/2> a lomo:Action ;
+    rdfs:label "EU declaration of conformity"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Conformity of the device"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/1023/cod/doc/com/COM_2025_1023/FINAL/eng/art_17>,
+        <https://data.europa.eu/eli/dl/proc/2025/1023/cod/doc/com/COM_2025_1023/FINAL/eng/art_19> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/2/role/addressee-patients-healthcare-professionals-competent-authorities>,
+        <http://example.org/analysis/action/2/role/addresser-economic-operators> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "EU declaration of conformity"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/eu-declaration-of-conformity> ] .
+
+<http://example.org/analysis/action/2/role/addressee-patients-healthcare-professionals-competent-authorities> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/patients-healthcare-professionals-competent-authorities> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/2/role/addresser-economic-operators> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/economic-operators> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/3> a lomo:Action ;
+    rdfs:label "Device data"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Product control"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/1023/cod/doc/com/COM_2025_1023/FINAL/eng/art_30/par_2> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/3/role/addressee-member-states-competent-authorities>,
+        <http://example.org/analysis/action/3/role/addresser-economic-operators> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Device data"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/device-data> ] .
+
+<http://example.org/analysis/action/3/role/addressee-member-states-competent-authorities> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states-competent-authorities> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/3/role/addresser-economic-operators> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/economic-operators> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/4> a lomo:Action ;
+    rdfs:label "Certificates of free sales"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Product control"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/1023/cod/doc/com/COM_2025_1023/FINAL/eng/art_55>,
+        <https://data.europa.eu/eli/dl/proc/2025/1023/cod/doc/com/COM_2025_1023/FINAL/eng/art_60> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/4/role/addressee-public>,
+        <http://example.org/analysis/action/4/role/addresser-competent-authorities> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Certificates of free sales"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/certificates-of-free-sales> ] .
+
+<http://example.org/analysis/action/4/role/addressee-public> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/public> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/4/role/addresser-competent-authorities> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/competent-authorities> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/5> a lomo:Action ;
+    rdfs:label "Product technical documentation for conformity assessment in electronic form"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Product controlConformity assessment"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/1023/cod/doc/com/COM_2025_1023/FINAL/eng/art_48>,
+        <https://data.europa.eu/eli/dl/proc/2025/1023/cod/doc/com/COM_2025_1023/FINAL/eng/art_52> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/5/role/addressee-competent-authorities-notified-bodies>,
+        <http://example.org/analysis/action/5/role/addresser-economic-operators> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Product technical documentation for conformity assessment in electronic form"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/product-technical-documentation-for-conformity-assessment-in-electronic-form> ] .
+
+<http://example.org/analysis/action/5/role/addressee-competent-authorities-notified-bodies> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/competent-authorities-notified-bodies> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/5/role/addresser-economic-operators> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/economic-operators> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/6> a lomo:Action ;
+    rdfs:label "Information on actively exploited vulnerabilities and severe incidents of connected devices"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Cyber security issue/incident"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/1023/cod/doc/com/COM_2025_1023/FINAL/eng/art_87/par_2> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/6/role/addressee-member-states-competent-authoritiescsirts-designated-as-coordinators-and-enisa>,
+        <http://example.org/analysis/action/6/role/addresser-manufacturers> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Information on actively exploited vulnerabilities and severe incidents of connected devices"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/information-on-actively-exploited-vulnerabilities-and-severe-incidents-of-connected-devices> ] .
+
+<http://example.org/analysis/action/6/role/addressee-member-states-competent-authoritiescsirts-designated-as-coordinators-and-enisa> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states-competent-authoritiescsirts-designated-as-coordinators-and-enisa> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/6/role/addresser-manufacturers> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/manufacturers> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/7/role/addressee-competent-authoritieshealth-institutions-and-healthcare-professionals> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/competent-authoritieshealth-institutions-and-healthcare-professionals> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/7/role/addresser-economic-operators> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/economic-operators> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/assessment/1/1/barrier> a cav:Statement ;
+    cav:interpretation iac:InterpretationPositive ;
+    cav:judgement "No remaining barriers."@en ;
+    cav:type iac:StatementTypeAlignmentBarrier ;
+    m8g:hasRelatedService <http://example.org/analysis/interop/1> ;
+    dcterms:description "Alignment with existing digital and sectorial policies"@en .
+
+<http://example.org/analysis/assessment/1/2/measure> a cav:Statement ;
+    cav:interpretation iac:InterpretationPositive ;
+    cav:judgement "Extended role of European Medicines Agency"@en ;
+    cav:type iac:StatementTypeOrganisationMeasure ;
+    m8g:hasRelatedService <http://example.org/analysis/interop/1> ;
+    dcterms:description "Organisational measures for a smooth cross-border digital public services delivery"@en .
+
+<http://example.org/analysis/assessment/1/3/measure> a cav:Statement ;
+    cav:interpretation iac:InterpretationPositive ;
+    cav:judgement "Reuse of Eudamed data model already defined and established by previous version of MDR/IVDR"@en ;
+    cav:type iac:StatementTypeSharedMeasure ;
+    m8g:hasRelatedService <http://example.org/analysis/interop/1> ;
+    dcterms:description "Measures taken to ensure a shared understanding of the dataPlease list such measures"@en .
+
+<http://example.org/analysis/assessment/1/4/barrier> a cav:Statement ;
+    cav:interpretation iac:InterpretationPositive ;
+    cav:judgement "No remaining barriers."@en ;
+    cav:type iac:StatementTypeStandardsBarrier ;
+    m8g:hasRelatedService <http://example.org/analysis/interop/1> ;
+    dcterms:description "Use of commonly agreed open technical specifications and standardsPlease list such measures"@en .
+
+<http://example.org/analysis/description/1/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/1/action/role/addressee-economic-operators>,
+        <http://example.org/analysis/description/1/action/role/addressee-member-states-competent-authorities> .
+
+<http://example.org/analysis/description/1/action/role/addressee-economic-operators> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/economic-operators> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/1/action/role/addressee-member-states-competent-authorities> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states-competent-authorities> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/10/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/10/action/role/addressee-economic-operators> .
+
+<http://example.org/analysis/description/10/action/role/addressee-economic-operators> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/economic-operators> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/11/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/11/action/role/addressee-economic-operators> .
+
+<http://example.org/analysis/description/11/action/role/addressee-economic-operators> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/economic-operators> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/12/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/12/action/role/addressee-manufacturers> .
+
+<http://example.org/analysis/description/12/action/role/addressee-manufacturers> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/manufacturers> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/2/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/2/action/role/addressee-economic-operators> .
+
+<http://example.org/analysis/description/2/action/role/addressee-economic-operators> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/economic-operators> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/3/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/3/action/role/addressee-economic-operators> .
+
+<http://example.org/analysis/description/3/action/role/addressee-economic-operators> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/economic-operators> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/4> a iopa:BindingRequirement,
+        lomo:LegalRule ;
+    rdfs:label "Art 30(2) MDR / Art 27(2) IVDR"@en ;
+    iopa:affects <http://example.org/analysis/interop/2> ;
+    cav:valueDescription "National databases on distributors shall retrieve device information from Eudamed"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/1023/cod/doc/com/COM_2025_1023/FINAL/eng/art_30/par_2> ;
+    lomo:hasCategory dd:Data,
+        dd:DigitalPublicService ;
+    lomo:involvesProcess <http://example.org/process/registration-of-distributors> ;
+    lomo:produces <http://example.org/analysis/action/3>,
+        <http://example.org/analysis/description/4/action> ;
+    dcterms:description "National databases on distributors shall retrieve device information from Eudamed"@en ;
+    dcterms:relation <http://example.org/ie-solution/currently-interoperable-with-national-databases-and-with-economic-operators-systems-data-exchange-via-machine-to-machine> .
+
+<http://example.org/analysis/description/4/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/4/action/role/addressee-distributors>,
+        <http://example.org/analysis/description/4/action/role/addressee-member-states-competent-authorities> .
+
+<http://example.org/analysis/description/4/action/role/addressee-distributors> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/distributors> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/4/action/role/addressee-member-states-competent-authorities> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states-competent-authorities> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/5> a iopa:BindingRequirement,
+        lomo:LegalRule ;
+    rdfs:label "Art. 52b MDR / Art 48b IVDR"@en ;
+    iopa:affects <http://example.org/analysis/interop/1> ;
+    cav:valueDescription "Digitalisation of conformity assessment: in agreement with notified bodies, the manufacturer can provide the technical documentation in digital format and any reports or document for the purposes of the conformity assessment procedures."@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/1023/cod/doc/com/COM_2025_1023/FINAL/eng/art_52> ;
+    lomo:hasCategory dd:Data,
+        dd:DigitalPublicService ;
+    lomo:involvesProcess <http://example.org/process/conformity-assessment> ;
+    lomo:produces <http://example.org/analysis/action/5>,
+        <http://example.org/analysis/description/5/action> ;
+    dcterms:description "Digitalisation of conformity assessment: in agreement with notified bodies, the manufacturer can provide the technical documentation in digital format and any reports or document for the purposes of the conformity assessment procedures."@en ;
+    dcterms:relation <http://example.org/ie-solution/this-solution-will-facilitate-future-interoperability> .
+
+<http://example.org/analysis/description/5/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/5/action/role/addressee-manufacturers>,
+        <http://example.org/analysis/description/5/action/role/addressee-notified-bodies> .
+
+<http://example.org/analysis/description/5/action/role/addressee-manufacturers> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/manufacturers> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/5/action/role/addressee-notified-bodies> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/notified-bodies> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/6/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/6/action/role/addressee-competent-authorities> .
+
+<http://example.org/analysis/description/6/action/role/addressee-competent-authorities> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/competent-authorities> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/7/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/7/action/role/addressee-csirts-designated-as-coordinators-and-enisa>,
+        <http://example.org/analysis/description/7/action/role/addressee-manufacturers>,
+        <http://example.org/analysis/description/7/action/role/addressee-member-states-competent-authorities> .
+
+<http://example.org/analysis/description/7/action/role/addressee-csirts-designated-as-coordinators-and-enisa> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/csirts-designated-as-coordinators-and-enisa> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/7/action/role/addressee-manufacturers> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/manufacturers> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/7/action/role/addressee-member-states-competent-authorities> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states-competent-authorities> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/8/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/8/action/role/addressee-ema> .
+
+<http://example.org/analysis/description/8/action/role/addressee-ema> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/ema> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/9/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/9/action/role/addressee-all-having-such-obligation-under-the-mdr> .
+
+<http://example.org/analysis/description/9/action/role/addressee-all-having-such-obligation-under-the-mdr> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/all-having-such-obligation-under-the-mdr> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/interop/2> a cpsv:PublicService ;
+    rdfs:label "Eudamed"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/1023/cod/doc/com/COM_2025_1023/FINAL/eng/art_30>,
+        <https://data.europa.eu/eli/dl/proc/2025/1023/cod/doc/com/COM_2025_1023/FINAL/eng/art_33> ;
+    dcterms:description "European database on medical devices"@en ;
+    dcterms:identifier "interop/2" ;
+    dcterms:references <http://example.org/ie-solution/currently-interoperable-with-national-databases-and-with-economic-operators-systems-data-exchange-via-machine-to-machine> ;
+    dcterms:title "Eudamed"@en .
+
+<http://example.org/dataset/certificates-of-free-sales> a dcat:Dataset ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Certificates of free sales"@en ] ;
+    dcterms:title "Certificates of free sales"@en .
+
+<http://example.org/dataset/data-on-possible-shortages-of-devices> a dcat:Dataset ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Data on possible shortages of devices"@en ] ;
+    dcterms:title "Data on possible shortages of devices"@en .
+
+<http://example.org/dataset/device-data> a dcat:Dataset ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Device data"@en ] ;
+    dcterms:title "Device data"@en .
+
+<http://example.org/dataset/eu-declaration-of-conformity> a dcat:Dataset ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "EU declaration of conformity"@en ] ;
+    dcterms:title "EU declaration of conformity"@en .
+
+<http://example.org/dataset/implant-card-including-in-electronic-or-digital-format> a dcat:Dataset ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Implant card including in electronic or digital format"@en ] ;
+    dcterms:title "Implant card including in electronic or digital format"@en .
+
+<http://example.org/dataset/information-on-actively-exploited-vulnerabilities-and-severe-incidents-of-connected-devices> a dcat:Dataset ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Information on actively exploited vulnerabilities and severe incidents of connected devices"@en ] ;
+    dcterms:title "Information on actively exploited vulnerabilities and severe incidents of connected devices"@en .
+
+<http://example.org/dataset/product-technical-documentation-for-conformity-assessment-in-electronic-form> a dcat:Dataset ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Product technical documentation for conformity assessment in electronic form"@en ] ;
+    dcterms:title "Product technical documentation for conformity assessment in electronic form"@en .
+
+<http://example.org/process/communication> skos:prefLabel "Communication"@en .
+
+<http://example.org/process/conformity-assessment> skos:prefLabel "Conformity assessment"@en .
+
+<http://example.org/process/conformity-of-the-device> skos:prefLabel "Conformity of the device"@en .
+
+<http://example.org/process/ema-support> skos:prefLabel "EMA support"@en .
+
+<http://example.org/process/instruction-for-use-availability> skos:prefLabel "Instruction for use availability"@en .
+
+<http://example.org/process/market-surveillance> skos:prefLabel "Market surveillance"@en .
+
+<http://example.org/process/registration-of-distributors> skos:prefLabel "Registration of distributors"@en .
+
+<http://example.org/process/submission-of-informationdocuments> skos:prefLabel "Submission of information/documents"@en .
+
+<http://example.org/process/traceability> skos:prefLabel "Traceability"@en .
+
+<http://publications.europa.eu/resource/authority/corporate-body/COM> a m8g:PublicOrganisation ;
+    dcterms:description "The European Commission, provider of the interoperability assessment."@en ;
+    skos:prefLabel "European Commission"@en .
+
+<http://example.org/agent/competent-authorities> rdfs:label "Competent authorities"@en .
+
+<http://example.org/agent/patients-healthcare-professionals-competent-authorities> rdfs:label "Patients, Healthcare professionals, Competent authorities"@en .
+
+<http://example.org/ie-solution/currently-interoperable-with-national-databases-and-with-economic-operators-systems-data-exchange-via-machine-to-machine> a adms:Asset ;
+    dcterms:description "Currently interoperable with national databases and with economic operators systems (data exchange via machine to machine)"@en ;
+    dcterms:title "Currently interoperable with national databases and with economic operators systems (data exchange via machine to machine)"@en .
+
+<http://example.org/ie-solution/this-solution-will-facilitate-future-interoperability> a adms:Asset ;
+    dcterms:description "This solution will facilitate future interoperability"@en ;
+    dcterms:title "This solution will facilitate future interoperability"@en .
+
+<http://example.org/process/labelling> skos:prefLabel "Labelling"@en .
+
+<http://example.org/agent/manufacturers> rdfs:label "Manufacturers"@en .
+
+<http://example.org/agent/member-states-competent-authorities> rdfs:label "Member States competent authorities"@en .
+
+<http://example.org/analysis/interop/1> a cpsv:PublicService ;
+    rdfs:label "Medical Devices Conformity Assessment"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/1023/cod/doc/com/COM_2025_1023/FINAL/eng/art_48>,
+        <https://data.europa.eu/eli/dl/proc/2025/1023/cod/doc/com/COM_2025_1023/FINAL/eng/art_52> ;
+    dcterms:description "Manufacturers are allowed to transmit conformity assessment documentation in digital format"@en ;
+    dcterms:identifier "interop/1" ;
+    dcterms:references <http://example.org/ie-solution/this-solution-will-facilitate-future-interoperability> ;
+    dcterms:title "Medical Devices Conformity Assessment"@en .
+
+<http://example.org/agent/economic-operators> rdfs:label "Economic operators"@en .
+

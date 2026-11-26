@@ -1,0 +1,51 @@
+PREFIX lomo:    <http://data.europa.eu/leg/lomo#>
+PREFIX dcterms: <http://purl.org/dc/terms/>
+PREFIX rdf:     <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs:    <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX tf:      <http://data.europa.eu/leg/temporal-function/>
+PREFIX role:    <http://publications.europa.eu/resource/authority/role/>
+
+# Reverse of process_data_flow_table -> data_flow.html
+# One row per data-flow Action (those carrying an ActionResult):
+# type of data | reference(s) | provider | receiver | trigger | frequency
+SELECT ?action ?dataType
+       (GROUP_CONCAT(DISTINCT COALESCE(STR(?eli), "");    SEPARATOR="||") AS ?elis)
+       (GROUP_CONCAT(DISTINCT COALESCE(?providerLbl, ""); SEPARATOR="||") AS ?providers)
+       (GROUP_CONCAT(DISTINCT COALESCE(?receiverLbl, ""); SEPARATOR="||") AS ?receivers)
+       (GROUP_CONCAT(DISTINCT COALESCE(?trigger, "");     SEPARATOR="||") AS ?triggers)
+       (GROUP_CONCAT(DISTINCT COALESCE(?freqStr, "");     SEPARATOR="||") AS ?frequencies)
+WHERE {
+  ?action rdf:type lomo:Action ;
+          lomo:hasResult ?actionResult .
+  OPTIONAL { ?action rdfs:label ?dataType . }
+
+  OPTIONAL {
+    ?action lomo:hasAgentRole ?provRole .
+    ?provRole lomo:withRole role:ADDRESSER ;
+              lomo:forAgent ?provider .
+    OPTIONAL { ?provider rdfs:label ?providerLbl . }
+  }
+  OPTIONAL {
+    ?action lomo:hasAgentRole ?recvRole .
+    ?recvRole lomo:withRole role:ADDRESSEE ;
+              lomo:forAgent ?receiver .
+    OPTIONAL { ?receiver rdfs:label ?receiverLbl . }
+  }
+
+  OPTIONAL {
+    ?action lomo:atTime ?trigSpec .
+    ?trigSpec lomo:hasFunction tf:trigger ;
+              lomo:temporalLabel ?trigger .
+  }
+  OPTIONAL {
+    ?action lomo:atTime ?freqSpec .
+    ?freqSpec lomo:hasFunction tf:deadline .
+    OPTIONAL { ?freqSpec lomo:frequency ?freqDur . }
+    OPTIONAL { ?freqSpec lomo:temporalLabel ?freqLbl . }
+    BIND(COALESCE(STR(?freqDur), STR(?freqLbl)) AS ?freqStr)
+  }
+
+  OPTIONAL { ?rule lomo:produces ?action ; lomo:establishedIn ?eli . }
+}
+GROUP BY ?action ?dataType
+ORDER BY ?dataType

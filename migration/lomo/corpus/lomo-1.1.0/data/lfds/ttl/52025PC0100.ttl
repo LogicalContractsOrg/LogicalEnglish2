@@ -1,0 +1,473 @@
+@prefix adms: <http://www.w3.org/ns/adms#> .
+@prefix cav: <http://data.europa.eu/2sa/cav#> .
+@prefix cpsv: <http://purl.org/vocab/cpsv#> .
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix dctype: <http://purl.org/dc/dcmitype/> .
+@prefix iac: <http://data.europa.eu/leg/interop-assessment#> .
+@prefix iopa: <http://data.europa.eu/2qy/iopa#> .
+@prefix lomo: <http://data.europa.eu/leg/lomo#> .
+@prefix m8g: <http://data.europa.eu/m8g/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix tf: <http://data.europa.eu/leg/temporal-function/> .
+
+<http://example.org/analysis/action/3> a lomo:Action ;
+    rdfs:label "Non-financial commercial real estate statistical indicators for variables specified in the Annex of the regulation"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/100/cod/doc/com/COM_2025_100/FINAL/eng/art_5/par_2> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/3/role/addressee-european-commission-eurostat>,
+        <http://example.org/analysis/action/3/role/addresser-member-states> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Non-financial commercial real estate statistical indicators for variables specified in the Annex of the regulation"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/non-financial-commercial-real-estate-statistical-indicators-for-variables-specified-in-the-annex-of-the-regulation> ] .
+
+<http://example.org/analysis/action/4> a lomo:Action ;
+    rdfs:label "Annual reference metadata and quality reports and annually updated inventories containing details of data sources, definitions and methods used.)"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Implementation modalities may be defined in defined in Commission implementing acts pursuant to Art. 5(4) of the regulation"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/100/cod/doc/com/COM_2025_100/FINAL/eng/art_6/par_4> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/4/role/addressee-european-commission-eurostat>,
+        <http://example.org/analysis/action/4/role/addresser-member-states> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Annual reference metadata and quality reports and annually updated inventories containing details of data sources, definitions and methods used.)"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/annual-reference-metadata-and-quality-reports-and-annually-updated-inventories-containing-details-of-data-sources-definitions-and-methods-used> ] .
+
+<http://example.org/analysis/action/5> a lomo:Action ;
+    rdfs:label "Information or changes with regard to the implementation of this Regulation, that would influence the quality of the data transmitted."@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Following an event that would influence the quality of the data transmitted to the Commission (Eurostat)"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/100/cod/doc/com/COM_2025_100/FINAL/eng/art_6/par_6> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/5/role/addressee-european-commission-eurostat>,
+        <http://example.org/analysis/action/5/role/addresser-member-states> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Information or changes with regard to the implementation of this Regulation, that would influence the quality of the data transmitted."@en ;
+            lomo:isManifestedIn <http://example.org/dataset/information-or-changes-with-regard-to-the-implementation-of-this-regulation-that-would-influence-the-quality-of-the-data-transmitted> ] .
+
+<http://example.org/analysis/action/6> a lomo:Action ;
+    rdfs:label "Any additional information that is necessary to evaluate the quality of the data and metadata."@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Following a duly reasoned request from the Commission (Eurostat)"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/100/cod/doc/com/COM_2025_100/FINAL/eng/art_6/par_7> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/6/role/addressee-european-commission-eurostat>,
+        <http://example.org/analysis/action/6/role/addresser-member-states> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Any additional information that is necessary to evaluate the quality of the data and metadata."@en ;
+            lomo:isManifestedIn <http://example.org/dataset/any-additional-information-that-is-necessary-to-evaluate-the-quality-of-the-data-and-metadata> ] .
+
+<http://example.org/analysis/assessment/1> a cav:Assessment ;
+    cav:assesses <http://example.org/analysis/description/6>,
+        <http://example.org/analysis/description/7> ;
+    cav:resultsIn <http://example.org/analysis/assessment/1/1/measure>,
+        <http://example.org/analysis/assessment/1/2/measure>,
+        <http://example.org/analysis/assessment/1/3/measure>,
+        <http://example.org/analysis/assessment/1/4/measure> ;
+    m8g:isProvidedBy <http://publications.europa.eu/resource/authority/corporate-body/COM> .
+
+<http://example.org/analysis/description/1> a lomo:LegalRule ;
+    rdfs:label "Article 3"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/100/cod/doc/com/COM_2025_100/FINAL/eng/art_3> ;
+    lomo:hasCategory <http://data.europa.eu/leg/digital-dimensions/Data>,
+        <http://data.europa.eu/leg/digital-dimensions/DigitalPublicService> ;
+    lomo:involvesProcess <http://example.org/process/data-collection-data-processing-data-compilation> ;
+    lomo:produces <http://example.org/analysis/description/1/action> ;
+    lomo:references <http://example.org/dataset/non-financial-commercial-real-estate-statistics-covering-the-following-indicatorsabuilding-permits-number-of-dwellings-usable-floor-areabconstruction-starts-and-work-completions-usable-floor-areaccommercial-real-estate-price-indicesdcommercial-real-estate-rent-indicesevalue-of-transactions-of-commercial-real-estate> ;
+    dcterms:description "Data sources and methods"@en .
+
+<http://example.org/analysis/description/2> a lomo:LegalRule ;
+    rdfs:label "Article 4(1)"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/100/cod/doc/com/COM_2025_100/FINAL/eng/art_4/par_1> ;
+    lomo:hasCategory <http://data.europa.eu/leg/digital-dimensions/Data>,
+        <http://data.europa.eu/leg/digital-dimensions/DigitalPublicService> ;
+    lomo:involvesProcess <http://example.org/process/data-collection-data-processing> ;
+    lomo:produces <http://example.org/analysis/description/2/action> ;
+    lomo:references <http://example.org/dataset/non-financial-commercial-real-estate-statistics-covering-the-following-indicatorsabuilding-permits-number-of-dwellings-usable-floor-areabconstruction-starts-and-work-completions-usable-floor-areaccommercial-real-estate-price-indicesdcommercial-real-estate-rent-indicesevalue-of-transactions-of-commercial-real-estate> ;
+    dcterms:description "Actors to provide access to data sources"@en .
+
+<http://example.org/analysis/description/3> a lomo:LegalRule ;
+    rdfs:label "Article 4(2);"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ],
+        [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/100/cod/doc/com/COM_2025_100/FINAL/eng/art_4/par_2>,
+        <https://data.europa.eu/eli/dl/proc/2025/100/cod/doc/com/COM_2025_100/FINAL/eng/art_4/par_3> ;
+    lomo:hasCategory <http://data.europa.eu/leg/digital-dimensions/Data>,
+        <http://data.europa.eu/leg/digital-dimensions/DigitalPublicService> ;
+    lomo:involvesProcess <http://example.org/process/data-collection> ;
+    lomo:produces <http://example.org/analysis/action/1>,
+        <http://example.org/analysis/action/2>,
+        <http://example.org/analysis/description/3/action> ;
+    lomo:references <http://example.org/dataset/non-financial-commercial-real-estate-statistics-covering-the-following-indicatorsabuilding-permits-number-of-dwellings-usable-floor-areabconstruction-starts-and-work-completions-usable-floor-areaccommercial-real-estate-price-indicesdcommercial-real-estate-rent-indicesevalue-of-transactions-of-commercial-real-estate> ;
+    dcterms:description "Source data and information to be provided by the statistical units set out in Council Regulation (EEC) No 696/93"@en .
+
+<http://example.org/analysis/description/4> a lomo:LegalRule ;
+    rdfs:label "Article 4(4)"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/100/cod/doc/com/COM_2025_100/FINAL/eng/art_4/par_4> ;
+    lomo:hasCategory <http://data.europa.eu/leg/digital-dimensions/Data>,
+        <http://data.europa.eu/leg/digital-dimensions/DigitalPublicService>,
+        <http://data.europa.eu/leg/digital-dimensions/DigitalSolutions> ;
+    lomo:involvesProcess <http://example.org/process/data-collection-data-reuse> ;
+    lomo:produces <http://example.org/analysis/description/4/action> ;
+    dcterms:description "Use of source data"@en .
+
+<http://example.org/analysis/description/5> a lomo:LegalRule ;
+    rdfs:label "Article 4(5)"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/100/cod/doc/com/COM_2025_100/FINAL/eng/art_4/par_5> ;
+    lomo:hasCategory <http://data.europa.eu/leg/digital-dimensions/Data>,
+        <http://data.europa.eu/leg/digital-dimensions/DigitalPublicService>,
+        <http://data.europa.eu/leg/digital-dimensions/DigitalSolutions> ;
+    lomo:involvesProcess <http://example.org/process/data-reuse-data-processing-data-compilation> ;
+    lomo:produces <http://example.org/analysis/description/5/action> ;
+    dcterms:description "Access to and use of source data"@en .
+
+<http://example.org/analysis/solution/1> a dctype:Software ;
+    rdfs:label "European statistical systems working with non-financial commercial real estate"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/100/cod/doc/com/COM_2025_100/FINAL/eng/art_4>,
+        <https://data.europa.eu/eli/dl/proc/2025/100/cod/doc/com/COM_2025_100/FINAL/eng/art_5>,
+        <https://data.europa.eu/eli/dl/proc/2025/100/cod/doc/com/COM_2025_100/FINAL/eng/art_6> ;
+    lomo:hasCapability "Receive data, reference metadata quality reports on statistics on non-financial commercial real estate from Member States" ;
+    dcterms:publisher <http://example.org/agent/european-commission-eurostat> ;
+    dcterms:title "European statistical systems working with non-financial commercial real estate"@en .
+
+<http://example.org/analysis/solution/2> a dctype:Software ;
+    rdfs:label "National statistical systems working with non-financial commercial real estate"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/100/cod/doc/com/COM_2025_100/FINAL/eng/art_4>,
+        <https://data.europa.eu/eli/dl/proc/2025/100/cod/doc/com/COM_2025_100/FINAL/eng/art_5>,
+        <https://data.europa.eu/eli/dl/proc/2025/100/cod/doc/com/COM_2025_100/FINAL/eng/art_6> ;
+    lomo:hasCapability "Receive, store and process source data and compile statistics on non-financial commercial real estate" ;
+    dcterms:publisher <http://example.org/agent/member-state> ;
+    dcterms:title "National statistical systems working with non-financial commercial real estate"@en .
+
+<http://example.org/agent/commission-eurostat> rdfs:label "Commission (Eurostat)"@en .
+
+<http://example.org/agent/member-states-national-statistical-authorities-responsible-for-compiling-non-financial-commercial-real-estate-statistics> rdfs:label "Member States (National statistical authorities responsible for compiling non-financial commercial real estate statistics)"@en .
+
+<http://example.org/agent/national-statistical-institute> rdfs:label "National Statistical Institute"@en .
+
+<http://example.org/agent/private-data-holder> rdfs:label "Private data holder"@en .
+
+<http://example.org/agent/statistical-units> rdfs:label "Statistical units"@en .
+
+<http://example.org/agent/the-nsis-and-other-national-authoritiesprivate-data-holders> rdfs:label "The NSIs and other national authorities;Private data holders"@en .
+
+<http://example.org/analysis/action/1> a lomo:Action ;
+    rdfs:label "Information needed to produce non-financial commercial real estate statistics"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Upon the request of the national statistical authorities responsible for compiling non-financial commercial real estate statistics"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/100/cod/doc/com/COM_2025_100/FINAL/eng/art_4/par_2> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/1/role/addressee-national-statistical-authorities-responsible-for-compiling-non-financial-commercial-real-estate-statistics>,
+        <http://example.org/analysis/action/1/role/addresser-holders-of-administrative-records>,
+        <http://example.org/analysis/action/1/role/addresser-private-data-holders>,
+        <http://example.org/analysis/action/1/role/addresser-statistical-units-as-set-out-in-council-regulation-eec-no-69693> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Information needed to produce non-financial commercial real estate statistics"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/information-needed-to-produce-non-financial-commercial-real-estate-statistics> ] .
+
+<http://example.org/analysis/action/1/role/addressee-national-statistical-authorities-responsible-for-compiling-non-financial-commercial-real-estate-statistics> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/national-statistical-authorities-responsible-for-compiling-non-financial-commercial-real-estate-statistics> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/1/role/addresser-holders-of-administrative-records> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/holders-of-administrative-records> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/1/role/addresser-private-data-holders> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/private-data-holders> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/1/role/addresser-statistical-units-as-set-out-in-council-regulation-eec-no-69693> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/statistical-units-as-set-out-in-council-regulation-eec-no-69693> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/2> a lomo:Action ;
+    rdfs:label "Source data from administrative data sources, databases, interoperability systems and etc., incl. electronic records of transactions at the level of detail necessary to produce non-financial commercial real estate statistics"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Upon the request of the national statistical authorities responsible for compiling non-financial commercial real estate statistics"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/100/cod/doc/com/COM_2025_100/FINAL/eng/art_4/par_2> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/2/role/addressee-national-statistical-authorities-responsible-for-compiling-non-financial-commercial-real-estate-statistics>,
+        <http://example.org/analysis/action/2/role/addresser-statistical-units> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Source data from administrative data sources, databases, interoperability systems and etc., incl. electronic records of transactions at the level of detail necessary to produce non-financial commercial real estate statistics"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/source-data-from-administrative-data-sources-databases-interoperability-systems-and-etc-incl-electronic-records-of-transactions-at-the-level-of-detail-necessary-to-produce-non-financial-commercial-real-estate-statistics> ] .
+
+<http://example.org/analysis/action/2/role/addressee-national-statistical-authorities-responsible-for-compiling-non-financial-commercial-real-estate-statistics> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/national-statistical-authorities-responsible-for-compiling-non-financial-commercial-real-estate-statistics> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/2/role/addresser-statistical-units> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/statistical-units> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/3/role/addressee-european-commission-eurostat> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/european-commission-eurostat> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/3/role/addresser-member-states> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/4/role/addressee-european-commission-eurostat> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/european-commission-eurostat> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/4/role/addresser-member-states> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/5/role/addressee-european-commission-eurostat> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/european-commission-eurostat> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/5/role/addresser-member-states> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/6/role/addressee-european-commission-eurostat> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/european-commission-eurostat> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/6/role/addresser-member-states> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/assessment/1/1/measure> a cav:Statement ;
+    cav:interpretation iac:InterpretationPositive ;
+    cav:judgement """This Regulation is in line with Regulation (EC) No 223/2009 of the European Parliament and of the Council on European statistics. It represents a sectoral legislation that applies to the domain of European non-financial commercial real estate statistics.
+This Regulation follows the recommendations of the Commission Recommendation (EU) 2023/397 of 17 February 2023 on reference metadata and quality reports for the European Statistical System.
+This Regulation establishes a common minimum framework for the development, production and dissemination of a database on indicators regarding the physical commercial real estate market
+The NSIs shall have the right to access and use, promptly and free of charge, all national administrative records, and to integrate those administrative records with statistics, to the extent necessary for the development and production of non-financial commercial real estate statistics."""@en ;
+    cav:type iac:StatementTypeAlignmentMeasure ;
+    m8g:hasRelatedService <http://example.org/analysis/interop/1> ;
+    dcterms:description "Assess the alignment with existing digital and sectorial policiesPlease list the applicable digital and sectorial policies identified"@en .
+
+<http://example.org/analysis/assessment/1/2/measure> a cav:Statement ;
+    cav:interpretation iac:InterpretationPositive ;
+    cav:judgement """According to Art. 5(4), the Commission is empowered to adopt implementing acts to specify elements of the data to be transmitted, and their technical definitions and simplifications.
+According to Art. 6(4), The Commission is also empowered to adopt implementing acts to specify the details of the variables as well as the format, security and confidentiality measures and the procedure for the exchange of confidential data, the practical arrangements for the transmission, content of and deadlines for transmission of quality and metadata reports, the standards for data and metadata transmission, and relative derogations from the requirements of this Regulation."""@en ;
+    cav:type iac:StatementTypeOrganisationMeasure ;
+    m8g:hasRelatedService <http://example.org/analysis/interop/1> ;
+    dcterms:description "Assess the organisational measures for a smooth cross-border digital public services deliveryPlease list the governance measures foreseen"@en .
+
+<http://example.org/analysis/assessment/1/3/measure> a cav:Statement ;
+    cav:interpretation iac:InterpretationPositive ;
+    cav:judgement """In line with Art. 6 of the regulation, reference metadata and quality reports will be available to improve the understanding of the European non-financial commercial real estate statistics;
+Promotes the use of the Single Integrated Metadata Structure (SIMS and of international standards, such as the Statistical Data and Metadata Exchange (SDMX)."""@en ;
+    cav:type iac:StatementTypeSharedMeasure ;
+    m8g:hasRelatedService <http://example.org/analysis/interop/1> ;
+    dcterms:description "Assess the measures taken to ensure a shared understanding of the dataPlease list such measures"@en .
+
+<http://example.org/analysis/assessment/1/4/measure> a cav:Statement ;
+    cav:interpretation iac:InterpretationPositive ;
+    cav:judgement "Promotes the use of established statistical or technical standards and infrastructure elaborated within the European Statistical System to the extent relevant for non-financial commercial real estate statistics."@en ;
+    cav:type iac:StatementTypeStandardsMeasure ;
+    m8g:hasRelatedService <http://example.org/analysis/interop/1> ;
+    dcterms:description "Assess the use of commonly agreed open technical specifications and standardsPlease list such measures"@en .
+
+<http://example.org/analysis/description/1/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/1/action/role/addressee-member-states-national-statistical-authorities-responsible-for-compiling-non-financial-commercial-real-estate-statistics> .
+
+<http://example.org/analysis/description/1/action/role/addressee-member-states-national-statistical-authorities-responsible-for-compiling-non-financial-commercial-real-estate-statistics> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states-national-statistical-authorities-responsible-for-compiling-non-financial-commercial-real-estate-statistics> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/2/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/2/action/role/addressee-holders-of-administrative-records>,
+        <http://example.org/analysis/description/2/action/role/addressee-private-data-holders>,
+        <http://example.org/analysis/description/2/action/role/addressee-statistical-units-as-set-out-in-council-regulation-eec-no-69693> .
+
+<http://example.org/analysis/description/2/action/role/addressee-holders-of-administrative-records> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/holders-of-administrative-records> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/2/action/role/addressee-private-data-holders> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/private-data-holders> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/2/action/role/addressee-statistical-units-as-set-out-in-council-regulation-eec-no-69693> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/statistical-units-as-set-out-in-council-regulation-eec-no-69693> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/3/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/3/action/role/addressee-national-statistical-authorities-responsible-for-compiling-non-financial-commercial-real-estate-statistics>,
+        <http://example.org/analysis/description/3/action/role/addressee-statistical-units-as-set-out-in-council-regulation-eec-no-69693> .
+
+<http://example.org/analysis/description/3/action/role/addressee-national-statistical-authorities-responsible-for-compiling-non-financial-commercial-real-estate-statistics> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/national-statistical-authorities-responsible-for-compiling-non-financial-commercial-real-estate-statistics> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/3/action/role/addressee-statistical-units-as-set-out-in-council-regulation-eec-no-69693> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/statistical-units-as-set-out-in-council-regulation-eec-no-69693> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/4/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/4/action/role/addressee-the-nsis-and-other-national-authoritiesprivate-data-holders> .
+
+<http://example.org/analysis/description/4/action/role/addressee-the-nsis-and-other-national-authoritiesprivate-data-holders> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/the-nsis-and-other-national-authoritiesprivate-data-holders> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/5/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/5/action/role/addressee-commission-eurostat>,
+        <http://example.org/analysis/description/5/action/role/addressee-national-statistical-institute>,
+        <http://example.org/analysis/description/5/action/role/addressee-private-data-holder> .
+
+<http://example.org/analysis/description/5/action/role/addressee-commission-eurostat> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/commission-eurostat> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/5/action/role/addressee-national-statistical-institute> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/national-statistical-institute> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/5/action/role/addressee-private-data-holder> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/private-data-holder> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/6> a iopa:BindingRequirement,
+        lomo:LegalRule ;
+    rdfs:label "Article 5"@en ;
+    iopa:affects <http://example.org/analysis/interop/1> ;
+    cav:valueDescription "Statistical data requirements"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/100/cod/doc/com/COM_2025_100/FINAL/eng/art_5> ;
+    lomo:hasCategory <http://data.europa.eu/leg/digital-dimensions/Data>,
+        <http://data.europa.eu/leg/digital-dimensions/DigitalPublicService>,
+        <http://data.europa.eu/leg/digital-dimensions/DigitalSolutions> ;
+    lomo:involvesProcess <http://example.org/process/data-processing-data-compilation-data-transmission> ;
+    lomo:produces <http://example.org/analysis/description/6/action> ;
+    lomo:references <http://example.org/dataset/non-financial-commercial-real-estate-statistics-covering-the-following-indicatorsabuilding-permits-number-of-dwellings-usable-floor-areabconstruction-starts-and-work-completions-usable-floor-areaccommercial-real-estate-price-indicesdcommercial-real-estate-rent-indicesevalue-of-transactions-of-commercial-real-estate> ;
+    dcterms:description "Statistical data requirements"@en ;
+    dcterms:relation <http://example.org/ie-solution/eurostat-maintains-a-single-entry-point-edamis-that-is-used-by-nsis-and-other-national-authorities-to-transmit-data-to-eurostateuropean-statistics-are-disseminated-in-a-publicly-available-cost-free-database-available-on-eurostats-website> .
+
+<http://example.org/analysis/description/6/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/6/action/role/addressee-european-commission>,
+        <http://example.org/analysis/description/6/action/role/addressee-member-states> .
+
+<http://example.org/analysis/description/6/action/role/addressee-european-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/european-commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/6/action/role/addressee-member-states> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/7> a iopa:BindingRequirement,
+        lomo:LegalRule ;
+    rdfs:label "Article 6"@en ;
+    iopa:affects <http://example.org/analysis/interop/1> ;
+    cav:valueDescription "Quality requirements and quality reporting regarding statistics"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/100/cod/doc/com/COM_2025_100/FINAL/eng/art_6> ;
+    lomo:hasCategory <http://data.europa.eu/leg/digital-dimensions/Data>,
+        <http://data.europa.eu/leg/digital-dimensions/DigitalPublicService> ;
+    lomo:involvesProcess <http://example.org/process/data-quality-data-collection-data-compilation-data-transmission> ;
+    lomo:produces <http://example.org/analysis/description/7/action> ;
+    dcterms:description "Quality requirements and quality reporting regarding statistics"@en ;
+    dcterms:relation <http://example.org/ie-solution/eurostat-maintains-a-single-entry-point-edamis-that-is-used-by-nsis-and-other-national-authorities-to-transmit-data-to-eurostateuropean-statistics-are-disseminated-in-a-publicly-available-cost-free-database-available-on-eurostats-website> .
+
+<http://example.org/analysis/description/7/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/7/action/role/addressee-european-commission>,
+        <http://example.org/analysis/description/7/action/role/addressee-member-states> .
+
+<http://example.org/analysis/description/7/action/role/addressee-european-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/european-commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/7/action/role/addressee-member-states> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/member-states> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/dataset/annual-reference-metadata-and-quality-reports-and-annually-updated-inventories-containing-details-of-data-sources-definitions-and-methods-used> a dcat:Dataset ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Annual reference metadata and quality reports and annually updated inventories containing details of data sources, definitions and methods used.)"@en ] ;
+    dcterms:title "Annual reference metadata and quality reports and annually updated inventories containing details of data sources, definitions and methods used.)"@en .
+
+<http://example.org/dataset/any-additional-information-that-is-necessary-to-evaluate-the-quality-of-the-data-and-metadata> a dcat:Dataset ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Any additional information that is necessary to evaluate the quality of the data and metadata."@en ] ;
+    dcterms:title "Any additional information that is necessary to evaluate the quality of the data and metadata."@en .
+
+<http://example.org/dataset/information-needed-to-produce-non-financial-commercial-real-estate-statistics> a dcat:Dataset ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Information needed to produce non-financial commercial real estate statistics"@en ] ;
+    dcterms:title "Information needed to produce non-financial commercial real estate statistics"@en .
+
+<http://example.org/dataset/information-or-changes-with-regard-to-the-implementation-of-this-regulation-that-would-influence-the-quality-of-the-data-transmitted> a dcat:Dataset ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Information or changes with regard to the implementation of this Regulation, that would influence the quality of the data transmitted."@en ] ;
+    dcterms:title "Information or changes with regard to the implementation of this Regulation, that would influence the quality of the data transmitted."@en .
+
+<http://example.org/dataset/non-financial-commercial-real-estate-statistical-indicators-for-variables-specified-in-the-annex-of-the-regulation> a dcat:Dataset ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Non-financial commercial real estate statistical indicators for variables specified in the Annex of the regulation"@en ] ;
+    dcterms:title "Non-financial commercial real estate statistical indicators for variables specified in the Annex of the regulation"@en .
+
+<http://example.org/dataset/source-data-from-administrative-data-sources-databases-interoperability-systems-and-etc-incl-electronic-records-of-transactions-at-the-level-of-detail-necessary-to-produce-non-financial-commercial-real-estate-statistics> a dcat:Dataset ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Source data from administrative data sources, databases, interoperability systems and etc., incl. electronic records of transactions at the level of detail necessary to produce non-financial commercial real estate statistics"@en ] ;
+    dcterms:title "Source data from administrative data sources, databases, interoperability systems and etc., incl. electronic records of transactions at the level of detail necessary to produce non-financial commercial real estate statistics"@en .
+
+<http://example.org/process/data-collection> skos:prefLabel "Data collection"@en .
+
+<http://example.org/process/data-collection-data-processing> skos:prefLabel "Data collection, Data processing"@en .
+
+<http://example.org/process/data-collection-data-processing-data-compilation> skos:prefLabel "Data collection, Data processing, Data compilation"@en .
+
+<http://example.org/process/data-collection-data-reuse> skos:prefLabel "Data collection; Data reuse;"@en .
+
+<http://example.org/process/data-processing-data-compilation-data-transmission> skos:prefLabel "Data processing, Data compilation; Data transmission"@en .
+
+<http://example.org/process/data-quality-data-collection-data-compilation-data-transmission> skos:prefLabel "Data quality; Data collection; Data compilation; Data transmission;"@en .
+
+<http://example.org/process/data-reuse-data-processing-data-compilation> skos:prefLabel "Data reuse; Data processing; Data compilation"@en .
+
+<http://example.org/standard/by-means-of-commission-implementing-acts-additional-elements-of-the-data-to-be-transmitted-by-member-states-to-eurostat-will-be-defined-as-specified-in-article-5-paragraph-4> a dcterms:Standard ;
+    dcterms:title "By means of Commission implementing acts, additional elements of the data to be transmitted by Member States to Eurostat will be defined as specified in Article 5 paragraph 4."@en .
+
+<http://example.org/standard/variables-set-out-in-the-annex-to-this-regulation> a dcterms:Standard ;
+    dcterms:title "Variables set out in the Annex to this Regulation;"@en .
+
+<http://publications.europa.eu/resource/authority/corporate-body/COM> a m8g:PublicOrganisation ;
+    dcterms:description "The European Commission, provider of the interoperability assessment."@en ;
+    skos:prefLabel "European Commission"@en .
+
+<http://example.org/agent/european-commission> rdfs:label "European Commission"@en .
+
+<http://example.org/agent/holders-of-administrative-records> rdfs:label "holders of administrative records;"@en .
+
+<http://example.org/agent/private-data-holders> rdfs:label "private data holders;"@en .
+
+<http://example.org/agent/national-statistical-authorities-responsible-for-compiling-non-financial-commercial-real-estate-statistics> rdfs:label "National statistical authorities responsible for compiling non-financial commercial real estate statistics;"@en .
+
+<http://example.org/agent/statistical-units-as-set-out-in-council-regulation-eec-no-69693> rdfs:label "Statistical units as set out in Council Regulation (EEC) No 696/93;"@en .
+
+<http://example.org/ie-solution/eurostat-maintains-a-single-entry-point-edamis-that-is-used-by-nsis-and-other-national-authorities-to-transmit-data-to-eurostateuropean-statistics-are-disseminated-in-a-publicly-available-cost-free-database-available-on-eurostats-website> a adms:Asset ;
+    dcterms:description "Eurostat maintains a single-entry point (eDAMIS) that is used by NSIs and other national authorities to transmit data to Eurostat.European statistics are disseminated in a publicly available, cost-free database available on Eurostat’s website."@en ;
+    dcterms:title "Eurostat maintains a single-entry point (eDAMIS) that is used by NSIs and other national authorities to transmit data to Eurostat.European statistics are disseminated in a publicly available, cost-free database available on Eurostat’s website."@en .
+
+<http://example.org/dataset/non-financial-commercial-real-estate-statistics-covering-the-following-indicatorsabuilding-permits-number-of-dwellings-usable-floor-areabconstruction-starts-and-work-completions-usable-floor-areaccommercial-real-estate-price-indicesdcommercial-real-estate-rent-indicesevalue-of-transactions-of-commercial-real-estate> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/100/cod/doc/com/COM_2025_100/FINAL/eng/art_3>,
+        <https://data.europa.eu/eli/dl/proc/2025/100/cod/doc/com/COM_2025_100/FINAL/eng/art_4/par_1>,
+        <https://data.europa.eu/eli/dl/proc/2025/100/cod/doc/com/COM_2025_100/FINAL/eng/art_4/par_2>,
+        <https://data.europa.eu/eli/dl/proc/2025/100/cod/doc/com/COM_2025_100/FINAL/eng/art_4/par_3>,
+        <https://data.europa.eu/eli/dl/proc/2025/100/cod/doc/com/COM_2025_100/FINAL/eng/art_5> ;
+    dcterms:conformsTo <http://example.org/standard/by-means-of-commission-implementing-acts-additional-elements-of-the-data-to-be-transmitted-by-member-states-to-eurostat-will-be-defined-as-specified-in-article-5-paragraph-4>,
+        <http://example.org/standard/variables-set-out-in-the-annex-to-this-regulation> ;
+    dcterms:title "Non-financial commercial real estate statistics, covering the following indicators:(a)Building permits (number of dwellings, usable floor area)(b)Construction starts and work completions (usable floor area)(c)Commercial real estate price indices(d)Commercial real estate rent indices(e)Value of transactions of commercial real estate."@en .
+
+<http://example.org/agent/european-commission-eurostat> rdfs:label "European Commission (Eurostat)"@en .
+
+<http://example.org/agent/member-states> rdfs:label "Member States;"@en .
+
+<http://example.org/analysis/interop/1> a cpsv:PublicService ;
+    rdfs:label "Statistical Services"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/100/cod/doc/com/COM_2025_100/FINAL/eng/art_5>,
+        <https://data.europa.eu/eli/dl/proc/2025/100/cod/doc/com/COM_2025_100/FINAL/eng/art_6> ;
+    dcterms:description "Transmission and dissemination of non-financial commercial real estate statistics"@en ;
+    dcterms:identifier "interop/1" ;
+    dcterms:references <http://example.org/ie-solution/eurostat-maintains-a-single-entry-point-edamis-that-is-used-by-nsis-and-other-national-authorities-to-transmit-data-to-eurostateuropean-statistics-are-disseminated-in-a-publicly-available-cost-free-database-available-on-eurostats-website> ;
+    dcterms:title "Statistical Services"@en .
+

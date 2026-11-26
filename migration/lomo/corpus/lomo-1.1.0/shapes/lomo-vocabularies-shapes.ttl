@@ -1,0 +1,490 @@
+@prefix rdf:     <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh:      <http://www.w3.org/ns/shacl#> .
+@prefix skos:    <http://www.w3.org/2004/02/skos/core#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .
+@prefix owl:     <http://www.w3.org/2002/07/owl#> .
+@prefix shapes:  <http://data.europa.eu/leg/lomo/shapes#> .
+@prefix lomo:    <http://data.europa.eu/leg/lomo#> .
+@prefix dm:      <http://data.europa.eu/leg/deontic-modality/> .
+@prefix tf:      <http://data.europa.eu/leg/temporal-function/> .
+@prefix rc:      <http://data.europa.eu/leg/result-category/> .
+@prefix dd:      <http://data.europa.eu/leg/digital-dimensions/> .
+
+<http://data.europa.eu/leg/lomo/vocabularies-shapes>
+    rdf:type        owl:Ontology ;
+    dcterms:title   "LOMO Controlled Vocabularies SHACL Shapes"@en ;
+    dcterms:description "Validation shapes for LOMO controlled vocabularies."@en ;
+    dcterms:modified "2026-09-28"^^xsd:date .
+
+#################################################################
+#    Controlled Vocabulary Shapes
+#################################################################
+
+# ─── Deontic Modality ─────────────────────────────────────────
+
+shapes:DeonticModalitySchemeShape rdf:type sh:NodeShape ;
+    rdfs:label "Deontic Modality Scheme Shape"@en ;
+    sh:targetNode dm:DeonticModalityScheme ;
+    sh:property [
+        sh:path skos:notation ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+        sh:pattern "^[a-z][a-z0-9]*(_[a-z0-9]+)*$" ;
+        sh:message "Needs exactly one stable snake_case skos:notation (#140)."@en ;
+    ] ;
+    sh:property [
+        sh:path rdfs:label ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:uniqueLang true ;
+    ] ;
+    sh:property [
+        sh:path skos:prefLabel ;
+        sh:minCount 1 ;
+        sh:uniqueLang true ;
+    ] ;
+    sh:property [
+        sh:path skos:prefLabel ;
+        sh:qualifiedValueShape [ sh:languageIn ( "en" ) ] ;
+        sh:qualifiedMinCount 1 ;
+        sh:message "Needs a skos:prefLabel in English (#144)."@en ;
+    ] ;
+    sh:property [
+        sh:path skos:prefLabel ;
+        sh:qualifiedValueShape [ sh:languageIn ( "fr" ) ] ;
+        sh:qualifiedMinCount 1 ;
+        sh:message "Needs a skos:prefLabel in French (#144)."@en ;
+    ] ;
+    sh:property [
+        sh:path rdfs:comment ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype rdf:langString ;
+    ] ;
+    sh:property [
+        sh:path dcterms:title ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+    ] ;
+    sh:property [
+        sh:path dcterms:description ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype rdf:langString ;
+    ] ;
+    sh:property [
+        sh:path skos:hasTopConcept ;
+        sh:minCount 1 ;
+        sh:nodeKind sh:IRI ;
+    ] .
+
+shapes:DeonticModalityConceptShape rdf:type sh:NodeShape ;
+    rdfs:label "Deontic Modality Concept Shape"@en ;
+    # Every concept of the scheme, so a new concept is validated without editing this file (#159)
+    sh:target [
+        rdf:type sh:SPARQLTarget ;
+        sh:select """SELECT ?this WHERE { ?this <http://www.w3.org/2004/02/skos/core#inScheme> <http://data.europa.eu/leg/deontic-modality/DeonticModalityScheme> }""" ;
+    ] ;
+    sh:property [
+        sh:path skos:notation ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+        sh:pattern "^[a-z][a-z0-9]*(_[a-z0-9]+)*$" ;
+        sh:message "Needs exactly one stable snake_case skos:notation (#140)."@en ;
+    ] ;
+    sh:property [
+        sh:path rdfs:label ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype rdf:langString ;
+        sh:uniqueLang true ;
+    ] ;
+    sh:property [
+        sh:path skos:prefLabel ;
+        sh:minCount 1 ;
+        sh:datatype rdf:langString ;
+        sh:uniqueLang true ;
+    ] ;
+    sh:property [
+        sh:path skos:prefLabel ;
+        sh:qualifiedValueShape [ sh:languageIn ( "en" ) ] ;
+        sh:qualifiedMinCount 1 ;
+        sh:message "Needs a skos:prefLabel in English (#144)."@en ;
+    ] ;
+    sh:property [
+        sh:path skos:prefLabel ;
+        sh:qualifiedValueShape [ sh:languageIn ( "fr" ) ] ;
+        sh:qualifiedMinCount 1 ;
+        sh:message "Needs a skos:prefLabel in French (#144)."@en ;
+    ] ;
+    sh:property [
+        sh:path skos:definition ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype rdf:langString ;
+    ] ;
+    sh:property [
+        sh:path skos:inScheme ;
+        sh:hasValue dm:DeonticModalityScheme ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+    ] ;
+    sh:property [
+        sh:path skos:scopeNote ;
+        sh:minCount 1 ;
+        sh:datatype rdf:langString ;
+        sh:uniqueLang true ;
+    ] ;
+    sh:property [
+        sh:path skos:example ;
+        sh:minCount 1 ;
+        sh:datatype rdf:langString ;
+    ] .
+
+# ─── Temporal Function ────────────────────────────────────────
+
+shapes:TemporalFunctionSchemeShape rdf:type sh:NodeShape ;
+    rdfs:label "Temporal Function Scheme Shape"@en ;
+    sh:targetNode tf:TemporalFunctionScheme ;
+    sh:property [
+        sh:path skos:notation ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+        sh:pattern "^[a-z][a-z0-9]*(_[a-z0-9]+)*$" ;
+        sh:message "Needs exactly one stable snake_case skos:notation (#140)."@en ;
+    ] ;
+    sh:property [
+        sh:path rdfs:label ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:uniqueLang true ;
+    ] ;
+    sh:property [
+        sh:path skos:prefLabel ;
+        sh:minCount 1 ;
+        sh:uniqueLang true ;
+    ] ;
+    sh:property [
+        sh:path skos:prefLabel ;
+        sh:qualifiedValueShape [ sh:languageIn ( "en" ) ] ;
+        sh:qualifiedMinCount 1 ;
+        sh:message "Needs a skos:prefLabel in English (#144)."@en ;
+    ] ;
+    sh:property [
+        sh:path skos:prefLabel ;
+        sh:qualifiedValueShape [ sh:languageIn ( "fr" ) ] ;
+        sh:qualifiedMinCount 1 ;
+        sh:message "Needs a skos:prefLabel in French (#144)."@en ;
+    ] ;
+    sh:property [
+        sh:path rdfs:comment ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype rdf:langString ;
+    ] ;
+    sh:property [
+        sh:path dcterms:title ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+    ] ;
+    sh:property [
+        sh:path dcterms:description ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype rdf:langString ;
+        sh:uniqueLang true ;
+    ] ;
+    sh:property [
+        sh:path skos:hasTopConcept ;
+        sh:minCount 1 ;
+        sh:nodeKind sh:IRI ;
+    ] .
+
+shapes:TemporalFunctionConceptShape rdf:type sh:NodeShape ;
+    rdfs:label "Temporal Function Concept Shape"@en ;
+    # Every concept of the scheme, so a new concept is validated without editing this file (#159)
+    sh:target [
+        rdf:type sh:SPARQLTarget ;
+        sh:select """SELECT ?this WHERE { ?this <http://www.w3.org/2004/02/skos/core#inScheme> <http://data.europa.eu/leg/temporal-function/TemporalFunctionScheme> }""" ;
+    ] ;
+    sh:property [
+        sh:path skos:notation ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+        sh:pattern "^[a-z][a-z0-9]*(_[a-z0-9]+)*$" ;
+        sh:message "Needs exactly one stable snake_case skos:notation (#140)."@en ;
+    ] ;
+    sh:property [
+        sh:path rdfs:label ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype rdf:langString ;
+        sh:uniqueLang true ;
+    ] ;
+    sh:property [
+        sh:path skos:prefLabel ;
+        sh:minCount 1 ;
+        sh:datatype rdf:langString ;
+        sh:uniqueLang true ;
+    ] ;
+    sh:property [
+        sh:path skos:prefLabel ;
+        sh:qualifiedValueShape [ sh:languageIn ( "en" ) ] ;
+        sh:qualifiedMinCount 1 ;
+        sh:message "Needs a skos:prefLabel in English (#144)."@en ;
+    ] ;
+    sh:property [
+        sh:path skos:prefLabel ;
+        sh:qualifiedValueShape [ sh:languageIn ( "fr" ) ] ;
+        sh:qualifiedMinCount 1 ;
+        sh:message "Needs a skos:prefLabel in French (#144)."@en ;
+    ] ;
+    sh:property [
+        sh:path skos:definition ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype rdf:langString ;
+    ] ;
+    sh:property [
+        sh:path skos:inScheme ;
+        sh:hasValue tf:TemporalFunctionScheme ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+    ] .
+
+# ─── Result Category ──────────────────────────────────────────
+
+shapes:ResultCategorySchemeShape rdf:type sh:NodeShape ;
+    rdfs:label "Result Category Scheme Shape"@en ;
+    sh:targetNode rc:ResultCategoryScheme ;
+    sh:property [
+        sh:path skos:notation ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+        sh:pattern "^[a-z][a-z0-9]*(_[a-z0-9]+)*$" ;
+        sh:message "Needs exactly one stable snake_case skos:notation (#140)."@en ;
+    ] ;
+    sh:property [
+        sh:path rdfs:label ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:uniqueLang true ;
+    ] ;
+    sh:property [
+        sh:path skos:prefLabel ;
+        sh:minCount 1 ;
+        sh:uniqueLang true ;
+    ] ;
+    sh:property [
+        sh:path skos:prefLabel ;
+        sh:qualifiedValueShape [ sh:languageIn ( "en" ) ] ;
+        sh:qualifiedMinCount 1 ;
+        sh:message "Needs a skos:prefLabel in English (#144)."@en ;
+    ] ;
+    sh:property [
+        sh:path skos:prefLabel ;
+        sh:qualifiedValueShape [ sh:languageIn ( "fr" ) ] ;
+        sh:qualifiedMinCount 1 ;
+        sh:message "Needs a skos:prefLabel in French (#144)."@en ;
+    ] ;
+    sh:property [
+        sh:path rdfs:comment ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype rdf:langString ;
+    ] ;
+    sh:property [
+        sh:path dcterms:title ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+    ] ;
+    sh:property [
+        sh:path dcterms:description ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype rdf:langString ;
+    ] ;
+    sh:property [
+        sh:path skos:hasTopConcept ;
+        sh:minCount 1 ;
+        sh:nodeKind sh:IRI ;
+    ] .
+
+shapes:ResultCategoryConceptShape rdf:type sh:NodeShape ;
+    rdfs:label "Result Category Concept Shape"@en ;
+    # Every concept of the scheme, so a new concept is validated without editing this file (#159)
+    sh:target [
+        rdf:type sh:SPARQLTarget ;
+        sh:select """SELECT ?this WHERE { ?this <http://www.w3.org/2004/02/skos/core#inScheme> <http://data.europa.eu/leg/result-category/ResultCategoryScheme> }""" ;
+    ] ;
+    sh:property [
+        sh:path skos:notation ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+        sh:pattern "^[a-z][a-z0-9]*(_[a-z0-9]+)*$" ;
+        sh:message "Needs exactly one stable snake_case skos:notation (#140)."@en ;
+    ] ;
+    sh:property [
+        sh:path rdfs:label ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype rdf:langString ;
+        sh:uniqueLang true ;
+    ] ;
+    sh:property [
+        sh:path skos:prefLabel ;
+        sh:minCount 1 ;
+        sh:datatype rdf:langString ;
+        sh:uniqueLang true ;
+    ] ;
+    sh:property [
+        sh:path skos:prefLabel ;
+        sh:qualifiedValueShape [ sh:languageIn ( "en" ) ] ;
+        sh:qualifiedMinCount 1 ;
+        sh:message "Needs a skos:prefLabel in English (#144)."@en ;
+    ] ;
+    sh:property [
+        sh:path skos:prefLabel ;
+        sh:qualifiedValueShape [ sh:languageIn ( "fr" ) ] ;
+        sh:qualifiedMinCount 1 ;
+        sh:message "Needs a skos:prefLabel in French (#144)."@en ;
+    ] ;
+    sh:property [
+        sh:path skos:definition ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype rdf:langString ;
+    ] ;
+    sh:property [
+        sh:path skos:inScheme ;
+        sh:hasValue rc:ResultCategoryScheme ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+    ] .
+
+# ─── Digital Dimensions ───────────────────────────────────────
+
+shapes:DigitalDimensionsSchemeShape rdf:type sh:NodeShape ;
+    rdfs:label "Digital Dimensions Scheme Shape"@en ;
+    sh:targetNode dd:DigitalDimensionsScheme ;
+    sh:property [
+        sh:path skos:notation ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+        sh:pattern "^[a-z][a-z0-9]*(_[a-z0-9]+)*$" ;
+        sh:message "Needs exactly one stable snake_case skos:notation (#140)."@en ;
+    ] ;
+    sh:property [
+        sh:path rdfs:label ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:uniqueLang true ;
+    ] ;
+    sh:property [
+        sh:path skos:prefLabel ;
+        sh:minCount 1 ;
+        sh:uniqueLang true ;
+    ] ;
+    sh:property [
+        sh:path skos:prefLabel ;
+        sh:qualifiedValueShape [ sh:languageIn ( "en" ) ] ;
+        sh:qualifiedMinCount 1 ;
+        sh:message "Needs a skos:prefLabel in English (#144)."@en ;
+    ] ;
+    sh:property [
+        sh:path skos:prefLabel ;
+        sh:qualifiedValueShape [ sh:languageIn ( "fr" ) ] ;
+        sh:qualifiedMinCount 1 ;
+        sh:message "Needs a skos:prefLabel in French (#144)."@en ;
+    ] ;
+    sh:property [
+        sh:path rdfs:comment ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype rdf:langString ;
+    ] ;
+    sh:property [
+        sh:path dcterms:title ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+    ] ;
+    sh:property [
+        sh:path dcterms:description ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype rdf:langString ;
+    ] ;
+    sh:property [
+        sh:path skos:hasTopConcept ;
+        sh:minCount 1 ;
+        sh:nodeKind sh:IRI ;
+    ] .
+
+shapes:DigitalDimensionsConceptShape rdf:type sh:NodeShape ;
+    rdfs:label "Digital Dimensions Concept Shape"@en ;
+    # Every concept of the scheme, so a new concept is validated without editing this file (#159)
+    sh:target [
+        rdf:type sh:SPARQLTarget ;
+        sh:select """SELECT ?this WHERE { ?this <http://www.w3.org/2004/02/skos/core#inScheme> <http://data.europa.eu/leg/digital-dimensions/DigitalDimensionsScheme> }""" ;
+    ] ;
+    sh:property [
+        sh:path skos:notation ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+        sh:pattern "^[a-z][a-z0-9]*(_[a-z0-9]+)*$" ;
+        sh:message "Needs exactly one stable snake_case skos:notation (#140)."@en ;
+    ] ;
+    sh:property [
+        sh:path rdfs:label ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype rdf:langString ;
+        sh:uniqueLang true ;
+    ] ;
+    sh:property [
+        sh:path skos:prefLabel ;
+        sh:minCount 1 ;
+        sh:datatype rdf:langString ;
+        sh:uniqueLang true ;
+    ] ;
+    sh:property [
+        sh:path skos:prefLabel ;
+        sh:qualifiedValueShape [ sh:languageIn ( "en" ) ] ;
+        sh:qualifiedMinCount 1 ;
+        sh:message "Needs a skos:prefLabel in English (#144)."@en ;
+    ] ;
+    sh:property [
+        sh:path skos:prefLabel ;
+        sh:qualifiedValueShape [ sh:languageIn ( "fr" ) ] ;
+        sh:qualifiedMinCount 1 ;
+        sh:message "Needs a skos:prefLabel in French (#144)."@en ;
+    ] ;
+    sh:property [
+        sh:path skos:definition ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype rdf:langString ;
+        sh:uniqueLang true ;
+    ] ;
+    sh:property [
+        sh:path skos:inScheme ;
+        sh:hasValue dd:DigitalDimensionsScheme ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+    ] ;
+    sh:property [
+        sh:path skos:scopeNote ;
+        sh:minCount 1 ;
+        sh:datatype rdf:langString ;
+        sh:uniqueLang true ;
+    ] .

@@ -1,0 +1,405 @@
+@prefix cpsv: <http://purl.org/vocab/cpsv#> .
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix dctype: <http://purl.org/dc/dcmitype/> .
+@prefix dd: <http://data.europa.eu/leg/digital-dimensions/> .
+@prefix lomo: <http://data.europa.eu/leg/lomo#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix tf: <http://data.europa.eu/leg/temporal-function/> .
+
+<http://example.org/analysis/description/1> a lomo:LegalRule ;
+    rdfs:label "Article 1(5)"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/836/cod/doc/com/COM_2025_836/FINAL/eng/art_1/par_5> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/data-processing> ;
+    lomo:produces <http://example.org/analysis/description/1/action> ;
+    lomo:references <http://example.org/dataset/special-categories-of-personal-data-where-the-processing-is-needed-for-bias-detectioncorrection> ;
+    dcterms:description "Inserting Article 4a: Allowing providers and deployers of AI systems and AI models to exceptionally process special categories of personal data to the extent necessary for the purpose of ensuring bias detection and correction, subject to certain conditions."@en .
+
+<http://example.org/analysis/description/2> a lomo:LegalRule ;
+    rdfs:label "Article 1(8)"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/836/cod/doc/com/COM_2025_836/FINAL/eng/art_1/par_8> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/technical-documentation> ;
+    lomo:produces <http://example.org/analysis/description/2/action> ;
+    lomo:references <http://example.org/dataset/technical-documentation-for-high-risk-ai-systems> ;
+    dcterms:description "Amending Article 11(1), second subparagraph: Relating to the technical documentation of high-risk AI systems that needs to be drawn up before that system is placed on the market or put into service. SMEs and SMCs are given certain regulatory privileges as concerns this provision of information."@en .
+
+<http://example.org/analysis/description/3> a lomo:LegalRule ;
+    rdfs:label "Article 1(10)"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/836/cod/doc/com/COM_2025_836/FINAL/eng/art_1/par_10> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/application-submission> ;
+    lomo:produces <http://example.org/analysis/description/3/action> ;
+    lomo:references <http://example.org/dataset/applications-of-conformity-assessment-bodies-for-designation> ;
+    dcterms:description "Amending Article 28, inserting paragraph (1a): Conformity assessment bodies that apply for a designation may be offered the possibility to submit a single application and undergo a single assessment procedure."@en .
+
+<http://example.org/analysis/description/4> a lomo:LegalRule ;
+    rdfs:label "Article 1(11)"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/836/cod/doc/com/COM_2025_836/FINAL/eng/art_1/par_11> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/application-submission> ;
+    lomo:produces <http://example.org/analysis/action/1>,
+        <http://example.org/analysis/description/4/action> ;
+    lomo:references <http://example.org/dataset/applications-of-a-conformity-assessment-bodies-for-notification> ;
+    dcterms:description "Amending Article 29(4): Notified bodies which apply for a single assessment shall submit the single application to the notifying authority. The notified body shall update the documentation if relevant changes occur."@en .
+
+<http://example.org/analysis/description/5> a lomo:LegalRule ;
+    rdfs:label "Article 1(16)"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ;
+            lomo:temporalLabel "Regularly"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/836/cod/doc/com/COM_2025_836/FINAL/eng/art_1/par_16> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/assessment-publication> ;
+    lomo:produces <http://example.org/analysis/action/2>,
+        <http://example.org/analysis/description/5/action> ;
+    lomo:references <http://example.org/dataset/commission-assessment-of-the-adequacy-of-the-codes-of-practice> ;
+    dcterms:description "Amending Article 56(6): The Commission shall publish its assessments on the adequacy of the codes of practice."@en .
+
+<http://example.org/analysis/description/6> a lomo:LegalRule ;
+    rdfs:label "Article 1(26)"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ],
+        [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ],
+        [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ],
+        [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/836/cod/doc/com/COM_2025_836/FINAL/eng/art_1/par_26> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/information-exchange> ;
+    lomo:produces <http://example.org/analysis/action/3>,
+        <http://example.org/analysis/action/4>,
+        <http://example.org/analysis/action/5>,
+        <http://example.org/analysis/action/6>,
+        <http://example.org/analysis/description/6/action> ;
+    lomo:references <http://example.org/dataset/information-or-documentation-requested-by-national-public-authoritiesbodies-which-superviseenforce-obligations-relating-to-fundamental-rights>,
+        <http://example.org/dataset/request-for-access-to-information-on-ai-systems> ;
+    dcterms:description "Amending Article 77: ·Paragraph 1: National public authorities/bodies which supervise/enforce EU law obligations protecting fundamental rights may make a reasoned request and access any information/documentation from the relevant market surveillance authority ·Paragraph 1a: market surveillance authority shall grant access and, where needed, request the information from the provider/deployer ·Paragraph 1b: where necessary, the aforementioned market surveillance authorities and public authorities/bodies shall exchange information."@en .
+
+<http://example.org/analysis/interop/1> a cpsv:PublicService ;
+    rdfs:label "N.A. (the proposed amendments to the AI Act do not affect digital public services)"@en ;
+    dcterms:description "N.A. (the proposed amendments to the AI Act do not affect digital public services)"@en ;
+    dcterms:identifier "interop/1" ;
+    dcterms:title "N.A. (the proposed amendments to the AI Act do not affect digital public services)"@en .
+
+<http://example.org/analysis/solution/1> a dctype:Software ;
+    rdfs:label "N.A. (the proposed amendments to the AI Act do not foresee the adoption of new digital solutions)"@en ;
+    dcterms:title "N.A. (the proposed amendments to the AI Act do not foresee the adoption of new digital solutions)"@en .
+
+<http://example.org/agent/concerned-data-subjects> rdfs:label "Concerned data subjects"@en .
+
+<http://example.org/agent/conformity-assessment-bodies> rdfs:label "Conformity assessment bodies"@en .
+
+<http://example.org/agent/general-public> rdfs:label "General Public"@en .
+
+<http://example.org/agent/national-competent-authorities> rdfs:label "National competent authorities"@en .
+
+<http://example.org/agent/national-public-authoritiesbodies-which-superviseenforce-eu-law-obligations-protecting-fundamental-rights> rdfs:label "National public authorities/bodies which supervise/enforce EU law obligations protecting fundamental rights"@en .
+
+<http://example.org/agent/notified-bodies-which-are-designated-under-union-harmonisation-legislation-listed-in-section-a-of-annex-i> rdfs:label "Notified bodies which are designated under Union harmonisation legislation listed in Section A of Annex I"@en .
+
+<http://example.org/agent/notifying-authorities> rdfs:label "Notifying authorities"@en .
+
+<http://example.org/agent/notifying-authority> rdfs:label "Notifying authority"@en .
+
+<http://example.org/agent/notifying-authority-designated-in-accordance-with-union-harmonisation-legislation-listed-in-section-a-of-annex-i> rdfs:label "Notifying authority designated in accordance with Union harmonisation legislation listed in Section A of Annex I"@en .
+
+<http://example.org/agent/providers-and-deployers-of-ai-systems-and-ai-models> rdfs:label "Providers and deployers of AI systems and AI models"@en .
+
+<http://example.org/agent/providers-deployers-of-ai-systems> rdfs:label "Providers/ deployers of AI systems"@en .
+
+<http://example.org/agent/providers-of-high-risk-ai-systems-including-smcs-and-smes> rdfs:label "Providers of high-risk AI systems (including SMCs and SMEs)"@en .
+
+<http://example.org/agent/providersdeployers-of-ai-systems> rdfs:label "Providers/deployers of AI systems"@en .
+
+<http://example.org/analysis/action/1> a lomo:Action ;
+    rdfs:label "Applications of a conformity assessment bodies for notification"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Application being made for single assessment"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/836/cod/doc/com/COM_2025_836/FINAL/eng/art_1/par_11> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/1/role/addressee-notifying-authority-designated-in-accordance-with-union-harmonisation-legislation-listed-in-section-a-of-annex-i>,
+        <http://example.org/analysis/action/1/role/addresser-notified-bodies-which-are-designated-under-union-harmonisation-legislation-listed-in-section-a-of-annex-i> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Applications of a conformity assessment bodies for notification"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/applications-of-a-conformity-assessment-bodies-for-notification> ] .
+
+<http://example.org/analysis/action/1/role/addressee-notifying-authority-designated-in-accordance-with-union-harmonisation-legislation-listed-in-section-a-of-annex-i> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/notifying-authority-designated-in-accordance-with-union-harmonisation-legislation-listed-in-section-a-of-annex-i> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/1/role/addresser-notified-bodies-which-are-designated-under-union-harmonisation-legislation-listed-in-section-a-of-annex-i> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/notified-bodies-which-are-designated-under-union-harmonisation-legislation-listed-in-section-a-of-annex-i> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/2> a lomo:Action ;
+    rdfs:label "Commission assessment of the adequacy of the codes of practice"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:deadline ;
+            lomo:temporalLabel "Regularly"@en ],
+        [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Performance of an assessment as regards the codes of practice"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/836/cod/doc/com/COM_2025_836/FINAL/eng/art_1/par_16> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/2/role/addressee-general-public>,
+        <http://example.org/analysis/action/2/role/addresser-european-commission> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Commission assessment of the adequacy of the codes of practice"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/commission-assessment-of-the-adequacy-of-the-codes-of-practice> ] .
+
+<http://example.org/analysis/action/2/role/addressee-general-public> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/general-public> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/2/role/addresser-european-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/european-commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/3> a lomo:Action ;
+    rdfs:label "Request for access to information on AI systems"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "National public authorities/bodies require the information in order to fulfil their mandates"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/836/cod/doc/com/COM_2025_836/FINAL/eng/art_1/par_26> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/3/role/addressee-market-surveillance-authority>,
+        <http://example.org/analysis/action/3/role/addresser-national-public-authorities-or-bodies-which-supervise-or-enforce-the-respect-of-obligations-under-union-law-protecting-fundamental-rights> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Request for access to information on AI systems"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/request-for-access-to-information-on-ai-systems> ] .
+
+<http://example.org/analysis/action/3/role/addressee-market-surveillance-authority> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/market-surveillance-authority> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/3/role/addresser-national-public-authorities-or-bodies-which-supervise-or-enforce-the-respect-of-obligations-under-union-law-protecting-fundamental-rights> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/national-public-authorities-or-bodies-which-supervise-or-enforce-the-respect-of-obligations-under-union-law-protecting-fundamental-rights> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/4> a lomo:Action ;
+    rdfs:label "Information or documentation requested by national public authorities/bodies which supervise/enforce obligations relating to fundamental rights"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Submission of a reasoned request to access information"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/836/cod/doc/com/COM_2025_836/FINAL/eng/art_1/par_26> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/4/role/addressee-national-public-authorities-or-bodies-which-supervise-or-enforce-the-respect-of-obligations-under-union-law-protecting-fundamental-rights>,
+        <http://example.org/analysis/action/4/role/addresser-market-surveillance-authority> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Information or documentation requested by national public authorities/bodies which supervise/enforce obligations relating to fundamental rights"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/information-or-documentation-requested-by-national-public-authoritiesbodies-which-superviseenforce-obligations-relating-to-fundamental-rights> ] .
+
+<http://example.org/analysis/action/4/role/addressee-national-public-authorities-or-bodies-which-supervise-or-enforce-the-respect-of-obligations-under-union-law-protecting-fundamental-rights> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/national-public-authorities-or-bodies-which-supervise-or-enforce-the-respect-of-obligations-under-union-law-protecting-fundamental-rights> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/4/role/addresser-market-surveillance-authority> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/market-surveillance-authority> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/5> a lomo:Action ;
+    rdfs:label "Information or documentation requested by market surveillance authorities"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Market surveillance authority is in need of the information so as to answer to a request fromnational public authorities/bodies which supervise/enforce obligations relating to fundamental rights)"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/836/cod/doc/com/COM_2025_836/FINAL/eng/art_1/par_26> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/5/role/addressee-providers-deployers-of-ai-systems>,
+        <http://example.org/analysis/action/5/role/addresser-market-surveillance-authorities> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Information or documentation requested by market surveillance authorities"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/information-or-documentation-requested-by-market-surveillance-authorities> ] .
+
+<http://example.org/analysis/action/5/role/addressee-providers-deployers-of-ai-systems> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/providers-deployers-of-ai-systems> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/5/role/addresser-market-surveillance-authorities> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/market-surveillance-authorities> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/6> a lomo:Action ;
+    rdfs:label "Information exchanges as part of the cooperation of market surveillance authorities and public authorities/bodies which supervise/enforce obligations relating to fundamental rights"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Information exchange need identified in the course of cooperation and mutual assistance"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/836/cod/doc/com/COM_2025_836/FINAL/eng/art_1/par_26> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/6/role/addressee-market-surveillance-authorities-public-authoritiesbodies>,
+        <http://example.org/analysis/action/6/role/addresser-market-surveillance-authorities-public-authoritiesbodies> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Information exchanges as part of the cooperation of market surveillance authorities and public authorities/bodies which supervise/enforce obligations relating to fundamental rights"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/information-exchanges-as-part-of-the-cooperation-of-market-surveillance-authorities-and-public-authoritiesbodies-which-superviseenforce-obligations-relating-to-fundamental-rights> ] .
+
+<http://example.org/analysis/action/6/role/addressee-market-surveillance-authorities-public-authoritiesbodies> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/market-surveillance-authorities-public-authoritiesbodies> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/6/role/addresser-market-surveillance-authorities-public-authoritiesbodies> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/market-surveillance-authorities-public-authoritiesbodies> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/description/1/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/1/action/role/addressee-concerned-data-subjects>,
+        <http://example.org/analysis/description/1/action/role/addressee-providers-and-deployers-of-ai-systems-and-ai-models> .
+
+<http://example.org/analysis/description/1/action/role/addressee-concerned-data-subjects> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/concerned-data-subjects> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/1/action/role/addressee-providers-and-deployers-of-ai-systems-and-ai-models> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/providers-and-deployers-of-ai-systems-and-ai-models> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/2/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/2/action/role/addressee-european-commission>,
+        <http://example.org/analysis/description/2/action/role/addressee-national-competent-authorities>,
+        <http://example.org/analysis/description/2/action/role/addressee-notified-bodies>,
+        <http://example.org/analysis/description/2/action/role/addressee-providers-of-high-risk-ai-systems-including-smcs-and-smes> .
+
+<http://example.org/analysis/description/2/action/role/addressee-european-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/european-commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/2/action/role/addressee-national-competent-authorities> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/national-competent-authorities> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/2/action/role/addressee-notified-bodies> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/notified-bodies> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/2/action/role/addressee-providers-of-high-risk-ai-systems-including-smcs-and-smes> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/providers-of-high-risk-ai-systems-including-smcs-and-smes> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/3/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/3/action/role/addressee-conformity-assessment-bodies>,
+        <http://example.org/analysis/description/3/action/role/addressee-notifying-authorities> .
+
+<http://example.org/analysis/description/3/action/role/addressee-conformity-assessment-bodies> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/conformity-assessment-bodies> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/3/action/role/addressee-notifying-authorities> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/notifying-authorities> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/4/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/4/action/role/addressee-notified-bodies>,
+        <http://example.org/analysis/description/4/action/role/addressee-notifying-authority> .
+
+<http://example.org/analysis/description/4/action/role/addressee-notified-bodies> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/notified-bodies> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/4/action/role/addressee-notifying-authority> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/notifying-authority> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/5/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/5/action/role/addressee-european-commission> .
+
+<http://example.org/analysis/description/5/action/role/addressee-european-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/european-commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/6/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/6/action/role/addressee-market-surveillance-authorities>,
+        <http://example.org/analysis/description/6/action/role/addressee-national-public-authoritiesbodies-which-superviseenforce-eu-law-obligations-protecting-fundamental-rights>,
+        <http://example.org/analysis/description/6/action/role/addressee-providersdeployers-of-ai-systems> .
+
+<http://example.org/analysis/description/6/action/role/addressee-market-surveillance-authorities> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/market-surveillance-authorities> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/6/action/role/addressee-national-public-authoritiesbodies-which-superviseenforce-eu-law-obligations-protecting-fundamental-rights> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/national-public-authoritiesbodies-which-superviseenforce-eu-law-obligations-protecting-fundamental-rights> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/6/action/role/addressee-providersdeployers-of-ai-systems> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/providersdeployers-of-ai-systems> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/dataset/applications-of-conformity-assessment-bodies-for-designation> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/836/cod/doc/com/COM_2025_836/FINAL/eng/art_1/par_10> ;
+    dcterms:title "Applications of conformity assessment bodies for designation"@en .
+
+<http://example.org/dataset/information-exchanges-as-part-of-the-cooperation-of-market-surveillance-authorities-and-public-authoritiesbodies-which-superviseenforce-obligations-relating-to-fundamental-rights> a dcat:Dataset ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Information exchanges as part of the cooperation of market surveillance authorities and public authorities/bodies which supervise/enforce obligations relating to fundamental rights"@en ] ;
+    dcterms:title "Information exchanges as part of the cooperation of market surveillance authorities and public authorities/bodies which supervise/enforce obligations relating to fundamental rights"@en .
+
+<http://example.org/dataset/information-or-documentation-requested-by-market-surveillance-authorities> a dcat:Dataset ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Information or documentation requested by market surveillance authorities"@en ] ;
+    dcterms:title "Information or documentation requested by market surveillance authorities"@en .
+
+<http://example.org/dataset/special-categories-of-personal-data-where-the-processing-is-needed-for-bias-detectioncorrection> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/836/cod/doc/com/COM_2025_836/FINAL/eng/art_1/par_5> ;
+    dcterms:title "Special categories of personal data (where the processing is needed for bias detection/correction)"@en .
+
+<http://example.org/dataset/technical-documentation-for-high-risk-ai-systems> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/836/cod/doc/com/COM_2025_836/FINAL/eng/art_1/par_8> ;
+    dcterms:conformsTo <http://example.org/standard/technical-documentation-shall-contain-at-a-minimum-the-elements-set-out-in-annex-iv-of-the-ai-act-the-commission-shall-establish-a-simplified-technical-documentation-form-targeted-at-smcs-and-smes> ;
+    dcterms:title "Technical documentation for high-risk AI systems"@en .
+
+<http://example.org/process/assessment-publication> skos:prefLabel "Assessment publication"@en .
+
+<http://example.org/process/data-processing> skos:prefLabel "Data processing"@en .
+
+<http://example.org/process/information-exchange> skos:prefLabel "Information exchange"@en .
+
+<http://example.org/process/technical-documentation> skos:prefLabel "Technical documentation"@en .
+
+<http://example.org/standard/technical-documentation-shall-contain-at-a-minimum-the-elements-set-out-in-annex-iv-of-the-ai-act-the-commission-shall-establish-a-simplified-technical-documentation-form-targeted-at-smcs-and-smes> a dcterms:Standard ;
+    dcterms:title "Technical documentation shall contain, at a minimum, the elements set out in Annex IV of the AI Act. The Commission shall establish a simplified technical documentation form targeted at SMCs and SMEs."@en .
+
+<http://example.org/standard/the-notified-body-shall-update-the-relevant-documentation-whenever-relevant-changes-occur> a dcterms:Standard ;
+    dcterms:title "The notified body shall update the relevant documentation whenever relevant changes occur."@en .
+
+<http://example.org/standard/to-be-provided-in-accessible-language-and-format> a dcterms:Standard ;
+    dcterms:title "To be provided in accessible language and format."@en .
+
+<http://example.org/agent/market-surveillance-authorities> rdfs:label "Market surveillance authorities"@en .
+
+<http://example.org/agent/market-surveillance-authorities-public-authoritiesbodies> rdfs:label "Market surveillance authorities/ Public authorities/bodies"@en .
+
+<http://example.org/agent/market-surveillance-authority> rdfs:label "Market surveillance authority"@en .
+
+<http://example.org/agent/national-public-authorities-or-bodies-which-supervise-or-enforce-the-respect-of-obligations-under-union-law-protecting-fundamental-rights> rdfs:label "National public authorities or bodies which supervise or enforce the respect of obligations under Union law protecting fundamental rights"@en .
+
+<http://example.org/agent/notified-bodies> rdfs:label "Notified bodies"@en .
+
+<http://example.org/dataset/applications-of-a-conformity-assessment-bodies-for-notification> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/836/cod/doc/com/COM_2025_836/FINAL/eng/art_1/par_11> ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Applications of a conformity assessment bodies for notification"@en ] ;
+    dcterms:conformsTo <http://example.org/standard/the-notified-body-shall-update-the-relevant-documentation-whenever-relevant-changes-occur> ;
+    dcterms:title "Applications of a conformity assessment bodies for notification"@en .
+
+<http://example.org/dataset/commission-assessment-of-the-adequacy-of-the-codes-of-practice> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/836/cod/doc/com/COM_2025_836/FINAL/eng/art_1/par_16> ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Commission assessment of the adequacy of the codes of practice"@en ] ;
+    dcterms:title "Commission assessment of the adequacy of the codes of practice"@en .
+
+<http://example.org/dataset/information-or-documentation-requested-by-national-public-authoritiesbodies-which-superviseenforce-obligations-relating-to-fundamental-rights> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/836/cod/doc/com/COM_2025_836/FINAL/eng/art_1/par_26> ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Information or documentation requested by national public authorities/bodies which supervise/enforce obligations relating to fundamental rights"@en ] ;
+    dcterms:conformsTo <http://example.org/standard/to-be-provided-in-accessible-language-and-format> ;
+    dcterms:title "Information or documentation requested by national public authorities/bodies which supervise/enforce obligations relating to fundamental rights"@en .
+
+<http://example.org/dataset/request-for-access-to-information-on-ai-systems> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2025/836/cod/doc/com/COM_2025_836/FINAL/eng/art_1/par_26> ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Request for access to information on AI systems"@en ] ;
+    dcterms:title "Request for access to information on AI systems"@en .
+
+<http://example.org/process/application-submission> skos:prefLabel "Application submission"@en .
+
+<http://example.org/agent/european-commission> rdfs:label "European Commission"@en .
+

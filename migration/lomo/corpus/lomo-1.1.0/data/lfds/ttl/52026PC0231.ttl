@@ -1,0 +1,495 @@
+@prefix cav: <http://data.europa.eu/2sa/cav#> .
+@prefix cpsv: <http://purl.org/vocab/cpsv#> .
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix dctype: <http://purl.org/dc/dcmitype/> .
+@prefix dd: <http://data.europa.eu/leg/digital-dimensions/> .
+@prefix iac: <http://data.europa.eu/leg/interop-assessment#> .
+@prefix iopa: <http://data.europa.eu/2qy/iopa#> .
+@prefix lomo: <http://data.europa.eu/leg/lomo#> .
+@prefix m8g: <http://data.europa.eu/m8g/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix tf: <http://data.europa.eu/leg/temporal-function/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix y6k: <http://data.europa.eu/y6k/> .
+
+<http://example.org/analysis/action/7> a lomo:Action ;
+    rdfs:label "Monitoring and enforcement data (in particular as regards disputes between parties) between authorities"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:deadline ;
+            lomo:temporalLabel "At least once a year"@en ],
+        [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "EU Network for National Enforcement Bodies meetings."@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/231/cod/doc/com/COM_2026_231/FINAL/eng/art_13> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/7/role/addressee-national-enforcement-body>,
+        <http://example.org/analysis/action/7/role/addresser-national-enforcement-body> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Monitoring and enforcement data (in particular as regards disputes between parties) between authorities"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/monitoring-and-enforcement-data-in-particular-as-regards-disputes-between-parties-between-authorities> ] .
+
+<http://example.org/analysis/assessment/1> a cav:Assessment ;
+    cav:assesses <http://example.org/analysis/description/1> ;
+    cav:resultsIn <http://example.org/analysis/assessment/1/1/measure>,
+        <http://example.org/analysis/assessment/1/2/measure>,
+        <http://example.org/analysis/assessment/1/3/barrier>,
+        <http://example.org/analysis/assessment/1/3/measure>,
+        <http://example.org/analysis/assessment/1/4/barrier>,
+        <http://example.org/analysis/assessment/1/4/measure> ;
+    m8g:isProvidedBy <http://publications.europa.eu/resource/authority/corporate-body/COM> .
+
+<http://example.org/analysis/description/2> a lomo:LegalRule ;
+    rdfs:label "Article 6"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/231/cod/doc/com/COM_2026_231/FINAL/eng/art_6> ;
+    lomo:hasCategory <http://data.europa.eu/leg/digital-dimensions/Data> ;
+    lomo:produces <http://example.org/analysis/description/2/action> ;
+    dcterms:description "Commercial agreements between B2B MDMS providers and business suers shall not intentionally or otherwise: (a) prevent a business user from subscribing to or using any other similar system, (b) require the acceptance of additional conditions to be accepted which are not necessary for the subscription to the B2B MDMS, (c) impose an obligation to accept specific technical equipment or software, and (d) impose any other unfair or unjustified conditions."@en .
+
+<http://example.org/analysis/description/3> a lomo:LegalRule ;
+    rdfs:label "Article 7"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/231/cod/doc/com/COM_2026_231/FINAL/eng/art_7> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/data-processing-and-publication> ;
+    lomo:produces <http://example.org/analysis/action/2>,
+        <http://example.org/analysis/description/3/action> ;
+    lomo:references <http://example.org/dataset/operators-data> ;
+    dcterms:description "B2C and B2B MDMS providers shall load and process data of operators with equal care and shall display transport products of operators in a neutral and comprehensive manner. Article 7 sets out the criteria for the default ranking of transport products and other functionalities of the MDMS."@en .
+
+<http://example.org/analysis/description/4> a lomo:LegalRule ;
+    rdfs:label "Article 8"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/231/cod/doc/com/COM_2026_231/FINAL/eng/art_8> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/data-processing-and-publication> ;
+    lomo:produces <http://example.org/analysis/action/3>,
+        <http://example.org/analysis/description/4/action> ;
+    lomo:references <http://example.org/dataset/marketing-booking-and-sales-data> ;
+    dcterms:description "Article 8 sets out requirements for the marketing, booking and sales data provided by B2C MDMS and B2B MDMS providers to participating transport operators."@en .
+
+<http://example.org/analysis/description/5> a lomo:LegalRule ;
+    rdfs:label "Article 9"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/231/cod/doc/com/COM_2026_231/FINAL/eng/art_9> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/disclosure-of-information> ;
+    lomo:produces <http://example.org/analysis/action/4>,
+        <http://example.org/analysis/description/5/action> ;
+    lomo:references <http://example.org/dataset/data-on-greenhouse-gas-emissions-or-carbon-dioxide-equivalent-emissions-of-the-transport-products> ;
+    dcterms:description "Article 9 sets out the requirements related to the information on greenhouse gas emissions and carbon dioxide equivalent emissions."@en .
+
+<http://example.org/analysis/description/6> a lomo:LegalRule ;
+    rdfs:label "Article 10"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/231/cod/doc/com/COM_2026_231/FINAL/eng/art_10> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/statistics-reporting-obligations> ;
+    lomo:produces <http://example.org/analysis/action/5>,
+        <http://example.org/analysis/description/6/action> ;
+    lomo:references <http://example.org/dataset/data-which-may-be-used-to-improve-the-effectiveness-of-public-transport-policies-and-sustainable-mobility> ;
+    dcterms:description "Article 10 sets out the requirements for the B2C MDMS sharing of data with public transport authorities."@en .
+
+<http://example.org/analysis/description/7> a lomo:LegalRule ;
+    rdfs:label "Article 12"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/231/cod/doc/com/COM_2026_231/FINAL/eng/art_12> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess y6k:c_a6392b44028d ;
+    lomo:produces <http://example.org/analysis/description/7/action> ;
+    dcterms:description "Where the national enforcement body requests to receive relevant information, it shall be presented without undue delay and, in any event, within one month from the receipt of the request."@en .
+
+<http://example.org/analysis/description/8> a lomo:LegalRule ;
+    rdfs:label "Article 12"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/231/cod/doc/com/COM_2026_231/FINAL/eng/art_12> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess y6k:c_a6392b44028d ;
+    lomo:produces <http://example.org/analysis/description/8/action> ;
+    dcterms:description "Cooperation between national enforcement bodies of Member States to ensure a coherent enforcement of this Regulation, mutual assistance in market monitoring tasks and complaint handling, including through the exchange of relevant information by electronic means while duly respecting the confidentiality of commercially sensitive data."@en .
+
+<http://example.org/analysis/description/9> a lomo:LegalRule ;
+    rdfs:label "Article 12"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:validity ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/231/cod/doc/com/COM_2026_231/FINAL/eng/art_12> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess y6k:c_a6392b44028d ;
+    lomo:produces <http://example.org/analysis/action/6>,
+        <http://example.org/analysis/description/9/action> ;
+    lomo:references <http://example.org/dataset/monitoring-and-enforcement-data-in-particular-as-regards-disputes-between-parties-between-authorities>,
+        <http://example.org/dataset/monitoring-and-enforcement-data-information-about-the-thresholds> ;
+    dcterms:description "The national enforcement bodies shall participate in a network that convenes regularly, and at least once a year, to exchange information in particular on their (i) monitoring, enforcement and implementation work, (ii) decision-making principles; and (iii) administrative practices."@en .
+
+<http://example.org/analysis/solution/1> a dctype:Software ;
+    rdfs:label "MDMS"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/231/cod/doc/com/COM_2026_231/FINAL/eng/art_7>,
+        <https://data.europa.eu/eli/dl/proc/2026/231/cod/doc/com/COM_2026_231/FINAL/eng/art_9> ;
+    lomo:hasCapability "B2C and B2B MDMS providers shall load and process data of operators with equal care and shall display transport products of operators in a neutral and comprehensive manner.Clear, transparent and accessible information on the greenhouse gas emissions or carbon dioxide equivalent emissions of the transport products displayed shall be provided by the B2C MDMS providers to end users and by B2B MDMS providers to business users, whenever such information is shared by transport operators." ;
+    dcterms:publisher <http://example.org/agent/b2c-mdms-providersb2b-mdms-providers> ;
+    dcterms:title "MDMS"@en .
+
+<http://example.org/agent/b2c-mdms-ad-b2b-mdms> rdfs:label "B2C MDMS ad B2B MDMS"@en .
+
+<http://example.org/agent/european-commission-national-enforcement-bodies> rdfs:label "European Commission, National Enforcement Bodies"@en .
+
+<http://example.org/agent/national-enforcement-authorities> rdfs:label "National Enforcement Authorities"@en .
+
+<http://example.org/agent/national-enforcement-body-member-states> rdfs:label "National Enforcement Body/ Member States"@en .
+
+<http://example.org/agent/public-transport-authorities> rdfs:label "Public transport authorities"@en .
+
+<http://example.org/agent/transport-operator> rdfs:label "Transport operator"@en .
+
+<http://example.org/analysis/action/1> a lomo:Action ;
+    rdfs:label "Data on the number of tickets sold per mode and their value"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:frequency "P1Y"^^xsd:duration ;
+            lomo:hasFunction tf:deadline ],
+        [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Obligation under Art.4/ request from EC or a NEB."@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/231/cod/doc/com/COM_2026_231/FINAL/eng/art_4> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/1/role/addressee-european-commission-national-enforcement-bodies>,
+        <http://example.org/analysis/action/1/role/addresser-b2c-mdms> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Data on the number of tickets sold per mode and their value"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/data-on-the-number-of-tickets-sold-per-mode-and-their-value> ] .
+
+<http://example.org/analysis/action/1/role/addressee-european-commission-national-enforcement-bodies> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/european-commission-national-enforcement-bodies> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/1/role/addresser-b2c-mdms> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/b2c-mdms> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/2> a lomo:Action ;
+    rdfs:label "Operators’ data"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Agreement for the display/ distribution of transport tickets"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/231/cod/doc/com/COM_2026_231/FINAL/eng/art_7> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/2/role/addressee-b2c-and-b2b-mdms>,
+        <http://example.org/analysis/action/2/role/addresser-transport-operator> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Operators’ data"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/operators-data> ] .
+
+<http://example.org/analysis/action/2/role/addressee-b2c-and-b2b-mdms> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/b2c-and-b2b-mdms> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/2/role/addresser-transport-operator> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/transport-operator> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/3> a lomo:Action ;
+    rdfs:label "Marketing, booking and sales data"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Request from a transport operator"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/231/cod/doc/com/COM_2026_231/FINAL/eng/art_8> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/3/role/addressee-transport-operators>,
+        <http://example.org/analysis/action/3/role/addresser-b2b-mdms> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Marketing, booking and sales data"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/marketing-booking-and-sales-data> ] .
+
+<http://example.org/analysis/action/3/role/addressee-transport-operators> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/transport-operators> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/3/role/addresser-b2b-mdms> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/b2b-mdms> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/4> a lomo:Action ;
+    rdfs:label "Data on greenhouse gas emissions or carbon dioxide equivalent emissions of the transport products"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Willingness of the transport operator to share that data."@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/231/cod/doc/com/COM_2026_231/FINAL/eng/art_9> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/4/role/addressee-b2c-and-b2b-mdms>,
+        <http://example.org/analysis/action/4/role/addresser-transport-operators> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Data on greenhouse gas emissions or carbon dioxide equivalent emissions of the transport products"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/data-on-greenhouse-gas-emissions-or-carbon-dioxide-equivalent-emissions-of-the-transport-products> ] .
+
+<http://example.org/analysis/action/4/role/addressee-b2c-and-b2b-mdms> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/b2c-and-b2b-mdms> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/4/role/addresser-transport-operators> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/transport-operators> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/5> a lomo:Action ;
+    rdfs:label "Data which may be used to improve the effectiveness of public transport policies and sustainable mobility"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Request from a public transport authority"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/231/cod/doc/com/COM_2026_231/FINAL/eng/art_10> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/5/role/addressee-public-transport-authorities>,
+        <http://example.org/analysis/action/5/role/addresser-b2c-mdms-ad-b2b-mdms> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Data which may be used to improve the effectiveness of public transport policies and sustainable mobility"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/data-which-may-be-used-to-improve-the-effectiveness-of-public-transport-policies-and-sustainable-mobility> ] .
+
+<http://example.org/analysis/action/5/role/addressee-public-transport-authorities> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/public-transport-authorities> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/5/role/addresser-b2c-mdms-ad-b2b-mdms> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/b2c-mdms-ad-b2b-mdms> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/6> a lomo:Action ;
+    rdfs:label "Monitoring and enforcement data (information about the thresholds)"@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:hasFunction tf:trigger ;
+            lomo:temporalLabel "Change in the list of B2C MDMS with SMP"@en ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/231/cod/doc/com/COM_2026_231/FINAL/eng/art_12> ;
+    lomo:hasAgentRole <http://example.org/analysis/action/6/role/addressee-european-commission>,
+        <http://example.org/analysis/action/6/role/addresser-national-enforcement-body-member-states> ;
+    lomo:hasResult [ a lomo:ActionResult ;
+            rdfs:label "Monitoring and enforcement data (information about the thresholds)"@en ;
+            lomo:isManifestedIn <http://example.org/dataset/monitoring-and-enforcement-data-information-about-the-thresholds> ] .
+
+<http://example.org/analysis/action/6/role/addressee-european-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/european-commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/6/role/addresser-national-enforcement-body-member-states> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/national-enforcement-body-member-states> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/action/7/role/addressee-national-enforcement-body> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/national-enforcement-body> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/action/7/role/addresser-national-enforcement-body> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/national-enforcement-body> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSER> .
+
+<http://example.org/analysis/assessment/1/1/measure> a cav:Statement ;
+    cav:interpretation iac:InterpretationPositive ;
+    cav:judgement """The proposal is coordinated with the proposal on rail ticketing and the proposed revision of the Rail Passenger Rights Regulation, to create a consistent framework that promotes rail single tickets and an ensures good functioning of the online ticketing market. The proposal repeals Regulation (EC) No 80/2009 on a Code of Conduct for Computerised Reservation Systems (‘CRS Code of Conduct’), whilst updating and integrating the provisions of that text that remain relevant. The proposal acts in synergy with other of EU legislation affecting digital information services, and in particular the ITS Directive which establishes a framework for the deployment of Intelligent Transport Systems in the road sector and its interfaces with other modes of transport. Under the Delegated Regulation on multimodal travel information services (MMTIS) Member States must establish national access points constituting a single point of access for data users to the static, historic, observed and dynamic travel and traffic data of different transport modes, for the purpose of providing multimodal travel information services. Addressing the barriers for the development of MDMS capable of reservations, bookings, or ticketing therefore complements this existing set of legislation. Further, this proposal will complement the general principles of the Digital Markets Act and the Data Act by setting sectorial measures in relation to MDMS. The proposal will also complement the revised Directive on Unfair Commercial Practices with measures that ensure that search results on MDMS are displayed in a neutral way (setting out a list of mandatory ranking criteria and indicating which criterion was used for display), prohibit self-preferencing and paid prominence, allowing advertised content only under certain conditions.
+This proposal aims to promote a more multimodal and sustainable transport system and contribute to the objectives of the European Green Deal. By requiring that MDMS display information on greenhouse gas emissions and CO2emissions, this proposal will also contribute to the objectives of the CountEmissionsEU and Flight Emission Label initiatives, setting out a common framework to calculate and report transport-related greenhouse gas emissions."""@en ;
+    cav:type iac:StatementTypeAlignmentMeasure ;
+    dcterms:description "Alignment with existing digital and sectorial policies."@en .
+
+<http://example.org/analysis/assessment/1/2/measure> a cav:Statement ;
+    cav:interpretation iac:InterpretationPositive ;
+    cav:judgement "The Regulation stipulates that each Member State shall designate a national enforcement body responsible for the enforcement of this Regulation. Member States shall ensure that the designated body is provided with the necessary administrative and financial resources and has the expertise needed to adequately carry out the tasks under this Regulation. Article 12 describes the tasks of the national enforcement bodies, including the mutual assistance in market monitoring tasks and complaint handling."@en ;
+    cav:type iac:StatementTypeOrganisationMeasure ;
+    dcterms:description "Organisational measures for a smooth cross-border digital public services delivery."@en .
+
+<http://example.org/analysis/assessment/1/3/barrier> a cav:Statement ;
+    cav:interpretation iac:InterpretationNegative ;
+    cav:judgement "It is important that digital aspects of the information exchange are clearly defined in the implementation of the Regulation, in the context of complaints management and sharing of data with public authorities."@en ;
+    cav:type iac:StatementTypeSharedBarrier ;
+    dcterms:description "Measures taken to ensure a shared understanding of the data."@en .
+
+<http://example.org/analysis/assessment/1/3/measure> a cav:Statement ;
+    cav:interpretation iac:InterpretationPositive ;
+    cav:judgement """The information on the greenhouse gas emissions or carbon dioxide equivalent emissions shall be provided in accordance with Commission Implementing Regulation (EU) 2024/3170.
+Article 7 sets neutral display and ranking criteria obligations for all MDMS providers."""@en ;
+    cav:type iac:StatementTypeSharedMeasure ;
+    dcterms:description "Measures taken to ensure a shared understanding of the data."@en .
+
+<http://example.org/analysis/assessment/1/4/barrier> a cav:Statement ;
+    cav:interpretation iac:InterpretationNegative ;
+    cav:judgement "It is important that digital aspects of the information exchange are clearly defined in the implementation of the Regulation, in the context of complaints management and sharing of data with public authorities."@en ;
+    cav:type iac:StatementTypeStandardsBarrier ;
+    dcterms:description "Use of commonly agreed open technical specifications and standards."@en .
+
+<http://example.org/analysis/assessment/1/4/measure> a cav:Statement ;
+    cav:interpretation iac:InterpretationPositive ;
+    cav:judgement """The information on the greenhouse gas emissions or carbon dioxide equivalent emissions shall be provided in accordance with Commission Implementing Regulation (EU) 2024/3170.
+Article 7 sets neutral display and ranking criteria obligations for all MDMS providers."""@en ;
+    cav:type iac:StatementTypeStandardsMeasure ;
+    dcterms:description "Use of commonly agreed open technical specifications and standards."@en .
+
+<http://example.org/analysis/description/1> a iopa:BindingRequirement,
+        lomo:LegalRule ;
+    rdfs:label "Article 4"@en ;
+    iopa:affects <http://example.org/analysis/interop/1> ;
+    cav:valueDescription "B2C MDMS provider shall share data on the number of tickets sold per mode and their value with EC (for EU data) and national enforcement authorities (for national data)."@en ;
+    lomo:atTime [ a lomo:TemporalSpecification ;
+            lomo:frequency "P1Y"^^xsd:duration ;
+            lomo:hasFunction tf:validity ] ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/231/cod/doc/com/COM_2026_231/FINAL/eng/art_4> ;
+    lomo:hasCategory dd:Data ;
+    lomo:involvesProcess <http://example.org/process/reporting-obligation> ;
+    lomo:produces <http://example.org/analysis/action/1>,
+        <http://example.org/analysis/description/1/action> ;
+    lomo:references <http://example.org/dataset/data-on-the-number-of-tickets-sold-per-mode-and-their-value> ;
+    dcterms:description "B2C MDMS provider shall share data on the number of tickets sold per mode and their value with EC (for EU data) and national enforcement authorities (for national data)."@en .
+
+<http://example.org/analysis/description/1/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/1/action/role/addressee-b2c-mdms>,
+        <http://example.org/analysis/description/1/action/role/addressee-european-commission>,
+        <http://example.org/analysis/description/1/action/role/addressee-national-enforcement-authorities> .
+
+<http://example.org/analysis/description/1/action/role/addressee-b2c-mdms> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/b2c-mdms> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/1/action/role/addressee-european-commission> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/european-commission> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/1/action/role/addressee-national-enforcement-authorities> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/national-enforcement-authorities> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/2/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/2/action/role/addressee-b2b-mdms> .
+
+<http://example.org/analysis/description/2/action/role/addressee-b2b-mdms> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/b2b-mdms> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/3/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/3/action/role/addressee-b2c-and-b2b-mdms> .
+
+<http://example.org/analysis/description/3/action/role/addressee-b2c-and-b2b-mdms> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/b2c-and-b2b-mdms> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/4/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/4/action/role/addressee-b2c-and-b2b-mdms> .
+
+<http://example.org/analysis/description/4/action/role/addressee-b2c-and-b2b-mdms> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/b2c-and-b2b-mdms> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/5/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/5/action/role/addressee-b2c-and-b2b-mdms> .
+
+<http://example.org/analysis/description/5/action/role/addressee-b2c-and-b2b-mdms> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/b2c-and-b2b-mdms> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/6/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/6/action/role/addressee-b2c-mdms> .
+
+<http://example.org/analysis/description/6/action/role/addressee-b2c-mdms> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/b2c-mdms> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/7/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/7/action/role/addressee-b2c-mdms>,
+        <http://example.org/analysis/description/7/action/role/addressee-national-enforcement-bodies> .
+
+<http://example.org/analysis/description/7/action/role/addressee-b2c-mdms> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/b2c-mdms> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/7/action/role/addressee-national-enforcement-bodies> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/national-enforcement-bodies> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/8/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/8/action/role/addressee-national-enforcement-bodies> .
+
+<http://example.org/analysis/description/8/action/role/addressee-national-enforcement-bodies> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/national-enforcement-bodies> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/9/action> a lomo:Action ;
+    lomo:hasAgentRole <http://example.org/analysis/description/9/action/role/addressee-b2c-mdms>,
+        <http://example.org/analysis/description/9/action/role/addressee-national-enforcement-bodies> .
+
+<http://example.org/analysis/description/9/action/role/addressee-b2c-mdms> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/b2c-mdms> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/description/9/action/role/addressee-national-enforcement-bodies> a lomo:AgentRole ;
+    lomo:forAgent <http://example.org/agent/national-enforcement-bodies> ;
+    lomo:withRole <http://publications.europa.eu/resource/authority/role/ADDRESSEE> .
+
+<http://example.org/analysis/interop/1> a cpsv:PublicService ;
+    rdfs:label "Designation of B2C MDMS providers with significant market presence"@en ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/231/cod/doc/com/COM_2026_231/FINAL/eng/art_4> ;
+    dcterms:description "An MDMS provider shall be designated as B2C MDMS provider with significant market power for the distribution of transport products for that transport mode (‘significant market presence’) at Union level if it meets the thresholds laid down in point 1 of Annex I. It shall notify the Commission thereof and provide information on the number of tickets sold per mode and their value."@en ;
+    dcterms:identifier "interop/1" ;
+    dcterms:title "Designation of B2C MDMS providers with significant market presence"@en .
+
+<http://example.org/process/disclosure-of-information> skos:prefLabel "Disclosure of information"@en .
+
+<http://example.org/process/reporting-obligation> skos:prefLabel "Reporting obligation"@en .
+
+<http://example.org/process/statistics-reporting-obligations> skos:prefLabel "Statistics Reporting obligations"@en .
+
+<http://example.org/standard/countemissionseu-and-flight-emission-label-standards> a dcterms:Standard ;
+    dcterms:title "CountEmissionsEU and Flight Emission Label standards"@en .
+
+<http://publications.europa.eu/resource/authority/corporate-body/COM> a m8g:PublicOrganisation ;
+    dcterms:description "The European Commission, provider of the interoperability assessment."@en ;
+    skos:prefLabel "European Commission"@en .
+
+<http://example.org/agent/b2b-mdms> rdfs:label "B2B MDMS"@en .
+
+<http://example.org/agent/european-commission> rdfs:label "European Commission"@en .
+
+<http://example.org/agent/national-enforcement-body> rdfs:label "National Enforcement Body"@en .
+
+<http://example.org/agent/transport-operators> rdfs:label "Transport operators"@en .
+
+<http://example.org/dataset/data-on-greenhouse-gas-emissions-or-carbon-dioxide-equivalent-emissions-of-the-transport-products> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/231/cod/doc/com/COM_2026_231/FINAL/eng/art_9> ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Data on greenhouse gas emissions or carbon dioxide equivalent emissions of the transport products"@en ] ;
+    dcterms:conformsTo <http://example.org/standard/countemissionseu-and-flight-emission-label-standards> ;
+    dcterms:title "Data on greenhouse gas emissions or carbon dioxide equivalent emissions of the transport products"@en .
+
+<http://example.org/dataset/data-on-the-number-of-tickets-sold-per-mode-and-their-value> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/231/cod/doc/com/COM_2026_231/FINAL/eng/art_4> ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Data on the number of tickets sold per mode and their value"@en ] ;
+    dcterms:title "Data on the number of tickets sold per mode and their value"@en .
+
+<http://example.org/dataset/data-which-may-be-used-to-improve-the-effectiveness-of-public-transport-policies-and-sustainable-mobility> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/231/cod/doc/com/COM_2026_231/FINAL/eng/art_10> ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Data which may be used to improve the effectiveness of public transport policies and sustainable mobility"@en ] ;
+    dcterms:title "Data which may be used to improve the effectiveness of public transport policies and sustainable mobility"@en .
+
+<http://example.org/dataset/marketing-booking-and-sales-data> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/231/cod/doc/com/COM_2026_231/FINAL/eng/art_8> ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Marketing, booking and sales data"@en ] ;
+    dcterms:title "Marketing, booking and sales data"@en .
+
+<http://example.org/dataset/monitoring-and-enforcement-data-in-particular-as-regards-disputes-between-parties-between-authorities> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/231/cod/doc/com/COM_2026_231/FINAL/eng/art_12> ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Monitoring and enforcement data (in particular as regards disputes between parties) between authorities"@en ] ;
+    dcterms:title "Monitoring and enforcement data (in particular as regards disputes between parties) between authorities"@en .
+
+<http://example.org/dataset/monitoring-and-enforcement-data-information-about-the-thresholds> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/231/cod/doc/com/COM_2026_231/FINAL/eng/art_12> ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Monitoring and enforcement data (information about the thresholds)"@en ] ;
+    dcterms:title "Monitoring and enforcement data (information about the thresholds)"@en .
+
+<http://example.org/dataset/operators-data> a dcat:Dataset ;
+    lomo:establishedIn <https://data.europa.eu/eli/dl/proc/2026/231/cod/doc/com/COM_2026_231/FINAL/eng/art_7> ;
+    lomo:manifests [ a lomo:ActionResult ;
+            rdfs:label "Operators’ data"@en ] ;
+    dcterms:title "Operators’ data"@en .
+
+<http://example.org/process/data-processing-and-publication> skos:prefLabel "Data processing and publication"@en .
+
+y6k:c_a6392b44028d skos:prefLabel "Policy monitoring and enforcement"@en .
+
+<http://example.org/agent/national-enforcement-bodies> rdfs:label "National Enforcement Bodies"@en .
+
+<http://example.org/agent/b2c-and-b2b-mdms> rdfs:label "B2C and B2B MDMS"@en .
+
+<http://example.org/agent/b2c-mdms> rdfs:label "B2C MDMS"@en .
+
