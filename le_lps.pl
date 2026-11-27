@@ -255,10 +255,51 @@ le_grammar:second_pass_item_extension(Templates, lps_denial(BodyToks, Indent, St
 	item_id(Start, ID),
 	le_grammar:parse_body(BodyToks, Indent, Templates, [], _, Body).
 
+%   `initially` with several fluents on ONE line: `initially bob is hungry and
+%   bob is sleepy.`, or the same with a comma. A body takes a new line for each
+%   condition, so the general reading of that line is one fluent whose last
+%   place holds the rest of the line (`is sleepy` of `hungry and bob`). The line
+%   is therefore cut at each `and` and each comma first, and the cut is kept
+%   when every piece is a sentence of a declared fluent. A fluent with `and` in
+%   one of its places (`the owners are alice and bob`) has a piece that is no
+%   such sentence, and keeps the general reading.
+le_grammar:second_pass_item_extension(Templates, lps_initially(BodyToks, _Indent, Start, End),
+				      lps(initially, Body, Start, End, ID), _M) :-
+	one_line(BodyToks, Line),
+	split_conjuncts(Line, Pieces),
+	Pieces = [_, _|_],
+	maplist(fluent_sentence(Templates), Pieces, Literals), !,
+	item_id(Start, ID),
+	literals_and(Literals, Body).
 le_grammar:second_pass_item_extension(Templates, lps_initially(BodyToks, Indent, Start, End),
 				      lps(initially, Body, Start, End, ID), _M) :-
 	item_id(Start, ID),
 	le_grammar:parse_body(BodyToks, Indent, Templates, [], _, Body).
+
+%   The tokens of a body that is on one line: the indentation before its first
+%   word does not count.
+one_line([indent(_, _)|Tokens], Line) :- !, one_line(Tokens, Line).
+one_line(Tokens, Tokens) :- \+ memberchk(indent(_, _), Tokens).
+
+split_conjuncts(Tokens, [Piece|Pieces]) :-
+	append(Piece, [Sep|Rest], Tokens),
+	conjunct_separator(Sep), !,
+	Piece \== [],
+	split_conjuncts(Rest, Pieces).
+split_conjuncts(Tokens, [Tokens]) :- Tokens \== [].
+
+conjunct_separator(punctuation(',', _)).
+conjunct_separator(word(W, _)) :- le_i18n:class_member(and, W).
+
+fluent_sentence(Templates, Tokens, le_at(Literal, S, E)) :-
+	le_grammar:parse_literal(Tokens, Templates, [], _, Literal, _, false),
+	callable(Literal), functor(Literal, F, N),
+	le_grammar:lps_section_role(F/N, fluent),
+	Tokens = [First|_], last(Tokens, Last),
+	le_grammar:token_span(First, S, _), le_grammar:token_span(Last, _, E).
+
+literals_and([L], L) :- !.
+literals_and([L|Ls], and(L, Rest)) :- literals_and(Ls, Rest).
 
 le_grammar:second_pass_item_extension(Templates, lps_goal(BodyToks, Indent, Start, End),
 				      lps(goal, Body, Start, End, ID), _M) :-
@@ -927,10 +968,23 @@ planning_directive(_, []).
 
 initial_states(KB, Es, Is) :-
 	findall(E-I,
-		( item(KB, initially, Body, Start),
+		( initially(KB, Body, Start),
 		  initial_state_entry(KB, Body, Start, E, I0), at_start(Start, I0, I) ),
 		Pairs),
 	unzip(Pairs, Es, Is).
+
+%   An `initially` sentence of the knowledge base holds in every run. One
+%   written in a scenario holds in the run of that scenario only: the scenario
+%   is the case, and where the case starts is part of it. (Until November 2026
+%   such a sentence was read and then dropped without a word, so the run
+%   started from nothing.)
+initially(KB, Body, Start) :-
+	item(KB, initially, Body, Start).
+initially(KB, Body, Start) :-
+	run_scenario(KB, Scenario, _),
+	Scenario \== none,
+	KB:scenario(Scenario, Terms),
+	member(lps(initially, Body, Start, _End, _ID), Terms).
 
 initial_state_entry(KB, Body, Start, [e(initial_state(Fluents), Start)], Issues) :-
 	conjuncts(Body, Goals),
